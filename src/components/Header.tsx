@@ -64,7 +64,34 @@ export const Header: React.FC<HeaderProps> = ({
   );
 
   return (
-    <header className="sticky top-0 z-40 bg-stone-900 border-b border-stone-800 text-stone-100 shadow-md">
+    <>
+      {/* Portal Switcher Banner */}
+      <div className="bg-gradient-to-r from-amber-700 via-amber-800 to-amber-900 text-amber-50 px-4 py-2 text-xs md:text-sm font-medium border-b border-amber-600/40">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="bg-amber-950/70 text-amber-300 text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded border border-amber-500/40">
+              MPSC सारथी
+            </span>
+            <span className="hidden sm:inline">
+              {isMr 
+                ? '📚 जुना संपूर्ण अभ्यासक्रम, सर्व विषयांच्या नोट्स व PYQ पेपर्स हवे आहेत?' 
+                : 'Looking for full syllabus, Marathi subject notes & previous question papers?'}
+            </span>
+            <span className="sm:hidden">
+              {isMr ? '📚 जुने नोट्स व पेपर्स पोर्टल' : '📚 Classic Notes Portal'}
+            </span>
+          </div>
+          <a
+            id="banner-classic-portal-link"
+            href="https://mpscsarathi.online"
+            className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-amber-300 px-3 py-1 rounded-md text-xs font-bold transition-all shadow-sm shrink-0 border border-amber-400/40"
+          >
+            <span>{isMr ? 'क्लासिक पोर्टल उघडा ➜' : 'Open Classic Portal ➜'}</span>
+          </a>
+        </div>
+      </div>
+
+      <header className="sticky top-0 z-40 bg-stone-900 border-b border-stone-800 text-stone-100 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
@@ -303,5 +330,6 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
       </div>
     </header>
+    </>
   );
 };
