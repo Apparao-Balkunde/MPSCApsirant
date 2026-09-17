@@ -121,8 +121,28 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
             <span>{isMr ? 'फायरबेसवरून रँकिंग लोड होत आहे...' : 'Calculating ranks from Firestore...'}</span>
           </div>
         ) : entries.length === 0 ? (
-          <div className="py-6 text-center text-stone-400 text-xs">
-            {isMr ? 'अजून एकही चाचणी सोडवलेली नाही.' : 'No leaderboard entries found yet.'}
+          <div className="py-7 px-4 text-center rounded-xl bg-stone-50/70 border border-dashed border-stone-200 flex flex-col items-center justify-center gap-2.5">
+            <div className="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center shadow-xs">
+              <Trophy className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-stone-800">
+                {isMr ? 'पहिली चाचणी सोडवून रँक #१ मिळवा!' : 'Take the first exam & claim Rank #1!'}
+              </p>
+              <p className="text-xs text-stone-500 max-w-sm mt-1">
+                {isMr 
+                  ? 'येथे आता फक्त खऱ्या विद्यार्थ्यांची रिअल-टाईम रँकिंग दिसेल. तुम्ही किंवा इतर विद्यार्थी परीक्षा सोडवतील तसे त्यांचे गुण थेट येथे जोडले जातील.'
+                  : 'Only real aspirants are ranked here. As soon as students take exams, their scores and ranks will update live from Firebase.'}
+              </p>
+            </div>
+            {onOpenExamHub && (
+              <button
+                onClick={onOpenExamHub}
+                className="mt-1 text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg shadow-xs transition-colors cursor-pointer"
+              >
+                {isMr ? 'सराव चाचणी सुरू करा' : 'Start Mock Test'}
+              </button>
+            )}
           </div>
         ) : (
           entries.map((entry) => (

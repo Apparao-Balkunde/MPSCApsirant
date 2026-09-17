@@ -9,6 +9,7 @@ import {
   orderBy,
   writeBatch,
   onSnapshot,
+  deleteDoc,
   Unsubscribe
 } from 'firebase/firestore';
 import { db, auth } from '../lib/firebase';
@@ -776,9 +777,42 @@ export function subscribeToRealtimeLeaderboard(
 
         const realUsers: LeaderboardEntry[] = [];
 
+        // Known dummy / demo user names to delete and purge
+        const DEMO_NAMES = [
+          'स्वाती जाधव',
+          'अमोल देशमुख',
+          'प्रिया कुलकर्णी',
+          'सचिन पवार',
+          'रोहन माने',
+          'Swati J',
+          'Amol D',
+          'Priya K',
+          'Sachin P',
+          'Rohan M',
+        ];
+
         snapshot.docs.forEach((docSnap) => {
           const data = docSnap.data();
           const uId = docSnap.id;
+          const rawName = data.displayName || '';
+
+          // Check if this document is a demo/dummy user
+          const isDemo =
+            data.isDemo === true ||
+            uId.startsWith('demo') ||
+            uId.startsWith('dummy') ||
+            DEMO_NAMES.some((dn) => rawName.includes(dn));
+
+          if (isDemo) {
+            // Delete demo document from Firestore in the background
+            try {
+              deleteDoc(doc(db, 'users', uId)).catch(() => {});
+            } catch {
+              // Ignore
+            }
+            return; // Skip demo user
+          }
+
           const isCurrent = Boolean(currentUserId && uId === currentUserId);
 
           let totalScore = typeof data.totalExamScore === 'number' ? data.totalExamScore : 0;
@@ -791,12 +825,12 @@ export function subscribeToRealtimeLeaderboard(
             accuracy = userAccuracy || accuracy;
           }
 
-          // Only show users who have actually attempted at least one exam or have non-zero score
-          if (examsCount > 0 || totalScore > 0 || isCurrent) {
-            const rawName = data.displayName || (isCurrent ? (currentUserName || 'तुम्ही (You)') : `MPSC उमेदवार #${uId.slice(0, 5)}`);
+          // ONLY include real users who have taken at least 1 real exam or have non-zero score
+          if (examsCount > 0 || totalScore > 0 || (isCurrent && userExamsCount > 0)) {
+            const studentName = rawName || (isCurrent ? (currentUserName || 'तुम्ही (You)') : (data.email ? data.email.split('@')[0] : `MPSC Aspirant #${uId.slice(0, 4)}`));
             realUsers.push({
               userId: uId,
-              name: isCurrent ? `${rawName} (तुम्ही)` : rawName,
+              name: isCurrent ? `${studentName} (तुम्ही)` : studentName,
               totalScore: Number(totalScore.toFixed(1)),
               examsCount,
               accuracy,
@@ -807,23 +841,21 @@ export function subscribeToRealtimeLeaderboard(
           }
         });
 
-        // Ensure current user is in the list if they have activity
-        if (currentUserId && !realUsers.some((u) => u.userId === currentUserId)) {
-          if (userExamsCount > 0 || userScore > 0) {
-            realUsers.push({
-              userId: currentUserId,
-              name: `${currentUserName || 'तुम्ही (You)'} (तुम्ही)`,
-              totalScore: userScore,
-              examsCount: userExamsCount,
-              accuracy: userAccuracy,
-              rank: 0,
-              isCurrentUser: true,
-              roleTag: 'सध्याचा उमेदवार (Active)',
-            });
-          }
+        // If current logged-in user has taken exams but is not yet in snapshot docs
+        if (currentUserId && (userExamsCount > 0 || userScore > 0) && !realUsers.some((u) => u.userId === currentUserId)) {
+          realUsers.push({
+            userId: currentUserId,
+            name: `${currentUserName || 'तुम्ही (You)'} (तुम्ही)`,
+            totalScore: userScore,
+            examsCount: userExamsCount,
+            accuracy: userAccuracy,
+            rank: 0,
+            isCurrentUser: true,
+            roleTag: 'सध्याचा उमेदवार (Active)',
+          });
         }
 
-        // Sort descending by total score, then by accuracy
+        // Sort real students descending by total score, then by accuracy
         realUsers.sort((a, b) => {
           if (b.totalScore !== a.totalScore) return b.totalScore - a.totalScore;
           return b.accuracy - a.accuracy;
