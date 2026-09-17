@@ -89,7 +89,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
       await onTriggerSync();
     } catch (err: any) {
       if (err?.code !== 'auth/popup-closed-by-user') {
-        setAuthError(isMr ? 'Google लॉगिन अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.' : 'Google sign-in failed. Please try again.');
+        if (err?.code === 'auth/unauthorized-domain') {
+          setAuthError(
+            isMr
+              ? 'हा डोमेन Firebase मध्ये अधिकृत (Authorized) केलेला नाही. कृपया Firebase Console -> Authentication -> Settings -> Authorized Domains मध्ये "exam.mpscsarathi.online" आणि "mpscsarathi.online" जोडा.'
+              : 'Domain unauthorized for Google OAuth. Please add "exam.mpscsarathi.online" to Firebase Console -> Authentication -> Settings -> Authorized Domains.'
+          );
+        } else {
+          setAuthError(isMr ? 'Google लॉगिन अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.' : 'Google sign-in failed. Please try again.');
+        }
       }
     } finally {
       setIsLoggingIn(false);

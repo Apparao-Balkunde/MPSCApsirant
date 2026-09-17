@@ -40,20 +40,10 @@ export async function testFirestoreConnection(): Promise<boolean> {
   }
 }
 
-// Auto sign-in anonymously if user is not signed in
+// Initialize Firebase Auth listener
 export function initAuthListener(onUserChange: (user: User | null) => void) {
-  return onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      onUserChange(user);
-    } else {
-      try {
-        const cred = await signInAnonymously(auth);
-        onUserChange(cred.user);
-      } catch (err) {
-        console.warn('Anonymous sign-in note:', err);
-        onUserChange(null);
-      }
-    }
+  return onAuthStateChanged(auth, (user) => {
+    onUserChange(user || null);
   });
 }
 
@@ -61,8 +51,13 @@ export async function loginWithGoogle() {
   try {
     const result = await signInWithPopup(auth, googleAuthProvider);
     return result.user;
-  } catch (err) {
+  } catch (err: any) {
     console.error('Google Sign In error:', err);
+    if (err?.code === 'auth/unauthorized-domain') {
+      console.warn(
+        'Firebase Auth unauthorized-domain: Please add exam.mpscsarathi.online and mpscsarathi.online to Firebase Console -> Authentication -> Settings -> Authorized Domains.'
+      );
+    }
     throw err;
   }
 }
@@ -70,8 +65,6 @@ export async function loginWithGoogle() {
 export async function logoutUser() {
   try {
     await signOut(auth);
-    // After sign out, sign in anonymously again for clean local-cloud state
-    await signInAnonymously(auth);
   } catch (err) {
     console.error('Sign Out error:', err);
   }

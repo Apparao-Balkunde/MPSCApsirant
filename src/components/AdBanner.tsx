@@ -23,21 +23,22 @@ export function AdBanner({
   const pushedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    // Only push if the ins element is mounted, has not been initialized yet, and has no existing iframe or data-ad-status
-    if (adRef.current && !pushedRef.current) {
+    // Only push if slot is provided, element is mounted, and not yet initialized
+    if (!slot || pushedRef.current || !adRef.current) return;
+
+    try {
       const alreadyFilled = adRef.current.getAttribute('data-ad-status') || adRef.current.innerHTML.trim().length > 0;
-      if (!alreadyFilled) {
-        try {
-          if (typeof window !== 'undefined') {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-            pushedRef.current = true;
-          }
-        } catch {
-          // Gracefully suppress duplicate initialization error in React dev/strict mode
-        }
+      if (!alreadyFilled && typeof window !== 'undefined') {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        pushedRef.current = true;
       }
+    } catch (err) {
+      // Gracefully catch AdSense push errors if blocked or not yet approved
+      console.debug('AdSense banner initialization note:', err);
     }
-  }, []);
+  }, [slot]);
+
+  if (!slot) return null;
 
   return (
     <div className={`my-4 flex flex-col items-center justify-center overflow-hidden ${className}`}>
@@ -50,7 +51,7 @@ export function AdBanner({
           className="adsbygoogle"
           style={{ display: 'block', width: '100%', minHeight: '90px' }}
           data-ad-client="ca-pub-8635186039357683"
-          data-ad-slot={slot || '1234567890'}
+          data-ad-slot={slot}
           data-ad-format={format}
           data-full-width-responsive={responsive ? 'true' : 'false'}
         />
