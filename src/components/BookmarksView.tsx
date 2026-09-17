@@ -20,6 +20,7 @@ interface BookmarksViewProps {
   onStartCustomExam: (qIds: string[], title: string) => void;
   onOpenAiMentor: (q: Question) => void;
   onSaveNote: (qId: string, note: string) => void;
+  questionsPool?: Question[];
 }
 
 export const BookmarksView: React.FC<BookmarksViewProps> = ({
@@ -29,6 +30,7 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
   onStartCustomExam,
   onOpenAiMentor,
   onSaveNote,
+  questionsPool,
 }) => {
   const isMr = language === 'mr';
   const [selectedSubject, setSelectedSubject] = useState<string>('all');
@@ -36,7 +38,8 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
   const [activeNoteEditId, setActiveNoteEditId] = useState<string | null>(null);
   const [noteDraft, setNoteDraft] = useState<string>('');
 
-  const savedQuestions = MPSC_QUESTIONS.filter((q) =>
+  const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
+  const savedQuestions = pool.filter((q) =>
     userProgress.bookmarkedQuestionIds.includes(q.id)
   );
 

@@ -7,9 +7,14 @@ import {
   Bookmark, 
   Award, 
   Sparkles,
-  Target
+  Target,
+  Cloud,
+  Settings,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { UserProgress } from '../types';
+import { soundFx } from '../utils/audio';
 
 interface HeaderProps {
   currentTab: 'dashboard' | 'subjects' | 'analytics' | 'bookmarks' | 'mentor';
@@ -18,6 +23,9 @@ interface HeaderProps {
   onToggleLanguage: () => void;
   userProgress: UserProgress;
   onOpenQuickMentor?: () => void;
+  onOpenCloudSync?: () => void;
+  onOpenSettings?: () => void;
+  onToggleSoundEffects?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -27,8 +35,29 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleLanguage,
   userProgress,
   onOpenQuickMentor,
+  onOpenCloudSync,
+  onOpenSettings,
+  onToggleSoundEffects,
 }) => {
   const isMr = language === 'mr';
+  const soundEnabled = userProgress.soundEffectsEnabled ?? true;
+  const [soundFeedback, setSoundFeedback] = React.useState<string | null>(null);
+
+  const handleSoundToggle = () => {
+    const nextState = !soundEnabled;
+    if (onToggleSoundEffects) {
+      onToggleSoundEffects();
+    }
+    soundFx.playToggleSound(nextState);
+    setSoundFeedback(
+      nextState
+        ? (isMr ? 'ध्वनी सुरू' : 'Sound ON')
+        : (isMr ? 'ध्वनी बंद' : 'Sound Muted')
+    );
+    setTimeout(() => {
+      setSoundFeedback(null);
+    }, 2200);
+  };
   const targetPercent = Math.min(
     100,
     Math.round((userProgress.todayQuestionsCount / userProgress.dailyTargetQuestions) * 100)
@@ -160,6 +189,61 @@ export const Header: React.FC<HeaderProps> = ({
                 />
               </div>
             </div>
+
+            {/* Firebase Cloud Sync Button */}
+            {onOpenCloudSync && (
+              <button
+                id="btn-cloud-sync"
+                onClick={onOpenCloudSync}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+                title={isMr ? "फायरबेस क्लाउड बॅकअप स्थिती" : "Firebase Cloud Sync Status"}
+              >
+                <Cloud className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="hidden lg:inline">{isMr ? 'क्लाउड सिंक' : 'Cloud Sync'}</span>
+              </button>
+            )}
+
+            {/* Sound Effects Toggle Button with Visual Feedback */}
+            <div className="relative">
+              <button
+                id="btn-header-sound-toggle"
+                onClick={handleSoundToggle}
+                className={`p-2 rounded-lg border text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  soundEnabled
+                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-400 hover:bg-amber-500/25'
+                    : 'bg-stone-800 border-stone-700 text-stone-400 hover:bg-stone-700'
+                }`}
+                title={
+                  soundEnabled
+                    ? (isMr ? 'चाचणी ध्वनी प्रभाव: सुरू (म्यूट करण्यासाठी क्लिक करा)' : 'Exam Sound Effects: Enabled (click to mute)')
+                    : (isMr ? 'चाचणी ध्वनी प्रभाव: बंद (सुरू करण्यासाठी क्लिक करा)' : 'Exam Sound Effects: Disabled (click to enable)')
+                }
+              >
+                {soundEnabled ? (
+                  <Volume2 className="w-4 h-4 text-amber-400" />
+                ) : (
+                  <VolumeX className="w-4 h-4 text-stone-400" />
+                )}
+              </button>
+
+              {soundFeedback && (
+                <div className="absolute right-0 -bottom-8 whitespace-nowrap bg-stone-900 border border-amber-500/60 text-amber-300 px-2 py-0.5 rounded-md text-[10px] font-bold shadow-xl animate-in fade-in zoom-in-95 duration-150 pointer-events-none z-50">
+                  {soundFeedback}
+                </div>
+              )}
+            </div>
+
+            {/* Application Settings Modal Trigger */}
+            {onOpenSettings && (
+              <button
+                id="btn-open-settings"
+                onClick={onOpenSettings}
+                className="p-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white border border-stone-700 rounded-lg transition-colors cursor-pointer"
+                title={isMr ? "अॅप सेटिंग्ज व ध्वनी व्यवस्थापन" : "App Settings & Sound Management"}
+              >
+                <Settings className="w-4 h-4 text-stone-300" />
+              </button>
+            )}
 
             {/* Language Toggle Button */}
             <button

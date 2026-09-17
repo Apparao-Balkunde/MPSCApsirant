@@ -12,11 +12,15 @@ import {
   AlertTriangle,
   Play,
   Pause,
-  X
+  X,
+  Volume2,
+  VolumeX,
+  Sparkles
 } from 'lucide-react';
 import { ExamSession, Question } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
+import { soundFx } from '../utils/audio';
 
 interface ExamScreenProps {
   session: ExamSession;
@@ -26,6 +30,8 @@ interface ExamScreenProps {
   bookmarkedIds: string[];
   onToggleBookmark: (questionId: string) => void;
   preferredLanguage: 'mr' | 'en';
+  soundEffectsEnabled?: boolean;
+  onToggleSoundEffects?: () => void;
 }
 
 export const ExamScreen: React.FC<ExamScreenProps> = ({
@@ -36,14 +42,18 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   bookmarkedIds,
   onToggleBookmark,
   preferredLanguage,
+  soundEffectsEnabled = true,
+  onToggleSoundEffects,
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [questionLang, setQuestionLang] = useState<'mr' | 'en'>(preferredLanguage);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
   const [showPaletteMobile, setShowPaletteMobile] = useState<boolean>(false);
+  const [soundFeedbackText, setSoundFeedbackText] = useState<string | null>(null);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const hasPlayed5MinWarning = useRef<boolean>(false);
 
   const questions: Question[] = session.questionIds
     .map((id) => MPSC_QUESTIONS.find((q) => q.id === id))
@@ -80,6 +90,9 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
       onUpdateSession((prev) => {
         if (prev.remainingSeconds <= 1) {
           if (timerRef.current) clearInterval(timerRef.current);
+          if (soundEffectsEnabled) {
+            soundFx.playTimerCompletionSound();
+          }
           onSubmitExam({
             ...prev,
             remainingSeconds: 0,
@@ -87,6 +100,14 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             completedAt: Date.now(),
           });
           return { ...prev, remainingSeconds: 0, isCompleted: true };
+        }
+
+        // 5-minute remaining subtle audio warning
+        if (prev.remainingSeconds === 300 && !hasPlayed5MinWarning.current) {
+          hasPlayed5MinWarning.current = true;
+          if (soundEffectsEnabled) {
+            soundFx.playLowTimeWarningSound();
+          }
         }
 
         // Track time spent on current question
@@ -107,7 +128,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPaused, currentQuestionIndex, session.isCompleted]);
+  }, [isPaused, currentQuestionIndex, session.isCompleted, soundEffectsEnabled]);
 
   // Format time (MM:SS or HH:MM:SS)
   const formatTime = (totalSeconds: number) => {
@@ -183,7 +204,30 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   // Negative mark calculation display
   const penaltyPerWrong = (session.marksPerQuestion * session.negativeMarkRate).toFixed(2);
 
-  const isTimerCritical = session.remainingSeconds < 180; // under 3 min
+  // Time thresholds for visual countdown timer
+  const isUnder5Minutes = session.remainingSeconds <= 300 && session.remainingSeconds > 60;
+  const isUnder1Minute = session.remainingSeconds <= 60 && session.remainingSeconds > 0;
+  const isTimerCritical = isUnder1Minute;
+
+  // Percentage of remaining time for visual countdown bar
+  const totalDuration = session.durationSeconds || 900;
+  const timePercent = Math.max(0, Math.min(100, (session.remainingSeconds / totalDuration) * 100));
+
+  const handleToggleSound = () => {
+    const nextState = !soundEffectsEnabled;
+    if (onToggleSoundEffects) {
+      onToggleSoundEffects();
+    }
+    soundFx.playToggleSound(nextState);
+    setSoundFeedbackText(
+      nextState
+        ? (questionLang === 'mr' ? 'ध्वनी: सुरू (ON)' : 'Sound: ON')
+        : (questionLang === 'mr' ? 'ध्वनी: बंद (Muted)' : 'Sound: Muted')
+    );
+    setTimeout(() => {
+      setSoundFeedbackText(null);
+    }, 2400);
+  };
 
   return (
     <div className="min-h-screen bg-stone-100 flex flex-col select-none">
@@ -216,16 +260,35 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
 
           {/* Center/Right Timer & Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Countdown timer pill */}
+            {/* Visual countdown timer pill with subtle color change under 5 minutes */}
             <div
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border font-mono font-bold text-sm sm:text-base ${
-                isTimerCritical
-                  ? 'bg-rose-950/80 border-rose-600 text-rose-300 animate-pulse'
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border font-mono font-bold text-sm sm:text-base transition-colors duration-300 ${
+                isUnder1Minute
+                  ? 'bg-rose-950/85 border-rose-500 text-rose-300 ring-1 ring-rose-500/50 animate-pulse'
+                  : isUnder5Minutes
+                  ? 'bg-amber-950/70 border-amber-500/80 text-amber-300 ring-1 ring-amber-500/30'
                   : 'bg-stone-800 border-stone-700 text-amber-400'
               }`}
+              title={
+                isUnder1Minute
+                  ? (questionLang === 'mr' ? 'अंतिम १ मिनिट उरले आहे!' : 'Final minute!')
+                  : isUnder5Minutes
+                  ? (questionLang === 'mr' ? 'वेळ कमी उरला आहे (५ मिनिटांपेक्षा कमी)' : 'Time running low (under 5 minutes)')
+                  : (questionLang === 'mr' ? 'चाचणी वेळ' : 'Exam Timer')
+              }
             >
-              <Clock className="w-4 h-4 text-amber-400" />
+              <Clock className={`w-4 h-4 ${
+                isUnder1Minute ? 'text-rose-400' : isUnder5Minutes ? 'text-amber-300' : 'text-amber-400'
+              }`} />
+              
               <span>{formatTime(session.remainingSeconds)}</span>
+
+              {isUnder5Minutes && (
+                <span className="text-[10px] font-sans font-bold bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded border border-amber-500/30 hidden sm:inline">
+                  &lt; 5m
+                </span>
+              )}
+
               <button
                 onClick={() => setIsPaused(!isPaused)}
                 title={isPaused ? 'Resume Timer' : 'Pause Timer'}
@@ -233,6 +296,36 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
               >
                 {isPaused ? <Play className="w-3.5 h-3.5 text-emerald-400" /> : <Pause className="w-3.5 h-3.5" />}
               </button>
+            </div>
+
+            {/* Sound effects toggle with visual feedback */}
+            <div className="relative">
+              <button
+                id="btn-exam-sound-toggle"
+                onClick={handleToggleSound}
+                className={`p-2 rounded-lg border text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                  soundEffectsEnabled
+                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-400 hover:bg-amber-500/25'
+                    : 'bg-stone-800 border-stone-700 text-stone-400 hover:bg-stone-700'
+                }`}
+                title={
+                  soundEffectsEnabled
+                    ? (questionLang === 'mr' ? 'ध्वनी प्रभाव: सुरू (म्यूट करण्यासाठी क्लिक करा)' : 'Sound effects: ON (click to mute)')
+                    : (questionLang === 'mr' ? 'ध्वनी प्रभाव: बंद (सुरू करण्यासाठी क्लिक करा)' : 'Sound effects: Muted (click to enable)')
+                }
+              >
+                {soundEffectsEnabled ? (
+                  <Volume2 className="w-4 h-4 text-amber-400" />
+                ) : (
+                  <VolumeX className="w-4 h-4 text-stone-400" />
+                )}
+              </button>
+
+              {soundFeedbackText && (
+                <div className="absolute right-0 -bottom-8 whitespace-nowrap bg-stone-900 border border-amber-500/60 text-amber-300 px-2.5 py-1 rounded-md text-[11px] font-bold shadow-xl animate-in fade-in zoom-in-95 duration-150 pointer-events-none z-50">
+                  {soundFeedbackText}
+                </div>
+              )}
             </div>
 
             {/* Language Switch for active question */}
@@ -263,6 +356,20 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
               <span>{questionLang === 'mr' ? 'चाचणी सबमिट करा' : 'Submit'}</span>
             </button>
           </div>
+        </div>
+
+        {/* Visual Countdown Progress Bar directly beneath header */}
+        <div className="h-1 w-full bg-stone-800/80 -mx-4 mt-2.5 overflow-hidden">
+          <div
+            className={`h-full transition-all duration-1000 ${
+              isUnder1Minute
+                ? 'bg-rose-500'
+                : isUnder5Minutes
+                ? 'bg-amber-400'
+                : 'bg-amber-500'
+            }`}
+            style={{ width: `${timePercent}%` }}
+          />
         </div>
       </header>
 
@@ -586,6 +693,9 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                 id="btn-confirm-final-submit"
                 onClick={() => {
                   setShowSubmitModal(false);
+                  if (soundEffectsEnabled) {
+                    soundFx.playExamSubmissionSound();
+                  }
                   onSubmitExam({
                     ...session,
                     isCompleted: true,

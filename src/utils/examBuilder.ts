@@ -8,31 +8,33 @@ export function createExamSession(options: {
   title?: string;
   limit?: number;
   durationMinutes?: number;
+  questionPool?: Question[];
 }): ExamSession {
+  const pool = options.questionPool && options.questionPool.length > 0 ? options.questionPool : MPSC_QUESTIONS;
   let eligibleQuestions: Question[] = [];
 
   if (options.customQuestionIds && options.customQuestionIds.length > 0) {
-    eligibleQuestions = MPSC_QUESTIONS.filter((q) =>
+    eligibleQuestions = pool.filter((q) =>
       options.customQuestionIds!.includes(q.id)
     );
   } else if (options.subjectId) {
-    eligibleQuestions = MPSC_QUESTIONS.filter((q) => q.subjectId === options.subjectId);
+    eligibleQuestions = pool.filter((q) => q.subjectId === options.subjectId);
   } else if (options.patternId === 'rajyaseva_gs') {
-    eligibleQuestions = MPSC_QUESTIONS.filter(
+    eligibleQuestions = pool.filter(
       (q) => q.exam === 'Rajyaseva' || q.exam === 'Both'
     );
   } else if (options.patternId === 'combine_group_b_c') {
-    eligibleQuestions = MPSC_QUESTIONS.filter(
+    eligibleQuestions = pool.filter(
       (q) => q.exam === 'Combine' || q.exam === 'Both'
     );
   } else if (options.patternId === 'csat_booster') {
-    eligibleQuestions = MPSC_QUESTIONS.filter((q) => q.subjectId === 'csat');
+    eligibleQuestions = pool.filter((q) => q.subjectId === 'csat');
   } else if (options.patternId === 'maharashtra_special') {
-    eligibleQuestions = MPSC_QUESTIONS.filter(
+    eligibleQuestions = pool.filter(
       (q) => q.subjectId === 'maharashtra_history' || q.subjectId === 'maharashtra_geography'
     );
   } else {
-    eligibleQuestions = [...MPSC_QUESTIONS];
+    eligibleQuestions = [...pool];
   }
 
   // Shuffle questions

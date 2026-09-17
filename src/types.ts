@@ -117,4 +117,17 @@ export interface UserProgress {
   weeklyTargetHours: number;
   weeklyTargetQuestions: number;
   studyLogs?: StudySessionLog[];
+  soundEffectsEnabled?: boolean;
+}
+
+export interface LeaderboardEntry {
+  userId: string;
+  name: string;
+  totalScore: number;
+  examsCount: number;
+  accuracy: number;
+  rank: number;
+  isCurrentUser?: boolean;
+  avatarUrl?: string;
+  roleTag?: string;
 }

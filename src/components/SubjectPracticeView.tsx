@@ -7,20 +7,23 @@ import {
   Award,
   Filter
 } from 'lucide-react';
-import { ExamPatternId, SubjectId } from '../types';
+import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 
 interface SubjectPracticeViewProps {
   language: 'mr' | 'en';
   onStartSubjectExam: (subjectId: SubjectId, title: string) => void;
+  questionsPool?: Question[];
 }
 
 export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   language,
   onStartSubjectExam,
+  questionsPool,
 }) => {
   const isMr = language === 'mr';
+  const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
@@ -38,7 +41,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {SUBJECTS.map((sub) => {
-          const questions = MPSC_QUESTIONS.filter((q) => q.subjectId === sub.id);
+          const questions = pool.filter((q) => q.subjectId === sub.id);
           const topics = Array.from(new Set(questions.map((q) => q.topic)));
 
           return (

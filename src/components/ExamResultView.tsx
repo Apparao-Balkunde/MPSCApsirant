@@ -17,6 +17,7 @@ import {
 import { ExamResult, ExamSession, Question } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
+import { AdBanner } from './AdBanner';
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -27,6 +28,7 @@ interface ExamResultViewProps {
   bookmarkedIds: string[];
   onToggleBookmark: (qId: string) => void;
   onOpenAiMentor: (question: Question, studentAnswer?: string) => void;
+  questionsPool?: Question[];
 }
 
 export const ExamResultView: React.FC<ExamResultViewProps> = ({
@@ -38,6 +40,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
   bookmarkedIds,
   onToggleBookmark,
   onOpenAiMentor,
+  questionsPool,
 }) => {
   const isMr = language === 'mr';
   const [filter, setFilter] = useState<'all' | 'wrong' | 'correct' | 'unattempted' | 'saved'>('all');
@@ -59,8 +62,9 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
     }
   }, [result.accuracyPercentage]);
 
+  const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
   const questions: Question[] = session.questionIds
-    .map((id) => MPSC_QUESTIONS.find((q) => q.id === id))
+    .map((id) => pool.find((q) => q.id === id) || MPSC_QUESTIONS.find((q) => q.id === id))
     .filter((q): q is Question => Boolean(q));
 
   // Filter questions for review
@@ -198,6 +202,9 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
           </div>
         </div>
       </div>
+
+      {/* AdSense Unit on Result View */}
+      <AdBanner slot="8635186039" className="max-w-4xl mx-auto" />
 
       {/* Subject-Wise Performance Breakdown */}
       {Object.keys(result.subjectPerformance).length > 0 && (

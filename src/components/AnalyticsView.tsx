@@ -63,13 +63,15 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
     };
   });
 
-  // Score progression data (reverse to chronological order for line chart)
-  const scoreTrendData = [...history].reverse().map((h, idx) => ({
+  // Score progression data: strictly visualize the trend over the last 10 attempts in chronological order
+  const last10Attempts = [...history].slice(0, 10).reverse();
+  const scoreTrendData = last10Attempts.map((h, idx) => ({
     testNumber: `T${idx + 1}`,
     score: Number(h.finalScore.toFixed(1)),
     maxScore: h.maxScore,
     accuracy: h.accuracyPercentage,
     date: h.date,
+    title: h.title,
   }));
 
   const totalAttempted = history.reduce((acc, h) => acc + h.attemptedCount, 0);
@@ -151,12 +153,19 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
         {/* Score Progression Line Chart */}
         <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-xs flex flex-col justify-between">
           <div className="mb-4">
-            <h2 className="text-base font-bold text-stone-900 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-amber-600" />
-              <span>{isMr ? 'चाचणी गुणांचा चढता क्रम (Score Trend)' : 'Score Progression Trend'}</span>
-            </h2>
-            <p className="text-xs text-stone-500">
-              {isMr ? 'प्रत्येक चाचणीनुसार मिळालेल्या निव्वळ गुणांची प्रगती.' : 'Net marks scored in successive practice tests.'}
+            <div className="flex items-center justify-between">
+              <h2 className="text-base font-bold text-stone-900 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-amber-600" />
+                <span>{isMr ? 'शेवटच्या १० चाचण्यांचा गुण आलेख' : 'Score Trend (Last 10 Attempts)'}</span>
+              </h2>
+              {scoreTrendData.length > 0 && (
+                <span className="text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200/80 px-2 py-0.5 rounded-full">
+                  {scoreTrendData.length} / 10 {isMr ? 'चाचण्या' : 'attempts'}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-stone-500 mt-0.5">
+              {isMr ? 'Recharts द्वारे शेवटच्या १० चाचण्यांमधील मिळालेल्या गुणांची प्रगती.' : 'Recharts line visualization of user scores across the last 10 attempts.'}
             </p>
           </div>
 
@@ -168,11 +177,23 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                   <XAxis dataKey="testNumber" stroke="#888888" fontSize={12} tickLine={false} />
                   <YAxis stroke="#888888" fontSize={12} tickLine={false} />
                   <Tooltip
-                    contentStyle={{
-                      backgroundColor: '#1c1917',
-                      color: '#f5f5f4',
-                      borderRadius: '8px',
-                      fontSize: '12px',
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        const data = payload[0].payload;
+                        return (
+                          <div className="bg-stone-900 text-stone-100 p-2.5 rounded-xl text-xs shadow-xl border border-stone-800 space-y-1">
+                            <div className="font-bold text-amber-400">{data.title || data.testNumber}</div>
+                            <div className="text-stone-300">
+                              {isMr ? 'गुण:' : 'Score:'} <span className="font-mono font-bold text-white">{data.score} / {data.maxScore}</span>
+                            </div>
+                            <div className="text-stone-300">
+                              {isMr ? 'अचूकता:' : 'Accuracy:'} <span className="text-emerald-400 font-bold">{data.accuracy}%</span>
+                            </div>
+                            <div className="text-[10px] text-stone-400 font-mono">{data.date}</div>
+                          </div>
+                        );
+                      }
+                      return null;
                     }}
                   />
                   <Line
@@ -180,8 +201,8 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                     dataKey="score"
                     stroke="#d97706"
                     strokeWidth={3}
-                    dot={{ r: 5, fill: '#d97706' }}
-                    activeDot={{ r: 7 }}
+                    dot={{ r: 5, fill: '#d97706', stroke: '#ffffff', strokeWidth: 2 }}
+                    activeDot={{ r: 7, fill: '#f59e0b', stroke: '#ffffff', strokeWidth: 2 }}
                   />
                 </LineChart>
               </ResponsiveContainer>

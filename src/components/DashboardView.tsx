@@ -12,33 +12,59 @@ import {
   ShieldCheck,
   RotateCcw,
   Zap,
-  Bookmark
+  Bookmark,
+  Cloud,
+  Download,
+  UploadCloud,
+  PlusCircle
 } from 'lucide-react';
-import { ExamPatternId, SubjectId, UserProgress } from '../types';
+import { ExamPatternId, SubjectId, UserProgress, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { WeeklyGoalCard } from './WeeklyGoalCard';
+import { LeaderboardCard } from './LeaderboardCard';
 
 interface DashboardViewProps {
   userProgress: UserProgress;
   language: 'mr' | 'en';
+  currentUserId?: string;
+  currentUserName?: string;
   onStartExam: (patternId: ExamPatternId, subjectId?: SubjectId, title?: string) => void;
   onOpenBookmarks: () => void;
   onOpenAnalytics: () => void;
   onUpdateWeeklyGoals: (hours: number, questions: number) => void;
   onLogStudySession: (title: string, durationMinutes: number, questionsSolved: number, notes?: string) => void;
+  onOpenCloudSync?: () => void;
+  onOpenAddQuestion?: () => void;
+  onFetchData?: () => Promise<void>;
+  onTriggerSync?: () => Promise<void>;
+  questionsCount?: number;
+  questionsPool?: Question[];
+  isFetching?: boolean;
+  isSyncing?: boolean;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
   userProgress,
   language,
+  currentUserId,
+  currentUserName,
   onStartExam,
   onOpenBookmarks,
   onOpenAnalytics,
   onUpdateWeeklyGoals,
   onLogStudySession,
+  onOpenCloudSync,
+  onOpenAddQuestion,
+  onFetchData,
+  onTriggerSync,
+  questionsCount = 75,
+  questionsPool,
+  isFetching = false,
+  isSyncing = false,
 }) => {
   const isMr = language === 'mr';
+  const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
 
   // Calculate high-level stats
   const totalTests = userProgress.history.length;
@@ -51,7 +77,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const wrongQuestionIds = new Set<string>();
   userProgress.history.forEach((h) => {
     Object.entries(h.answers).forEach(([qId, choice]) => {
-      const q = MPSC_QUESTIONS.find((item) => item.id === qId);
+      const q = pool.find((item) => item.id === qId);
       if (q && q.correctAnswerIndex !== choice) {
         wrongQuestionIds.add(qId);
       }
@@ -175,6 +201,81 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         onLogStudySession={onLogStudySession}
         onQuickStartChallenge={() => onStartExam('daily_10_challenge')}
       />
+
+      {/* Top 5 Aspirants Leaderboard */}
+      <LeaderboardCard
+        userProgress={userProgress}
+        language={language}
+        currentUserId={currentUserId}
+        currentUserName={currentUserName}
+        onOpenExamHub={() => onStartExam('daily_10_challenge')}
+      />
+
+      {/* Firebase Cloud Sync Banner */}
+      {onOpenCloudSync && (
+        <div className="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/25 rounded-xl p-3.5 sm:p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-700 flex items-center justify-center shrink-0">
+              <Cloud className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h4 className="text-xs font-bold text-stone-900">
+                  {isMr ? 'फायरबेस डेटा केंद्र (Firestore asia-east1)' : 'Firebase Data Hub (Firestore asia-east1)'}
+                </h4>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-mono px-1.5 py-0.5 rounded-full font-bold">
+                  {isMr ? 'क्लाउड लाइव्ह' : 'Cloud Live'}
+                </span>
+                <span className="text-[10px] bg-amber-100 text-amber-800 font-mono px-1.5 py-0.5 rounded-full font-bold">
+                  {questionsCount} {isMr ? 'प्रश्न उपलब्ध' : 'Questions Ready'}
+                </span>
+              </div>
+              <p className="text-[11px] text-stone-600 mt-0.5">
+                {isMr 
+                  ? `${userProgress.history.length} चाचण्या, ${userProgress.bookmarkedQuestionIds.length} बुकमार्क आणि ${(userProgress.studyLogs || []).length} स्वाध्याय नोंदी थेट Firestore शी जोडलेल्या आहेत.`
+                  : `${userProgress.history.length} exams, ${userProgress.bookmarkedQuestionIds.length} bookmarks, and ${(userProgress.studyLogs || []).length} logs connected to Firestore.`}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
+            {onOpenAddQuestion && (
+              <button
+                id="btn-dashboard-add-question"
+                onClick={onOpenAddQuestion}
+                className="px-3 py-2 rounded-xl bg-white hover:bg-stone-50 text-stone-850 border border-stone-300 text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
+                title={isMr ? "नवीन प्रश्न तयार करून Firebase मध्ये Add करा" : "Add new question to Firebase"}
+              >
+                <PlusCircle className="w-3.5 h-3.5 text-amber-600" />
+                <span>{isMr ? '+ प्रश्न जोडा' : '+ Add Question'}</span>
+              </button>
+            )}
+
+            {onFetchData && (
+              <button
+                id="btn-dashboard-fetch"
+                onClick={onFetchData}
+                disabled={isFetching || isSyncing}
+                className="px-3 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-xs disabled:opacity-50"
+                title={isMr ? "फायरबेसवरून सर्व डेटा आणा (Fetch)" : "Fetch all data from Firebase"}
+              >
+                <Download className={`w-3.5 h-3.5 text-amber-400 ${isFetching ? 'animate-bounce' : ''}`} />
+                <span>{isFetching ? (isMr ? 'Fetch होत आहे...' : 'Fetching...') : (isMr ? 'डेटा Fetch करा' : 'Fetch Data')}</span>
+              </button>
+            )}
+
+            <button
+              id="btn-dashboard-store"
+              onClick={onTriggerSync || onOpenCloudSync}
+              disabled={isSyncing || isFetching}
+              className="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-extrabold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-xs disabled:opacity-50"
+              title={isMr ? "फायरबेसवर डेटा साठवा (Store)" : "Store all data to Firebase"}
+            >
+              <UploadCloud className={`w-3.5 h-3.5 text-stone-950 ${isSyncing ? 'animate-bounce' : ''}`} />
+              <span>{isSyncing ? (isMr ? 'Store होत आहे...' : 'Storing...') : (isMr ? 'डेटा Store करा' : 'Store Data')}</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Main Practice Exam Cards */}
       <div>
@@ -358,7 +459,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {SUBJECTS.map((sub) => {
-            const count = MPSC_QUESTIONS.filter((q) => q.subjectId === sub.id).length;
+            const count = pool.filter((q) => q.subjectId === sub.id).length;
 
             return (
               <div

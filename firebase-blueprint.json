@@ -1,0 +1,92 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile and MPSC preparation progress",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "targetHoursPerWeek": { "type": "number" },
+        "targetQuestionsPerWeek": { "type": "number" },
+        "bookmarkedQuestionIds": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "createdAt", "updatedAt"]
+    },
+    "ExamResult": {
+      "title": "ExamResult",
+      "description": "Completed MPSC mock test result",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "examId": { "type": "string" },
+        "examTitle": { "type": "string" },
+        "examType": { "type": "string" },
+        "date": { "type": "string" },
+        "score": { "type": "number" },
+        "totalQuestions": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "timeTakenSeconds": { "type": "number" }
+      },
+      "required": ["userId", "examId", "score", "totalQuestions", "date"]
+    },
+    "StudyLog": {
+      "title": "StudyLog",
+      "description": "Manual or automatic study session log",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "durationMinutes": { "type": "number" },
+        "questionsSolved": { "type": "number" },
+        "notes": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["userId", "title", "durationMinutes", "questionsSolved", "date"]
+    },
+    "MPSCQuestion": {
+      "title": "MPSCQuestion",
+      "description": "Curated MPSC bilingual practice question stored in Firestore",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "topic": { "type": "string" },
+        "subtopic": { "type": "string" },
+        "exam": { "type": "string" },
+        "difficulty": { "type": "string" },
+        "questionEn": { "type": "string" },
+        "questionMr": { "type": "string" },
+        "optionsEn": { "type": "array" },
+        "optionsMr": { "type": "array" },
+        "correctAnswerIndex": { "type": "number" },
+        "explanationEn": { "type": "string" },
+        "explanationMr": { "type": "string" },
+        "reference": { "type": "string" },
+        "yearTag": { "type": "string" }
+      },
+      "required": ["id", "subjectId", "questionEn", "questionMr", "correctAnswerIndex"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Aspirant profile and study settings"
+    },
+    "/users/{userId}/examResults/{resultId}": {
+      "schema": "ExamResult",
+      "description": "Completed mock test sessions"
+    },
+    "/users/{userId}/studyLogs/{logId}": {
+      "schema": "StudyLog",
+      "description": "Study logs for weekly goal pacing"
+    },
+    "/mpsc_questions/{questionId}": {
+      "schema": "MPSCQuestion",
+      "description": "Global MPSC question bank stored on Firestore"
+    }
+  }
+}

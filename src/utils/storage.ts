@@ -38,6 +38,7 @@ export function getInitialProgress(): UserProgress {
         weeklyTargetHours: typeof parsed.weeklyTargetHours === 'number' ? parsed.weeklyTargetHours : 10,
         weeklyTargetQuestions: typeof parsed.weeklyTargetQuestions === 'number' ? parsed.weeklyTargetQuestions : 150,
         studyLogs: Array.isArray(parsed.studyLogs) ? parsed.studyLogs : [],
+        soundEffectsEnabled: parsed.soundEffectsEnabled !== undefined ? Boolean(parsed.soundEffectsEnabled) : true,
       };
     }
   } catch (e) {
@@ -57,6 +58,7 @@ export function getInitialProgress(): UserProgress {
     weeklyTargetHours: 10,
     weeklyTargetQuestions: 150,
     studyLogs: [],
+    soundEffectsEnabled: true,
   };
 }
 
