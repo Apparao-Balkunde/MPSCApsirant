@@ -40,6 +40,8 @@ import {
   storeSingleStudyLogToFirestore,
   storeSingleQuestionToFirestore,
   seedMPSCQuestionsToFirestore,
+  subscribeToRealtimeQuestions,
+  subscribeToRealtimeUserData,
 } from './services/firestoreSync';
 import { type User } from 'firebase/auth';
 import { CheckCircle2 } from 'lucide-react';
@@ -70,24 +72,19 @@ export default function App() {
   const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
   const [syncToast, setSyncToast] = useState<string | null>(null);
 
-  // Initialize Firebase Auth listener and fetch Firestore data on mount
+  // Initialize Firebase Auth listener and real-time Firestore listeners on mount
   useEffect(() => {
     testFirestoreConnection();
 
-    // 1. Fetch questions bank from Firestore
-    (async () => {
-      try {
-        const res = await fetchMPSCQuestionsFromFirestore();
-        if (res.questions && res.questions.length > 0) {
-          setQuestions(res.questions);
-        }
-      } catch (err) {
-        console.warn('Initial Firestore questions fetch note:', err);
+    // 1. Subscribe to real-time questions bank from Firestore
+    const unsubQuestions = subscribeToRealtimeQuestions((liveQuestions) => {
+      if (liveQuestions && liveQuestions.length > 0) {
+        setQuestions(liveQuestions);
       }
-    })();
+    });
 
     // 2. Auth state listener & fetch user data on login
-    const unsubscribe = initAuthListener(async (user) => {
+    const unsubAuth = initAuthListener(async (user) => {
       setCurrentUser(user);
       if (user) {
         try {
@@ -102,7 +99,10 @@ export default function App() {
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      if (unsubQuestions) unsubQuestions();
+      unsubAuth();
+    };
   }, []);
 
   // Sync state to localStorage whenever userProgress changes
@@ -333,9 +333,9 @@ export default function App() {
     setActiveSession(session);
     setActiveResult(result);
 
-    // Atomically store this exam result to Firebase
+    // Atomically store this exam result to Firebase in real-time
     if (currentUser?.uid) {
-      storeSingleExamResultToFirestore(currentUser.uid, result);
+      storeSingleExamResultToFirestore(currentUser.uid, result, updatedProgress);
     }
   };
 

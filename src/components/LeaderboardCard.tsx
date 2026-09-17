@@ -4,13 +4,11 @@ import {
   Medal, 
   RefreshCw, 
   Flame, 
-  Sparkles, 
-  UserCheck, 
   Database,
-  ArrowUpRight
+  Radio
 } from 'lucide-react';
 import { LeaderboardEntry, UserProgress } from '../types';
-import { fetchLeaderboardFromFirestore } from '../services/firestoreSync';
+import { subscribeToRealtimeLeaderboard } from '../services/firestoreSync';
 
 interface LeaderboardCardProps {
   userProgress: UserProgress;
@@ -30,30 +28,31 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
   const isMr = language === 'mr';
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isFromFirestore, setIsFromFirestore] = useState<boolean>(false);
+  const [isRealtimeActive, setIsRealtimeActive] = useState<boolean>(false);
   const [lastRefreshed, setLastRefreshed] = useState<string>('');
 
-  const loadLeaderboard = async () => {
-    setIsLoading(true);
-    try {
-      const result = await fetchLeaderboardFromFirestore(
-        currentUserId,
-        userProgress,
-        currentUserName
-      );
-      setEntries(result.leaderboard);
-      setIsFromFirestore(result.fromFirestore);
-      setLastRefreshed(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-    } catch (e) {
-      console.warn('Failed to load leaderboard:', e);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    loadLeaderboard();
-  }, [userProgress.history.length, currentUserId]);
+    setIsLoading(true);
+    const unsubscribe = subscribeToRealtimeLeaderboard(
+      currentUserId,
+      userProgress,
+      currentUserName,
+      (liveLeaderboard) => {
+        setEntries(liveLeaderboard);
+        setIsLoading(false);
+        setIsRealtimeActive(true);
+        setLastRefreshed(
+          new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+        );
+      }
+    );
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [userProgress.history.length, currentUserId, currentUserName]);
 
   const getRankBadge = (rank: number) => {
     switch (rank) {
@@ -105,21 +104,12 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {isFromFirestore && (
-            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
-              <Database className="w-3 h-3 text-emerald-600" />
-              <span>Firestore Live</span>
+          {isRealtimeActive && (
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{isMr ? 'थेट फायरबेस रिअल-टाईम' : 'Firestore Realtime'}</span>
             </span>
           )}
-          <button
-            id="btn-refresh-leaderboard"
-            onClick={loadLeaderboard}
-            disabled={isLoading}
-            className="p-1.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-600 hover:text-stone-900 transition-colors cursor-pointer"
-            title={isMr ? "लीडरबोर्ड रीफ्रेश करा" : "Refresh Leaderboard"}
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-amber-600' : ''}`} />
-          </button>
         </div>
       </div>
 

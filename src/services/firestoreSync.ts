@@ -7,12 +7,62 @@ import {
   query, 
   limit, 
   orderBy,
-  writeBatch
+  writeBatch,
+  onSnapshot,
+  Unsubscribe
 } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { db, auth } from '../lib/firebase';
 import { UserProgress, ExamResult, StudySessionLog, Question, LeaderboardEntry } from '../types';
 import { saveUserProgress } from '../utils/storage';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
+
+// Firebase error handling conforming to Firebase skill
+export enum OperationType {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LIST = 'list',
+  GET = 'get',
+  WRITE = 'write',
+}
+
+export interface FirestoreErrorInfo {
+  error: string;
+  operationType: OperationType;
+  path: string | null;
+  authInfo: {
+    userId?: string | null;
+    email?: string | null;
+    emailVerified?: boolean | null;
+    isAnonymous?: boolean | null;
+    tenantId?: string | null;
+    providerInfo?: {
+      providerId?: string | null;
+      email?: string | null;
+    }[];
+  };
+}
+
+export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const errInfo: FirestoreErrorInfo = {
+    error: error instanceof Error ? error.message : String(error),
+    authInfo: {
+      userId: auth.currentUser?.uid,
+      email: auth.currentUser?.email,
+      emailVerified: auth.currentUser?.emailVerified,
+      isAnonymous: auth.currentUser?.isAnonymous,
+      tenantId: auth.currentUser?.tenantId,
+      providerInfo: auth.currentUser?.providerData?.map((provider) => ({
+        providerId: provider.providerId,
+        email: provider.email,
+      })) || [],
+    },
+    operationType,
+    path,
+  };
+  console.error('Firestore Error:', JSON.stringify(errInfo));
+  return errInfo;
+}
 
 export interface SyncSummary {
   success: boolean;
@@ -33,8 +83,42 @@ export interface FetchSummary {
 }
 
 /**
+ * Real-time listener for the entire MPSC Question Bank from Firestore.
+ * Every update in the database is pushed to connected clients in real-time.
+ */
+export function subscribeToRealtimeQuestions(
+  onUpdate: (questions: Question[]) => void
+): Unsubscribe | null {
+  if (!db) return null;
+
+  try {
+    const qColl = collection(db, 'mpsc_questions');
+    return onSnapshot(
+      qColl,
+      async (snap) => {
+        if (!snap.empty && snap.docs.length > 0) {
+          const fetched: Question[] = [];
+          snap.forEach((d) => {
+            fetched.push(d.data() as Question);
+          });
+          onUpdate(fetched);
+        } else {
+          // If empty in Firestore, seed standard questions once
+          await seedMPSCQuestionsToFirestore();
+        }
+      },
+      (error) => {
+        handleFirestoreError(error, OperationType.LIST, 'mpsc_questions');
+      }
+    );
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, 'mpsc_questions');
+    return null;
+  }
+}
+
+/**
  * Fetches the entire MPSC Question Bank from Firestore collection 'mpsc_questions'.
- * If Firestore is empty, it automatically seeds it with initial questions and returns them.
  */
 export async function fetchMPSCQuestionsFromFirestore(): Promise<{
   questions: Question[];
@@ -55,12 +139,11 @@ export async function fetchMPSCQuestionsFromFirestore(): Promise<{
       });
       return { questions: fetched, fromFirestore: true, count: fetched.length };
     } else {
-      // If collection is not yet seeded in Firestore, seed it now and return
       const seeded = await seedMPSCQuestionsToFirestore();
       return { questions: MPSC_QUESTIONS, fromFirestore: true, count: seeded || MPSC_QUESTIONS.length };
     }
   } catch (err) {
-    console.warn('Error fetching questions from Firestore, using fallback:', err);
+    handleFirestoreError(err, OperationType.GET, 'mpsc_questions');
     return { questions: MPSC_QUESTIONS, fromFirestore: false, count: MPSC_QUESTIONS.length };
   }
 }
@@ -70,6 +153,7 @@ export async function fetchMPSCQuestionsFromFirestore(): Promise<{
  */
 export async function storeSingleQuestionToFirestore(question: Question): Promise<boolean> {
   if (!db || !question.id) return false;
+  const path = `mpsc_questions/${question.id}`;
   try {
     const qRef = doc(db, 'mpsc_questions', question.id);
     await setDoc(
@@ -82,19 +166,22 @@ export async function storeSingleQuestionToFirestore(question: Question): Promis
     );
     return true;
   } catch (err) {
-    console.error('Failed to store question to Firestore:', err);
+    handleFirestoreError(err, OperationType.WRITE, path);
     return false;
   }
 }
 
 /**
  * Immediately stores a single completed exam result to Firestore
+ * and synchronizes the user's top-level leaderboard statistics in real-time.
  */
 export async function storeSingleExamResultToFirestore(
   userId: string,
-  exam: ExamResult
+  exam: ExamResult,
+  currentProgress?: UserProgress
 ): Promise<boolean> {
   if (!db || !userId || !exam.sessionId) return false;
+  const examPath = `users/${userId}/examResults/${exam.sessionId}`;
   try {
     const examDocRef = doc(db, 'users', userId, 'examResults', exam.sessionId);
     await setDoc(
@@ -116,9 +203,35 @@ export async function storeSingleExamResultToFirestore(
       },
       { merge: true }
     );
+
+    // Also update user's top-level score and statistics for the real-time leaderboard
+    if (currentProgress) {
+      const allHistory = [exam, ...(currentProgress.history || []).filter((h) => h.sessionId !== exam.sessionId)];
+      const totalScore = Number(allHistory.reduce((sum, h) => sum + (h.finalScore || 0), 0).toFixed(1));
+      const totalAttempted = allHistory.reduce((acc, h) => acc + (h.attemptedCount || 0), 0);
+      const totalCorrect = allHistory.reduce((acc, h) => acc + (h.correctCount || 0), 0);
+      const averageAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+
+      const userDocRef = doc(db, 'users', userId);
+      await setDoc(
+        userDocRef,
+        {
+          userId,
+          displayName: auth.currentUser?.displayName || (auth.currentUser?.email ? auth.currentUser.email.split('@')[0] : 'अभ्यासक'),
+          email: auth.currentUser?.email || null,
+          totalExamScore: totalScore,
+          examsCount: allHistory.length,
+          averageAccuracy,
+          roleTag: exam.patternId.includes('rajyaseva') ? 'राज्यसेवा उमेदवार' : 'संयुक्त गट-ब/क उमेदवार',
+          updatedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+    }
+
     return true;
   } catch (err) {
-    console.warn('Failed to store exam to Firestore:', err);
+    handleFirestoreError(err, OperationType.WRITE, examPath);
     return false;
   }
 }
@@ -131,6 +244,7 @@ export async function storeSingleStudyLogToFirestore(
   log: StudySessionLog
 ): Promise<boolean> {
   if (!db || !userId || !log.id) return false;
+  const logPath = `users/${userId}/studyLogs/${log.id}`;
   try {
     const logDocRef = doc(db, 'users', userId, 'studyLogs', log.id);
     await setDoc(
@@ -148,8 +262,74 @@ export async function storeSingleStudyLogToFirestore(
     );
     return true;
   } catch (err) {
-    console.warn('Failed to store study log to Firestore:', err);
+    handleFirestoreError(err, OperationType.WRITE, logPath);
     return false;
+  }
+}
+
+/**
+ * Real-time listener for the authenticated user's profile and exam history
+ */
+export function subscribeToRealtimeUserData(
+  userId: string,
+  currentLocal: UserProgress,
+  onUpdate: (progress: UserProgress) => void
+): Unsubscribe | null {
+  if (!userId || !db) return null;
+
+  try {
+    const userDocRef = doc(db, 'users', userId);
+    return onSnapshot(
+      userDocRef,
+      async (userSnap) => {
+        if (!userSnap.exists()) return;
+        const remoteData = userSnap.data();
+
+        // Fetch subcollection exams
+        const examsRef = collection(db, 'users', userId, 'examResults');
+        const examsQuery = query(examsRef, orderBy('timestamp', 'desc'), limit(50));
+        let remoteExams: ExamResult[] = [];
+        try {
+          const examsSnap = await getDocs(examsQuery);
+          remoteExams = examsSnap.docs.map((d) => d.data() as ExamResult);
+        } catch {
+          // ignore
+        }
+
+        const mergedBookmarks = Array.from(
+          new Set([...currentLocal.bookmarkedQuestionIds, ...(remoteData.bookmarkedQuestionIds || [])])
+        );
+
+        const examMap = new Map<string, ExamResult>();
+        currentLocal.history.forEach((e) => examMap.set(e.sessionId, e));
+        remoteExams.forEach((e) => {
+          if (e.sessionId && !examMap.has(e.sessionId)) {
+            examMap.set(e.sessionId, e);
+          }
+        });
+        const mergedHistory = Array.from(examMap.values()).sort(
+          (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
+        );
+
+        const updated: UserProgress = {
+          ...currentLocal,
+          bookmarkedQuestionIds: mergedBookmarks,
+          history: mergedHistory,
+          weeklyTargetHours: remoteData.targetHoursPerWeek || currentLocal.weeklyTargetHours,
+          weeklyTargetQuestions: remoteData.targetQuestionsPerWeek || currentLocal.weeklyTargetQuestions,
+          streakDays: Math.max(remoteData.streakDays || 1, currentLocal.streakDays),
+        };
+
+        saveUserProgress(updated);
+        onUpdate(updated);
+      },
+      (error) => {
+        handleFirestoreError(error, OperationType.GET, `users/${userId}`);
+      }
+    );
+  } catch (err) {
+    handleFirestoreError(err, OperationType.GET, `users/${userId}`);
+    return null;
   }
 }
 
@@ -253,7 +433,7 @@ export async function fetchUserDataFromFirestore(
       success: true,
     };
   } catch (err) {
-    console.error('Failed to fetch from Firestore:', err);
+    handleFirestoreError(err, OperationType.GET, `users/${userId}`);
     return {
       progress: currentLocal,
       examsCount: 0,
@@ -271,38 +451,41 @@ export async function seedMPSCQuestionsToFirestore(): Promise<number> {
   if (!db) return 0;
   try {
     let count = 0;
-    // Batch write questions in chunks of 20 to stay well within Firestore batch limits
     const chunkSize = 20;
     for (let i = 0; i < MPSC_QUESTIONS.length; i += chunkSize) {
       const chunk = MPSC_QUESTIONS.slice(i, i + chunkSize);
       const batch = writeBatch(db);
       for (const q of chunk) {
         const qRef = doc(db, 'mpsc_questions', q.id);
-        batch.set(qRef, {
-          id: q.id,
-          subjectId: q.subjectId,
-          topic: q.topic,
-          subtopic: q.subtopic,
-          exam: q.exam,
-          difficulty: q.difficulty,
-          questionEn: q.questionEn,
-          questionMr: q.questionMr,
-          optionsEn: q.optionsEn,
-          optionsMr: q.optionsMr,
-          correctAnswerIndex: q.correctAnswerIndex,
-          explanationEn: q.explanationEn,
-          explanationMr: q.explanationMr,
-          reference: q.reference,
-          yearTag: q.yearTag || null,
-          updatedAt: new Date().toISOString(),
-        }, { merge: true });
+        batch.set(
+          qRef,
+          {
+            id: q.id,
+            subjectId: q.subjectId,
+            topic: q.topic,
+            subtopic: q.subtopic,
+            exam: q.exam,
+            difficulty: q.difficulty,
+            questionEn: q.questionEn,
+            questionMr: q.questionMr,
+            optionsEn: q.optionsEn,
+            optionsMr: q.optionsMr,
+            correctAnswerIndex: q.correctAnswerIndex,
+            explanationEn: q.explanationEn,
+            explanationMr: q.explanationMr,
+            reference: q.reference,
+            yearTag: q.yearTag || null,
+            updatedAt: new Date().toISOString(),
+          },
+          { merge: true }
+        );
         count++;
       }
       await batch.commit();
     }
     return count;
   } catch (err) {
-    console.warn('Questions seeding note:', err);
+    handleFirestoreError(err, OperationType.WRITE, 'mpsc_questions');
     return 0;
   }
 }
@@ -323,7 +506,7 @@ export async function syncAllDataToFirestore(
       logsStored: 0,
       bookmarksStored: 0,
       questionsStored: 0,
-      error: 'User not authenticated or Firestore not initialized'
+      error: 'User not authenticated or Firestore not initialized',
     };
   }
 
@@ -343,7 +526,7 @@ export async function syncAllDataToFirestore(
       {
         userId,
         email: userEmail || null,
-        displayName: displayName || null,
+        displayName: displayName || (userEmail ? userEmail.split('@')[0] : 'अभ्यासक'),
         totalExamScore,
         examsCount: (progress.history || []).length,
         averageAccuracy,
@@ -421,14 +604,14 @@ export async function syncAllDataToFirestore(
       questionsStored,
     };
   } catch (err: any) {
-    console.error('Failed to sync all data to Firestore:', err);
+    handleFirestoreError(err, OperationType.WRITE, `users/${userId}`);
     return {
       success: false,
       examsStored: 0,
       logsStored: 0,
       bookmarksStored: progress.bookmarkedQuestionIds.length,
       questionsStored: 0,
-      error: err?.message || 'Unknown Firestore error'
+      error: err?.message || 'Unknown Firestore error',
     };
   }
 }
@@ -453,14 +636,13 @@ export async function syncUserProgressToFirestore(
     const totalAttempted = (progress.history || []).reduce((acc, h) => acc + (h.attemptedCount || 0), 0);
     const totalCorrect = (progress.history || []).reduce((acc, h) => acc + (h.correctCount || 0), 0);
     const averageAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
-    
-    // Save top-level user metadata and state
+
     await setDoc(
       userDocRef,
       {
         userId,
         email: userEmail || null,
-        displayName: displayName || null,
+        displayName: displayName || (userEmail ? userEmail.split('@')[0] : 'अभ्यासक'),
         totalExamScore,
         examsCount: (progress.history || []).length,
         averageAccuracy,
@@ -475,51 +657,8 @@ export async function syncUserProgressToFirestore(
       },
       { merge: true }
     );
-
-    // Save recent exam results to subcollection /users/{userId}/examResults/{resultId}
-    const recentExams = progress.history.slice(0, 10);
-    for (const exam of recentExams) {
-      if (!exam.sessionId) continue;
-      const examDocRef = doc(db, 'users', userId, 'examResults', exam.sessionId);
-      await setDoc(
-        examDocRef,
-        {
-          userId,
-          examId: exam.sessionId,
-          examTitle: exam.title,
-          examType: exam.patternId,
-          score: exam.finalScore,
-          totalQuestions: exam.totalQuestions,
-          accuracy: exam.accuracyPercentage,
-          timeTakenSeconds: exam.timeSpentSeconds,
-          date: exam.date,
-          timestamp: exam.timestamp || Date.now(),
-        },
-        { merge: true }
-      );
-    }
-
-    // Save recent study logs to subcollection /users/{userId}/studyLogs/{logId}
-    const recentLogs = (progress.studyLogs || []).slice(0, 20);
-    for (const log of recentLogs) {
-      if (!log.id) continue;
-      const logDocRef = doc(db, 'users', userId, 'studyLogs', log.id);
-      await setDoc(
-        logDocRef,
-        {
-          userId,
-          title: log.title,
-          durationMinutes: log.durationMinutes,
-          questionsSolved: log.questionsSolved,
-          notes: log.notes || null,
-          date: log.dateStr,
-          timestamp: log.timestamp || Date.now(),
-        },
-        { merge: true }
-      );
-    }
   } catch (err) {
-    console.warn('Firestore sync note:', err);
+    handleFirestoreError(err, OperationType.WRITE, `users/${userId}`);
   }
 }
 
@@ -541,7 +680,6 @@ export async function loadUserProgressFromFirestore(
       remoteData = userSnap.data();
     }
 
-    // Fetch subcollection exams
     const examsRef = collection(db, 'users', userId, 'examResults');
     const examsQuery = query(examsRef, orderBy('timestamp', 'desc'), limit(30));
     let remoteExams: ExamResult[] = [];
@@ -549,10 +687,9 @@ export async function loadUserProgressFromFirestore(
       const examsSnap = await getDocs(examsQuery);
       remoteExams = examsSnap.docs.map((d) => d.data() as ExamResult);
     } catch {
-      // If collection is empty or index pending, fallback gracefully
+      // ignore
     }
 
-    // Fetch subcollection study logs
     const logsRef = collection(db, 'users', userId, 'studyLogs');
     const logsQuery = query(logsRef, orderBy('timestamp', 'desc'), limit(50));
     let remoteLogs: StudySessionLog[] = [];
@@ -560,15 +697,13 @@ export async function loadUserProgressFromFirestore(
       const logsSnap = await getDocs(logsQuery);
       remoteLogs = logsSnap.docs.map((d) => d.data() as StudySessionLog);
     } catch {
-      // Fallback
+      // ignore
     }
 
-    // Merge bookmarks (union)
     const mergedBookmarks = Array.from(
       new Set([...localProgress.bookmarkedQuestionIds, ...(remoteData.bookmarkedQuestionIds || [])])
     );
 
-    // Merge exam history by sessionId
     const examMap = new Map<string, ExamResult>();
     localProgress.history.forEach((e) => examMap.set(e.sessionId, e));
     remoteExams.forEach((e) => {
@@ -580,7 +715,6 @@ export async function loadUserProgressFromFirestore(
       (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
     );
 
-    // Merge study logs by id
     const logMap = new Map<string, StudySessionLog>();
     (localProgress.studyLogs || []).forEach((l) => logMap.set(l.id, l));
     remoteLogs.forEach((l) => {
@@ -605,167 +739,110 @@ export async function loadUserProgressFromFirestore(
     saveUserProgress(merged);
     return merged;
   } catch (err) {
-    console.warn('Failed to load from Firestore:', err);
+    handleFirestoreError(err, OperationType.GET, `users/${userId}`);
     return localProgress;
   }
 }
 
 /**
- * Standard benchmark top aspirant records for realistic MPSC rankings
+ * 100% REAL-TIME Leaderboard Subscription via onSnapshot.
+ * NO FAKE USERS! Only real aspirants who took exams in Firestore.
  */
-const DEFAULT_TOP_ASPIRANTS: Omit<LeaderboardEntry, 'rank'>[] = [
-  {
-    userId: 'aspirant_swati_mpsc',
-    name: 'स्वाती जाधव (Swati J.)',
-    totalScore: 154.5,
-    examsCount: 8,
-    accuracy: 86,
-    roleTag: 'STI Target 2026',
-  },
-  {
-    userId: 'aspirant_amol_mpsc',
-    name: 'अमोल देशमुख (Amol D.)',
-    totalScore: 138.0,
-    examsCount: 7,
-    accuracy: 82,
-    roleTag: 'DySP Aspirant',
-  },
-  {
-    userId: 'aspirant_priya_mpsc',
-    name: 'प्रिया कुलकर्णी (Priya K.)',
-    totalScore: 124.5,
-    examsCount: 6,
-    accuracy: 79,
-    roleTag: 'Rajyaseva Prelims',
-  },
-  {
-    userId: 'aspirant_sachin_mpsc',
-    name: 'सचिन पवार (Sachin P.)',
-    totalScore: 112.0,
-    examsCount: 5,
-    accuracy: 76,
-    roleTag: 'ASO Rank Target',
-  },
-  {
-    userId: 'aspirant_rohan_mpsc',
-    name: 'रोहन माने (Rohan M.)',
-    totalScore: 98.5,
-    examsCount: 5,
-    accuracy: 74,
-    roleTag: 'Combined Group B',
-  },
-];
-
-/**
- * Fetches and calculates top 5 users based on total exam scores from Firestore.
- */
-export async function fetchLeaderboardFromFirestore(
-  currentUserId?: string,
-  currentProgress?: UserProgress,
-  currentUserName?: string
-): Promise<{ leaderboard: LeaderboardEntry[]; fromFirestore: boolean }> {
-  // 1. Calculate current user score
-  const userScore = currentProgress?.history
-    ? Number(currentProgress.history.reduce((sum, h) => sum + (h.finalScore || 0), 0).toFixed(1))
-    : 0;
-  const userExamsCount = currentProgress?.history?.length || 0;
-  const userAttempted = currentProgress?.history?.reduce((acc, h) => acc + (h.attemptedCount || 0), 0) || 0;
-  const userCorrect = currentProgress?.history?.reduce((acc, h) => acc + (h.correctCount || 0), 0) || 0;
-  const userAccuracy = userAttempted > 0 ? Math.round((userCorrect / userAttempted) * 100) : 0;
-
-  const currentUserEntry: LeaderboardEntry = {
-    userId: currentUserId || 'current_local_user',
-    name: currentUserName || 'तुम्ही (You)',
-    totalScore: userScore,
-    examsCount: userExamsCount,
-    accuracy: userAccuracy,
-    rank: 0,
-    isCurrentUser: true,
-    roleTag: 'सध्याचा उमेदवार (Active Aspirant)',
-  };
-
+export function subscribeToRealtimeLeaderboard(
+  currentUserId: string | undefined,
+  currentProgress: UserProgress | undefined,
+  currentUserName: string | undefined,
+  callback: (leaderboard: LeaderboardEntry[]) => void
+): Unsubscribe | null {
   if (!db) {
-    const combined = [
-      ...DEFAULT_TOP_ASPIRANTS.map((p) => ({ ...p, isCurrentUser: false, rank: 0 })),
-      currentUserEntry,
-    ];
-    combined.sort((a, b) => b.totalScore - a.totalScore);
-    const top5 = combined.slice(0, 5).map((item, idx) => ({ ...item, rank: idx + 1 }));
-    return { leaderboard: top5, fromFirestore: false };
+    callback([]);
+    return null;
   }
 
   try {
     const usersColl = collection(db, 'users');
-    const usersSnap = await getDocs(query(usersColl, limit(20)));
+    const usersQuery = query(usersColl, limit(30));
 
-    const firestoreUsers: LeaderboardEntry[] = [];
+    return onSnapshot(
+      usersQuery,
+      (snapshot) => {
+        const userScore = currentProgress?.history
+          ? Number(currentProgress.history.reduce((sum, h) => sum + (h.finalScore || 0), 0).toFixed(1))
+          : 0;
+        const userExamsCount = currentProgress?.history?.length || 0;
+        const userAttempted = currentProgress?.history?.reduce((acc, h) => acc + (h.attemptedCount || 0), 0) || 0;
+        const userCorrect = currentProgress?.history?.reduce((acc, h) => acc + (h.correctCount || 0), 0) || 0;
+        const userAccuracy = userAttempted > 0 ? Math.round((userCorrect / userAttempted) * 100) : 0;
 
-    usersSnap.docs.forEach((docSnap) => {
-      const data = docSnap.data();
-      const uId = docSnap.id;
-      const isCurrent = Boolean(currentUserId && uId === currentUserId);
-      const name = data.displayName || (isCurrent ? 'तुम्ही (You)' : `उमेदवार #${uId.slice(0, 4)}`);
-      
-      let totalScore = typeof data.totalExamScore === 'number' ? data.totalExamScore : 0;
-      let examsCount = typeof data.examsCount === 'number' ? data.examsCount : 0;
-      let accuracy = typeof data.averageAccuracy === 'number' ? data.averageAccuracy : 0;
+        const realUsers: LeaderboardEntry[] = [];
 
-      if (isCurrent) {
-        totalScore = Math.max(totalScore, userScore);
-        examsCount = Math.max(examsCount, userExamsCount);
-        accuracy = userAccuracy || accuracy;
-      }
+        snapshot.docs.forEach((docSnap) => {
+          const data = docSnap.data();
+          const uId = docSnap.id;
+          const isCurrent = Boolean(currentUserId && uId === currentUserId);
 
-      firestoreUsers.push({
-        userId: uId,
-        name,
-        totalScore: Number(totalScore.toFixed(1)),
-        examsCount,
-        accuracy,
-        rank: 0,
-        isCurrentUser: isCurrent,
-        roleTag: data.roleTag || 'MPSC Aspirant',
-      });
-    });
+          let totalScore = typeof data.totalExamScore === 'number' ? data.totalExamScore : 0;
+          let examsCount = typeof data.examsCount === 'number' ? data.examsCount : 0;
+          let accuracy = typeof data.averageAccuracy === 'number' ? data.averageAccuracy : 0;
 
-    // If current user is not in Firestore users list yet, include them
-    const hasCurrent = firestoreUsers.some((u) => u.isCurrentUser || (currentUserId && u.userId === currentUserId));
-    if (!hasCurrent) {
-      firestoreUsers.push(currentUserEntry);
-    }
+          if (isCurrent) {
+            totalScore = Math.max(totalScore, userScore);
+            examsCount = Math.max(examsCount, userExamsCount);
+            accuracy = userAccuracy || accuracy;
+          }
 
-    // Merge benchmark aspirants if fewer than 5 users
-    const existingIds = new Set(firestoreUsers.map((u) => u.userId));
-    DEFAULT_TOP_ASPIRANTS.forEach((defaultUser) => {
-      if (!existingIds.has(defaultUser.userId)) {
-        firestoreUsers.push({
-          ...defaultUser,
-          isCurrentUser: false,
-          rank: 0,
+          // Only show users who have actually attempted at least one exam or have non-zero score
+          if (examsCount > 0 || totalScore > 0 || isCurrent) {
+            const rawName = data.displayName || (isCurrent ? (currentUserName || 'तुम्ही (You)') : `MPSC उमेदवार #${uId.slice(0, 5)}`);
+            realUsers.push({
+              userId: uId,
+              name: isCurrent ? `${rawName} (तुम्ही)` : rawName,
+              totalScore: Number(totalScore.toFixed(1)),
+              examsCount,
+              accuracy,
+              rank: 0,
+              isCurrentUser: isCurrent,
+              roleTag: data.roleTag || (isCurrent ? 'सध्याचा उमेदवार (Active)' : 'MPSC Aspirant'),
+            });
+          }
         });
+
+        // Ensure current user is in the list if they have activity
+        if (currentUserId && !realUsers.some((u) => u.userId === currentUserId)) {
+          if (userExamsCount > 0 || userScore > 0) {
+            realUsers.push({
+              userId: currentUserId,
+              name: `${currentUserName || 'तुम्ही (You)'} (तुम्ही)`,
+              totalScore: userScore,
+              examsCount: userExamsCount,
+              accuracy: userAccuracy,
+              rank: 0,
+              isCurrentUser: true,
+              roleTag: 'सध्याचा उमेदवार (Active)',
+            });
+          }
+        }
+
+        // Sort descending by total score, then by accuracy
+        realUsers.sort((a, b) => {
+          if (b.totalScore !== a.totalScore) return b.totalScore - a.totalScore;
+          return b.accuracy - a.accuracy;
+        });
+
+        const top = realUsers.slice(0, 10).map((entry, idx) => ({
+          ...entry,
+          rank: idx + 1,
+        }));
+
+        callback(top);
+      },
+      (error) => {
+        handleFirestoreError(error, OperationType.LIST, 'users');
       }
-    });
-
-    // Sort descending by total score, then by accuracy
-    firestoreUsers.sort((a, b) => {
-      if (b.totalScore !== a.totalScore) return b.totalScore - a.totalScore;
-      return b.accuracy - a.accuracy;
-    });
-
-    const top5 = firestoreUsers.slice(0, 5).map((entry, idx) => ({
-      ...entry,
-      rank: idx + 1,
-    }));
-
-    return { leaderboard: top5, fromFirestore: true };
+    );
   } catch (err) {
-    console.warn('Leaderboard Firestore query error, using local fallback:', err);
-    const combined = [
-      ...DEFAULT_TOP_ASPIRANTS.map((p) => ({ ...p, isCurrentUser: false, rank: 0 })),
-      currentUserEntry,
-    ];
-    combined.sort((a, b) => b.totalScore - a.totalScore);
-    const top5 = combined.slice(0, 5).map((item, idx) => ({ ...item, rank: idx + 1 }));
-    return { leaderboard: top5, fromFirestore: false };
+    handleFirestoreError(err, OperationType.LIST, 'users');
+    return null;
   }
 }
+
