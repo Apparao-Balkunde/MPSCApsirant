@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdBannerProps {
   slot?: string;
@@ -19,13 +19,23 @@ export function AdBanner({
   responsive = true,
   className = '',
 }: AdBannerProps) {
+  const adRef = useRef<HTMLModElement | null>(null);
+  const pushedRef = useRef<boolean>(false);
+
   useEffect(() => {
-    try {
-      if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    // Only push if the ins element is mounted, has not been initialized yet, and has no existing iframe or data-ad-status
+    if (adRef.current && !pushedRef.current) {
+      const alreadyFilled = adRef.current.getAttribute('data-ad-status') || adRef.current.innerHTML.trim().length > 0;
+      if (!alreadyFilled) {
+        try {
+          if (typeof window !== 'undefined') {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            pushedRef.current = true;
+          }
+        } catch {
+          // Gracefully suppress duplicate initialization error in React dev/strict mode
+        }
       }
-    } catch (e) {
-      console.error('AdSense error:', e);
     }
   }, []);
 
@@ -36,6 +46,7 @@ export function AdBanner({
       </span>
       <div className="w-full min-h-[90px] flex items-center justify-center bg-stone-100/70 border border-dashed border-stone-300 rounded-lg p-1 text-center">
         <ins
+          ref={adRef}
           className="adsbygoogle"
           style={{ display: 'block', width: '100%', minHeight: '90px' }}
           data-ad-client="ca-pub-8635186039357683"
