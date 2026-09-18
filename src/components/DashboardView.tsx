@@ -424,8 +424,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <Newspaper className="w-3 h-3 text-indigo-700" />
                   MPSC 2026/27
                 </span>
-                <span className="text-xs font-bold text-indigo-700 font-semibold">
-                  {isMr ? 'नवीन चालू घडामोडी' : 'New Current Affairs'}
+                <span className="text-xs font-extrabold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md shadow-2xs">
+                  {isMr ? '२,०००+ सराव प्रश्न' : '2,000+ MCQs Bank'}
                 </span>
               </div>
 
@@ -435,13 +435,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
               <p className="text-xs text-stone-600 leading-relaxed">
                 {isMr 
-                  ? 'लाडकी बहीण, वाढवण बंदर, मराठी अभिजात भाषा दर्जा, नवीन फौजदारी कायदे (BNS), ऑलिंपिक २०२४ व १६ वा वित्त आयोग.'
-                  : 'High-yield 2026/27 events: Ladki Bahin, Vadhavan Port, Marathi Classical Language, BNS Laws, and Paris Olympics.'}
+                  ? 'लाडकी बहीण, वाढवण बंदर, मराठी अभिजात भाषा दर्जा, नवीन फौजदारी कायदे (BNS), ऑलिंपिक २०२४, १६ वा वित्त आयोग, इस्रो व पर्यावरण.'
+                  : 'High-yield 2026/27 events: Ladki Bahin, Vadhavan Port, Marathi Classical Language, BNS Laws, Paris Olympics, 16th Finance Comm., & Space.'}
               </p>
 
               <div className="flex items-center gap-3 text-xs text-stone-500 pt-2 border-t border-stone-100">
                 <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" /> 15 Mins
+                  <Clock className="w-3.5 h-3.5" /> 20 Mins (25 Qs)
                 </span>
                 <span>•</span>
                 <span>+2.00 / -0.50</span>

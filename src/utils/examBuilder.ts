@@ -41,9 +41,13 @@ export function createExamSession(options: {
     eligibleQuestions = [...pool];
   }
 
-  // Shuffle questions
+  // Shuffle questions and apply sensible limits for large question banks
+  const defaultLimit = options.patternId === 'current_affairs_2026'
+    ? 25
+    : (options.subjectId === 'current_affairs' ? 25 : undefined);
+  const limit = options.limit || defaultLimit;
   const shuffled = [...eligibleQuestions].sort(() => 0.5 - Math.random());
-  const selected = options.limit ? shuffled.slice(0, options.limit) : shuffled;
+  const selected = limit ? shuffled.slice(0, limit) : shuffled;
 
   // Pattern specifics
   let durationMinutes = options.durationMinutes || 15;
@@ -75,7 +79,7 @@ export function createExamSession(options: {
     defaultTitle = options.title || 'MPSC 2026/27 चालू घडामोडी विशेष (Current Affairs)';
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
-    durationMinutes = options.durationMinutes || Math.max(10, Math.round(selected.length * 1.2));
+    durationMinutes = options.durationMinutes || 20;
   } else if (options.subjectId) {
     defaultTitle = `${options.title || 'Subject Test'}`;
     marksPerQuestion = 2;

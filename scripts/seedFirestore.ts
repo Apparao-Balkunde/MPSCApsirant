@@ -21,8 +21,8 @@ async function main() {
 
   console.log(`Starting seeding of ${MPSC_QUESTIONS.length} MPSC questions to Firebase Firestore...`);
 
-  // Batch writes in chunks of 20
-  const chunkSize = 20;
+  // Batch writes in chunks of 250 (Firestore limit is 500)
+  const chunkSize = 250;
   let storedCount = 0;
 
   for (let i = 0; i < MPSC_QUESTIONS.length; i += chunkSize) {

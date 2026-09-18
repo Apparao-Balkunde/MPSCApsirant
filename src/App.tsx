@@ -79,7 +79,11 @@ export default function App() {
     // 1. Subscribe to real-time questions bank from Firestore
     const unsubQuestions = subscribeToRealtimeQuestions((liveQuestions) => {
       if (liveQuestions && liveQuestions.length > 0) {
-        setQuestions(liveQuestions);
+        // Merge with built-in MPSC_QUESTIONS by ID to preserve all 2,000+ Current Affairs questions
+        const map = new Map<string, Question>();
+        MPSC_QUESTIONS.forEach((q) => map.set(q.id, q));
+        liveQuestions.forEach((q) => map.set(q.id, q));
+        setQuestions(Array.from(map.values()));
       }
     });
 
@@ -126,7 +130,10 @@ export default function App() {
       // 1. Fetch questions from Firestore
       const qRes = await fetchMPSCQuestionsFromFirestore();
       if (qRes.questions && qRes.questions.length > 0) {
-        setQuestions(qRes.questions);
+        const map = new Map<string, Question>();
+        MPSC_QUESTIONS.forEach((q) => map.set(q.id, q));
+        qRes.questions.forEach((q) => map.set(q.id, q));
+        setQuestions(Array.from(map.values()));
       }
 
       // 2. Fetch user exam results and logs if logged in

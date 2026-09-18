@@ -75,12 +75,12 @@ export const SUBJECTS: SubjectMeta[] = [
   },
   {
     id: 'current_affairs',
-    nameEn: 'Current Affairs (चालू घडामोडी)',
-    nameMr: 'चालू घडामोडी (महाराष्ट्र व राष्ट्रीय)',
+    nameEn: 'Current Affairs (चालू घडामोडी २०२६/२७)',
+    nameMr: 'चालू घडामोडी (महाराष्ट्र व राष्ट्रीय २०२६/२७)',
     color: 'indigo',
     iconName: 'Newspaper',
-    descriptionEn: 'Key appointments, awards, government schemes, infrastructure developments, and summits.',
-    descriptionMr: 'महत्त्वाचे पुरस्कार, योजना, पायाभूत सुविधा प्रकल्प व क्रीडा घडामोडी.',
+    descriptionEn: '2,000+ High-Yield MCQs for 2026/27: Ladki Bahin, Vadhavan Port, Marathi Classical Language, BNS Laws, 16th Finance Comm., Olympics & Space.',
+    descriptionMr: '२०२६/२७ चे २,०००+ सराव प्रश्न: लाडकी बहीण, वाढवण बंदर, मराठी अभिजात भाषा, BNS कायदे, १६ वा वित्त आयोग, ऑलिंपिक व अवकाश मोहिमा.',
   },
   {
     id: 'english_grammar',

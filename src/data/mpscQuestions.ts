@@ -2,6 +2,7 @@ import { Question } from '../types';
 import { VOCAB_QUESTIONS_100 } from './vocabQuestions';
 import { EXTRA_QUESTIONS_100 } from './extraQuestions100';
 import { CURRENT_AFFAIRS_2026_27 } from './currentAffairs2026_27';
+import { CURRENT_AFFAIRS_2000 } from './currentAffairs2000';
 
 export const MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -755,4 +756,6 @@ export const MPSC_QUESTIONS: Question[] = [
   ...EXTRA_QUESTIONS_100,
   // MPSC 2026/27 High-Yield Current Affairs (चालू घडामोडी विशेष संच)
   ...CURRENT_AFFAIRS_2026_27,
+  // 2000 High-Yield Current Affairs 2026/27 MCQs Bank
+  ...CURRENT_AFFAIRS_2000,
 ];
