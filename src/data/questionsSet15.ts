@@ -1,0 +1,208 @@
+import { Question } from '../types';
+
+export const QUESTIONS_SET_15: Question[] = [
+  // =========================================================================
+  // 1. CHHATRAPATI SHIVAJI MAHARAJ & MARATHA EMPIRE (4 Questions)
+  // =========================================================================
+  {
+    id: 'mh_maratha_1101',
+    subjectId: 'maharashtra_history',
+    topic: 'Maratha Administration under Chhatrapati Shivaji Maharaj',
+    subtopic: 'Ashta Pradhan Mandal (अष्टप्रधान मंडळ)',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'In the Ashta Pradhan Mandal of Chhatrapati Shivaji Maharaj, which minister held the portfolio of Foreign Affairs and diplomacy (परराष्ट्र संबंध)?',
+    questionMr: 'छत्रपती शिवाजी महाराजांच्या अष्टप्रधान मंडळात परराष्ट्र संबंध आणि आंतरराष्ट्रीय मुत्सद्देगिरी पाहणाऱ्या मंत्र्याला काय म्हटले जात असे?',
+    optionsEn: [
+      'Sumant or Dabir (सुमंत / डबीर)',
+      'Amatya / Mujumdar (अर्थमंत्री / वित्त)',
+      'Sachiv / Surnis (दप्तरदार / आज्ञापत्रे)',
+      'Panditrao (धार्मिक व्यवहार)',
+    ],
+    optionsMr: [
+      'सुमंत / डबीर (Sumant / Dabir - परराष्ट्र मंत्री)',
+      'अमात्य / मुजुमदार (अर्थमंत्री / राज्याचा जमाखर्च)',
+      'सचिव / सुरनीस (शासकीय आज्ञापत्रे व पत्रव्यवहार)',
+      'पंडितराव (धर्माधिकारी / धार्मिक बाबी)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'In Shivaji Maharaj\'s Ashta Pradhan Mandal, the "Sumant" (Dabir) was the Foreign Minister who managed relations with foreign powers and received ambassadors. Ramchandra Nilkanth and later Trimbak Sondev Dabir served in this post.',
+    explanationMr: 'अष्टप्रधान मंडळामध्ये परराष्ट्रमंत्र्याला \'सुमंत\' किंवा \'डबीर\' म्हटले जाई. रामचंद्र त्रिंबक डबीर हे परराष्ट्र कारभार पाहत. मुख्यमंत्र्याला \'पेशवे\', अर्थमंत्र्याला \'अमात्य\' आणि सरसेनापतीला \'सेनापती\' म्हणत.',
+    reference: 'Chhatrapati Shivaji Maharaj and His Times - Dr. J.S. Grewal / Maharashtra State Board',
+    yearTag: 'MPSC Rajyaseva & Combine PYQ',
+  },
+  {
+    id: 'mh_maratha_1102',
+    subjectId: 'maharashtra_history',
+    topic: 'Forts and Naval Forts of Shivaji Maharaj',
+    subtopic: 'Sindhudurg Fort (सिंधुदुर्ग किल्ला)',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'Chhatrapati Shivaji Maharaj laid the foundation of which formidable sea fort on the Kurte Island off Malvan coast in 1664 to counter the naval dominance of the Siddis, Portuguese, and British?',
+    questionMr: 'छत्रपती शिवाजी महाराजांनी १६६४ मध्ये मालवणजवळील \'कुर्ते\' बेटावर जंजिऱ्याचे सिद्दी, पोर्तुगीज व ब्रिटिशांच्या सागरी वर्चस्वाला शह देण्यासाठी कोणत्या अजिंक्य जलदुर्गाची स्थापना केली?',
+    optionsEn: [
+      'Sindhudurg Fort (सिंधुदुर्ग किल्ला)',
+      'Vijaydurg Fort (घेरिया / विजयदुर्ग)',
+      'Suvarnadurg (सुवर्णदुर्ग)',
+      'Padmadurg (पद्मदुर्ग)',
+    ],
+    optionsMr: [
+      'सिंधुदुर्ग किल्ला (Sindhudurg Fort - कुर्ते बेट, मालवण)',
+      'विजयदुर्ग किल्ला (वाघोटण खाडी)',
+      'सुवर्णदुर्ग किल्ला (हर्णे)',
+      'पद्मदुर्ग (कासा किल्ला - जंजिऱ्याच्या समोर)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'In 1664, Chhatrapati Shivaji Maharaj personally chose Kurte Island near Malvan (Sindhudurg district) to build Sindhudurg Fort. Hiroji Indulkar oversaw its construction with lead foundation. It houses the only temple dedicated to Shivaji Maharaj where his idol is worshipped with sword.',
+    explanationMr: 'मालवणजवळील कुर्ते बेटावर महाराजांनी १६६४ मध्ये सिंधुदुर्ग हा जलदुर्ग बांधला. याच्या पायाभरणीसाठी शिशाचा वापर करण्यात आला होता. या किल्ल्यावर महाराजांच्या हाताचे आणि पायांचे ठसे आजही पाहावयास मिळतात.',
+    reference: 'Forts of Maharashtra - Maharashtra Tourism & State Board',
+    yearTag: 'MPSC Combine Group B 2022',
+  },
+
+  // =========================================================================
+  // 2. MAHARASHTRA GEOGRAPHY, SOILS & AGRI-ZONES (3 Questions)
+  // =========================================================================
+  {
+    id: 'mh_soil_1101',
+    subjectId: 'maharashtra_geography',
+    topic: 'Soils of Maharashtra',
+    subtopic: 'Regur / Black Cotton Soil (काळी कापसाची जमीन)',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'The extensive Black Cotton Soil (Regur soil) covering the Maharashtra Plateau was formed by the weathering and decomposition of which volcanic igneous rock?',
+    questionMr: 'महाराष्ट्र पठारावर विस्तृत प्रमाणावर आढळणारी सुपीक "काळी कापसाची मृदा" (रेगूर मृदा) कोणत्या ज्वालामुखीजन्य अग्निजन्य खडकाच्या विदारणातून तयार झाली आहे?',
+    optionsEn: [
+      'Basalt Rock (बेसाल्ट खडक)',
+      'Granite (ग्रॅनाईट खडक)',
+      'Laterite Rock (जांभा खडक - कोकण)',
+      'Sandstone (वाळूचा खडक)',
+    ],
+    optionsMr: [
+      'बेसाल्ट खडक (Basalt Rock)',
+      'ग्रॅनाईट खडक (विदर्भ व दक्षिण महाराष्ट्रात लाल मृदा बनवणारा)',
+      'जांभा खडक (Laterite - कोकणातील तांबडी मृदा)',
+      'वाळूचा खडक',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'Over 80% of Maharashtra is covered by Basaltic lava flows (Deccan Traps). The chemical weathering of basalt under semi-arid conditions creates deep black clayey soil called "Regur" or Black Cotton Soil, rich in lime, iron, magnesium, and calcium carbonate.',
+    explanationMr: 'महाराष्ट्र पठारावरील रेगूर मृदा ही बेसाल्ट खडकाच्या विदारणातून तयार झाली आहे. यामध्ये टिटॅनिफेरस मॅग्नेटाईटमुळे काळा रंग येतो. ही जमीन ओलावा टिकवून ठेवण्यासाठी अत्यंत प्रसिद्ध असून कापूस आणि उसासाठी उपयुक्त आहे.',
+    reference: 'Geography of Maharashtra - Prof. A.B. Savadi',
+    yearTag: 'MPSC Combine & State Services PYQ',
+  },
+  {
+    id: 'mh_soil_1102',
+    subjectId: 'maharashtra_geography',
+    topic: 'Climatic Regions & Rain Shadow Zone',
+    subtopic: 'Drought-Prone Zone of Maharashtra (पर्जन्यछायेचा प्रदेश)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionEn: 'Which physiographic zone of Maharashtra, lying immediately to the east of the Sahyadri range, receives the least rainfall (less than 50 cm annually) forming the classic "Rain Shadow Zone"?',
+    questionMr: 'सह्याद्री पर्वताच्या पूर्वेकडे असणारा कोणता पट्टा सर्वात कमी पाऊस (वार्षिक ५० सेंमी पेक्षा कमी) मिळणारा महाराष्ट्रातील "पर्जन्यछायेचा प्रदेश" (Rain Shadow Zone) म्हणून ओळखला जातो?',
+    optionsEn: [
+      'Central Maharashtra / Madhya Maharashtra (उदा. महाबळेश्वर पूर्वेकडील फलटण, दहिवडी, आटपाडी)',
+      'Konkan Coastal Plain (वार्षिक २५०-३०० सेंमी पाऊस)',
+      'Eastern Vidarbha (वार्षिक १२०-१४० सेंमी पाऊस)',
+      'Western Ghats Ridge (वार्षिक ५००-६०० सेंमी पाऊस - आंबोली)',
+    ],
+    optionsMr: [
+      'मध्य महाराष्ट्रातील दुष्काळप्रवण पट्टा (फलटण, माण, आटपाडी, सांगोला, कर्जत)',
+      'कोकण किनारपट्टी (मुसळधार पाऊस)',
+      'पूर्व विदर्भ (भरपूर पाऊस)',
+      'सह्याद्रीचा माथा (अतिवृष्टी)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'As South-West monsoon winds cross the Sahyadri crest (where Mahabaleshwar gets ~600 cm and Amboli gets ~750 cm), they descend down the eastern slopes, getting warmer and losing moisture. This forms the dry Rain Shadow Zone in eastern Satara, Sangli, Ahmednagar, and Solapur districts.',
+    explanationMr: 'नैऋत्य मान्सून वारे सह्याद्री ओलांडून खाली उतरताना बाष्पधारण क्षमता वाढल्याने पाऊस अत्यंत कमी पडतो. त्यामुळे अहमदनगर, सोलापूर, सांगली व साताऱ्याचा पूर्व भाग पर्जन्यछायेचा प्रदेश बनतो.',
+    reference: 'Savadi / Khatib - Maharashtra Geography',
+    yearTag: 'MPSC Combine Prelims 2022',
+  },
+
+  // =========================================================================
+  // 3. INDIAN POLITY & FUNDAMENTAL DUTIES (2 Questions)
+  // =========================================================================
+  {
+    id: 'pol_duty_1101',
+    subjectId: 'polity',
+    topic: 'Fundamental Duties',
+    subtopic: 'Article 51A & Swaran Singh Committee',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'On the recommendation of which committee were the Fundamental Duties incorporated into Part IV-A (Article 51A) of the Indian Constitution by the 42nd Amendment Act in 1976?',
+    questionMr: '१९७६ मध्ये ४२ व्या घटनादुरुस्तीद्वारे भारतीय राज्यघटनेत भाग IV-A आणि कलम ५१A जोडून मूलभूत कर्तव्यांचा (Fundamental Duties) समावेश कोणत्या समितीच्या शिफारशीनुसार करण्यात आला?',
+    optionsEn: [
+      'Sardar Swaran Singh Committee (सरदार स्वर्णसिंग समिती)',
+      'Verma Committee (न्यायमूर्ती जे.एस. वर्मा समिती - १९९९)',
+      'Sarkaria Commission (सरकारिया आयोग)',
+      'Balwantrai Mehta Committee',
+    ],
+    optionsMr: [
+      'सरदार स्वर्णसिंग समिती (Sardar Swaran Singh Committee - १९७६)',
+      'न्या. जे. एस. वर्मा समिती (१९९९ - कर्तव्यांच्या अंमलबजावणीसाठी)',
+      'सरकारिया आयोग (केंद्र-राज्य संबंध)',
+      'बळवंतराय मेहता समिती (पंचायत राज)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'In 1976, the Congress Government set up the Sardar Swaran Singh Committee to make recommendations on fundamental duties. Based on this, the 42nd Amendment Act 1976 added 10 Fundamental Duties under Article 51A (borrowed from the USSR Constitution). The 11th duty was added by the 86th Amendment in 2002.',
+    explanationMr: 'सरदार स्वर्णसिंग समितीच्या शिफारशीनुसार १९७६ मध्ये ४२ व्या घटनादुरुस्तीने १० मूलभूत कर्तव्ये राज्यघटनेत समाविष्ट केली गेली. ही कर्तव्ये तत्कालीन सोव्हिएत युनियनच्या (USSR) घटनेवरून घेण्यात आली होती.',
+    reference: 'Indian Polity - M. Laxmikanth (7th Edition)',
+    yearTag: 'MPSC Combine & State Services PYQ',
+  },
+
+  // =========================================================================
+  // 4. GENERAL SCIENCE & BIOCHEMISTRY (2 Questions)
+  // =========================================================================
+  {
+    id: 'sci_chem_1101',
+    subjectId: 'general_science',
+    topic: 'Human Blood & Circulatory System',
+    subtopic: 'Universal Donor & Universal Recipient Blood Groups',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'Which ABO blood group is designated as the "Universal Donor" (सर्वयोग्य दाता) because its red blood cells lack both Antigen A and Antigen B?',
+    questionMr: 'कोणत्या रक्तगटाच्या तांबड्या रक्तपेशींवर (RBCs) \'A\' किंवा \'B\' हे दोन्ही प्रतिजन (Antigens) नसतात, ज्यामुळे त्याला "सर्वयोग्य दाता" (Universal Donor) म्हटले जाते?',
+    optionsEn: [
+      'Blood Group O negative (O-)',
+      'Blood Group AB positive (AB+ - सर्वयोग्य ग्राहक)',
+      'Blood Group A positive',
+      'Blood Group B negative',
+    ],
+    optionsMr: [
+      'रक्तगट O निगेटिव्ह (O- / सर्वयोग्य दाता)',
+      'रक्तगट AB पॉझिटिव्ह (AB+ / सर्वयोग्य ग्राहक / Universal Recipient)',
+      'रक्तगट A',
+      'रक्तगट B',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'Blood Group O (specifically O Negative) possesses neither A nor B antigens on RBC membranes and lacks the Rh factor, allowing it to be safely transfused to individuals of any ABO blood type without agglutination risk. AB Positive is the Universal Recipient.',
+    explanationMr: 'रक्तगट \'O\' (विशेषतः O निगेटिव्ह) च्या तांबड्या पेशींवर कोणतेही प्रतिजन (Antigen) नसल्यामुळे तो कोणत्याही व्यक्तीला देता येतो, म्हणून त्याला \'सर्वयोग्य दाता\' म्हणतात. \'AB+\' हा \'सर्वयोग्य ग्राहक\' असतो.',
+    reference: 'NCERT Class 11 Biology - Body Fluids and Circulation / Dr. Sachin Bhaske',
+    yearTag: 'MPSC Combine 2021',
+  },
+  {
+    id: 'sci_chem_1102',
+    subjectId: 'general_science',
+    topic: 'Chemistry in Everyday Life',
+    subtopic: 'Baking Soda and Washing Soda Chemical Formulas',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'What is the correct chemical name and chemical formula for "Baking Soda" (खाण्याचा सोडा) widely used in cooking and antacids?',
+    questionMr: 'स्वयंपाकात आणि आम्लपित्तावर औषध म्हणून वापरल्या जाणाऱ्या "खाण्याचा सोडा" (Baking Soda) चे योग्य रासायनिक नाव आणि सूत्र कोणते आहे?',
+    optionsEn: [
+      'Sodium Bicarbonate (NaHCO₃)',
+      'Sodium Carbonate Decahydrate (Na₂CO₃·10H₂O - धुण्याचा सोडा)',
+      'Sodium Hydroxide (NaOH - कॉस्टिक सोडा)',
+      'Calcium Oxychloride (CaOCl₂ - विरंजक चूर्ण / Bleaching Powder)',
+    ],
+    optionsMr: [
+      'सोडियम बायकार्बोनेट (NaHCO₃ - खाण्याचा सोडा)',
+      'सोडियम कार्बोनेट (Na₂CO₃·10H₂O - धुण्याचा सोडा / Washing Soda)',
+      'सोडियम हायड्रॉक्साईड (NaOH - दाहक सोडा / Caustic Soda)',
+      'कॅल्शियम ऑक्सीक्लोराईड (CaOCl₂ - ब्लिचिंग पावडर)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'Baking Soda is Sodium Bicarbonate (NaHCO₃). Washing Soda is Sodium Carbonate Decahydrate (Na₂CO₃·10H₂O). Caustic soda is Sodium Hydroxide (NaOH).',
+    explanationMr: 'खाण्याच्या सोड्याचे रासायनिक नाव सोडियम बायकार्बोनेट (NaHCO₃) आहे. धुण्याच्या सोड्याचे रासायनिक नाव सोडियम कार्बोनेट (Na₂CO₃·10H₂O) आहे.',
+    reference: 'NCERT Class 10 Chemistry - Acids, Bases and Salts',
+    yearTag: 'MPSC Group C PYQ 2022',
+  },
+];
