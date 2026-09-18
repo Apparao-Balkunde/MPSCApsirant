@@ -7,7 +7,8 @@ export type SubjectId =
   | 'environment'
   | 'csat'
   | 'current_affairs'
-  | 'marathi_grammar';
+  | 'marathi_grammar'
+  | 'english_grammar';
 
 export interface SubjectMeta {
   id: SubjectId;

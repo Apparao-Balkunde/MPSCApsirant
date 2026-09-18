@@ -82,4 +82,13 @@ export const SUBJECTS: SubjectMeta[] = [
     descriptionEn: 'Key appointments, awards, government schemes, infrastructure developments, and summits.',
     descriptionMr: 'महत्त्वाचे पुरस्कार, योजना, पायाभूत सुविधा प्रकल्प व क्रीडा घडामोडी.',
   },
+  {
+    id: 'english_grammar',
+    nameEn: 'English Language & Vocabulary',
+    nameMr: 'इंग्रजी व्याकरण व शब्दसंग्रह (English Vocab)',
+    color: 'sky',
+    iconName: 'Languages',
+    descriptionEn: 'Synonyms, antonyms, idioms & phrases, one-word substitution, spellings, and vocabulary usage.',
+    descriptionMr: 'समानार्थी-विरुद्धार्थी शब्द, वाक्प्रचार (Idioms), म्हणी, One-word substitution व शब्दसंग्रह.',
+  },
 ];

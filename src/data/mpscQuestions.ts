@@ -1,4 +1,6 @@
 import { Question } from '../types';
+import { VOCAB_QUESTIONS_100 } from './vocabQuestions';
+import { EXTRA_QUESTIONS_100 } from './extraQuestions100';
 
 export const MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -746,4 +748,8 @@ export const MPSC_QUESTIONS: Question[] = [
     reference: 'Cultural Affairs Department, Government of Maharashtra',
     yearTag: 'MPSC Combine & State Exams 2024',
   },
+  // 100 High-Yield Marathi & English Vocabulary MCQs
+  ...VOCAB_QUESTIONS_100,
+  // 100 Additional High-Yield MPSC MCQs (Grammar & GS)
+  ...EXTRA_QUESTIONS_100,
 ];
