@@ -1,0 +1,203 @@
+import { Question } from '../types';
+
+export const QUESTIONS_SET_13: Question[] = [
+  // =========================================================================
+  // 1. MAHARASHTRA SOCIAL REFORMERS & MOVEMENTS (3 Questions)
+  // =========================================================================
+  {
+    id: 'mh_soc_901',
+    subjectId: 'maharashtra_history',
+    topic: 'Social Reformers of Maharashtra',
+    subtopic: 'Lokhitawadi (Gopal Hari Deshmukh)',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'Gopal Hari Deshmukh authored the famous 108 reformist letters known as "Shatapatre" (शतपत्रे) between 1848 and 1850 in which weekly periodical?',
+    questionMr: 'गोपाळ हरी देशमुख (लोकहितवादी) यांनी १८४८ ते १८५० या काळात सामाजिक व धार्मिक सुधारणेवर भाष्य करणारी १०८ "शतपत्रे" कोणत्या साप्ताहिकातून प्रसिद्ध केली?',
+    optionsEn: [
+      'Prabhakar (प्रभाकर - संपादक भाऊ महाजन)',
+      'Darpan (दर्पण)',
+      'Dnyanodaya (ज्ञानोदय)',
+      'Indu Prakash (इंदू प्रकाश)',
+    ],
+    optionsMr: [
+      'प्रभाकर (Prabhakar - संपादक भाऊ महाजन)',
+      'दर्पण (बाळशास्त्री जांभेकर)',
+      'ज्ञानोदय (अमेरिकन मिशनरी)',
+      'इंदू प्रकाश (रानडे/विष्णूशास्त्री पंडित)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'Gopal Hari Deshmukh (pen-name "Lokhitawadi") wrote 108 historical reformist essays titled "Shatapatre" in the weekly "Prabhakar" edited by Bhau Mahajan between 1848 and 1850, vigorously advocating modern education, self-reliance, and eradication of blind superstitions.',
+    explanationMr: 'भाऊ महाजन यांच्या \'प्रभाकर\' या साप्ताहिकात लोकहितवादींनी १८४८ ते १८५० दरम्यान १०८ शतपत्रे लिहिली. त्यांनी भारतीयांना आधुनिक ज्ञान-विज्ञान आणि उद्योगधंद्यांची कास धरण्याचे आवाहन केले.',
+    reference: 'Modern Maharashtra History - Dr. Kathare / Dr. Suman Vaidya',
+    yearTag: 'MPSC Combine & Rajyaseva PYQ',
+  },
+  {
+    id: 'mh_soc_902',
+    subjectId: 'maharashtra_history',
+    topic: 'Social Reformers of Maharashtra',
+    subtopic: 'Mahatma Jyotirao Phule & Satyashodhak Samaj',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'On 24 September 1873, Mahatma Jyotirao Phule founded the "Satyashodhak Samaj" in Pune. What was the central motto of Satyashodhak Samaj?',
+    questionMr: '२४ सप्टेंबर १८७३ रोजी महात्मा ज्योतिराव फुले यांनी पुण्यात "सत्यशोधक समाजा"ची स्थापना केली. या सत्यशोधक समाजाचे ब्रीदवाक्य काय होते?',
+    optionsEn: [
+      '"सर्वसाक्षी जगत्पति । त्यासि नकोचि मध्यस्थी ॥"',
+      '"स्वावलंबी शिक्षण हेच आमचे ब्रीद"',
+      '"इष्ट असेल ते बोलणार आणि साध्य असेल ते करणार"',
+      '"धर्म आणि विज्ञान यांची सांगड"',
+    ],
+    optionsMr: [
+      '"सर्वसाक्षी जगत्पति । त्यासि नकोचि मध्यस्थी ॥"',
+      '"स्वावलंबी शिक्षण हेच आमचे ब्रीद" (रयत शिक्षण संस्था)',
+      '"इष्ट असेल ते बोलणार आणि साध्य असेल ते करणार" (आगरकरांचे सुधारक)',
+      '"धर्म आणि विज्ञान यांची सांगड"',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'The Satyashodhak Samaj was founded on 24 September 1873 with the motto: "सर्वसाक्षी जगत्पति । त्यासि नकोचि मध्यस्थी ॥" (The Creator of the Universe needs no mediator between Him and His children). It fought for the rights and education of Shudras, Ati-Shudras, and women.',
+    explanationMr: '२४ सप्टेंबर १८७३ रोजी स्थापन झालेल्या सत्यशोधक समाजाचे ब्रीदवाक्य "सर्वसाक्षी जगत्पति । त्यासि नकोचि मध्यस्थी ॥" हे होते. ईश्वराची प्रार्थना करण्यासाठी कोणत्याही पुरोहिताची वा मध्यस्थाची गरज नाही, हा त्याचा मुख्य विचार होता.',
+    reference: 'Mahatma Phule Samagra Vangmaya - Maharashtra State Board',
+    yearTag: 'MPSC State Services & Combine PYQ',
+  },
+
+  // =========================================================================
+  // 2. MAHARASHTRA GEOGRAPHY, AGRO-CROPS & IRRIGATION (2 Questions)
+  // =========================================================================
+  {
+    id: 'mh_geo_901',
+    subjectId: 'maharashtra_geography',
+    topic: 'Agriculture and Cash Crops',
+    subtopic: 'Sugarcane and Sugar Mills in Maharashtra',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionEn: 'In which year and at which location was the first cooperative sugar factory in Asia established under the visionary leadership of Padmashri Dr. Vitthalrao Vikhe Patil and Dr. D.R. Gadgil?',
+    questionMr: 'आशिया खंडातील पहिला सहकारी साखर कारखाना पद्मश्री डॉ. विठ्ठलराव विखे पाटील आणि डॉ. धनंजयराव गाडगीळ यांच्या नेतृत्वाखाली कोणत्या वर्षी आणि कोठे स्थापन झाला?',
+    optionsEn: [
+      '1949-50 at Pravaranagar (Loni, Ahmednagar)',
+      '1955 at Warnanagar (Kolhapur)',
+      '1960 at Baramati (Pune)',
+      '1952 at Sangli',
+    ],
+    optionsMr: [
+      '१९४९-५० मध्ये प्रवरानगर (लोणी, जि. अहमदनगर/अहिल्यानगर)',
+      '१९५५ मध्ये वारणा नगर (कोल्हापूर)',
+      '१९६० मध्ये बारामती (पुणे)',
+      '१९५२ मध्ये सांगली',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'The Pravara Sahakari Sakhar Karkhana at Pravaranagar (Loni, Ahmednagar) was established in 1949 and commenced production in 1950. Pioneered by Vitthalrao Vikhe Patil and economist Dr. D.R. Gadgil, it became the beacon of India\'s cooperative sugar movement.',
+    explanationMr: '१९४९-५० मध्ये अहमदनगर जिल्ह्यातील लोणी (प्रवरानगर) येथे आशियातील पहिला सहकारी साखर कारखाना सुरू झाला. विठ्ठलराव विखे पाटील यांनी शेतकऱ्यांना एकत्र आणून ही ऐतिहासिक सहकार चळवळ उभी केली.',
+    reference: 'Geography of Maharashtra - Prof. A.B. Savadi / State Board',
+    yearTag: 'MPSC Combine & Agriculture Prelims',
+  },
+  {
+    id: 'mh_geo_902',
+    subjectId: 'maharashtra_geography',
+    topic: 'Hill Stations of Maharashtra',
+    subtopic: 'Toranmal Hill Station',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionEn: 'The serene hill station of "Toranmal", situated in the Satpura mountain ranges at an altitude of over 1,150 metres, lies in which northern tribal district of Maharashtra?',
+    questionMr: 'सातपुडा पर्वत रांगेत सुमारे १,१५० मीटर उंचीवर वसलेले "तोरणमाळ" हे थंड हवेचे निसर्गरम्य ठिकाण महाराष्ट्रातील कोणत्या उत्तरेकडील आदिवासीबहुल जिल्ह्यात आहे?',
+    optionsEn: [
+      'Nandurbar (नंदुरबार)',
+      'Dhule (धुळे)',
+      'Jalgaon (जळगाव)',
+      'Amravati (चिखलदरा)',
+    ],
+    optionsMr: [
+      'नंदुरबार जिल्हा (Nandurbar)',
+      'धुळे जिल्हा',
+      'जळगाव जिल्हा',
+      'अमरावती जिल्हा (चिखलदरा हे सातपुड्यातील थंड हवेचे ठिकाण)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'Toranmal is a hill station in Nandurbar district situated on a high plateau of the Satpura ranges. It is known for the Yashavant Lake, Sita Khai, and Gorakhnath Temple. Chikhaldara is in Amravati district.',
+    explanationMr: 'तोरणमाळ हे सातपुडा पर्वतातील थंड हवेचे ठिकाण नंदुरबार जिल्ह्यातील अक्राणी (धडगाव) तालुक्यात आहे. अमरावती जिल्ह्यातील चिखलदरा हे सातपुड्यातील विदर्भातील थंड हवेचे ठिकाण आहे.',
+    reference: 'Maharashtra Bhugol - Savadi',
+    yearTag: 'MPSC Group C 2022',
+  },
+
+  // =========================================================================
+  // 3. INDIAN POLITY & CONSTITUTIONAL BODIES (2 Questions)
+  // =========================================================================
+  {
+    id: 'pol_901',
+    subjectId: 'polity',
+    topic: 'Election Commission of India',
+    subtopic: 'Article 324 & Election Commissioners',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionEn: 'Under Article 324 of the Indian Constitution, the Chief Election Commissioner and Election Commissioners are appointed by the President. What is their constitutional tenure of office?',
+    questionMr: 'भारतीय राज्यघटनेच्या कलम ३२४ अन्वये मुख्य निवडणूक आयुक्त व इतर निवडणूक आयुक्तांची नियुक्ती राष्ट्रपती करतात. त्यांचा पदावधी (Tenure) किती वर्षांचा असतो?',
+    optionsEn: [
+      '6 years or up to 65 years of age, whichever is earlier',
+      '5 years or up to 65 years of age, whichever is earlier',
+      '6 years or up to 62 years of age, whichever is earlier',
+      '5 years or up to 62 years of age, whichever is earlier',
+    ],
+    optionsMr: [
+      '६ वर्षे किंवा वयाची ६५ वर्षे पूर्ण होईपर्यंत (जे आधी घडेल ते)',
+      '५ वर्षे किंवा वयाची ६५ वर्षे पूर्ण होईपर्यंत',
+      '६ वर्षे किंवा वयाची ६२ वर्षे पूर्ण होईपर्यंत (हायकोर्ट जज/MPSC सदस्य)',
+      '५ वर्षे किंवा वयाची ६२ वर्षे पूर्ण होईपर्यंत',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'The Chief Election Commissioner and other Election Commissioners hold office for a term of 6 years or until they attain the age of 65 years, whichever is earlier. They enjoy the same status, salary, and perks as Judges of the Supreme Court of India.',
+    explanationMr: 'मुख्य निवडणूक आयुक्त आणि इतर निवडणूक आयुक्तांचा कार्यकाळ ६ वर्षे किंवा वयाची ६५ वर्षे पूर्ण होईपर्यंत असतो. त्यांना सर्वोच्च न्यायालयाच्या न्यायाधीशांइतकाच दर्जा आणि वेतन मिळते.',
+    reference: 'Indian Polity - M. Laxmikanth (7th Edition)',
+    yearTag: 'MPSC Combine & State Services',
+  },
+  {
+    id: 'pol_902',
+    subjectId: 'polity',
+    topic: 'State Legislature',
+    subtopic: 'Bicameral States & Vidhan Parishad (Article 169)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionEn: 'As of 2024, how many States in the Republic of India have a Bicameral Legislature (द्विसदनी विधिमंडळ - Legislative Assembly and Legislative Council)?',
+    questionMr: '२०२४ च्या स्थितीनुसार, भारतीय संघराज्यातील एकूण किती राज्यांमध्ये द्विसदनी विधिमंडळ (विधानसभा व विधानपरिषद) अस्तित्वात आहे?',
+    optionsEn: ['6 States (६ राज्ये)', '5 States', '7 States', '8 States'],
+    optionsMr: [
+      '६ राज्ये (महाराष्ट्र, कर्नाटक, उत्तर प्रदेश, बिहार, आंध्र प्रदेश, तेलंगणा)',
+      '५ राज्ये',
+      '७ राज्ये (जम्मू काश्मीर केंद्रशासित प्रदेश बनण्यापूर्वी ७ होती)',
+      '८ राज्ये',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'Presently, only 6 states have a bicameral legislature: Maharashtra (78 seats in Council), Karnataka (75 seats), Uttar Pradesh (100 seats), Bihar (75 seats), Andhra Pradesh (58 seats), and Telangana (40 seats). Article 169 provides the procedure for abolition or creation of Legislative Councils.',
+    explanationMr: 'सध्या भारतातील ६ राज्यांत विधानपरिषद अस्तित्वात आहे: महाराष्ट्र (७८ सदस्य), उत्तर प्रदेश (१०० सदस्य), बिहार (७५), कर्नाटक (७५), आंध्र प्रदेश (५८) आणि तेलंगणा (४०). कलम १६९ अन्वये संसद विधानपरिषद रद्द किंवा स्थापन करू शकते.',
+    reference: 'M. Laxmikanth - State Legislature',
+    yearTag: 'MPSC Combine Group B 2023',
+  },
+
+  // =========================================================================
+  // 4. GENERAL SCIENCE & PHYSICS / BIOLOGY (2 Questions)
+  // =========================================================================
+  {
+    id: 'sci_901',
+    subjectId: 'general_science',
+    topic: 'Human Nervous System & Brain',
+    subtopic: 'Cerebellum and Medulla Oblongata',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionEn: 'Which part of the human brain is primarily responsible for maintaining posture, equilibrium, and precision of voluntary muscle movements (such as walking in a straight line)?',
+    questionMr: 'मानवी मेंदूचा कोणता भाग शरीराचा तोल सांभाळणे (Equilibrium) आणि ऐच्छिक स्नायूंच्या हालचालींमध्ये समन्वय राखण्याचे कार्य करतो?',
+    optionsEn: [
+      'Cerebellum (अनुमस्तिष्क / लहान मेंदू)',
+      'Cerebrum (प्रमस्तिष्क / मोठा मेंदू - विचार, बुद्धिमत्ता)',
+      'Medulla Oblongata (अनुकंपी क्रिया - हृदय ठोके, श्वसन)',
+      'Hypothalamus (तापमान नियंत्रण, भूक, तहान)',
+    ],
+    optionsMr: [
+      'अनुमस्तिष्क (Cerebellum - लहान मेंदू)',
+      'प्रमस्तिष्क (Cerebrum - विचार, स्मरणशक्ती, बुद्धिमत्ता)',
+      'लंबमज्जा (Medulla Oblongata - हृदय, श्वसन, गिळणे या अनैच्छिक क्रिया)',
+      'हायपोथॅलॅमस (शरीराचे तापमान, भूक, तहान)',
+    ],
+    correctAnswerIndex: 0,
+    explanationEn: 'The Cerebellum (little brain) coordinates voluntary movements and posture balance. Alcohol severely affects the functioning of the cerebellum, causing uncoordinated gait and slurred actions.',
+    explanationMr: 'अनुमस्तिष्क (Cerebellum / लहान मेंदू) शरीराचा तोल सांभाळणे आणि स्नायूंच्या हालचालींमध्ये अचूक समन्वय राखण्याचे काम करतो. दारू पिणाऱ्या व्यक्तीचा लहान मेंदू बाधित झाल्याने शरीराचा तोल जातो.',
+    reference: 'NCERT Class 10 Biology - Control and Coordination / Dr. Sachin Bhaske',
+    yearTag: 'MPSC Combine PYQ 2022',
+  },
+];

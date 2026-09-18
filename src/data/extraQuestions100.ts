@@ -8,6 +8,8 @@ import { QUESTIONS_SET_8 } from './questionsSet8';
 import { QUESTIONS_SET_9 } from './questionsSet9';
 import { QUESTIONS_SET_10 } from './questionsSet10';
 import { QUESTIONS_SET_11 } from './questionsSet11';
+import { QUESTIONS_SET_12 } from './questionsSet12';
+import { QUESTIONS_SET_13 } from './questionsSet13';
 
 export const EXTRA_QUESTIONS_100: Question[] = [
   ...QUESTIONS_SET_3,
@@ -19,7 +21,11 @@ export const EXTRA_QUESTIONS_100: Question[] = [
   ...QUESTIONS_SET_9,
   ...QUESTIONS_SET_10,
   ...QUESTIONS_SET_11,
+  ...QUESTIONS_SET_12,
+  ...QUESTIONS_SET_13,
 ];
+
+
 
 
 
