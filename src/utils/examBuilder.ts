@@ -33,6 +33,10 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter(
       (q) => q.subjectId === 'maharashtra_history' || q.subjectId === 'maharashtra_geography'
     );
+  } else if (options.patternId === 'current_affairs_2026') {
+    eligibleQuestions = pool.filter(
+      (q) => q.subjectId === 'current_affairs' || q.yearTag?.includes('2026') || q.yearTag?.includes('2027')
+    );
   } else {
     eligibleQuestions = [...pool];
   }
@@ -67,6 +71,11 @@ export function createExamSession(options: {
     marksPerQuestion = 2.5;
     negativeMarkRate = 0.33;
     durationMinutes = 15;
+  } else if (options.patternId === 'current_affairs_2026') {
+    defaultTitle = options.title || 'MPSC 2026/27 चालू घडामोडी विशेष (Current Affairs)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || Math.max(10, Math.round(selected.length * 1.2));
   } else if (options.subjectId) {
     defaultTitle = `${options.title || 'Subject Test'}`;
     marksPerQuestion = 2;

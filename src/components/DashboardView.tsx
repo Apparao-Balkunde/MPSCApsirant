@@ -16,7 +16,8 @@ import {
   Cloud,
   Download,
   UploadCloud,
-  PlusCircle
+  PlusCircle,
+  Newspaper
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -290,7 +291,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Card 1: Rajyaseva GS Prelims */}
           <div className="bg-white rounded-2xl border-2 border-stone-200 hover:border-amber-500/80 p-6 flex flex-col justify-between transition-all hover:shadow-md group">
             <div className="space-y-3">
@@ -408,6 +409,49 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               id="btn-start-mh-special"
               onClick={() => onStartExam('maharashtra_special')}
               className="mt-6 w-full py-2.5 bg-stone-900 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>{isMr ? 'चाचणी सुरू करा' : 'Start Mock Test'}</span>
+            </button>
+          </div>
+
+          {/* Card 4: Current Affairs 2026/27 Special */}
+          <div className="bg-white rounded-2xl border-2 border-indigo-200 hover:border-indigo-500 p-6 flex flex-col justify-between transition-all hover:shadow-md group relative overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-indigo-50 rounded-full blur-xl pointer-events-none" />
+            <div className="space-y-3 relative">
+              <div className="flex items-center justify-between">
+                <span className="px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Newspaper className="w-3 h-3 text-indigo-700" />
+                  MPSC 2026/27
+                </span>
+                <span className="text-xs font-bold text-indigo-700 font-semibold">
+                  {isMr ? 'नवीन चालू घडामोडी' : 'New Current Affairs'}
+                </span>
+              </div>
+
+              <h3 className="text-lg font-bold text-stone-900 group-hover:text-indigo-600 transition-colors">
+                {isMr ? 'चालू घडामोडी विशेष (२०२६/२७)' : 'Current Affairs 2026/27 Special'}
+              </h3>
+
+              <p className="text-xs text-stone-600 leading-relaxed">
+                {isMr 
+                  ? 'लाडकी बहीण, वाढवण बंदर, मराठी अभिजात भाषा दर्जा, नवीन फौजदारी कायदे (BNS), ऑलिंपिक २०२४ व १६ वा वित्त आयोग.'
+                  : 'High-yield 2026/27 events: Ladki Bahin, Vadhavan Port, Marathi Classical Language, BNS Laws, and Paris Olympics.'}
+              </p>
+
+              <div className="flex items-center gap-3 text-xs text-stone-500 pt-2 border-t border-stone-100">
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5" /> 15 Mins
+                </span>
+                <span>•</span>
+                <span>+2.00 / -0.50</span>
+              </div>
+            </div>
+
+            <button
+              id="btn-start-ca-2026"
+              onClick={() => onStartExam('current_affairs_2026', 'current_affairs', isMr ? 'चालू घडामोडी २०२६/२७ विशेष चाचणी' : 'Current Affairs 2026/27 Mock')}
+              className="mt-6 w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
             >
               <Play className="w-4 h-4 fill-current" />
               <span>{isMr ? 'चाचणी सुरू करा' : 'Start Mock Test'}</span>

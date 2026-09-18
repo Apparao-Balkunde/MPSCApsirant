@@ -25,6 +25,7 @@ export type ExamPatternId =
   | 'combine_group_b_c'
   | 'csat_booster'
   | 'maharashtra_special'
+  | 'current_affairs_2026'
   | 'daily_10_challenge'
   | 'custom';
 

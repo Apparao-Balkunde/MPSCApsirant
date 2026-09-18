@@ -54,9 +54,15 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                   <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-stone-100 text-stone-700">
                     {questions.length} {isMr ? 'सराव प्रश्न' : 'Practice Questions'}
                   </span>
-                  <span className="text-xs font-bold text-amber-700">
-                    MPSC Prelims
-                  </span>
+                  {sub.id === 'current_affairs' ? (
+                    <span className="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md animate-pulse">
+                      {isMr ? '२०२६/२७ विशेष' : '2026/27 Special'}
+                    </span>
+                  ) : (
+                    <span className="text-xs font-bold text-amber-700">
+                      MPSC Prelims
+                    </span>
+                  )}
                 </div>
 
                 <h2 className="text-lg font-bold text-stone-900">
