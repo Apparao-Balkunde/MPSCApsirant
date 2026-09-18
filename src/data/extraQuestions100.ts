@@ -14,6 +14,7 @@ import { QUESTIONS_SET_14 } from './questionsSet14';
 import { QUESTIONS_SET_15 } from './questionsSet15';
 import { QUESTIONS_SET_16 } from './questionsSet16';
 import { QUESTIONS_SET_17 } from './questionsSet17';
+import { QUESTIONS_SET_18 } from './questionsSet18';
 
 export const EXTRA_QUESTIONS_100: Question[] = [
   ...QUESTIONS_SET_3,
@@ -31,7 +32,9 @@ export const EXTRA_QUESTIONS_100: Question[] = [
   ...QUESTIONS_SET_15,
   ...QUESTIONS_SET_16,
   ...QUESTIONS_SET_17,
+  ...QUESTIONS_SET_18,
 ];
+
 
 
 
