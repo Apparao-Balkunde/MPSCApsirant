@@ -110,10 +110,13 @@ export function subscribeToRealtimeQuestions(
       },
       (error) => {
         handleFirestoreError(error, OperationType.LIST, 'mpsc_questions');
+        // Fallback to local questions so app keeps running seamlessly
+        onUpdate(MPSC_QUESTIONS);
       }
     );
   } catch (err) {
     handleFirestoreError(err, OperationType.LIST, 'mpsc_questions');
+    onUpdate(MPSC_QUESTIONS);
     return null;
   }
 }
@@ -870,10 +873,51 @@ export function subscribeToRealtimeLeaderboard(
       },
       (error) => {
         handleFirestoreError(error, OperationType.LIST, 'users');
+        // Provide graceful local fallback when Firestore quota is exceeded or network is offline
+        const userScore = currentProgress?.history
+          ? Number(currentProgress.history.reduce((sum, h) => sum + (h.finalScore || 0), 0).toFixed(1))
+          : 0;
+        const userExamsCount = currentProgress?.history?.length || 0;
+        const userAttempted = currentProgress?.history?.reduce((acc, h) => acc + (h.attemptedCount || 0), 0) || 0;
+        const userCorrect = currentProgress?.history?.reduce((acc, h) => acc + (h.correctCount || 0), 0) || 0;
+        const userAccuracy = userAttempted > 0 ? Math.round((userCorrect / userAttempted) * 100) : 0;
+
+        callback([
+          {
+            userId: currentUserId || 'local_user',
+            name: `${currentUserName || 'तुम्ही (You)'} (तुम्ही)`,
+            totalScore: userScore,
+            examsCount: userExamsCount,
+            accuracy: userAccuracy,
+            rank: 1,
+            isCurrentUser: true,
+            roleTag: 'सध्याचा उमेदवार (Active)',
+          },
+        ]);
       }
     );
   } catch (err) {
     handleFirestoreError(err, OperationType.LIST, 'users');
+    const userScore = currentProgress?.history
+      ? Number(currentProgress.history.reduce((sum, h) => sum + (h.finalScore || 0), 0).toFixed(1))
+      : 0;
+    const userExamsCount = currentProgress?.history?.length || 0;
+    const userAttempted = currentProgress?.history?.reduce((acc, h) => acc + (h.attemptedCount || 0), 0) || 0;
+    const userCorrect = currentProgress?.history?.reduce((acc, h) => acc + (h.correctCount || 0), 0) || 0;
+    const userAccuracy = userAttempted > 0 ? Math.round((userCorrect / userAttempted) * 100) : 0;
+
+    callback([
+      {
+        userId: currentUserId || 'local_user',
+        name: `${currentUserName || 'तुम्ही (You)'} (तुम्ही)`,
+        totalScore: userScore,
+        examsCount: userExamsCount,
+        accuracy: userAccuracy,
+        rank: 1,
+        isCurrentUser: true,
+        roleTag: 'सध्याचा उमेदवार (Active)',
+      },
+    ]);
     return null;
   }
 }
