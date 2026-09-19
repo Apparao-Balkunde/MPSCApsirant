@@ -142,10 +142,10 @@ export const QUESTIONS_SET_16: Question[] = [
       'कलम ४८ (कृषी व पशुसंवर्धन संघटन व गोवंश हत्या बंदी)',
     ],
     correctAnswerIndex: 0,
-    explanationEn: 'Article 44 of the Indian Constitution states: "The State shall endeavour to secure for the citizens a Uniform Civil Code throughout the territory of India." In 2024, Uttarakhand became the first state in independent India to pass a UCC bill.',
-    explanationMr: 'कलम ४४ मध्ये समान नागरी कायद्याची (Uniform Civil Code) तरतूद आहे. २०२४ मध्ये उत्तराखंड हे स्वतंत्र भारतातील यूसीसी विधेयक संमत करणारे पहिले राज्य ठरले (गोवा राज्यात पोर्तुगीज काळापासून समान नागरी कायदा लागू आहे).',
+    explanationEn: 'Article 44 of the Indian Constitution states: "The State shall endeavour to secure for the citizens a Uniform Civil Code throughout the territory of India." Uttarakhand became the first state in independent India to pass a UCC bill.',
+    explanationMr: 'कलम ४४ मध्ये समान नागरी कायद्याची (Uniform Civil Code) तरतूद आहे. उत्तराखंड हे स्वतंत्र भारतातील यूसीसी विधेयक संमत करणारे पहिले राज्य ठरले (गोवा राज्यात पोर्तुगीज काळापासून समान नागरी कायदा लागू आहे).',
     reference: 'M. Laxmikanth - Indian Polity (7th Edition)',
-    yearTag: 'MPSC Current Affairs & Polity 2024',
+    yearTag: 'MPSC Current Affairs & Polity 2026/27',
   },
   {
     id: 'pol_art_1202',

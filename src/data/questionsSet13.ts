@@ -154,8 +154,8 @@ export const QUESTIONS_SET_13: Question[] = [
     subtopic: 'Bicameral States & Vidhan Parishad (Article 169)',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionEn: 'As of 2024, how many States in the Republic of India have a Bicameral Legislature (द्विसदनी विधिमंडळ - Legislative Assembly and Legislative Council)?',
-    questionMr: '२०२४ च्या स्थितीनुसार, भारतीय संघराज्यातील एकूण किती राज्यांमध्ये द्विसदनी विधिमंडळ (विधानसभा व विधानपरिषद) अस्तित्वात आहे?',
+    questionEn: 'Presently, how many States in the Republic of India have a Bicameral Legislature (द्विसदनी विधिमंडळ - Legislative Assembly and Legislative Council)?',
+    questionMr: 'सध्याच्या स्थितीनुसार, भारतीय संघराज्यातील एकूण किती राज्यांमध्ये द्विसदनी विधिमंडळ (विधानसभा व विधानपरिषद) अस्तित्वात आहे?',
     optionsEn: ['6 States (६ राज्ये)', '5 States', '7 States', '8 States'],
     optionsMr: [
       '६ राज्ये (महाराष्ट्र, कर्नाटक, उत्तर प्रदेश, बिहार, आंध्र प्रदेश, तेलंगणा)',
@@ -167,7 +167,7 @@ export const QUESTIONS_SET_13: Question[] = [
     explanationEn: 'Presently, only 6 states have a bicameral legislature: Maharashtra (78 seats in Council), Karnataka (75 seats), Uttar Pradesh (100 seats), Bihar (75 seats), Andhra Pradesh (58 seats), and Telangana (40 seats). Article 169 provides the procedure for abolition or creation of Legislative Councils.',
     explanationMr: 'सध्या भारतातील ६ राज्यांत विधानपरिषद अस्तित्वात आहे: महाराष्ट्र (७८ सदस्य), उत्तर प्रदेश (१०० सदस्य), बिहार (७५), कर्नाटक (७५), आंध्र प्रदेश (५८) आणि तेलंगणा (४०). कलम १६९ अन्वये संसद विधानपरिषद रद्द किंवा स्थापन करू शकते.',
     reference: 'M. Laxmikanth - State Legislature',
-    yearTag: 'MPSC Combine Group B 2023',
+    yearTag: 'MPSC 2026/27 Practice',
   },
 
   // =========================================================================

@@ -1157,7 +1157,7 @@ export const QUESTIONS_SET_4: Question[] = [
     correctAnswerIndex: 0,
     explanationEn: 'To commemorate the historic soft landing of Vikram lander on 23 August 2023, Prime Minister Narendra Modi declared 23 August as "National Space Day".',
     explanationMr: '२३ ऑगस्ट २०२३ रोजी भारताचे चंद्रयान-३ चंद्रावर यशस्वीरीत्या उतरल्याच्या ऐतिहासिक स्मरणार्थ भारत सरकारने दरवर्षी २३ ऑगस्ट हा \'राष्ट्रीय अंतराळ दिन\' (National Space Day) म्हणून साजरा करण्याचे घोषित केले.',
-    reference: 'Current Affairs & Science Tech 2024 / ISRO Official',
-    yearTag: 'MPSC 2024 Special',
+    reference: 'Current Affairs & Science Tech / ISRO Official',
+    yearTag: 'MPSC 2026/27 Special',
   },
 ];

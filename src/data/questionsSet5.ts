@@ -853,8 +853,8 @@ export const QUESTIONS_SET_5: Question[] = [
     correctAnswerIndex: 0,
     explanationEn: 'COP28 was hosted at Expo City Dubai, UAE in November-December 2023, where countries reached the "UAE Consensus" on transitioning away from fossil fuels.',
     explanationMr: 'COP28 ही हवामान परिषद दुबई (UAE) येथे झाली. यात जीवाश्म इंधनापासून दूर जाण्याचा ऐतिहासिक \'UAE सहमती करार\' (UAE Consensus) आणि लॉस अँड डॅमेज फंड कार्यान्वित करण्यात आला.',
-    reference: 'UNFCCC Official / Current Affairs 2024',
-    yearTag: 'MPSC Combine 2024',
+    reference: 'UNFCCC Official / Climate Summits',
+    yearTag: 'MPSC Combine 2026/27 Practice',
   },
   {
     id: 'env_120',

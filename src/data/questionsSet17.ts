@@ -96,8 +96,8 @@ export const QUESTIONS_SET_17: Question[] = [
     subtopic: 'Vadhavan Port Project (वाढवण बंदर)',
     exam: 'Both',
     difficulty: 'Easy',
-    questionEn: 'In 2024, the Union Cabinet approved the development of a mega greenfield all-weather deep-draft port at Vadhavan (costing over ₹76,000 crore) in which coastal district of Maharashtra?',
-    questionMr: '२०२४ मध्ये केंद्र सरकारने ७६,००० कोटी रुपयांपेक्षा अधिक खर्चाच्या भारतातील सर्वात मोठ्या खोल समुद्रातील \'वाढवण बंदर\' (Vadhavan Port) प्रकल्पास महाराष्ट्रातील कोणत्या किनारपट्टीच्या जिल्ह्यात मंजुरी दिली?',
+    questionEn: 'The Union Cabinet approved the development of India\'s largest mega greenfield all-weather deep-draft port at Vadhavan (costing over ₹76,000 crore) in which coastal district of Maharashtra?',
+    questionMr: 'केंद्र सरकारने ७६,००० कोटी रुपयांपेक्षा अधिक खर्चाच्या भारतातील सर्वात मोठ्या खोल समुद्रातील \'वाढवण बंदर\' (Vadhavan Port) प्रकल्पास महाराष्ट्रातील कोणत्या किनारपट्टीच्या जिल्ह्यात मंजुरी दिली आहे?',
     optionsEn: [
       'Palghar District (पालघर जिल्हा - डहाणूजवळ)',
       'Thane District',
@@ -113,8 +113,8 @@ export const QUESTIONS_SET_17: Question[] = [
     correctAnswerIndex: 0,
     explanationEn: 'The Union Cabinet approved the ₹76,220 crore Vadhavan Port project in Palghar district near Dahanu. With a 20-metre natural draft, it will rank among the top 10 container ports globally, joint ventured by JNPA and Maharashtra Maritime Board.',
     explanationMr: 'वाढवण बंदर प्रकल्प पालघर जिल्ह्यातील डहाणू तालुक्यात उभारला जात आहे. २० मीटर नैसर्गिक खोली असणारे हे बंदर जगातील पहिल्या १० मोठ्या कंटेनर बंदरांपैकी एक ठरेल.',
-    reference: 'PIB Government of India / The Hindu Economic News 2024',
-    yearTag: 'MPSC Current Affairs & Geography 2024',
+    reference: 'PIB Government of India / The Hindu Economic News',
+    yearTag: 'MPSC 2026/27 Special',
   },
 
   // =========================================================================

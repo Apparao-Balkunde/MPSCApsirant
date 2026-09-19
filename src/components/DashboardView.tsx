@@ -435,8 +435,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
               <p className="text-xs text-stone-600 leading-relaxed">
                 {isMr 
-                  ? 'लाडकी बहीण, वाढवण बंदर, मराठी अभिजात भाषा दर्जा, नवीन फौजदारी कायदे (BNS), ऑलिंपिक २०२४, १६ वा वित्त आयोग, इस्रो व पर्यावरण.'
-                  : 'High-yield 2026/27 events: Ladki Bahin, Vadhavan Port, Marathi Classical Language, BNS Laws, Paris Olympics, 16th Finance Comm., & Space.'}
+                  ? 'लाडकी बहीण, वाढवण बंदर, मराठी अभिजात भाषा दर्जा, नवीन फौजदारी कायदे (BNS), १६ वा वित्त आयोग, राष्ट्रीय योजना, इस्रो व पर्यावरण.'
+                  : 'High-yield 2026/27 events: Ladki Bahin, Vadhavan Port, Marathi Classical Language, BNS Laws, 16th Finance Comm., National Schemes & Space.'}
               </p>
 
               <div className="flex items-center gap-3 text-xs text-stone-500 pt-2 border-t border-stone-100">

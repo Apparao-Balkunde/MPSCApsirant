@@ -96,10 +96,10 @@ export const QUESTIONS_SET_11: Question[] = [
       'जयगड बंदर (रत्नागिरी)',
     ],
     correctAnswerIndex: 0,
-    explanationEn: 'Commissioned on 26 May 1989 at Nhava Sheva island in Navi Mumbai, Jawaharlal Nehru Port Authority (JNPA) handles over 50% of total container cargo of all major ports in India. In 2024, Vadhavan Port in Palghar was also sanctioned as an all-weather deep-draft mega port.',
+    explanationEn: 'Commissioned on 26 May 1989 at Nhava Sheva island in Navi Mumbai, Jawaharlal Nehru Port Authority (JNPA) handles over 50% of total container cargo of all major ports in India. Vadhavan Port in Palghar has also been sanctioned as an all-weather deep-draft mega port.',
     explanationMr: '२६ मे १९८९ रोजी सुरू झालेले न्हावा शेवा येथील \'जवाहरलाल नेहरू पोर्ट\' (JNPA) हे भारतातील सर्वात मोठे कंटेनर बंदर आहे. भारताच्या एकूण कंटेनर वाहतुकीपैकी ५०% हून अधिक मालवाहतूक याच बंदरातून होते.',
     reference: 'Maharashtra Geography - Savadi / Ports in India',
-    yearTag: 'MPSC Combine Group C 2023',
+    yearTag: 'MPSC Combine Group C',
   },
   {
     id: 'mh_trans_702',
@@ -116,7 +116,7 @@ export const QUESTIONS_SET_11: Question[] = [
     explanationEn: 'The Mumbai-Nagpur Samruddhi Mahamarg is a 6-lane, 701 km access-controlled expressway passing through 10 districts (Nagpur, Wardha, Amravati, Washim, Buldhana, Jalna, Chhatrapati Sambhajinagar, Ahmednagar, Nashik, and Thane).',
     explanationMr: 'समृद्धी महामार्गाची एकूण लांबी ७०१ किमी असून तो नागपूर ते मुंबई दरम्यान १० जिल्ह्यांतून जातो. यामुळे नागपूर ते मुंबई प्रवासाचा वेळ १६ तासांवरून सुमारे ८ तासांवर आला आहे.',
     reference: 'MSRDC / Government of Maharashtra Official Portal',
-    yearTag: 'MPSC Current Affairs & Geography 2024',
+    yearTag: 'MPSC Current Affairs & Geography 2026/27',
   },
   {
     id: 'mh_trans_703',

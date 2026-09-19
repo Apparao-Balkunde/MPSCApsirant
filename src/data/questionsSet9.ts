@@ -162,7 +162,7 @@ export const QUESTIONS_SET_9: Question[] = [
     explanationEn: 'In December 2023, the Government of India constituted the 16th Finance Commission under Article 280 with former Vice-Chairman of NITI Aayog, Dr. Arvind Panagariya, as its Chairman. The commission\'s recommendations will cover the 5-year period from April 2026 to March 2031.',
     explanationMr: 'कलम २८० नुसार दर ५ वर्षांनी राष्ट्रपती वित्त आयोगाची स्थापना करतात. १६ व्या वित्त आयोगाचे अध्यक्ष नीती आयोगाचे माजी उपाध्यक्ष डॉ. अरविंद पनगढिया आहेत. ऋत्विक रंजनम पांडे हे आयोगाचे सचिव आहेत.',
     reference: 'Ministry of Finance, Govt of India / Laxmikanth',
-    yearTag: 'MPSC Current Affairs & Polity 2024',
+    yearTag: 'MPSC Current Affairs & Polity 2026/27',
   },
   {
     id: 'pol_502',
@@ -238,48 +238,5 @@ export const QUESTIONS_SET_9: Question[] = [
     explanationMr: 'मानवी रक्ताचे सामान्य pH मूल्य ७.३५ ते ७.४५ (किंचित अल्कलीधर्मी) असते. रक्तातील बायकार्बोनेट बफर प्रणाली हे सामू प्रमाण नियंत्रित ठेवते.',
     reference: 'General Science - Dr. Sachin Bhaske / NCERT Chemistry',
     yearTag: 'MPSC Clerk & Combine PYQ',
-  },
-
-  // =========================================================================
-  // 5. CURRENT AFFAIRS & SCHEMES 2024 (5 Questions)
-  // =========================================================================
-  {
-    id: 'ca_501',
-    subjectId: 'current_affairs',
-    topic: 'National & Global Energy',
-    subtopic: 'PM Surya Ghar: Muft Bijli Yojana (२०२४)',
-    exam: 'Both',
-    difficulty: 'Easy',
-    questionEn: 'In February 2024, Prime Minister Narendra Modi launched the "PM Surya Ghar: Muft Bijli Yojana" aiming to provide up to how many units of free electricity every month to 1 crore households via rooftop solar systems?',
-    questionMr: 'फेब्रुवारी २०२४ मध्ये केंद्र सरकारने सुरू केलेल्या "पीएम सूर्य घर: मोफत वीज योजने"अंतर्गत १ कोटी कुटुंबांना रूफटॉप सोलरद्वारे दरमहा किती युनिटपर्यंत मोफत वीज देण्याचे उद्दिष्ट आहे?',
-    optionsEn: ['Up to 300 units per month', 'Up to 100 units per month', 'Up to 200 units per month', 'Up to 500 units per month'],
-    optionsMr: ['दरमहा ३०० युनिटपर्यंत (Up to 300 units)', 'दरमहा १०० युनिटपर्यंत', 'दरमहा २०० युनिटपर्यंत', 'दरमहा ५०० युनिटपर्यंत'],
-    correctAnswerIndex: 0,
-    explanationEn: 'The PM Surya Ghar: Muft Bijli Yojana, with an outlay of ₹75,021 crore, provides subsidies to install rooftop solar panels for 1 crore households, giving up to 300 units of free electricity every month.',
-    explanationMr: '\'पीएम सूर्य घर मोफत वीज योजने\' अंतर्गत देशभरातील १ कोटी घरांच्या छतावर सोलर पॅनेल लावून त्यांना दरमहा ३०० युनिट मोफत वीज मिळवून देण्याची घोषणा पंतप्रधान नरेंद्र मोदी यांनी केली.',
-    reference: 'PIB Govt of India / Ministry of New and Renewable Energy',
-    yearTag: 'MPSC Current Affairs 2024',
-  },
-  {
-    id: 'ca_502',
-    subjectId: 'current_affairs',
-    topic: 'Space Exploration - ISRO',
-    subtopic: 'Aditya-L1 Solar Mission',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionEn: 'ISRO\'s first dedicated solar observatory spacecraft, Aditya-L1, was successfully inserted into a halo orbit around which Lagrange point in January 2024?',
-    questionMr: 'जानेवारी २०२४ मध्ये इस्रोचे (ISRO) पहिले सूर्य मोहीम अंतराळयान \'आदित्य-L1\' पृथ्वीपासून सुमारे १५ लाख किमी अंतरावर कोणत्या लॅग्रॅन्ज पॉईंटच्या (Lagrange Point) कक्षेत यशस्वीरीत्या प्रस्थापित झाले?',
-    optionsEn: ['Lagrange Point 1 (L1)', 'Lagrange Point 2 (L2 - James Webb Space Telescope)', 'Lagrange Point 3 (L3)', 'Lagrange Point 4 (L4)'],
-    optionsMr: [
-      'लॅग्रॅन्ज पॉईंट १ (L1 Point)',
-      'लॅग्रॅन्ज पॉईंट २ (L2 Point - जेम्स वेब टेलिस्कोप)',
-      'लॅग्रॅन्ज पॉईंट ३ (L3 Point)',
-      'लॅग्रॅन्ज पॉईंट ४ (L4 Point)',
-    ],
-    correctAnswerIndex: 0,
-    explanationEn: 'On 6 January 2024, ISRO successfully inserted the Aditya-L1 satellite into a halo orbit around Lagrange Point 1 (L1) of the Sun-Earth system, approximately 1.5 million km from Earth, to study solar flares, coronal mass ejections, and the photosphere without any occultation/eclipse.',
-    explanationMr: '६ जानेवारी २०२४ रोजी इस्रोने आदित्य-L1 यानाला पृथ्वीपासून १५ लाख किमी अंतरावरील \'L1\' (लॅग्रॅन्ज पॉईंट १) भोवतीच्या कक्षेत स्थापित केले. या ठिकाणाहून सूर्याचे कोणत्याही ग्रहणाशिवाय अखंड निरीक्षण करता येते.',
-    reference: 'ISRO Official Mission Overview / The Hindu',
-    yearTag: 'MPSC Current Affairs 2024',
   },
 ];

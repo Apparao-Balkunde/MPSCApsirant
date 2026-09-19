@@ -56,8 +56,18 @@ async function main() {
       storedCount++;
     }
 
-    await batch.commit();
-    console.log(`Committed batch ${Math.floor(i / chunkSize) + 1} (${storedCount}/${MPSC_QUESTIONS.length})`);
+    try {
+      await batch.commit();
+      console.log(`Committed batch ${Math.floor(i / chunkSize) + 1} (${storedCount}/${MPSC_QUESTIONS.length})`);
+    } catch (batchErr: any) {
+      if (batchErr?.message?.includes('RESOURCE_EXHAUSTED') || batchErr?.code === 'resource-exhausted') {
+        console.warn(`Firestore free daily write quota reached after saving ${storedCount} questions. Remaining questions are safely served locally from MPSC_QUESTIONS!`);
+        break;
+      } else {
+        console.error('Batch commit error:', batchErr);
+        break;
+      }
+    }
   }
 
   // Check fetch
