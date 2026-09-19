@@ -39,6 +39,7 @@ interface DashboardViewProps {
   onLogStudySession: (title: string, durationMinutes: number, questionsSolved: number, notes?: string) => void;
   onOpenCloudSync?: () => void;
   onOpenAddQuestion?: () => void;
+  onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -60,6 +61,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onLogStudySession,
   onOpenCloudSync,
   onOpenAddQuestion,
+  onOpenHardQuestionsHub,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -294,6 +296,46 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         </div>
       )}
+
+      {/* 100,000+ Hard Level Questions Engine Hero Card */}
+      <div className="bg-gradient-to-r from-stone-950 via-stone-900 to-amber-950/80 border-2 border-amber-500/50 rounded-2xl p-5 sm:p-6 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
+        <div className="space-y-2 z-10 max-w-2xl">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/40 text-[11px] font-extrabold uppercase tracking-wider flex items-center gap-1">
+              <Flame className="w-3.5 h-3.5 fill-red-400" />
+              {isMr ? 'कठीण काठिण्य पातळी' : 'Hard Difficulty Tier'}
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-mono font-bold">
+              {isMr ? '१,००,०००+ प्रश्न इंजिन' : '100,000+ Questions Engine'}
+            </span>
+            <span className="text-xs text-stone-400 font-medium">
+              {isMr ? 'सर्व १० विषय समाविष्ट' : 'All 10 Subjects'}
+            </span>
+          </div>
+
+          <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+            {isMr ? '🔥 एमपीएससी १,००,००० कठीण प्रश्न सराव केंद्र' : '🔥 MPSC 100,000+ Hard Questions Hub'}
+          </h3>
+
+          <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+            {isMr 
+              ? 'विधान-कारण, जोड्या लावा, बहुविधानात्मक आणि एलिमिनेशन पद्धतीवर आधारित उच्चस्तरीय प्रश्न. १० विषय निवडा किंवा संपूर्ण मिक्स मॉक पेपर सोडवा.'
+              : 'Multi-statement assertion-reasoning and elimination MCQs across all 10 MPSC subjects designed for intense cut-off clearance.'}
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto shrink-0 z-10">
+          <button
+            id="btn-open-hard-hub"
+            onClick={() => onOpenHardQuestionsHub ? onOpenHardQuestionsHub() : onStartExam('hard_challenge')}
+            className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition-all cursor-pointer shrink-0"
+          >
+            <Flame className="w-4 h-4 fill-stone-950" />
+            <span>{isMr ? 'कठीण प्रश्न केंद्र उघडा' : 'Launch Hard Challenge'}</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
 
       {/* Main Practice Exam Cards */}
       <div>

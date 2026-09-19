@@ -4,6 +4,7 @@ import { EXTRA_QUESTIONS_100 } from './extraQuestions100';
 import { CURRENT_AFFAIRS_2026_27 } from './currentAffairs2026_27';
 import { CURRENT_AFFAIRS_2000 } from './currentAffairs2000';
 import { GRAMMAR_PRACTICE_QUESTIONS } from './grammarQuestions';
+import { HARD_QUESTIONS_BANK } from './hardQuestionsBank';
 
 export const MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -705,4 +706,6 @@ export const MPSC_QUESTIONS: Question[] = [
   ...CURRENT_AFFAIRS_2000,
   // High-Yield English & Marathi Grammar Rules Practice Questions
   ...GRAMMAR_PRACTICE_QUESTIONS,
+  // Curated Multi-Statement Hard Questions (सर्व विषय कठीण काठिण्य पातळी)
+  ...HARD_QUESTIONS_BANK,
 ];

@@ -29,8 +29,10 @@ import { AiMentorModal } from './components/AiMentorModal';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { SettingsModal } from './components/SettingsModal';
 import { LegalModal } from './components/LegalModal';
+import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
+import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener } from './lib/firebase';
 import { 
   syncUserProgressToFirestore, 
@@ -64,6 +66,9 @@ export default function App() {
 
   // Legal / AdSense policy modals
   const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'about' | null>(null);
+
+  // 100k Hard Questions Hub modal state
+  const [isHardQuestionsHubOpen, setIsHardQuestionsHubOpen] = useState<boolean>(false);
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -232,14 +237,47 @@ export default function App() {
     patternId: ExamPatternId,
     subjectId?: SubjectId,
     title?: string,
-    customQuestionIds?: string[]
+    customQuestionIds?: string[],
+    limit?: number
   ) => {
     const session = createExamSession({
       patternId,
       subjectId,
       title,
       customQuestionIds,
+      limit,
       questionPool: questions,
+    });
+    setActiveResult(null);
+    setActiveSession(session);
+  };
+
+  // 100k Hard Questions Challenge Handler
+  const handleStartHardExam = (
+    subjectId: SubjectId | 'all',
+    count: number,
+    title: string
+  ) => {
+    const hardQs = getHardQuestionsPool({
+      subjectId: subjectId === 'all' ? 'all' : subjectId,
+      count,
+    });
+
+    // Merge into questions state so all components find them
+    setQuestions((prev) => {
+      const map = new Map<string, Question>();
+      prev.forEach((q) => map.set(q.id, q));
+      hardQs.forEach((q) => map.set(q.id, q));
+      return Array.from(map.values());
+    });
+
+    const session = createExamSession({
+      patternId: 'hard_challenge',
+      subjectId: subjectId === 'all' ? undefined : subjectId,
+      title,
+      limit: count,
+      customQuestionIds: hardQs.map((q) => q.id),
+      questionPool: [...questions, ...hardQs],
     });
     setActiveResult(null);
     setActiveSession(session);
@@ -454,6 +492,7 @@ export default function App() {
           preferredLanguage={userProgress.preferredLanguage}
           soundEffectsEnabled={userProgress.soundEffectsEnabled ?? true}
           onToggleSoundEffects={handleToggleSoundEffects}
+          questionsPool={questions}
         />
       ) : activeResult && activeSession ? (
         /* Exam Result & Review View */
@@ -531,6 +570,7 @@ export default function App() {
                   setInitialShowAddQuestion(true);
                   setIsCloudSyncOpen(true);
                 }}
+                onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -547,6 +587,7 @@ export default function App() {
                 language={userProgress.preferredLanguage}
                 onStartSubjectExam={(subId, title) => handleStartExam('custom', subId, title)}
                 onOpenGrammarRules={() => setCurrentTab('grammar')}
+                onOpenHardQuestionsHub={(subId) => setIsHardQuestionsHubOpen(true)}
                 questionsPool={questions}
               />
             )}
@@ -697,6 +738,14 @@ export default function App() {
         soundEffectsEnabled={userProgress.soundEffectsEnabled ?? true}
         onToggleSoundEffects={handleToggleSoundEffects}
         language={userProgress.preferredLanguage}
+      />
+
+      {/* 100k Hard Questions Hub Modal */}
+      <HardQuestionsHubModal
+        isOpen={isHardQuestionsHubOpen}
+        onClose={() => setIsHardQuestionsHubOpen(false)}
+        language={userProgress.preferredLanguage}
+        onStartHardExam={handleStartHardExam}
       />
 
       {/* Floating Firebase Sync Notification Toast */}

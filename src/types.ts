@@ -27,6 +27,7 @@ export type ExamPatternId =
   | 'maharashtra_special'
   | 'current_affairs_2026'
   | 'daily_10_challenge'
+  | 'hard_challenge'
   | 'custom';
 
 export interface Question {

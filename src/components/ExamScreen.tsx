@@ -32,6 +32,7 @@ interface ExamScreenProps {
   preferredLanguage: 'mr' | 'en';
   soundEffectsEnabled?: boolean;
   onToggleSoundEffects?: () => void;
+  questionsPool?: Question[];
 }
 
 export const ExamScreen: React.FC<ExamScreenProps> = ({
@@ -44,6 +45,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   preferredLanguage,
   soundEffectsEnabled = true,
   onToggleSoundEffects,
+  questionsPool,
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [questionLang, setQuestionLang] = useState<'mr' | 'en'>(preferredLanguage);
@@ -55,8 +57,9 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const hasPlayed5MinWarning = useRef<boolean>(false);
 
+  const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
   const questions: Question[] = session.questionIds
-    .map((id) => MPSC_QUESTIONS.find((q) => q.id === id))
+    .map((id) => pool.find((q) => q.id === id) || MPSC_QUESTIONS.find((q) => q.id === id))
     .filter((q): q is Question => Boolean(q));
 
   const currentQuestion = questions[currentQuestionIndex];

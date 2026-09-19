@@ -1,5 +1,6 @@
 import { ExamPatternId, ExamSession, Question, SubjectId } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
+import { getHardQuestionsPool } from './hardQuestionsEngine';
 
 export function createExamSession(options: {
   patternId: ExamPatternId;
@@ -9,6 +10,7 @@ export function createExamSession(options: {
   limit?: number;
   durationMinutes?: number;
   questionPool?: Question[];
+  difficulty?: 'Easy' | 'Moderate' | 'Hard' | 'all';
 }): ExamSession {
   const pool = options.questionPool && options.questionPool.length > 0 ? options.questionPool : MPSC_QUESTIONS;
   let eligibleQuestions: Question[] = [];
@@ -17,6 +19,12 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter((q) =>
       options.customQuestionIds!.includes(q.id)
     );
+  } else if (options.patternId === 'hard_challenge') {
+    const requestedCount = options.limit || 25;
+    eligibleQuestions = getHardQuestionsPool({
+      subjectId: options.subjectId || 'all',
+      count: requestedCount,
+    });
   } else if (options.subjectId) {
     eligibleQuestions = pool.filter((q) => q.subjectId === options.subjectId);
   } else if (options.patternId === 'rajyaseva_gs') {
@@ -41,8 +49,18 @@ export function createExamSession(options: {
     eligibleQuestions = [...pool];
   }
 
+  // Filter by difficulty if specified and not hard_challenge
+  if (options.difficulty && options.difficulty !== 'all' && options.patternId !== 'hard_challenge') {
+    const diffFiltered = eligibleQuestions.filter((q) => q.difficulty === options.difficulty);
+    if (diffFiltered.length > 0) {
+      eligibleQuestions = diffFiltered;
+    }
+  }
+
   // Shuffle questions and apply sensible limits for large question banks
   const defaultLimit = options.patternId === 'current_affairs_2026'
+    ? 25
+    : options.patternId === 'hard_challenge'
     ? 25
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
@@ -55,7 +73,12 @@ export function createExamSession(options: {
   let negativeMarkRate = 0.25; // 1/4th penalty (i.e. -0.5 for 2 marks)
   let defaultTitle = 'MPSC Practice Test';
 
-  if (options.patternId === 'rajyaseva_gs') {
+  if (options.patternId === 'hard_challenge') {
+    defaultTitle = options.title || 'MPSC 100k Hard Level Challenge (कठीण स्तर सराव)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || Math.max(15, Math.round(selected.length * 1.5));
+  } else if (options.patternId === 'rajyaseva_gs') {
     defaultTitle = 'MPSC Rajyaseva GS Prelims Mock';
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
