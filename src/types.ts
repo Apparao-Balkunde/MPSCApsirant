@@ -120,6 +120,36 @@ export interface UserProgress {
   weeklyTargetQuestions: number;
   studyLogs?: StudySessionLog[];
   soundEffectsEnabled?: boolean;
+  bookmarkedRuleIds?: string[];
+}
+
+export interface GrammarExample {
+  sentence: string;
+  isCorrect?: boolean;
+  explanation: string;
+  explanationMr?: string;
+}
+
+export interface GrammarRule {
+  id: string;
+  language: 'marathi' | 'english';
+  category: string;
+  categoryMr: string;
+  title: string;
+  titleMr: string;
+  formula?: string;
+  formulaMr?: string;
+  definition: string;
+  definitionMr: string;
+  keyPoints: string[];
+  keyPointsMr: string[];
+  examples: GrammarExample[];
+  exceptions?: string[];
+  exceptionsMr?: string[];
+  examTip: string;
+  examTipMr: string;
+  practiceQuestionIds?: string[];
+  tags: string[];
 }
 
 export interface LeaderboardEntry {
@@ -133,3 +163,4 @@ export interface LeaderboardEntry {
   avatarUrl?: string;
   roleTag?: string;
 }
+

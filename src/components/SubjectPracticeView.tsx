@@ -5,7 +5,8 @@ import {
   Play, 
   CheckCircle2, 
   Award,
-  Filter
+  Filter,
+  FileText
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -14,12 +15,14 @@ import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 interface SubjectPracticeViewProps {
   language: 'mr' | 'en';
   onStartSubjectExam: (subjectId: SubjectId, title: string) => void;
+  onOpenGrammarRules?: () => void;
   questionsPool?: Question[];
 }
 
 export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   language,
   onStartSubjectExam,
+  onOpenGrammarRules,
   questionsPool,
 }) => {
   const isMr = language === 'mr';
@@ -91,7 +94,16 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                 </div>
               </div>
 
-              <div className="pt-5 mt-4 border-t border-stone-100">
+              <div className="pt-5 mt-4 border-t border-stone-100 space-y-2">
+                {(sub.id === 'marathi_grammar' || sub.id === 'english_grammar') && onOpenGrammarRules && (
+                  <button
+                    onClick={onOpenGrammarRules}
+                    className="w-full py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 border border-indigo-200 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-indigo-600" />
+                    <span>{isMr ? '📖 व्याकरण नियम व सूत्रे पहा' : '📖 View Grammar Rules & Shortcuts'}</span>
+                  </button>
+                )}
                 <button
                   onClick={() => onStartSubjectExam(sub.id, isMr ? sub.nameMr : sub.nameEn)}
                   className="w-full py-2.5 bg-stone-900 hover:bg-amber-600 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"

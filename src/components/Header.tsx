@@ -11,14 +11,15 @@ import {
   Cloud,
   Settings,
   Volume2,
-  VolumeX
+  VolumeX,
+  FileText
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
 
 interface HeaderProps {
-  currentTab: 'dashboard' | 'subjects' | 'analytics' | 'bookmarks' | 'mentor';
-  onSelectTab: (tab: 'dashboard' | 'subjects' | 'analytics' | 'bookmarks' | 'mentor') => void;
+  currentTab: 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor';
+  onSelectTab: (tab: 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor') => void;
   language: 'mr' | 'en';
   onToggleLanguage: () => void;
   userProgress: UserProgress;
@@ -144,6 +145,22 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <BookOpen className="w-4 h-4" />
               <span>{isMr ? 'विषयवार सराव' : 'Subjects'}</span>
+            </button>
+
+            <button
+              id="nav-grammar"
+              onClick={() => onSelectTab('grammar')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
+                currentTab === 'grammar'
+                  ? 'bg-amber-500 text-stone-950 shadow-sm'
+                  : 'text-stone-300 hover:text-white hover:bg-stone-800'
+              }`}
+            >
+              <FileText className="w-4 h-4" />
+              <span>{isMr ? 'व्याकरण नियम' : 'Grammar Rules'}</span>
+              <span className="text-[10px] px-1 py-0.2 rounded bg-amber-400 text-stone-950 font-bold uppercase">
+                {isMr ? 'नवीन' : 'New'}
+              </span>
             </button>
 
             <button
@@ -303,6 +320,14 @@ export const Header: React.FC<HeaderProps> = ({
           }`}
         >
           {isMr ? 'विषय' : 'Subjects'}
+        </button>
+        <button
+          onClick={() => onSelectTab('grammar')}
+          className={`px-2 py-1 rounded font-medium ${
+            currentTab === 'grammar' ? 'text-amber-400 font-bold' : 'text-stone-400'
+          }`}
+        >
+          {isMr ? 'व्याकरण' : 'Grammar'}
         </button>
         <button
           onClick={() => onSelectTab('analytics')}

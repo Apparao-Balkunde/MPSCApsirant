@@ -24,6 +24,7 @@ import { ExamResultView } from './components/ExamResultView';
 import { AnalyticsView } from './components/AnalyticsView';
 import { BookmarksView } from './components/BookmarksView';
 import { SubjectPracticeView } from './components/SubjectPracticeView';
+import { GrammarRulesView } from './components/GrammarRulesView';
 import { AiMentorModal } from './components/AiMentorModal';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { SettingsModal } from './components/SettingsModal';
@@ -49,7 +50,7 @@ import { CheckCircle2 } from 'lucide-react';
 export default function App() {
   const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
   const [questions, setQuestions] = useState<Question[]>(MPSC_QUESTIONS);
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'analytics' | 'bookmarks' | 'mentor'>('dashboard');
+  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor'>('dashboard');
   const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
   const [activeResult, setActiveResult] = useState<ExamResult | null>(null);
 
@@ -377,6 +378,24 @@ export default function App() {
     });
   };
 
+  // Toggle grammar rule bookmark handler
+  const handleToggleRuleBookmark = (ruleId: string) => {
+    setUserProgress((prev) => {
+      const existing = prev.bookmarkedRuleIds || [];
+      const isBookmarked = existing.includes(ruleId);
+      const updatedRules = isBookmarked
+        ? existing.filter((id) => id !== ruleId)
+        : [...existing, ruleId];
+
+      const next = {
+        ...prev,
+        bookmarkedRuleIds: updatedRules,
+      };
+      saveUserProgress(next);
+      return next;
+    });
+  };
+
   // Save personal revision note for a question
   const handleSaveNote = (questionId: string, noteText: string) => {
     setUserProgress((prev) => ({
@@ -501,6 +520,7 @@ export default function App() {
                 onStartExam={handleStartExam}
                 onOpenBookmarks={() => setCurrentTab('bookmarks')}
                 onOpenAnalytics={() => setCurrentTab('analytics')}
+                onOpenGrammarRules={() => setCurrentTab('grammar')}
                 onUpdateWeeklyGoals={handleUpdateWeeklyGoals}
                 onLogStudySession={handleLogStudySession}
                 onOpenCloudSync={() => {
@@ -526,8 +546,21 @@ export default function App() {
               <SubjectPracticeView
                 language={userProgress.preferredLanguage}
                 onStartSubjectExam={(subId, title) => handleStartExam('custom', subId, title)}
+                onOpenGrammarRules={() => setCurrentTab('grammar')}
                 questionsPool={questions}
               />
+            )}
+
+            {currentTab === 'grammar' && (
+              <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+                <GrammarRulesView
+                  savedRuleIds={userProgress.bookmarkedRuleIds || []}
+                  onToggleBookmark={handleToggleRuleBookmark}
+                  onStartPracticeWithQuestions={(qIds, title) => {
+                    handleStartExam('custom', undefined, title, qIds);
+                  }}
+                />
+              </main>
             )}
 
             {currentTab === 'analytics' && (

@@ -17,7 +17,8 @@ import {
   Download,
   UploadCloud,
   PlusCircle,
-  Newspaper
+  Newspaper,
+  FileText
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -33,6 +34,7 @@ interface DashboardViewProps {
   onStartExam: (patternId: ExamPatternId, subjectId?: SubjectId, title?: string) => void;
   onOpenBookmarks: () => void;
   onOpenAnalytics: () => void;
+  onOpenGrammarRules?: () => void;
   onUpdateWeeklyGoals: (hours: number, questions: number) => void;
   onLogStudySession: (title: string, durationMinutes: number, questionsSolved: number, notes?: string) => void;
   onOpenCloudSync?: () => void;
@@ -53,6 +55,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onStartExam,
   onOpenBookmarks,
   onOpenAnalytics,
+  onOpenGrammarRules,
   onUpdateWeeklyGoals,
   onLogStudySession,
   onOpenCloudSync,
@@ -132,6 +135,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <Bookmark className="w-4 h-4 text-amber-400" />
                 <span>
                   {isMr ? 'जतन केलेले प्रश्न' : 'Saved Questions'} ({userProgress.bookmarkedQuestionIds.length})
+                </span>
+              </button>
+            )}
+
+            {onOpenGrammarRules && (
+              <button
+                id="btn-hero-grammar-rules"
+                onClick={onOpenGrammarRules}
+                className="px-4 py-3 rounded-xl bg-indigo-950/80 hover:bg-indigo-900 text-indigo-200 border border-indigo-500/30 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+              >
+                <FileText className="w-4 h-4 text-indigo-400" />
+                <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम' : 'Grammar Rules & Shortcuts'}</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
+                  {isMr ? 'नवीन' : 'New'}
                 </span>
               </button>
             )}
@@ -484,6 +501,37 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs sm:text-sm shrink-0 transition-colors cursor-pointer shadow-sm"
           >
             {isMr ? 'चुकलेले प्रश्न सोडवा' : 'Practice Weak Questions'}
+          </button>
+        </div>
+      )}
+
+      {/* Grammar Rules Spotlight Card */}
+      {onOpenGrammarRules && (
+        <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-indigo-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
+          <div className="absolute right-0 top-0 translate-x-12 -translate-y-12 w-48 h-48 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="space-y-2 relative z-10 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold border border-amber-400/30">
+              <FileText className="w-3.5 h-3.5" />
+              <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम कोश' : 'Grammar Rules & Exam Shortcuts'}</span>
+            </div>
+            <h3 className="text-xl font-extrabold text-white">
+              {isMr
+                ? 'नियम, अचूक सूत्रे, अपवाद व MPSC शॉर्टकट क्लृप्त्या'
+                : 'Formulas, Exceptions & Right vs Wrong Examples'}
+            </h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              {isMr
+                ? 'वर्णविचार, संधी, विभक्ती, प्रयोग, समास, Subject-Verb Agreement, Tenses, Voice, Speech, Articles व Prepositions चे सर्व नियम एकाच ठिकाणी.'
+                : 'Comprehensive rules with exam shortcuts, right vs. wrong sentences, and targeted MCQs for high scoring.'}
+            </p>
+          </div>
+
+          <button
+            id="btn-open-grammar-rules-spotlight"
+            onClick={onOpenGrammarRules}
+            className="relative z-10 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shrink-0 shadow-sm cursor-pointer"
+          >
+            <span>{isMr ? 'नियम व सूत्रे अभ्यासा ➜' : 'Explore Grammar Rules ➜'}</span>
           </button>
         </div>
       )}
