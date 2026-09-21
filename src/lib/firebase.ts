@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider, 
   signInAnonymously,
   signInWithPopup,
+  signInWithCustomToken,
   signOut,
   onAuthStateChanged,
   type User
@@ -67,5 +68,40 @@ export async function logoutUser() {
     await signOut(auth);
   } catch (err) {
     console.error('Sign Out error:', err);
+  }
+}
+
+// 🔴 SSO — mpscsarathi.online वरून ?token=... सोबत उघडलं गेलं असेल तर,
+// तो Supabase token backend कडे पाठवून त्याबदल्यात Firebase custom token
+// मिळवतो आणि त्याने login करतो. token नसेल किंवा exchange अयशस्वी झालं
+// तर काहीही करत नाही — App.tsx आधीसारखं (guest/anonymous) वागू शकतं.
+export async function trySsoLogin(): Promise<User | null> {
+  const params = new URLSearchParams(window.location.search);
+  const supabaseToken = params.get('token');
+  if (!supabaseToken) return null;
+
+  try {
+    const res = await fetch('https://mpscsarathi.online/api/exchange-token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ supabaseToken }),
+    });
+    if (!res.ok) {
+      console.warn('[SSO] token exchange अयशस्वी:', res.status);
+      return null;
+    }
+    const { firebaseToken } = await res.json();
+    const result = await signInWithCustomToken(auth, firebaseToken);
+
+    // URL मधून token काढून टाकणे (परत refresh झाल्यावर पुन्हा वापरू नये म्हणून,
+    // आणि ब्राउझर history/शेअर लिंकमध्ये token उघडा राहू नये म्हणून)
+    params.delete('token');
+    const cleanUrl = window.location.pathname + (params.toString() ? `?${params}` : '');
+    window.history.replaceState({}, '', cleanUrl);
+
+    return result.user;
+  } catch (err) {
+    console.error('[SSO] login चूक:', err);
+    return null;
   }
 }
