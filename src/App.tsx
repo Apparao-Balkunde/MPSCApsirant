@@ -1,767 +1,180 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  getInitialProgress, 
-  saveCompletedExam, 
-  saveUserProgress,
-  updateWeeklyGoals,
-  addManualStudyLog
-} from './utils/storage';
-import { createExamSession } from './utils/examBuilder';
-import { 
-  ExamPatternId, 
-  ExamResult, 
-  ExamSession, 
-  Question, 
-  SubjectId, 
-  SubjectScoreBreakdown, 
-  UserProgress 
-} from './types';
-import { MPSC_QUESTIONS } from './data/mpscQuestions';
-import { Header } from './components/Header';
-import { DashboardView } from './components/DashboardView';
-import { ExamScreen } from './components/ExamScreen';
-import { ExamResultView } from './components/ExamResultView';
-import { AnalyticsView } from './components/AnalyticsView';
-import { BookmarksView } from './components/BookmarksView';
-import { SubjectPracticeView } from './components/SubjectPracticeView';
-import { GrammarRulesView } from './components/GrammarRulesView';
-import { AiMentorModal } from './components/AiMentorModal';
-import { CloudSyncModal } from './components/CloudSyncModal';
-import { SettingsModal } from './components/SettingsModal';
-import { LegalModal } from './components/LegalModal';
-import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
-import { AdBanner } from './components/AdBanner';
-import { soundFx } from './utils/audio';
-import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
-import { testFirestoreConnection, initAuthListener } from './lib/firebase';
-import { 
-  syncUserProgressToFirestore, 
-  syncAllDataToFirestore,
-  fetchMPSCQuestionsFromFirestore,
-  fetchUserDataFromFirestore,
-  storeSingleExamResultToFirestore,
-  storeSingleStudyLogToFirestore,
-  storeSingleQuestionToFirestore,
-  seedMPSCQuestionsToFirestore,
-  subscribeToRealtimeQuestions,
-  subscribeToRealtimeUserData,
-} from './services/firestoreSync';
-import { type User } from 'firebase/auth';
-import { CheckCircle2 } from 'lucide-react';
+import { BookOpen, User, ArrowLeft, Bell, Target, Flame, PenSquare } from 'lucide-react';
+import { getProgress } from '../services/storageService';
+import { supabase } from '../lib/supabase';
 
-export default function App() {
-  const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
-  const [questions, setQuestions] = useState<Question[]>(MPSC_QUESTIONS);
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor'>('dashboard');
-  const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
-  const [activeResult, setActiveResult] = useState<ExamResult | null>(null);
+export function Header() {
+  const progress = getProgress();
+  
+  // 🔴 New Feature States
+  const [daysLeft, setDaysLeft] = useState<number>(0);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [canGoBack, setCanGoBack] = useState(false);
 
-  // AI Mentor modal state
-  const [isAiMentorOpen, setIsAiMentorOpen] = useState<boolean>(false);
-  const [mentorQuestion, setMentorQuestion] = useState<Question | null>(null);
-  const [mentorStudentAnswer, setMentorStudentAnswer] = useState<string | undefined>();
-
-  // Settings modal state
-  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-
-  // Legal / AdSense policy modals
-  const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'about' | null>(null);
-
-  // 100k Hard Questions Hub modal state
-  const [isHardQuestionsHubOpen, setIsHardQuestionsHubOpen] = useState<boolean>(false);
-
-  // Firebase Auth and Cloud Sync state
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [isCloudSyncOpen, setIsCloudSyncOpen] = useState<boolean>(false);
-  const [initialShowAddQuestion, setInitialShowAddQuestion] = useState<boolean>(false);
-  const [isSyncing, setIsSyncing] = useState<boolean>(false);
-  const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
-  const [syncToast, setSyncToast] = useState<string | null>(null);
-
-  // Initialize Firebase Auth listener and real-time Firestore listeners on mount
+  // 🔴 Hardware Back Button & Navigation Logic
   useEffect(() => {
-    testFirestoreConnection();
+    // चेक करा की आपण होम पेज व्यतिरिक्त इतर कुठल्या पेजवर आहोत का
+    setCanGoBack(window.history.length > 1 && window.location.pathname !== '/');
 
-    // 1. Subscribe to real-time questions bank from Firestore
-    const unsubQuestions = subscribeToRealtimeQuestions((liveQuestions) => {
-      if (liveQuestions && liveQuestions.length > 0) {
-        // Merge with built-in MPSC_QUESTIONS by ID to preserve all 2,000+ Current Affairs questions
-        const map = new Map<string, Question>();
-        MPSC_QUESTIONS.forEach((q) => map.set(q.id, q));
-        liveQuestions.forEach((q) => map.set(q.id, q));
-        setQuestions(Array.from(map.values()));
+    const handlePopState = () => {
+      if (showNotifications) {
+        setShowNotifications(false); // आधी नोटिफिकेशन मेन्यू बंद करा
+      } else {
+        // हार्डवेअर बॅक दाबल्यावर डिफॉल्ट History Back कॉल होईल
       }
-    });
-
-    // 2. Auth state listener & fetch user data on login
-    const unsubAuth = initAuthListener(async (user) => {
-      setCurrentUser(user);
-      if (user) {
-        try {
-          setIsSyncing(true);
-          const res = await fetchUserDataFromFirestore(user.uid, userProgress);
-          setUserProgress(res.progress);
-        } catch (err) {
-          console.warn('Initial Firestore user merge note:', err);
-        } finally {
-          setIsSyncing(false);
-        }
-      }
-    });
-
-    return () => {
-      if (unsubQuestions) unsubQuestions();
-      unsubAuth();
     };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [showNotifications]);
+
+  const handleBackClick = () => {
+    window.history.back();
+  };
+
+  // 🔴 SSO — exam.mpscsarathi.online वर तोच युजर ओळखला जावा म्हणून
+  // सध्याच्या Supabase session चा access token URL सोबत पाठवतो.
+  // Login नसेल तर टोकनशिवाय उघडतं (exam अ‍ॅप तेव्हा आधीसारखं
+  // anonymous login वापरेल — काहीही तुटत नाही).
+  const goToExam = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const url = session?.access_token
+        ? `https://exam.mpscsarathi.online?token=${encodeURIComponent(session.access_token)}`
+        : 'https://exam.mpscsarathi.online';
+      window.open(url, '_blank', 'noreferrer');
+    } catch (err) {
+      console.error('[SSO] session मिळवताना चूक:', err);
+      window.open('https://exam.mpscsarathi.online', '_blank', 'noreferrer');
+    }
+  };
+
+  // 🔴 New Feature: Live Exam Countdown (राज्यसेवा पूर्व परीक्षा)
+  useEffect(() => {
+    const targetDate = new Date('2026-05-31T00:00:00').getTime();
+    const today = new Date().getTime();
+    const diff = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
+    setDaysLeft(diff > 0 ? diff : 0);
   }, []);
 
-  // Sync state to localStorage whenever userProgress changes
-  useEffect(() => {
-    saveUserProgress(userProgress);
-
-    if (currentUser?.uid) {
-      syncUserProgressToFirestore(
-        currentUser.uid,
-        userProgress,
-        currentUser.email,
-        currentUser.displayName
-      );
-    }
-  }, [userProgress, currentUser]);
-
-  // Fetch all data from Firebase (questions + user results + study logs)
-  const handleFetchFromFirebase = async () => {
-    setIsFetchingData(true);
-    try {
-      // 1. Fetch questions from Firestore
-      const qRes = await fetchMPSCQuestionsFromFirestore();
-      if (qRes.questions && qRes.questions.length > 0) {
-        const map = new Map<string, Question>();
-        MPSC_QUESTIONS.forEach((q) => map.set(q.id, q));
-        qRes.questions.forEach((q) => map.set(q.id, q));
-        setQuestions(Array.from(map.values()));
-      }
-
-      // 2. Fetch user exam results and logs if logged in
-      let userExams = userProgress.history.length;
-      if (currentUser?.uid) {
-        const uRes = await fetchUserDataFromFirestore(currentUser.uid, userProgress);
-        setUserProgress(uRes.progress);
-        userExams = uRes.examsCount;
-      }
-
-      const isMr = userProgress.preferredLanguage === 'mr';
-      const msg = isMr
-        ? `फायरबेसवरून डेटा यशस्वीरीत्या आणला (Fetch)! (${qRes.count} प्रश्न, ${userExams} चाचण्या)`
-        : `Successfully fetched data from Firebase! (${qRes.count} questions, ${userExams} exams)`;
-      setSyncToast(msg);
-      setTimeout(() => setSyncToast(null), 5000);
-    } catch (err) {
-      console.error('Fetch error:', err);
-      const isMr = userProgress.preferredLanguage === 'mr';
-      setSyncToast(isMr ? 'फायरबेस डेटा आणताना त्रुटी आली.' : 'Failed to fetch from Firebase.');
-      setTimeout(() => setSyncToast(null), 4000);
-    } finally {
-      setIsFetchingData(false);
-    }
-  };
-
-  // Trigger full sync and store to Firebase
-  const handleTriggerSync = async () => {
-    if (!currentUser?.uid) return;
-    setIsSyncing(true);
-    try {
-      const summary = await syncAllDataToFirestore(
-        currentUser.uid,
-        userProgress,
-        currentUser.email,
-        currentUser.displayName
-      );
-      
-      const isMr = userProgress.preferredLanguage === 'mr';
-      const msg = isMr
-        ? `डेटा फायरबेसवर जतन झाला (Stored)! (${summary.examsStored} चाचण्या, ${summary.logsStored} नोंदी, ${summary.questionsStored} प्रश्नसंच)`
-        : `Data stored on Firebase! (${summary.examsStored} exams, ${summary.logsStored} logs, ${summary.questionsStored} questions)`;
-      setSyncToast(msg);
-      setTimeout(() => setSyncToast(null), 5000);
-    } catch (err) {
-      console.warn('Manual sync note:', err);
-    } finally {
-      setIsSyncing(false);
-    }
-  };
-
-  // Store a single new custom question directly to Firebase Firestore
-  const handleStoreNewQuestion = async (newQ: Question): Promise<boolean> => {
-    try {
-      const success = await storeSingleQuestionToFirestore(newQ);
-      if (success) {
-        setQuestions((prev) => [newQ, ...prev]);
-        const isMr = userProgress.preferredLanguage === 'mr';
-        setSyncToast(isMr ? 'नवीन प्रश्न Firestore वर साठवला (Stored) गेला!' : 'New question stored to Firestore!');
-        setTimeout(() => setSyncToast(null), 4000);
-        return true;
-      }
-      return false;
-    } catch (err) {
-      console.error('Store question error:', err);
-      return false;
-    }
-  };
-
-  // Seed / Add all standard questions to Firestore
-  const handleSeedAllToFirebase = async (): Promise<number> => {
-    try {
-      const count = await seedMPSCQuestionsToFirestore();
-      const isMr = userProgress.preferredLanguage === 'mr';
-      setSyncToast(isMr ? `फायरबेसमध्ये ${count} प्रश्न यशस्वीपणे जोडले (Added) गेले!` : `Added ${count} questions to Firebase!`);
-      setTimeout(() => setSyncToast(null), 4000);
-      return count;
-    } catch (err) {
-      console.error('Seed all error:', err);
-      return 0;
-    }
-  };
-
-  // Language toggle handler
-  const handleToggleLanguage = () => {
-    const nextLang = userProgress.preferredLanguage === 'mr' ? 'en' : 'mr';
-    setUserProgress((prev) => ({
-      ...prev,
-      preferredLanguage: nextLang,
-    }));
-  };
-
-  // Start exam handler - uses active questions pool
-  const handleStartExam = (
-    patternId: ExamPatternId,
-    subjectId?: SubjectId,
-    title?: string,
-    customQuestionIds?: string[],
-    limit?: number
-  ) => {
-    const session = createExamSession({
-      patternId,
-      subjectId,
-      title,
-      customQuestionIds,
-      limit,
-      questionPool: questions,
-    });
-    setActiveResult(null);
-    setActiveSession(session);
-  };
-
-  // 100k Hard Questions Challenge Handler
-  const handleStartHardExam = (
-    subjectId: SubjectId | 'all',
-    count: number,
-    title: string
-  ) => {
-    const hardQs = getHardQuestionsPool({
-      subjectId: subjectId === 'all' ? 'all' : subjectId,
-      count,
-    });
-
-    // Merge into questions state so all components find them
-    setQuestions((prev) => {
-      const map = new Map<string, Question>();
-      prev.forEach((q) => map.set(q.id, q));
-      hardQs.forEach((q) => map.set(q.id, q));
-      return Array.from(map.values());
-    });
-
-    const session = createExamSession({
-      patternId: 'hard_challenge',
-      subjectId: subjectId === 'all' ? undefined : subjectId,
-      title,
-      limit: count,
-      customQuestionIds: hardQs.map((q) => q.id),
-      questionPool: [...questions, ...hardQs],
-    });
-    setActiveResult(null);
-    setActiveSession(session);
-  };
-
-  // Exam submission & grading handler
-  const handleSubmitExam = (session: ExamSession) => {
-    const currentPool = questions;
-    const examQuestions: Question[] = session.questionIds
-      .map((id) => currentPool.find((q) => q.id === id) || MPSC_QUESTIONS.find((q) => q.id === id))
-      .filter((q): q is Question => Boolean(q));
-
-    let correctCount = 0;
-    let incorrectCount = 0;
-    let unattemptedCount = 0;
-
-    const subjectPerformance: Record<string, SubjectScoreBreakdown> = {};
-
-    examQuestions.forEach((q) => {
-      const userChoice = session.answers[q.id];
-      const isAnswered = userChoice !== undefined;
-      const isCorrect = isAnswered && userChoice === q.correctAnswerIndex;
-
-      if (!subjectPerformance[q.subjectId]) {
-        subjectPerformance[q.subjectId] = {
-          total: 0,
-          correct: 0,
-          incorrect: 0,
-          unattempted: 0,
-          accuracy: 0,
-          score: 0,
-        };
-      }
-
-      const sub = subjectPerformance[q.subjectId];
-      sub.total += 1;
-
-      if (!isAnswered) {
-        unattemptedCount += 1;
-        sub.unattempted += 1;
-      } else if (isCorrect) {
-        correctCount += 1;
-        sub.correct += 1;
-      } else {
-        incorrectCount += 1;
-        sub.incorrect += 1;
-      }
-    });
-
-    // Compute subject scores & accuracy
-    Object.values(subjectPerformance).forEach((sub) => {
-      const subAttempted = sub.correct + sub.incorrect;
-      sub.accuracy = subAttempted > 0 ? Math.round((sub.correct / subAttempted) * 100) : 0;
-      const subGross = sub.correct * session.marksPerQuestion;
-      const subPenalty = sub.incorrect * session.marksPerQuestion * session.negativeMarkRate;
-      sub.score = Math.max(0, subGross - subPenalty);
-    });
-
-    const attemptedCount = correctCount + incorrectCount;
-    const grossScore = correctCount * session.marksPerQuestion;
-    const negativePenalty = incorrectCount * session.marksPerQuestion * session.negativeMarkRate;
-    const finalScore = Math.max(0, grossScore - negativePenalty);
-    const maxScore = examQuestions.length * session.marksPerQuestion;
-    const accuracyPercentage = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
-
-    const timeSpentSeconds = session.durationSeconds - session.remainingSeconds;
-
-    const dateStr = new Date().toLocaleDateString(
-      userProgress.preferredLanguage === 'mr' ? 'mr-IN' : 'en-IN',
-      { day: 'numeric', month: 'short', year: 'numeric' }
-    );
-
-    const result: ExamResult = {
-      sessionId: session.id,
-      title: session.title,
-      patternId: session.patternId,
-      totalQuestions: examQuestions.length,
-      attemptedCount,
-      correctCount,
-      incorrectCount,
-      unattemptedCount,
-      grossScore,
-      negativePenalty,
-      finalScore,
-      maxScore,
-      accuracyPercentage,
-      timeSpentSeconds,
-      subjectPerformance,
-      date: dateStr,
-      answers: session.answers,
-    };
-
-    if (userProgress.soundEffectsEnabled ?? true) {
-      soundFx.playExamSubmissionSound();
-    }
-
-    const updatedProgress = saveCompletedExam(result, userProgress);
-    setUserProgress(updatedProgress);
-    setActiveSession(session);
-    setActiveResult(result);
-
-    // Atomically store this exam result to Firebase in real-time
-    if (currentUser?.uid) {
-      storeSingleExamResultToFirestore(currentUser.uid, result, updatedProgress);
-    }
-  };
-
-  // Toggle sound effects setting
-  const handleToggleSoundEffects = () => {
-    setUserProgress((prev) => {
-      const current = prev.soundEffectsEnabled ?? true;
-      const updated = {
-        ...prev,
-        soundEffectsEnabled: !current,
-      };
-      saveUserProgress(updated);
-      if (currentUser?.uid) {
-        syncUserProgressToFirestore(currentUser.uid, updated);
-      }
-      return updated;
-    });
-  };
-
-  // Toggle bookmark handler
-  const handleToggleBookmark = (questionId: string) => {
-    setUserProgress((prev) => {
-      const isBookmarked = prev.bookmarkedQuestionIds.includes(questionId);
-      const updatedBookmarks = isBookmarked
-        ? prev.bookmarkedQuestionIds.filter((id) => id !== questionId)
-        : [...prev.bookmarkedQuestionIds, questionId];
-
-      return {
-        ...prev,
-        bookmarkedQuestionIds: updatedBookmarks,
-      };
-    });
-  };
-
-  // Toggle grammar rule bookmark handler
-  const handleToggleRuleBookmark = (ruleId: string) => {
-    setUserProgress((prev) => {
-      const existing = prev.bookmarkedRuleIds || [];
-      const isBookmarked = existing.includes(ruleId);
-      const updatedRules = isBookmarked
-        ? existing.filter((id) => id !== ruleId)
-        : [...existing, ruleId];
-
-      const next = {
-        ...prev,
-        bookmarkedRuleIds: updatedRules,
-      };
-      saveUserProgress(next);
-      return next;
-    });
-  };
-
-  // Save personal revision note for a question
-  const handleSaveNote = (questionId: string, noteText: string) => {
-    setUserProgress((prev) => ({
-      ...prev,
-      notes: {
-        ...prev.notes,
-        [questionId]: noteText,
-      },
-    }));
-  };
-
-  // Open AI Mentor
-  const handleOpenAiMentor = (question?: Question, studentAnswer?: string) => {
-    setMentorQuestion(question || null);
-    setMentorStudentAnswer(studentAnswer);
-    setIsAiMentorOpen(true);
-  };
-
-  // Update weekly goals
-  const handleUpdateWeeklyGoals = (hours: number, questionsCount: number) => {
-    setUserProgress((prev) => updateWeeklyGoals(prev, hours, questionsCount));
-  };
-
-  // Log study session - also stores single log to Firestore
-  const handleLogStudySession = (
-    title: string,
-    durationMinutes: number,
-    questionsSolved: number,
-    notes?: string
-  ) => {
-    setUserProgress((prev) => {
-      const next = addManualStudyLog(prev, title, durationMinutes, questionsSolved, notes);
-      const newestLog = next.studyLogs?.[0];
-      if (newestLog && currentUser?.uid) {
-        storeSingleStudyLogToFirestore(currentUser.uid, newestLog);
-      }
-      return next;
-    });
-  };
-
   return (
-    <div className="min-h-screen bg-stone-100 text-stone-900 flex flex-col antialiased">
-      {/* If taking an active exam, show ExamScreen */}
-      {activeSession && !activeResult ? (
-        <ExamScreen
-          session={activeSession}
-          onUpdateSession={(updater) =>
-            setActiveSession((prev) =>
-              !prev ? null : typeof updater === 'function' ? updater(prev) : updater
-            )
-          }
-          onSubmitExam={handleSubmitExam}
-          onExitExam={() => setActiveSession(null)}
-          bookmarkedIds={userProgress.bookmarkedQuestionIds}
-          onToggleBookmark={handleToggleBookmark}
-          preferredLanguage={userProgress.preferredLanguage}
-          soundEffectsEnabled={userProgress.soundEffectsEnabled ?? true}
-          onToggleSoundEffects={handleToggleSoundEffects}
-          questionsPool={questions}
-        />
-      ) : activeResult && activeSession ? (
-        /* Exam Result & Review View */
-        <div className="flex-1 flex flex-col">
-          <Header
-            currentTab={currentTab}
-            onSelectTab={(tab) => {
-              setActiveResult(null);
-              setActiveSession(null);
-              setCurrentTab(tab);
-            }}
-            language={userProgress.preferredLanguage}
-            onToggleLanguage={handleToggleLanguage}
-            userProgress={userProgress}
-            onOpenQuickMentor={() => handleOpenAiMentor()}
-            onOpenCloudSync={() => setIsCloudSyncOpen(true)}
-            onOpenSettings={() => setIsSettingsOpen(true)}
-            onToggleSoundEffects={handleToggleSoundEffects}
-          />
-          <main className="flex-1">
-            <ExamResultView
-              result={activeResult}
-              session={activeSession}
-              onRetakeExam={() => handleStartExam(activeSession.patternId, undefined, activeSession.title, activeSession.questionIds)}
-              onGoHome={() => {
-                setActiveResult(null);
-                setActiveSession(null);
-                setCurrentTab('dashboard');
-              }}
-              language={userProgress.preferredLanguage}
-              bookmarkedIds={userProgress.bookmarkedQuestionIds}
-              onToggleBookmark={handleToggleBookmark}
-              onOpenAiMentor={(q, ans) => handleOpenAiMentor(q, ans)}
-              questionsPool={questions}
-            />
-          </main>
-        </div>
-      ) : (
-        /* Regular App Shell */
-        <div className="flex-1 flex flex-col">
-          <Header
-            currentTab={currentTab}
-            onSelectTab={(tab) => {
-              if (tab === 'mentor') {
-                handleOpenAiMentor();
-              } else {
-                setCurrentTab(tab);
-              }
-            }}
-            language={userProgress.preferredLanguage}
-            onToggleLanguage={handleToggleLanguage}
-            userProgress={userProgress}
-            onOpenQuickMentor={() => handleOpenAiMentor()}
-            onOpenCloudSync={() => setIsCloudSyncOpen(true)}
-            onOpenSettings={() => setIsSettingsOpen(true)}
-            onToggleSoundEffects={handleToggleSoundEffects}
-          />
+    <header style={{
+      background: 'linear-gradient(135deg,#1C2B2B,#0D6B6E)',
+      borderBottom: '2px solid rgba(245,200,66,0.3)',
+      position: 'sticky', top: 0, zIndex: 100,
+      boxShadow: '0 4px 20px rgba(13,107,110,0.3)',
+      fontFamily: "'Baloo 2','Noto Sans Devanagari',sans-serif",
+    }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 
-          <main className="flex-1 pb-12">
-            {currentTab === 'dashboard' && (
-              <DashboardView
-                userProgress={userProgress}
-                language={userProgress.preferredLanguage}
-                onStartExam={handleStartExam}
-                onOpenBookmarks={() => setCurrentTab('bookmarks')}
-                onOpenAnalytics={() => setCurrentTab('analytics')}
-                onOpenGrammarRules={() => setCurrentTab('grammar')}
-                onUpdateWeeklyGoals={handleUpdateWeeklyGoals}
-                onLogStudySession={handleLogStudySession}
-                onOpenCloudSync={() => {
-                  setInitialShowAddQuestion(false);
-                  setIsCloudSyncOpen(true);
-                }}
-                onOpenAddQuestion={() => {
-                  setInitialShowAddQuestion(true);
-                  setIsCloudSyncOpen(true);
-                }}
-                onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
-                onFetchData={handleFetchFromFirebase}
-                onTriggerSync={handleTriggerSync}
-                questionsCount={questions.length}
-                questionsPool={questions}
-                isFetching={isFetchingData}
-                isSyncing={isSyncing}
-                currentUserId={currentUser?.uid}
-                currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
-              />
-            )}
-
-            {currentTab === 'subjects' && (
-              <SubjectPracticeView
-                language={userProgress.preferredLanguage}
-                onStartSubjectExam={(subId, title) => handleStartExam('custom', subId, title)}
-                onOpenGrammarRules={() => setCurrentTab('grammar')}
-                onOpenHardQuestionsHub={(subId) => setIsHardQuestionsHubOpen(true)}
-                questionsPool={questions}
-              />
-            )}
-
-            {currentTab === 'grammar' && (
-              <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-                <GrammarRulesView
-                  savedRuleIds={userProgress.bookmarkedRuleIds || []}
-                  onToggleBookmark={handleToggleRuleBookmark}
-                  onStartPracticeWithQuestions={(qIds, title) => {
-                    handleStartExam('custom', undefined, title, qIds);
-                  }}
-                />
-              </main>
-            )}
-
-            {currentTab === 'analytics' && (
-              <AnalyticsView
-                userProgress={userProgress}
-                language={userProgress.preferredLanguage}
-                onReviewPastTest={(result) => {
-                  const reconstructedSession: ExamSession = {
-                    id: result.sessionId,
-                    title: result.title,
-                    patternId: result.patternId,
-                    questionIds: Object.keys(result.answers),
-                    totalQuestions: result.totalQuestions,
-                    durationSeconds: result.timeSpentSeconds,
-                    remainingSeconds: 0,
-                    negativeMarkRate: 0.25,
-                    marksPerQuestion: result.maxScore / (result.totalQuestions || 1),
-                    answers: result.answers,
-                    markedForReview: {},
-                    visited: {},
-                    timeSpent: {},
-                    isCompleted: true,
-                    startedAt: Date.now(),
-                  };
-                  setActiveSession(reconstructedSession);
-                  setActiveResult(result);
-                }}
-              />
-            )}
-
-            {currentTab === 'bookmarks' && (
-              <BookmarksView
-                userProgress={userProgress}
-                language={userProgress.preferredLanguage}
-                onToggleBookmark={handleToggleBookmark}
-                onStartCustomExam={(qIds, title) => handleStartExam('custom', undefined, title, qIds)}
-                onOpenAiMentor={(q) => handleOpenAiMentor(q)}
-                onSaveNote={handleSaveNote}
-                questionsPool={questions}
-              />
-            )}
-
-            {/* Bottom Advertisement Banner */}
-            <div className="pt-4 pb-2">
-              <AdBanner slot="8635186039" />
+        {/* 🔴 Left Section: Back Button + Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {canGoBack && (
+            <button onClick={handleBackClick} style={{ background:'rgba(255,255,255,0.1)', border:'none', borderRadius:10, padding:'8px', color:'#fff', cursor:'pointer', display:'flex', transition:'background 0.2s' }}>
+              <ArrowLeft size={18} />
+            </button>
+          )}
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ background: 'linear-gradient(135deg,#E8671A,#F5C842)', borderRadius: 12, padding: '8px', boxShadow: '0 4px 14px rgba(232,103,26,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <BookOpen size={20} color="#fff" />
             </div>
-
-            {/* Portal Footer with Google AdSense Required Policy Links */}
-            <footer className="mt-8 pt-6 pb-12 border-t border-stone-200 text-center text-xs text-stone-500">
-              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-medium text-stone-600 mb-3">
-                <button
-                  onClick={() => setLegalModalType('privacy')}
-                  className="hover:text-amber-600 underline transition-colors"
-                >
-                  {userProgress.preferredLanguage === 'mr' ? 'गोपनीयता धोरण (Privacy Policy)' : 'Privacy Policy'}
-                </button>
-                <span>•</span>
-                <button
-                  onClick={() => setLegalModalType('terms')}
-                  className="hover:text-amber-600 underline transition-colors"
-                >
-                  {userProgress.preferredLanguage === 'mr' ? 'वापराच्या अटी (Terms)' : 'Terms of Service'}
-                </button>
-                <span>•</span>
-                <button
-                  onClick={() => setLegalModalType('about')}
-                  className="hover:text-amber-600 underline transition-colors"
-                >
-                  {userProgress.preferredLanguage === 'mr' ? 'आमच्याबद्दल (About Us)' : 'About Us'}
-                </button>
-                <span>•</span>
-                <a
-                  href="https://mpscsarathi.online"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-amber-600 transition-colors"
-                >
-                  MPSC Sarathi Main Portal
-                </a>
+            {!canGoBack && (
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ lineHeight: 1 }}>
+                  <span style={{ fontWeight: 900, fontSize: 18, letterSpacing: '-0.04em', color: '#fff' }}>MPSC</span>
+                  <span style={{ fontWeight: 900, fontSize: 18, letterSpacing: '-0.04em', color: '#F5C842' }}> सारथी</span>
+                </div>
+                {/* 🔴 New Feature: Exam Target Info */}
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#A5F3FC', display: 'flex', alignItems: 'center', gap: 4, marginTop: 2 }}>
+                  <Target size={10} /> राज्यसेवा पूर्व: {daysLeft} दिवस बाकी
+                </div>
               </div>
-              <p>
-                © {new Date().getFullYear()} MPSC Sarathi Online • सर्व हक्क राखीव. Dedicated to MPSC & Civil Service Aspirants.
-              </p>
-            </footer>
-          </main>
-        </div>
-      )}
-
-      {/* Legal and AdSense Policy Modal */}
-      <LegalModal
-        isOpen={Boolean(legalModalType)}
-        type={legalModalType}
-        onClose={() => setLegalModalType(null)}
-      />
-
-      {/* AI Mentor Doubt Solver Modal */}
-      {isAiMentorOpen && (
-        <AiMentorModal
-          question={mentorQuestion}
-          studentAnswer={mentorStudentAnswer}
-          language={userProgress.preferredLanguage}
-          onClose={() => {
-            setIsAiMentorOpen(false);
-            setMentorQuestion(null);
-            setMentorStudentAnswer(undefined);
-          }}
-        />
-      )}
-
-      {/* Firebase Cloud Sync Modal */}
-      <CloudSyncModal
-        isOpen={isCloudSyncOpen}
-        onClose={() => {
-          setIsCloudSyncOpen(false);
-          setInitialShowAddQuestion(false);
-        }}
-        currentUser={currentUser}
-        userProgress={userProgress}
-        onTriggerSync={handleTriggerSync}
-        onFetchData={handleFetchFromFirebase}
-        onStoreNewQuestion={handleStoreNewQuestion}
-        onSeedAllToFirebase={handleSeedAllToFirebase}
-        isSyncing={isSyncing}
-        isFetching={isFetchingData}
-        language={userProgress.preferredLanguage}
-        questionsCount={questions.length}
-        initialShowAddQuestion={initialShowAddQuestion}
-      />
-
-      {/* Settings Modal */}
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        soundEffectsEnabled={userProgress.soundEffectsEnabled ?? true}
-        onToggleSoundEffects={handleToggleSoundEffects}
-        language={userProgress.preferredLanguage}
-      />
-
-      {/* 100k Hard Questions Hub Modal */}
-      <HardQuestionsHubModal
-        isOpen={isHardQuestionsHubOpen}
-        onClose={() => setIsHardQuestionsHubOpen(false)}
-        language={userProgress.preferredLanguage}
-        onStartHardExam={handleStartHardExam}
-      />
-
-      {/* Floating Firebase Sync Notification Toast */}
-      {syncToast && (
-        <div 
-          id="firebase-sync-toast"
-          className="fixed bottom-5 right-5 z-50 bg-stone-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-amber-500/40 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200 max-w-md"
-        >
-          <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-            <CheckCircle2 className="w-4 h-4" />
-          </div>
-          <div className="text-xs font-semibold">
-            {syncToast}
+            )}
           </div>
         </div>
-      )}
-    </div>
+
+        {/* 🔴 Right Section: Notifications, Stats & Avatar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+
+          {/* 🔴 New Feature: exam.mpscsarathi.online साठी लिंक — pulse glow + responsive */}
+          <style>{`
+            @keyframes examLinkPulse {
+              0%, 100% { box-shadow: 0 4px 14px rgba(232,103,26,0.4), 0 0 0 0 rgba(245,200,66,0.5); }
+              50% { box-shadow: 0 4px 18px rgba(232,103,26,0.55), 0 0 0 6px rgba(245,200,66,0); }
+            }
+            .exam-link-btn { animation: examLinkPulse 2.4s ease-in-out infinite; }
+            .exam-link-text { display: none; }
+            @media (min-width: 480px) {
+              .exam-link-text { display: inline; }
+            }
+          `}</style>
+          <a
+            href="https://exam.mpscsarathi.online"
+            onClick={(e) => { e.preventDefault(); goToExam(); }}
+            target="_blank"
+            rel="noreferrer"
+            className="exam-link-btn"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              background: 'linear-gradient(135deg,#E8671A,#F5C842)',
+              borderRadius: 99, padding: '8px 14px',
+              color: '#fff', fontWeight: 900, fontSize: 12,
+              textDecoration: 'none', flexShrink: 0,
+            }}
+          >
+            <span style={{ fontSize: 14, lineHeight: 1 }}>📝</span>
+            <PenSquare size={14} />
+            <span className="exam-link-text">मॉक टेस्ट द्या →</span>
+          </a>
+
+          {/* 🔴 New Feature: Notification Bell */}
+          <div style={{ position: 'relative' }}>
+            <button onClick={() => setShowNotifications(!showNotifications)} style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}>
+              <Bell size={16} />
+              <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, background: '#EF4444', borderRadius: '50%', border: '2px solid #0D6B6E' }} />
+            </button>
+            
+            {showNotifications && (
+              <div style={{ position: 'absolute', top: 45, right: 0, width: 280, background: '#fff', borderRadius: 16, boxShadow: '0 10px 40px rgba(0,0,0,0.2)', padding: '16px', animation: 'fade-in 0.2s ease', border: '1px solid rgba(0,0,0,0.08)' }}>
+                <div style={{ fontWeight: 800, fontSize: 14, color: '#1C2B2B', borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: 8, marginBottom: 12 }}>🔔 नवीन अपडेट्स</div>
+                
+                {/* 🔴 New Data Inserted in Notifications */}
+                <div style={{ background: 'rgba(37,99,235,0.08)', borderRadius: 10, padding: '10px', marginBottom: 8 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#2563EB', marginBottom: 2 }}>नवीन Mock Papers 📝</div>
+                  <div style={{ fontSize: 11, color: '#4A6060', fontWeight: 600 }}>पुढील परीक्षेसाठी १०० सर्वसमावेशक सराव प्रश्नसंच (Mock Papers) ॲड करण्यात आले आहेत.</div>
+                </div>
+
+                <div style={{ background: 'rgba(5,150,105,0.08)', borderRadius: 10, padding: '10px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#059669', marginBottom: 2 }}>Current Affairs 📰</div>
+                  <div style={{ fontSize: 11, color: '#4A6060', fontWeight: 600 }}>एप्रिल महिन्याच्या चालू घडामोडींच्या नोट्स अपडेट झाल्या आहेत.</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
+            {/* Score */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(0,0,0,0.2)', borderRadius: 99, padding: '4px 10px' }}>
+              <span style={{ fontSize: 10, fontWeight: 800, color: 'rgba(255,255,255,0.6)' }}>गुण:</span>
+              <span style={{ fontSize: 12, fontWeight: 900, color: '#F5C842' }}>
+                {progress.correctAnswers ?? 0} / {progress.totalQuestionsAttempted ?? 0}
+              </span>
+            </div>
+            
+            {/* 🔴 New Feature: Streak Indicator */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 10, fontWeight: 800, color: '#FCA5A5' }}>
+              <Flame size={10} fill="#EF4444" color="#EF4444" /> {progress.streak ?? 0} Day Streak
+            </div>
+          </div>
+
+          {/* Avatar */}
+          <div style={{ width: 38, height: 38, background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(245,200,66,0.6)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <User size={18} color="#F5C842" />
+          </div>
+        </div>
+
+      </div>
+    </header>
   );
 }
