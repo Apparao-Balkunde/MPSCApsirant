@@ -635,6 +635,7 @@ export const MPSC_QUESTIONS: Question[] = [
       'कर्तरी प्रयोग',
       'कर्मणी प्रयोग',
       'भावे प्रयोग',
+      'मिश्र / संकर प्रयोग',
     ],
     correctAnswerIndex: 2,
     explanationEn: 'In the sentence "रामाने रावणास मारले":\n1. The subject "रामाने" has the third case marker (तृतीया विभक्ती - ने).\n2. The object "रावणास" has the second/accusative marker (द्वितीया विभक्ती - स).\n3. The verb "मारले" does not change with either subject or object, but remains third person neuter singular (तृतीयपुरुषी नपुंसकलिंगी एकावचनी).\nTherefore, it is a classic example of "भावे प्रयोग" (Bhave Prayog - सकर्मक भावे).',
