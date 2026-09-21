@@ -1,360 +1,180 @@
-import React from 'react';
-import { 
-  Flame, 
-  Languages, 
-  BarChart3, 
-  BookOpen, 
-  Bookmark, 
-  Award, 
-  Sparkles,
-  Target,
-  Cloud,
-  Settings,
-  Volume2,
-  VolumeX,
-  FileText
-} from 'lucide-react';
-import { UserProgress } from '../types';
-import { soundFx } from '../utils/audio';
+import React, { useState, useEffect } from 'react';
+import { BookOpen, User, ArrowLeft, Bell, Target, Flame, PenSquare } from 'lucide-react';
+import { getProgress } from '../services/storageService';
+import { supabase } from '../lib/supabase';
 
-interface HeaderProps {
-  currentTab: 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor';
-  onSelectTab: (tab: 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor') => void;
-  language: 'mr' | 'en';
-  onToggleLanguage: () => void;
-  userProgress: UserProgress;
-  onOpenQuickMentor?: () => void;
-  onOpenCloudSync?: () => void;
-  onOpenSettings?: () => void;
-  onToggleSoundEffects?: () => void;
-}
+export function Header() {
+  const progress = getProgress();
+  
+  // 🔴 New Feature States
+  const [daysLeft, setDaysLeft] = useState<number>(0);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [canGoBack, setCanGoBack] = useState(false);
 
-export const Header: React.FC<HeaderProps> = ({
-  currentTab,
-  onSelectTab,
-  language,
-  onToggleLanguage,
-  userProgress,
-  onOpenQuickMentor,
-  onOpenCloudSync,
-  onOpenSettings,
-  onToggleSoundEffects,
-}) => {
-  const isMr = language === 'mr';
-  const soundEnabled = userProgress.soundEffectsEnabled ?? true;
-  const [soundFeedback, setSoundFeedback] = React.useState<string | null>(null);
+  // 🔴 Hardware Back Button & Navigation Logic
+  useEffect(() => {
+    // चेक करा की आपण होम पेज व्यतिरिक्त इतर कुठल्या पेजवर आहोत का
+    setCanGoBack(window.history.length > 1 && window.location.pathname !== '/');
 
-  const handleSoundToggle = () => {
-    const nextState = !soundEnabled;
-    if (onToggleSoundEffects) {
-      onToggleSoundEffects();
-    }
-    soundFx.playToggleSound(nextState);
-    setSoundFeedback(
-      nextState
-        ? (isMr ? 'ध्वनी सुरू' : 'Sound ON')
-        : (isMr ? 'ध्वनी बंद' : 'Sound Muted')
-    );
-    setTimeout(() => {
-      setSoundFeedback(null);
-    }, 2200);
+    const handlePopState = () => {
+      if (showNotifications) {
+        setShowNotifications(false); // आधी नोटिफिकेशन मेन्यू बंद करा
+      } else {
+        // हार्डवेअर बॅक दाबल्यावर डिफॉल्ट History Back कॉल होईल
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [showNotifications]);
+
+  const handleBackClick = () => {
+    window.history.back();
   };
-  const targetPercent = Math.min(
-    100,
-    Math.round((userProgress.todayQuestionsCount / userProgress.dailyTargetQuestions) * 100)
-  );
+
+  // 🔴 SSO — exam.mpscsarathi.online वर तोच युजर ओळखला जावा म्हणून
+  // सध्याच्या Supabase session चा access token URL सोबत पाठवतो.
+  // Login नसेल तर टोकनशिवाय उघडतं (exam अ‍ॅप तेव्हा आधीसारखं
+  // anonymous login वापरेल — काहीही तुटत नाही).
+  const goToExam = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const url = session?.access_token
+        ? `https://exam.mpscsarathi.online?token=${encodeURIComponent(session.access_token)}`
+        : 'https://exam.mpscsarathi.online';
+      window.open(url, '_blank', 'noreferrer');
+    } catch (err) {
+      console.error('[SSO] session मिळवताना चूक:', err);
+      window.open('https://exam.mpscsarathi.online', '_blank', 'noreferrer');
+    }
+  };
+
+  // 🔴 New Feature: Live Exam Countdown (राज्यसेवा पूर्व परीक्षा)
+  useEffect(() => {
+    const targetDate = new Date('2026-05-31T00:00:00').getTime();
+    const today = new Date().getTime();
+    const diff = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
+    setDaysLeft(diff > 0 ? diff : 0);
+  }, []);
 
   return (
-    <>
-      {/* Portal Switcher Banner */}
-      <div className="bg-gradient-to-r from-amber-700 via-amber-800 to-amber-900 text-amber-50 px-4 py-2 text-xs md:text-sm font-medium border-b border-amber-600/40">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="bg-amber-950/70 text-amber-300 text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded border border-amber-500/40">
-              MPSC सारथी
-            </span>
-            <span className="hidden sm:inline">
-              {isMr 
-                ? '📚 जुना संपूर्ण अभ्यासक्रम, सर्व विषयांच्या नोट्स व PYQ पेपर्स हवे आहेत?' 
-                : 'Looking for full syllabus, Marathi subject notes & previous question papers?'}
-            </span>
-            <span className="sm:hidden">
-              {isMr ? '📚 जुने नोट्स व पेपर्स पोर्टल' : '📚 Classic Notes Portal'}
-            </span>
-          </div>
-          <a
-            id="banner-classic-portal-link"
-            href="https://mpscsarathi.online"
-            className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-amber-300 px-3 py-1 rounded-md text-xs font-bold transition-all shadow-sm shrink-0 border border-amber-400/40"
-          >
-            <span>{isMr ? 'क्लासिक पोर्टल उघडा ➜' : 'Open Classic Portal ➜'}</span>
-          </a>
-        </div>
-      </div>
+    <header style={{
+      background: 'linear-gradient(135deg,#1C2B2B,#0D6B6E)',
+      borderBottom: '2px solid rgba(245,200,66,0.3)',
+      position: 'sticky', top: 0, zIndex: 100,
+      boxShadow: '0 4px 20px rgba(13,107,110,0.3)',
+      fontFamily: "'Baloo 2','Noto Sans Devanagari',sans-serif",
+    }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 16px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 
-      <header className="sticky top-0 z-40 bg-stone-900 border-b border-stone-800 text-stone-100 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo & Brand */}
-          <div 
-            id="brand-logo"
-            onClick={() => onSelectTab('dashboard')} 
-            className="flex items-center gap-3 cursor-pointer select-none group"
-          >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-stone-950 font-black shadow-inner shadow-amber-300/40">
-              <span className="text-xl tracking-tighter">M</span>
+        {/* 🔴 Left Section: Back Button + Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {canGoBack && (
+            <button onClick={handleBackClick} style={{ background:'rgba(255,255,255,0.1)', border:'none', borderRadius:10, padding:'8px', color:'#fff', cursor:'pointer', display:'flex', transition:'background 0.2s' }}>
+              <ArrowLeft size={18} />
+            </button>
+          )}
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ background: 'linear-gradient(135deg,#E8671A,#F5C842)', borderRadius: 12, padding: '8px', boxShadow: '0 4px 14px rgba(232,103,26,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <BookOpen size={20} color="#fff" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-lg tracking-tight text-stone-100 group-hover:text-amber-400 transition-colors">
-                  MPSCAspirant
-                </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  {isMr ? 'राज्यसेवा / संयुक्त' : 'Prelims 2025-26'}
-                </span>
-              </div>
-              <p className="text-xs text-stone-400 font-medium">
-                {isMr ? 'सराव परीक्षा व प्रगती ट्रॅकर' : 'Exam Practice & Progress'}
-              </p>
-            </div>
-          </div>
-
-          {/* Nav Items */}
-          <nav className="hidden md:flex items-center gap-1">
-            <button
-              id="nav-dashboard"
-              onClick={() => onSelectTab('dashboard')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
-                currentTab === 'dashboard'
-                  ? 'bg-amber-500 text-stone-950 shadow-sm'
-                  : 'text-stone-300 hover:text-white hover:bg-stone-800'
-              }`}
-            >
-              <Award className="w-4 h-4" />
-              <span>{isMr ? 'डॅशबोर्ड' : 'Dashboard'}</span>
-            </button>
-
-            <button
-              id="nav-subjects"
-              onClick={() => onSelectTab('subjects')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
-                currentTab === 'subjects'
-                  ? 'bg-amber-500 text-stone-950 shadow-sm'
-                  : 'text-stone-300 hover:text-white hover:bg-stone-800'
-              }`}
-            >
-              <BookOpen className="w-4 h-4" />
-              <span>{isMr ? 'विषयवार सराव' : 'Subjects'}</span>
-            </button>
-
-            <button
-              id="nav-grammar"
-              onClick={() => onSelectTab('grammar')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
-                currentTab === 'grammar'
-                  ? 'bg-amber-500 text-stone-950 shadow-sm'
-                  : 'text-stone-300 hover:text-white hover:bg-stone-800'
-              }`}
-            >
-              <FileText className="w-4 h-4" />
-              <span>{isMr ? 'व्याकरण नियम' : 'Grammar Rules'}</span>
-              <span className="text-[10px] px-1 py-0.2 rounded bg-amber-400 text-stone-950 font-bold uppercase">
-                {isMr ? 'नवीन' : 'New'}
-              </span>
-            </button>
-
-            <button
-              id="nav-analytics"
-              onClick={() => onSelectTab('analytics')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
-                currentTab === 'analytics'
-                  ? 'bg-amber-500 text-stone-950 shadow-sm'
-                  : 'text-stone-300 hover:text-white hover:bg-stone-800'
-              }`}
-            >
-              <BarChart3 className="w-4 h-4" />
-              <span>{isMr ? 'प्रगती व विश्लेषण' : 'Analytics'}</span>
-            </button>
-
-            <button
-              id="nav-bookmarks"
-              onClick={() => onSelectTab('bookmarks')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
-                currentTab === 'bookmarks'
-                  ? 'bg-amber-500 text-stone-950 shadow-sm'
-                  : 'text-stone-300 hover:text-white hover:bg-stone-800'
-              }`}
-            >
-              <Bookmark className="w-4 h-4" />
-              <span>{isMr ? 'जतन केलेले प्रश्न' : 'Saved Questions'}</span>
-              {userProgress.bookmarkedQuestionIds.length > 0 && (
-                <span className="text-xs px-1.5 py-0.2 rounded-full bg-stone-700 text-amber-300 font-mono">
-                  {userProgress.bookmarkedQuestionIds.length}
-                </span>
-              )}
-            </button>
-
-            <button
-              id="nav-mentor"
-              onClick={() => onSelectTab('mentor')}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-2 ${
-                currentTab === 'mentor'
-                  ? 'bg-amber-500 text-stone-950 shadow-sm'
-                  : 'text-amber-300 hover:text-white hover:bg-stone-800'
-              }`}
-            >
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>{isMr ? 'मार्गदर्शक AI' : 'AI Mentor'}</span>
-            </button>
-          </nav>
-
-          {/* Right Action Bar */}
-          <div className="flex items-center gap-3">
-            {/* Daily Streak Badge */}
-            <div 
-              title={`${userProgress.streakDays} Day Preparation Streak`}
-              className="flex items-center gap-1.5 px-2.5 py-1 bg-stone-800 border border-stone-700/80 rounded-full text-xs font-semibold text-amber-400"
-            >
-              <Flame className="w-4 h-4 text-orange-400 fill-orange-400" />
-              <span>{userProgress.streakDays} {isMr ? 'दिवस सातत्य' : 'Days'}</span>
-            </div>
-
-            {/* Daily Target Indicator */}
-            <div 
-              title={`Today: ${userProgress.todayQuestionsCount}/${userProgress.dailyTargetQuestions} questions solved`}
-              className="hidden sm:flex items-center gap-2 px-2.5 py-1 bg-stone-800 border border-stone-700/80 rounded-full text-xs text-stone-300"
-            >
-              <Target className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{userProgress.todayQuestionsCount}/{userProgress.dailyTargetQuestions} Qs</span>
-              <div className="w-12 h-1.5 bg-stone-700 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-emerald-500 transition-all duration-300"
-                  style={{ width: `${targetPercent}%` }}
-                />
-              </div>
-            </div>
-
-            {/* Firebase Cloud Sync Button */}
-            {onOpenCloudSync && (
-              <button
-                id="btn-cloud-sync"
-                onClick={onOpenCloudSync}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
-                title={isMr ? "फायरबेस क्लाउड बॅकअप स्थिती" : "Firebase Cloud Sync Status"}
-              >
-                <Cloud className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="hidden lg:inline">{isMr ? 'क्लाउड सिंक' : 'Cloud Sync'}</span>
-              </button>
-            )}
-
-            {/* Sound Effects Toggle Button with Visual Feedback */}
-            <div className="relative">
-              <button
-                id="btn-header-sound-toggle"
-                onClick={handleSoundToggle}
-                className={`p-2 rounded-lg border text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                  soundEnabled
-                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-400 hover:bg-amber-500/25'
-                    : 'bg-stone-800 border-stone-700 text-stone-400 hover:bg-stone-700'
-                }`}
-                title={
-                  soundEnabled
-                    ? (isMr ? 'चाचणी ध्वनी प्रभाव: सुरू (म्यूट करण्यासाठी क्लिक करा)' : 'Exam Sound Effects: Enabled (click to mute)')
-                    : (isMr ? 'चाचणी ध्वनी प्रभाव: बंद (सुरू करण्यासाठी क्लिक करा)' : 'Exam Sound Effects: Disabled (click to enable)')
-                }
-              >
-                {soundEnabled ? (
-                  <Volume2 className="w-4 h-4 text-amber-400" />
-                ) : (
-                  <VolumeX className="w-4 h-4 text-stone-400" />
-                )}
-              </button>
-
-              {soundFeedback && (
-                <div className="absolute right-0 -bottom-8 whitespace-nowrap bg-stone-900 border border-amber-500/60 text-amber-300 px-2 py-0.5 rounded-md text-[10px] font-bold shadow-xl animate-in fade-in zoom-in-95 duration-150 pointer-events-none z-50">
-                  {soundFeedback}
+            {!canGoBack && (
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ lineHeight: 1 }}>
+                  <span style={{ fontWeight: 900, fontSize: 18, letterSpacing: '-0.04em', color: '#fff' }}>MPSC</span>
+                  <span style={{ fontWeight: 900, fontSize: 18, letterSpacing: '-0.04em', color: '#F5C842' }}> सारथी</span>
                 </div>
-              )}
-            </div>
-
-            {/* Application Settings Modal Trigger */}
-            {onOpenSettings && (
-              <button
-                id="btn-open-settings"
-                onClick={onOpenSettings}
-                className="p-2 bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white border border-stone-700 rounded-lg transition-colors cursor-pointer"
-                title={isMr ? "अॅप सेटिंग्ज व ध्वनी व्यवस्थापन" : "App Settings & Sound Management"}
-              >
-                <Settings className="w-4 h-4 text-stone-300" />
-              </button>
+                {/* 🔴 New Feature: Exam Target Info */}
+                <div style={{ fontSize: 10, fontWeight: 700, color: '#A5F3FC', display: 'flex', alignItems: 'center', gap: 4, marginTop: 2 }}>
+                  <Target size={10} /> राज्यसेवा पूर्व: {daysLeft} दिवस बाकी
+                </div>
+              </div>
             )}
-
-            {/* Language Toggle Button */}
-            <button
-              id="btn-toggle-lang"
-              onClick={onToggleLanguage}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 rounded-lg text-xs font-bold transition-colors cursor-pointer"
-              title="Switch language between Marathi and English"
-            >
-              <Languages className="w-4 h-4 text-amber-400" />
-              <span>{isMr ? 'English' : 'मराठी'}</span>
-            </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Submenu Bar */}
-      <div className="md:hidden flex items-center justify-around px-2 py-2 border-t border-stone-800 bg-stone-900/90 text-xs">
-        <button
-          onClick={() => onSelectTab('dashboard')}
-          className={`px-2 py-1 rounded font-medium ${
-            currentTab === 'dashboard' ? 'text-amber-400 font-bold' : 'text-stone-400'
-          }`}
-        >
-          {isMr ? 'डॅशबोर्ड' : 'Home'}
-        </button>
-        <button
-          onClick={() => onSelectTab('subjects')}
-          className={`px-2 py-1 rounded font-medium ${
-            currentTab === 'subjects' ? 'text-amber-400 font-bold' : 'text-stone-400'
-          }`}
-        >
-          {isMr ? 'विषय' : 'Subjects'}
-        </button>
-        <button
-          onClick={() => onSelectTab('grammar')}
-          className={`px-2 py-1 rounded font-medium ${
-            currentTab === 'grammar' ? 'text-amber-400 font-bold' : 'text-stone-400'
-          }`}
-        >
-          {isMr ? 'व्याकरण' : 'Grammar'}
-        </button>
-        <button
-          onClick={() => onSelectTab('analytics')}
-          className={`px-2 py-1 rounded font-medium ${
-            currentTab === 'analytics' ? 'text-amber-400 font-bold' : 'text-stone-400'
-          }`}
-        >
-          {isMr ? 'विश्लेषण' : 'Stats'}
-        </button>
-        <button
-          onClick={() => onSelectTab('bookmarks')}
-          className={`px-2 py-1 rounded font-medium ${
-            currentTab === 'bookmarks' ? 'text-amber-400 font-bold' : 'text-stone-400'
-          }`}
-        >
-          {isMr ? 'जतन' : 'Saved'}
-        </button>
-        <button
-          onClick={() => onSelectTab('mentor')}
-          className={`px-2 py-1 rounded font-medium ${
-            currentTab === 'mentor' ? 'text-amber-400 font-bold' : 'text-stone-400'
-          }`}
-        >
-          {isMr ? 'मार्गदर्शक' : 'Mentor'}
-        </button>
+        {/* 🔴 Right Section: Notifications, Stats & Avatar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+
+          {/* 🔴 New Feature: exam.mpscsarathi.online साठी लिंक — pulse glow + responsive */}
+          <style>{`
+            @keyframes examLinkPulse {
+              0%, 100% { box-shadow: 0 4px 14px rgba(232,103,26,0.4), 0 0 0 0 rgba(245,200,66,0.5); }
+              50% { box-shadow: 0 4px 18px rgba(232,103,26,0.55), 0 0 0 6px rgba(245,200,66,0); }
+            }
+            .exam-link-btn { animation: examLinkPulse 2.4s ease-in-out infinite; }
+            .exam-link-text { display: none; }
+            @media (min-width: 480px) {
+              .exam-link-text { display: inline; }
+            }
+          `}</style>
+          <a
+            href="https://exam.mpscsarathi.online"
+            onClick={(e) => { e.preventDefault(); goToExam(); }}
+            target="_blank"
+            rel="noreferrer"
+            className="exam-link-btn"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              background: 'linear-gradient(135deg,#E8671A,#F5C842)',
+              borderRadius: 99, padding: '8px 14px',
+              color: '#fff', fontWeight: 900, fontSize: 12,
+              textDecoration: 'none', flexShrink: 0,
+            }}
+          >
+            <span style={{ fontSize: 14, lineHeight: 1 }}>📝</span>
+            <PenSquare size={14} />
+            <span className="exam-link-text">मॉक टेस्ट द्या →</span>
+          </a>
+
+          {/* 🔴 New Feature: Notification Bell */}
+          <div style={{ position: 'relative' }}>
+            <button onClick={() => setShowNotifications(!showNotifications)} style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}>
+              <Bell size={16} />
+              <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, background: '#EF4444', borderRadius: '50%', border: '2px solid #0D6B6E' }} />
+            </button>
+            
+            {showNotifications && (
+              <div style={{ position: 'absolute', top: 45, right: 0, width: 280, background: '#fff', borderRadius: 16, boxShadow: '0 10px 40px rgba(0,0,0,0.2)', padding: '16px', animation: 'fade-in 0.2s ease', border: '1px solid rgba(0,0,0,0.08)' }}>
+                <div style={{ fontWeight: 800, fontSize: 14, color: '#1C2B2B', borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: 8, marginBottom: 12 }}>🔔 नवीन अपडेट्स</div>
+                
+                {/* 🔴 New Data Inserted in Notifications */}
+                <div style={{ background: 'rgba(37,99,235,0.08)', borderRadius: 10, padding: '10px', marginBottom: 8 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#2563EB', marginBottom: 2 }}>नवीन Mock Papers 📝</div>
+                  <div style={{ fontSize: 11, color: '#4A6060', fontWeight: 600 }}>पुढील परीक्षेसाठी १०० सर्वसमावेशक सराव प्रश्नसंच (Mock Papers) ॲड करण्यात आले आहेत.</div>
+                </div>
+
+                <div style={{ background: 'rgba(5,150,105,0.08)', borderRadius: 10, padding: '10px' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#059669', marginBottom: 2 }}>Current Affairs 📰</div>
+                  <div style={{ fontSize: 11, color: '#4A6060', fontWeight: 600 }}>एप्रिल महिन्याच्या चालू घडामोडींच्या नोट्स अपडेट झाल्या आहेत.</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
+            {/* Score */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(0,0,0,0.2)', borderRadius: 99, padding: '4px 10px' }}>
+              <span style={{ fontSize: 10, fontWeight: 800, color: 'rgba(255,255,255,0.6)' }}>गुण:</span>
+              <span style={{ fontSize: 12, fontWeight: 900, color: '#F5C842' }}>
+                {progress.correctAnswers ?? 0} / {progress.totalQuestionsAttempted ?? 0}
+              </span>
+            </div>
+            
+            {/* 🔴 New Feature: Streak Indicator */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 10, fontWeight: 800, color: '#FCA5A5' }}>
+              <Flame size={10} fill="#EF4444" color="#EF4444" /> {progress.streak ?? 0} Day Streak
+            </div>
+          </div>
+
+          {/* Avatar */}
+          <div style={{ width: 38, height: 38, background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(245,200,66,0.6)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <User size={18} color="#F5C842" />
+          </div>
+        </div>
+
       </div>
     </header>
-    </>
   );
-};
+}
