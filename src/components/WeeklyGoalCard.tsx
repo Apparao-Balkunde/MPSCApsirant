@@ -391,9 +391,9 @@ export const WeeklyGoalCard: React.FC<WeeklyGoalCardProps> = ({
 
             {showRecentLogs && (
               <div className="mt-3 space-y-2">
-                {stats.recentLogs.map((log) => (
+                {stats.recentLogs.map((log, idx) => (
                   <div 
-                    key={log.id} 
+                    key={`${log.id}-${idx}`} 
                     className="flex items-center justify-between p-3 rounded-xl bg-stone-50 border border-stone-200 text-xs"
                   >
                     <div className="flex items-center gap-2.5">

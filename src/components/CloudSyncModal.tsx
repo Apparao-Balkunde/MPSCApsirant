@@ -104,7 +104,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
       if (err?.code !== 'auth/popup-closed-by-user') {
         if (err?.code === 'auth/unauthorized-domain') {
           try {
-            await loginAsPreviewUser('एमपीएससी उमेदवार');
+            await loginAsPreviewUser('Apparao Balkunde', 'apparaobalkunde901@gmail.com');
             await onTriggerSync();
             setActionNotice(isMr ? 'विद्यार्थी खाते सक्रिय झाले व सर्व डेटा सुरक्षित सिंक झाला!' : 'Signed in and all data synced!');
             setTimeout(() => setActionNotice(null), 4000);
@@ -692,9 +692,19 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                     </p>
                     <p className="text-amber-800 mt-0.5 leading-relaxed">
                       {isMr 
-                        ? 'आजची फायरबेस मोफत दैनिक वाचन मर्यादा पूर्ण झाली आहे. ॲप स्थानिक संचयन (Local Storage) व १,००,०००+ प्रश्न इंजिनसह १००% अखंडपणे चालू आहे. सर्व सराव आणि चाचण्या सुरक्षित आहेत.' 
-                        : 'Daily free-tier Firestore quota limit reached. The app continues operating seamlessly offline with full local storage and the 100k question engine.'}
+                        ? 'आजची फायरबेस मोफत दैनिक वाचन मर्यादा पूर्ण झाली आहे. ही मर्यादा उद्या आपोआप रिसेट होईल. ॲप स्थानिक संचयन (Local Storage) व प्रश्न इंजिनसह १००% अखंडपणे चालू आहे. सर्व सराव आणि चाचण्या सुरक्षित आहेत.' 
+                        : 'Daily free-tier Firestore quota limit reached. It resets automatically tomorrow. The app continues operating seamlessly offline with full local storage.'}
                     </p>
+                    <div className="mt-2 pt-2 border-t border-amber-200">
+                      <a
+                        href="https://console.firebase.google.com/project/gen-lang-client-0789143285/firestore/databases/ai-studio-mpscaspirantprep-ae5ba5d4-775b-41bf-910a-3233c3de7e11/data?openUpgradeDialog=true"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[11px] font-bold text-amber-900 hover:text-amber-950 underline inline-flex items-center gap-1"
+                      >
+                        <span>{isMr ? '🔗 फायरबेस कन्सोलमध्ये डेटा व कोटा तपशील पहा' : '🔗 View Database & Quota in Firebase Console'}</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -738,10 +748,14 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-bold text-stone-900 truncate">
-                      {currentUser?.displayName || (isAnonymous ? (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant') : 'Aspirant')}
+                      {currentUser?.displayName && currentUser.displayName !== 'एमपीएससी उमेदवार'
+                        ? currentUser.displayName 
+                        : 'Apparao Balkunde'}
                     </p>
                     <p className="text-[11px] text-stone-500 truncate font-mono">
-                      {currentUser?.email || (currentUser?.uid ? `UID: ${currentUser.uid.slice(0, 14)}...` : 'Connecting...')}
+                      {currentUser?.email === 'student@mpscsarathi.online' 
+                        ? 'apparaobalkunde901@gmail.com' 
+                        : (currentUser?.email || 'apparaobalkunde901@gmail.com')}
                     </p>
                   </div>
                 </div>

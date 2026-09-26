@@ -64,9 +64,16 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
   }, [result.accuracyPercentage]);
 
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
-  const questions: Question[] = session.questionIds
-    .map((id) => findQuestionById(id, pool))
-    .filter((q): q is Question => Boolean(q));
+  const uniqueQuestionIds = Array.from(new Set(session.questionIds));
+  const seenIds = new Set<string>();
+  const questions: Question[] = [];
+  uniqueQuestionIds.forEach((id) => {
+    const q = findQuestionById(id, pool);
+    if (q && !seenIds.has(q.id)) {
+      seenIds.add(q.id);
+      questions.push(q);
+    }
+  });
 
   // Filter questions for review
   const filteredQuestions = questions.filter((q) => {
@@ -340,7 +347,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
             const isExpanded = expandedQuestionId === q.id || filteredQuestions.length <= 3;
 
             return (
-              <div key={q.id} className="py-5 space-y-3">
+              <div key={`${q.id}-${idx}`} className="py-5 space-y-3">
                 {/* Question Header */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2 flex-wrap">

@@ -495,7 +495,7 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
                 const isExpanded = expandedExplanationId === q.id;
                 return (
                   <div 
-                    key={q.id}
+                    key={`${q.id}-${idx}`}
                     className="p-4 rounded-xl border border-stone-800 bg-stone-950/40 hover:border-stone-700 transition-colors space-y-3"
                   >
                     <div className="flex items-start justify-between gap-3">

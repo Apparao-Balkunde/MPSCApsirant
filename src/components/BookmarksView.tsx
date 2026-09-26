@@ -40,9 +40,16 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
   const [noteDraft, setNoteDraft] = useState<string>('');
 
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
-  const savedQuestions = userProgress.bookmarkedQuestionIds
-    .map((id) => findQuestionById(id, pool))
-    .filter((q): q is Question => Boolean(q));
+  const uniqueBookmarkedIds = Array.from(new Set(userProgress.bookmarkedQuestionIds));
+  const seenSavedIds = new Set<string>();
+  const savedQuestions: Question[] = [];
+  uniqueBookmarkedIds.forEach((id) => {
+    const q = findQuestionById(id, pool);
+    if (q && !seenSavedIds.has(q.id)) {
+      seenSavedIds.add(q.id);
+      savedQuestions.push(q);
+    }
+  });
 
   const filtered = savedQuestions.filter((q) => {
     if (selectedSubject !== 'all' && q.subjectId !== selectedSubject) return false;
@@ -137,7 +144,7 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
 
             return (
               <div
-                key={q.id}
+                key={`${q.id}-${idx}`}
                 className="bg-white rounded-2xl border border-stone-200 shadow-xs p-5 sm:p-6 space-y-4"
               >
                 {/* Question Meta Header */}

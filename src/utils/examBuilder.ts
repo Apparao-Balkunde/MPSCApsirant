@@ -1,6 +1,6 @@
 import { ExamPatternId, ExamSession, Question, SubjectId } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
-import { getHardQuestionsPool } from './hardQuestionsEngine';
+import { getHardQuestionsPool, findQuestionById } from './hardQuestionsEngine';
 
 export function createExamSession(options: {
   patternId: ExamPatternId;
@@ -12,13 +12,29 @@ export function createExamSession(options: {
   questionPool?: Question[];
   difficulty?: 'Easy' | 'Moderate' | 'Hard' | 'all';
 }): ExamSession {
-  const pool = options.questionPool && options.questionPool.length > 0 ? options.questionPool : MPSC_QUESTIONS;
+  const rawPool = options.questionPool && options.questionPool.length > 0 ? options.questionPool : MPSC_QUESTIONS;
+  
+  // Deduplicate pool by question ID
+  const poolMap = new Map<string, Question>();
+  rawPool.forEach((q) => {
+    if (q && q.id && !poolMap.has(q.id)) {
+      poolMap.set(q.id, q);
+    }
+  });
+  const pool = Array.from(poolMap.values());
+
   let eligibleQuestions: Question[] = [];
 
   if (options.customQuestionIds && options.customQuestionIds.length > 0) {
-    eligibleQuestions = pool.filter((q) =>
-      options.customQuestionIds!.includes(q.id)
-    );
+    const uniqueIds = Array.from(new Set(options.customQuestionIds));
+    const matchedMap = new Map<string, Question>();
+    uniqueIds.forEach((id) => {
+      const q = poolMap.get(id) || findQuestionById(id, pool);
+      if (q && !matchedMap.has(q.id)) {
+        matchedMap.set(q.id, q);
+      }
+    });
+    eligibleQuestions = Array.from(matchedMap.values());
   } else if (options.patternId === 'hard_challenge') {
     const requestedCount = options.limit || 25;
     eligibleQuestions = getHardQuestionsPool({
@@ -57,6 +73,15 @@ export function createExamSession(options: {
     }
   }
 
+  // Ensure eligibleQuestions has strictly unique questions
+  const uniqueEligibleMap = new Map<string, Question>();
+  eligibleQuestions.forEach((q) => {
+    if (q && q.id && !uniqueEligibleMap.has(q.id)) {
+      uniqueEligibleMap.set(q.id, q);
+    }
+  });
+  const uniqueEligible = Array.from(uniqueEligibleMap.values());
+
   // Shuffle questions and apply sensible limits for large question banks
   const defaultLimit = options.patternId === 'current_affairs_2026'
     ? 25
@@ -64,7 +89,7 @@ export function createExamSession(options: {
     ? 25
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
-  const shuffled = [...eligibleQuestions].sort(() => 0.5 - Math.random());
+  const shuffled = [...uniqueEligible].sort(() => 0.5 - Math.random());
   const selected = limit ? shuffled.slice(0, limit) : shuffled;
 
   // Pattern specifics
@@ -112,19 +137,22 @@ export function createExamSession(options: {
 
   const durationSeconds = Math.round(durationMinutes * 60);
 
+  // Guarantee final unique question IDs
+  const finalQuestionIds = Array.from(new Set(selected.map((q) => q.id)));
+
   return {
     id: `exam_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
     title: options.title || defaultTitle,
     patternId: options.patternId,
-    questionIds: selected.map((q) => q.id),
-    totalQuestions: selected.length,
+    questionIds: finalQuestionIds,
+    totalQuestions: finalQuestionIds.length,
     durationSeconds,
     remainingSeconds: durationSeconds,
     negativeMarkRate,
     marksPerQuestion,
     answers: {},
     markedForReview: {},
-    visited: { [selected[0]?.id || '']: true },
+    visited: { [finalQuestionIds[0] || '']: true },
     timeSpent: {},
     isCompleted: false,
     startedAt: Date.now(),

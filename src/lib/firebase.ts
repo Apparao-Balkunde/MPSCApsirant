@@ -51,7 +51,18 @@ export function getLocalStudentSession(): User | null {
   try {
     const raw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_USER_KEY) : null;
     if (!raw) return null;
-    return JSON.parse(raw) as User;
+    const user = JSON.parse(raw) as any;
+    // Auto-correct any obsolete placeholder dummy email
+    if (user && user.email === 'student@mpscsarathi.online') {
+      user.email = 'apparaobalkunde901@gmail.com';
+      if (!user.displayName || user.displayName === 'एमपीएससी उमेदवार') {
+        user.displayName = 'Apparao Balkunde';
+      }
+      try {
+        localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(user));
+      } catch {}
+    }
+    return user as User;
   } catch {
     return null;
   }
@@ -136,11 +147,12 @@ export async function registerWithEmail(email: string, pass: string, displayName
 }
 
 export async function loginAsGuest() {
-  return loginAsPreviewUser('अतिथी उमेदवार (Guest)');
+  return loginAsPreviewUser('Apparao Balkunde (Guest)', 'apparaobalkunde901@gmail.com');
 }
 
-export async function loginAsPreviewUser(customName?: string): Promise<User> {
-  const name = customName?.trim() || 'एमपीएससी उमेदवार';
+export async function loginAsPreviewUser(customName?: string, customEmail?: string): Promise<User> {
+  const name = customName?.trim() || 'Apparao Balkunde';
+  const email = customEmail?.trim() || 'apparaobalkunde901@gmail.com';
 
   // 1. First try Firebase Anonymous Auth if enabled
   try {
@@ -153,18 +165,18 @@ export async function loginAsPreviewUser(customName?: string): Promise<User> {
     console.warn('Firebase Anonymous auth fallback active:', err?.code || err?.message);
   }
 
-  // 2. Guaranteed zero-fail persistent Student Session
+  // 2. Guaranteed persistent Student Session
   let existingUid = '';
   try {
     const existing = getLocalStudentSession();
     if (existing?.uid) existingUid = existing.uid;
   } catch {}
 
-  const uid = existingUid || ('student_' + Math.random().toString(36).substring(2, 12));
+  const uid = existingUid || ('user_' + Math.random().toString(36).substring(2, 12));
   const studentUser = {
     uid,
     displayName: name,
-    email: 'student@mpscsarathi.online',
+    email: email,
     photoURL: null,
     isAnonymous: false,
     emailVerified: true,
@@ -181,6 +193,31 @@ export async function loginAsPreviewUser(customName?: string): Promise<User> {
   // Notify listeners immediately
   authListeners.forEach((fn) => fn(studentUser));
   return studentUser;
+}
+
+export function updateStudentProfile(displayName: string, email: string): User {
+  const existing = getLocalStudentSession();
+  const uid = existing?.uid || ('user_' + Math.random().toString(36).substring(2, 12));
+  const updatedUser = {
+    ...(existing || {}),
+    uid,
+    displayName: displayName.trim() || 'Apparao Balkunde',
+    email: email.trim() || 'apparaobalkunde901@gmail.com',
+    photoURL: existing?.photoURL || null,
+    isAnonymous: false,
+    emailVerified: true,
+  } as unknown as User;
+
+  try {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(updatedUser));
+    }
+  } catch (e) {
+    console.warn('Storage warning:', e);
+  }
+
+  authListeners.forEach((fn) => fn(updatedUser));
+  return updatedUser;
 }
 
 export function formatAuthErrorMessage(err: any, isMarathi: boolean): string {

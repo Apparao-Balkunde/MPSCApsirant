@@ -704,12 +704,21 @@ export function getHardQuestionsPool(options: {
     (q) => subjectId === 'all' || q.subjectId === subjectId
   );
 
-  // Filter all existing hard questions in main pool
+  // Filter all existing hard questions in main pool (excluding ones already in curated to prevent duplicate keys)
+  const curatedIds = new Set(curated.map((q) => q.id));
   const existingHard = MPSC_QUESTIONS.filter(
-    (q) => q.difficulty === 'Hard' && (subjectId === 'all' || q.subjectId === subjectId)
+    (q) => q.difficulty === 'Hard' && (subjectId === 'all' || q.subjectId === subjectId) && !curatedIds.has(q.id)
   );
 
-  const combinedStatic = [...curated, ...existingHard];
+  // Combine uniquely by ID
+  const staticMap = new Map<string, Question>();
+  curated.forEach((q) => staticMap.set(q.id, q));
+  existingHard.forEach((q) => {
+    if (!staticMap.has(q.id)) {
+      staticMap.set(q.id, q);
+    }
+  });
+  const combinedStatic = Array.from(staticMap.values());
 
   if (combinedStatic.length >= count && offset === 0) {
     return combinedStatic.slice(0, count);
@@ -723,7 +732,15 @@ export function getHardQuestionsPool(options: {
     seedOffset: offset + combinedStatic.length,
   });
 
-  return [...combinedStatic, ...generated].slice(0, count);
+  const resultMap = new Map<string, Question>();
+  combinedStatic.forEach((q) => resultMap.set(q.id, q));
+  generated.forEach((q) => {
+    if (!resultMap.has(q.id)) {
+      resultMap.set(q.id, q);
+    }
+  });
+
+  return Array.from(resultMap.values()).slice(0, count);
 }
 
 /**

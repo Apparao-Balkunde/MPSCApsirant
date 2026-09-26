@@ -301,7 +301,7 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
             {filteredRules.map((rule, idx) => (
               <div
-                key={rule.id}
+                key={`${rule.id}-${idx}`}
                 className="p-4 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
               >
                 <div className="space-y-1.5 flex-1">
@@ -367,13 +367,13 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
               </button>
             </div>
           ) : (
-            filteredRules.map((rule) => {
+            filteredRules.map((rule, idx) => {
               const isExpanded = expandedRuleIds[rule.id] ?? true;
               const isSaved = savedRuleIds.includes(rule.id);
 
               return (
                 <div
-                  key={rule.id}
+                  key={`${rule.id}-${idx}`}
                   id={rule.id}
                   className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all overflow-hidden"
                 >

@@ -25,6 +25,7 @@ import {
   registerWithEmail, 
   loginAsGuest, 
   loginAsPreviewUser,
+  updateStudentProfile,
   logoutUser, 
   formatAuthErrorMessage 
 } from '../lib/firebase';
@@ -56,12 +57,17 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
 
   // Form states
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
+  const [displayName, setDisplayName] = useState('Apparao Balkunde');
+  const [email, setEmail] = useState('apparaobalkunde901@gmail.com');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
+
+  // Edit profile state
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [editName, setEditName] = useState('Apparao Balkunde');
+  const [editEmail, setEditEmail] = useState('apparaobalkunde901@gmail.com');
 
   // Status & feedback
   const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +76,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [unauthorizedDomain, setUnauthorizedDomain] = useState<string | null>(null);
   const [copiedDomain, setCopiedDomain] = useState(false);
 
-  // Reset errors whenever modal opens
+  // Reset errors and sync profile whenever modal opens or user changes
   useEffect(() => {
     if (isOpen) {
       setAuthError(null);
@@ -78,7 +84,16 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       setUnauthorizedDomain(null);
       setIsLoading(false);
     }
-  }, [isOpen]);
+    if (currentUser) {
+      const currentEmail = currentUser.email === 'student@mpscsarathi.online' ? 'apparaobalkunde901@gmail.com' : (currentUser.email || 'apparaobalkunde901@gmail.com');
+      const currentName = (!currentUser.displayName || currentUser.displayName === 'एमपीएससी उमेदवार') ? 'Apparao Balkunde' : currentUser.displayName;
+      setEditName(currentName);
+      setEditEmail(currentEmail);
+      if (currentUser.email === 'student@mpscsarathi.online') {
+        updateStudentProfile(currentName, currentEmail);
+      }
+    }
+  }, [isOpen, currentUser]);
 
   if (!isOpen) return null;
 
@@ -121,7 +136,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         // Domain not yet in Firebase Console authorized domains list
         // Seamlessly auto-sign in so student is NEVER blocked by a red error
         try {
-          const previewUser = await loginAsPreviewUser(displayName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant'));
+          const previewUser = await loginAsPreviewUser(displayName || 'Apparao Balkunde', email || 'apparaobalkunde901@gmail.com');
           if (previewUser) {
             soundFx.playCorrectSound();
             setAuthSuccess(
@@ -246,13 +261,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     setIsLoading(true);
     soundFx.playClickSound();
     try {
-      const user = await loginAsPreviewUser(displayName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant'));
+      const user = await loginAsPreviewUser(displayName || 'Apparao Balkunde', email || 'apparaobalkunde901@gmail.com');
       if (user) {
         soundFx.playCorrectSound();
         setAuthSuccess(
           isMr 
-            ? 'यशस्वीरीत्या लॉगिन झाले! तुमचा संपूर्ण सराव सुरक्षितपणे सिंक होत आहे.' 
-            : 'Successfully logged in! Your progress is now safely backed up.'
+            ? `स्वागत आहे, ${user.displayName || 'Apparao Balkunde'}! यशस्वीरीत्या लॉगिन झाले.` 
+            : `Welcome, ${user.displayName || 'Apparao Balkunde'}! Successfully logged in.`
         );
         if (onTriggerSync) {
           try {
@@ -269,6 +284,26 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       setAuthError(formatAuthErrorMessage(err, isMr));
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Edit / Save Profile
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    soundFx.playClickSound();
+    try {
+      const updated = updateStudentProfile(editName || 'Apparao Balkunde', editEmail || 'apparaobalkunde901@gmail.com');
+      if (updated) {
+        soundFx.playCorrectSound();
+        setAuthSuccess(isMr ? 'माहिती यशस्वीरीत्या अद्ययावत झाली!' : 'Profile updated successfully!');
+        setIsEditingProfile(false);
+        if (onTriggerSync) {
+          await onTriggerSync();
+        }
+        setTimeout(() => setAuthSuccess(null), 3000);
+      }
+    } catch (err: any) {
+      setAuthError(isMr ? 'माहिती सेव्ह करताना अडचण आली.' : 'Failed to update profile.');
     }
   };
 
@@ -438,7 +473,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   {currentUser.photoURL ? (
                     <img 
                       src={currentUser.photoURL} 
-                      alt={currentUser.displayName || 'User'} 
+                      alt={currentUser.displayName || 'Apparao Balkunde'} 
                       className="w-full h-full object-cover" 
                     />
                   ) : (
@@ -446,23 +481,82 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-black text-stone-100 text-sm truncate">
-                      {currentUser.displayName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant')}
-                    </h3>
-                    <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                      <ShieldCheck className="w-3 h-3" />
-                      <span>{isMr ? 'सत्यापित' : 'Verified'}</span>
-                    </span>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <h3 className="font-black text-stone-100 text-sm truncate">
+                        {currentUser.displayName || 'Apparao Balkunde'}
+                      </h3>
+                      <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 shrink-0">
+                        <ShieldCheck className="w-3 h-3" />
+                        <span>{isMr ? 'सत्यापित' : 'Verified'}</span>
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditingProfile(!isEditingProfile)}
+                      className="text-[11px] text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer shrink-0"
+                    >
+                      {isEditingProfile ? (isMr ? 'रद्द करा' : 'Cancel') : (isMr ? '✏️ नाव/ईमेल बदला' : '✏️ Edit Profile')}
+                    </button>
                   </div>
                   <p className="text-xs text-stone-400 truncate mt-0.5">
-                    {currentUser.email || (isMr ? 'गुगल खाते जोडले आहे' : 'Google Account Connected')}
+                    {currentUser.email === 'student@mpscsarathi.online' ? 'apparaobalkunde901@gmail.com' : (currentUser.email || 'apparaobalkunde901@gmail.com')}
                   </p>
-                  <p className="text-[10px] text-stone-500 font-mono mt-1 truncate">
+                  <p className="text-[10px] text-stone-500 font-mono mt-0.5 truncate">
                     UID: {currentUser.uid}
                   </p>
                 </div>
               </div>
+
+              {/* Inline Profile Editor */}
+              {isEditingProfile && (
+                <form onSubmit={handleSaveProfile} className="p-3.5 rounded-xl bg-stone-800/90 border border-amber-500/40 space-y-3 animate-in fade-in">
+                  <div className="text-xs font-bold text-amber-400">
+                    <span>{isMr ? 'विद्यार्थी प्रोफाईल माहिती दुरुस्त करा:' : 'Edit Student Profile Details:'}</span>
+                  </div>
+                  <div className="space-y-2">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-stone-300 mb-1">
+                        {isMr ? 'विद्यार्थी नाव (Full Name)' : 'Full Name'}
+                      </label>
+                      <input
+                        type="text"
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        placeholder="Apparao Balkunde"
+                        className="w-full px-3 py-2 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-stone-300 mb-1">
+                        {isMr ? 'ईमेल पत्ता (Email ID)' : 'Email ID'}
+                      </label>
+                      <input
+                        type="email"
+                        value={editEmail}
+                        onChange={(e) => setEditEmail(e.target.value)}
+                        placeholder="apparaobalkunde901@gmail.com"
+                        className="w-full px-3 py-2 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 pt-1">
+                    <button
+                      type="submit"
+                      className="flex-1 py-1.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-black cursor-pointer shadow-xs transition-colors"
+                    >
+                      {isMr ? 'बदल जतन करा (Save Changes)' : 'Save Changes'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditingProfile(false)}
+                      className="py-1.5 px-3 rounded-lg bg-stone-700 hover:bg-stone-600 text-stone-300 text-xs font-bold cursor-pointer transition-colors"
+                    >
+                      {isMr ? 'रद्द करा' : 'Cancel'}
+                    </button>
+                  </div>
+                </form>
+              )}
 
               {/* Progress Summary Cards */}
               {userProgress && (
@@ -554,6 +648,35 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   <span className="leading-snug">
                     {isMr ? 'कोणत्याही डिव्हाइसवरून सराव' : 'Multi-device Access'}
                   </span>
+                </div>
+              </div>
+
+              {/* Student Identity Account Preview */}
+              <div className="p-3 rounded-xl bg-stone-800/60 border border-stone-700/60 space-y-2">
+                <div className="flex items-center justify-between text-[11px] font-bold text-amber-400">
+                  <span>{isMr ? '👤 तुमचे विद्यार्थी खाते (Student Profile):' : '👤 Student Profile:'}</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <label className="block text-[10px] text-stone-400 mb-0.5">{isMr ? 'नाव (Full Name)' : 'Full Name'}</label>
+                    <input
+                      type="text"
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
+                      placeholder="Apparao Balkunde"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] text-stone-400 mb-0.5">{isMr ? 'ईमेल (Email ID)' : 'Email ID'}</label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="apparaobalkunde901@gmail.com"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
+                    />
+                  </div>
                 </div>
               </div>
 

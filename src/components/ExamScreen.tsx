@@ -59,9 +59,16 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   const hasPlayed5MinWarning = useRef<boolean>(false);
 
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
-  const questions: Question[] = session.questionIds
-    .map((id) => findQuestionById(id, pool))
-    .filter((q): q is Question => Boolean(q));
+  const uniqueQuestionIds = Array.from(new Set(session.questionIds));
+  const seenIds = new Set<string>();
+  const questions: Question[] = [];
+  uniqueQuestionIds.forEach((id) => {
+    const q = findQuestionById(id, pool);
+    if (q && !seenIds.has(q.id)) {
+      seenIds.add(q.id);
+      questions.push(q);
+    }
+  });
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -618,7 +625,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
 
                 return (
                   <button
-                    key={q.id}
+                    key={`${q.id}-${idx}`}
                     id={`palette-btn-${idx + 1}`}
                     onClick={() => {
                       setCurrentQuestionIndex(idx);

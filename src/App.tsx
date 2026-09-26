@@ -445,21 +445,21 @@ export default function App() {
       count,
     });
 
-    // Merge into questions state so all components find them
-    setQuestions((prev) => {
-      const map = new Map<string, Question>();
-      prev.forEach((q) => map.set(q.id, q));
-      hardQs.forEach((q) => map.set(q.id, q));
-      return Array.from(map.values());
-    });
+    // Merge uniquely into questions state so all components find them
+    const uniquePoolMap = new Map<string, Question>();
+    questions.forEach((q) => uniquePoolMap.set(q.id, q));
+    hardQs.forEach((q) => uniquePoolMap.set(q.id, q));
+    const mergedPool = Array.from(uniquePoolMap.values());
+
+    setQuestions(mergedPool);
 
     const session = createExamSession({
       patternId: 'hard_challenge',
       subjectId: subjectId === 'all' ? undefined : subjectId,
       title,
       limit: count,
-      customQuestionIds: hardQs.map((q) => q.id),
-      questionPool: [...questions, ...hardQs],
+      customQuestionIds: Array.from(new Set(hardQs.map((q) => q.id))),
+      questionPool: mergedPool,
     });
     setActiveResult(null);
     setActiveSession(session);
