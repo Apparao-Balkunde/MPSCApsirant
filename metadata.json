@@ -1,6 +1,6 @@
 {
   "name": "MPSC Aspirant Prep",
-  "description": "Comprehensive MPSC preparation platform for Rajyaseva and Combine exams featuring timed bilingual mock tests, English & Marathi grammar rules with shortcuts, realistic CBT palette, and progress analytics.",
+  "description": "Comprehensive MPSC preparation platform for Rajyaseva and Combine exams featuring 100,000+ hard-level questions engine, timed bilingual mock tests, grammar rules, CBT palette, and analytics.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

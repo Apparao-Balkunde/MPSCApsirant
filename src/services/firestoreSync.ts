@@ -44,9 +44,54 @@ export interface FirestoreErrorInfo {
   };
 }
 
+// Global quota circuit-breaker: When Firestore free-tier daily read/write quota (50,000 reads/day) is reached,
+// the app stops sending network requests and seamlessly functions offline with local storage.
+let firestoreQuotaExceeded = false;
+try {
+  firestoreQuotaExceeded = typeof window !== 'undefined' && sessionStorage.getItem('mpsc_firestore_quota_exceeded') === 'true';
+} catch {
+  // ignore
+}
+
+export function isFirestoreQuotaExceeded(): boolean {
+  return firestoreQuotaExceeded;
+}
+
+export function setFirestoreQuotaExceeded(val: boolean): void {
+  firestoreQuotaExceeded = val;
+  try {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('mpsc_firestore_quota_exceeded', val ? 'true' : 'false');
+    }
+  } catch {
+    // ignore
+  }
+}
+
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const errMsg = error instanceof Error ? error.message : String(error);
+  const isQuota =
+    errMsg.toLowerCase().includes('quota limit exceeded') ||
+    errMsg.toLowerCase().includes('resource_exhausted') ||
+    errMsg.toLowerCase().includes('quota exceeded');
+
+  if (isQuota) {
+    setFirestoreQuotaExceeded(true);
+    console.warn(
+      `[Firestore Note] Free tier daily quota reached (Operation: ${operationType}, Path: ${path}). Seamlessly continuing in robust local/offline storage mode.`
+    );
+    return {
+      error: errMsg,
+      authInfo: {
+        userId: auth.currentUser?.uid,
+      },
+      operationType,
+      path,
+    };
+  }
+
   const errInfo: FirestoreErrorInfo = {
-    error: error instanceof Error ? error.message : String(error),
+    error: errMsg,
     authInfo: {
       userId: auth.currentUser?.uid,
       email: auth.currentUser?.email,
@@ -85,12 +130,15 @@ export interface FetchSummary {
 
 /**
  * Real-time listener for the entire MPSC Question Bank from Firestore.
- * Every update in the database is pushed to connected clients in real-time.
+ * If quota is reached or db is absent, safely returns local questions.
  */
 export function subscribeToRealtimeQuestions(
   onUpdate: (questions: Question[]) => void
 ): Unsubscribe | null {
-  if (!db) return null;
+  if (!db || isFirestoreQuotaExceeded()) {
+    onUpdate(MPSC_QUESTIONS);
+    return null;
+  }
 
   try {
     const qColl = collection(db, 'mpsc_questions');
@@ -172,6 +220,35 @@ export async function storeSingleQuestionToFirestore(question: Question): Promis
   } catch (err) {
     handleFirestoreError(err, OperationType.WRITE, path);
     return false;
+  }
+}
+
+/**
+ * Stores multiple questions to Firestore in batch
+ */
+export async function bulkStoreMCQsToFirestore(questionsToStore: Question[]): Promise<number> {
+  if (!db || questionsToStore.length === 0) return 0;
+  try {
+    const batch = writeBatch(db);
+    let count = 0;
+    for (const q of questionsToStore) {
+      if (!q.id) continue;
+      const qRef = doc(db, 'mpsc_questions', q.id);
+      batch.set(
+        qRef,
+        {
+          ...q,
+          updatedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+      count++;
+    }
+    await batch.commit();
+    return count;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, 'mpsc_questions');
+    return 0;
   }
 }
 
@@ -279,7 +356,7 @@ export function subscribeToRealtimeUserData(
   currentLocal: UserProgress,
   onUpdate: (progress: UserProgress) => void
 ): Unsubscribe | null {
-  if (!userId || !db) return null;
+  if (!userId || !db || isFirestoreQuotaExceeded()) return null;
 
   try {
     const userDocRef = doc(db, 'users', userId);
@@ -758,8 +835,31 @@ export function subscribeToRealtimeLeaderboard(
   currentUserName: string | undefined,
   callback: (leaderboard: LeaderboardEntry[]) => void
 ): Unsubscribe | null {
-  if (!db) {
-    callback([]);
+  const getLocalFallback = (): LeaderboardEntry[] => {
+    const userScore = currentProgress?.history
+      ? Number(currentProgress.history.reduce((sum, h) => sum + (h.finalScore || 0), 0).toFixed(1))
+      : 0;
+    const userExamsCount = currentProgress?.history?.length || 0;
+    const userAttempted = currentProgress?.history?.reduce((acc, h) => acc + (h.attemptedCount || 0), 0) || 0;
+    const userCorrect = currentProgress?.history?.reduce((acc, h) => acc + (h.correctCount || 0), 0) || 0;
+    const userAccuracy = userAttempted > 0 ? Math.round((userCorrect / userAttempted) * 100) : 0;
+
+    return [
+      {
+        userId: currentUserId || 'local_user',
+        name: `${currentUserName || 'तुम्ही (You)'} (तुम्ही)`,
+        totalScore: userScore,
+        examsCount: userExamsCount,
+        accuracy: userAccuracy,
+        rank: 1,
+        isCurrentUser: true,
+        roleTag: 'सध्याचा उमेदवार (Active)',
+      },
+    ];
+  };
+
+  if (!db || isFirestoreQuotaExceeded()) {
+    callback(getLocalFallback());
     return null;
   }
 

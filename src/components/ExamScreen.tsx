@@ -21,6 +21,7 @@ import { ExamSession, Question } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
 import { soundFx } from '../utils/audio';
+import { findQuestionById } from '../utils/hardQuestionsEngine';
 
 interface ExamScreenProps {
   session: ExamSession;
@@ -59,7 +60,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
 
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
   const questions: Question[] = session.questionIds
-    .map((id) => pool.find((q) => q.id === id) || MPSC_QUESTIONS.find((q) => q.id === id))
+    .map((id) => findQuestionById(id, pool))
     .filter((q): q is Question => Boolean(q));
 
   const currentQuestion = questions[currentQuestionIndex];

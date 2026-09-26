@@ -25,6 +25,7 @@ import { SUBJECTS } from '../data/subjects';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { WeeklyGoalCard } from './WeeklyGoalCard';
 import { LeaderboardCard } from './LeaderboardCard';
+import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 
 interface DashboardViewProps {
   userProgress: UserProgress;
@@ -35,6 +36,7 @@ interface DashboardViewProps {
   onOpenBookmarks: () => void;
   onOpenAnalytics: () => void;
   onOpenGrammarRules?: () => void;
+  onOpenLogin?: () => void;
   onUpdateWeeklyGoals: (hours: number, questions: number) => void;
   onLogStudySession: (title: string, durationMinutes: number, questionsSolved: number, notes?: string) => void;
   onOpenCloudSync?: () => void;
@@ -57,6 +59,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenBookmarks,
   onOpenAnalytics,
   onOpenGrammarRules,
+  onOpenLogin,
   onUpdateWeeklyGoals,
   onLogStudySession,
   onOpenCloudSync,
@@ -92,6 +95,31 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
+      {/* Login Prompt Banner if not logged in */}
+      {!currentUserId && onOpenLogin && (
+        <div className="bg-gradient-to-r from-amber-950/60 via-stone-900 to-amber-950/60 border border-amber-500/40 rounded-xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-md">
+          <div className="flex items-center gap-3 text-stone-200">
+            <div className="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="font-bold text-stone-100 text-sm">
+                {isMr ? 'आपल्या अभ्यासाची प्रगती व गुण सेव्ह करण्यासाठी लॉगिन करा' : 'Sign in to safely sync your study progress and test scores'}
+              </p>
+              <p className="text-stone-400 text-xs">
+                {isMr ? 'Google किंवा ईमेल द्वारे १ सेकंदात लॉगिन करा. मोबाईल व लॅपटॉपवर एकाच वेळी अभ्यास सुरक्षित ठेवा.' : '1-Click Google sign in or free registration to access your data from anywhere.'}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onOpenLogin}
+            className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black rounded-lg transition-all shrink-0 cursor-pointer shadow-sm text-xs"
+          >
+            {isMr ? 'लॉगिन पेज उघडा ➜' : 'Go to Login Page ➜'}
+          </button>
+        </div>
+      )}
+
       {/* Aspirant Hero Greeting & Momentum Banner */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-stone-900 via-stone-850 to-stone-900 text-stone-100 p-6 sm:p-8 border border-stone-800 shadow-lg">
         {/* Subtle decorative background badge */}
@@ -243,11 +271,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <h4 className="text-xs font-bold text-stone-900">
                   {isMr ? 'फायरबेस डेटा केंद्र (Firestore asia-east1)' : 'Firebase Data Hub (Firestore asia-east1)'}
                 </h4>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-mono px-1.5 py-0.5 rounded-full font-bold">
-                  {isMr ? 'क्लाउड लाइव्ह' : 'Cloud Live'}
-                </span>
+                {isFirestoreQuotaExceeded() ? (
+                  <span className="text-[10px] bg-amber-100 text-amber-900 font-mono px-2 py-0.5 rounded-full font-bold">
+                    {isMr ? 'स्थानिक ऑफलाइन मोड' : 'Local Offline Mode'}
+                  </span>
+                ) : (
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-mono px-1.5 py-0.5 rounded-full font-bold">
+                    {isMr ? 'क्लाउड लाइव्ह' : 'Cloud Live'}
+                  </span>
+                )}
                 <span className="text-[10px] bg-amber-100 text-amber-800 font-mono px-1.5 py-0.5 rounded-full font-bold">
-                  {questionsCount} {isMr ? 'प्रश्न उपलब्ध' : 'Questions Ready'}
+                  १,००,०००+ {isMr ? 'प्रश्न सक्रिय' : 'Questions Active'}
                 </span>
               </div>
               <p className="text-[11px] text-stone-600 mt-0.5">

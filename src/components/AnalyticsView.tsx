@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   BarChart, 
   Bar, 
@@ -8,19 +8,27 @@ import {
   ResponsiveContainer, 
   LineChart, 
   Line, 
-  CartesianGrid 
+  CartesianGrid,
+  Legend
 } from 'recharts';
 import { 
   TrendingUp, 
+  TrendingDown,
   Award, 
   CheckCircle2, 
   Clock, 
   BarChart3, 
   RotateCcw,
   BookOpen,
-  HelpCircle
+  Filter,
+  Sparkles,
+  Target,
+  Layers,
+  Info,
+  SlidersHorizontal,
+  ChevronRight
 } from 'lucide-react';
-import { ExamResult, UserProgress } from '../types';
+import { ExamResult, SubjectId, UserProgress } from '../types';
 import { SUBJECTS } from '../data/subjects';
 
 interface AnalyticsViewProps {
@@ -28,6 +36,138 @@ interface AnalyticsViewProps {
   language: 'mr' | 'en';
   onReviewPastTest: (result: ExamResult) => void;
 }
+
+// Harmonious subject color palette for Recharts lines
+const SUBJECT_COLORS: Record<string, string> = {
+  polity: '#2563eb', // Blue
+  maharashtra_history: '#d97706', // Amber
+  maharashtra_geography: '#059669', // Emerald
+  economy: '#7c3aed', // Violet
+  general_science: '#0891b2', // Cyan
+  environment: '#0d9488', // Teal
+  csat: '#e11d48', // Rose
+  current_affairs: '#ea580c', // Orange
+  marathi_grammar: '#ca8a04', // Yellow
+  english_grammar: '#4f46e5', // Indigo
+};
+
+// Realistic mock test sample trend for demonstration when test history is starting
+const SAMPLE_MPSC_TREND = [
+  {
+    testIndex: 1,
+    testLabel: 'T1',
+    date: '10 फेब्रु',
+    title: 'MPSC संयुक्त पूर्व परीक्षा मॉक १',
+    overallScore: 38.5,
+    maxScore: 100,
+    overallAccuracy: 46,
+    polity_score: 8.5,
+    polity_accuracy: 52,
+    maharashtra_history_score: 6.0,
+    maharashtra_history_accuracy: 42,
+    maharashtra_geography_score: 7.5,
+    maharashtra_geography_accuracy: 48,
+    economy_score: 5.5,
+    economy_accuracy: 39,
+    general_science_score: 6.5,
+    general_science_accuracy: 44,
+  },
+  {
+    testIndex: 2,
+    testLabel: 'T2',
+    date: '17 फेब्रु',
+    title: 'MPSC राज्यसेवा सामान्य अध्ययन सराव २',
+    overallScore: 48.0,
+    maxScore: 100,
+    overallAccuracy: 54,
+    polity_score: 11.0,
+    polity_accuracy: 60,
+    maharashtra_history_score: 8.5,
+    maharashtra_history_accuracy: 50,
+    maharashtra_geography_score: 9.0,
+    maharashtra_geography_accuracy: 55,
+    economy_score: 8.0,
+    economy_accuracy: 49,
+    general_science_score: 8.5,
+    general_science_accuracy: 52,
+  },
+  {
+    testIndex: 3,
+    testLabel: 'T3',
+    date: '25 फेब्रु',
+    title: 'MPSC संयुक्त गट ब/क सराव ३',
+    overallScore: 56.5,
+    maxScore: 100,
+    overallAccuracy: 62,
+    polity_score: 13.5,
+    polity_accuracy: 68,
+    maharashtra_history_score: 10.0,
+    maharashtra_history_accuracy: 58,
+    maharashtra_geography_score: 11.5,
+    maharashtra_geography_accuracy: 64,
+    economy_score: 9.5,
+    economy_accuracy: 57,
+    general_science_score: 10.5,
+    general_science_accuracy: 61,
+  },
+  {
+    testIndex: 4,
+    testLabel: 'T4',
+    date: '04 मार्च',
+    title: 'MPSC राज्यसेवा जीएस फुल टेस्ट ४',
+    overallScore: 64.0,
+    maxScore: 100,
+    overallAccuracy: 69,
+    polity_score: 15.0,
+    polity_accuracy: 74,
+    maharashtra_history_score: 12.0,
+    maharashtra_history_accuracy: 67,
+    maharashtra_geography_score: 13.5,
+    maharashtra_geography_accuracy: 72,
+    economy_score: 11.0,
+    economy_accuracy: 65,
+    general_science_score: 12.0,
+    general_science_accuracy: 68,
+  },
+  {
+    testIndex: 5,
+    testLabel: 'T5',
+    date: '12 मार्च',
+    title: 'MPSC संयुक्त प्रिलिम्स अंतिम सराव ५',
+    overallScore: 71.5,
+    maxScore: 100,
+    overallAccuracy: 76,
+    polity_score: 16.5,
+    polity_accuracy: 81,
+    maharashtra_history_score: 13.5,
+    maharashtra_history_accuracy: 73,
+    maharashtra_geography_score: 15.0,
+    maharashtra_geography_accuracy: 79,
+    economy_score: 13.0,
+    economy_accuracy: 74,
+    general_science_score: 13.5,
+    general_science_accuracy: 75,
+  },
+  {
+    testIndex: 6,
+    testLabel: 'T6',
+    date: '20 मार्च',
+    title: 'MPSC राज्यसेवा हाय-स्पीड स्पीड टेस्ट ६',
+    overallScore: 78.0,
+    maxScore: 100,
+    overallAccuracy: 82,
+    polity_score: 18.0,
+    polity_accuracy: 86,
+    maharashtra_history_score: 15.0,
+    maharashtra_history_accuracy: 79,
+    maharashtra_geography_score: 16.5,
+    maharashtra_geography_accuracy: 84,
+    economy_score: 14.5,
+    economy_accuracy: 80,
+    general_science_score: 15.0,
+    general_science_accuracy: 82,
+  },
+];
 
 export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   userProgress,
@@ -37,17 +177,44 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   const isMr = language === 'mr';
   const history = userProgress.history;
 
+  // Chart configuration state
+  const [chartMode, setChartMode] = useState<'overall' | 'by_subject' | 'multi_compare'>('multi_compare');
+  const [selectedSubject, setSelectedSubject] = useState<SubjectId>('polity');
+  const [metricType, setMetricType] = useState<'score' | 'accuracy'>('accuracy');
+  const [windowLimit, setWindowLimit] = useState<number | 'all'>(10);
+  const [useSampleData, setUseSampleData] = useState<boolean>(history.length < 2);
+
+  // Active subjects for multi_compare mode
+  const [visibleSubjects, setVisibleSubjects] = useState<Record<string, boolean>>({
+    polity: true,
+    maharashtra_history: true,
+    maharashtra_geography: true,
+    general_science: true,
+    economy: false,
+    environment: false,
+    csat: false,
+    current_affairs: false,
+  });
+
+  const toggleSubjectVisibility = (subId: string) => {
+    setVisibleSubjects((prev) => ({
+      ...prev,
+      [subId]: !prev[subId],
+    }));
+  };
+
   // Aggregate subject stats across all tests
-  const subjectAggregates: Record<string, { total: number; correct: number; incorrect: number }> = {};
+  const subjectAggregates: Record<string, { total: number; correct: number; incorrect: number; totalScore: number }> = {};
   
   history.forEach((h) => {
     Object.entries(h.subjectPerformance || {}).forEach(([subId, stats]) => {
       if (!subjectAggregates[subId]) {
-        subjectAggregates[subId] = { total: 0, correct: 0, incorrect: 0 };
+        subjectAggregates[subId] = { total: 0, correct: 0, incorrect: 0, totalScore: 0 };
       }
       subjectAggregates[subId].total += stats.total;
       subjectAggregates[subId].correct += stats.correct;
       subjectAggregates[subId].incorrect += stats.incorrect;
+      subjectAggregates[subId].totalScore += stats.score || 0;
     });
   });
 
@@ -55,24 +222,84 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
     const meta = SUBJECTS.find((s) => s.id === subId);
     const accuracy = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
     return {
+      id: subId,
       name: meta ? (isMr ? meta.nameMr.split(' ')[0] : meta.nameEn.split(' ')[0]) : subId,
       fullName: meta ? (isMr ? meta.nameMr : meta.nameEn) : subId,
       accuracy,
       correct: stats.correct,
       total: stats.total,
+      color: SUBJECT_COLORS[subId] || '#d97706',
     };
   });
 
-  // Score progression data: strictly visualize the trend over the last 10 attempts in chronological order
-  const last10Attempts = [...history].slice(0, 10).reverse();
-  const scoreTrendData = last10Attempts.map((h, idx) => ({
-    testNumber: `T${idx + 1}`,
-    score: Number(h.finalScore.toFixed(1)),
-    maxScore: h.maxScore,
-    accuracy: h.accuracyPercentage,
-    date: h.date,
-    title: h.title,
-  }));
+  // Sort chronological test history (oldest to newest for progression trend)
+  const chronologicalHistory = useMemo(() => {
+    const sorted = [...history].sort((a, b) => {
+      const timeA = a.timestamp || (a.date ? new Date(a.date).getTime() : 0);
+      const timeB = b.timestamp || (b.date ? new Date(b.date).getTime() : 0);
+      return timeA - timeB;
+    });
+
+    if (windowLimit === 'all') return sorted;
+    return sorted.slice(-windowLimit);
+  }, [history, windowLimit]);
+
+  // Build the time-series Recharts dataset
+  const timeSeriesData = useMemo(() => {
+    if (useSampleData && history.length < 2) {
+      return SAMPLE_MPSC_TREND;
+    }
+
+    return chronologicalHistory.map((h, idx) => {
+      const entry: Record<string, any> = {
+        testIndex: idx + 1,
+        testLabel: `T${idx + 1}`,
+        date: h.date,
+        title: h.title,
+        overallScore: Number(h.finalScore.toFixed(1)),
+        maxScore: h.maxScore,
+        overallAccuracy: h.accuracyPercentage,
+      };
+
+      // Populate subject-specific metrics
+      SUBJECTS.forEach((sub) => {
+        const subData = h.subjectPerformance?.[sub.id];
+        if (subData && subData.total > 0) {
+          entry[`${sub.id}_score`] = Number((subData.score || 0).toFixed(1));
+          entry[`${sub.id}_accuracy`] = subData.accuracy;
+          entry[`${sub.id}_correct`] = subData.correct;
+          entry[`${sub.id}_total`] = subData.total;
+        } else {
+          entry[`${sub.id}_score`] = undefined;
+          entry[`${sub.id}_accuracy`] = undefined;
+        }
+      });
+
+      return entry;
+    });
+  }, [chronologicalHistory, useSampleData, history.length]);
+
+  // Key subject insights calculation
+  const insights = useMemo(() => {
+    const rankedSubjects = [...subjectChartData].sort((a, b) => b.accuracy - a.accuracy);
+    const bestSubject = rankedSubjects[0];
+    const weakestSubject = rankedSubjects[rankedSubjects.length - 1];
+
+    let overallGrowth = 0;
+    if (timeSeriesData.length >= 2) {
+      const first = timeSeriesData[0];
+      const last = timeSeriesData[timeSeriesData.length - 1];
+      const firstVal = metricType === 'score' ? first.overallScore : first.overallAccuracy;
+      const lastVal = metricType === 'score' ? last.overallScore : last.overallAccuracy;
+      overallGrowth = Math.round(lastVal - firstVal);
+    }
+
+    return {
+      bestSubject,
+      weakestSubject,
+      overallGrowth,
+    };
+  }, [subjectChartData, timeSeriesData, metricType]);
 
   const totalAttempted = history.reduce((acc, h) => acc + h.attemptedCount, 0);
   const totalCorrect = history.reduce((acc, h) => acc + h.correctCount, 0);
@@ -80,19 +307,52 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   const totalTimeSeconds = history.reduce((acc, h) => acc + h.timeSpentSeconds, 0);
   const totalHours = (totalTimeSeconds / 3600).toFixed(1);
 
+  // Available subjects in the data pool
+  const activeSubjectMetas = SUBJECTS.filter((s) => {
+    return (
+      useSampleData ||
+      subjectAggregates[s.id]?.total > 0 ||
+      s.id === 'polity' ||
+      s.id === 'maharashtra_history' ||
+      s.id === 'maharashtra_geography' ||
+      s.id === 'general_science'
+    );
+  });
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
-      {/* Page Title */}
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-900 flex items-center gap-3">
-          <BarChart3 className="w-8 h-8 text-amber-600" />
-          <span>{isMr ? 'अभ्यास प्रगती व कामगिरी विश्लेषण' : 'Performance Analytics & Progress'}</span>
-        </h1>
-        <p className="text-sm text-stone-500 mt-1">
-          {isMr 
-            ? 'सर्व सराव चाचण्यांमधील गुण, अचूकता, विषयवार प्राविण्य आणि वेळेचे व्यवस्थापन तपासा.'
-            : 'Track your score progression, accuracy trends, and subject-wise mastery over time.'}
-        </p>
+      {/* Header and Title */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-900 flex items-center gap-3">
+            <BarChart3 className="w-8 h-8 text-amber-600" />
+            <span>{isMr ? 'अभ्यास प्रगती व कामगिरी विश्लेषण' : 'Performance Analytics & Trends'}</span>
+          </h1>
+          <p className="text-sm text-stone-500 mt-1">
+            {isMr 
+              ? 'Recharts द्वारे सर्व चाचण्यांमधील गुण, अचूकता आणि विविध विषयांची प्रगती तपासा.'
+              : 'Track test score progression and multi-subject mastery over time using interactive line charts.'}
+          </p>
+        </div>
+
+        {/* Demo / Live Data Toggle Badge */}
+        {history.length < 2 && (
+          <button
+            onClick={() => setUseSampleData(!useSampleData)}
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+              useSampleData
+                ? 'bg-amber-500/10 text-amber-800 border-amber-500/40 hover:bg-amber-500/20'
+                : 'bg-stone-100 text-stone-700 border-stone-300 hover:bg-stone-200'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <span>
+              {useSampleData
+                ? (isMr ? '🌟 नमुना प्रगती आलेख (Sample Mode: Active)' : '🌟 Preview Sample Trend: Active')
+                : (isMr ? 'माझा प्रत्यक्ष डेटा दाखवा' : 'Show My Live Data')}
+            </span>
+          </button>
+        )}
       </div>
 
       {/* Aggregate Score Cards Strip */}
@@ -143,114 +403,475 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
             {totalHours} <span className="text-sm font-normal text-stone-500">{isMr ? 'तास' : 'hrs'}</span>
           </div>
           <div className="text-xs text-stone-500 mt-1">
-            {isMr ? 'प्रत्यक्ष प्रश्न सोडवण्याचा वेळ' : 'active testing time'}
+            {isMr ? 'प्रत्यक्ष सराव वेळ' : 'active testing time'}
           </div>
         </div>
       </div>
 
-      {/* Visual Charts: Score Progression & Subject Accuracy */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Score Progression Line Chart */}
-        <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-xs flex flex-col justify-between">
-          <div className="mb-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-base font-bold text-stone-900 flex items-center gap-2">
+      {/* ========================================================================= */}
+      {/* PRIMARY FEATURE: RECHARTS LINE CHART - MPSC TEST SCORE & SUBJECT TRENDS   */}
+      {/* ========================================================================= */}
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-xs p-5 sm:p-7 space-y-6">
+        {/* Chart Header & Interactive Controls */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-stone-100">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+              <h2 className="text-lg sm:text-xl font-bold text-stone-900 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-amber-600" />
-                <span>{isMr ? 'शेवटच्या १० चाचण्यांचा गुण आलेख' : 'Score Trend (Last 10 Attempts)'}</span>
-              </h2>
-              {scoreTrendData.length > 0 && (
-                <span className="text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200/80 px-2 py-0.5 rounded-full">
-                  {scoreTrendData.length} / 10 {isMr ? 'चाचण्या' : 'attempts'}
+                <span>
+                  {isMr ? 'चाचणी गुण व विषयनिहाय प्रगती आलेख' : 'Test Scores & Subject Progress Trend'}
                 </span>
-              )}
+              </h2>
             </div>
-            <p className="text-xs text-stone-500 mt-0.5">
-              {isMr ? 'Recharts द्वारे शेवटच्या १० चाचण्यांमधील मिळालेल्या गुणांची प्रगती.' : 'Recharts line visualization of user scores across the last 10 attempts.'}
+            <p className="text-xs text-stone-500 mt-1">
+              {isMr 
+                ? 'वेळेनुसार विविध विषयांमध्ये मिळालेले गुण आणि अचूकतेमधील सुधारणा तपासा.'
+                : 'Visualize your performance trajectory over time across different MPSC subjects using Recharts.'}
             </p>
           </div>
 
-          <div className="h-64 w-full">
-            {scoreTrendData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={scoreTrendData} margin={{ top: 10, right: 20, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                  <XAxis dataKey="testNumber" stroke="#888888" fontSize={12} tickLine={false} />
-                  <YAxis stroke="#888888" fontSize={12} tickLine={false} />
-                  <Tooltip
-                    content={({ active, payload }) => {
-                      if (active && payload && payload.length) {
-                        const data = payload[0].payload;
-                        return (
-                          <div className="bg-stone-900 text-stone-100 p-2.5 rounded-xl text-xs shadow-xl border border-stone-800 space-y-1">
-                            <div className="font-bold text-amber-400">{data.title || data.testNumber}</div>
-                            <div className="text-stone-300">
-                              {isMr ? 'गुण:' : 'Score:'} <span className="font-mono font-bold text-white">{data.score} / {data.maxScore}</span>
-                            </div>
-                            <div className="text-stone-300">
-                              {isMr ? 'अचूकता:' : 'Accuracy:'} <span className="text-emerald-400 font-bold">{data.accuracy}%</span>
-                            </div>
-                            <div className="text-[10px] text-stone-400 font-mono">{data.date}</div>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="score"
-                    stroke="#d97706"
-                    strokeWidth={3}
-                    dot={{ r: 5, fill: '#d97706', stroke: '#ffffff', strokeWidth: 2 }}
-                    activeDot={{ r: 7, fill: '#f59e0b', stroke: '#ffffff', strokeWidth: 2 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-full flex items-center justify-center text-stone-400 text-xs">
-                {isMr ? 'प्रगती आलेख पाहण्यासाठी किमान एक चाचणी सोडवा.' : 'Complete at least one test to view score trends.'}
-              </div>
-            )}
+          {/* Interactive Filters Strip */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            {/* View Mode Toggle */}
+            <div className="flex items-center p-1 bg-stone-100 rounded-xl text-xs font-semibold text-stone-600">
+              <button
+                type="button"
+                onClick={() => setChartMode('multi_compare')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  chartMode === 'multi_compare'
+                    ? 'bg-white text-stone-900 shadow-xs font-bold'
+                    : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'विषयांची तुलना' : 'Multi-Subject'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setChartMode('by_subject')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  chartMode === 'by_subject'
+                    ? 'bg-white text-stone-900 shadow-xs font-bold'
+                    : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'एका विषयाचा कल' : 'Single Subject'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setChartMode('overall')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  chartMode === 'overall'
+                    ? 'bg-white text-stone-900 shadow-xs font-bold'
+                    : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'एकूण गुण' : 'Overall'}
+              </button>
+            </div>
+
+            {/* Metric Switcher (Score vs Accuracy) */}
+            <div className="flex items-center p-1 bg-stone-100 rounded-xl text-xs font-semibold text-stone-600">
+              <button
+                type="button"
+                onClick={() => setMetricType('accuracy')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  metricType === 'accuracy'
+                    ? 'bg-white text-emerald-800 shadow-xs font-bold'
+                    : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'अचूकता %' : 'Accuracy %'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setMetricType('score')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  metricType === 'score'
+                    ? 'bg-white text-amber-800 shadow-xs font-bold'
+                    : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'मिळालेले गुण' : 'Scores'}
+              </button>
+            </div>
+
+            {/* Window Limitation (5, 10, All) */}
+            <div className="flex items-center p-1 bg-stone-100 rounded-xl text-xs font-semibold text-stone-600">
+              <button
+                type="button"
+                onClick={() => setWindowLimit(5)}
+                className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  windowLimit === 5 ? 'bg-white text-stone-900 shadow-xs font-bold' : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? '५ चाचण्या' : '5'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setWindowLimit(10)}
+                className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  windowLimit === 10 ? 'bg-white text-stone-900 shadow-xs font-bold' : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? '१० चाचण्या' : '10'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setWindowLimit('all')}
+                className={`px-2.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  windowLimit === 'all' ? 'bg-white text-stone-900 shadow-xs font-bold' : 'hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'सर्व' : 'All'}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Subject-Wise Accuracy Bar Chart */}
-        <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-xs flex flex-col justify-between">
-          <div className="mb-4">
-            <h2 className="text-base font-bold text-stone-900 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-blue-600" />
-              <span>{isMr ? 'विषयवार अचूकता टक्केवारी' : 'Subject-Wise Accuracy Rate (%)'}</span>
-            </h2>
-            <p className="text-xs text-stone-500">
-              {isMr ? 'कोणत्या विषयात गुण जास्त मिळतात व कोठे सरावाची गरज आहे ते ओळखा.' : 'Identify your strongest and weakest subjects.'}
-            </p>
+        {/* Secondary Sub-Controls Bar */}
+        {chartMode === 'by_subject' && (
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+            <span className="font-bold text-stone-600 shrink-0 flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-amber-600" />
+              <span>{isMr ? 'विषय निवडा:' : 'Select Subject:'}</span>
+            </span>
+            {activeSubjectMetas.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => setSelectedSubject(s.id as SubjectId)}
+                className={`px-3 py-1.5 rounded-lg font-semibold shrink-0 transition-all cursor-pointer border ${
+                  selectedSubject === s.id
+                    ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
+                    : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'
+                }`}
+              >
+                {isMr ? s.nameMr.split(' ')[0] : s.nameEn.split(' ')[0]}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {chartMode === 'multi_compare' && (
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className="font-bold text-stone-600 shrink-0 flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-stone-500" />
+              <span>{isMr ? 'आलेखामध्ये दर्शवायचे विषय:' : 'Active Subject Lines:'}</span>
+            </span>
+            {activeSubjectMetas.map((s) => {
+              const isChecked = visibleSubjects[s.id] ?? false;
+              const color = SUBJECT_COLORS[s.id] || '#78716c';
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => toggleSubjectVisibility(s.id)}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
+                    isChecked
+                      ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
+                      : 'bg-stone-50 text-stone-400 border-stone-200 line-through opacity-70'
+                  }`}
+                >
+                  <span
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ backgroundColor: color }}
+                  />
+                  <span>{isMr ? s.nameMr.split(' ')[0] : s.nameEn.split(' ')[0]}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {/* The Recharts LineChart Canvas */}
+        <div className="h-80 w-full pt-2">
+          {timeSeriesData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={timeSeriesData}
+                margin={{ top: 15, right: 25, left: -10, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                
+                <XAxis 
+                  dataKey="testLabel" 
+                  stroke="#94a3b8" 
+                  fontSize={12} 
+                  tickLine={false}
+                  dy={6}
+                />
+                
+                <YAxis 
+                  stroke="#94a3b8" 
+                  fontSize={12} 
+                  tickLine={false}
+                  domain={metricType === 'accuracy' ? [0, 100] : ['auto', 'auto']}
+                  unit={metricType === 'accuracy' ? '%' : ''}
+                  dx={-4}
+                />
+
+                {/* Custom Recharts Tooltip */}
+                <Tooltip
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      const data = payload[0].payload;
+                      return (
+                        <div className="bg-stone-950 text-stone-100 p-3.5 rounded-xl text-xs shadow-2xl border border-stone-800 space-y-2 min-w-[220px]">
+                          <div className="border-b border-stone-800 pb-1.5">
+                            <div className="font-extrabold text-amber-400 text-sm">
+                              {data.title || data.testLabel}
+                            </div>
+                            <div className="text-[11px] text-stone-400 font-mono mt-0.5">
+                              {data.date} • {data.testLabel}
+                            </div>
+                          </div>
+
+                          <div className="space-y-1 font-sans">
+                            <div className="flex items-center justify-between text-stone-300">
+                              <span>{isMr ? 'एकूण गुण:' : 'Overall Score:'}</span>
+                              <span className="font-bold text-white font-mono">
+                                {data.overallScore} / {data.maxScore}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between text-stone-300">
+                              <span>{isMr ? 'एकूण अचूकता:' : 'Overall Accuracy:'}</span>
+                              <span className="font-bold text-emerald-400 font-mono">
+                                {data.overallAccuracy}%
+                              </span>
+                            </div>
+
+                            {/* Subject Performance Breakdown in Tooltip */}
+                            {chartMode === 'by_subject' && (
+                              <div className="mt-2 pt-1.5 border-t border-stone-800">
+                                <div className="text-amber-300 font-bold mb-1 flex items-center gap-1.5">
+                                  <span
+                                    className="w-2 h-2 rounded-full"
+                                    style={{ backgroundColor: SUBJECT_COLORS[selectedSubject] }}
+                                  />
+                                  <span>
+                                    {SUBJECTS.find((s) => s.id === selectedSubject)?.nameMr || selectedSubject}
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between text-stone-300 text-[11px]">
+                                  <span>{isMr ? 'विषय गुण:' : 'Subject Score:'}</span>
+                                  <span className="font-mono text-white">
+                                    {data[`${selectedSubject}_score`] ?? '-'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between text-stone-300 text-[11px]">
+                                  <span>{isMr ? 'विषय अचूकता:' : 'Subject Accuracy:'}</span>
+                                  <span className="font-mono text-emerald-400 font-bold">
+                                    {data[`${selectedSubject}_accuracy`] !== undefined 
+                                      ? `${data[`${selectedSubject}_accuracy`]}%` 
+                                      : '-'}
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+
+                            {chartMode === 'multi_compare' && (
+                              <div className="mt-2 pt-1.5 border-t border-stone-800 space-y-1">
+                                <div className="text-[10px] text-stone-400 uppercase font-semibold">
+                                  {isMr ? 'विषयांची अचूकता:' : 'Subject Performance:'}
+                                </div>
+                                {activeSubjectMetas.map((s) => {
+                                  if (!visibleSubjects[s.id]) return null;
+                                  const val = data[`${s.id}_${metricType}`];
+                                  if (val === undefined) return null;
+                                  return (
+                                    <div key={s.id} className="flex items-center justify-between text-[11px]">
+                                      <span className="flex items-center gap-1.5">
+                                        <span
+                                          className="w-2 h-2 rounded-full"
+                                          style={{ backgroundColor: SUBJECT_COLORS[s.id] }}
+                                        />
+                                        <span className="text-stone-300">
+                                          {isMr ? s.nameMr.split(' ')[0] : s.nameEn.split(' ')[0]}
+                                        </span>
+                                      </span>
+                                      <span className="font-mono font-bold text-white">
+                                        {metricType === 'accuracy' ? `${val}%` : val}
+                                      </span>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+
+                {/* MODE 1: OVERALL SCORE LINE */}
+                {chartMode === 'overall' && (
+                  <Line
+                    type="monotone"
+                    dataKey={metricType === 'score' ? 'overallScore' : 'overallAccuracy'}
+                    name={isMr ? 'एकूण निकाल' : 'Overall Result'}
+                    stroke="#d97706"
+                    strokeWidth={3.5}
+                    dot={{ r: 5, fill: '#d97706', stroke: '#ffffff', strokeWidth: 2 }}
+                    activeDot={{ r: 7, fill: '#f59e0b', stroke: '#ffffff', strokeWidth: 2 }}
+                  />
+                )}
+
+                {/* MODE 2: BY SINGLE SUBJECT */}
+                {chartMode === 'by_subject' && (
+                  <>
+                    {/* Overall benchmark baseline */}
+                    <Line
+                      type="monotone"
+                      dataKey={metricType === 'score' ? 'overallScore' : 'overallAccuracy'}
+                      name={isMr ? 'एकूण सरासरी (Benchmark)' : 'Overall Benchmark'}
+                      stroke="#94a3b8"
+                      strokeWidth={2}
+                      strokeDasharray="4 4"
+                      dot={false}
+                    />
+
+                    {/* Selected subject primary line */}
+                    <Line
+                      type="monotone"
+                      dataKey={`${selectedSubject}_${metricType}`}
+                      name={SUBJECTS.find((s) => s.id === selectedSubject)?.nameMr || selectedSubject}
+                      stroke={SUBJECT_COLORS[selectedSubject] || '#2563eb'}
+                      strokeWidth={3.5}
+                      connectNulls={true}
+                      dot={{
+                        r: 6,
+                        fill: SUBJECT_COLORS[selectedSubject] || '#2563eb',
+                        stroke: '#ffffff',
+                        strokeWidth: 2,
+                      }}
+                      activeDot={{
+                        r: 8,
+                        fill: SUBJECT_COLORS[selectedSubject] || '#2563eb',
+                        stroke: '#ffffff',
+                        strokeWidth: 2,
+                      }}
+                    />
+                  </>
+                )}
+
+                {/* MODE 3: MULTI-SUBJECT COMPARISON */}
+                {chartMode === 'multi_compare' && (
+                  <>
+                    {activeSubjectMetas.map((s) => {
+                      if (!visibleSubjects[s.id]) return null;
+                      const color = SUBJECT_COLORS[s.id] || '#64748b';
+                      return (
+                        <Line
+                          key={s.id}
+                          type="monotone"
+                          dataKey={`${s.id}_${metricType}`}
+                          name={isMr ? s.nameMr.split(' ')[0] : s.nameEn.split(' ')[0]}
+                          stroke={color}
+                          strokeWidth={2.5}
+                          connectNulls={true}
+                          dot={{ r: 4, fill: color, stroke: '#ffffff', strokeWidth: 1.5 }}
+                          activeDot={{ r: 6, fill: color, stroke: '#ffffff', strokeWidth: 2 }}
+                        />
+                      );
+                    })}
+                  </>
+                )}
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex flex-col items-center justify-center text-stone-400 text-xs gap-2">
+              <Info className="w-6 h-6 text-stone-400" />
+              <span>{isMr ? 'प्रगती आलेख पाहण्यासाठी किमान एक चाचणी सोडवा.' : 'Complete at least one test to view score trends.'}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Actionable Subject Progression Insights Strip */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4 border-t border-stone-100">
+          <div className="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/80 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-700 flex items-center justify-center shrink-0">
+              <Award className="w-4 h-4" />
+            </div>
+            <div className="text-xs">
+              <div className="font-bold text-emerald-950">
+                {isMr ? 'सर्वाधिक मजबूत विषय (Strongest)' : 'Top Performing Subject'}
+              </div>
+              <p className="text-emerald-800 mt-0.5 font-medium">
+                {insights.bestSubject ? `${insights.bestSubject.fullName} (${insights.bestSubject.accuracy}%)` : (isMr ? 'राज्यघटना व शासन' : 'Polity')}
+              </p>
+            </div>
           </div>
 
-          <div className="h-64 w-full">
-            {subjectChartData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={subjectChartData} margin={{ top: 10, right: 20, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                  <XAxis dataKey="name" stroke="#888888" fontSize={11} tickLine={false} />
-                  <YAxis stroke="#888888" fontSize={12} domain={[0, 100]} tickLine={false} />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: '#1c1917',
-                      color: '#f5f5f4',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                    }}
-                    formatter={(value: any) => [`${value}%`, isMr ? 'अचूकता' : 'Accuracy']}
-                  />
-                  <Bar dataKey="accuracy" fill="#059669" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-full flex items-center justify-center text-stone-400 text-xs">
-                {isMr ? 'विषयवार अचूकतेचा डेटा मिळवण्यासाठी चाचणी सोडवा.' : 'Subject-wise data will appear here after your first test.'}
+          <div className="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/80 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-700 flex items-center justify-center shrink-0">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+            <div className="text-xs">
+              <div className="font-bold text-amber-950">
+                {isMr ? 'चाचणीतील गती (Trend Delta)' : 'Progression Momentum'}
               </div>
-            )}
+              <p className="text-amber-800 mt-0.5 font-medium">
+                {insights.overallGrowth >= 0 ? `+${insights.overallGrowth}%` : `${insights.overallGrowth}%`} {isMr ? 'अचूकतेमध्ये एकूण वाढ' : 'overall improvement'}
+              </p>
+            </div>
           </div>
+
+          <div className="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200/80 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-700 flex items-center justify-center shrink-0">
+              <Target className="w-4 h-4" />
+            </div>
+            <div className="text-xs">
+              <div className="font-bold text-rose-950">
+                {isMr ? 'पुढील सरावाचे उद्दिष्ट (Focus Area)' : 'Priority Focus Area'}
+              </div>
+              <p className="text-rose-800 mt-0.5 font-medium">
+                {insights.weakestSubject ? `${insights.weakestSubject.fullName} (${insights.weakestSubject.accuracy}%)` : (isMr ? 'सामान्य विज्ञान व तंत्रज्ञान' : 'General Science')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Visual Bar Charts: Overall Subject Accuracy */}
+      <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-xs flex flex-col justify-between">
+        <div className="mb-4">
+          <h2 className="text-base font-bold text-stone-900 flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-blue-600" />
+            <span>{isMr ? 'विषयवार सरासरी अचूकता टक्केवारी (%)' : 'Cumulative Subject Accuracy Rate (%)'}</span>
+          </h2>
+          <p className="text-xs text-stone-500 mt-0.5">
+            {isMr ? 'कोणत्या विषयात गुण जास्त मिळतात व कोठे जास्त सरावाची गरज आहे ते ओळखा.' : 'Identify your cumulative strength across all solved practice questions.'}
+          </p>
+        </div>
+
+        <div className="h-64 w-full">
+          {subjectChartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={subjectChartData} margin={{ top: 10, right: 20, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" vertical={false} />
+                <XAxis dataKey="name" stroke="#888888" fontSize={11} tickLine={false} />
+                <YAxis stroke="#888888" fontSize={12} domain={[0, 100]} tickLine={false} unit="%" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#0c0a09',
+                    color: '#f5f5f4',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    border: '1px solid #292524',
+                  }}
+                  formatter={(value: any) => [`${value}%`, isMr ? 'अचूकता' : 'Accuracy']}
+                />
+                <Bar dataKey="accuracy" fill="#059669" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex items-center justify-center text-stone-400 text-xs">
+              {isMr ? 'विषयवार अचूकतेचा डेटा मिळवण्यासाठी चाचणी सोडवा.' : 'Subject-wise data will appear here after your first test.'}
+            </div>
+          )}
         </div>
       </div>
 

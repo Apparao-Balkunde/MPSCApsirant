@@ -12,6 +12,7 @@ import {
 import { Question, UserProgress } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
+import { findQuestionById } from '../utils/hardQuestionsEngine';
 
 interface BookmarksViewProps {
   userProgress: UserProgress;
@@ -39,9 +40,9 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
   const [noteDraft, setNoteDraft] = useState<string>('');
 
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
-  const savedQuestions = pool.filter((q) =>
-    userProgress.bookmarkedQuestionIds.includes(q.id)
-  );
+  const savedQuestions = userProgress.bookmarkedQuestionIds
+    .map((id) => findQuestionById(id, pool))
+    .filter((q): q is Question => Boolean(q));
 
   const filtered = savedQuestions.filter((q) => {
     if (selectedSubject !== 'all' && q.subjectId !== selectedSubject) return false;

@@ -76,7 +76,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                   </span>
                   <span className="text-[11px] font-bold text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md flex items-center gap-1">
                     <Flame className="w-3 h-3 text-red-500 fill-red-500" />
-                    <span>{hardQuestionsCount > 0 ? hardQuestionsCount : '10k+'} {isMr ? 'कठीण प्रश्न' : 'Hard'}</span>
+                    <span>{isMr ? '१०,०००+ कठीण प्रश्न' : '10k+ Hard Qs'}</span>
                   </span>
                 </div>
 

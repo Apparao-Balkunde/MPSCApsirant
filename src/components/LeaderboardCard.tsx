@@ -8,7 +8,7 @@ import {
   Radio
 } from 'lucide-react';
 import { LeaderboardEntry, UserProgress } from '../types';
-import { subscribeToRealtimeLeaderboard } from '../services/firestoreSync';
+import { subscribeToRealtimeLeaderboard, isFirestoreQuotaExceeded } from '../services/firestoreSync';
 
 interface LeaderboardCardProps {
   userProgress: UserProgress;
@@ -104,12 +104,17 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {isRealtimeActive && (
+          {isFirestoreQuotaExceeded() ? (
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full">
+              <Database className="w-3 h-3 text-amber-600" />
+              <span>{isMr ? 'स्थानिक रँकिंग (Offline Active)' : 'Local Ranking'}</span>
+            </span>
+          ) : isRealtimeActive ? (
             <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>{isMr ? 'थेट फायरबेस रिअल-टाईम' : 'Firestore Realtime'}</span>
             </span>
-          )}
+          ) : null}
         </div>
       </div>
 

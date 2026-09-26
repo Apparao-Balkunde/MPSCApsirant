@@ -12,12 +12,20 @@ import {
   Eye,
   EyeOff,
   Layers,
-  Award
+  Award,
+  Search,
+  Hash,
+  ArrowRight,
+  Compass
 } from 'lucide-react';
 import { SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
 import { HARD_QUESTIONS_BANK } from '../data/hardQuestionsBank';
-import { getHardQuestionsPool, TOTAL_HARD_QUESTIONS_CAPACITY } from '../utils/hardQuestionsEngine';
+import { 
+  getHardQuestionsPool, 
+  TOTAL_HARD_QUESTIONS_CAPACITY,
+  buildDeterministicHardQuestion
+} from '../utils/hardQuestionsEngine';
 
 interface HardQuestionsHubModalProps {
   isOpen: boolean;
@@ -35,8 +43,17 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
   const isMr = language === 'mr';
   const [selectedSubject, setSelectedSubject] = useState<SubjectId | 'all'>('all');
   const [questionCount, setQuestionCount] = useState<number>(25);
-  const [activeTab, setActiveTab] = useState<'start_test' | 'browse_questions'>('start_test');
+  const [activeTab, setActiveTab] = useState<'start_test' | 'explore_100k' | 'browse_questions'>('start_test');
   const [expandedExplanationId, setExpandedExplanationId] = useState<string | null>(null);
+
+  // 100k Explorer State
+  const [jumpQuestionNum, setJumpQuestionNum] = useState<number>(1);
+  const [explorerSubject, setExplorerSubject] = useState<SubjectId>('polity');
+  const [activeExplorerQuestion, setActiveExplorerQuestion] = useState<Question>(() => 
+    buildDeterministicHardQuestion('polity', 1)
+  );
+  const [explorerSelectedChoice, setExplorerSelectedChoice] = useState<number | null>(null);
+  const [showExplorerSolution, setShowExplorerSolution] = useState<boolean>(false);
 
   if (!isOpen) return null;
 
@@ -52,7 +69,7 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
   const handleStartExamClick = () => {
     const subTitle = selectedSubjectMeta 
       ? (isMr ? selectedSubjectMeta.nameMr : selectedSubjectMeta.nameEn)
-      : (isMr ? 'सर्व विषय (All Subjects Mixed)' : 'All Subjects Mixed');
+      : (isMr ? 'सर्व विषय (All 10 Subjects Mixed)' : 'All 10 Subjects Mixed');
 
     const examTitle = isMr 
       ? `MPSC १,००,००० कठीण स्तर चाचणी: ${subTitle} (${questionCount} प्रश्न)`
@@ -62,12 +79,23 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
     onClose();
   };
 
+  const handleJumpQuestion = (qNum: number, subId?: SubjectId) => {
+    const validNum = Math.max(1, Math.min(TOTAL_HARD_QUESTIONS_CAPACITY, qNum || 1));
+    const targetSub = subId || explorerSubject;
+    setJumpQuestionNum(validNum);
+    setExplorerSubject(targetSub);
+    const q = buildDeterministicHardQuestion(targetSub, validNum);
+    setActiveExplorerQuestion(q);
+    setExplorerSelectedChoice(null);
+    setShowExplorerSolution(false);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-950/80 backdrop-blur-xs overflow-y-auto animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-950/85 backdrop-blur-xs overflow-y-auto animate-fadeIn">
       <div className="bg-stone-900 border border-amber-500/40 rounded-2xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl text-stone-100 overflow-hidden my-auto">
         
         {/* Header */}
-        <div className="p-5 sm:p-6 border-b border-stone-800 bg-gradient-to-r from-red-950/60 via-amber-950/40 to-stone-900 flex items-center justify-between shrink-0">
+        <div className="p-5 sm:p-6 border-b border-stone-800 bg-gradient-to-r from-red-950/70 via-amber-950/50 to-stone-900 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center shrink-0 shadow-inner">
               <Flame className="w-6 h-6 text-amber-400 fill-amber-400/30 animate-pulse" />
@@ -75,15 +103,18 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="text-lg sm:text-xl font-black text-white tracking-tight">
-                  {isMr ? '१,००,०००+ कठीण प्रश्न सराव केंद्र (Hard Questions Engine)' : '100,000+ Hard Questions Engine'}
+                  {isMr ? '१,००,०००+ कठीण प्रश्न सराव केंद्र (100,000 Questions Engine)' : '100,000+ Hard Questions Engine'}
                 </h2>
                 <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40">
                   {isMr ? 'काठिण्य पातळी: उच्च (Hard)' : 'Difficulty: Hard'}
                 </span>
+                <span className="text-[10px] uppercase tracking-wider font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  {TOTAL_HARD_QUESTIONS_CAPACITY.toLocaleString()}+ {isMr ? 'प्रश्न उपलब्ध' : 'Questions Ready'}
+                </span>
               </div>
               <p className="text-xs text-stone-400 mt-1">
                 {isMr
-                  ? 'सर्व १० विषयांसाठी राज्यसेवा व कम्बाईन मुख्य परीक्षेच्या तोडीचे बहुपर्यायी, बहुविधानात्मक व एलिमिनेशन प्रश्न.'
+                  ? 'सर्व १० विषयांसाठी राज्यसेवा व संयुक्त मुख्य परीक्षेच्या तोडीचे बहुपर्यायी, बहुविधानात्मक व एलिमिनेशन प्रश्न.'
                   : 'Multi-statement assertion-reasoning and elimination MCQs across all 10 subjects.'}
               </p>
             </div>
@@ -98,29 +129,44 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex border-b border-stone-800 px-6 bg-stone-950/50 shrink-0">
+        <div className="flex border-b border-stone-800 px-4 sm:px-6 bg-stone-950/60 shrink-0 overflow-x-auto">
           <button
             onClick={() => setActiveTab('start_test')}
-            className={`py-3 px-4 font-bold text-xs sm:text-sm flex items-center gap-2 border-b-2 cursor-pointer transition-colors ${
+            className={`py-3 px-3 sm:px-4 font-bold text-xs sm:text-sm flex items-center gap-2 border-b-2 cursor-pointer transition-colors whitespace-nowrap ${
               activeTab === 'start_test'
                 ? 'border-amber-400 text-amber-400'
                 : 'border-transparent text-stone-400 hover:text-stone-200'
             }`}
           >
             <Play className="w-4 h-4 fill-current" />
-            <span>{isMr ? 'कठीण चाचणी सुरू करा (Start Hard Test)' : 'Configure & Start Test'}</span>
+            <span>{isMr ? 'कठीण चाचणी सुरू करा' : 'Configure & Start Test'}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('explore_100k')}
+            className={`py-3 px-3 sm:px-4 font-bold text-xs sm:text-sm flex items-center gap-2 border-b-2 cursor-pointer transition-colors whitespace-nowrap ${
+              activeTab === 'explore_100k'
+                ? 'border-amber-400 text-amber-400'
+                : 'border-transparent text-stone-400 hover:text-stone-200'
+            }`}
+          >
+            <Compass className="w-4 h-4" />
+            <span>{isMr ? '१,००,००० प्रश्न एक्सप्लोरर' : '100k Question Explorer'}</span>
+            <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded-full font-mono">
+              #1-#100k
+            </span>
           </button>
 
           <button
             onClick={() => setActiveTab('browse_questions')}
-            className={`py-3 px-4 font-bold text-xs sm:text-sm flex items-center gap-2 border-b-2 cursor-pointer transition-colors ${
+            className={`py-3 px-3 sm:px-4 font-bold text-xs sm:text-sm flex items-center gap-2 border-b-2 cursor-pointer transition-colors whitespace-nowrap ${
               activeTab === 'browse_questions'
                 ? 'border-amber-400 text-amber-400'
                 : 'border-transparent text-stone-400 hover:text-stone-200'
             }`}
           >
             <BookOpen className="w-4 h-4" />
-            <span>{isMr ? 'कठीण प्रश्न व स्पष्टीकरणे वाचा' : 'Browse Hard Questions Bank'}</span>
+            <span>{isMr ? 'क्युरेटेड प्रश्न बँक' : 'Curated Hard Bank'}</span>
             <span className="text-[10px] bg-stone-800 px-1.5 py-0.2 rounded-full text-stone-300">
               {previewQuestions.length}
             </span>
@@ -130,43 +176,44 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
         {/* Content Body */}
         <div className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1 custom-scrollbar">
           
-          {/* Subject Filter Bar */}
-          <div>
-            <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-2.5">
-              {isMr ? 'विषय निवडा (Select Subject):' : 'Select Subject:'}
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-              <button
-                onClick={() => setSelectedSubject('all')}
-                className={`p-2.5 rounded-xl text-left border text-xs font-bold transition-all cursor-pointer flex items-center justify-between ${
-                  selectedSubject === 'all'
-                    ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                    : 'bg-stone-800/60 border-stone-700/60 text-stone-300 hover:bg-stone-800'
-                }`}
-              >
-                <span>{isMr ? '🌟 सर्व विषय (Mixed Mock)' : '🌟 All 10 Subjects'}</span>
-                {selectedSubject === 'all' && <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />}
-              </button>
-
-              {SUBJECTS.map((sub) => (
-                <button
-                  key={sub.id}
-                  onClick={() => setSelectedSubject(sub.id)}
-                  className={`p-2.5 rounded-xl text-left border text-xs font-medium transition-all cursor-pointer flex items-center justify-between truncate ${
-                    selectedSubject === sub.id
-                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 font-bold shadow-sm'
-                      : 'bg-stone-800/60 border-stone-700/60 text-stone-300 hover:bg-stone-800'
-                  }`}
-                >
-                  <span className="truncate">{isMr ? sub.nameMr : sub.nameEn}</span>
-                  {selectedSubject === sub.id && <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 ml-1" />}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {activeTab === 'start_test' ? (
+          {/* TAB 1: Start Hard Test */}
+          {activeTab === 'start_test' && (
             <div className="space-y-6">
+              {/* Subject Filter Bar */}
+              <div>
+                <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-2.5">
+                  {isMr ? 'विषय निवडा (Select Subject):' : 'Select Subject:'}
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                  <button
+                    onClick={() => setSelectedSubject('all')}
+                    className={`p-2.5 rounded-xl text-left border text-xs font-bold transition-all cursor-pointer flex items-center justify-between ${
+                      selectedSubject === 'all'
+                        ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
+                        : 'bg-stone-800/60 border-stone-700/60 text-stone-300 hover:bg-stone-800'
+                    }`}
+                  >
+                    <span>{isMr ? '🌟 सर्व १० विषय (Mixed Mock)' : '🌟 All 10 Subjects'}</span>
+                    {selectedSubject === 'all' && <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />}
+                  </button>
+
+                  {SUBJECTS.map((sub) => (
+                    <button
+                      key={sub.id}
+                      onClick={() => setSelectedSubject(sub.id)}
+                      className={`p-2.5 rounded-xl text-left border text-xs font-medium transition-all cursor-pointer flex items-center justify-between truncate ${
+                        selectedSubject === sub.id
+                          ? 'bg-amber-500/20 border-amber-500 text-amber-300 font-bold shadow-sm'
+                          : 'bg-stone-800/60 border-stone-700/60 text-stone-300 hover:bg-stone-800'
+                      }`}
+                    >
+                      <span className="truncate">{isMr ? sub.nameMr : sub.nameEn}</span>
+                      {selectedSubject === sub.id && <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 ml-1" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Question Count Selector */}
               <div>
                 <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-2.5">
@@ -174,7 +221,7 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {[
-                    { count: 10, time: '15 Mins', labelMr: '१० प्रश्न (Sprint)', labelEn: '10 Questions' },
+                    { count: 10, time: '15 Mins', labelMr: '१० प्रश्न (Rapid Sprint)', labelEn: '10 Questions' },
                     { count: 25, time: '35 Mins', labelMr: '२५ प्रश्न (Standard)', labelEn: '25 Questions' },
                     { count: 50, time: '70 Mins', labelMr: '५० प्रश्न (Major Drill)', labelEn: '50 Questions' },
                     { count: 100, time: '120 Mins', labelMr: '१०० प्रश्न (Full Mock)', labelEn: '100 Questions' },
@@ -225,7 +272,7 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
 
                 <div className="text-right shrink-0">
                   <div className="text-xs font-mono font-bold text-amber-400">
-                    {TOTAL_HARD_QUESTIONS_CAPACITY.toLocaleString()}+ {isMr ? 'संभाव्य प्रश्न' : 'Combinations'}
+                    {TOTAL_HARD_QUESTIONS_CAPACITY.toLocaleString()}+ {isMr ? 'प्रश्न साठा' : 'Questions Repository'}
                   </div>
                   <div className="text-[10px] text-stone-500">
                     {isMr ? '१००% कठीण काठिण्य पातळी' : 'Pure Hard Level'}
@@ -248,13 +295,195 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
-          ) : (
-            /* Browse Questions Tab */
+          )}
+
+          {/* TAB 2: 100k Explorer (Direct Question Lookup & Practice by ID/Number) */}
+          {activeTab === 'explore_100k' && (
+            <div className="space-y-5">
+              {/* Question Number Jumper & Subject Selector */}
+              <div className="bg-stone-950/60 border border-stone-800 p-4 rounded-xl space-y-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <Hash className="w-4 h-4 text-amber-400" />
+                    <span className="text-xs font-bold text-stone-300">
+                      {isMr ? 'कोणताही प्रश्न क्र. निवडा (१ ते १,००,०००):' : 'Jump to Question # (1 to 100,000):'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={explorerSubject}
+                      onChange={(e) => handleJumpQuestion(jumpQuestionNum, e.target.value as SubjectId)}
+                      className="bg-stone-800 border border-stone-700 text-white text-xs font-bold rounded-lg px-2.5 py-1.5"
+                    >
+                      {SUBJECTS.map((s) => (
+                        <option key={s.id} value={s.id}>
+                          {isMr ? s.nameMr : s.nameEn}
+                        </option>
+                      ))}
+                    </select>
+
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="number"
+                        min="1"
+                        max="100000"
+                        value={jumpQuestionNum}
+                        onChange={(e) => handleJumpQuestion(parseInt(e.target.value, 10) || 1)}
+                        className="w-24 bg-stone-900 border border-amber-500/50 rounded-lg px-2.5 py-1.5 text-xs text-amber-400 font-mono font-bold text-center"
+                        placeholder="1 - 100000"
+                      />
+                      <button
+                        onClick={() => handleJumpQuestion(jumpQuestionNum + 1)}
+                        className="px-2.5 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-lg text-xs font-bold cursor-pointer"
+                        title={isMr ? "पुढील प्रश्न" : "Next Question"}
+                      >
+                        →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Number Presets */}
+                <div className="flex items-center gap-1.5 flex-wrap pt-1 text-[11px] text-stone-400">
+                  <span>{isMr ? 'त्वरित प्रश्न:' : 'Quick Presets:'}</span>
+                  {[1, 25, 100, 500, 1000, 5000, 25000, 50000, 75000, 100000].map((num) => (
+                    <button
+                      key={num}
+                      onClick={() => handleJumpQuestion(num)}
+                      className={`px-2 py-0.5 rounded border text-[10px] font-mono cursor-pointer transition-colors ${
+                        jumpQuestionNum === num
+                          ? 'bg-amber-500 text-stone-950 font-bold border-amber-400'
+                          : 'bg-stone-800/80 border-stone-700 text-stone-300 hover:bg-stone-700'
+                      }`}
+                    >
+                      #{num.toLocaleString()}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Active Explorer Question Card */}
+              {activeExplorerQuestion && (
+                <div className="p-4 sm:p-5 rounded-xl border border-stone-800 bg-stone-950/40 space-y-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono font-extrabold border border-amber-500/30">
+                        Q #{jumpQuestionNum.toLocaleString()} / {TOTAL_HARD_QUESTIONS_CAPACITY.toLocaleString()}
+                      </span>
+                      <span className="text-xs font-extrabold text-white">
+                        {activeExplorerQuestion.topic}
+                      </span>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-red-950 text-red-300 border border-red-800/40 font-bold">
+                        Hard Level
+                      </span>
+                    </div>
+
+                    <span className="text-[11px] text-stone-400 font-mono shrink-0">
+                      ID: {activeExplorerQuestion.id}
+                    </span>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-stone-200 whitespace-pre-line leading-relaxed font-serif">
+                    {isMr ? activeExplorerQuestion.questionMr : activeExplorerQuestion.questionEn}
+                  </p>
+
+                  {/* Options with Interactive Practice Choice */}
+                  <div className="grid grid-cols-1 gap-2 pt-1">
+                    {(isMr ? activeExplorerQuestion.optionsMr : activeExplorerQuestion.optionsEn).map((opt, optIdx) => {
+                      const isSelected = explorerSelectedChoice === optIdx;
+                      const isCorrect = optIdx === activeExplorerQuestion.correctAnswerIndex;
+                      
+                      let optionStyle = 'bg-stone-900 border-stone-800 text-stone-300 hover:border-stone-700';
+                      if (showExplorerSolution) {
+                        if (isCorrect) {
+                          optionStyle = 'bg-emerald-950/60 border-emerald-500 text-emerald-200 font-bold';
+                        } else if (isSelected) {
+                          optionStyle = 'bg-red-950/60 border-red-500 text-red-200';
+                        }
+                      } else if (isSelected) {
+                        optionStyle = 'bg-amber-500/20 border-amber-500 text-amber-200 font-semibold';
+                      }
+
+                      return (
+                        <div
+                          key={optIdx}
+                          onClick={() => setExplorerSelectedChoice(optIdx)}
+                          className={`p-3 rounded-lg text-xs border transition-all cursor-pointer flex items-center gap-2.5 ${optionStyle}`}
+                        >
+                          <span className="font-bold text-stone-400 shrink-0">
+                            ({optIdx + 1})
+                          </span>
+                          <span className="flex-1">{opt}</span>
+                          {showExplorerSolution && isCorrect && (
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Interactive Action Strip */}
+                  <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-t border-stone-800">
+                    <button
+                      onClick={() => setShowExplorerSolution(!showExplorerSolution)}
+                      className="px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      {showExplorerSolution ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      <span>{showExplorerSolution ? (isMr ? 'स्पष्टीकरण लपवा' : 'Hide Solution') : (isMr ? 'उत्तर व स्पष्टीकरण तपासा' : 'Check Solution & Analysis')}</span>
+                    </button>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleJumpQuestion(jumpQuestionNum + 1)}
+                        className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-lg text-xs font-bold cursor-pointer"
+                      >
+                        {isMr ? 'पुढील प्रश्न →' : 'Next Question →'}
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          const examTitle = isMr 
+                            ? `MPSC कठीण स्तर मालिका (प्रश्न #${jumpQuestionNum} पासून)`
+                            : `MPSC 100k Hard Series (from Q #${jumpQuestionNum})`;
+                          onStartHardExam(explorerSubject, 25, examTitle);
+                          onClose();
+                        }}
+                        className="px-3.5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black rounded-lg text-xs flex items-center gap-1 cursor-pointer"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                        <span>{isMr ? 'या भागावर चाचणी सुरू करा' : 'Start Test From Here'}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Solution Box */}
+                  {showExplorerSolution && (
+                    <div className="p-3.5 bg-emerald-950/40 border border-emerald-500/40 rounded-xl text-xs space-y-2 text-emerald-200 animate-fadeIn">
+                      <div className="font-bold flex items-center gap-1.5 text-emerald-300">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>{isMr ? 'अचूक उत्तर: पर्याय क्रमांक' : 'Correct Answer: Option'} ({activeExplorerQuestion.correctAnswerIndex + 1})</span>
+                      </div>
+                      <p className="leading-relaxed text-stone-300 whitespace-pre-line">
+                        {isMr ? activeExplorerQuestion.explanationMr : activeExplorerQuestion.explanationEn}
+                      </p>
+                      <div className="text-[11px] text-amber-300/80 pt-1 border-t border-emerald-500/20">
+                        📖 {activeExplorerQuestion.reference}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 3: Browse Curated Hard Questions */}
+          {activeTab === 'browse_questions' && (
             <div className="space-y-4">
               <div className="text-xs text-stone-400 flex items-center justify-between">
                 <span>
                   {isMr 
-                    ? `निवडलेल्या विषयातील कठीण प्रश्न (${previewQuestions.length})`
+                    ? `निवडलेल्या विषयातील क्युरेटेड कठीण प्रश्न (${previewQuestions.length})`
                     : `Showing Curated Hard Questions (${previewQuestions.length})`}
                 </span>
                 <span className="text-[11px] text-amber-400 font-mono">
@@ -345,8 +574,8 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
             <Award className="w-3.5 h-3.5 text-amber-400" />
             <span>
               {isMr 
-                ? 'MPSC राज्यसेवा पूर्व व मुख्य परीक्षा आणि गट-ब/क संयुक्त परीक्षांसाठी विशेष' 
-                : 'Formulated for Rajyaseva Prelims/Mains and Combine Group B & C'}
+                ? 'MPSC राज्यसेवा पूर्व व मुख्य परीक्षा आणि गट-ब/क संयुक्त परीक्षांसाठी १,००,०००+ उच्चस्तरीय प्रश्न' 
+                : '100,000+ High-Yield Questions for MPSC Rajyaseva Prelims/Mains and Combine Group B & C'}
             </span>
           </div>
           <button
