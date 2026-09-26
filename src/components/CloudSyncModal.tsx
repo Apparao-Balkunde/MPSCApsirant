@@ -24,6 +24,8 @@ import { SUBJECTS } from '../data/subjects';
 import { isFirestoreQuotaExceeded, bulkStoreMCQsToFirestore } from '../services/firestoreSync';
 import { NEW_FIREBASE_MCQS } from '../data/mpscQuestions';
 import { FIREBASE_MCQS_BATCH_2 } from '../data/firebaseMcqsBatch2';
+import { NEW_QUESTIONS_BATCH_2026 } from '../data/newQuestionsBatch2026';
+import { NEW_QUESTIONS_BATCH_2026_PART2 } from '../data/newQuestionsBatch2026_Part2';
 
 interface CloudSyncModalProps {
   isOpen: boolean;
@@ -273,6 +275,36 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
       explanation: 'SDF ही एक अशी तरलता शोषण सुविधा आहे ज्यामध्ये रिझर्व्ह बँक व्यापारी बँकांकडून कोणतीही सरकारी रोखे (Collateral) तारण न देता अतिरिक्त तरलता शोषून घेते.',
       ref: 'रमेश सिंग - भारतीय अर्थव्यवस्था (बँकिंग)',
     },
+    {
+      title: isMr ? 'चालू घडामोडी: लाडकी बहीण योजना' : 'Current Affairs: Ladki Bahin',
+      subject: 'current_affairs' as SubjectId,
+      exam: 'Both' as const,
+      difficulty: 'Moderate' as const,
+      qMr: 'महाराष्ट्र शासनाच्या "मुख्यमंत्री माझी लाडकी बहीण योजना" अंतर्गत २१ ते ६५ वयोगटातील पात्र महिलांना दरमहा किती रुपयांचे आर्थिक साहाय्य दिले जाते?',
+      qEn: 'What monthly financial assistance is given to eligible women under the Majhi Ladki Bahin Yojana in Maharashtra?',
+      opt1: '१,००० रुपये',
+      opt2: '१,५०० रुपये (Direct Benefit Transfer)',
+      opt3: '२,००० रुपये',
+      opt4: '२,५०० रुपये',
+      correct: 1,
+      explanation: 'महाराष्ट्र शासनाने महिलांच्या स्वावलंबनासाठी दरमहा ₹१,५०० थेट लाभ हस्तांतरणाद्वारे (DBT) बँक खात्यात देण्याची ही ऐतिहासिक योजना सुरू केली आहे.',
+      ref: 'महाराष्ट्र शासन निर्णय (GR) २०२४-२६',
+    },
+    {
+      title: isMr ? 'मराठी व्याकरण: भावे प्रयोग' : 'Marathi Grammar: Bhave Prayog',
+      subject: 'marathi_grammar' as SubjectId,
+      exam: 'Both' as const,
+      difficulty: 'Hard' as const,
+      qMr: '"रामाने रावणास मारले." या वाक्यातील प्रयोग कोणता?',
+      qEn: 'Identify the Prayog in the Marathi sentence "रामाने रावणास मारले." (Rama killed Ravana):',
+      opt1: 'कर्तरी प्रयोग',
+      opt2: 'कर्मणी प्रयोग',
+      opt3: 'सकर्मक भावे प्रयोग',
+      opt4: 'अकर्मक भावे प्रयोग',
+      correct: 2,
+      explanation: 'कर्त्याला तृतीयेचा (रामाने) आणि कर्माला द्वितीयेचा (रावणास) प्रत्यय असून क्रियापद तृतीयपुरुषी, नपुंसकलिंगी, एकवचनी (मारले) असल्याने हा सकर्मक भावे प्रयोग आहे.',
+      ref: 'मो. रा. वाळंबे - सुगम मराठी व्याकरण',
+    },
   ];
 
   const handleApplyPreset = (preset: typeof SAMPLE_PRESETS[0]) => {
@@ -296,13 +328,18 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     setIsBulkAdding(true);
     setActionNotice(null);
     try {
-      const allCurated = [...NEW_FIREBASE_MCQS, ...FIREBASE_MCQS_BATCH_2];
+      const allCurated = [
+        ...NEW_FIREBASE_MCQS,
+        ...FIREBASE_MCQS_BATCH_2,
+        ...NEW_QUESTIONS_BATCH_2026,
+        ...NEW_QUESTIONS_BATCH_2026_PART2,
+      ];
       const addedCount = await bulkStoreMCQsToFirestore(allCurated);
       if (addedCount > 0) {
         setActionNotice(
           isMr 
-            ? `🎉 अभिनंदन! ${addedCount} उच्च-काठिण्य MPSC MCQs (Batch 1 & 2) Firebase मध्ये यशस्वीरीत्या जोडले गेले!` 
-            : `Successfully added ${addedCount} curated MCQs (Batch 1 & 2) to Firebase!`
+            ? `🎉 अभिनंदन! ${addedCount} उच्च-काठिण्य MPSC MCQs (सर्व 2026 Batches) Firebase मध्ये यशस्वीरीत्या जोडले गेले!` 
+            : `Successfully added ${addedCount} curated MCQs (all 2026 Batches) to Firebase!`
         );
         if (onFetchData) {
           await onFetchData();
@@ -310,8 +347,8 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
       } else {
         setActionNotice(
           isMr 
-            ? 'सर्व २८ प्रश्न Firebase मध्ये अद्ययावत आहेत.' 
-            : 'All 28 MCQs are up-to-date in Firebase.'
+            ? 'सर्व दर्जेदार प्रश्न Firebase मध्ये आधीच साठवलेले व अद्ययावत आहेत.' 
+            : 'All curated MCQs are already saved & up-to-date in Firebase.'
         );
       }
     } catch (err) {

@@ -6,6 +6,8 @@ import { CURRENT_AFFAIRS_2000 } from './currentAffairs2000';
 import { GRAMMAR_PRACTICE_QUESTIONS } from './grammarQuestions';
 import { HARD_QUESTIONS_BANK } from './hardQuestionsBank';
 import { FIREBASE_MCQS_BATCH_2 } from './firebaseMcqsBatch2';
+import { NEW_QUESTIONS_BATCH_2026 } from './newQuestionsBatch2026';
+import { NEW_QUESTIONS_BATCH_2026_PART2 } from './newQuestionsBatch2026_Part2';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -934,4 +936,8 @@ export const MPSC_QUESTIONS: Question[] = [
   ...GRAMMAR_PRACTICE_QUESTIONS,
   // Curated Multi-Statement Hard Questions (सर्व विषय कठीण काठिण्य पातळी)
   ...HARD_QUESTIONS_BANK,
+  // 2026 High-Yield Fresh MPSC MCQs Batch (इतिहास, भूगोल, राज्यव्यवस्था, विज्ञान, चालू घडामोडी)
+  ...NEW_QUESTIONS_BATCH_2026,
+  // 2026 Part 2 High-Yield Questions (समाजसुधारक, नद्या, रिट अधिकार, विज्ञान, व्याकरण, चालू घडामोडी)
+  ...NEW_QUESTIONS_BATCH_2026_PART2,
 ];

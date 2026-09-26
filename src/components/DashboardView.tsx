@@ -182,6 +182,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 </span>
               </button>
             )}
+
+            {onOpenAddQuestion && (
+              <button
+                id="btn-hero-add-mcq"
+                onClick={onOpenAddQuestion}
+                className="px-4 py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                title={isMr ? "नवीन MCQ प्रश्न तयार करा किंवा नमुना प्रश्न जोडा" : "Add custom MCQ question to Bank"}
+              >
+                <PlusCircle className="w-4 h-4 text-amber-400" />
+                <span>{isMr ? '➕ MCQ प्रश्न ॲड करा' : '➕ Add MCQ Question'}</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -296,11 +308,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <button
                 id="btn-dashboard-add-question"
                 onClick={onOpenAddQuestion}
-                className="px-3 py-2 rounded-xl bg-white hover:bg-stone-50 text-stone-850 border border-stone-300 text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
+                className="px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
                 title={isMr ? "नवीन प्रश्न तयार करून Firebase मध्ये Add करा" : "Add new question to Firebase"}
               >
                 <PlusCircle className="w-3.5 h-3.5 text-amber-600" />
-                <span>{isMr ? '+ प्रश्न जोडा' : '+ Add Question'}</span>
+                <span>{isMr ? '+ MCQ प्रश्न जोडा' : '+ Add MCQ'}</span>
               </button>
             )}
 

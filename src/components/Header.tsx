@@ -517,6 +517,15 @@ export const Header: React.FC<HeaderProps> = ({
               <span>{isMr ? '१ लाख' : '100k'}</span>
             </button>
           )}
+          {onOpenAddQuestion && (
+            <button
+              onClick={onOpenAddQuestion}
+              className="px-2 py-1 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1 shrink-0 cursor-pointer"
+            >
+              <PlusCircle className="w-3.5 h-3.5 text-amber-400" />
+              <span>{isMr ? '+ MCQ' : '+ MCQ'}</span>
+            </button>
+          )}
         </div>
       </header>
     </>
