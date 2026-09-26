@@ -1,4 +1,4 @@
-import { Question } from '../types';
+import { Question } from '../src/types';
 
 /**
  * Curated High-Yield Current Affairs MCQs for MPSC 2026/27.

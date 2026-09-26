@@ -27,6 +27,7 @@ import { SubjectPracticeView } from './components/SubjectPracticeView';
 import { GrammarRulesView } from './components/GrammarRulesView';
 import { AiMentorModal } from './components/AiMentorModal';
 import { CloudSyncModal } from './components/CloudSyncModal';
+import { LoginModal } from './components/LoginModal';
 import { SettingsModal } from './components/SettingsModal';
 import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
@@ -47,7 +48,15 @@ import {
   subscribeToRealtimeUserData,
 } from './services/firestoreSync';
 import { type User } from 'firebase/auth';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, RotateCcw, X, AlertCircle } from 'lucide-react';
+
+interface SyncToastState {
+  id: string;
+  message: string;
+  type?: 'success' | 'info' | 'warning' | 'error';
+  canUndo?: boolean;
+  durationMs?: number;
+}
 
 export default function App() {
   const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
@@ -72,11 +81,21 @@ export default function App() {
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [isCloudSyncOpen, setIsCloudSyncOpen] = useState<boolean>(false);
   const [initialShowAddQuestion, setInitialShowAddQuestion] = useState<boolean>(false);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
-  const [syncToast, setSyncToast] = useState<string | null>(null);
+  const [syncToast, setSyncToast] = useState<SyncToastState | null>(null);
+  const [syncSnapshot, setSyncSnapshot] = useState<{
+    userProgress: UserProgress;
+    questions: Question[];
+    actionDescription: string;
+  } | null>(null);
+  const toastTimeoutRef = React.useRef<any>(null);
+  const toastStartTimeRef = React.useRef<number>(0);
+  const toastRemainingTimeRef = React.useRef<number>(5000);
+  const [isToastPaused, setIsToastPaused] = useState<boolean>(false);
 
   // Initialize Firebase Auth listener and real-time Firestore listeners on mount
   useEffect(() => {
@@ -133,8 +152,143 @@ export default function App() {
     }
   }, [userProgress, currentUser]);
 
+  // Show sync toast with optional Undo action and automatic timeout
+  const showSyncToast = (
+    message: string, 
+    options?: { 
+      type?: 'success' | 'info' | 'warning' | 'error'; 
+      canUndo?: boolean; 
+      durationMs?: number; 
+    }
+  ) => {
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = null;
+    }
+
+    const duration = options?.durationMs ?? 5000;
+    toastRemainingTimeRef.current = duration;
+    toastStartTimeRef.current = Date.now();
+    setIsToastPaused(false);
+
+    // Play subtle 'ding' alert chime when a new toast appears
+    if (userProgress.soundEffectsEnabled ?? true) {
+      soundFx.playDingSound();
+    }
+
+    setSyncToast({
+      id: Date.now().toString(),
+      message,
+      type: options?.type || 'success',
+      canUndo: options?.canUndo ?? false,
+      durationMs: duration,
+    });
+
+    toastTimeoutRef.current = setTimeout(() => {
+      setSyncToast(null);
+      setIsToastPaused(false);
+    }, duration);
+  };
+
+  // Pause timeout countdown when mouse hovers over notification toast
+  const handleToastMouseEnter = () => {
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = null;
+    }
+    const elapsed = Date.now() - toastStartTimeRef.current;
+    toastRemainingTimeRef.current = Math.max(500, toastRemainingTimeRef.current - elapsed);
+    setIsToastPaused(true);
+  };
+
+  // Resume countdown when mouse leaves notification toast
+  const handleToastMouseLeave = () => {
+    setIsToastPaused(false);
+    if (!syncToast) return;
+    toastStartTimeRef.current = Date.now();
+    const remaining = Math.max(500, toastRemainingTimeRef.current);
+    toastTimeoutRef.current = setTimeout(() => {
+      setSyncToast(null);
+      setIsToastPaused(false);
+    }, remaining);
+  };
+
+  // Prominently dismiss the toast before timeout
+  const handleDismissSyncToast = () => {
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = null;
+    }
+    setIsToastPaused(false);
+    setSyncToast(null);
+  };
+
+  // State revert / Undo handler for sync actions performed by mistake
+  const handleUndoSync = async () => {
+    if (!syncSnapshot) {
+      handleDismissSyncToast();
+      return;
+    }
+
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+      toastTimeoutRef.current = null;
+    }
+    setIsToastPaused(false);
+
+    try {
+      const prevProgress = syncSnapshot.userProgress;
+      const prevQuestions = syncSnapshot.questions;
+
+      // Revert in-memory React states
+      setUserProgress(prevProgress);
+      setQuestions(prevQuestions);
+
+      // Persist restored progress to local storage
+      saveUserProgress(prevProgress);
+
+      // If user is authenticated and performed a remote store/sync, re-sync restored state
+      if (currentUser?.uid && (syncSnapshot.actionDescription === 'sync' || syncSnapshot.actionDescription === 'store_question')) {
+        try {
+          await syncUserProgressToFirestore(
+            currentUser.uid,
+            prevProgress,
+            currentUser.email,
+            currentUser.displayName
+          );
+        } catch (resyncErr) {
+          console.warn('Revert sync to cloud warning:', resyncErr);
+        }
+      }
+
+      setSyncSnapshot(null);
+
+      if (prevProgress.soundEffectsEnabled ?? true) {
+        soundFx.playToggleSound(true);
+      }
+
+      const isMr = prevProgress.preferredLanguage === 'mr';
+      const undoNotice = isMr
+        ? 'मागील सिंक कृती यशस्वीपणे पूर्ववत (Reverted) करण्यात आली!'
+        : 'Sync action successfully undone and state restored!';
+
+      showSyncToast(undoNotice, { type: 'info', canUndo: false, durationMs: 4000 });
+    } catch (err) {
+      console.error('Failed to revert sync:', err);
+      const isMr = userProgress.preferredLanguage === 'mr';
+      showSyncToast(isMr ? 'बदल पूर्ववत करताना त्रुटी आली.' : 'Failed to undo sync.', { type: 'error', canUndo: false, durationMs: 4000 });
+    }
+  };
+
   // Fetch all data from Firebase (questions + user results + study logs)
   const handleFetchFromFirebase = async () => {
+    // Snapshot state before fetching for possible Undo revert
+    setSyncSnapshot({
+      userProgress: JSON.parse(JSON.stringify(userProgress)),
+      questions: [...questions],
+      actionDescription: 'fetch',
+    });
+
     setIsFetchingData(true);
     try {
       // 1. Fetch questions from Firestore
@@ -158,13 +312,11 @@ export default function App() {
       const msg = isMr
         ? `फायरबेसवरून डेटा यशस्वीरीत्या आणला (Fetch)! (${qRes.count} प्रश्न, ${userExams} चाचण्या)`
         : `Successfully fetched data from Firebase! (${qRes.count} questions, ${userExams} exams)`;
-      setSyncToast(msg);
-      setTimeout(() => setSyncToast(null), 5000);
+      showSyncToast(msg, { type: 'success', canUndo: true, durationMs: 5000 });
     } catch (err) {
       console.error('Fetch error:', err);
       const isMr = userProgress.preferredLanguage === 'mr';
-      setSyncToast(isMr ? 'फायरबेस डेटा आणताना त्रुटी आली.' : 'Failed to fetch from Firebase.');
-      setTimeout(() => setSyncToast(null), 4000);
+      showSyncToast(isMr ? 'फायरबेस डेटा आणताना त्रुटी आली.' : 'Failed to fetch from Firebase.', { type: 'error', canUndo: false, durationMs: 4000 });
     } finally {
       setIsFetchingData(false);
     }
@@ -173,6 +325,14 @@ export default function App() {
   // Trigger full sync and store to Firebase
   const handleTriggerSync = async () => {
     if (!currentUser?.uid) return;
+
+    // Snapshot state before sync
+    setSyncSnapshot({
+      userProgress: JSON.parse(JSON.stringify(userProgress)),
+      questions: [...questions],
+      actionDescription: 'sync',
+    });
+
     setIsSyncing(true);
     try {
       const summary = await syncAllDataToFirestore(
@@ -186,10 +346,11 @@ export default function App() {
       const msg = isMr
         ? `डेटा फायरबेसवर जतन झाला (Stored)! (${summary.examsStored} चाचण्या, ${summary.logsStored} नोंदी, ${summary.questionsStored} प्रश्नसंच)`
         : `Data stored on Firebase! (${summary.examsStored} exams, ${summary.logsStored} logs, ${summary.questionsStored} questions)`;
-      setSyncToast(msg);
-      setTimeout(() => setSyncToast(null), 5000);
+      showSyncToast(msg, { type: 'success', canUndo: true, durationMs: 5000 });
     } catch (err) {
       console.warn('Manual sync note:', err);
+      const isMr = userProgress.preferredLanguage === 'mr';
+      showSyncToast(isMr ? 'सिंक दरम्यान त्रुटी आली.' : 'Sync failed.', { type: 'error', canUndo: false, durationMs: 4000 });
     } finally {
       setIsSyncing(false);
     }
@@ -197,13 +358,22 @@ export default function App() {
 
   // Store a single new custom question directly to Firebase Firestore
   const handleStoreNewQuestion = async (newQ: Question): Promise<boolean> => {
+    // Snapshot state before adding question
+    setSyncSnapshot({
+      userProgress: JSON.parse(JSON.stringify(userProgress)),
+      questions: [...questions],
+      actionDescription: 'store_question',
+    });
+
     try {
       const success = await storeSingleQuestionToFirestore(newQ);
       if (success) {
         setQuestions((prev) => [newQ, ...prev]);
         const isMr = userProgress.preferredLanguage === 'mr';
-        setSyncToast(isMr ? 'नवीन प्रश्न Firestore वर साठवला (Stored) गेला!' : 'New question stored to Firestore!');
-        setTimeout(() => setSyncToast(null), 4000);
+        showSyncToast(
+          isMr ? 'नवीन प्रश्न Firestore वर साठवला (Stored) गेला!' : 'New question stored to Firestore!',
+          { type: 'success', canUndo: true, durationMs: 5000 }
+        );
         return true;
       }
       return false;
@@ -215,11 +385,19 @@ export default function App() {
 
   // Seed / Add all standard questions to Firestore
   const handleSeedAllToFirebase = async (): Promise<number> => {
+    setSyncSnapshot({
+      userProgress: JSON.parse(JSON.stringify(userProgress)),
+      questions: [...questions],
+      actionDescription: 'seed',
+    });
+
     try {
       const count = await seedMPSCQuestionsToFirestore();
       const isMr = userProgress.preferredLanguage === 'mr';
-      setSyncToast(isMr ? `फायरबेसमध्ये ${count} प्रश्न यशस्वीपणे जोडले (Added) गेले!` : `Added ${count} questions to Firebase!`);
-      setTimeout(() => setSyncToast(null), 4000);
+      showSyncToast(
+        isMr ? `फायरबेसमध्ये ${count} प्रश्न यशस्वीपणे जोडले (Added) गेले!` : `Added ${count} questions to Firebase!`,
+        { type: 'success', canUndo: true, durationMs: 5000 }
+      );
       return count;
     } catch (err) {
       console.error('Seed all error:', err);
@@ -511,6 +689,8 @@ export default function App() {
             language={userProgress.preferredLanguage}
             onToggleLanguage={handleToggleLanguage}
             userProgress={userProgress}
+            currentUser={currentUser}
+            onOpenLogin={() => setIsLoginModalOpen(true)}
             onOpenQuickMentor={() => handleOpenAiMentor()}
             onOpenCloudSync={() => setIsCloudSyncOpen(true)}
             onOpenSettings={() => setIsSettingsOpen(true)}
@@ -549,10 +729,17 @@ export default function App() {
             language={userProgress.preferredLanguage}
             onToggleLanguage={handleToggleLanguage}
             userProgress={userProgress}
+            currentUser={currentUser}
+            onOpenLogin={() => setIsLoginModalOpen(true)}
             onOpenQuickMentor={() => handleOpenAiMentor()}
             onOpenCloudSync={() => setIsCloudSyncOpen(true)}
+            onOpenAddQuestion={() => {
+              setInitialShowAddQuestion(true);
+              setIsCloudSyncOpen(true);
+            }}
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
+            onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -633,6 +820,7 @@ export default function App() {
                   setActiveSession(reconstructedSession);
                   setActiveResult(result);
                 }}
+                onStartSubjectPractice={(subId) => handleStartExam('custom', subId)}
               />
             )}
 
@@ -733,6 +921,24 @@ export default function App() {
         language={userProgress.preferredLanguage}
         questionsCount={questions.length}
         initialShowAddQuestion={initialShowAddQuestion}
+        onOpenLoginPage={() => {
+          setIsCloudSyncOpen(false);
+          setIsLoginModalOpen(true);
+        }}
+      />
+
+      {/* Firebase Auth Login & Account Modal */}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        currentUser={currentUser}
+        userProgress={userProgress}
+        language={userProgress.preferredLanguage}
+        onTriggerSync={handleTriggerSync}
+        onOpenCloudSync={() => {
+          setIsLoginModalOpen(false);
+          setIsCloudSyncOpen(true);
+        }}
       />
 
       {/* Settings Modal */}
@@ -752,19 +958,109 @@ export default function App() {
         onStartHardExam={handleStartHardExam}
       />
 
-      {/* Floating Firebase Sync Notification Toast */}
+      {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}
       {syncToast && (
-        <div 
+        <aside 
           id="firebase-sync-toast"
-          className="fixed bottom-5 right-5 z-50 bg-stone-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-amber-500/40 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200 max-w-md"
+          role="status"
+          aria-live="polite"
+          onMouseEnter={handleToastMouseEnter}
+          onMouseLeave={handleToastMouseLeave}
+          className={`group fixed bottom-5 right-5 z-50 bg-stone-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl border flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200 max-w-md w-[calc(100vw-2.5rem)] sm:w-auto min-w-[320px] transition-all cursor-default ${
+            isToastPaused ? 'border-amber-400 shadow-amber-500/10' : 'border-amber-500/50'
+          }`}
         >
-          <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-            <CheckCircle2 className="w-4 h-4" />
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                syncToast.type === 'error'
+                  ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                  : syncToast.type === 'info'
+                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                  : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+              }`}>
+                {syncToast.type === 'error' ? (
+                  <AlertCircle className="w-4 h-4" />
+                ) : syncToast.type === 'info' ? (
+                  <RotateCcw className="w-4 h-4" />
+                ) : (
+                  <CheckCircle2 className="w-4 h-4" />
+                )}
+              </div>
+              <div className="text-xs font-semibold text-stone-100 leading-relaxed pt-1">
+                {syncToast.message}
+              </div>
+            </div>
+
+            {/* Quick close button in corner */}
+            <button
+              id="btn-close-sync-toast-icon"
+              type="button"
+              onClick={handleDismissSyncToast}
+              aria-label={userProgress.preferredLanguage === 'mr' ? 'सूचना बंद करा' : 'Close notification'}
+              className="p-1 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800 transition-colors shrink-0 cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
-          <div className="text-xs font-semibold">
-            {syncToast}
+
+          {/* Action Buttons: Prominent Undo & Dismiss Buttons */}
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-800">
+            {syncToast.canUndo && (
+              <button
+                id="btn-undo-sync-toast"
+                type="button"
+                onClick={handleUndoSync}
+                className="group/undo inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 text-amber-300 hover:text-amber-100 border border-amber-500/40 hover:border-amber-400 text-xs font-bold transition-all duration-200 shadow-xs cursor-pointer active:scale-95 hover:animate-undo-pulse hover:shadow-[0_0_14px_rgba(245,158,11,0.45)] ring-amber-400/20 hover:ring-2"
+              >
+                <RotateCcw className="w-3.5 h-3.5 transition-transform duration-300 group-hover/undo:-rotate-45 group-hover/undo:scale-110 text-amber-300 group-hover/undo:text-amber-100" />
+                <span className="tracking-tight">
+                  {userProgress.preferredLanguage === 'mr' ? 'पूर्ववत करा (Undo)' : 'Undo'}
+                </span>
+              </button>
+            )}
+
+            {/* Prominent Close / Dismiss Button */}
+            <button
+              id="btn-dismiss-sync-toast"
+              type="button"
+              onClick={handleDismissSyncToast}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 hover:text-white border border-stone-700 text-xs font-bold transition-colors cursor-pointer active:scale-95"
+            >
+              <X className="w-3.5 h-3.5" />
+              <span>
+                {userProgress.preferredLanguage === 'mr' ? 'बंद करा (Dismiss)' : 'Dismiss'}
+              </span>
+            </button>
           </div>
-        </div>
+
+          {/* Visual countdown progress bar with pause on hover */}
+          <div className="space-y-1.5 pt-0.5">
+            <div className="w-full bg-stone-800 h-1.5 rounded-full overflow-hidden">
+              <div 
+                key={syncToast.id}
+                className="bg-amber-500 h-full rounded-full animate-toast-progress transition-colors"
+                style={{
+                  animationDuration: `${syncToast.durationMs || 5000}ms`,
+                  animationPlayState: isToastPaused ? 'paused' : 'running',
+                }}
+              />
+            </div>
+            {isToastPaused && (
+              <div className="flex items-center justify-between text-[10px] text-amber-400 font-medium pt-0.5 animate-in fade-in duration-150">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                  <span>
+                    {userProgress.preferredLanguage === 'mr' ? 'माउस कर्सरमुळे टाइमर थांबवला आहे (Paused)' : 'Timer paused on hover'}
+                  </span>
+                </span>
+                <span className="text-stone-400 text-[10px]">
+                  {userProgress.preferredLanguage === 'mr' ? 'कर्सर बाजूला घ्या' : 'Leave to resume'}
+                </span>
+              </div>
+            )}
+          </div>
+        </aside>
       )}
     </div>
   );

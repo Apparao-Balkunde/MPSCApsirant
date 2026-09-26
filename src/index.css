@@ -6,3 +6,39 @@
   }
 }
 
+@keyframes toast-progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.animate-toast-progress {
+  animation: toast-progress 5s linear forwards;
+}
+
+/* Pause countdown progress bar when hovering over toast container */
+#firebase-sync-toast:hover .animate-toast-progress,
+.group:hover .animate-toast-progress,
+.toast-paused .animate-toast-progress {
+  animation-play-state: paused !important;
+}
+
+/* Subtle pulse animation and border glow for Undo button */
+@keyframes undo-pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4), 0 0 10px rgba(245, 158, 11, 0.35);
+    border-color: rgba(251, 191, 36, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25), 0 0 16px rgba(245, 158, 11, 0.55);
+    border-color: rgba(253, 224, 71, 0.95);
+  }
+}
+
+.hover\:animate-undo-pulse:hover {
+  animation: undo-pulse-glow 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+

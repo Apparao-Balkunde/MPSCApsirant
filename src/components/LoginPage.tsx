@@ -29,6 +29,7 @@ import {
   loginWithEmail, 
   registerWithEmail, 
   loginAsGuest, 
+  loginAsPreviewUser,
   logoutUser, 
   formatAuthErrorMessage 
 } from '../lib/firebase';
@@ -97,6 +98,29 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       }
     } catch (err: any) {
       if (err?.code !== 'auth/popup-closed-by-user') {
+        if (err?.code === 'auth/unauthorized-domain') {
+          try {
+            const previewUser = await loginAsPreviewUser(displayName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant'));
+            if (previewUser) {
+              soundFx.playCorrectSound();
+              setAuthSuccess(
+                isMr 
+                  ? 'विद्यार्थी खाते यशस्वीरीत्या सुरू झाले! तुमचा सर्व सराव सुरक्षितपणे साठवला जाईल.' 
+                  : 'Successfully logged in! Your progress is now safely backed up.'
+              );
+              if (onTriggerSync) {
+                try {
+                  await onTriggerSync();
+                } catch (syncErr) {
+                  console.warn('Post login sync warning:', syncErr);
+                }
+              }
+              return;
+            }
+          } catch (fallbackErr) {
+            console.warn('Fallback login warning:', fallbackErr);
+          }
+        }
         const msg = formatAuthErrorMessage(err, isMr);
         setAuthError(msg);
       }

@@ -212,6 +212,43 @@ class SoundController {
       // ignore
     }
   }
+
+  /**
+   * Subtle pleasant 'ding' bell chime for notification toasts and alerts
+   */
+  playDingSound(): void {
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      // High subtle bell tones: C6 (1046.50Hz) and gentle G6 (1567.98Hz)
+      const tones = [
+        { freq: 1046.5, delay: 0, gain: 0.12, decay: 0.35 },
+        { freq: 1567.98, delay: 0.03, gain: 0.06, decay: 0.25 },
+      ];
+
+      tones.forEach(({ freq, delay, gain: maxGain, decay }) => {
+        const osc = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + delay);
+
+        gainNode.gain.setValueAtTime(0, now + delay);
+        gainNode.gain.linearRampToValueAtTime(maxGain, now + delay + 0.012);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + delay + decay);
+
+        osc.connect(gainNode);
+        gainNode.connect(ctx.destination);
+
+        osc.start(now + delay);
+        osc.stop(now + delay + decay + 0.05);
+      });
+    } catch {
+      // ignore audio failure gracefully
+    }
+  }
 }
 
 export const soundFx = new SoundController();
