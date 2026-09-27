@@ -38,16 +38,22 @@ import {
   ShieldCheck,
   Zap,
   Play,
-  ArrowRight
+  ArrowRight,
+  Download,
+  HardDrive,
+  FileJson,
+  Bookmark
 } from 'lucide-react';
 import { ExamResult, SubjectId, UserProgress } from '../types';
 import { SUBJECTS } from '../data/subjects';
+import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 
 interface AnalyticsViewProps {
   userProgress: UserProgress;
   language: 'mr' | 'en';
   onReviewPastTest: (result: ExamResult) => void;
   onStartSubjectPractice?: (subjectId: SubjectId) => void;
+  onOpenBackupModal?: () => void;
 }
 
 interface RadarSubjectItem {
@@ -247,9 +253,26 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   language,
   onReviewPastTest,
   onStartSubjectPractice,
+  onOpenBackupModal,
 }) => {
   const isMr = language === 'mr';
   const history = userProgress.history;
+
+  const [exportToast, setExportToast] = useState<string | null>(null);
+
+  const handleTriggerExport = () => {
+    if (onOpenBackupModal) {
+      onOpenBackupModal();
+    } else {
+      const { filename, summary } = exportUserDataAsJSON(userProgress);
+      setExportToast(
+        isMr
+          ? `🎉 बॅकअप यशस्वीरीत्या डाऊनलोड झाला! (${filename} — ${summary.totalExams} चाचण्या, ${summary.totalStudySessions} सत्रे, ${summary.totalBookmarkedQuestions} प्रश्न)`
+          : `🎉 Backup successfully downloaded! (${filename} — ${summary.totalExams} exams, ${summary.totalStudySessions} logs, ${summary.totalBookmarkedQuestions} bookmarks)`
+      );
+      setTimeout(() => setExportToast(null), 5000);
+    }
+  };
 
   // Chart configuration state
   const [chartMode, setChartMode] = useState<'overall' | 'by_subject' | 'multi_compare'>('multi_compare');
@@ -523,25 +546,46 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
           </p>
         </div>
 
-        {/* Demo / Live Data Toggle Badge */}
-        {history.length < 2 && (
+        <div className="flex items-center gap-2 flex-wrap self-start sm:self-center">
+          {/* JSON Export Button */}
           <button
-            onClick={() => setUseSampleData(!useSampleData)}
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-              useSampleData
-                ? 'bg-amber-500/10 text-amber-800 border-amber-500/40 hover:bg-amber-500/20'
-                : 'bg-stone-100 text-stone-700 border-stone-300 hover:bg-stone-200'
-            }`}
+            type="button"
+            onClick={handleTriggerExport}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-stone-800 hover:text-stone-950 border border-stone-300 hover:border-amber-500 hover:bg-amber-50/40 transition-all cursor-pointer shadow-2xs"
+            title={isMr ? "चाचण्या, स्वाध्याय सत्रे आणि बुकमार्क्सचा बॅकअप JSON फाइलमध्ये डाऊनलोड करा" : "Export your exam history, study logs, and bookmarks as JSON"}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span>
-              {useSampleData
-                ? (isMr ? '🌟 नमुना प्रगती आलेख (Sample Mode: Active)' : '🌟 Preview Sample Trend: Active')
-                : (isMr ? 'माझा प्रत्यक्ष डेटा दाखवा' : 'Show My Live Data')}
-            </span>
+            <Download className="w-3.5 h-3.5 text-amber-600" />
+            <span>{isMr ? '💾 बॅकअप JSON' : '💾 Export JSON'}</span>
           </button>
-        )}
+
+          {/* Demo / Live Data Toggle Badge */}
+          {history.length < 2 && (
+            <button
+              onClick={() => setUseSampleData(!useSampleData)}
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                useSampleData
+                  ? 'bg-amber-500/10 text-amber-800 border-amber-500/40 hover:bg-amber-500/20'
+                  : 'bg-stone-100 text-stone-700 border-stone-300 hover:bg-stone-200'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span>
+                {useSampleData
+                  ? (isMr ? '🌟 नमुना प्रगती आलेख' : '🌟 Sample Mode')
+                  : (isMr ? 'माझा प्रत्यक्ष डेटा' : 'Show Live Data')}
+              </span>
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* Temporary Export Notification Toast Banner */}
+      {exportToast && (
+        <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-xs font-semibold text-emerald-900 flex items-center gap-2 animate-in fade-in duration-200">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <div className="flex-1">{exportToast}</div>
+        </div>
+      )}
 
       {/* Aggregate Score Cards Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -1521,7 +1565,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
 
       {/* Test History Table */}
       <div className="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
-        <div className="p-6 border-b border-stone-200 flex items-center justify-between">
+        <div className="p-6 border-b border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-lg font-bold text-stone-900">
               {isMr ? 'चाचण्यांचा इतिहास (Past Tests History)' : 'Test Attempt History'}
@@ -1529,6 +1573,18 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
             <p className="text-xs text-stone-500">
               {isMr ? 'आधी सोडवलेल्या कोणत्याही चाचणीचे उत्तरपत्र व विश्लेषण पुन्हा पहा.' : 'Review answers and solutions from your previously attempted tests.'}
             </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleTriggerExport}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs transition-colors shadow-2xs cursor-pointer"
+              title={isMr ? "तुमचा सर्व परीक्षा इतिहास, अभ्यास नोंदी व बुकमार्क्स JSON मध्ये डाउनलोड करा" : "Export your test history, study logs, and bookmarks as JSON"}
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>{isMr ? '💾 सर्व डेटा JSON बॅकअप' : '💾 Export JSON Backup'}</span>
+            </button>
           </div>
         </div>
 
@@ -1587,6 +1643,106 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
             {isMr ? 'अद्याप एकही चाचणी सोडवलेली नाही. डॅशबोर्डवरून सराव सुरू करा.' : 'No tests attempted yet. Start practicing from the dashboard.'}
           </div>
         )}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* LOCAL DATA BACKUP & SAFETY SECTION                                       */}
+      {/* ========================================================================= */}
+      <div className="bg-white rounded-2xl border border-stone-200 p-5 sm:p-7 shadow-xs space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-100">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+              <HardDrive className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-base sm:text-lg font-black text-stone-900">
+                  {isMr ? 'स्थानिक डेटा बॅकअप व सुरक्षा' : 'Local Data Backup & Safety'}
+                </h3>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold">
+                  {isMr ? '🔒 सुरक्षित ऑफलाइन फॉरमॅट (.JSON)' : '🔒 Offline Format (.JSON)'}
+                </span>
+              </div>
+              <p className="text-xs text-stone-500 mt-0.5">
+                {isMr
+                  ? 'तुमचा परीक्षेचा इतिहास, स्वाध्याय सत्रे, बुकमार्क केलेले प्रश्न आणि वैयक्तिक टिपा एका क्लिकवर JSON फाइलमध्ये डाउनलोड करा.'
+                  : 'Export your entire exam history, study logs, bookmarks, and notes as a JSON file to safely store on your machine.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap self-start sm:self-center">
+            {onOpenBackupModal && (
+              <button
+                type="button"
+                onClick={onOpenBackupModal}
+                className="px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold text-xs transition-colors cursor-pointer"
+              >
+                {isMr ? '📂 प्रगत बॅकअप / रिस्टोअर' : '📂 Manage & Restore'}
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={handleTriggerExport}
+              className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+            >
+              <Download className="w-4 h-4 text-stone-950" />
+              <span>{isMr ? '💾 JSON बॅकअप डाऊनलोड करा' : '💾 Download JSON Backup'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Current Stored Metrics Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+            <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-0.5">
+              {isMr ? 'पूर्ण चाचण्या' : 'Exams Solved'}
+            </div>
+            <div className="text-xl font-black text-stone-900 font-mono">
+              {history.length}
+            </div>
+            <div className="text-[10px] text-stone-400 mt-0.5">
+              {isMr ? 'सर्व निकाल व उत्तरपत्रिका' : 'All results & answer sheets'}
+            </div>
+          </div>
+
+          <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+            <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-0.5">
+              {isMr ? 'स्वाध्याय सत्रे' : 'Study Logs'}
+            </div>
+            <div className="text-xl font-black text-indigo-700 font-mono">
+              {(userProgress.studyLogs || []).length}
+            </div>
+            <div className="text-[10px] text-stone-400 mt-0.5">
+              {isMr ? 'अभ्यास वेळ व प्रश्न संख्या' : 'Tracked hours & solved Qs'}
+            </div>
+          </div>
+
+          <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+            <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-0.5">
+              {isMr ? 'जतन प्रश्न व नियम' : 'Bookmarks'}
+            </div>
+            <div className="text-xl font-black text-emerald-700 font-mono">
+              {(userProgress.bookmarkedQuestionIds || []).length + (userProgress.bookmarkedRuleIds || []).length}
+            </div>
+            <div className="text-[10px] text-stone-400 mt-0.5">
+              {isMr ? 'कठीण प्रश्न व नियम संच' : 'Saved for quick revision'}
+            </div>
+          </div>
+
+          <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+            <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-0.5">
+              {isMr ? 'वैयक्तिक टिपा' : 'Personal Notes'}
+            </div>
+            <div className="text-xl font-black text-amber-700 font-mono">
+              {Object.keys(userProgress.notes || {}).length}
+            </div>
+            <div className="text-[10px] text-stone-400 mt-0.5">
+              {isMr ? 'प्रश्नांवर लिहिलेल्या नोट्स' : 'Custom student annotations'}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

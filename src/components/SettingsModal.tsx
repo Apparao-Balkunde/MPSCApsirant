@@ -8,9 +8,13 @@ import {
   Sparkles, 
   Play, 
   Settings,
-  ShieldCheck
+  ShieldCheck,
+  Download,
+  HardDrive
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
+import { UserProgress } from '../types';
+import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -18,6 +22,8 @@ interface SettingsModalProps {
   language: 'mr' | 'en';
   soundEffectsEnabled: boolean;
   onToggleSoundEffects: () => void;
+  userProgress?: UserProgress;
+  onOpenBackupModal?: () => void;
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -26,6 +32,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   language,
   soundEffectsEnabled,
   onToggleSoundEffects,
+  userProgress,
+  onOpenBackupModal,
 }) => {
   const isMr = language === 'mr';
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
@@ -183,6 +191,55 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 </button>
               </div>
             )}
+          </div>
+
+          {/* Local Data Backup Option */}
+          <div className="p-4 rounded-xl border border-stone-200 bg-stone-50/60 flex flex-col gap-3">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-700 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <HardDrive className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-stone-900">
+                      {isMr ? 'स्थानिक डेटा बॅकअप (.JSON)' : 'Local Data Backup (.JSON)'}
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300">
+                      Offline
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-500 mt-1 leading-relaxed">
+                    {isMr
+                      ? 'परीक्षेचा इतिहास, स्वाध्याय सत्रे आणि जतन केलेल्या प्रश्नांचा ऑफलाइन JSON बॅकअप डाउनलोड करा.'
+                      : 'Download an offline JSON backup of your exam history, study logs, and bookmarks.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-stone-200/80 flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                onClick={() => {
+                  if (onOpenBackupModal) {
+                    onOpenBackupModal();
+                  } else if (userProgress) {
+                    const { filename, summary } = exportUserDataAsJSON(userProgress);
+                    setFeedbackMessage(
+                      isMr 
+                        ? `🎉 बॅकअप डाऊनलोड झाला! (${filename} — ${summary.totalExams} चाचण्या)` 
+                        : `🎉 Backup downloaded! (${filename} — ${summary.totalExams} exams)`
+                    );
+                    setTimeout(() => setFeedbackMessage(null), 4000);
+                  }
+                }}
+                className="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>{isMr ? '💾 JSON बॅकअप डाऊनलोड करा' : '💾 Export JSON Backup'}</span>
+              </button>
+            </div>
           </div>
         </div>
 

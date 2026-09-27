@@ -25,7 +25,8 @@ import {
   ArrowRight,
   Calendar,
   AlertCircle,
-  Timer
+  Timer,
+  FileJson
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -33,6 +34,7 @@ import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { WeeklyGoalCard } from './WeeklyGoalCard';
 import { LeaderboardCard } from './LeaderboardCard';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
+import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 
 interface DashboardViewProps {
   userProgress: UserProgress;
@@ -50,6 +52,7 @@ interface DashboardViewProps {
   onOpenCloudSync?: () => void;
   onOpenAddQuestion?: () => void;
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
+  onOpenBackupModal?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -74,6 +77,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenCloudSync,
   onOpenAddQuestion,
   onOpenHardQuestionsHub,
+  onOpenBackupModal,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -104,6 +108,21 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   // Recent Activity computation: latest 5 completed exams & study sessions
   const [activityFilter, setActivityFilter] = useState<'all' | 'exams' | 'sessions'>('all');
+  const [exportSuccessMsg, setExportSuccessMsg] = useState<string | null>(null);
+
+  const handleRecentActivityExport = () => {
+    if (onOpenBackupModal) {
+      onOpenBackupModal();
+    } else {
+      const { filename, summary } = exportUserDataAsJSON(userProgress);
+      setExportSuccessMsg(
+        isMr 
+          ? `🎉 बॅकअप यशस्वीरीत्या डाऊनलोड झाला! (${filename} — ${summary.totalExams} चाचण्या, ${summary.totalStudySessions} अभ्यास सत्रे, ${summary.totalBookmarkedQuestions} बुकमार्क्स)` 
+          : `🎉 Backup downloaded! (${filename} — ${summary.totalExams} exams, ${summary.totalStudySessions} study logs, ${summary.totalBookmarkedQuestions} bookmarks)`
+      );
+      setTimeout(() => setExportSuccessMsg(null), 5000);
+    }
+  };
 
   interface ActivityItem {
     type: 'exam' | 'session';
@@ -431,6 +450,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               </button>
             </div>
 
+            {/* Export JSON Backup Button */}
+            <button
+              type="button"
+              onClick={handleRecentActivityExport}
+              className="text-xs font-bold text-stone-700 hover:text-stone-950 flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors cursor-pointer"
+              title={isMr ? "परीक्षेचा इतिहास, स्वाध्याय सत्रे आणि बुकमार्क्सचा JSON बॅकअप डाऊनलोड करा" : "Export your exam history, study logs, and bookmarks as JSON file"}
+            >
+              <Download className="w-3.5 h-3.5 text-amber-600" />
+              <span>{isMr ? '💾 बॅकअप JSON' : '💾 Export JSON'}</span>
+            </button>
+
             {/* View All Analytics Link */}
             <button
               type="button"
@@ -442,6 +472,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </button>
           </div>
         </div>
+
+        {/* Temporary Export Notification Banner */}
+        {exportSuccessMsg && (
+          <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-xs font-semibold text-emerald-900 flex items-center gap-2 animate-in fade-in duration-200">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="flex-1">{exportSuccessMsg}</div>
+          </div>
+        )}
 
         {/* Activities List */}
         {recentActivities.length === 0 ? (

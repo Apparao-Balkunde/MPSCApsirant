@@ -32,6 +32,7 @@ import { QUESTIONS_SET_20 } from '../data/questionsSet20';
 import { QUESTIONS_SET_21 } from '../data/questionsSet21';
 import { QUESTIONS_SET_22 } from '../data/questionsSet22';
 import { QUESTIONS_SET_23 } from '../data/questionsSet23';
+import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 
 interface CloudSyncModalProps {
   isOpen: boolean;
@@ -974,6 +975,24 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                   </span>
                 </button>
               )}
+
+              {/* Local Offline JSON Backup Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  const { filename, summary } = exportUserDataAsJSON(userProgress);
+                  setActionNotice(
+                    isMr 
+                      ? `🎉 स्थानिक बॅकअप डाऊनलोड झाला! (${filename} — ${summary.totalExams} चाचण्या, ${summary.totalStudySessions} अभ्यास सत्रे)` 
+                      : `🎉 Offline backup downloaded! (${filename} — ${summary.totalExams} exams, ${summary.totalStudySessions} study logs)`
+                  );
+                  setTimeout(() => setActionNotice(null), 5000);
+                }}
+                className="w-full py-2.5 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800 text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Download className="w-4 h-4 text-stone-700" />
+                <span>{isMr ? '💾 स्थानिक ऑफलाइन JSON बॅकअप डाऊनलोड करा' : '💾 Download Offline JSON Backup'}</span>
+              </button>
 
               {/* Google Sign-in / Sign-out Button */}
               {isAnonymous ? (

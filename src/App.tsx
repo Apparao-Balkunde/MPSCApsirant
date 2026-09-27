@@ -30,6 +30,7 @@ import { AiMentorModal } from './components/AiMentorModal';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { LoginModal } from './components/LoginModal';
 import { SettingsModal } from './components/SettingsModal';
+import { LocalBackupModal } from './components/LocalBackupModal';
 import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { AdBanner } from './components/AdBanner';
@@ -73,6 +74,9 @@ export default function App() {
 
   // Settings modal state
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+
+  // Local JSON Backup modal state
+  const [isBackupModalOpen, setIsBackupModalOpen] = useState<boolean>(false);
 
   // Legal / AdSense policy modals
   const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | 'about' | null>(null);
@@ -680,6 +684,11 @@ export default function App() {
     setActiveResult(result);
   };
 
+  const handleRestoreProgress = (restored: UserProgress, successMessage: string) => {
+    setUserProgress(restored);
+    showSyncToast(successMessage, { type: 'success' });
+  };
+
   return (
     <div className="min-h-screen bg-stone-100 text-stone-900 flex flex-col antialiased">
       {/* If taking an active exam, show ExamScreen */}
@@ -792,6 +801,7 @@ export default function App() {
                   setIsCloudSyncOpen(true);
                 }}
                 onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
+                onOpenBackupModal={() => setIsBackupModalOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -836,6 +846,7 @@ export default function App() {
                 language={userProgress.preferredLanguage}
                 onReviewPastTest={handleReviewPastTest}
                 onStartSubjectPractice={(subId) => handleStartExam('custom', subId)}
+                onOpenBackupModal={() => setIsBackupModalOpen(true)}
               />
             )}
 
@@ -982,6 +993,20 @@ export default function App() {
         onClose={() => setIsSettingsOpen(false)}
         soundEffectsEnabled={userProgress.soundEffectsEnabled ?? true}
         onToggleSoundEffects={handleToggleSoundEffects}
+        language={userProgress.preferredLanguage}
+        userProgress={userProgress}
+        onOpenBackupModal={() => {
+          setIsSettingsOpen(false);
+          setIsBackupModalOpen(true);
+        }}
+      />
+
+      {/* Local JSON Data Backup & Restore Modal */}
+      <LocalBackupModal
+        isOpen={isBackupModalOpen}
+        onClose={() => setIsBackupModalOpen(false)}
+        userProgress={userProgress}
+        onRestoreProgress={handleRestoreProgress}
         language={userProgress.preferredLanguage}
       />
 
