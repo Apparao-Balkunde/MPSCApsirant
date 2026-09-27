@@ -18,7 +18,9 @@ import {
   LogIn,
   Bell,
   PenSquare,
-  ArrowLeft
+  ArrowLeft,
+  Clock,
+  Calendar
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -40,6 +42,7 @@ export interface HeaderProps {
   onOpenSettings?: () => void;
   onToggleSoundEffects?: () => void;
   onOpenHardQuestionsHub?: () => void;
+  onOpenExamCountdown?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -56,6 +59,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSettings,
   onToggleSoundEffects,
   onOpenHardQuestionsHub,
+  onOpenExamCountdown,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -112,11 +116,17 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Live Exam Countdown Badge */}
-            <div className="hidden lg:flex items-center gap-1.5 bg-amber-950/60 border border-amber-500/30 px-2.5 py-0.5 rounded text-xs font-bold text-amber-200">
-              <Target className="w-3.5 h-3.5 text-amber-400" />
-              <span>{isMr ? `राज्यसेवा पूर्व: ${daysLeft} दिवस बाकी` : `Prelims: ${daysLeft} Days Left`}</span>
-            </div>
+            {/* Live Exam Countdown Badge Button */}
+            <button
+              type="button"
+              id="btn-header-exam-countdown"
+              onClick={onOpenExamCountdown}
+              className="inline-flex items-center gap-1.5 bg-amber-950/70 hover:bg-amber-900 border border-amber-500/40 hover:border-amber-400 px-2.5 py-0.5 rounded text-xs font-bold text-amber-200 transition-all cursor-pointer shadow-xs"
+              title={isMr ? "MPSC परीक्षा काउंटडाउन व वेळापत्रक उघडा" : "Open MPSC Exam Countdown & Timetable"}
+            >
+              <Clock className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+              <span>{isMr ? `⏳ परीक्षा काउंटडाउन: वेळापत्रक व दिवस` : `⏳ Exam Countdown: Timetable`}</span>
+            </button>
 
             <a
               id="banner-classic-portal-link"
@@ -269,6 +279,18 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <Flame className="w-4 h-4 text-amber-400 fill-amber-400/40 animate-pulse" />
                   <span>{isMr ? '१ लाख प्रश्न' : '100k Qs'}</span>
+                </button>
+              )}
+
+              {onOpenExamCountdown && (
+                <button
+                  id="nav-exam-countdown"
+                  onClick={onOpenExamCountdown}
+                  className="px-2.5 py-1.5 rounded-lg text-sm font-bold transition-all flex items-center gap-1.5 text-stone-300 hover:text-amber-300 hover:bg-stone-800 border border-stone-700/80 cursor-pointer shadow-xs"
+                  title={isMr ? "MPSC परीक्षा काउंटडाउन व वेळापत्रक उघडा" : "Open MPSC Exam Countdown & Timetable"}
+                >
+                  <Clock className="w-4 h-4 text-amber-400" />
+                  <span>{isMr ? 'वेळापत्रक' : 'Timetable'}</span>
                 </button>
               )}
             </nav>
@@ -521,6 +543,15 @@ export const Header: React.FC<HeaderProps> = ({
           >
             {isMr ? 'मार्गदर्शक' : 'Mentor'}
           </button>
+          {onOpenExamCountdown && (
+            <button
+              onClick={onOpenExamCountdown}
+              className="px-2 py-1 rounded font-bold text-amber-300 flex items-center gap-1 shrink-0 cursor-pointer"
+            >
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
+              <span>{isMr ? 'वेळापत्रक' : 'Timetable'}</span>
+            </button>
+          )}
           {onOpenHardQuestionsHub && (
             <button
               onClick={onOpenHardQuestionsHub}

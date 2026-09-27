@@ -33,6 +33,7 @@ import { SUBJECTS } from '../data/subjects';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { WeeklyGoalCard } from './WeeklyGoalCard';
 import { LeaderboardCard } from './LeaderboardCard';
+import { ExamCountdownCard } from './ExamCountdownCard';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 
@@ -53,6 +54,7 @@ interface DashboardViewProps {
   onOpenAddQuestion?: () => void;
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
   onOpenBackupModal?: () => void;
+  onOpenExamCountdown?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -78,6 +80,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenAddQuestion,
   onOpenHardQuestionsHub,
   onOpenBackupModal,
+  onOpenExamCountdown,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -317,9 +320,28 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span>{isMr ? '➕ MCQ प्रश्न ॲड करा' : '➕ Add MCQ Question'}</span>
               </button>
             )}
+
+            {onOpenExamCountdown && (
+              <button
+                id="btn-hero-exam-countdown"
+                onClick={onOpenExamCountdown}
+                className="px-4 py-3 rounded-xl bg-stone-800/90 hover:bg-stone-750 text-amber-300 border border-amber-500/30 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+                title={isMr ? "MPSC परीक्षा काउंटडाउन व वेळापत्रक उघडा" : "Open MPSC Exam Countdown & Timetable"}
+              >
+                <Clock className="w-4 h-4 text-amber-400 animate-pulse" />
+                <span>{isMr ? '⏳ परीक्षा काउंटडाउन' : '⏳ Exam Countdown'}</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Live MPSC Exam Countdown & Target Tracker Card */}
+      <ExamCountdownCard
+        language={language}
+        onStartExam={onStartExam}
+        onOpenFullSchedule={onOpenExamCountdown || (() => {})}
+      />
 
       {/* Snapshot Metrics Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

@@ -33,6 +33,7 @@ import { SettingsModal } from './components/SettingsModal';
 import { LocalBackupModal } from './components/LocalBackupModal';
 import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
+import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -83,6 +84,9 @@ export default function App() {
 
   // 100k Hard Questions Hub modal state
   const [isHardQuestionsHubOpen, setIsHardQuestionsHubOpen] = useState<boolean>(false);
+
+  // MPSC Exam Countdown & Timetable modal state
+  const [isExamCountdownOpen, setIsExamCountdownOpen] = useState<boolean>(false);
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -834,6 +838,7 @@ export default function App() {
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
             onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
+            onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -860,6 +865,7 @@ export default function App() {
                 }}
                 onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
+                onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
