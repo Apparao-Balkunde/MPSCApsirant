@@ -15,7 +15,14 @@ import {
   BookOpen,
   HelpCircle,
   Check,
-  Zap
+  Zap,
+  History,
+  Clock,
+  Trash2,
+  ArrowRight,
+  ShieldCheck,
+  RotateCw,
+  HardDrive
 } from 'lucide-react';
 import { type User } from 'firebase/auth';
 import { loginWithGoogle, logoutUser, loginAsPreviewUser } from '../lib/firebase';
@@ -33,6 +40,14 @@ import { QUESTIONS_SET_21 } from '../data/questionsSet21';
 import { QUESTIONS_SET_22 } from '../data/questionsSet22';
 import { QUESTIONS_SET_23 } from '../data/questionsSet23';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
+import { 
+  getSyncChangeHistory, 
+  recordSyncChangeLog, 
+  clearSyncChangeHistory, 
+  formatLogTimestamp, 
+  SyncChangeLogItem,
+  SyncActionType 
+} from '../utils/syncHistoryLog';
 
 interface CloudSyncModalProps {
   isOpen: boolean;
@@ -69,7 +84,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
   initialSubjectId,
   onOpenLoginPage,
 }) => {
-  const [activeTab, setActiveTab] = useState<'sync' | 'add_mcq'>(
+  const [activeTab, setActiveTab] = useState<'sync' | 'add_mcq' | 'history'>(
     initialShowAddQuestion ? 'add_mcq' : 'sync'
   );
   const [authError, setAuthError] = useState<string | null>(null);
@@ -79,6 +94,33 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
   const [isSeeding, setIsSeeding] = useState(false);
   const [isBulkAdding, setIsBulkAdding] = useState(false);
   const [isGeneratingAi, setIsGeneratingAi] = useState(false);
+  const [changeHistory, setChangeHistory] = useState<SyncChangeLogItem[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setChangeHistory(getSyncChangeHistory());
+    }
+  }, [isOpen]);
+
+  const logAction = (entry: {
+    actionType: SyncActionType;
+    titleMr: string;
+    titleEn: string;
+    detailsMr?: string;
+    detailsEn?: string;
+    status?: 'success' | 'error' | 'info';
+    badgeLabel?: string;
+  }) => {
+    const updated = recordSyncChangeLog(entry);
+    setChangeHistory(updated);
+  };
+
+  const handleClearHistory = () => {
+    const cleared = clearSyncChangeHistory();
+    setChangeHistory(cleared);
+    setActionNotice(isMr ? 'बदल इतिहास साफ करण्यात आला.' : 'Change history cleared.');
+    setTimeout(() => setActionNotice(null), 3000);
+  };
 
   // New question form state
   const [qMr, setQMr] = useState('');
@@ -116,6 +158,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     try {
       await loginWithGoogle();
       await onTriggerSync();
+      logAction({
+        actionType: 'auth_login',
+        titleMr: 'Google खात्याने लॉगिन केले व डेटा सिंक झाला',
+        titleEn: 'Signed in with Google Account & Synced',
+        detailsMr: 'विद्यार्थी खाते सक्रिय झाले आणि सर्व डेटा फायरबेसवर सिंक झाला.',
+        detailsEn: 'Student account connected and synchronized with Firebase.',
+        status: 'success',
+        badgeLabel: 'Auth'
+      });
     } catch (err: any) {
       if (err?.code !== 'auth/popup-closed-by-user') {
         if (err?.code === 'auth/unauthorized-domain') {
@@ -123,6 +174,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
             await loginAsPreviewUser('Apparao Balkunde', 'apparaobalkunde901@gmail.com');
             await onTriggerSync();
             setActionNotice(isMr ? 'विद्यार्थी खाते सक्रिय झाले व सर्व डेटा सुरक्षित सिंक झाला!' : 'Signed in and all data synced!');
+            logAction({
+              actionType: 'auth_login',
+              titleMr: 'विद्यार्थी खाते सक्रिय झाले व डेटा सिंक झाला',
+              titleEn: 'Signed In & Synced as Preview User',
+              detailsMr: 'खाते: Apparao Balkunde (apparaobalkunde901@gmail.com)',
+              detailsEn: 'Account: Apparao Balkunde (apparaobalkunde901@gmail.com)',
+              status: 'success',
+              badgeLabel: 'Auth'
+            });
             setTimeout(() => setActionNotice(null), 4000);
             return;
           } catch (fallbackErr) {
@@ -147,6 +207,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     setAuthError(null);
     try {
       await logoutUser();
+      logAction({
+        actionType: 'auth_logout',
+        titleMr: 'खाते साइन आउट केले (अतिथी मोड)',
+        titleEn: 'Signed Out (Switched to Guest Mode)',
+        detailsMr: 'वापरकर्ता सुरक्षितपणे लॉग आउट झाला.',
+        detailsEn: 'User safely signed out; local guest mode active.',
+        status: 'info',
+        badgeLabel: 'Auth'
+      });
     } catch (err) {
       console.error(err);
     }
@@ -156,6 +225,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     setActionNotice(null);
     await onFetchData();
     setActionNotice(isMr ? 'फायरबेसवरून सर्व डेटा यशस्वीरीत्या लोड (Fetch) झाला!' : 'All data successfully fetched from Firebase!');
+    logAction({
+      actionType: 'fetch',
+      titleMr: 'फायरबेसवरून डेटा आणला (Fetch)',
+      titleEn: 'Data Fetched from Firebase Firestore',
+      detailsMr: 'क्लाउडवरून सर्व अद्ययावत प्रश्न, सोडवलेल्या चाचण्या व नोंदी यशस्वीरीत्या आणल्या.',
+      detailsEn: 'Synced questions, exam records, and study logs from Firestore.',
+      status: 'success',
+      badgeLabel: 'Fetch'
+    });
     setTimeout(() => setActionNotice(null), 4000);
   };
 
@@ -163,6 +241,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     setActionNotice(null);
     await onTriggerSync();
     setActionNotice(isMr ? 'सर्व निकाल व प्रगती फायरबेसवर सुरक्षित साठवली (Stored)!' : 'All exam data safely stored on Firebase!');
+    logAction({
+      actionType: 'store',
+      titleMr: 'फायरबेसवर डेटा साठवला (Store)',
+      titleEn: 'Data Stored to Firebase Firestore',
+      detailsMr: `${userProgress.history.length} चाचण्या, ${userProgress.bookmarkedQuestionIds.length} बुकमार्क्स आणि प्रगती सुरक्षित साठवली.`,
+      detailsEn: `Stored ${userProgress.history.length} exams, ${userProgress.bookmarkedQuestionIds.length} bookmarks, and logs.`,
+      status: 'success',
+      badgeLabel: 'Store'
+    });
     setTimeout(() => setActionNotice(null), 4000);
   };
 
@@ -173,6 +260,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     try {
       const count = await onSeedAllToFirebase();
       setActionNotice(isMr ? `फायरबेसमध्ये ${count} प्रश्न यशस्वीरीत्या Add/Seed झाले!` : `Successfully added ${count} questions to Firebase!`);
+      logAction({
+        actionType: 'seed_all',
+        titleMr: `सर्व ${count} MPSC प्रश्न Firebase मध्ये सिंक केले`,
+        titleEn: `Seeded ${count} Questions to Firebase`,
+        detailsMr: 'संपूर्ण MPSC प्रश्नपेढी फायरबेस डेटाबेसमध्ये सुरक्षित जोडण्यात आली.',
+        detailsEn: `Full question bank (${count} MCQs) seeded to Firestore.`,
+        status: 'success',
+        badgeLabel: 'Seed All'
+      });
       await onFetchData();
     } catch (err) {
       console.error('Seed error:', err);
@@ -335,6 +431,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     setExplanation(preset.explanation);
     setReference(preset.ref);
     setActionNotice(isMr ? `"${preset.title}" नमुना प्रश्न फॉर्ममध्ये लोड झाला!` : `Sample loaded: ${preset.title}`);
+    logAction({
+      actionType: 'preset_load',
+      titleMr: `नमुना प्रश्न फॉर्ममध्ये लोड केला: ${preset.title}`,
+      titleEn: `Loaded Sample Preset: ${preset.title}`,
+      detailsMr: `विषय: ${preset.subject} | काठिण्य: ${preset.difficulty}`,
+      detailsEn: `Subject: ${preset.subject} | Difficulty: ${preset.difficulty}`,
+      status: 'info',
+      badgeLabel: 'Preset'
+    });
     setTimeout(() => setActionNotice(null), 3000);
   };
 
@@ -361,6 +466,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
             ? `🎉 अभिनंदन! ${addedCount} उच्च-काठिण्य MPSC MCQs (सर्व Batches व Sets 19-23) Firebase मध्ये यशस्वीरीत्या जोडले गेले!` 
             : `Successfully added ${addedCount} curated MCQs (all Batches & Sets 19-23) to Firebase!`
         );
+        logAction({
+          actionType: 'bulk_upload',
+          titleMr: `${addedCount} उच्च-काठिण्य MCQs बॅच जोडली`,
+          titleEn: `Uploaded ${addedCount} Curated MCQs Batch`,
+          detailsMr: 'नवीन घटनादुरुस्ती, BNS, समृद्धी, अहिल्यानगर व २०२६-२७ चालू घडामोडी संच.',
+          detailsEn: 'Batches 2026-27 and Sets 19-23 synced to Firestore.',
+          status: 'success',
+          badgeLabel: 'Bulk Upload'
+        });
         if (onFetchData) {
           await onFetchData();
         }
@@ -370,6 +484,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
             ? 'सर्व दर्जेदार प्रश्न Firebase मध्ये आधीच साठवलेले व अद्ययावत आहेत.' 
             : 'All curated MCQs are already saved & up-to-date in Firebase.'
         );
+        logAction({
+          actionType: 'bulk_upload',
+          titleMr: 'MCQs संच अद्ययावत तपासला',
+          titleEn: 'Curated MCQs Verified Up-to-Date',
+          detailsMr: 'सर्व प्रश्न फायरबेसमध्ये आधीच अस्तित्वात आहेत.',
+          detailsEn: 'All curated MCQs are already saved in Firestore.',
+          status: 'info',
+          badgeLabel: 'Verified'
+        });
       }
     } catch (err) {
       console.error('Bulk add error:', err);
@@ -411,6 +534,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
             ? `✨ AI मार्गदर्शकाने नवीन उच्च-काठिण्य प्रश्न तयार केला!`
             : `✨ AI generated a new high-yield question!`
         );
+        logAction({
+          actionType: 'ai_generate',
+          titleMr: `AI ने नवीन MPSC प्रश्न तयार केला (${SUBJECTS.find(s => s.id === subjectId)?.nameMr || subjectId})`,
+          titleEn: `AI Generated Question (${subjectId})`,
+          detailsMr: `काठिण्य: ${difficulty} | परीक्षा स्वरूप: ${examType}`,
+          detailsEn: `Difficulty: ${difficulty} | Exam: ${examType}`,
+          status: 'info',
+          badgeLabel: 'AI Generate'
+        });
         setTimeout(() => setActionNotice(null), 4000);
       }
     } catch (err) {
@@ -458,6 +590,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
           ? '✔ नवीन MCQ प्रश्न Firebase Firestore मध्ये थेट साठवला गेला आणि लाईव्ह झाला!' 
           : 'New MCQ question stored directly to Firebase Firestore!'
       );
+      logAction({
+        actionType: 'add_question',
+        titleMr: `नवीन MCQ प्रश्न जोडला: "${newQuestion.questionMr.substring(0, 36)}..."`,
+        titleEn: `New MCQ Added: "${newQuestion.questionEn.substring(0, 36)}..."`,
+        detailsMr: `विषय: ${SUBJECTS.find(s => s.id === subjectId)?.nameMr || subjectId} | काठिण्य: ${difficulty}`,
+        detailsEn: `Subject: ${subjectId} | Difficulty: ${difficulty} | Pattern: ${examType}`,
+        status: 'success',
+        badgeLabel: 'New MCQ'
+      });
       setQMr('');
       setQEn('');
       setOpt1('');
@@ -527,6 +668,22 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
           >
             <Cloud className="w-4 h-4 text-emerald-600" />
             <span>{isMr ? '📊 डेटा सिंक व बॅकअप' : '📊 Sync & Backup'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('history')}
+            className={`py-2 px-3.5 text-xs font-bold rounded-t-lg transition-all flex items-center gap-1.5 cursor-pointer border-t border-x ${
+              activeTab === 'history'
+                ? 'bg-white text-indigo-900 border-stone-200 border-b-white -mb-px shadow-xs'
+                : 'bg-stone-100 text-stone-600 border-transparent hover:text-stone-900'
+            }`}
+          >
+            <History className="w-4 h-4 text-indigo-600" />
+            <span>{isMr ? '⏱️ बदल इतिहास' : '⏱️ Change History'}</span>
+            <span className="text-[10px] bg-indigo-100 text-indigo-800 px-1.5 py-0.2 rounded-full font-bold">
+              {changeHistory.length}
+            </span>
           </button>
         </div>
 
@@ -986,6 +1143,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                       ? `🎉 स्थानिक बॅकअप डाऊनलोड झाला! (${filename} — ${summary.totalExams} चाचण्या, ${summary.totalStudySessions} अभ्यास सत्रे)` 
                       : `🎉 Offline backup downloaded! (${filename} — ${summary.totalExams} exams, ${summary.totalStudySessions} study logs)`
                   );
+                  logAction({
+                    actionType: 'backup_export',
+                    titleMr: 'स्थानिक ऑफलाइन JSON बॅकअप डाऊनलोड केला',
+                    titleEn: 'Downloaded Offline JSON Backup',
+                    detailsMr: `${filename} (${summary.totalExams} चाचण्या, ${summary.totalStudySessions} अभ्यास सत्रे, ${summary.totalBookmarkedQuestions} बुकमार्क्स)`,
+                    detailsEn: `${filename} (${summary.totalExams} exams, ${summary.totalStudySessions} logs, ${summary.totalBookmarkedQuestions} bookmarks)`,
+                    status: 'success',
+                    badgeLabel: 'Backup'
+                  });
                   setTimeout(() => setActionNotice(null), 5000);
                 }}
                 className="w-full py-2.5 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-800 text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
@@ -993,6 +1159,42 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                 <Download className="w-4 h-4 text-stone-700" />
                 <span>{isMr ? '💾 स्थानिक ऑफलाइन JSON बॅकअप डाऊनलोड करा' : '💾 Download Offline JSON Backup'}</span>
               </button>
+
+              {/* Quick Change History Snippet */}
+              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-stone-700 flex items-center gap-1.5">
+                    <History className="w-3.5 h-3.5 text-indigo-600" />
+                    <span>{isMr ? 'शेवटच्या सिंक / संपादन क्रिया:' : 'Recent Sync / Edit Actions:'}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('history')}
+                    className="text-[11px] font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>{isMr ? 'सर्व १० नोंदी पहा ➜' : 'View All 10 Logs ➜'}</span>
+                  </button>
+                </div>
+
+                <div className="space-y-1.5">
+                  {changeHistory.slice(0, 3).map((item, idx) => (
+                    <div
+                      key={item.id || idx}
+                      className="p-2 rounded-lg bg-white border border-stone-200/80 text-xs flex items-center justify-between gap-2 shadow-2xs"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-[10px] font-mono font-bold text-stone-400">#{idx + 1}</span>
+                        <p className="font-semibold text-stone-850 truncate text-[11px]">
+                          {isMr ? item.titleMr : item.titleEn}
+                        </p>
+                      </div>
+                      <span className="text-[10px] text-stone-400 font-mono shrink-0">
+                        {formatLogTimestamp(item.timestamp, language)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
               {/* Google Sign-in / Sign-out Button */}
               {isAnonymous ? (
@@ -1012,6 +1214,173 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                   <LogOut className="w-3.5 h-3.5" />
                   <span>{isMr ? 'खाते साइन आउट करा' : 'Sign Out'}</span>
                 </button>
+              )}
+            </div>
+          )}
+
+          {/* TAB 3: CHANGE HISTORY LOG (LAST 10 ACTIONS) */}
+          {activeTab === 'history' && (
+            <div className="space-y-3.5 animate-in fade-in duration-150">
+              {/* Top Summary Bar */}
+              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <History className="w-4 h-4 text-indigo-600" />
+                    <h3 className="font-extrabold text-stone-900 text-xs sm:text-sm">
+                      {isMr ? 'बदल व सिंक इतिहास (Change History Log)' : 'Change History Log'}
+                    </h3>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">
+                      {isMr ? `शेवटच्या ${changeHistory.length} नोंदी` : `Last ${changeHistory.length} actions`}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-stone-500 mt-0.5">
+                    {isMr
+                      ? 'येथे शेवटच्या १० डेटा सिंक, प्रश्न संपादन, बॅकअप आणि खात्यातील बदलांची तपशीलवार नोंद आहे.'
+                      : 'Records your last 10 sync actions, question additions, presets, and backups locally.'}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 self-end sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={handleClearHistory}
+                    className="px-2.5 py-1.5 rounded-lg bg-white hover:bg-rose-50 text-rose-600 hover:text-rose-700 border border-stone-200 hover:border-rose-200 text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                    title={isMr ? "बदल इतिहास साफ करा" : "Clear change history"}
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>{isMr ? 'इतिहास साफ करा' : 'Clear Log'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* List of Last 10 Change Items */}
+              {changeHistory.length === 0 ? (
+                <div className="py-12 px-4 text-center bg-stone-50 rounded-xl border border-dashed border-stone-300">
+                  <div className="w-12 h-12 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center mx-auto mb-2.5">
+                    <Clock className="w-6 h-6" />
+                  </div>
+                  <p className="text-xs font-bold text-stone-700">
+                    {isMr ? 'कोणताही बदल इतिहास उपलब्ध नाही' : 'No change history recorded yet'}
+                  </p>
+                  <p className="text-[11px] text-stone-500 mt-1 max-w-sm mx-auto">
+                    {isMr
+                      ? 'तुम्ही जेव्हा डेटा सिंक कराल, नवीन प्रश्न जोडाल किंवा बॅकअप डाउनलोड कराल, तेव्हा शेवटच्या १० क्रिया येथे नोंदवल्या जातील.'
+                      : 'When you sync data, add questions, or export backups, your last 10 actions will appear here.'}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('sync')}
+                    className="mt-3.5 px-3 py-1.5 rounded-lg bg-stone-900 text-white text-xs font-bold hover:bg-stone-800 transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Cloud className="w-3.5 h-3.5 text-amber-400" />
+                    <span>{isMr ? 'सिंक केंद्रावर जा' : 'Go to Sync Hub'}</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {changeHistory.map((item, index) => {
+                    const getActionIcon = (actionType: SyncActionType) => {
+                      switch (actionType) {
+                        case 'store':
+                          return <UploadCloud className="w-4 h-4 text-amber-600" />;
+                        case 'fetch':
+                          return <Download className="w-4 h-4 text-blue-600" />;
+                        case 'add_question':
+                          return <PlusCircle className="w-4 h-4 text-emerald-600" />;
+                        case 'bulk_upload':
+                          return <Layers className="w-4 h-4 text-orange-600" />;
+                        case 'seed_all':
+                          return <Database className="w-4 h-4 text-purple-600" />;
+                        case 'backup_export':
+                          return <HardDrive className="w-4 h-4 text-teal-600" />;
+                        case 'ai_generate':
+                          return <Sparkles className="w-4 h-4 text-amber-500" />;
+                        case 'preset_load':
+                          return <Zap className="w-4 h-4 text-amber-600" />;
+                        case 'auth_login':
+                          return <LogIn className="w-4 h-4 text-emerald-600" />;
+                        case 'auth_logout':
+                          return <LogOut className="w-4 h-4 text-stone-600" />;
+                        default:
+                          return <Clock className="w-4 h-4 text-stone-600" />;
+                      }
+                    };
+
+                    const getActionBg = (actionType: SyncActionType) => {
+                      switch (actionType) {
+                        case 'store':
+                          return 'bg-amber-50 border-amber-200 text-amber-700';
+                        case 'fetch':
+                          return 'bg-blue-50 border-blue-200 text-blue-700';
+                        case 'add_question':
+                          return 'bg-emerald-50 border-emerald-200 text-emerald-700';
+                        case 'bulk_upload':
+                          return 'bg-orange-50 border-orange-200 text-orange-700';
+                        case 'seed_all':
+                          return 'bg-purple-50 border-purple-200 text-purple-700';
+                        case 'backup_export':
+                          return 'bg-teal-50 border-teal-200 text-teal-700';
+                        case 'ai_generate':
+                          return 'bg-amber-50 border-amber-200 text-amber-700';
+                        case 'preset_load':
+                          return 'bg-yellow-50 border-yellow-200 text-yellow-700';
+                        case 'auth_login':
+                          return 'bg-emerald-50 border-emerald-200 text-emerald-700';
+                        case 'auth_logout':
+                          return 'bg-stone-100 border-stone-200 text-stone-600';
+                        default:
+                          return 'bg-stone-50 border-stone-200 text-stone-600';
+                      }
+                    };
+
+                    return (
+                      <div
+                        key={item.id || index}
+                        className="p-3 bg-white rounded-xl border border-stone-200 hover:border-stone-300 shadow-2xs hover:shadow-xs transition-all flex items-start gap-3"
+                      >
+                        {/* Index & Action Icon */}
+                        <div className="flex items-center gap-2 shrink-0 mt-0.5">
+                          <span className="text-[10px] font-mono font-black text-stone-400 w-4 text-right">
+                            #{index + 1}
+                          </span>
+                          <div className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${getActionBg(item.actionType)}`}>
+                            {getActionIcon(item.actionType)}
+                          </div>
+                        </div>
+
+                        {/* Title & Details */}
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                            <h4 className="font-bold text-stone-900 text-xs">
+                              {isMr ? item.titleMr : item.titleEn}
+                            </h4>
+                            {item.badgeLabel && (
+                              <span className="px-1.5 py-0.2 rounded text-[10px] font-bold font-mono bg-stone-100 text-stone-600 border border-stone-200">
+                                {item.badgeLabel}
+                              </span>
+                            )}
+                          </div>
+
+                          {(item.detailsMr || item.detailsEn) && (
+                            <p className="text-[11px] text-stone-600 leading-relaxed">
+                              {isMr ? item.detailsMr : item.detailsEn}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Timestamp & Status Pill */}
+                        <div className="flex flex-col items-end shrink-0 pl-1">
+                          <span className="text-[10px] font-bold text-stone-600 bg-stone-50 px-2 py-0.5 rounded-full border border-stone-200/80">
+                            {formatLogTimestamp(item.timestamp, language)}
+                          </span>
+                          <span className="text-[9px] text-stone-400 mt-1 font-mono">
+                            {new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               )}
             </div>
           )}
