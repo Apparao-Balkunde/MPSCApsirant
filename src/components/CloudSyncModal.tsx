@@ -15,6 +15,7 @@ import {
   BookOpen,
   HelpCircle,
   Check,
+  Copy,
   Zap,
   History,
   Clock,
@@ -95,6 +96,35 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
   const [isBulkAdding, setIsBulkAdding] = useState(false);
   const [isGeneratingAi, setIsGeneratingAi] = useState(false);
   const [changeHistory, setChangeHistory] = useState<SyncChangeLogItem[]>([]);
+  const [copiedLogId, setCopiedLogId] = useState<string | null>(null);
+  const [isNoticeCopied, setIsNoticeCopied] = useState<boolean>(false);
+
+  const handleCopyText = async (text: string, logId?: string) => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      if (logId) {
+        setCopiedLogId(logId);
+        setTimeout(() => setCopiedLogId(null), 2500);
+      } else {
+        setIsNoticeCopied(true);
+        setTimeout(() => setIsNoticeCopied(false), 2500);
+      }
+    } catch (e) {
+      console.warn('Copy failed:', e);
+    }
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -691,9 +721,33 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
         <div className="p-4 sm:p-5 space-y-4 overflow-y-auto flex-1">
           {/* Action notice feedback banner */}
           {actionNotice && (
-            <div className="p-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
-              <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
-              <span className="flex-1">{actionNotice}</span>
+            <div className="p-3 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-semibold flex items-center justify-between gap-3 animate-in fade-in">
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
+                <span className="flex-1">{actionNotice}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleCopyText(actionNotice)}
+                className={`shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs ${
+                  isNoticeCopied
+                    ? 'bg-emerald-600 text-white border-emerald-700'
+                    : 'bg-white hover:bg-amber-100 text-amber-900 border-amber-300'
+                }`}
+                title={isMr ? "हा संदेश क्लिपबोर्डवर कॉपी करा" : "Copy notification message to clipboard"}
+              >
+                {isNoticeCopied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-white" />
+                    <span>{isMr ? 'कॉपी झाले!' : 'Copied!'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-amber-700" />
+                    <span>{isMr ? 'संदेश कॉपी करा' : 'Copy Message'}</span>
+                  </>
+                )}
+              </button>
             </div>
           )}
 
@@ -1368,14 +1422,38 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                           )}
                         </div>
 
-                        {/* Timestamp & Status Pill */}
-                        <div className="flex flex-col items-end shrink-0 pl-1">
+                        {/* Timestamp, Copy Button & Status */}
+                        <div className="flex flex-col items-end shrink-0 pl-1 gap-1">
                           <span className="text-[10px] font-bold text-stone-600 bg-stone-50 px-2 py-0.5 rounded-full border border-stone-200/80">
                             {formatLogTimestamp(item.timestamp, language)}
                           </span>
-                          <span className="text-[9px] text-stone-400 mt-1 font-mono">
-                            {new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const textToCopy = `${isMr ? item.titleMr : item.titleEn}${
+                                (item.detailsMr || item.detailsEn) ? ' — ' + (isMr ? item.detailsMr : item.detailsEn) : ''
+                              } (${new Date(item.timestamp).toLocaleString()})`;
+                              handleCopyText(textToCopy, item.id);
+                            }}
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold border transition-colors flex items-center gap-1 cursor-pointer ${
+                              copiedLogId === item.id
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                                : 'bg-stone-50 hover:bg-stone-100 text-stone-600 border-stone-200'
+                            }`}
+                            title={isMr ? "नोंद कॉपी करा" : "Copy log entry"}
+                          >
+                            {copiedLogId === item.id ? (
+                              <>
+                                <Check className="w-3 h-3 text-emerald-600" />
+                                <span>{isMr ? 'कॉपी झाले' : 'Copied'}</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3 h-3 text-stone-400" />
+                                <span>{isMr ? 'कॉपी' : 'Copy'}</span>
+                              </>
+                            )}
+                          </button>
                         </div>
                       </div>
                     );

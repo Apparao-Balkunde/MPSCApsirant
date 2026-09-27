@@ -50,7 +50,7 @@ import {
   subscribeToRealtimeUserData,
 } from './services/firestoreSync';
 import { type User } from 'firebase/auth';
-import { CheckCircle2, RotateCcw, X, AlertCircle } from 'lucide-react';
+import { CheckCircle2, RotateCcw, X, AlertCircle, Copy, Check } from 'lucide-react';
 
 interface SyncToastState {
   id: string;
@@ -101,7 +101,9 @@ export default function App() {
   const toastTimeoutRef = React.useRef<any>(null);
   const toastStartTimeRef = React.useRef<number>(0);
   const toastRemainingTimeRef = React.useRef<number>(5000);
+  const toastRef = React.useRef<HTMLElement>(null);
   const [isToastPaused, setIsToastPaused] = useState<boolean>(false);
+  const [isToastCopied, setIsToastCopied] = useState<boolean>(false);
 
   // Initialize Firebase Auth listener and real-time Firestore listeners on mount
   useEffect(() => {
@@ -176,6 +178,7 @@ export default function App() {
     toastRemainingTimeRef.current = duration;
     toastStartTimeRef.current = Date.now();
     setIsToastPaused(false);
+    setIsToastCopied(false);
 
     // Play subtle 'ding' alert chime when a new toast appears
     if (userProgress.soundEffectsEnabled ?? true) {
@@ -226,8 +229,63 @@ export default function App() {
       toastTimeoutRef.current = null;
     }
     setIsToastPaused(false);
+    setIsToastCopied(false);
     setSyncToast(null);
   };
+
+  // Copy notification message to user's clipboard for troubleshooting or records
+  const handleCopyToastMessage = React.useCallback(async () => {
+    if (!syncToast?.message) return;
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(syncToast.message);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = syncToast.message;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      setIsToastCopied(true);
+      setTimeout(() => {
+        setIsToastCopied(false);
+      }, 2500);
+    } catch (err) {
+      console.warn('Failed to copy toast message:', err);
+    }
+  }, [syncToast?.message]);
+
+  // Keyboard shortcut listener: Cmd+C or Ctrl+C while toast or its children are focused
+  useEffect(() => {
+    if (!syncToast) return;
+
+    const handleToastGlobalKeyDown = (e: KeyboardEvent) => {
+      // Check if focus is on toast container or any element inside it
+      const activeEl = document.activeElement;
+      const isFocusedInToast =
+        Boolean(toastRef.current && (activeEl === toastRef.current || toastRef.current.contains(activeEl)));
+
+      if (isFocusedInToast) {
+        if ((e.metaKey || e.ctrlKey) && (e.key === 'c' || e.key === 'C')) {
+          e.preventDefault();
+          e.stopPropagation();
+          handleCopyToastMessage();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          handleDismissSyncToast();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleToastGlobalKeyDown, true);
+    return () => {
+      window.removeEventListener('keydown', handleToastGlobalKeyDown, true);
+    };
+  }, [syncToast, handleCopyToastMessage]);
 
   // State revert / Undo handler for sync actions performed by mistake
   const handleUndoSync = async () => {
@@ -1021,14 +1079,33 @@ export default function App() {
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}
       {syncToast && (
         <aside 
+          ref={toastRef}
           id="firebase-sync-toast"
           role="status"
           aria-live="polite"
+          tabIndex={0}
           onMouseEnter={handleToastMouseEnter}
           onMouseLeave={handleToastMouseLeave}
-          className={`group fixed bottom-5 right-5 z-50 bg-stone-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl border flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200 max-w-md w-[calc(100vw-2.5rem)] sm:w-auto min-w-[320px] transition-all cursor-default ${
+          onFocus={handleToastMouseEnter}
+          onBlur={handleToastMouseLeave}
+          onKeyDown={(e) => {
+            if ((e.metaKey || e.ctrlKey) && (e.key === 'c' || e.key === 'C')) {
+              e.preventDefault();
+              e.stopPropagation();
+              handleCopyToastMessage();
+            } else if (e.key === 'Escape') {
+              e.preventDefault();
+              handleDismissSyncToast();
+            }
+          }}
+          className={`group fixed bottom-5 right-5 z-50 bg-stone-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl border flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200 max-w-md w-[calc(100vw-2.5rem)] sm:w-auto min-w-[320px] transition-all cursor-default focus:outline-hidden focus:ring-2 focus:ring-amber-400/80 focus:border-amber-400 ${
             isToastPaused ? 'border-amber-400 shadow-amber-500/10' : 'border-amber-500/50'
           }`}
+          title={
+            userProgress.preferredLanguage === 'mr'
+              ? 'सिंक सूचना. फोकस असताना मजकूर कॉपी करण्यासाठी ⌘C किंवा Ctrl+C दाबा.'
+              : 'Sync notification. Press Cmd+C or Ctrl+C while focused to copy message.'
+          }
         >
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
@@ -1064,8 +1141,44 @@ export default function App() {
             </button>
           </div>
 
-          {/* Action Buttons: Prominent Undo & Dismiss Buttons */}
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-800">
+          {/* Action Buttons: Prominent Copy Message, Undo & Dismiss Buttons */}
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-800 flex-wrap">
+            {/* Copy Message Button with Cmd+C / Ctrl+C keyboard shortcut hint */}
+            <button
+              id="btn-copy-sync-toast"
+              type="button"
+              onClick={handleCopyToastMessage}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 border ${
+                isToastCopied
+                  ? 'bg-emerald-500/25 text-emerald-300 border-emerald-500/40 shadow-xs'
+                  : 'bg-stone-800 hover:bg-stone-700 text-stone-200 hover:text-white border-stone-700 hover:border-stone-600'
+              }`}
+              title={
+                userProgress.preferredLanguage === 'mr'
+                  ? 'हा संदेश क्लिपबोर्डवर कॉपी करा (शॉर्टकट: Cmd+C किंवा Ctrl+C)'
+                  : 'Copy this notification message to clipboard (Shortcut: Cmd+C or Ctrl+C)'
+              }
+            >
+              {isToastCopied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>
+                    {userProgress.preferredLanguage === 'mr' ? 'कॉपी झाले!' : 'Copied!'}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-stone-400 group-hover:text-stone-200" />
+                  <span>
+                    {userProgress.preferredLanguage === 'mr' ? 'संदेश कॉपी करा' : 'Copy Message'}
+                  </span>
+                  <kbd className="hidden sm:inline-block ml-0.5 text-[9px] font-mono px-1 py-0.2 rounded bg-stone-900/80 text-stone-400 border border-stone-700/80">
+                    ⌘C / Ctrl+C
+                  </kbd>
+                </>
+              )}
+            </button>
+
             {syncToast.canUndo && (
               <button
                 id="btn-undo-sync-toast"
@@ -1094,7 +1207,7 @@ export default function App() {
             </button>
           </div>
 
-          {/* Visual countdown progress bar with pause on hover */}
+          {/* Visual countdown progress bar with pause on hover/focus */}
           <div className="space-y-1.5 pt-0.5">
             <div className="w-full bg-stone-800 h-1.5 rounded-full overflow-hidden">
               <div 
@@ -1111,11 +1224,11 @@ export default function App() {
                 <span className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                   <span>
-                    {userProgress.preferredLanguage === 'mr' ? 'माउस कर्सरमुळे टाइमर थांबवला आहे (Paused)' : 'Timer paused on hover'}
+                    {userProgress.preferredLanguage === 'mr' ? 'फोकस / होव्हरमुळे टाइमर थांबवला आहे' : 'Timer paused (focused/hovered)'}
                   </span>
                 </span>
-                <span className="text-stone-400 text-[10px]">
-                  {userProgress.preferredLanguage === 'mr' ? 'कर्सर बाजूला घ्या' : 'Leave to resume'}
+                <span className="text-stone-400 text-[10px] font-mono">
+                  ⌘C / Ctrl+C
                 </span>
               </div>
             )}
