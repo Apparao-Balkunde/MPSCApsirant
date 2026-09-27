@@ -24,7 +24,7 @@ import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
 import { type User } from 'firebase/auth';
 
-export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor';
+export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq';
 
 export interface HeaderProps {
   currentTab: NavigationTab;
@@ -247,6 +247,19 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{isMr ? 'मार्गदर्शक AI' : 'AI Mentor'}</span>
               </button>
 
+              <button
+                id="nav-add-mcq"
+                onClick={() => onSelectTab('add_mcq')}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  currentTab === 'add_mcq'
+                    ? 'bg-amber-500 text-stone-950 shadow-sm'
+                    : 'text-stone-300 hover:text-white hover:bg-stone-800'
+                }`}
+              >
+                <PlusCircle className="w-4 h-4 text-amber-400" />
+                <span>{isMr ? 'MCQ जोडा' : 'Add MCQ'}</span>
+              </button>
+
               {onOpenHardQuestionsHub && (
                 <button
                   id="nav-hard-100k"
@@ -394,7 +407,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   id="btn-header-add-mcq"
                   onClick={onOpenAddQuestion}
-                  className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black rounded-lg text-xs transition-colors cursor-pointer shadow-xs"
+                  className="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black rounded-lg text-xs transition-colors cursor-pointer shadow-xs active:scale-95"
                   title={isMr ? "नवीन MCQ प्रश्न तयार करून जोडा" : "Add MCQ Question"}
                 >
                   <PlusCircle className="w-3.5 h-3.5 text-stone-950" />
@@ -517,15 +530,17 @@ export const Header: React.FC<HeaderProps> = ({
               <span>{isMr ? '१ लाख' : '100k'}</span>
             </button>
           )}
-          {onOpenAddQuestion && (
-            <button
-              onClick={onOpenAddQuestion}
-              className="px-2 py-1 rounded font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1 shrink-0 cursor-pointer"
-            >
-              <PlusCircle className="w-3.5 h-3.5 text-amber-400" />
-              <span>{isMr ? '+ MCQ' : '+ MCQ'}</span>
-            </button>
-          )}
+          <button
+            onClick={() => onSelectTab('add_mcq')}
+            className={`px-2 py-1 rounded font-bold flex items-center gap-1 shrink-0 cursor-pointer ${
+              currentTab === 'add_mcq'
+                ? 'bg-amber-500 text-stone-950 font-black'
+                : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+            }`}
+          >
+            <PlusCircle className="w-3.5 h-3.5" />
+            <span>{isMr ? '+ MCQ' : '+ MCQ'}</span>
+          </button>
         </div>
       </header>
     </>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   Award, 
   Flame, 
@@ -18,9 +18,16 @@ import {
   UploadCloud,
   PlusCircle,
   Newspaper,
-  FileText
+  FileText,
+  History,
+  CheckCircle2,
+  Eye,
+  ArrowRight,
+  Calendar,
+  AlertCircle,
+  Timer
 } from 'lucide-react';
-import { ExamPatternId, SubjectId, UserProgress, Question } from '../types';
+import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { WeeklyGoalCard } from './WeeklyGoalCard';
@@ -35,6 +42,7 @@ interface DashboardViewProps {
   onStartExam: (patternId: ExamPatternId, subjectId?: SubjectId, title?: string) => void;
   onOpenBookmarks: () => void;
   onOpenAnalytics: () => void;
+  onReviewExamResult?: (result: ExamResult) => void;
   onOpenGrammarRules?: () => void;
   onOpenLogin?: () => void;
   onUpdateWeeklyGoals: (hours: number, questions: number) => void;
@@ -58,6 +66,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onStartExam,
   onOpenBookmarks,
   onOpenAnalytics,
+  onReviewExamResult,
   onOpenGrammarRules,
   onOpenLogin,
   onUpdateWeeklyGoals,
@@ -92,6 +101,101 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       }
     });
   });
+
+  // Recent Activity computation: latest 5 completed exams & study sessions
+  const [activityFilter, setActivityFilter] = useState<'all' | 'exams' | 'sessions'>('all');
+
+  interface ActivityItem {
+    type: 'exam' | 'session';
+    id: string;
+    title: string;
+    timestamp: number;
+    dateFormatted: string;
+    examResult?: ExamResult;
+    studyLog?: StudySessionLog;
+  }
+
+  const recentActivities = useMemo(() => {
+    const list: ActivityItem[] = [];
+
+    // Add completed exams from history
+    userProgress.history.forEach((res) => {
+      const ts = res.timestamp || (res.date ? new Date(res.date).getTime() : 0);
+      list.push({
+        type: 'exam',
+        id: `exam_${res.sessionId}`,
+        title: res.title,
+        timestamp: ts || Date.now(),
+        dateFormatted: res.date || (ts ? new Date(ts).toLocaleDateString(isMr ? 'mr-IN' : 'en-IN') : ''),
+        examResult: res,
+      });
+    });
+
+    // Add study sessions from studyLogs
+    (userProgress.studyLogs || []).forEach((log) => {
+      list.push({
+        type: 'session',
+        id: `session_${log.id}`,
+        title: log.title,
+        timestamp: log.timestamp || 0,
+        dateFormatted: log.dateStr || (log.timestamp ? new Date(log.timestamp).toLocaleDateString(isMr ? 'mr-IN' : 'en-IN') : ''),
+        studyLog: log,
+      });
+    });
+
+    // Sort descending by timestamp
+    list.sort((a, b) => b.timestamp - a.timestamp);
+
+    // Apply filter if selected
+    if (activityFilter === 'exams') {
+      return list.filter((item) => item.type === 'exam').slice(0, 5);
+    }
+    if (activityFilter === 'sessions') {
+      return list.filter((item) => item.type === 'session').slice(0, 5);
+    }
+    return list.slice(0, 5);
+  }, [userProgress.history, userProgress.studyLogs, activityFilter, isMr]);
+
+  const getPatternBadge = (patternId: ExamPatternId) => {
+    switch (patternId) {
+      case 'rajyaseva_gs':
+        return isMr ? '🎯 राज्यसेवा GS' : '🎯 Rajyaseva GS';
+      case 'combine_group_b_c':
+        return isMr ? '⚡ संयुक्त गट-ब व क' : '⚡ Combine Group B & C';
+      case 'csat_booster':
+        return isMr ? '📊 CSAT सराव' : '📊 CSAT Booster';
+      case 'current_affairs_2026':
+        return isMr ? '🌐 चालू घडामोडी' : '🌐 Current Affairs';
+      case 'maharashtra_special':
+        return isMr ? '🚩 महाराष्ट्र विशेष' : '🚩 Maharashtra Special';
+      case 'daily_10_challenge':
+        return isMr ? '📅 दैनिक १० आव्हान' : '📅 Daily 10 Challenge';
+      case 'hard_challenge':
+        return isMr ? '🔥 कठीण प्रश्न सराव' : '🔥 Hard Challenge';
+      default:
+        return isMr ? '📝 सराव चाचणी' : '📝 Practice Test';
+    }
+  };
+
+  const formatTimeAgo = (timestamp: number) => {
+    if (!timestamp) return '';
+    const now = Date.now();
+    const diffMs = now - timestamp;
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHours = Math.floor(diffMin / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMin < 1) return isMr ? 'आत्ताच' : 'Just now';
+    if (diffMin < 60) return isMr ? `${diffMin} मिनिटांपूर्वी` : `${diffMin}m ago`;
+    if (diffHours < 24) return isMr ? `${diffHours} तासांपूर्वी` : `${diffHours}h ago`;
+    if (diffDays === 1) return isMr ? 'काल' : 'Yesterday';
+    if (diffDays < 7) return isMr ? `${diffDays} दिवसांपूर्वी` : `${diffDays}d ago`;
+    return new Date(timestamp).toLocaleDateString(isMr ? 'mr-IN' : 'en-IN', {
+      month: 'short',
+      day: 'numeric',
+    });
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
@@ -261,6 +365,336 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         onLogStudySession={onLogStudySession}
         onQuickStartChallenge={() => onStartExam('daily_10_challenge')}
       />
+
+      {/* ========================================================================= */}
+      {/* RECENT ACTIVITY SECTION (Latest 5 Completed Exams & Study Sessions) */}
+      {/* ========================================================================= */}
+      <div id="section-recent-activity" className="bg-white rounded-2xl border border-stone-200 p-5 sm:p-6 shadow-xs space-y-4">
+        {/* Header & Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-100">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+              <History className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-lg sm:text-xl font-black text-stone-900">
+                  {isMr ? 'अलिकडील क्रियाकलाप' : 'Recent Activity'}
+                </h2>
+                <span className="px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 text-[11px] font-bold border border-stone-200">
+                  {isMr ? 'शेवटचे ५ रेकॉर्ड्स' : 'Latest 5 Records'}
+                </span>
+              </div>
+              <p className="text-xs text-stone-500 mt-0.5">
+                {isMr 
+                  ? 'तुम्ही सोडवलेल्या ताज्या चाचण्या आणि अभ्यास सत्रे — त्वरित पुनरावलोकन करा.' 
+                  : 'Your latest completed exams and study sessions — jump back into your review quickly.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap self-end sm:self-center">
+            {/* Filter Pills */}
+            <div className="flex items-center bg-stone-100 p-1 rounded-xl border border-stone-200 text-xs">
+              <button
+                type="button"
+                onClick={() => setActivityFilter('all')}
+                className={`px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer ${
+                  activityFilter === 'all'
+                    ? 'bg-white text-stone-900 shadow-2xs'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'सर्व' : 'All'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivityFilter('exams')}
+                className={`px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer ${
+                  activityFilter === 'exams'
+                    ? 'bg-white text-stone-900 shadow-2xs'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'चाचण्या' : 'Exams'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActivityFilter('sessions')}
+                className={`px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer ${
+                  activityFilter === 'sessions'
+                    ? 'bg-white text-stone-900 shadow-2xs'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                {isMr ? 'अभ्यास सत्रे' : 'Sessions'}
+              </button>
+            </div>
+
+            {/* View All Analytics Link */}
+            <button
+              type="button"
+              onClick={onOpenAnalytics}
+              className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 px-2.5 py-1.5 rounded-lg hover:bg-amber-50 transition-colors cursor-pointer"
+            >
+              <span>{isMr ? 'सर्व निकाल पहा' : 'View All'}</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Activities List */}
+        {recentActivities.length === 0 ? (
+          <div className="py-8 px-4 text-center bg-stone-50 rounded-xl border border-dashed border-stone-200">
+            <Target className="w-10 h-10 text-stone-400 mx-auto mb-2 opacity-60" />
+            <h4 className="text-sm font-bold text-stone-800">
+              {isMr ? 'अद्याप कोणतीही पूर्ण केलेली चाचणी किंवा अभ्यास सत्र उपलब्ध नाही' : 'No completed exams or study sessions yet'}
+            </h4>
+            <p className="text-xs text-stone-500 max-w-md mx-auto mt-1 mb-4">
+              {isMr 
+                ? 'तुमच्या तयारीचे मूल्यमापन करण्यासाठी पहिली सराव चाचणी सोडवा आणि येथे सर्व निकालांचे सविस्तर पुनरावलोकन करा.' 
+                : 'Take your first mock test to evaluate your performance and review question explanations here.'}
+            </p>
+            <button
+              type="button"
+              onClick={() => onStartExam('daily_10_challenge')}
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs rounded-xl shadow-xs transition-all cursor-pointer"
+            >
+              <Play className="w-3.5 h-3.5 fill-current" />
+              <span>{isMr ? '🚀 पहिली सराव चाचणी सुरू करा' : '🚀 Start First Practice Test'}</span>
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {recentActivities.map((item) => {
+              if (item.type === 'exam' && item.examResult) {
+                const res = item.examResult;
+                const accuracy = res.accuracyPercentage ?? (res.attemptedCount > 0 ? Math.round((res.correctCount / res.attemptedCount) * 100) : 0);
+                const accuracyColor = 
+                  accuracy >= 70 ? 'text-emerald-700 bg-emerald-50 border-emerald-200' :
+                  accuracy >= 50 ? 'text-amber-700 bg-amber-50 border-amber-200' :
+                  'text-rose-700 bg-rose-50 border-rose-200';
+
+                // Percentage score calculation
+                const scorePercentage = res.maxScore > 0 ? Math.round((res.finalScore / res.maxScore) * 100) : 0;
+                const clampedScorePercent = Math.max(0, Math.min(100, scorePercentage));
+
+                const isHigh = scorePercentage >= 70;
+                const isMedium = scorePercentage >= 40 && scorePercentage < 70;
+
+                const iconBadgeClasses = isHigh 
+                  ? 'bg-emerald-50 border-emerald-200 text-emerald-700' 
+                  : isMedium 
+                  ? 'bg-amber-50 border-amber-200 text-amber-700' 
+                  : 'bg-rose-50 border-rose-200 text-rose-700';
+
+                const scoreBarGradient = isHigh
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
+                  : isMedium
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500'
+                  : 'bg-gradient-to-r from-rose-500 to-red-500';
+
+                const scoreTextColor = isHigh
+                  ? 'text-emerald-700'
+                  : isMedium
+                  ? 'text-amber-700'
+                  : 'text-rose-700';
+
+                return (
+                  <div
+                    key={item.id}
+                    className="p-3.5 sm:p-4 rounded-xl border border-stone-200 bg-white hover:border-amber-400/80 hover:shadow-xs transition-all flex flex-col md:flex-row md:items-center justify-between gap-3.5 group"
+                  >
+                    <div className="flex items-start gap-3 min-w-0 flex-1">
+                      {/* Dynamic Icon Indicator */}
+                      <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 shadow-2xs ${iconBadgeClasses}`}>
+                        {isHigh ? (
+                          <Award className="w-5 h-5 text-emerald-600" />
+                        ) : isMedium ? (
+                          <CheckCircle2 className="w-5 h-5 text-amber-600" />
+                        ) : (
+                          <AlertCircle className="w-5 h-5 text-rose-600" />
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-bold text-[10px] border border-stone-200">
+                            {getPatternBadge(res.patternId)}
+                          </span>
+                          <span className="text-[11px] text-stone-500 flex items-center gap-1 font-medium">
+                            <Clock className="w-3 h-3" />
+                            {formatTimeAgo(item.timestamp)}
+                          </span>
+                          {item.dateFormatted && (
+                            <span className="text-[11px] text-stone-400">
+                              ({item.dateFormatted})
+                            </span>
+                          )}
+                        </div>
+
+                        <h4 className="text-sm font-black text-stone-900 truncate group-hover:text-amber-700 transition-colors">
+                          {item.title}
+                        </h4>
+
+                        {/* Performance metrics pill row */}
+                        <div className="flex items-center gap-2 flex-wrap mt-1.5 text-xs">
+                          <span className="font-extrabold text-stone-900 bg-stone-100 px-2 py-0.5 rounded font-mono">
+                            🎯 {res.finalScore.toFixed(1)} / {res.maxScore} {isMr ? 'गुण' : 'Marks'}
+                          </span>
+                          <span className={`font-bold px-2 py-0.5 rounded border text-[11px] ${accuracyColor}`}>
+                            ⚡ {accuracy}% {isMr ? 'अचूकता' : 'Accuracy'}
+                          </span>
+                          <span className="text-stone-500 text-[11px] font-medium hidden sm:inline-flex">
+                            ✓ {res.correctCount} {isMr ? 'बरोबर' : 'correct'} • ✗ {res.incorrectCount} {isMr ? 'चूक' : 'wrong'} • ⚪ {res.unattemptedCount} {isMr ? 'सोडवले नाहीत' : 'skipped'}
+                          </span>
+                          <span className="text-stone-400 text-[11px] font-medium">
+                            ⏱️ {Math.max(1, Math.round(res.timeSpentSeconds / 60))} {isMr ? 'मिनिटे' : 'min'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Progress Bar & Quick Review Action */}
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-stone-100">
+                      {/* Score Percentage Progress Bar */}
+                      <div className="w-full sm:w-36 md:w-44 bg-stone-50/90 p-2 sm:p-2.5 rounded-xl border border-stone-200/80 shadow-2xs">
+                        <div className="flex items-center justify-between text-[11px] font-bold mb-1.5">
+                          <span className="text-stone-500 flex items-center gap-1">
+                            <TrendingUp className="w-3 h-3 text-stone-400" />
+                            <span>{isMr ? 'गुण टक्केवारी' : 'Score'}</span>
+                          </span>
+                          <span className={`font-mono font-black ${scoreTextColor}`}>
+                            {scorePercentage}%
+                          </span>
+                        </div>
+                        <div className="w-full h-1.5 bg-stone-200/80 rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full transition-all duration-500 ${scoreBarGradient}`}
+                            style={{ width: `${clampedScorePercent}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      {onReviewExamResult && (
+                        <button
+                          type="button"
+                          onClick={() => onReviewExamResult(res)}
+                          className="w-full sm:w-auto px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs transition-all shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer group-hover:scale-102 shrink-0"
+                          title={isMr ? "या चाचणीचे सविस्तर पुनरावलोकन व स्पष्टीकरणे पहा" : "Review answers and explanations for this test"}
+                        >
+                          <Eye className="w-3.5 h-3.5 text-stone-950" />
+                          <span>{isMr ? 'पुनरावलोकन' : 'Review'}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-stone-950" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              }
+
+              // Study Session Log
+              if (item.type === 'session' && item.studyLog) {
+                const log = item.studyLog;
+                const durationMins = log.durationMinutes || 0;
+                const targetSessionMins = 60; // 60-min standard session benchmark
+                const clampedDurationPercent = Math.min(100, Math.round((durationMins / targetSessionMins) * 100));
+                const isFullSession = durationMins >= targetSessionMins;
+
+                const sessionBadgeClasses = isFullSession 
+                  ? 'bg-indigo-50 border-indigo-200 text-indigo-700' 
+                  : 'bg-violet-50 border-violet-200 text-violet-700';
+
+                return (
+                  <div
+                    key={item.id}
+                    className="p-3.5 sm:p-4 rounded-xl border border-stone-200 bg-white hover:border-indigo-400/80 hover:shadow-xs transition-all flex flex-col md:flex-row md:items-center justify-between gap-3.5 group"
+                  >
+                    <div className="flex items-start gap-3 min-w-0 flex-1">
+                      {/* Dynamic Icon Indicator */}
+                      <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 shadow-2xs ${sessionBadgeClasses}`}>
+                        {isFullSession ? (
+                          <BookOpen className="w-5 h-5 text-indigo-600" />
+                        ) : (
+                          <Timer className="w-5 h-5 text-violet-600" />
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <span className="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800 font-bold text-[10px] border border-indigo-200">
+                            {isMr ? '📖 अभ्यास नोंद' : '📖 Study Session'}
+                          </span>
+                          <span className="text-[11px] text-stone-500 flex items-center gap-1 font-medium">
+                            <Clock className="w-3 h-3" />
+                            {formatTimeAgo(item.timestamp)}
+                          </span>
+                          {item.dateFormatted && (
+                            <span className="text-[11px] text-stone-400">
+                              ({item.dateFormatted})
+                            </span>
+                          )}
+                        </div>
+
+                        <h4 className="text-sm font-black text-stone-900 truncate">
+                          {item.title}
+                        </h4>
+
+                        <div className="flex items-center gap-2 flex-wrap mt-1 text-xs">
+                          <span className="font-bold text-stone-800 bg-stone-100 px-2 py-0.5 rounded font-mono">
+                            ⏱️ {log.durationMinutes} {isMr ? 'मिनिटे अभ्यास' : 'min duration'}
+                          </span>
+                          {log.questionsSolved > 0 && (
+                            <span className="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                              📝 {log.questionsSolved} {isMr ? 'प्रश्न सोडवले' : 'Qs solved'}
+                            </span>
+                          )}
+                          {log.notes && (
+                            <span className="text-stone-500 text-[11px] italic truncate max-w-xs">
+                              "{log.notes}"
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Duration Progress Bar & Action */}
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-stone-100">
+                      {/* Duration Progress Bar */}
+                      <div className="w-full sm:w-36 md:w-44 bg-stone-50/90 p-2 sm:p-2.5 rounded-xl border border-stone-200/80 shadow-2xs">
+                        <div className="flex items-center justify-between text-[11px] font-bold mb-1.5">
+                          <span className="text-stone-500 flex items-center gap-1">
+                            <Timer className="w-3 h-3 text-stone-400" />
+                            <span>{isMr ? 'सत्र वेळ' : 'Duration'}</span>
+                          </span>
+                          <span className="font-mono font-black text-indigo-700">
+                            {durationMins}m <span className="text-[10px] text-stone-400 font-normal">/ {targetSessionMins}m</span>
+                          </span>
+                        </div>
+                        <div className="w-full h-1.5 bg-stone-200/80 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 transition-all duration-500"
+                            style={{ width: `${clampedDurationPercent}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={onOpenAnalytics}
+                        className="w-full sm:w-auto px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold text-xs transition-all flex items-center justify-center gap-1 cursor-pointer shrink-0"
+                      >
+                        <span>{isMr ? 'नोंदी पहा' : 'View Logs'}</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
+
+              return null;
+            })}
+          </div>
+        )}
+      </div>
 
       {/* Top 5 Aspirants Leaderboard */}
       <LeaderboardCard

@@ -25,6 +25,7 @@ import { AnalyticsView } from './components/AnalyticsView';
 import { BookmarksView } from './components/BookmarksView';
 import { SubjectPracticeView } from './components/SubjectPracticeView';
 import { GrammarRulesView } from './components/GrammarRulesView';
+import { AddMcqView } from './components/AddMcqView';
 import { AiMentorModal } from './components/AiMentorModal';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { LoginModal } from './components/LoginModal';
@@ -61,7 +62,7 @@ interface SyncToastState {
 export default function App() {
   const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
   const [questions, setQuestions] = useState<Question[]>(MPSC_QUESTIONS);
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor'>('dashboard');
+  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq'>('dashboard');
   const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
   const [activeResult, setActiveResult] = useState<ExamResult | null>(null);
 
@@ -84,6 +85,7 @@ export default function App() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [isCloudSyncOpen, setIsCloudSyncOpen] = useState<boolean>(false);
   const [initialShowAddQuestion, setInitialShowAddQuestion] = useState<boolean>(false);
+  const [addQuestionSubject, setAddQuestionSubject] = useState<SubjectId | undefined>();
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
   const [syncToast, setSyncToast] = useState<SyncToastState | null>(null);
@@ -656,6 +658,28 @@ export default function App() {
     });
   };
 
+  const handleReviewPastTest = (result: ExamResult) => {
+    const reconstructedSession: ExamSession = {
+      id: result.sessionId,
+      title: result.title,
+      patternId: result.patternId,
+      questionIds: Object.keys(result.answers),
+      totalQuestions: result.totalQuestions,
+      durationSeconds: result.timeSpentSeconds,
+      remainingSeconds: 0,
+      negativeMarkRate: 0.25,
+      marksPerQuestion: result.maxScore / (result.totalQuestions || 1),
+      answers: result.answers,
+      markedForReview: {},
+      visited: {},
+      timeSpent: {},
+      isCompleted: true,
+      startedAt: Date.now(),
+    };
+    setActiveSession(reconstructedSession);
+    setActiveResult(result);
+  };
+
   return (
     <div className="min-h-screen bg-stone-100 text-stone-900 flex flex-col antialiased">
       {/* If taking an active exam, show ExamScreen */}
@@ -732,10 +756,13 @@ export default function App() {
             currentUser={currentUser}
             onOpenLogin={() => setIsLoginModalOpen(true)}
             onOpenQuickMentor={() => handleOpenAiMentor()}
-            onOpenCloudSync={() => setIsCloudSyncOpen(true)}
-            onOpenAddQuestion={() => {
-              setInitialShowAddQuestion(true);
+            onOpenCloudSync={() => {
+              setInitialShowAddQuestion(false);
+              setAddQuestionSubject(undefined);
               setIsCloudSyncOpen(true);
+            }}
+            onOpenAddQuestion={(subjectId?: SubjectId) => {
+              setCurrentTab('add_mcq');
             }}
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
@@ -750,14 +777,17 @@ export default function App() {
                 onStartExam={handleStartExam}
                 onOpenBookmarks={() => setCurrentTab('bookmarks')}
                 onOpenAnalytics={() => setCurrentTab('analytics')}
+                onReviewExamResult={handleReviewPastTest}
                 onOpenGrammarRules={() => setCurrentTab('grammar')}
                 onUpdateWeeklyGoals={handleUpdateWeeklyGoals}
                 onLogStudySession={handleLogStudySession}
                 onOpenCloudSync={() => {
                   setInitialShowAddQuestion(false);
+                  setAddQuestionSubject(undefined);
                   setIsCloudSyncOpen(true);
                 }}
-                onOpenAddQuestion={() => {
+                onOpenAddQuestion={(subjectId?: SubjectId) => {
+                  setAddQuestionSubject(subjectId);
                   setInitialShowAddQuestion(true);
                   setIsCloudSyncOpen(true);
                 }}
@@ -779,6 +809,11 @@ export default function App() {
                 onStartSubjectExam={(subId, title) => handleStartExam('custom', subId, title)}
                 onOpenGrammarRules={() => setCurrentTab('grammar')}
                 onOpenHardQuestionsHub={(subId) => setIsHardQuestionsHubOpen(true)}
+                onOpenAddQuestion={(subjectId?: SubjectId) => {
+                  setAddQuestionSubject(subjectId);
+                  setInitialShowAddQuestion(true);
+                  setIsCloudSyncOpen(true);
+                }}
                 questionsPool={questions}
               />
             )}
@@ -799,27 +834,7 @@ export default function App() {
               <AnalyticsView
                 userProgress={userProgress}
                 language={userProgress.preferredLanguage}
-                onReviewPastTest={(result) => {
-                  const reconstructedSession: ExamSession = {
-                    id: result.sessionId,
-                    title: result.title,
-                    patternId: result.patternId,
-                    questionIds: Object.keys(result.answers),
-                    totalQuestions: result.totalQuestions,
-                    durationSeconds: result.timeSpentSeconds,
-                    remainingSeconds: 0,
-                    negativeMarkRate: 0.25,
-                    marksPerQuestion: result.maxScore / (result.totalQuestions || 1),
-                    answers: result.answers,
-                    markedForReview: {},
-                    visited: {},
-                    timeSpent: {},
-                    isCompleted: true,
-                    startedAt: Date.now(),
-                  };
-                  setActiveSession(reconstructedSession);
-                  setActiveResult(result);
-                }}
+                onReviewPastTest={handleReviewPastTest}
                 onStartSubjectPractice={(subId) => handleStartExam('custom', subId)}
               />
             )}
@@ -834,6 +849,24 @@ export default function App() {
                 onSaveNote={handleSaveNote}
                 questionsPool={questions}
               />
+            )}
+
+            {currentTab === 'add_mcq' && (
+              <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+                <AddMcqView
+                  language={userProgress.preferredLanguage}
+                  onQuestionAdded={(newQ) => {
+                    setQuestions((prev) => [newQ, ...prev]);
+                    showSyncToast(
+                      userProgress.preferredLanguage === 'mr'
+                        ? '🎉 नवीन प्रश्न यशस्वीरीत्या चाचणी बँकेत जोडला गेला!'
+                        : '🎉 New question added to exam bank!',
+                      { type: 'success' }
+                    );
+                  }}
+                  totalQuestionsCount={questions.length}
+                />
+              </main>
             )}
 
             {/* Bottom Advertisement Banner */}
@@ -909,6 +942,7 @@ export default function App() {
         onClose={() => {
           setIsCloudSyncOpen(false);
           setInitialShowAddQuestion(false);
+          setAddQuestionSubject(undefined);
         }}
         currentUser={currentUser}
         userProgress={userProgress}
@@ -921,6 +955,7 @@ export default function App() {
         language={userProgress.preferredLanguage}
         questionsCount={questions.length}
         initialShowAddQuestion={initialShowAddQuestion}
+        initialSubjectId={addQuestionSubject}
         onOpenLoginPage={() => {
           setIsCloudSyncOpen(false);
           setIsLoginModalOpen(true);

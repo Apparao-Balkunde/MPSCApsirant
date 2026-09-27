@@ -8,6 +8,30 @@ import { HARD_QUESTIONS_BANK } from './hardQuestionsBank';
 import { FIREBASE_MCQS_BATCH_2 } from './firebaseMcqsBatch2';
 import { NEW_QUESTIONS_BATCH_2026 } from './newQuestionsBatch2026';
 import { NEW_QUESTIONS_BATCH_2026_PART2 } from './newQuestionsBatch2026_Part2';
+import { NEW_QUESTIONS_BATCH_2027 } from './newQuestionsBatch2027';
+import { QUESTIONS_SET_3 } from './questionsSet3';
+import { QUESTIONS_SET_4 } from './questionsSet4';
+import { QUESTIONS_SET_5 } from './questionsSet5';
+import { QUESTIONS_SET_6 } from './questionsSet6';
+import { QUESTIONS_SET_7 } from './questionsSet7';
+import { QUESTIONS_SET_8 } from './questionsSet8';
+import { QUESTIONS_SET_9 } from './questionsSet9';
+import { QUESTIONS_SET_10 } from './questionsSet10';
+import { QUESTIONS_SET_11 } from './questionsSet11';
+import { QUESTIONS_SET_12 } from './questionsSet12';
+import { QUESTIONS_SET_13 } from './questionsSet13';
+import { QUESTIONS_SET_14 } from './questionsSet14';
+import { QUESTIONS_SET_15 } from './questionsSet15';
+import { QUESTIONS_SET_16 } from './questionsSet16';
+import { QUESTIONS_SET_17 } from './questionsSet17';
+import { QUESTIONS_SET_18 } from './questionsSet18';
+import { QUESTIONS_SET_19 } from './questionsSet19';
+import { QUESTIONS_SET_20 } from './questionsSet20';
+import { QUESTIONS_SET_21 } from './questionsSet21';
+import { QUESTIONS_SET_22 } from './questionsSet22';
+import { QUESTIONS_SET_23 } from './questionsSet23';
+import { MARATHI_VOCAB_QUESTIONS } from './marathiVocabQuestions';
+import { ENGLISH_VOCAB_QUESTIONS } from './englishVocabQuestions';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -940,4 +964,31 @@ export const MPSC_QUESTIONS: Question[] = [
   ...NEW_QUESTIONS_BATCH_2026,
   // 2026 Part 2 High-Yield Questions (समाजसुधारक, नद्या, रिट अधिकार, विज्ञान, व्याकरण, चालू घडामोडी)
   ...NEW_QUESTIONS_BATCH_2026_PART2,
+  // 2026-27 High-Yield Questions (नारी शक्ती वंदन, BNS नवीन फौजदारी संहिता, अहिल्यानगर, समृद्धी, चांद्रयान-३)
+  ...NEW_QUESTIONS_BATCH_2027,
+  // Question Sets 3 to 18 (सर्व विषय सखोल सराव: इतिहास, भूगोल, राज्यव्यवस्था, विज्ञान, अर्थव्यवस्था, CSAT)
+  ...QUESTIONS_SET_3,
+  ...QUESTIONS_SET_4,
+  ...QUESTIONS_SET_5,
+  ...QUESTIONS_SET_6,
+  ...QUESTIONS_SET_7,
+  ...QUESTIONS_SET_8,
+  ...QUESTIONS_SET_9,
+  ...QUESTIONS_SET_10,
+  ...QUESTIONS_SET_11,
+  ...QUESTIONS_SET_12,
+  ...QUESTIONS_SET_13,
+  ...QUESTIONS_SET_14,
+  ...QUESTIONS_SET_15,
+  ...QUESTIONS_SET_16,
+  ...QUESTIONS_SET_17,
+  ...QUESTIONS_SET_18,
+  ...QUESTIONS_SET_19,
+  ...QUESTIONS_SET_20,
+  ...QUESTIONS_SET_21,
+  ...QUESTIONS_SET_22,
+  ...QUESTIONS_SET_23,
+  // Marathi & English Vocabulary (समानार्थी, विरुद्धार्थी, म्हणी, वाक्प्रचार, One-Word Substitutions)
+  ...MARATHI_VOCAB_QUESTIONS,
+  ...ENGLISH_VOCAB_QUESTIONS,
 ];

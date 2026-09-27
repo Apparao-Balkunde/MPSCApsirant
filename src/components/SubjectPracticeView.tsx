@@ -19,6 +19,7 @@ interface SubjectPracticeViewProps {
   onStartSubjectExam: (subjectId: SubjectId, title: string) => void;
   onOpenGrammarRules?: () => void;
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
+  onOpenAddQuestion?: (subjectId?: SubjectId) => void;
   questionsPool?: Question[];
 }
 
@@ -27,6 +28,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   onStartSubjectExam,
   onOpenGrammarRules,
   onOpenHardQuestionsHub,
+  onOpenAddQuestion,
   questionsPool,
 }) => {
   const isMr = language === 'mr';
@@ -47,15 +49,27 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
           </p>
         </div>
 
-        {onOpenHardQuestionsHub && (
-          <button
-            onClick={() => onOpenHardQuestionsHub()}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-950 via-amber-950 to-stone-900 text-amber-300 border border-amber-500/40 hover:border-amber-400 font-extrabold text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0"
-          >
-            <Flame className="w-4 h-4 text-amber-400 fill-amber-400/30 animate-pulse" />
-            <span>{isMr ? '🔥 १,००,०००+ कठीण प्रश्न केंद्र उघडा' : '🔥 100k Hard Questions Hub'}</span>
-          </button>
-        )}
+        <div className="flex items-center gap-2.5 flex-wrap">
+          {onOpenAddQuestion && (
+            <button
+              onClick={() => onOpenAddQuestion()}
+              className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+              title={isMr ? "कोणत्याही विषयासाठी नवीन MCQ प्रश्न जोडा" : "Add custom MCQ question to Bank"}
+            >
+              <span>{isMr ? '➕ नवीन MCQ प्रश्न जोडा' : '➕ Add MCQ Question'}</span>
+            </button>
+          )}
+
+          {onOpenHardQuestionsHub && (
+            <button
+              onClick={() => onOpenHardQuestionsHub()}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-950 via-amber-950 to-stone-900 text-amber-300 border border-amber-500/40 hover:border-amber-400 font-extrabold text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0"
+            >
+              <Flame className="w-4 h-4 text-amber-400 fill-amber-400/30 animate-pulse" />
+              <span>{isMr ? '🔥 १,००,०००+ कठीण प्रश्न केंद्र उघडा' : '🔥 100k Hard Questions Hub'}</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -137,6 +151,16 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                     </button>
                   ) : null}
                 </div>
+
+                {onOpenAddQuestion && (
+                  <button
+                    onClick={() => onOpenAddQuestion(sub.id)}
+                    className="w-full py-1.5 bg-amber-50 hover:bg-amber-100/90 text-amber-900 border border-amber-300 font-bold text-[11px] rounded-lg transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                    title={isMr ? `या विषयासाठी (${sub.nameMr}) नवीन प्रश्न तयार करा` : `Add MCQ for ${sub.nameEn}`}
+                  >
+                    <span>➕ {isMr ? `${sub.nameMr} चा MCQ जोडा` : `Add MCQ for this subject`}</span>
+                  </button>
+                )}
               </div>
             </div>
           );

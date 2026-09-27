@@ -26,6 +26,12 @@ import { NEW_FIREBASE_MCQS } from '../data/mpscQuestions';
 import { FIREBASE_MCQS_BATCH_2 } from '../data/firebaseMcqsBatch2';
 import { NEW_QUESTIONS_BATCH_2026 } from '../data/newQuestionsBatch2026';
 import { NEW_QUESTIONS_BATCH_2026_PART2 } from '../data/newQuestionsBatch2026_Part2';
+import { NEW_QUESTIONS_BATCH_2027 } from '../data/newQuestionsBatch2027';
+import { QUESTIONS_SET_19 } from '../data/questionsSet19';
+import { QUESTIONS_SET_20 } from '../data/questionsSet20';
+import { QUESTIONS_SET_21 } from '../data/questionsSet21';
+import { QUESTIONS_SET_22 } from '../data/questionsSet22';
+import { QUESTIONS_SET_23 } from '../data/questionsSet23';
 
 interface CloudSyncModalProps {
   isOpen: boolean;
@@ -41,6 +47,7 @@ interface CloudSyncModalProps {
   language: 'mr' | 'en';
   questionsCount?: number;
   initialShowAddQuestion?: boolean;
+  initialSubjectId?: SubjectId;
   onOpenLoginPage?: () => void;
 }
 
@@ -58,21 +65,24 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
   language,
   questionsCount = 27,
   initialShowAddQuestion = false,
+  initialSubjectId,
   onOpenLoginPage,
 }) => {
   const [activeTab, setActiveTab] = useState<'sync' | 'add_mcq'>(
     initialShowAddQuestion ? 'add_mcq' : 'sync'
   );
   const [authError, setAuthError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
   const [isSeeding, setIsSeeding] = useState(false);
   const [isBulkAdding, setIsBulkAdding] = useState(false);
+  const [isGeneratingAi, setIsGeneratingAi] = useState(false);
 
   // New question form state
   const [qMr, setQMr] = useState('');
   const [qEn, setQEn] = useState('');
-  const [subjectId, setSubjectId] = useState<SubjectId>('polity');
+  const [subjectId, setSubjectId] = useState<SubjectId>(initialSubjectId || 'polity');
   const [examType, setExamType] = useState<'Rajyaseva' | 'Combine' | 'Both'>('Both');
   const [difficulty, setDifficulty] = useState<'Easy' | 'Moderate' | 'Hard'>('Moderate');
   const [opt1, setOpt1] = useState('');
@@ -90,7 +100,10 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     if (initialShowAddQuestion) {
       setActiveTab('add_mcq');
     }
-  }, [initialShowAddQuestion]);
+    if (initialSubjectId) {
+      setSubjectId(initialSubjectId);
+    }
+  }, [initialShowAddQuestion, initialSubjectId, isOpen]);
 
   if (!isOpen) return null;
 
@@ -333,13 +346,19 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
         ...FIREBASE_MCQS_BATCH_2,
         ...NEW_QUESTIONS_BATCH_2026,
         ...NEW_QUESTIONS_BATCH_2026_PART2,
+        ...NEW_QUESTIONS_BATCH_2027,
+        ...QUESTIONS_SET_19,
+        ...QUESTIONS_SET_20,
+        ...QUESTIONS_SET_21,
+        ...QUESTIONS_SET_22,
+        ...QUESTIONS_SET_23,
       ];
       const addedCount = await bulkStoreMCQsToFirestore(allCurated);
       if (addedCount > 0) {
         setActionNotice(
           isMr 
-            ? `🎉 अभिनंदन! ${addedCount} उच्च-काठिण्य MPSC MCQs (सर्व 2026 Batches) Firebase मध्ये यशस्वीरीत्या जोडले गेले!` 
-            : `Successfully added ${addedCount} curated MCQs (all 2026 Batches) to Firebase!`
+            ? `🎉 अभिनंदन! ${addedCount} उच्च-काठिण्य MPSC MCQs (सर्व Batches व Sets 19-23) Firebase मध्ये यशस्वीरीत्या जोडले गेले!` 
+            : `Successfully added ${addedCount} curated MCQs (all Batches & Sets 19-23) to Firebase!`
         );
         if (onFetchData) {
           await onFetchData();
@@ -359,12 +378,55 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     }
   };
 
+  const handleAiGenerate = async () => {
+    setIsGeneratingAi(true);
+    setFormError(null);
+    try {
+      const res = await fetch('/api/generate-mcq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: subjectId,
+          difficulty,
+          examType,
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.mcq) {
+        const mcq = data.mcq;
+        setQMr(mcq.questionMr || '');
+        setQEn(mcq.questionEn || '');
+        if (Array.isArray(mcq.optionsMr) && mcq.optionsMr.length >= 4) {
+          setOpt1(mcq.optionsMr[0]);
+          setOpt2(mcq.optionsMr[1]);
+          setOpt3(mcq.optionsMr[2]);
+          setOpt4(mcq.optionsMr[3]);
+        }
+        setCorrectIndex(typeof mcq.correctAnswerIndex === 'number' ? mcq.correctAnswerIndex : 0);
+        setExplanation(mcq.explanationMr || mcq.explanationEn || '');
+        setReference(mcq.reference || 'MPSC Aspirant Question Bank');
+        setActionNotice(
+          isMr
+            ? `✨ AI मार्गदर्शकाने नवीन उच्च-काठिण्य प्रश्न तयार केला!`
+            : `✨ AI generated a new high-yield question!`
+        );
+        setTimeout(() => setActionNotice(null), 4000);
+      }
+    } catch (err) {
+      console.warn('AI generate error:', err);
+      setFormError(isMr ? 'प्रश्न तयार करताना त्रुटी आली. कृपया स्वतः मजकूर भरा.' : 'Error generating question with AI.');
+    } finally {
+      setIsGeneratingAi(false);
+    }
+  };
+
   const handleSaveQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!qMr.trim() || !opt1.trim() || !opt2.trim() || !opt3.trim() || !opt4.trim()) {
-      alert(isMr ? 'कृपया प्रश्न व सर्व ४ पर्याय भरा' : 'Please fill question and all 4 options');
+      setFormError(isMr ? 'कृपया प्रश्न व सर्व ४ पर्याय भरा' : 'Please fill question and all 4 options');
       return;
     }
+    setFormError(null);
     if (!onStoreNewQuestion) return;
 
     setIsSavingQ(true);
@@ -403,6 +465,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
       setOpt4('');
       setExplanation('');
       setReference('');
+      setFormError(null);
       setTimeout(() => setActionNotice(null), 5000);
     }
   };
@@ -509,12 +572,12 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                 <div className="text-xs">
                   <p className="font-bold text-amber-300 flex items-center gap-1.5">
                     <Layers className="w-3.5 h-3.5" />
-                    <span>{isMr ? 'MPSC उच्च-दर्जाचे २८ कठीण MCQs संच (Batch 1 & 2)' : 'Curated 28 Hard MPSC MCQs (Batch 1 & 2)'}</span>
+                    <span>{isMr ? 'MPSC उच्च-दर्जाचे ३८+ कठीण MCQs संच (Batches 2026-27)' : 'Curated 38+ Hard MPSC MCQs (Batches 2026-27)'}</span>
                   </p>
                   <p className="text-stone-300 text-[11px] mt-0.5">
                     {isMr 
-                      ? 'राज्यघटना, ७३ वी घटनादुरुस्ती, १८५७ उठाव, नद्या, Regur मृदा, RBI धोरण, विज्ञान व चालू घडामोडी २०२६' 
-                      : 'Comprehensive questions across Polity, 73rd Amendment, History, Geography, Economy & Science'}
+                      ? '१०६ वी घटनादुरुस्ती, नवीन फौजदारी संहिता BNS, अहिल्यानगर, समृद्धी महामार्ग, विज्ञान व चालू घडामोडी २०२६/२७' 
+                      : 'Comprehensive questions across 106th Amendment, BNS Criminal Code, Ahilyanagar, Samruddhi & 2026-27'}
                   </p>
                 </div>
                 <button
@@ -524,19 +587,39 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                   className="w-full sm:w-auto px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-black rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0 disabled:opacity-50"
                 >
                   <UploadCloud className={`w-3.5 h-3.5 ${isBulkAdding ? 'animate-bounce' : ''}`} />
-                  <span>{isBulkAdding ? (isMr ? 'Add होत आहेत...' : 'Adding...') : (isMr ? '२८ MCQs Firebase मध्ये जोडा' : 'Add 28 MCQs to Firebase')}</span>
+                  <span>{isBulkAdding ? (isMr ? 'Add होत आहेत...' : 'Adding...') : (isMr ? 'सर्व ३८+ MCQs Firebase मध्ये जोडा' : 'Add 38+ MCQs to Firebase')}</span>
                 </button>
               </div>
 
               {/* Custom MCQ Form */}
               <form onSubmit={handleSaveQuestion} className="space-y-3.5 bg-stone-50/60 p-4 rounded-xl border border-stone-200 text-xs">
-                <div className="flex items-center justify-between border-b border-stone-200 pb-2">
-                  <h3 className="font-bold text-stone-900 text-sm flex items-center gap-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-2.5 gap-2">
+                  <div className="flex items-center gap-1.5">
                     <BookOpen className="w-4 h-4 text-amber-600" />
-                    <span>{isMr ? 'नवीन प्रश्नाचा मजकूर व पर्याय भरा' : 'Question Content & Options'}</span>
-                  </h3>
-                  <span className="text-[11px] text-stone-500 font-mono">* आवश्यक रकाने</span>
+                    <h3 className="font-bold text-stone-900 text-sm">
+                      {isMr ? 'नवीन प्रश्नाचा मजकूर व पर्याय भरा' : 'Question Content & Options'}
+                    </h3>
+                  </div>
+                  
+                  {/* AI Auto-generate button */}
+                  <button
+                    type="button"
+                    onClick={handleAiGenerate}
+                    disabled={isGeneratingAi}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-extrabold text-xs shadow-xs transition-all cursor-pointer disabled:opacity-50"
+                    title={isMr ? "निवडलेल्या विषयावर AI द्वारे त्वरित प्रश्न तयार करा" : "Generate authentic question with AI for this subject"}
+                  >
+                    <Sparkles className={`w-3.5 h-3.5 text-stone-950 ${isGeneratingAi ? 'animate-spin' : ''}`} />
+                    <span>{isGeneratingAi ? (isMr ? 'AI तयार करत आहे...' : 'Generating...') : (isMr ? '✨ AI प्रश्न तयार करा' : '✨ AI Generate Question')}</span>
+                  </button>
                 </div>
+
+                {formError && (
+                  <div className="p-2.5 rounded-lg bg-red-50 border border-red-300 text-red-700 text-xs font-semibold flex items-center gap-2">
+                    <span className="shrink-0">⚠️</span>
+                    <span>{formError}</span>
+                  </div>
+                )}
 
                 {/* Subject, Exam, and Difficulty Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
