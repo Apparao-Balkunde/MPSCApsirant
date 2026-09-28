@@ -23,6 +23,10 @@ import { QUESTIONS_SET_20 } from '../data/questionsSet20';
 import { QUESTIONS_SET_21 } from '../data/questionsSet21';
 import { QUESTIONS_SET_22 } from '../data/questionsSet22';
 import { QUESTIONS_SET_23 } from '../data/questionsSet23';
+import { QUESTIONS_SET_24 } from '../data/questionsSet24';
+import { QUESTIONS_SET_25 } from '../data/questionsSet25';
+import { QUESTIONS_SET_26 } from '../data/questionsSet26';
+import { QUESTIONS_SET_27 } from '../data/questionsSet27';
 import { NEW_FIREBASE_MCQS } from '../data/mpscQuestions';
 import { FIREBASE_MCQS_BATCH_2 } from '../data/firebaseMcqsBatch2';
 import { NEW_QUESTIONS_BATCH_2026 } from '../data/newQuestionsBatch2026';
@@ -82,6 +86,22 @@ const PRESET_TEMPLATES = [
     expMr: 'समृद्धी महामार्गाची एकूण लांबी ७०१ किमी (६ पदरी) असून तो नागपूर, वर्धा, अमरावती, वाशिम, बुलढाणा, जालना, छत्रपती संभाजीनगर, अहिल्यानगर, नाशिक आणि ठाणे या १० जिल्ह्यांतून जातो.',
     expEn: 'The 6-lane Samruddhi Expressway is 701 km long and passes through 10 districts from Nagpur to Thane/Mumbai.',
     ref: 'MSRDC अधिकृत अहवाल / ए. बी. सवदी भूगोल'
+  },
+  {
+    label: 'मुख्यमंत्री माझी लाडकी बहीण योजना (डीबीटी)',
+    subjectId: 'current_affairs' as SubjectId,
+    topic: 'महाराष्ट्र शासकीय योजना',
+    subtopic: 'महिला सक्षमीकरण व आर्थिक सहाय्य',
+    difficulty: 'Moderate' as const,
+    exam: 'Both' as const,
+    qMr: 'महाराष्ट्र शासनाने महिलांच्या आर्थिक सक्षमीकरणासाठी सुरू केलेल्या "मुख्यमंत्री माझी लाडकी बहीण योजने" अंतर्गत पात्र महिलांना दरमहा किती रुपयांची थेट आर्थिक मदत (DBT) दिली जाते?',
+    qEn: 'Under Maharashtra Government\'s "Mukhyamantri Majhi Ladki Bahin Yojana", what monthly financial assistance (DBT) is provided to eligible women?',
+    optMr: ['₹ १,५००/- दरमहा', '₹ १,०००/- दरमहा', '₹ २,०००/- दरमहा', '₹ ५००/- दरमहा'],
+    optEn: ['₹ 1,500 per month', '₹ 1,000 per month', '₹ 2,000 per month', '₹ 500 per month'],
+    ansIdx: 0,
+    expMr: 'महाराष्ट्र शासनाच्या २०२४-२५ च्या अर्थसंकल्पात घोषित या योजनेन्वये २१ ते ६५ वर्षे वयोगटातील पात्र महिलांना दरमहा ₹१,५०० थेट बँक खात्यात दिले जातात.',
+    expEn: 'Under this scheme, eligible women aged 21-65 receive ₹1,500 directly into their bank accounts monthly.',
+    ref: 'महाराष्ट्र शासन राजपत्र / महिला व बालविकास विभाग'
   }
 ];
 
@@ -293,6 +313,10 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
         ...QUESTIONS_SET_21,
         ...QUESTIONS_SET_22,
         ...QUESTIONS_SET_23,
+        ...QUESTIONS_SET_24,
+        ...QUESTIONS_SET_25,
+        ...QUESTIONS_SET_26,
+        ...QUESTIONS_SET_27,
       ];
       const count = await bulkStoreMCQsToFirestore(allBatchQuestions);
       setNotification({

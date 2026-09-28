@@ -32,6 +32,8 @@ import { QUESTIONS_SET_22 } from './questionsSet22';
 import { QUESTIONS_SET_23 } from './questionsSet23';
 import { QUESTIONS_SET_24 } from './questionsSet24';
 import { QUESTIONS_SET_25 } from './questionsSet25';
+import { QUESTIONS_SET_26 } from './questionsSet26';
+import { QUESTIONS_SET_27 } from './questionsSet27';
 import { MARATHI_VOCAB_QUESTIONS } from './marathiVocabQuestions';
 import { ENGLISH_VOCAB_QUESTIONS } from './englishVocabQuestions';
 
@@ -992,6 +994,8 @@ export const MPSC_QUESTIONS: Question[] = [
   ...QUESTIONS_SET_23,
   ...QUESTIONS_SET_24,
   ...QUESTIONS_SET_25,
+  ...QUESTIONS_SET_26,
+  ...QUESTIONS_SET_27,
   // Marathi & English Vocabulary (समानार्थी, विरुद्धार्थी, म्हणी, वाक्प्रचार, One-Word Substitutions)
   ...MARATHI_VOCAB_QUESTIONS,
   ...ENGLISH_VOCAB_QUESTIONS,
