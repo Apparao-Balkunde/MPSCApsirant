@@ -1082,6 +1082,14 @@ export default function App() {
         onStartHardExam={handleStartHardExam}
       />
 
+      {/* MPSC Exam Countdown & Timetable Modal */}
+      <ExamCountdownModal
+        isOpen={isExamCountdownOpen}
+        onClose={() => setIsExamCountdownOpen(false)}
+        language={userProgress.preferredLanguage}
+        onStartExam={handleStartExam}
+      />
+
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}
       {syncToast && (
         <aside 
