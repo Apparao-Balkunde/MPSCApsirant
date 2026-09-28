@@ -26,7 +26,8 @@ import {
   Calendar,
   AlertCircle,
   Timer,
-  FileJson
+  FileJson,
+  Scale
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -55,6 +56,7 @@ interface DashboardViewProps {
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
   onOpenBackupModal?: () => void;
   onOpenExamCountdown?: () => void;
+  onOpenInformationHub?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -81,6 +83,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenHardQuestionsHub,
   onOpenBackupModal,
   onOpenExamCountdown,
+  onOpenInformationHub,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -305,6 +308,21 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम' : 'Grammar Rules & Shortcuts'}</span>
                 <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
                   {isMr ? 'नवीन' : 'New'}
+                </span>
+              </button>
+            )}
+
+            {onOpenInformationHub && (
+              <button
+                id="btn-hero-information-hub"
+                onClick={onOpenInformationHub}
+                className="px-4 py-3 rounded-xl bg-amber-950/70 hover:bg-amber-900 text-amber-200 border border-amber-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                title={isMr ? "माहितीचा अधिकार (RTI), IT कायदा व MPSC परीक्षा माहिती केंद्र उघडा" : "Open RTI, IT Act & MPSC Information Hub"}
+              >
+                <Scale className="w-4 h-4 text-amber-400" />
+                <span>{isMr ? '📚 परीक्षा व कायदे माहिती केंद्र' : '📚 Exam & Legal Info Hub'}</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
+                  {isMr ? 'RTI/IT' : 'RTI/IT'}
                 </span>
               </button>
             )}

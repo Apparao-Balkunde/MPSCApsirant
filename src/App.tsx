@@ -34,6 +34,7 @@ import { LocalBackupModal } from './components/LocalBackupModal';
 import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
+import { InformationHubModal } from './components/InformationHubModal';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -87,6 +88,9 @@ export default function App() {
 
   // MPSC Exam Countdown & Timetable modal state
   const [isExamCountdownOpen, setIsExamCountdownOpen] = useState<boolean>(false);
+
+  // MPSC Exam & Legal Information Hub modal state
+  const [isInformationHubOpen, setIsInformationHubOpen] = useState<boolean>(false);
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -839,6 +843,7 @@ export default function App() {
             onToggleSoundEffects={handleToggleSoundEffects}
             onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
             onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
+            onOpenInformationHub={() => setIsInformationHubOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -866,6 +871,7 @@ export default function App() {
                 onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
                 onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
+                onOpenInformationHub={() => setIsInformationHubOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1088,6 +1094,17 @@ export default function App() {
         onClose={() => setIsExamCountdownOpen(false)}
         language={userProgress.preferredLanguage}
         onStartExam={handleStartExam}
+      />
+
+      {/* MPSC Exam & Legal Information Hub Modal */}
+      <InformationHubModal
+        isOpen={isInformationHubOpen}
+        onClose={() => setIsInformationHubOpen(false)}
+        language={userProgress.preferredLanguage}
+        onStartPractice={(subjectId, customTitle) => {
+          setIsInformationHubOpen(false);
+          handleStartExam('custom', subjectId, customTitle);
+        }}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

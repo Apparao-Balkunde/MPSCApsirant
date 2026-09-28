@@ -20,7 +20,8 @@ import {
   PenSquare,
   ArrowLeft,
   Clock,
-  Calendar
+  Calendar,
+  Scale
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -43,6 +44,7 @@ export interface HeaderProps {
   onToggleSoundEffects?: () => void;
   onOpenHardQuestionsHub?: () => void;
   onOpenExamCountdown?: () => void;
+  onOpenInformationHub?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -60,6 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleSoundEffects,
   onOpenHardQuestionsHub,
   onOpenExamCountdown,
+  onOpenInformationHub,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -127,6 +130,19 @@ export const Header: React.FC<HeaderProps> = ({
               <Clock className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
               <span>{isMr ? `⏳ परीक्षा काउंटडाउन: वेळापत्रक व दिवस` : `⏳ Exam Countdown: Timetable`}</span>
             </button>
+
+            {onOpenInformationHub && (
+              <button
+                type="button"
+                id="btn-header-information-hub"
+                onClick={onOpenInformationHub}
+                className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 border border-amber-500/40 hover:border-amber-400 px-2.5 py-0.5 rounded text-xs font-bold text-amber-300 transition-all cursor-pointer shadow-xs"
+                title={isMr ? "MPSC परीक्षा व कायदे माहिती केंद्र (RTI / IT Act)" : "Open Exam & Legal Info Hub"}
+              >
+                <Scale className="w-3.5 h-3.5 text-amber-400" />
+                <span>{isMr ? '📚 माहिती केंद्र' : '📚 Info Hub'}</span>
+              </button>
+            )}
 
             <a
               id="banner-classic-portal-link"

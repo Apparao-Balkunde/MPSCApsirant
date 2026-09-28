@@ -35,6 +35,7 @@ import { QUESTIONS_SET_26 } from '../data/questionsSet26';
 import { QUESTIONS_SET_27 } from '../data/questionsSet27';
 import { QUESTIONS_SET_28 } from '../data/questionsSet28';
 import { QUESTIONS_SET_29 } from '../data/questionsSet29';
+import { QUESTIONS_SET_30 } from '../data/questionsSet30';
 import { NEW_FIREBASE_MCQS } from '../data/mpscQuestions';
 import { FIREBASE_MCQS_BATCH_2 } from '../data/firebaseMcqsBatch2';
 import { NEW_QUESTIONS_BATCH_2026 } from '../data/newQuestionsBatch2026';
@@ -368,6 +369,7 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
         ...QUESTIONS_SET_27,
         ...QUESTIONS_SET_28,
         ...QUESTIONS_SET_29,
+        ...QUESTIONS_SET_30,
       ];
       const count = await bulkStoreMCQsToFirestore(allBatchQuestions);
       setNotification({

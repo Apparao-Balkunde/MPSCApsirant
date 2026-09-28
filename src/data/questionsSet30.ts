@@ -1,0 +1,297 @@
+import { Question } from '../types';
+
+export const QUESTIONS_SET_30: Question[] = [
+  // =========================================================================
+  // 1. RTI ACT 2005 - PENALTIES & INVESTIGATION
+  // =========================================================================
+  {
+    id: 'info_rti_3001',
+    subjectId: 'polity',
+    topic: 'माहितीचा अधिकार अधिनियम, २००५ (RTI Act)',
+    subtopic: 'जन माहिती अधिकाऱ्यावर दंड आकारणी (कलम २०)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'माहितीचा अधिकार कायदा २००५ च्या कलम २०(१) नुसार माहिती देण्यास विनाकारण नकार देणे, उशीर करणे किंवा खोटी माहिती देणे याबद्दल जन माहिती अधिकाऱ्याला दररोज किती रुपये आणि जास्तीत जास्त किती रुपयांपर्यंत दंड ठोठावला जाऊ शकतो?',
+    questionEn: 'Under Section 20(1) of the RTI Act 2005, what is the daily penalty and the maximum penalty that can be imposed on a PIO for delaying or refusing information without reasonable cause?',
+    optionsMr: [
+      'दररोज ₹ २५० आणि जास्तीत जास्त ₹ २५,००० पर्यंत (₹250/day up to max ₹25,000)',
+      'दररोज ₹ १०० आणि जास्तीत जास्त ₹ १०,००० पर्यंत',
+      'दररोज ₹ ५०० आणि जास्तीत जास्त ₹ ५०,००० पर्यंत',
+      'दररोज ₹ १,००० आणि जास्तीत जास्त ₹ १,००,००० पर्यंत',
+    ],
+    optionsEn: [
+      '₹250 each day up to a maximum of ₹25,000',
+      '₹100 each day up to a maximum of ₹10,000',
+      '₹500 each day up to a maximum of ₹50,000',
+      '₹1,000 each day up to a maximum of ₹1,00,000',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'कलम २०(१) नुसार केंद्रीय किंवा राज्य माहिती आयोग दोषी जन माहिती अधिकाऱ्यावर माहिती देईपर्यंत दररोज ₹ २५० दंड आकारू शकतो; मात्र असा एकूण दंड ₹ २५,००० पेक्षा जास्त असणार नाही. तसेच विभागीय शिस्तभंगाची शिफारस कलम २०(२) नुसार केली जाऊ शकते.',
+    explanationEn: 'Under Section 20(1), the penalty is ₹250 per day of delay until the application is received or information is furnished, subject to a maximum cap of ₹25,000.',
+    reference: 'RTI Act 2005 Bare Act / डॉ. तुकाराम जाधव',
+    yearTag: 'MPSC Core Act PYQ',
+  },
+  {
+    id: 'info_rti_3002',
+    subjectId: 'polity',
+    topic: 'माहितीचा अधिकार अधिनियम, २००५ (RTI Act)',
+    subtopic: 'केंद्रीय माहिती आयोगाची रचना व कार्यकाळ (कलम १२ व १३)',
+    exam: 'Both',
+    difficulty: 'Hard',
+    questionMr: 'माहितीचा अधिकार (दुरुस्ती) कायदा २०१९ नंतर मुख्य माहिती आयुक्त (CIC) आणि माहिती आयुक्तांचा कार्यकाळ आणि वेतन यासंबंधीचे अधिकार कोणाला देण्यात आले आहेत?',
+    questionEn: 'Following the Right to Information (Amendment) Act 2019, who determines the tenure, salaries, and allowances of the Chief Information Commissioner and Information Commissioners?',
+    optionsMr: [
+      'केंद्र सरकारद्वारे नियमांनुसार निश्चित केले जातात (Determined by Central Government)',
+      'राज्यघटनेनुसार ५ वर्षे किंवा वयाची ६५ वर्षे निश्चित आहेत',
+      'सर्वोच्च न्यायालयाच्या सरन्यायाधीशांच्या सल्ल्याने राष्ट्रपती ठरवतात',
+      'संसदेच्या संयुक्त समितीद्वारे दरवर्षी निश्चित केले जातात',
+    ],
+    optionsEn: [
+      'Prescribed by the Central Government through statutory rules',
+      'Fixed constitutionally at 5 years or 65 years of age',
+      'Decided by President in consultation with Chief Justice of India',
+      'Fixed annually by a Joint Parliamentary Committee',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: '२०१९ च्या दुरुस्तीपूर्वी कार्यकाळ ५ वर्षे किंवा वयाच्या ६५ वर्षांपर्यंत निश्चित होता. मात्र २०१९ च्या दुरुस्ती कायद्याने कलम १३ व १६ मध्ये सुधारणा करून केंद्र सरकारला आयुक्त पदाचा कार्यकाळ (सध्या नियमावलीत ३ वर्षे) आणि वेतनभत्ते ठरवण्याचे अधिकार देण्यात आले.',
+    explanationEn: 'The RTI (Amendment) Act 2019 replaced the fixed 5-year tenure with tenure and allowances as prescribed by the Central Government (currently 3 years under RTI Rules 2019).',
+    reference: 'एम. लक्ष्मीकांत - केंद्रीय माहिती आयोग (सुधारित आवृत्ती)',
+    yearTag: 'MPSC Rajyaseva GS-2 Polity',
+  },
+
+  // =========================================================================
+  // 2. IT ACT 2000 - CYBER CRIMES & PENALTIES
+  // =========================================================================
+  {
+    id: 'info_it_3003',
+    subjectId: 'general_science',
+    topic: 'माहिती तंत्रज्ञान कायदा, २००० व सायबर सुरक्षा',
+    subtopic: 'अतिसंवेदनशील माहिती पायाभूत सुविधा (कलम ७० - Critical Infrastructure)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'माहिती तंत्रज्ञान कायदा २००० च्या कलम ७०(१) अन्वये सरकार कोणत्याही संगणक प्रणालीला "संरक्षित प्रणाली" (Protected System) म्हणून घोषित करू शकते. अशा प्रणालीत अनधिकृत प्रवेश केल्यास किती वर्षांपर्यंतच्या कारावासाची शिक्षा होऊ शकते?',
+    questionEn: 'Under Section 70 of the IT Act 2000, any unauthorized access or attempt to access a designated "Protected System" (Critical Information Infrastructure) is punishable with imprisonment up to what term?',
+    optionsMr: [
+      '१० वर्षांपर्यंत कारावास (Up to 10 Years Imprisonment)',
+      '३ वर्षांपर्यंत कारावास',
+      '५ वर्षांपर्यंत कारावास',
+      'केवळ आर्थिक दंड',
+    ],
+    optionsEn: [
+      'Imprisonment up to 10 years and fine',
+      'Imprisonment up to 3 years',
+      'Imprisonment up to 5 years',
+      'Fine only with no imprisonment',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'कलम ७० अन्वये देशाच्या संरक्षणासाठी किंवा अर्थव्यवस्थेसाठी अतिसंवेदनशील असलेल्या पायाभूत सुविधांना सरकार \'संरक्षित प्रणाली\' घोषित करते. या प्रणालीमध्ये परवानगीशिवाय प्रवेश करणाऱ्या व्यक्तीला १० वर्षांपर्यंत सक्तमजुरीचा कारावास आणि दंड अशी कडक शिक्षा दिली जाते. NCIIPC ही या प्रणालींचे संरक्षण करते.',
+    explanationEn: 'Unauthorized access to a Protected System under Section 70 of the IT Act attracts severe punishment of imprisonment up to 10 years and liability to fine.',
+    reference: 'माहिती तंत्रज्ञान कायदा २००० संहिता / MeitY',
+    yearTag: 'MPSC Science & Technology GS-4',
+  },
+  {
+    id: 'info_it_3004',
+    subjectId: 'polity',
+    topic: 'माहिती तंत्रज्ञान कायदा, २०००',
+    subtopic: 'डिजिटल स्वाक्षरीचे प्रमाणीकरण (कलम ३ व Digital Signatures)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'माहिती तंत्रज्ञान कायदा २००० अन्वये डिजिटल स्वाक्षरीचे (Digital Signature) प्रमाणीकरण करण्यासाठी कोणत्या क्रिप्टोग्राफिक तंत्रज्ञानाचा (Cryptography) वापर केला जातो?',
+    questionEn: 'Under the Information Technology Act 2000, which cryptographic technique is utilized for authentication and verification of Digital Signatures?',
+    optionsMr: [
+      'असिमेट्रिक क्रिप्टोसिस्टम व हॅश फंक्शन (Asymmetric Crypto System & Hash Function)',
+      'केवळ सिमेट्रिक सिंगल की सिस्टीम',
+      'फक्त बारकोड स्कॅनिंग प्रणाली',
+      'केवळ बायोमेट्रिक अल्गोरिदम',
+    ],
+    optionsEn: [
+      'Asymmetric Crypto System and Hash Function',
+      'Symmetric Single Key System only',
+      'Barcode Scanning mechanism only',
+      'Biometric Algorithm only',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'कलम ३ अन्वये इलेक्ट्रॉनिक रेकॉर्ड्स डिजिटल स्वाक्षरीद्वारे प्रमाणित करण्यासाठी \'असिमेट्रिक क्रिप्टोसिस्टम\' (Asymmetric Crypto System) वापरली जाते, ज्यामध्ये प्रायव्हेट की (Private key) स्वाक्षरी करण्यासाठी आणि पब्लिक की (Public key) स्वाक्षरीची सत्यता तपासण्यासाठी वापरली जाते.',
+    explanationEn: 'Section 3 of the IT Act prescribes the Asymmetric Crypto System with a key pair (Private Key for creation and Public Key for verification) and hash function for secure authentication.',
+    reference: 'आयटी कायदा २००० - डॉ. भस्के सायबर सुरक्षा',
+    yearTag: 'MPSC Combine & Rajyaseva GS-4',
+  },
+
+  // =========================================================================
+  // 3. MAHARASHTRA PUBLIC SERVICES ACT (RTS 2015)
+  // =========================================================================
+  {
+    id: 'info_rts_3005',
+    subjectId: 'polity',
+    topic: 'महाराष्ट्र लोकसेवा हक्क अधिनियम, २०१५',
+    subtopic: 'अपील कालमर्यादा व सेवा हक्क आयोगाची रचना (कलम ८ व १३)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'महाराष्ट्र लोकसेवा हक्क अधिनियम २०१५ अन्वये पदनिर्देशित अधिकाऱ्याने विहित मुदतीत सेवा न पुरवल्यास नागरिकाला प्रथम अपील अधिकाऱ्याकडे किती दिवसांच्या आत अपील दाखल करण्याचा अधिकार आहे?',
+    questionEn: 'Under the Maharashtra Right to Public Services Act 2015, within how many days can an aggrieved citizen file a First Appeal if the designated officer fails to provide the service on time?',
+    optionsMr: [
+      '३० दिवसांच्या आत (Within 30 days)',
+      '१५ दिवसांच्या आत',
+      '६० दिवसांच्या आत',
+      '९० दिवसांच्या आत',
+    ],
+    optionsEn: [
+      'Within 30 days',
+      'Within 15 days',
+      'Within 60 days',
+      'Within 90 days',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'कलम ८(१) नुसार पदनिर्देशित अधिकाऱ्याने सेवा नाकारल्यास किंवा विहित मुदतीत न दिल्यास नागरिक ३० दिवसांच्या आत प्रथम अपील अधिकाऱ्याकडे दाद मागू शकतो. प्रथम अपील अधिकाऱ्याने ३० दिवसांत निकाल न दिल्यास किंवा समाधान न झाल्यास पुढील ३० दिवसांत द्वितीय अपील दाखल करता येते.',
+    explanationEn: 'Section 8 of the Maharashtra RTS Act provides a window of 30 days to file the First Appeal, and if unsatisfied, a further 30 days to file the Second Appeal before the appellate authorities.',
+    reference: 'महाराष्ट्र लोकसेवा हक्क अधिनियम २०१५ राजपत्र',
+    yearTag: 'MPSC Combine Group B Mains',
+  },
+
+  // =========================================================================
+  // 4. MPSC EXAM SELECTION RULES & NEGATIVE MARKING
+  // =========================================================================
+  {
+    id: 'info_mpsc_3006',
+    subjectId: 'polity',
+    topic: 'MPSC परीक्षा पद्धती व सामान्य ज्ञान',
+    subtopic: 'नकारात्मक गुणदान पद्धती (Negative Marking Scheme 1/4th)',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionMr: 'महाराष्ट्र लोकसेवा आयोगाच्या (MPSC) वस्तुनिष्ठ बहुपर्यायी (MCQ) परीक्षांमध्ये सध्या लागू असलेल्या सुधारित नियमानुसार प्रत्येक चुकीच्या उत्तरासाठी किती गुण वजा (Negative Marking) केले जातात?',
+    questionEn: 'According to the revised MPSC objective exam rules, what proportion of marks allotted to a question is deducted as negative marking for each incorrect answer?',
+    optionsMr: [
+      '२५% म्हणजेच १/४ गुण (1/4th or 25% of marks allotted)',
+      '३३.३३% म्हणजेच १/३ गुण',
+      '५०% म्हणजेच १/२ गुण',
+      'कोणतेही नकारात्मक गुण वजा केले जात नाहीत',
+    ],
+    optionsEn: [
+      '1/4th (25%) of the total marks allotted to that question',
+      '1/3rd (33.33%) of the marks allotted',
+      '1/2 (50%) of the marks allotted',
+      'No negative marking applies',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'MPSC ने २०२० मध्ये जारी केलेल्या परिपत्रकानुसार सर्व वस्तुनिष्ठ परीक्षांसाठी नकारात्मक गुणदान १/४ (२५%) लागू केले आहे. उदा. २ गुणांच्या प्रश्नाचे उत्तर चुकल्यास ०.५० गुण वजा होतात. एका प्रश्नासाठी एकापेक्षा जास्त पर्याय गिरवल्यास किंवा निवडल्यास ते उत्तर चुकीचे मानले जाते.',
+    explanationEn: 'Under revised MPSC norms, 1/4th (25%) marks allocated to a question are deducted for every incorrect response. Leaving a question blank incurs zero penalty.',
+    reference: 'MPSC अधिकृत नियमावली व मार्गदर्शक तत्त्वे',
+    yearTag: 'MPSC Official Exam Guidelines',
+  },
+  {
+    id: 'info_mpsc_3007',
+    subjectId: 'polity',
+    topic: 'MPSC राज्यसेवा नागरी सेवा परीक्षा',
+    subtopic: 'CSAT पात्रता निकष (Qualifying Criteria - 33%)',
+    exam: 'Both',
+    difficulty: 'Easy',
+    questionMr: 'MPSC राज्यसेवा पूर्व परीक्षेतील पेपर क्रमांक २ (नागरी सेवा कलचाचणी - CSAT) मुख्य परीक्षेच्या पात्रतेसाठी कोणत्या निकषावर आधारित करण्यात आला आहे?',
+    questionEn: 'Under current MPSC Gazetted Civil Services Prelims rules, what is the qualifying benchmark required in Paper-2 (CSAT)?',
+    optionsMr: [
+      'किमान ३३% (६६ गुण) मिळवून केवळ अर्हताकारी/पात्रता (Qualifying only) स्वरूप',
+      'त्याचे गुण पूर्व परीक्षेच्या गुणवत्ता यादीत पूर्णपणे ग्राह्य धरले जातात',
+      'किमान ५०% गुण मिळवणे अनिवार्य आहे',
+      'CSAT पेपर आता रद्द करण्यात आला आहे',
+    ],
+    optionsEn: [
+      'Qualifying only with a minimum benchmark of 33% (66 marks)',
+      'Marks are added directly to prepare the merit ranking cutoff',
+      'Mandatory to score minimum 50% marks',
+      'CSAT paper has been completely discontinued',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'UPSC च्या धर्तीवर MPSC ने राज्यसेवा पूर्व परीक्षेत CSAT पेपर (२०० गुण) केवळ ३३% (किमान ६६ गुण) मिळवून पात्र होण्यासाठी ठेवला आहे. मुख्य परीक्षेसाठी उमेदवारांची गुणवत्ता यादी केवळ पेपर १ (सामान्य अध्ययन - GS, २०० गुण) च्या आधारे तयार केली जाते.',
+    explanationEn: 'Paper-2 (CSAT) in MPSC Rajyaseva Prelims is qualifying in nature requiring at least 33% (66/200 marks). Cutoff ranking is decided strictly on Paper-1 (GS).',
+    reference: 'MPSC राजपत्रित नागरी सेवा अधिसूचना',
+    yearTag: 'MPSC Rajyaseva Prelims Pattern',
+  },
+
+  // =========================================================================
+  // 5. CYBER CRIME LAWS & E-GOVERNANCE
+  // =========================================================================
+  {
+    id: 'info_gov_3008',
+    subjectId: 'general_science',
+    topic: 'माहिती व दळणवळण तंत्रज्ञान (ICT)',
+    subtopic: 'डिजीलॉकर (DigiLocker) व माहिती तंत्रज्ञान नियम २०१६',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'केंद्र सरकारच्या "डिजिटल इंडिया" उपक्रमांतर्गत सुरू करण्यात आलेल्या डिजीलॉकर (DigiLocker) मधील डिजिटल कागदपत्रांना मूळ प्रत्यक्ष कागदपत्रांच्या बरोबरीचा कायदेशीर दर्जा माहिती तंत्रज्ञान नियमांच्या कोणत्या कलमान्वये प्रदान करण्यात आला आहे?',
+    questionEn: 'Under Digital India, issued electronic documents stored in "DigiLocker" are legally treated on par with original physical documents under which rule of the IT Act?',
+    optionsMr: [
+      'माहिती तंत्रज्ञान (माहिती साठवणूक व हस्तांतरण) नियम २०१६ चे नियम ९A (Rule 9A)',
+      'आयटी कायदा कलम १२',
+      'कंपनी कायदा कलम ७',
+      'भारतीय पुरावा कायदा कलम ५',
+    ],
+    optionsEn: [
+      'Rule 9A of Information Technology (Preservation and Retention of Information) Rules 2016',
+      'Section 12 of the IT Act',
+      'Section 7 of the Companies Act',
+      'Section 5 of the Indian Evidence Act',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'माहिती तंत्रज्ञान नियम २०१६ च्या नियम ९A नुसार डिजीलॉकरद्वारे जारी केलेले इलेक्ट्रॉनिक दस्तऐवज (उदा. ड्रायव्हिंग लायसन्स, आधार, शैक्षणिक गुणपत्रिका) मूळ भौतिक कागदपत्रांप्रमाणेच सर्व शासकीय तपासणी व पडताळणीसाठी कायदेशीररीत्या वैध ठरतात.',
+    explanationEn: 'Rule 9A of the IT Rules 2016 mandates that digital documents accessed via DigiLocker are legally recognized at par with original physical certificates across all public authorities.',
+    reference: 'इलेक्ट्रॉनिक्स व माहिती तंत्रज्ञान मंत्रालय (MeitY) अधिसूचना',
+    yearTag: 'MPSC ICT & E-Governance',
+  },
+  {
+    id: 'info_gov_3009',
+    subjectId: 'polity',
+    topic: 'माहिती तंत्रज्ञान कायदा व सायबर गुन्हे',
+    subtopic: 'सायबर सुरक्षा - फिशिंग व स्पूफिंग (Phishing & Spoofing)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'इंटरनेटवर एखाद्या नामांकित बँकेची किंवा शासकीय संस्थेची हुबेहूब बनावट वेबसाईट किंवा ईमेल तयार करून वापरकर्त्यांचे पासवर्ड, एटीएम पिन व गोपनीय माहिती चोरण्याच्या सायबर गुन्ह्याला काय म्हणतात?',
+    questionEn: 'What is the cyber crime technique called where fraudulent emails or duplicate banking websites are used to deceive users into disclosing passwords and PINs?',
+    optionsMr: [
+      'फिशिंग (Phishing)',
+      'डीडॉस हल्ला (DDoS Attack)',
+      'ड्रायव्ह-बाय डाऊनलोड',
+      'रॅन्समवेअर',
+    ],
+    optionsEn: [
+      'Phishing',
+      'DDoS Attack',
+      'Drive-by Download',
+      'Ransomware',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'फिशिंग (Phishing) हा एक सोशल इंजिनिअरिंग सायबर गुन्हा आहे, ज्यामध्ये बनावट ईमेल, एसएमएस किंवा लिंक्स पाठवून वापरकर्त्यांची फसवणूक केली जाते आणि बँक खात्याची गोपनीय माहिती चोरली जाते. आयटी कायद्याच्या कलम ६६-D अन्वये यासाठी कारावासाची तरतूद आहे.',
+    explanationEn: 'Phishing involves masquerading as a trustworthy entity in electronic communications to fraudulently acquire sensitive credentials like passwords and banking OTPs.',
+    reference: 'सायबर सुरक्षा मार्गदर्शक - महाराष्ट्र सायबर सेल',
+    yearTag: 'MPSC Combine & State Services ICT',
+  },
+
+  // =========================================================================
+  // 6. RTI EXEMPT ORGANIZATIONS
+  // =========================================================================
+  {
+    id: 'info_rti_3010',
+    subjectId: 'polity',
+    topic: 'माहितीचा अधिकार अधिनियम, २००५ (RTI Act)',
+    subtopic: 'दुसरी अनुसूची व गुप्तचर संस्थांना असलेली सूट (कलम २४)',
+    exam: 'Both',
+    difficulty: 'Hard',
+    questionMr: 'माहितीचा अधिकार अधिनियम २००५ च्या कलम २४ नुसार कायद्याच्या दुसऱ्या अनुसूचीमध्ये नमूद केलेल्या गुप्तचर व सुरक्षा संस्थांना (उदा. IB, RAW) माहिती देण्यापासून सूट आहे; मात्र खालीलपैकी कोणत्या दोन बाबींच्या आरोपांसंदर्भातील माहिती त्यांनाही देणे बंधनकारक आहे?',
+    questionEn: 'Under Section 24 of the RTI Act 2005, intelligence and security organizations listed in the Second Schedule are exempt from RTI. However, allegations regarding which two matters must still be disclosed with Commission approval?',
+    optionsMr: [
+      'भ्रष्टाचार (Corruption) आणि मानवी हक्कांचे उल्लंघन (Human Rights Violations)',
+      'केवळ आर्थिक तोटा व आयात-निर्यात घोटाळा',
+      'कर्मचाऱ्यांच्या अंतर्गत बदल्या व पदोन्नती',
+      'कोणत्याही परिस्थितीत या संस्थांना माहिती देण्यापासून १००% संपूर्ण सूट आहे',
+    ],
+    optionsEn: [
+      'Corruption allegations and Human Rights Violations',
+      'Financial losses and export-import disputes only',
+      'Internal transfers and departmental promotions',
+      'Absolute exemption with no exceptions under any circumstances',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'कलम २४(१) नुसार दुसऱ्या अनुसूचीतील सुरक्षा संस्थांना सर्वसाधारण सूट असली, तरी जर अर्जदाराने भ्रष्टाचाराचे आरोप किंवा मानवी हक्क उल्लंघनाचे आरोप केले असतील तर माहिती देणे अनिवार्य असते. मानवी हक्क उल्लंघनाची माहिती ४५ दिवसांच्या आत आणि केंद्रीय माहिती आयोगाच्या मंजुरीनंतर दिली जाते.',
+    explanationEn: 'Under the provisos to Section 24(1), information pertaining to allegations of corruption and human rights violations is not exempt. Human rights claims require Information Commission sanction and must be provided within 45 days.',
+    reference: 'माहितीचा अधिकार अधिनियम २००५ कलम २४ / सर्वोच्च न्यायालय निवाडे',
+    yearTag: 'MPSC Rajyaseva GS-2 Core Law',
+  }
+];
