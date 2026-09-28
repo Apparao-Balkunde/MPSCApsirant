@@ -12,7 +12,13 @@ import {
   HelpCircle,
   Eye,
   Check,
-  Award
+  Award,
+  Bookmark,
+  Languages,
+  Clock,
+  Sparkle,
+  Info,
+  Maximize2
 } from 'lucide-react';
 import { Question, SubjectId } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -27,6 +33,7 @@ import { QUESTIONS_SET_24 } from '../data/questionsSet24';
 import { QUESTIONS_SET_25 } from '../data/questionsSet25';
 import { QUESTIONS_SET_26 } from '../data/questionsSet26';
 import { QUESTIONS_SET_27 } from '../data/questionsSet27';
+import { QUESTIONS_SET_28 } from '../data/questionsSet28';
 import { NEW_FIREBASE_MCQS } from '../data/mpscQuestions';
 import { FIREBASE_MCQS_BATCH_2 } from '../data/firebaseMcqsBatch2';
 import { NEW_QUESTIONS_BATCH_2026 } from '../data/newQuestionsBatch2026';
@@ -102,6 +109,22 @@ const PRESET_TEMPLATES = [
     expMr: 'महाराष्ट्र शासनाच्या २०२४-२५ च्या अर्थसंकल्पात घोषित या योजनेन्वये २१ ते ६५ वर्षे वयोगटातील पात्र महिलांना दरमहा ₹१,५०० थेट बँक खात्यात दिले जातात.',
     expEn: 'Under this scheme, eligible women aged 21-65 receive ₹1,500 directly into their bank accounts monthly.',
     ref: 'महाराष्ट्र शासन राजपत्र / महिला व बालविकास विभाग'
+  },
+  {
+    label: 'दर्पणकार बाळशास्त्री जांभेकर व दिग्दर्शन मासिक',
+    subjectId: 'maharashtra_history' as SubjectId,
+    topic: 'वृत्तपत्रे व प्रबोधन चळवळ',
+    subtopic: 'मराठी पत्रकारिता व पहिले मासिक (१८४०)',
+    difficulty: 'Moderate' as const,
+    exam: 'Both' as const,
+    qMr: 'मराठी वृत्तपत्रसृष्टीचे जनक बाळशास्त्री जांभेकर यांनी ६ जानेवारी १८३२ रोजी "दर्पण" वृत्तपत्र सुरू केल्यानंतर १८४० मध्ये मराठीतील पहिले मासिक कोणत्या नावाने सुरू केले?',
+    qEn: 'Which first Marathi monthly magazine was launched by Balshastri Jambhekar in 1840 after starting the newspaper "Darpan" in 1832?',
+    optMr: ['दिग्दर्शन (Digdarshan)', 'ज्ञानोदय', 'प्रभाकर', 'विविधज्ञानविस्तार'],
+    optEn: ['Digdarshan', 'Dnyanodaya', 'Prabhakar', 'Vividha Dnyan Vistar'],
+    ansIdx: 0,
+    expMr: 'बाळशास्त्री जांभेकर यांनी मे १८४० मध्ये "दिग्दर्शन" हे मराठीतील पहिले मासिक सुरू केले. ६ जानेवारी हा त्यांचा जन्मदिवस महाराष्ट्रात "पत्रकार दिन" म्हणून साजरा केला जातो.',
+    expEn: 'Balshastri Jambhekar launched "Digdarshan" in May 1840 as the first monthly periodical in Marathi.',
+    ref: 'आधुनिक महाराष्ट्राचा इतिहास - डॉ. अनिल कठारे / सुधीर फडके'
   }
 ];
 
@@ -113,6 +136,7 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
   const isMr = language === 'mr';
 
   const [subjectId, setSubjectId] = useState<SubjectId>('polity');
+  const selectedSubject = SUBJECTS.find(s => s.id === subjectId) || SUBJECTS[0];
   const [topic, setTopic] = useState('');
   const [subtopic, setSubtopic] = useState('');
   const [difficulty, setDifficulty] = useState<'Easy' | 'Moderate' | 'Hard'>('Moderate');
@@ -133,6 +157,12 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
   const [isSaving, setIsSaving] = useState(false);
   const [isBulkSyncing, setIsBulkSyncing] = useState(false);
   const [notification, setNotification] = useState<{ type: 'success' | 'error' | 'info'; message: string } | null>(null);
+
+  // Real-time Exam Card Preview states
+  const [previewLang, setPreviewLang] = useState<'mr' | 'en'>(language);
+  const [previewSelectedOption, setPreviewSelectedOption] = useState<number | null>(null);
+  const [previewShowExplanation, setPreviewShowExplanation] = useState<boolean>(true);
+  const [isPreviewBookmarked, setIsPreviewBookmarked] = useState<boolean>(false);
 
   const handleOptionChangeMr = (idx: number, value: string) => {
     const updated = [...optionsMr];
@@ -160,6 +190,7 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
     setExplanationMr(preset.expMr);
     setExplanationEn(preset.expEn);
     setReference(preset.ref);
+    setPreviewSelectedOption(null);
     setNotification({
       type: 'info',
       message: isMr ? `नमुना प्रश्न लोड केला: ${preset.label}` : `Loaded template: ${preset.label}`
@@ -284,6 +315,7 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
       setReference('');
       setTopic('');
       setSubtopic('');
+      setPreviewSelectedOption(null);
     } catch (err: any) {
       // Even if firestore errors, update locally
       onQuestionAdded(newQuestion);
@@ -317,6 +349,7 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
         ...QUESTIONS_SET_25,
         ...QUESTIONS_SET_26,
         ...QUESTIONS_SET_27,
+        ...QUESTIONS_SET_28,
       ];
       const count = await bulkStoreMCQsToFirestore(allBatchQuestions);
       setNotification({
@@ -649,6 +682,246 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
               placeholder="English explanation (optional)..."
               className="w-full bg-stone-800 border border-stone-700 text-stone-100 rounded-xl p-2.5 text-xs leading-relaxed focus:outline-none focus:border-amber-500"
             />
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* Real-time Exam Card Preview Section */}
+        {/* ========================================================================= */}
+        <div className="pt-4 border-t border-stone-800 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-amber-400" />
+              <span className="text-sm font-bold text-white">
+                {isMr ? 'लाईव्ह परीक्षा स्क्रीन प्रिव्ह्यू (Live Exam Screen Preview)' : 'Live Exam Screen Preview'}
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                {isMr ? 'रिअल-टाइम' : 'Real-time'}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Language toggle for preview */}
+              <button
+                type="button"
+                onClick={() => setPreviewLang(previewLang === 'mr' ? 'en' : 'mr')}
+                className="flex items-center gap-1.5 px-2.5 py-1 bg-stone-800 hover:bg-stone-750 border border-stone-700 rounded-lg text-xs font-bold text-stone-200 cursor-pointer transition-colors"
+                title={isMr ? "प्रिव्ह्यू भाषा बदला (मराठी / English)" : "Toggle preview language"}
+              >
+                <Languages className="w-3.5 h-3.5 text-amber-400" />
+                <span>{previewLang === 'mr' ? 'English Preview' : 'मराठी प्रिव्ह्यू'}</span>
+              </button>
+
+              {/* Show/Hide Answer & Explanation in preview */}
+              <button
+                type="button"
+                onClick={() => setPreviewShowExplanation(!previewShowExplanation)}
+                className={`flex items-center gap-1.5 px-2.5 py-1 border rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+                  previewShowExplanation
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                    : 'bg-stone-800 text-stone-400 border-stone-700 hover:bg-stone-750'
+                }`}
+                title={isMr ? "उत्तराची तपासणी व स्पष्टीकरण चालू/बंद करा" : "Toggle answer verification & explanation"}
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>{previewShowExplanation ? (isMr ? 'उत्तर दाखवा: चालू' : 'Key: ON') : (isMr ? 'उत्तर दाखवा: बंद' : 'Key: OFF')}</span>
+              </button>
+            </div>
+          </div>
+
+          <p className="text-xs text-stone-400">
+            {isMr 
+              ? 'खाली दिलेले कार्ड विद्यार्थी प्रत्यक्ष चाचणी देताना जसे दिसेल हुबेहूब तसेच रिअल-टाइम दाखवते. पर्याय दाबून उत्तराची चाचणी घेऊ शकता.' 
+              : 'This live card mirrors how the question will appear in the actual MPSC examination screen. Click options to test selection.'}
+          </p>
+
+          {/* Exam Card Simulation (Exact replica of ExamScreen styling) */}
+          <div className="bg-white rounded-xl border border-stone-200 shadow-md overflow-hidden text-stone-900 transition-all">
+            {/* Simulation Header Bar */}
+            <div className="bg-stone-50 border-b border-stone-200 px-4 sm:px-6 py-3 flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <span className="bg-stone-900 text-white font-bold text-xs px-2.5 py-1 rounded-md shadow-xs">
+                  {previewLang === 'mr' ? 'प्रश्न क्र.' : 'Question'} {totalQuestionsCount + 1}
+                </span>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700">
+                  {previewLang === 'mr' ? selectedSubject?.nameMr : selectedSubject?.nameEn}
+                </span>
+                <span className="hidden sm:inline text-xs text-stone-500">
+                  • {topic.trim() || (previewLang === 'mr' ? 'घटक / टॉपिक' : 'Topic')}
+                </span>
+                {subtopic.trim() && (
+                  <span className="hidden md:inline text-[11px] text-stone-400">
+                    ({subtopic.trim()})
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* Bookmark Toggle Simulation */}
+                <button
+                  type="button"
+                  onClick={() => setIsPreviewBookmarked(!isPreviewBookmarked)}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold border transition-colors cursor-pointer ${
+                    isPreviewBookmarked
+                      ? 'bg-amber-50 text-amber-700 border-amber-300'
+                      : 'bg-white text-stone-600 border-stone-300 hover:bg-stone-50'
+                  }`}
+                  title="Bookmark test"
+                >
+                  <Bookmark className={`w-3.5 h-3.5 ${isPreviewBookmarked ? 'fill-amber-600 text-amber-600' : ''}`} />
+                  <span>
+                    {isPreviewBookmarked
+                      ? (previewLang === 'mr' ? 'जतन केले' : 'Saved')
+                      : (previewLang === 'mr' ? 'जतन करा' : 'Bookmark')}
+                  </span>
+                </button>
+
+                <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                  +२.०० / -०.५०
+                </span>
+
+                <span className={`text-[11px] font-bold px-2 py-0.5 rounded ${
+                  difficulty === 'Hard'
+                    ? 'bg-red-50 text-red-700 border border-red-200'
+                    : difficulty === 'Moderate'
+                    ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                    : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                }`}>
+                  {difficulty === 'Hard' ? (previewLang === 'mr' ? 'कठीण' : 'Hard') : difficulty === 'Moderate' ? (previewLang === 'mr' ? 'मध्यम' : 'Moderate') : (previewLang === 'mr' ? 'सोपे' : 'Easy')}
+                </span>
+              </div>
+            </div>
+
+            {/* Question Text Area */}
+            <div className="p-4 sm:p-6 space-y-5">
+              <div className="text-base sm:text-lg font-medium text-stone-900 leading-relaxed whitespace-pre-line min-h-[48px]">
+                {previewLang === 'mr'
+                  ? (questionMr.trim() || <span className="text-stone-400 italic">येथे मराठीत प्रश्न टाईप केल्यावर तो लाईव्ह दिसेल...</span>)
+                  : (questionEn.trim() || questionMr.trim() || <span className="text-stone-400 italic">English question text will appear here as you type...</span>)
+                }
+              </div>
+
+              {/* 4 Interactive Options */}
+              <div className="space-y-3 pt-1">
+                {[0, 1, 2, 3].map((optIdx) => {
+                  const optTextMr = optionsMr[optIdx]?.trim();
+                  const optTextEn = optionsEn[optIdx]?.trim();
+                  const displayText = previewLang === 'mr' 
+                    ? (optTextMr || optTextEn || `${isMr ? 'पर्याय' : 'Option'} ${optIdx + 1}`) 
+                    : (optTextEn || optTextMr || `Option ${optIdx + 1}`);
+
+                  const isSelected = previewSelectedOption === optIdx;
+                  const isCorrect = correctAnswerIndex === optIdx;
+
+                  // Highlighting styles
+                  let cardStyle = 'border-stone-200 hover:border-stone-300 bg-white hover:bg-stone-50/60';
+                  let badgeStyle = 'border-2 border-stone-300 text-stone-600';
+
+                  if (isSelected) {
+                    cardStyle = 'border-amber-500 bg-amber-50/60 shadow-xs ring-1 ring-amber-400';
+                    badgeStyle = 'bg-amber-600 text-white border-amber-600';
+                  }
+
+                  if (previewShowExplanation && isCorrect) {
+                    cardStyle = isSelected 
+                      ? 'border-emerald-500 bg-emerald-50/80 shadow-xs ring-2 ring-emerald-500' 
+                      : 'border-emerald-400 bg-emerald-50/40';
+                    badgeStyle = 'bg-emerald-600 text-white border-emerald-600';
+                  } else if (previewShowExplanation && isSelected && !isCorrect) {
+                    cardStyle = 'border-rose-400 bg-rose-50/60 ring-2 ring-rose-400';
+                    badgeStyle = 'bg-rose-600 text-white border-rose-600';
+                  }
+
+                  return (
+                    <div
+                      key={optIdx}
+                      onClick={() => setPreviewSelectedOption(isSelected ? null : optIdx)}
+                      className={`flex items-start gap-3 p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer ${cardStyle}`}
+                    >
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 transition-colors ${badgeStyle}`}>
+                        {optIdx + 1}
+                      </div>
+                      <div className="flex-1 flex items-center justify-between gap-2">
+                        <span className="text-sm sm:text-base text-stone-800 font-medium leading-normal">
+                          {displayText}
+                        </span>
+
+                        {previewShowExplanation && isCorrect && (
+                          <span className="shrink-0 text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                            <Check className="w-3 h-3 text-emerald-700" />
+                            {previewLang === 'mr' ? 'अचूक उत्तर' : 'Correct'}
+                          </span>
+                        )}
+
+                        {previewShowExplanation && isSelected && !isCorrect && (
+                          <span className="shrink-0 text-xs font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 flex items-center gap-1">
+                            ✕ {previewLang === 'mr' ? 'चुकीचे उत्तर' : 'Incorrect'}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Explanation & Reference Box in Preview */}
+              {previewShowExplanation && (
+                <div className="mt-4 p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2 text-stone-800 animate-in fade-in-50 duration-200">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-amber-800">
+                    <Info className="w-4 h-4 text-amber-600" />
+                    <span>{previewLang === 'mr' ? 'स्पष्टीकरण व अधिकृत संदर्भ (Official Reference):' : 'Explanation & Official Reference:'}</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-stone-700 leading-relaxed whitespace-pre-line">
+                    {previewLang === 'mr'
+                      ? (explanationMr.trim() || <span className="text-stone-400 italic">स्पष्टीकरण टाईप केल्यास येथे स्पष्टीकरण कार्ड दिसेल...</span>)
+                      : (explanationEn.trim() || explanationMr.trim() || <span className="text-stone-400 italic">Explanation will appear here...</span>)
+                    }
+                  </p>
+                  {(reference.trim() || exam) && (
+                    <div className="pt-2 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500 font-medium flex-wrap gap-2">
+                      <span>
+                        📖 {previewLang === 'mr' ? 'संदर्भ' : 'Reference'}: <strong className="text-stone-700">{reference.trim() || 'MPSC Standard References'}</strong>
+                      </span>
+                      <span className="bg-stone-200 text-stone-700 px-2 py-0.5 rounded font-semibold">
+                        🎯 {exam === 'Both' ? 'Rajyaseva & Combine' : exam}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Simulated Action Footer Bar */}
+            <div className="bg-stone-50 border-t border-stone-200 p-3 sm:p-4 flex items-center justify-between flex-wrap gap-2 text-xs">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsPreviewBookmarked(!isPreviewBookmarked)}
+                  className="px-3 py-1.5 rounded-lg border border-stone-300 bg-white text-stone-700 font-semibold hover:bg-stone-100 cursor-pointer"
+                >
+                  {previewLang === 'mr' ? 'पुनरावलोकनासाठी खूण करा' : 'Mark for Review'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewSelectedOption(null)}
+                  disabled={previewSelectedOption === null}
+                  className="px-3 py-1.5 rounded-lg border border-stone-300 bg-white text-stone-700 font-semibold hover:bg-stone-100 cursor-pointer disabled:opacity-40"
+                >
+                  {previewLang === 'mr' ? 'पर्याय साफ करा' : 'Clear Response'}
+                </button>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold text-stone-500">
+                  {previewSelectedOption !== null 
+                    ? (previewLang === 'mr' ? `पर्याय ${previewSelectedOption + 1} निवडला आहे` : `Selected Option ${previewSelectedOption + 1}`) 
+                    : (previewLang === 'mr' ? 'पर्याय निवडलेला नाही' : 'No option selected')}
+                </span>
+                <span className="px-3 py-1.5 bg-amber-500 text-stone-950 font-bold rounded-lg shadow-xs">
+                  {previewLang === 'mr' ? 'सेव्ह करा व पुढील' : 'Save & Next ➔'}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
