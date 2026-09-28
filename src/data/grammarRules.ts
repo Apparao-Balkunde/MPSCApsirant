@@ -467,6 +467,120 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     tags: ['समास', 'अव्ययीभाव', 'तत्पुरुष', 'द्वंद्व', 'बहुव्रीही', 'मध्यमपदलोपी']
   },
 
+  // --- 6. आख्यात विचार (Aakhyat Vichar) ---
+  {
+    id: 'mr_rule_aakhyat_01',
+    language: 'marathi',
+    category: 'आख्यात विचार',
+    categoryMr: 'क्रियापद व आख्यात विचार (७ आख्याते व काळ/अर्थ)',
+    title: 'Aakhyat Vichar: 7 Verbal Suffixes and their Corresponding Tenses/Moods',
+    titleMr: 'आख्यात विचार: क्रियापदाचे ७ मुख्य आख्यात आणि त्यांचे काळ व अर्थ',
+    formula: 'ताख्यात (वर्तमानकाळ) | लाख्यात (भूतकाळ) | ईल-ख्यात (भविष्यकाळ) | ई-ख्यात (रीती भूतकाळ) | ऊख्यात (आज्ञार्थ) | वाख्यात (विध्यर्थ) | ताख्यात (संकेतार्थ)',
+    formulaMr: 'संस्कृतमध्ये क्रियापदाला \'आख्यात\' म्हणतात. मराठीत क्रियापदाच्या विविध काळातील व अर्थांतील रूपांना लागणाऱ्या प्रत्ययावरून ७ आख्याते ठरतात.',
+    definition: 'In Marathi grammar, "Aakhyat" denotes the inflectional ending of a verb indicating tense or mood. There are seven primary Aakhyatas corresponding to specific tenses (वर्तमान, भूत, भविष्य) and moods (आज्ञा, विधी, संकेत).',
+    definitionMr: 'मराठी व्याकरणात संस्कृत परंपरेनुसार क्रियापदाला व त्याच्या रूपांना \'आख्यात\' म्हटले जाते. लिंग, वचन व पुरुषानुसार क्रियापदाच्या रूपात जो बदल होतो, त्याला \'आख्यातविकार\' म्हणतात. क्रियापदाच्या अंती येणाऱ्या मुख्य अक्षरावरून त्या आख्याताचे नाव पडते.',
+    keyPoints: [
+      '1. Tākhyāt (ताख्यात - प्रथमाख्यात): Present Tense (वर्तमानकाळ) - बसतो, वाचतो, धावतो.',
+      '2. Ī-khyāt (ई-ख्यात - द्वितीयाख्यात): Habitual Past (रीती भूतकाळ) - जाई, येई, बसे, करी.',
+      '3. Lākhyāt (लाख्यात - तृतीयाख्यात): Simple Past (भूतकाळ) - गेला, बसला, वाचले, उठला.',
+      '4. Īl-khyāt (ईल-ख्यात - चतुर्थाख्यात): Future Tense (भविष्यकाळ) - जाईल, करेल, बसेल, लिहील.',
+      '5. Ūkhyāt (ऊख्यात): Imperative Mood (आज्ञार्थ) - जावो, करो, बसो, राहो (उदा. देव तुझे भले करो).',
+      '6. Vākhyāt (वाख्यात): Potential/Obligatory Mood (विध्यर्थ) - करावे, जावे, शिकावे, लिहावे (कर्तव्य, शक्यता).',
+      '7. Tākhyāt (ताख्यात - संकेतार्थ): Subjunctive/Conditional (संकेतार्थ) - जाता, करता (उदा. पाऊस पडता तर शेतकरी सुखावला असता).'
+    ],
+    keyPointsMr: [
+      '१. ताख्यात (प्रथमाख्यात): साधा वर्तमानकाळ (उदा. तो निबंध लिहितो, मुले खेळतात).',
+      '२. ई-ख्यात (द्वितीयाख्यात): रीती भूतकाळ (उदा. तो दररोज मंदिरात जाई, आजी गोष्ट सांगे).',
+      '३. लाख्यात (तृतीयाख्यात): साधा भूतकाळ (उदा. त्याने आंबा खाल्ला, रामाने धनुष्य मोडले).',
+      '४. ईल-ख्यात (चतुर्थाख्यात): साधा भविष्यकाळ (उदा. मी उद्या पुण्याला जाईन, तो अभ्यास करेल).',
+      '५. ऊख्यात: आज्ञार्थ व आशीर्वाद (उदा. ईश्वरा, सर्वांना सुखी ठेव; देव तुझे भले करो).',
+      '६. वाख्यात: विध्यर्थ - कर्तव्य, योग्यता, इच्छा (उदा. आई-वडिलांची सेवा करावी, आपण नेहमी खरे बोलावे).',
+      '७. ताख्यात (संकेतार्थ): अटीचे वाक्य (उदा. चांगला पाऊस पडता तर दुष्काळ टळला असता).'
+    ],
+    examples: [
+      {
+        sentence: '"आई-वडिलांची आज्ञा पाळावी." ➔ या वाक्यातील क्रियापदाचा आख्यात ओळखा.',
+        isCorrect: true,
+        explanation: 'Correct. "पाळावी" ends in "वा/वी/वे", which expresses duty/obligation (विध्यर्थ), hence it is वाख्यात (Vakhyat).',
+        explanationMr: 'बरोबर! "पाळावी" या विध्यर्थी (कर्तव्य दर्शक) क्रियापदाच्या शेवटी \'वा/वी/वे\' प्रत्यय आल्याने हा "वाख्यात" (विध्यर्थ) आहे.'
+      },
+      {
+        sentence: '"तो दररोज नदीकाठी फिरावयास जाई." ➔ आख्यात ओळखा.',
+        isCorrect: true,
+        explanation: 'Correct. "जाई" indicates habitual past (रीती भूतकाळ) ending in vowel "ई", hence ई-ख्यात (द्वितीयाख्यात).',
+        explanationMr: 'बरोबर! भूतकाळातील सातत्य/सवय दाखवणारे "जाई" हे रूप \'ई-ख्यात\' (द्वितीयाख्यात) दर्शवते.'
+      },
+      {
+        sentence: '"रामाने रावणाचा वध केला." ➔ हे ताख्यात आहे.',
+        isCorrect: false,
+        explanation: 'Incorrect! "केला" ends with "ला" indicating past tense, so it is Lākhyāt (लाख्यात), NOT Tākhyāt.',
+        explanationMr: 'चूक! "केला" हे भूतकाळी रूप असून शेवटी \'ला\' आल्याने हा "लाख्यात" (तृतीयाख्यात) आहे; ताख्यात नाही!'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC आख्यात तक्ता (तोंडपाठ करा):\n• तो/ती/ते प्रत्यय ➔ ताख्यात (वर्तमानकाळ)\n• ला/ली/ले प्रत्यय ➔ लाख्यात (भूतकाळ)\n• ईल/एल प्रत्यय ➔ ईल-ख्यात (भविष्यकाळ)\n• ई/ए प्रत्यय ➔ ई-ख्यात (रीती भूतकाळ)\n• वा/वी/वे प्रत्यय ➔ वाख्यात (विध्यर्थ)\n• ओ प्रत्यय (करो/जावो) ➔ ऊख्यात (आज्ञार्थ)',
+    examTipMr: 'MPSC ची सुपर-ट्रिक: क्रियापदाचा शेवटचा अक्षर पाहा:\n१. लिहितो (तो) ➔ ताख्यात\n२. लिहिले (ले/ला) ➔ लाख्यात\n३. लिहील (ईल) ➔ ईल-ख्यात\n४. लिहावे (वे/वा) ➔ वाख्यात\n५. लिही (ई) ➔ ई-ख्यात\n६. करो/जावो (ओ) ➔ ऊख्यात',
+    practiceQuestionIds: ['mr_vocab_02'],
+    tags: ['आख्यात विचार', 'वाख्यात', 'लाख्यात', 'ताख्यात', 'ऊख्यात', 'क्रियापद', 'MPSC Rules']
+  },
+
+  // --- 7. अलंकार विचार (Alankar Rules) ---
+  {
+    id: 'mr_rule_alankar_01',
+    language: 'marathi',
+    category: 'अलंकार विचार',
+    categoryMr: 'मराठी अलंकार (उपमा, उत्प्रेक्षा, रूपक, व्यतिरेक, श्लेष, अपन्हुती)',
+    title: 'Alankar Identification Formulas: Upama, Utpreksha, Rupak, Vyatirek, Shlesh, Apanhuti',
+    titleMr: 'अलंकार ओळखण्याची अचूक सूत्रे: उपमा, उत्प्रेक्षा, रूपक, व्यतिरेक, श्लेष, दृष्टांत, अपन्हुती',
+    formula: 'उपमा (सारखा/सम) | उत्प्रेक्षा (जणू/वाटे/गमे) | रूपक (उपमेय-उपमान एकरूप) | व्यतिरेक (उपमेय श्रेष्ठ) | अपन्हुती (नव्हे/नसे) | श्लेष (२ अर्थ)',
+    formulaMr: 'काव्याचे किंवा भाषेचे सौंदर्य वाढविणाऱ्या गुणधर्मांना \'अलंकार\' म्हणतात. शब्दांवरून शब्दालंकार आणि अर्थावरून अर्थालंकार ठरतात.',
+    definition: 'Figures of speech (Alankara) in Marathi literature enhance expressiveness. Semantic figures (अर्थालंकार) rely fundamentally on four components: Upameya (उपमेय - वर्णन करायची वस्तू), Upamana (उपमान - ज्याच्याशी तुलना करायची ती प्रसिद्ध वस्तू), Sadharana Dharma (साधारण धर्म - दोघांमधील समान गुण), and Samyavachak Shabd (साम्यवाचक शब्द).',
+    definitionMr: 'भाषेचे सौंदर्य खुलविण्यासाठी कवितेत किंवा गद्यात वापरलेल्या चमत्कृतीपूर्ण रचनेला अलंकार म्हणतात. अर्थालंकारात उपमेय (ज्याची तुलना करायची ती वस्तू) व उपमान (ज्याच्याशी तुलना करायची ती मूळ प्रसिद्ध वस्तू) यांतील संबंधांवरून अलंकाराचे प्रकार ठरतात.',
+    keyPoints: [
+      '1. Upamā (उपमा): Two objects compared using words like सारखा, सम, सदृश, गत, जेवी, प्रमाणे (उदा. सावळाच रंग तुझा पावसाळी नभापरी).',
+      '2. Utprekshā (उत्प्रेक्षा): Upameya is imagined to be Upamana using जणू, काय, गमे, वाटे, भासे, जणूकाही (उदा. हा आंबा जणू अमृतच!).',
+      '3. Rūpak (रूपक): Upameya and Upamana are treated as entirely identical, non-different (उदा. लहान मूल म्हणजे मातीचा गोळा).',
+      '4. Vyatirek (व्यतिरेक): Upameya is described as distinctly SUPERIOR to Upamana (उदा. अमृताहुनि गोड नाम तुझे देवा).',
+      '5. Apanhuti (अपन्हुती): Concealing the Upameya and declaring that it is actually the Upamana using न, नव्हे, नसे, कसले (उदा. न हे नयन, पाकळ्या उमलल्या सरोजातील).',
+      '6. Shlesh (श्लेष): A single word carries two distinct contextual meanings (उदा. श्रीकृष्ण नवरा मी नवरी, शिशुपाल नवरा मी न-वरी; मित्राच्या उदयाने कोणाला आनंद होत नाही? मित्र = सूर्य / सखा).'
+    ],
+    keyPointsMr: [
+      '१. उपमा अलंकार: दोन वस्तूंतील साम्य दाखवण्यासाठी \'सारखा, सम, प्रमाणे, परी, गत\' हे शब्द येतात. (उदा. त्याचे अक्षर मोत्यासारखे सुंदर आहे).',
+      '२. उत्प्रेक्षा अलंकार: उपमेय हे जणू काही उपमानच आहे अशी कल्पना केली जाते. खूण शब्द: \'जणू, जणूकाय, वाटे, गमे, भासे, की\'. (उदा. ती गुलाबी उषा म्हणजे परमेश्वराचे जणू प्रेमच!).',
+      '३. रूपक अलंकार: उपमेय व उपमान यांत अजिबात भेद नसून ती दोन्ही एकरूपच आहेत असे दाखवले जाते. (उदा. बाई, न हे हृदयकमळ, येथे प्रभू वसती; लहान मूल म्हणजे मातीचा गोळा).',
+      '४. व्यतिरेक अलंकार: उपमेय हे उपमानापेक्षाही गुणाने श्रेष्ठ दाखवले जाते. (उदा. अमृताहुनि गोड नाम तुझे देवा - येथे देवाची तुलना अमृताशी करताना देवाचे नाव अमृतापेक्षाही गोड सांगितले आहे).',
+      '५. अपन्हुती अलंकार: उपमेयाचा निषेध करून (नव्हे, नसे, आभास) ते उपमानच आहे असे सांगितले जाते. (उदा. ओठ कशाचे देठचि फुलल्या पारिजातकाचे - ओठांचा निषेध करून ते पारिजातकाचे देठ आहेत असे सांगितले).',
+      '६. श्लेष अलंकार: वाक्यात एकच शब्द दोन वेगवेगळ्या अर्थांनी वापरल्यामुळे चमत्कृती साधते. (उदा. शंकरास पूजिले सुमनाने = चांगल्या मनाने / फुलाने).'
+    ],
+    examples: [
+      {
+        sentence: '"अमृताहुनि गोड नाम तुझे देवा" ➔ या ओळीतील अलंकार ओळखा.',
+        isCorrect: true,
+        explanation: 'Correct. Vyatirek Alankar: The name of God (उपमेय) is elevated above Amrit/Nectar (उपमान) using the suffix \'हुनि\'.',
+        explanationMr: 'बरोबर! उपमेय (देवाचे नाव) हे उपमानापेक्षा (अमृतापेक्षा) श्रेष्ठ ठरवले आहे, म्हणून हा "व्यतिरेक अलंकार" आहे.'
+      },
+      {
+        sentence: '"हा आंबा जणू साखरच!" ➔ या ओळीत उपमा अलंकार आहे.',
+        isCorrect: false,
+        explanation: 'Incorrect! The word "जणू" indicates an imaginary supposition (Utpreksha), NOT Upama.',
+        explanationMr: 'चूक! वाक्यात "जणू" हा शब्द आल्याने ही उत्प्रेक्षा आहे, उपमा नाही!'
+      },
+      {
+        sentence: '"लहान मूल म्हणजे मातीचा गोळा." ➔ रूपक अलंकार',
+        isCorrect: true,
+        explanation: 'Correct. Rupak Alankar: Child and clay are depicted as totally identical without comparison markers.',
+        explanationMr: 'बरोबर! उपमेय (मूल) व उपमान (मातीचा गोळा) एकरूप मानल्याने हा "रूपक अलंकार" आहे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC अलंकार कीवर्ड ट्रिक्स:\n• सारखा, सम, प्रमाणे, परी ➔ उपमा\n• जणू, जणूकाय, वाटे, गमे, भासे ➔ उत्प्रेक्षा\n• म्हणजे, हेच ते (एकरूपता) ➔ रूपक\n• हुनि, पेक्षा (उपमेय श्रेष्ठ) ➔ व्यतिरेक\n• नव्हे, नसे, कशाचे (निषेध) ➔ अपन्हुती\n• २ अर्थ ➔ श्लेष',
+    examTipMr: 'MPSC ची जादूई ट्रिक्स (शब्द पाहून १ सेकंदात ओळखा):\n१. "जणू/वाटे/गमे" दिसले ➔ डोळे झाकून उत्प्रेक्षा!\n२. "सारखा/सम/परी" दिसले ➔ उपमा!\n३. "अमृताहुनि/पेक्षा श्रेष्ठ" दिसले ➔ व्यतिरेक!\n४. "नव्हे/नसे/कशाचे" दिसले ➔ अपन्हुती!\n५. दोन अर्थ निघत असतील ➔ श्लेष!',
+    practiceQuestionIds: ['mr_vocab_02'],
+    tags: ['अलंकार', 'उपमा', 'उत्प्रेक्षा', 'रूपक', 'व्यतिरेक', 'श्लेष', 'अपन्हुती', 'MPSC Rules']
+  },
+
   // =========================================================================
   // ENGLISH GRAMMAR RULES (इंग्रजी व्याकरण नियम)
   // =========================================================================
@@ -1332,5 +1446,1700 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC च्या ३ जोड्या पाठ करा:\n१. No sooner ➔ THAN (than चे स्पेलिंग पाहा, then नाही!)\n२. Hardly / Scarcely ➔ WHEN\n३. Lest ➔ SHOULD (not लावायचा नाही!)',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Conjunctions', 'No sooner than', 'Hardly when', 'Lest should', 'MPSC Rules']
+  },
+
+  // --- 8. Adjectives & Degrees of Comparison ---
+  {
+    id: 'en_rule_adj_01',
+    language: 'english',
+    category: 'Adjectives & Degrees',
+    categoryMr: 'विशेषणे व तुलना (Adjectives & Degrees)',
+    title: 'Latin Adjectives: "Senior, Junior, Superior, Inferior, Prior" with "TO"',
+    titleMr: 'लॅटिन विशेषणे: "Senior, Junior, Superior, Inferior, Prior" नंतर "TO" वापरण्याचा नियम',
+    formula: 'Sub + Verb + Senior / Junior / Superior / Inferior / Prior / Preferable + TO + Obj (Never THAN, Never MORE)',
+    formulaMr: 'Senior, Junior, Superior, Inferior, Prior, Preferable यांच्यानंतर नेहमी \'TO\' येते (\'THAN\' किंवा \'MORE\' कधीही येत नाही!)',
+    definition: 'Certain comparative adjectives of Latin origin ending in \'-ior\' (senior, junior, superior, inferior, prior, anterior, posterior) as well as the adjective \'preferable\' are followed by the preposition \'to\' rather than \'than\'. Since they already possess inherent comparative force, they must never be preceded by \'more\' or \'most\'.',
+    definitionMr: 'लॅटिन भाषेतून इंग्रजीत आलेली \'-ior\' ने समाप्त होणारी विशेषणे (उदा. Senior, Junior, Superior, Inferior, Prior) आणि \'Preferable\' यांच्यासोबत तुलना करताना \'than\' न वापरता \'to\' वापरले जाते. तसेच ही विशेषणे आधीच तुलनात्मक असल्याने यांच्यापूर्वी \'more\' किंवा \'most\' लावण्यास सक्त मनाई आहे.',
+    keyPoints: [
+      'Always use \'to\' after: Senior, Junior, Superior, Inferior, Prior, Anterior, Posterior.',
+      'Never use \'than\' after these Latin adjectives (e.g. "Senior to me", NOT "Senior than me").',
+      'Never use \'more\' or \'less\' before these adjectives (e.g. "more senior" is incorrect double comparative).',
+      '\'Preferable\' also takes \'to\' and never \'than\', and never takes \'more\' (e.g. "Milk is preferable to tea").',
+      'The verb \'prefer\' similarly takes \'to\' between two nouns (e.g. "I prefer tea to coffee").'
+    ],
+    keyPointsMr: [
+      '१. Senior, Junior, Superior, Inferior, Prior, Preferable यांच्यानंतर नेहमी \'TO\' हेच शब्दयोगी अव्यय येते; परीक्षेत \'than\' देऊन फसवले जाते, जे १००% चूक आहे.',
+      '२. या विशेषणांपूर्वी \'more\' किंवा \'most\' कधीही लावू नये (उदा. \'more senior\' किंवा \'more preferable\' हे व्याकरणाच्या दृष्टीने गैरलागू आहे).',
+      '३. \'Prefer\' या क्रियापदानंतरही दोन गोष्टींची तुलना करताना नेहमी \'to\' येते (उदा. I prefer tea to coffee, \'than coffee\' नाही).'
+    ],
+    examples: [
+      {
+        sentence: 'Mr. Deshmukh is senior to all other officers in the revenue department.',
+        isCorrect: true,
+        explanation: 'Correct. "Senior" is properly followed by the preposition "to".',
+        explanationMr: 'बरोबर! \'Senior\' नंतर \'to\' हे शब्दयोगी अव्यय वापरले आहे. (देशमुख साहेब महसूल विभागातील इतर सर्व अधिकाऱ्यांपेक्षा ज्येष्ठ आहेत.)'
+      },
+      {
+        sentence: 'Mr. Deshmukh is senior than all other officers in the revenue department.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC Classic Error: "Senior" must never be followed by "than". It must be "senior to".',
+        explanationMr: 'चूक! MPSC चा सर्वात आवडता ट्रॅप: \'Senior\' नंतर \'than\' चालत नाही; तिथे \'to\' हवे.'
+      },
+      {
+        sentence: 'For breakfast, fresh fruits are preferable to oily snacks.',
+        isCorrect: true,
+        explanation: 'Correct. "Preferable" takes "to" and is not preceded by "more".',
+        explanationMr: 'बरोबर! \'Preferable\' नंतर \'to\' आले असून आधी \'more\' लावलेले नाही. (न्याहारीसाठी तेलकट पदार्थांपेक्षा ताजी फळे अधिक पसंतीस पात्र आहेत.)'
+      },
+      {
+        sentence: 'This mobile phone is more superior than that one.',
+        isCorrect: false,
+        explanation: 'Double error! "More superior" has a redundant "more", and "than" must be replaced with "to" ("superior to").',
+        explanationMr: 'दुहेरी चूक! \'Superior\' आधी \'more\' लावता येत नाही आणि नंतर \'than\' ऐवजी \'to\' हवे (\'This mobile phone is superior to that one\').'
+      }
+    ],
+    exceptions: [
+      'All standard English comparative adjectives take \'than\' (e.g., taller than, better than, faster than); only these specific Latin loan adjectives take \'to\'.'
+    ],
+    exceptionsMr: [
+      'इतर सर्व इंग्रजी Comparative Adjectives नंतर सामान्यतः \'than\' येते (उदा. taller than, better than, wiser than); फक्त या विशिष्ट लॅटिन शब्दांनंतरच \'to\' येते.'
+    ],
+    examTip: 'MPSC Golden Shortcut: Whenever you spot Senior, Junior, Superior, Inferior, Prior, or Preferable, verify two things instantly:\n1. Is it preceded by "more"? (If yes ➔ ERROR!)\n2. Is it followed by "than"? (If yes ➔ ERROR! Must be "to"!)',
+    examTipMr: 'MPSC सुवर्ण क्लृप्ती: जर वाक्यात Senior, Junior, Superior, Inferior, Prior किंवा Preferable दिसले, तर डोळे झाकून दोन गोष्टी तपासा:\n१. त्यांच्याआधी \'more\' नाही ना? (असल्यास चूक!)\n२. त्यांच्यापुढे \'to\' आहे ना? (\'than\' असल्यास चूक!)',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Adjectives', 'Degrees of Comparison', 'Senior to', 'Latin Adjectives', 'MPSC English']
+  },
+
+  // --- 9. Nouns & Numbers (Singular vs Plural Rules) ---
+  {
+    id: 'en_rule_noun_01',
+    language: 'english',
+    category: 'Nouns & Numbers',
+    categoryMr: 'नाम व वचन नियम (Nouns & Numbers)',
+    title: 'Uncountable Nouns Always in Singular Form (No "s/es", No "a/an")',
+    titleMr: 'नेहमी एकवचनात राहणारी व अनेकवचन न होणारी नामे (Uncountable Nouns Rule)',
+    formula: 'Furniture / Information / Advice / Scenery / Luggage / Baggage / Poetry / Stationery / Hair + ALWAYS Singular Verb',
+    formulaMr: 'Furniture, Information, Advice, Scenery, Luggage, Poetry, Hair हे शब्द नेहमी एकवचनातच राहतात; यांना \'s/es\' लागत नाही आणि इनके आधी थेट \'a/an\' लागत नाही.',
+    definition: 'Certain nouns in English are strictly uncountable and have no plural form. They always take a singular verb and cannot be preceded directly by indefinite articles \'a\' or \'an\'. To express quantity, phrases like "a piece of", "an item of", or "pieces of" are used.',
+    definitionMr: 'इंग्रजीतील काही नामे केवळ एकवचनातच (Uncountable) वापरली जातात. त्यांना \'s\' किंवा \'es\' लावून अनेकवचन करता येत नाही. तसेच त्यांच्यापूर्वी थेट \'a\' किंवा \'an\' वापरता येत नाही. त्यांच्यासोबत नेहमी एकवचनी क्रियापद (is, was, has) येते.',
+    keyPoints: [
+      'Key Uncountable Nouns: Furniture, Information, Advice, Scenery, Luggage, Baggage, Poetry, Machinery, Stationery, Hair, Bread, Crockery, Jewellery.',
+      'Never add \'s\' or \'es\' to make them plural (e.g. "Furnitures", "Informations", "Advices", "Sceneries" do not exist in standard English).',
+      'Always take singular verbs: "The furniture was damaged", NOT "were damaged".',
+      'To make them countable, use: "a piece of advice", "two pieces of furniture", "an article of luggage", "a strand of hair".'
+    ],
+    keyPointsMr: [
+      '१. महत्त्वाचे शब्द: Furniture, Information, Advice, Scenery, Luggage, Baggage, Poetry, Machinery, Stationery, Hair, Bread, Crockery, Jewellery.',
+      '२. यांच्या शेवटी \'s\' किंवा \'es\' लावून अनेकवचन करणे ही व्याकरणातील गंभीर चूक आहे (उदा. \'Furnitures\', \'Informations\', \'Advices\', \'Sceneries\' हे शब्द इंग्रजीत अस्तित्वातच नाहीत!).',
+      '३. यांच्यासोबत नेहमी एकवचनी क्रियापद (is, was, has) येते.',
+      '४. अनेकवचनी अर्थ दाखवायचा असल्यास: \'pieces of furniture\', \'pieces of advice\', \'articles of luggage\', \'much information\' अशी रचना करावी लागते.'
+    ],
+    examples: [
+      {
+        sentence: 'The scenery of Kashmir is breathtaking and attracts thousands of tourists.',
+        isCorrect: true,
+        explanation: 'Correct. "Scenery" is singular uncountable and takes the singular verb "is".',
+        explanationMr: 'बरोबर! \'Scenery\' हे नाम एकवचनी मानले जाते आणि क्रियापद \'is\' येते. (काश्मीरचा निसर्ग देखावा अतिशय विलोभनीय आहे.)'
+      },
+      {
+        sentence: 'The sceneries of Kashmir are breathtaking.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Scenery" has no plural form "sceneries". It must be "The scenery... is".',
+        explanationMr: 'चूक! \'Scenery\' चे \'sceneries\' कधीही होत नाही आणि क्रियापद \'are\' न येता \'is\' हवे.'
+      },
+      {
+        sentence: 'The police have collected crucial information regarding the scam.',
+        isCorrect: true,
+        explanation: 'Correct. "Information" is uncountable without any "s". Note also that "The police" takes a plural verb "have".',
+        explanationMr: 'बरोबर! \'Information\' ला \'s\' लावलेला नाही. (तसेच \'The police\' हे नेहमी अनेकवचनी मानले जात असल्याने क्रियापद \'have\' आले आहे.)'
+      },
+      {
+        sentence: 'The officer gave me an advice to prepare previous years\' question papers.',
+        isCorrect: false,
+        explanation: 'Incorrect! Uncountable nouns cannot take the article "an". It should be "a piece of advice" or simply "advice".',
+        explanationMr: 'चूक! \'Advice\' हे मोजता न येणारे (Uncountable) नाम असल्याने त्याच्याआधी थेट \'an\' चालत नाही; \'a piece of advice\' किंवा फक्त \'advice\' असे म्हणावे.'
+      }
+    ],
+    exceptions: [
+      'Nouns ending in "-s" that look plural but are singular in meaning take singular verbs: Mathematics, Physics, Politics, Economics, Ethics, News, Innings, Measles, Rickets (e.g., "Politics is a dirty game").',
+      'Collective nouns that take plural verbs: Cattle, People, Police, Gentry, Poultry (e.g., "The cattle are grazing in the field").'
+    ],
+    exceptionsMr: [
+      'शेवटी \'-s\' असणारे पण एकवचनी असणारे शब्द: Mathematics, Physics, Economics, Politics, News, Innings (उदा. "Mathematics is an interesting subject", \'are\' नाही!).',
+      'नेहमी अनेकवचनी क्रियापद घेणारे शब्द: Cattle, Police, People (उदा. "The police have arrested the culprit", \'has\' नाही!).'
+    ],
+    examTip: 'MPSC Trap Words to Memorize:\n• Furnitures ➔ ERROR (Say: Furniture)\n• Informations ➔ ERROR (Say: Information)\n• Advices ➔ ERROR (Say: Advice)\n• Sceneries ➔ ERROR (Say: Scenery)\n• Luggages ➔ ERROR (Say: Luggage)',
+    examTipMr: 'MPSC परीक्षा क्लृप्ती: प्रश्नपत्रिकेत जर Furnitures, Informations, Advices, Sceneries, Luggages, Baggages दिसले, तर तोच भाग चुकीचा (Error) असतो! तसेच \'Hair\' चे \'Hairs\' होत नाही (उदा. His hair is grey, \'are\' किंवा \'hairs\' नाही).',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Nouns', 'Numbers', 'Uncountable Nouns', 'Error Detection', 'MPSC Rules']
+  },
+
+  // --- 10. Pronouns & Order of Courtesy ---
+  {
+    id: 'en_rule_pron_01',
+    language: 'english',
+    category: 'Pronouns & Syntax',
+    categoryMr: 'सर्वनाम व क्रम नियम (Pronouns & Syntax)',
+    title: 'Pronoun Order of Politeness: "2-3-1 Rule" vs Confession of Guilt "1-2-3 Rule"',
+    titleMr: 'सर्वनामांचा क्रम: शिष्टाचार नियम (२-३-१) विरुद्ध चूक/दोष कबुली नियम (१-२-३)',
+    formula: 'Normal / Good actions = 2nd Person (You) + 3rd Person (He/She/They) + 1st Person (I) | Guilt / Mistake = 1st Person (I) + 2nd Person (You) + 3rd Person (He)',
+    formulaMr: 'सामान्य व चांगल्या कामात क्रम = २-३-१ (आधी You, मग He/She, शेवटी I) | चूक, अपराध किंवा शिक्षा मान्य करताना क्रम = १-२-३ (आधी I, मग You, शेवटी He)',
+    definition: 'When personal pronouns of different persons are used together in a single sentence, courtesy requires putting the second person first, third person second, and first person last (2-3-1). However, when confessing a mistake, guilt, or expressing regret, the order is inverted to 1-2-3 (first person takes the blame first).',
+    definitionMr: 'एकाच वाक्यात जर वेगवेगळ्या पुरुषांची सर्वनामे (I, You, He/She) एकत्र आली, तर इंग्रजी शिष्टाचारानुसार २-३-१ हा क्रम लागतो (आधी द्वितीय पुरुष, मग तृतीय पुरुष, शेवटी प्रथम पुरुष). परंतु जर चूक, गुन्हा, नुकसान किंवा वाईट गोष्ट कबूल करायची असेल, तर स्वतःवर आधी जबाबदारी घेऊन १-२-३ असा क्रम लावावा लागतो.',
+    keyPoints: [
+      'Rule 2-3-1 (Politeness): Used for pleasant, neutral, or routine collective actions (You + He + and I).',
+      'Rule 1-2-3 (Confession): Used when admitting a mistake, crime, blunder, or apology (I + you + and he).',
+      'Plural Pronouns Rule: When all pronouns are plural (We, you, they), the order is ALWAYS 1-2-3: "We, you and they will represent the college."',
+      'The verb following compound pronouns is always PLURAL (e.g., "You, he and I are good friends").'
+    ],
+    keyPointsMr: [
+      '१. सामान्य किंवा प्रशंसनीय कामासाठी (२-३-१): You (२) + He/She (३) + and I (१) + Plural Verb (are/were/have).',
+      '२. वाईट कामासाठी, अपयशासाठी किंवा दोष कबूल करताना (१-२-३): I (१) + you (२) + and he (३) + Plural Verb.',
+      '३. जेव्हा सर्व सर्वनामे अनेकवचनी (We, You, They) असतात, तेव्हा नेहमी १-२-३ क्रम लागतो: We, you and they.',
+      '४. अनेक सर्वनामे \'and\' ने जोडल्याने क्रियापद नेहमी अनेकवचनी (are, were, have) येते.'
+    ],
+    examples: [
+      {
+        sentence: 'You, he and I have successfully cleared the MPSC Prelims examination.',
+        isCorrect: true,
+        explanation: 'Correct. Clearing an exam is a positive achievement, so the 2-3-1 courtesy order (You, he and I) is strictly followed.',
+        explanationMr: 'बरोबर! परीक्षा उत्तीर्ण होणे ही चांगली गोष्ट असल्याने २-३-१ शिष्टाचार क्रम (आधी You, मग he, शेवटी I) अचूक वापरला आहे. क्रियापद \'have\' अनेकवचनी आहे.'
+      },
+      {
+        sentence: 'I, you and he have successfully cleared the exam.',
+        isCorrect: false,
+        explanation: 'Incorrect! It is considered discourteous in English to put oneself ("I") first for positive events. Must be "You, he and I".',
+        explanationMr: 'चूक! स्वतःचा उल्लेख (I) आधी करणे उद्धटपणाचे मानले जाते; चांगल्या गोष्टीसाठी \'You, he and I\' असाच क्रम पाहिजे.'
+      },
+      {
+        sentence: 'I, you and he are responsible for the financial loss suffered by the company.',
+        isCorrect: true,
+        explanation: 'Correct. When admitting guilt, blame, or mistake, the 1-2-3 rule applies (first person takes the primary responsibility).',
+        explanationMr: 'बरोबर! आर्थिक नुकसानीची जबाबदारी स्वीकारताना स्वतःपासून सुरुवात करावी लागते, म्हणून १-२-३ (I, you and he) हा क्रम अचूक ठरतो.'
+      },
+      {
+        sentence: 'You, he and I made this serious mistake.',
+        isCorrect: false,
+        explanation: 'Incorrect. For confessing mistakes, the 1-2-3 order is required: "I, you and he made this serious mistake."',
+        explanationMr: 'चूक! चूक मान्य करताना २-३-१ न वापरता १-२-३ हा क्रम हवा (\'I, you and he made this serious mistake\').'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC 231 vs 123 Trick:\n• Good news / General study = 2 - 3 - 1 (You, he and I)\n• Bad news / Blame / Guilt = 1 - 2 - 3 (I, you and he)\n• Plural pronouns (We, you, they) = 1 - 2 - 3',
+    examTipMr: 'MPSC सोपी क्लृप्ती:\n• चांगली गोष्ट = २-३-१ (दुसऱ्याला मान आधी, स्वतः शेवटी).\n• वाईट गोष्ट किंवा चूक = १-२-३ (स्वतःची चूक आधी मान्य करा).\n• तिन्ही अनेकवचनी (We, you, they) = १-२-३.',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Pronouns', '231 Rule', 'Order of Pronouns', 'Personal Pronouns', 'MPSC Rules']
+  },
+
+  // --- 11. Gerund vs Infinitive (Prepositional Phrases) ---
+  {
+    id: 'en_rule_gerund_01',
+    language: 'english',
+    category: 'Gerund & Infinitives',
+    categoryMr: 'धातुसाधित रूपे (Gerund vs Infinitive)',
+    title: 'Phrases with "TO" followed by GERUND (V-ing): "Look forward to", "With a view to"',
+    titleMr: '"Look forward to", "With a view to", "Used to" नंतर GERUND (V-ing) वापरण्याचा नियम',
+    formula: 'Look forward to / With a view to / Accustomed to / Addicted to / Habituate to / Given to / In addition to + V-ing (Gerund)',
+    formulaMr: 'Look forward to / With a view to / Accustomed to / Addicted to यांच्यानंतर नेहमी क्रियापदाला \'ing\' (Gerund) लागते; मूळ रूप (V1) येत नाही!',
+    definition: 'Normally, the preposition \'to\' is followed by the base form of the verb (V1) to form an infinitive. However, in certain fixed prepositional idioms, \'to\' functions strictly as a preposition rather than an infinitive particle, and prepositions MUST be followed by a noun or gerund (V-ing).',
+    definitionMr: 'सामान्यतः \'to\' नंतर क्रियापदाचे मूळ रूप (Infinitive - to + V1) येते. परंतु काही विशिष्ट वाक्प्रचारांमध्ये \'to\' हा शब्दयोगी अव्यय (Preposition) म्हणून येतो. इंग्रजी व्याकरणात कोणत्याही Preposition नंतर नेहमी नाम किंवा Gerund (V-ing) येत असल्याने या वाक्प्रचारांनंतर क्रियापदाचे \'ing\' रूपच वापरणे अनिवार्य असते.',
+    keyPoints: [
+      'Key Expressions Taking Gerund: Look forward to, With a view to, Accustomed to, Addicted to, Given to, Prone to, Averse to, Object to, In addition to, Committed to.',
+      'Never use bare base form (V1) after these phrases: "I look forward to meeting you", NOT "to meet you".',
+      'Rule of "Used to":\n • Sub + is/am/are/was/were + used to + V-ing (Habit in present/past: "He is used to working late").\n • Sub + used to + V1 (Past discontinued habit without \'be\': "He used to work late").'
+    ],
+    keyPointsMr: [
+      '१. सर्वात महत्त्वाचे MPSC वाक्प्रचार: Look forward to (आतुरतेने वाट पाहणे), With a view to (च्या उद्देशाने), Accustomed to (ची सवय असणे), Addicted to (चे व्यसन असणे), Object to (आक्षेप असणे), In addition to (च्या व्यतिरिक्त).',
+      '२. या वाक्प्रचारांनंतर क्रियापदाचे मूळ रूप (V1) वापरल्यास वाक्य चुकीचे ठरते (उदा. \'look forward to meet you\' चूक ➔ \'look forward to meeting you\' बरोबर).',
+      '३. \'Used to\' चा नियम:\n • जर Used to च्या आधी be चे रूप (is/am/are/was/were) असेल, तर पुढे V-ing येते (उदा. He is used to waking up early).\n • जर आधी be चे रूप नसेल, तर साधे V1 येते (उदा. He used to wake up early).'
+    ],
+    examples: [
+      {
+        sentence: 'I am looking forward to meeting the District Collector tomorrow.',
+        isCorrect: true,
+        explanation: 'Correct. "Looking forward to" is a fixed phrase where "to" is a preposition, strictly requiring the gerund "meeting" (V-ing).',
+        explanationMr: 'बरोबर! \'Looking forward to\' नंतर \'meet\' न येता \'meeting\' (V-ing) आले आहे. (मी उद्या जिल्हाधिकाऱ्यांना भेटण्यास उत्सुक आहे.)'
+      },
+      {
+        sentence: 'I am looking forward to meet the District Collector tomorrow.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC Super-hit Trap: Candidates assume "to + meet" is infinitive. With "looking forward to", it must be "meeting".',
+        explanationMr: 'चूक! \'to\' दिसल्यामुळे परीक्षार्थी \'meet\' निवडतात, परंतु \'look forward to\' नंतर नेहमी क्रियापदाला \'ing\' लागून \'meeting\' हवे.'
+      },
+      {
+        sentence: 'The government launched this portal with a view to helping rural citizens.',
+        isCorrect: true,
+        explanation: 'Correct. "With a view to" is strictly followed by the gerund "helping".',
+        explanationMr: 'बरोबर! \'With a view to\' नंतर क्रियापदाचे \'ing\' रूप (helping) आले आहे. (ग्रामीण नागरिकांना मदत करण्याच्या उद्देशाने शासनाने हे पोर्टल सुरू केले.)'
+      },
+      {
+        sentence: 'The student went to Pune with a view to join a coaching academy.',
+        isCorrect: false,
+        explanation: 'Incorrect. "With a view to join" must be corrected to "with a view to joining".',
+        explanationMr: 'चूक! \'with a view to join\' मधील \'join\' चुकीचे आहे; \'with a view to joining\' अशी रचना हवी.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Mantra: Memorize "Look forward to" and "With a view to"! Never choose V1 after them. Always pick the V-ing (Gerund) option!',
+    examTipMr: 'MPSC मंत्र: \'Look forward to\' आणि \'With a view to\' हे दोन शब्द पाठच करून ठेवा! यांच्यापुढे क्रियापदाचे मूळ रूप (V1) कधीही लावायचे नाही, १००% \'ing\' रूपच (Gerund) लावायचे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Gerund', 'Infinitives', 'Look forward to', 'With a view to', 'MPSC English']
+  },
+
+  // --- 12. Bare Infinitive (Without "to") ---
+  {
+    id: 'en_rule_inf_01',
+    language: 'english',
+    category: 'Bare Infinitives',
+    categoryMr: 'मूळ क्रियापद नियम (Bare Infinitive - Without \'to\')',
+    title: 'Bare Infinitive After Causative Verbs: "Make", "Let", "Bid" and "Had better"',
+    titleMr: '"Make", "Let", "Bid" आणि "Had better" नंतर \'to\' शिवाय मूळ क्रियापद (Bare Infinitive) वापरण्याचा नियम',
+    formula: 'Sub + make / let / bid / hear / see / watch / had better / would rather + Obj + V1 (WITHOUT \'TO\')',
+    formulaMr: 'Make, Let, Bid, Hear, See, Watch, Had better, Would rather नंतर क्रियापदाआधी \'TO\' लावत नाहीत; थेट मूळ रूप (V1) वापरतात.',
+    definition: 'Causative verbs like "make" and "let", sensory perception verbs (hear, see, watch), and idiomatic modals like "had better" and "would rather" are followed by a BARE INFINITIVE (the base form of the verb without "to"). Using "to" after them in active voice is an error.',
+    definitionMr: 'काही विशिष्ट क्रियापदे जसे की \'Make\' (करणे/भाग पाडणे), \'Let\' (परवानगी देणे), \'Bid\' (आज्ञा देणे), \'Hear\' (ऐकणे), \'See\' (पाहणे) आणि \'Had better\' (असे केलेले बरे), \'Would rather\' यांच्यानंतर येणाऱ्या क्रियापदाच्या आधी \'to\' चा वापर केला जात नाही; त्याला Bare Infinitive म्हणतात.',
+    keyPoints: [
+      'In Active Voice, "make" takes a bare infinitive: "He made me cry", NOT "to cry".',
+      '"Let" takes a bare infinitive in BOTH active and passive voice: "Let him go", "He was let go".',
+      '"Had better" and "Would rather" are followed directly by V1 without "to": "You had better leave now."',
+      'Passive Voice Exception for "Make": In passive voice, "make" takes full infinitive WITH "to": "I was made to cry by him."'
+    ],
+    keyPointsMr: [
+      '१. Active Voice मध्ये \'Make\' किंवा \'Let\' नंतर \'to\' चालत नाही (उदा. He made me laugh, \'to laugh\' नाही).',
+      '२. \'Let\' नंतर Active आणि Passive दोन्हीमध्ये \'to\' येत नाही (उदा. Let him go, \'to go\' नाही).',
+      '३. \'Had better\' आणि \'Would rather\' नंतर नेहमी थेट V1 येते (उदा. You had better leave now, \'to leave\' नाही).',
+      '४. अपवाद (Passive Voice): \'Make\' चे Passive Voice केल्यास मात्र \'to\' लावावा लागतो (उदा. He was made to laugh).'
+    ],
+    examples: [
+      {
+        sentence: 'The teacher made the naughty student apologize in front of the class.',
+        isCorrect: true,
+        explanation: 'Correct. "Made" is followed by the bare infinitive "apologize" without "to".',
+        explanationMr: 'बरोबर! \'Made\' नंतर \'to apologize\' न येता फक्त \'apologize\' हे मूळ क्रियापद आले आहे. (शिक्षकांनी खोडकर विद्यार्थ्याला वर्गासमोर माफी मागायला लावली.)'
+      },
+      {
+        sentence: 'The teacher made the naughty student to apologize in front of the class.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Made" in active voice cannot take "to". "To apologize" is wrong; it must be "apologize".',
+        explanationMr: 'चूक! \'made the student to apologize\' मधील \'to\' व्याकरणाच्या नियमानुसार चुकीचा आहे. Active Voice मध्ये \'made\' नंतर \'to\' येत नाही.'
+      },
+      {
+        sentence: 'You had better consult a specialist doctor regarding your health.',
+        isCorrect: true,
+        explanation: 'Correct. "Had better" expresses strong advice and takes a bare infinitive ("consult").',
+        explanationMr: 'बरोबर! \'Had better\' नंतर \'to consult\' न येता थेट \'consult\' आले आहे. (तब्येतीबाबत तुम्ही तज्ज्ञ डॉक्टरांचा सल्ला घेतलेला अधिक बरा.)'
+      },
+      {
+        sentence: 'You had better to consult a doctor.',
+        isCorrect: false,
+        explanation: 'Incorrect. "Had better" must not be followed by "to".',
+        explanationMr: 'चूक! \'had better to consult\' मधील \'to\' काढून \'had better consult\' असे हवे.'
+      }
+    ],
+    exceptions: [
+      'When "make" is in Passive Voice, it DOES take "to": "He was made to clean the floor."'
+    ],
+    exceptionsMr: [
+      'फक्त \'Make\' च्या Passive Voice वाक्यात \'to\' येतो: "He was made to run five kilometers" (त्याला ५ किमी धावायला लावले गेले).'
+    ],
+    examTip: 'MPSC Error Spotting Trick: If you see "Make", "Let", or "Had better", scan the sentence for an unnecessary "to". If you see "to", that is your error!',
+    examTipMr: 'MPSC ट्रिक: वाक्यात Make, Let किंवा Had better दिसल्यास पुढे \'to\' शोधायचा. जर \'to\' दिसला, तर तोच भाग चुकीचा (Error in Sentence) म्हणून मार्क करायचा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Bare Infinitive', 'Make and Let', 'Had better', 'Infinitives', 'MPSC Rules']
+  },
+
+  // --- 13. Subjunctive Mood & Unreal Past ---
+  {
+    id: 'en_rule_subjunctive_01',
+    language: 'english',
+    category: 'Subjunctive Mood',
+    categoryMr: 'काल्पनिक इच्छा व गृहीतके (Subjunctive Mood)',
+    title: 'Subjunctive Mood: "Were" with ALL Subjects in Imaginary Wishes ("If I were you", "I wish I were")',
+    titleMr: 'काल्पनिक इच्छा व गृहितके: सर्व कर्त्यांसाठी "WERE" वापरण्याचा नियम (Subjunctive Mood)',
+    formula: 'If / As if / As though / I wish / Would that + Subject (I, he, she, it) + WERE + Complement (Never \'was\')',
+    formulaMr: 'If / As if / As though / I wish नंतर कर्ता कोणताही असला (I, he, she, it) तरी केवळ \'WERE\' चाच वापर करावा; \'WAS\' कधीही येत नाही!',
+    definition: 'In hypothetical, imaginary, counter-factual, or unreal statements (Subjunctive Mood), the past subjunctive form \'WERE\' is strictly used with ALL singular and plural subjects, including \'I\', \'he\', \'she\', and \'it\'. Using \'was\' in formal MPSC examination English is considered a grammatical error.',
+    definitionMr: 'अवास्तव, केवळ मनात केलेली किंवा अशक्यप्राय काल्पनिक इच्छा व्यक्त करताना (Subjunctive Mood) कर्ता एकवचनी (I, He, She, It) असला तरीही क्रियापद नेहमी \'WERE\' वापरले जाते. MPSC परीक्षेत अशा वाक्यांमध्ये \'was\' देऊन वारंवार फसवले जाते, जे व्याकरणाच्या नियमानुसार चुकीचे ठरते.',
+    keyPoints: [
+      'In unreal / impossible conditions, always use "were", never "was": "If I were a bird", "If he were honest".',
+      'Phrases triggering Subjunctive Were: If, As if, As though, I wish, Would that, Suppose.',
+      'In the main clause, use "would + V1": "If I were you, I would accept the offer."',
+      'Never write "If I was the Prime Minister"; always write "If I were the Prime Minister".'
+    ],
+    keyPointsMr: [
+      '१. काल्पनिक किंवा अशक्य अटीमध्ये कर्ता कोणताही असो (I, he, she, it), नेहमी \'were\' वापरावे (\'was\' १००% चूक).',
+      '२. हे नियम लागू होणारे प्रमुख शब्द: If (जर), As if (जणू काही), As though, I wish (माझी अशी इच्छा आहे की), Would that.',
+      '३. या वाक्यांच्या मुख्य भागात सामान्यतः \'would + क्रियापदाचे मूळ रूप (V1)\' येते (उदा. If I were a bird, I would fly).',
+      '४. "मी जर पक्षी असतो..." या अवास्तव कल्पनेसाठी "If I were a bird" असेच म्हणावे; "If I was" ही व्याकरणातील अक्षम्य चूक मानली जाते.'
+    ],
+    examples: [
+      {
+        sentence: 'If I were the Chief Minister of Maharashtra, I would prioritize farmers\' welfare.',
+        isCorrect: true,
+        explanation: 'Correct. "Were" is properly used with singular subject "I" in a hypothetical/unreal condition.',
+        explanationMr: 'बरोबर! "मी जर महाराष्ट्राचा मुख्यमंत्री असतो..." ही एक अवास्तव/काल्पनिक अट असल्याने "I" असूनही "were" हेच रूप अचूक ठरते.'
+      },
+      {
+        sentence: 'If I was the Chief Minister of Maharashtra, I would prioritize farmers\' welfare.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC trap: In hypothetical conditions, "were" is required instead of "was".',
+        explanationMr: 'चूक! काल्पनिक वाक्यात "I was" चालत नाही; तिथे "If I were" असेच अचूक रूप हवे.'
+      },
+      {
+        sentence: 'He behaves arrogantly as if he were the owner of the entire company.',
+        isCorrect: true,
+        explanation: 'Correct. "As if" introduces an unreal comparison, requiring "were" even with singular "he".',
+        explanationMr: 'बरोबर! "तो असा उद्धटपणे वागतो जणू काही तोच संपूर्ण कंपनीचा मालक आहे." येथे "as if" नंतर "he" सोबत "were" चा वापर अचूक आहे.'
+      },
+      {
+        sentence: 'He orders me around as if he was my father.',
+        isCorrect: false,
+        explanation: 'Incorrect! "As if he was" is grammatically wrong in competitive exams; it must be "as if he were".',
+        explanationMr: 'चूक! "as if" नंतर एकवचनी कर्त्यासोबत "was" न वापरता "were" वापरणे अनिवार्य आहे ("as if he were my father").'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Subjunctive Shortcut: Whenever you see "If", "As if", "As though", or "I wish" with an imaginary condition, immediately scan for "was". If you see "was", that is your ERROR (change to "were")!',
+    examTipMr: 'MPSC सुवर्ण क्लृप्ती: जर वाक्यात If, As if, As though किंवा I wish दिसले, तर क्रियापदाकडे लक्ष द्या. तिथे जर \'was\' दिलेला असेल, तर तोच भाग चुकीचा (Error in Sentence) असतो; तिथे डोळे झाकून \'were\' करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Subjunctive Mood', 'Unreal Past', 'If I were', 'As if', 'MPSC Rules']
+  },
+
+  // --- 14. Inversion of Verb After Negative Adverbs ---
+  {
+    id: 'en_rule_inversion_01',
+    language: 'english',
+    category: 'Syntax & Inversion',
+    categoryMr: 'क्रियापद व्युत्क्रम नियम (Inversion of Verb)',
+    title: 'Inversion Rule: Negative Adverbs at Beginning ("Seldom", "Never", "Rarely", "Little")',
+    titleMr: 'नकारार्थी क्रियाविशेषण सुरुवातीला आल्यास कर्त्याच्या आधी साहाय्यकारी क्रियापद (Inversion) घेण्याचा नियम',
+    formula: 'Seldom / Rarely / Barely / Never / Little / Nowhere + Auxiliary Verb (did/does/have/had/is) + Subject + Main Verb',
+    formulaMr: 'Seldom / Never / Rarely / Little ने वाक्याची सुरुवात झाल्यास: आधी साहाय्यकारी क्रियापद + मग कर्ता + मग मुख्य क्रियापद (Inversion रचना).',
+    definition: 'When a sentence begins with a negative or restrictive adverbial expression (such as Seldom, Rarely, Never, Scarcely, Hardly, Little, Under no circumstances), Subject-Auxiliary Inversion is mandatory: the auxiliary verb MUST precede the subject.',
+    definitionMr: 'जेव्हा एखाद्या वाक्याची सुरुवात नकारात्मक किंवा मर्यादा दर्शवणाऱ्या क्रियाविशेषणाने (उदा. Seldom - क्वचितच, Never - कधीही नाही, Rarely, Little - थोडेही नाही) होते, तेव्हा कर्त्याच्या आधी साहाय्यकारी क्रियापद (Auxiliary Verb) घेणे अनिवार्य असते. याला Inversion रचना म्हणतात.',
+    keyPoints: [
+      'Negative Adverbs Triggering Inversion: Seldom, Rarely, Never, Scarcely, Hardly, Barely, Little, Neither, Nor, Under no circumstances.',
+      'Formula structure: Adverb + Auxiliary Verb + Subject + Main Verb.',
+      'If there is no auxiliary verb in the original tense, introduce do / does (present) or did (past).',
+      'Example: "Seldom have I seen" (NOT "Seldom I have seen").'
+    ],
+    keyPointsMr: [
+      '१. Inversion घडवून आणणारे शब्द: Seldom (कधीतरीच/क्वचित), Rarely, Never, Hardly, Scarcely, Little, Under no circumstances.',
+      '२. वाक्याची रचना: नकारात्मक शब्द + साहाय्यकारी क्रियापद + कर्ता + मुख्य क्रियापद.',
+      '३. भूतकाळी वाक्यात \'did\' पुढे घेऊन मूळ क्रियापद (V1) ठेवावे (उदा. Little did he know, \'Little he knew\' नाही).',
+      '४. वर्तमानकाळात \'do/does\' कर्त्याच्या आधी घ्यावे.'
+    ],
+    examples: [
+      {
+        sentence: 'Seldom have we witnessed such remarkable dedication in public administration.',
+        isCorrect: true,
+        explanation: 'Correct. Inverted word order: Auxiliary "have" precedes the subject "we" after negative adverb "Seldom".',
+        explanationMr: 'बरोबर! "Seldom" हे नकारात्मक क्रियाविशेषण वाक्याच्या सुरुवातीला आल्यामुळे "have" हे साहाय्यकारी क्रियापद "we" या कर्त्याच्या आधी आले आहे. (सार्वजनिक प्रशासनात असे विलक्षण समर्पण आम्ही क्वचितच पाहिले आहे.)'
+      },
+      {
+        sentence: 'Seldom we have witnessed such remarkable dedication.',
+        isCorrect: false,
+        explanation: 'Incorrect! When "Seldom" begins the sentence, normal order (we have) is ungrammatical; inversion (have we) is required.',
+        explanationMr: 'चूक! "Seldom" ने वाक्य सुरू झाल्यावर सामान्य रचना ("we have") चालत नाही; "have we" असा कर्त्याआधी क्रियापद घेणारा क्रम आवश्यक असतो.'
+      },
+      {
+        sentence: 'Little did the corrupt official realize that his phone calls were being monitored.',
+        isCorrect: true,
+        explanation: 'Correct. "Little" at the beginning properly triggers inversion: "did" + subject "the corrupt official" + base verb "realize".',
+        explanationMr: 'बरोबर! "Little" ने वाक्याची सुरुवात झाल्याने "did" (साहाय्यकारी क्रियापद) आधी आले व नंतर कर्ता आला. (आपले फोन कॉल्स रेकॉर्ड होत आहेत याची त्या भ्रष्ट अधिकाऱ्याला पुसटशीही कल्पना नव्हती.)'
+      },
+      {
+        sentence: 'Little the corrupt official realized that his calls were monitored.',
+        isCorrect: false,
+        explanation: 'Incorrect! Missing inversion. It must be: "Little did the corrupt official realize".',
+        explanationMr: 'चूक! "Little" नंतर थेट कर्ता व भूतकाळी क्रियापद ("official realized") चालत नाही; "Little did the official realize" अशी Inversion रचना हवी.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Inversion Rule: If a sentence starts with Seldom, Rarely, Never, or Little, check that the helping verb comes BEFORE the subject! (Adverb + Helping Verb + Subject).',
+    examTipMr: 'MPSC क्लृप्ती: Seldom, Rarely, Never, Little ने वाक्य सुरू झाले की थेट कर्त्याच्या आधी साहाय्यकारी क्रियापद (have / has / had / did / do) आहे का ते पाहा; नसल्यास तोच भाग चुकीचा ठरतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Inversion', 'Negative Adverbs', 'Seldom have I', 'Syntax', 'MPSC Rules']
+  },
+
+  // --- 15. Relative Pronoun "THAT" Mandatory Rules ---
+  {
+    id: 'en_rule_that_relative_01',
+    language: 'english',
+    category: 'Pronouns & Syntax',
+    categoryMr: 'संबंधवाचक सर्वनाम नियम (Relative Pronoun "THAT")',
+    title: 'Relative Pronoun "THAT" Mandatory After Superlatives, "All", "The only", "None", "Nothing"',
+    titleMr: '"All", "The only", "None", "Nothing" आणि Superlative Degree नंतर "THAT" वापरण्याचा अनिवार्य नियम',
+    formula: 'Superlative Adjective / All / The only / None / Nothing / Any / The same + THAT + Clause (Never who, which, or whom)',
+    formulaMr: 'Superlative Degree (सर्वोत्तम रूप), All, The only, None, Nothing, The same यांच्यानंतर नेहमी \'THAT\' चाच वापर होतो; \'who\' किंवा \'which\' चालत नाही!',
+    definition: 'The relative pronoun "THAT" (and NOT \'who\', \'whom\', or \'which\') is strictly required when the antecedent noun is qualified by a Superlative degree adjective, or is preceded by indefinite words like "all", "the only", "any", "none", "nothing", or "the same".',
+    definitionMr: 'वाक्यात जर नामापूर्वी Superlative Degree चे विशेषण (उदा. The best, the wisest, the highest) आले असेल, किंवा \'All\', \'The only\', \'None\', \'Nothing\', \'The same\' हे शब्द आले असतील, तर त्यानंतर संबंधवाचक सर्वनाम म्हणून केवळ \'THAT\' चा वापर होतो. येथे व्यक्तीसाठी \'who\' किंवा वस्तूसाठी \'which\' वापरल्यास ते चुकीचे मानले जाते.',
+    keyPoints: [
+      'Always use "THAT" after: Superlative Degree, All, The only, Any, None, Little, Nothing, The same.',
+      'Even for human beings, if preceded by "the only" or a superlative adjective, "that" is required instead of "who".',
+      'Famous rule: "All that glitters is not gold" (NOT "All which glitters").'
+    ],
+    keyPointsMr: [
+      '१. या शब्दांनंतर नेहमी \'THAT\' येते: Superlative Degree (the best, the tallest), All, The only, None, Nothing, The same.',
+      '२. नामाच्या आधी जर \'The only\' किंवा Superlative विशेषण आले, तर ती व्यक्ती असली तरी \'who\' न वापरता \'THAT\' वापरावे लागते.',
+      '३. वस्तूसाठी सामान्यतः \'which\' येत असले, तरी \'All\' किंवा \'Superlative\' नंतर मात्र \'which\' चालत नाही, \'THAT\' च वापरावे लागते.'
+    ],
+    examples: [
+      {
+        sentence: 'All that glitters is not gold.',
+        isCorrect: true,
+        explanation: 'Correct. Famous universal proverb: "All" strictly takes the relative pronoun "that", not "which".',
+        explanationMr: 'बरोबर! प्रसिद्ध म्हण: "चमकणारे सर्वच सोने नसते." येथे "All" नंतर "which" न येता "that" हे सर्वनाम अचूक वापरले आहे.'
+      },
+      {
+        sentence: 'All which glitters is not gold.',
+        isCorrect: false,
+        explanation: 'Incorrect! "All" must be followed by "that", not "which".',
+        explanationMr: 'चूक! "All" नंतर "which" वापरता येत नाही; तिथे "that" च हवे.'
+      },
+      {
+        sentence: 'Dr. Babasaheb Ambedkar was the greatest visionary that modern India produced.',
+        isCorrect: true,
+        explanation: 'Correct. Following the superlative adjective "the greatest", the relative pronoun "that" is mandatory even when referring to a person.',
+        explanationMr: 'बरोबर! "the greatest" हे Superlative रूप असल्याने व्यक्तीचा उल्लेख असूनही "who" ऐवजी "that" चा वापर व्याकरणाच्या नियमानुसार अनिवार्य आहे.'
+      },
+      {
+        sentence: 'This is the only pen which writes smoothly in blue ink.',
+        isCorrect: false,
+        explanation: 'Incorrect! Because of the modifier "the only", the relative pronoun must be "that", not "which" ("the only pen that writes...").',
+        explanationMr: 'चूक! नामापूर्वी "the only" आल्यामुळे वस्तू असली तरी "which" चालत नाही; "the only pen that writes..." असे "that" वापरावे लागते.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Golden Trap: Whenever you spot "All", "The only", "None", or "The best/highest", look at the relative pronoun immediately! If it says "who" or "which", strike it out and replace it with "THAT"!',
+    examTipMr: 'MPSC क्लृप्ती: वाक्यात जर All, The only, None, Nothing किंवा The best/tallest दिसले, तर पुढे संबंधवाचक सर्वनाम तपासा. जर \'who\' किंवा \'which\' दिसले तर तोच भाग १००% चुकीचा असतो; तिथे नेहमी \'THAT\' पाहिजे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Relative Pronouns', 'That vs Which', 'Superlatives', 'All that glitters', 'MPSC Rules']
+  },
+
+  // --- 16. Compound Numeral Adjectives (Hyphenated Units) ---
+  {
+    id: 'en_rule_hyphen_adj_01',
+    language: 'english',
+    category: 'Adjectives & Nouns',
+    categoryMr: 'सामासिक संख्या विशेषण नियम (Compound Numeral Adjectives)',
+    title: 'Compound Numeral Adjectives: Never in Plural Form ("a five-star hotel", "a ten-rupee note")',
+    titleMr: 'सामासिक संख्या विशेषणे: मधील नामाचे कधीही अनेकवचन न करण्याचा नियम ("a five-star hotel", "a ten-rupee note")',
+    formula: 'Number + Hyphen + Singular Noun (functioning as adjective) + Main Noun (e.g. a ten-rupee note, NOT rupees)',
+    formulaMr: 'संख्या + एकवचनी नाम (विशेषणाचे काम करते) + मुख्य नाम. अशा सामासिक संख्येत मधील नामाला कधीही \'s\' किंवा \'es\' लागत नाही!',
+    definition: 'When a noun representing currency, duration, measure, or distance is compounded with a numeral to function as an ADJECTIVE before another noun, that compounded noun must always remain strictly SINGULAR. Adjectives in English never take plural inflections.',
+    definitionMr: 'जेव्हा संख्या आणि नाम एकत्र येऊन पुढील नामासाठी विशेषणाचे (Compound Adjective) काम करतात, तेव्हा मधील मोजमाप, चलन किंवा कालावधीचे नाम नेहमी एकवचनातच राहते. इंग्रजी भाषेत विशेषणाला कधीही अनेकवचनी प्रत्यय (\'s\' किंवा \'es\') लागत नसल्याने "ten-rupee note" होते, "ten-rupees note" नाही!',
+    keyPoints: [
+      'In a compound adjective before a noun, the noun unit is always singular: a five-year plan, a three-hour exam, a ten-mile walk, a five-star hotel.',
+      'If the noun stands independently as the object without another noun following it, it takes the plural form: "I gave him ten rupees", BUT "I gave him a ten-rupee note".',
+      'Never write "a five-members committee"; always write "a five-member committee".'
+    ],
+    keyPointsMr: [
+      '१. नामापूर्वी विशेषण म्हणून येताना मधील नाम नेहमी एकवचनी राहते: a five-year plan (पाच वर्षांची योजना), a three-hour exam (तीन तासांची परीक्षा), a ten-mile walk (दहा मैलांची चाल), a five-star hotel.',
+      '२. जर पुढे दुसरे नाम नसेल, तर मात्र अनेकवचन होते (उदा. I have ten rupees - येथे rupees बरोबर आहे; परंतु \'a ten-rupee note\' मध्ये मात्र rupee एकवचनी हवे).',
+      '३. परीक्षेतील सामान्य चूक: "a five-members committee" ➔ चूक! बरोबर: "a five-member committee".'
+    ],
+    examples: [
+      {
+        sentence: 'The government has appointed a five-member committee to investigate the paper leak.',
+        isCorrect: true,
+        explanation: 'Correct. "Five-member" is a compound adjective modifying "committee", so "member" is correctly kept singular.',
+        explanationMr: 'बरोबर! "five-member" हे "committee" साठी विशेषण म्हणून काम करत असल्याने "member" एकवचनी आहे. (पेपरफुटीची चौकशी करण्यासाठी सरकारने पाच सदस्यीय समिती नेमली आहे.)'
+      },
+      {
+        sentence: 'The government has appointed a five-members committee to investigate the paper leak.',
+        isCorrect: false,
+        explanation: 'Incorrect! Compound adjectives cannot be pluralized. "Five-members" must be corrected to "five-member".',
+        explanationMr: 'चूक! विशेषण म्हणून येताना "members" होत नाही; "five-member" असे एकवचनच हवे.'
+      },
+      {
+        sentence: 'He walked a ten-mile distance every day to attend school in his village.',
+        isCorrect: true,
+        explanation: 'Correct. "Ten-mile" modifies "distance" and properly remains singular.',
+        explanationMr: 'बरोबर! "distance" चे विशेषण असल्याने "ten-mile" हे एकवचनातच योग्य आहे. (गावात शाळेत जाण्यासाठी तो दररोज दहा मैलांचे अंतर पायी चालत असे.)'
+      },
+      {
+        sentence: 'I handed the conductor a five-hundred-rupees note.',
+        isCorrect: false,
+        explanation: 'Incorrect! The noun is "note", so the preceding modifier must be "five-hundred-rupee" without an "s".',
+        explanationMr: 'चूक! नोट एकच असल्याने "five-hundred-rupee note" हवे; "rupees" मधील \'s\' काढून टाकला पाहिजे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Trap: Look for "Number + Hyphen + Noun + Noun". If the first noun ends in "s" (e.g., ten-rupees note, five-stars hotel, two-years degree), that word contains the error!',
+    examTipMr: 'MPSC क्लृप्ती: प्रश्नपत्रिकेत जर "संख्या + नाम + नाम" (उदा. ten-rupees note, five-stars hotel, three-years degree) दिसले, तर मधील नामाला लागलेला \'s\' हाच परीक्षेतील एरर (Error) असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Compound Adjectives', 'Hyphenated Nouns', 'Ten-rupee note', 'Error Spotting', 'MPSC Rules']
+  },
+
+  // --- 17. "It is high time / It is time" + Simple Past (V2) ---
+  {
+    id: 'en_rule_hightime_01',
+    language: 'english',
+    category: 'Tenses & Mood',
+    categoryMr: 'काळ व विशिष्ट वाक्प्रचार (Tenses & Idiomatic Phrases)',
+    title: '"It is high time / It is time" + Subject strictly takes SIMPLE PAST TENSE (V2)',
+    titleMr: '"It is high time / It is time" नंतर कर्ता आल्यास नेहमी साधा भूतकाळ (V2) वापरण्याचा नियम',
+    formula: 'It is high time / It is time / It is about time + Subject + Simple Past Verb (V2) (e.g. started, left, took)',
+    formulaMr: 'It is high time / It is time नंतर कर्ता आल्यास क्रियापदाचे भूतकाळी दुसरे रूप (V2) येते (V1, will किंवा should कधीही येत नाही!)',
+    definition: 'The expressions "It is high time", "It is time", and "It is about time" denote that an action is already delayed and ought to have been done previously. When followed by a grammatical subject (we, you, they, he, she), the verb MUST be in the Simple Past tense (V2), not the present tense (V1) or with modals like "should".',
+    definitionMr: '"It is high time" किंवा "It is time" या वाक्प्रचाराचा अर्थ "एखादी गोष्ट करण्याची योग्य वेळ आधीच उलटून गेली असून आता त्वरित कृती करणे गरजेचे आहे" असा होतो. या वाक्प्रचारानंतर जर कर्ता (I, we, you, they, he, she) आला, तर त्यापुढे येणारे क्रियापद नेहमी साध्या भूतकाळात (V2) असावे लागते.',
+    keyPoints: [
+      'Formula with Subject: "It is high time + Subject + V2" (e.g., "It is high time we left").',
+      'Never use Present Tense (V1) after subject: "It is high time we start" is completely incorrect.',
+      'Never use "should" after subject: "It is high time we should leave" is incorrect in standard English exams.',
+      'Alternative without Subject: If there is no subject, use infinitive "to + V1": "It is time to leave."'
+    ],
+    keyPointsMr: [
+      '१. जर कर्ता असेल तर रचना: It is high time + कर्ता + भूतकाळी क्रियापद (V2). (उदा. It is high time you started studying).',
+      '२. कर्त्यानंतर वर्तमानकाळ (V1) वापरणे ही MPSC परीक्षेत सर्वात सामान्य चूक मानली जाते (उदा. \'we start\' चूक, \'we started\' बरोबर).',
+      '३. कर्त्यानंतर \'should\' लावणे चुकीचे असते (उदा. \'we should start\' चालत नाही).',
+      '४. जर मध्ये कर्ताच नसेल, तर मात्र साधे \'to + V1\' येते (उदा. It is time to start - येथे start बरोबर आहे कारण कर्ता नाही).'
+    ],
+    examples: [
+      {
+        sentence: 'It is high time we started our serious revision for the MPSC Rajyaseva exam.',
+        isCorrect: true,
+        explanation: 'Correct. Following "It is high time" and the subject "we", the verb is properly in the simple past form "started" (V2).',
+        explanationMr: 'बरोबर! "It is high time" नंतर "we" हा कर्ता आल्यामुळे क्रियापदाचे भूतकाळी रूप "started" (V2) अगदी अचूक वापरले आहे. (आता आपण एमपीएससी राज्यसेवेच्या गंभीर उजळणीला सुरुवात करण्याची योग्य वेळ आधीच आलेली आहे.)'
+      },
+      {
+        sentence: 'It is high time we start our serious revision for the exam.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC Super-hit Trap: "start" (V1) is ungrammatical after "It is high time + subject". It must be "started" (V2).',
+        explanationMr: 'चूक! MPSC चा वारंवार विचारला जाणारा प्रश्न: "It is high time" नंतर वर्तमानकाळी "start" चालत नाही; तिथे भूतकाळी "started" हवे.'
+      },
+      {
+        sentence: 'It is time the government took decisive action against cyber criminals.',
+        isCorrect: true,
+        explanation: 'Correct. "It is time" + subject "the government" + past tense verb "took" (V2).',
+        explanationMr: 'बरोबर! "It is time" नंतर "the government" हा कर्ता असून क्रियापद "took" (take चे भूतकाळ) आले आहे. (सायबर गुन्हेगारांवर सरकारने निर्णायक कारवाई करण्याची वेळ आता आलेली आहे.)'
+      },
+      {
+        sentence: 'It is high time you should submit the scholarship application.',
+        isCorrect: false,
+        explanation: 'Incorrect! Do not use "should submit" after "It is high time". Use simple past: "It is high time you submitted the application."',
+        explanationMr: 'चूक! "It is high time" नंतर "should submit" येत नाही; थेट भूतकाळ करून "you submitted the application" असे लिहावे लागते.'
+      }
+    ],
+    exceptions: [
+      'When NO subject follows the phrase, use the standard infinitive: "It is time to study."'
+    ],
+    exceptionsMr: [
+      'जेव्हा मध्ये कर्ता येत नाही, तेव्हा मात्र इन्फिनिटिव्ह (to + V1) वापरतात: "It is time to go to bed."'
+    ],
+    examTip: 'MPSC 1-Second Clue: Whenever you spot "It is high time" or "It is time" followed by a pronoun/noun (we, you, he), jump straight to the verb! If it is NOT in past tense (V2), that is your ERROR!',
+    examTipMr: 'MPSC १ सेकंदाची क्लृप्ती: प्रश्नपत्रिकेत "It is high time" किंवा "It is time" दिसले की पुढे बोट ठेवा. पुढे जर कर्ता (we, you, they, government) असेल, तर त्यापुढील क्रियापद भूतकाळात (V2) आहे का ते पाहा; वर्तमानकाळात (V1) असल्यास तोच भाग १००% चुकीचा असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['It is high time', 'Past Subjunctive', 'Tenses', 'Error Spotting', 'MPSC Rules']
+  },
+
+  // --- 18. Indefinite Pronoun "ONE" takes "ONE'S" and "ONESELF" ---
+  {
+    id: 'en_rule_one_pronoun_01',
+    language: 'english',
+    category: 'Pronouns & Syntax',
+    categoryMr: 'सर्वनाम नियम (Indefinite Pronoun "ONE")',
+    title: 'Indefinite Pronoun "ONE" Strictly Takes Possessive "ONE\'S" and Reflexive "ONESELF" (Never "his")',
+    titleMr: '"ONE" या सर्वनामासोबत षष्ठी विभक्ती "ONE\'S" आणि आत्मवाचक "ONESELF" वापरण्याचा नियम (Never "his")',
+    formula: 'One + should / must + Verb + ONE\'S (possessive) ... ONESELF (reflexive) (NEVER his / her / himself)',
+    formulaMr: 'वाक्यात कर्ता \'One\' असेल तर त्याची षष्ठी नेहमी \'One\'s\' होते आणि आत्मवाचक \'Oneself\' होते (\'his\', \'her\' किंवा \'himself\' कधीही वापरू नये!)',
+    definition: 'When the indefinite pronoun "ONE" is used as the grammatical subject of a sentence in a generic sense, it must be consistently maintained throughout the sentence. Its possessive form is strictly "ONE\'S" (with an apostrophe) and its reflexive form is "ONESELF". Replacing them with "his", "her", or "himself" is a serious grammatical error.',
+    definitionMr: 'जेव्हा "One" (प्रत्येकाने / कोणत्याही व्यक्तीने) या अनिश्चित सर्वनामाचा वाक्यात कर्ता म्हणून वापर केला जातो, तेव्हा संपूर्ण वाक्यात त्याचीच रूपे वापरावी लागतात. त्याची षष्ठी विभक्ती नेहमी "One\'s" (उदा. one\'s duty) होते आणि स्वतःसाठी "Oneself" होते. तिथे "his" किंवा "himself" वापरणे ही व्याकरणातील मोठी चूक मानली जाते.',
+    keyPoints: [
+      'Subject "One" ➔ Possessive "One\'s" (NOT "his" or "their").',
+      'Subject "One" ➔ Reflexive "Oneself" (NOT "himself" or "themselves").',
+      'Note the spelling: "One\'s" has an apostrophe-s (oneself is written as one word without apostrophe).',
+      'If the subject is "Everyone" or "Someone", use "his" or "her": "Everyone should do his duty."'
+    ],
+    keyPointsMr: [
+      '१. कर्ता जर \'One\' असेल तर: षष्ठी रूप = One\'s (उदा. One must keep one\'s promise, \'his promise\' नाही).',
+      '२. आत्मवाचक रूप = Oneself (उदा. One should take care of oneself, \'himself\' नाही).',
+      '३. स्पेलिंग लक्ष ठेवा: One\'s मध्ये एपॉस्ट्रॉफी (\') असते; Oneself हा एकच जोडशब्द असतो.',
+      '४. फरक समजून घ्या: कर्ता जर \'Everyone\' किंवा \'Each\' असेल, तर मात्र \'his\' चालते (उदा. Everyone should do his duty).'
+    ],
+    examples: [
+      {
+        sentence: 'One should always be mindful of one\'s constitutional duties as a responsible citizen.',
+        isCorrect: true,
+        explanation: 'Correct. Subject "One" is properly followed by the possessive pronoun "one\'s".',
+        explanationMr: 'बरोबर! वाक्याचा कर्ता "One" असल्याने त्याची षष्ठी "one\'s" अचूक वापरली आहे. (एका जबाबदार नागरिकाने नेहमी स्वतःच्या संविधानिक कर्तव्यांविषयी जागरूक राहिले पाहिजे.)'
+      },
+      {
+        sentence: 'One should always be mindful of his constitutional duties.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Error: When subject is "One", using "his" is ungrammatical. It must be "one\'s".',
+        explanationMr: 'चूक! MPSC चा अतिशय प्रसिद्ध प्रश्न: कर्ता "One" असताना पुढे "his" चालत नाही; तिथे "one\'s" च पाहिजे.'
+      },
+      {
+        sentence: 'One must rely on oneself in times of supreme crisis.',
+        isCorrect: true,
+        explanation: 'Correct. The reflexive pronoun corresponding to "One" is "oneself".',
+        explanationMr: 'बरोबर! "One" चे आत्मवाचक रूप "oneself" अचूक वापरले आहे. (मोठ्या संकटाच्या वेळी व्यक्तीने स्वतःवरच विश्वास ठेवला पाहिजे.)'
+      },
+      {
+        sentence: 'One must rely on himself in times of crisis.',
+        isCorrect: false,
+        explanation: 'Incorrect. Replace "himself" with "oneself".',
+        explanationMr: 'चूक! "himself" न वापरता "oneself" असा शब्द वापरणे बंधनकारक आहे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Trap: If a sentence begins with "One should..." or "One must...", read to the end immediately! If you see "his", "her", or "himself", mark that part as the ERROR!',
+    examTipMr: 'MPSC क्लृप्ती: जर वाक्याची सुरुवात "One should..." किंवा "One must..." ने झाली, तर थेट वाक्याच्या मधोमध पहा. तिथे जर "his" किंवा "himself" दिसले, तर तोच भाग चुकीचा (Error in Sentence) असतो; तिथे "one\'s" किंवा "oneself" पाहिजे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Pronouns', 'One and Ones', 'Oneself', 'Error Spotting', 'MPSC Rules']
+  },
+
+  // --- 19. Misrelated / Dangling Participle (Unattached Participle) ---
+  {
+    id: 'en_rule_dangling_participle_01',
+    language: 'english',
+    category: 'Participles & Modifiers',
+    categoryMr: 'धातुसाधित विशेषण व कर्ता विसंगती (Dangling Participle)',
+    title: 'Dangling / Unattached Participle: Participle Clause Must Clearly Refer to the Logical Subject',
+    titleMr: 'अयोग्य संबंध जोडलेले कृदंत (Dangling Participle): कृदंताचा कर्ता आणि मुख्य वाक्याचा कर्ता एकच असण्याचा नियम',
+    formula: 'While / As + Subject + was + V-ing ..., Main Subject + Verb (Avoid: "Walking in the garden, a snake bit him")',
+    formulaMr: 'कृदंत वापरताना त्याचा प्रत्यक्ष कर्ता पुढे स्पष्ट असावा लागतो; अन्यथा विचित्र व हास्यास्पद अर्थ तयार होतो!',
+    definition: 'A participle is a verbal adjective. When a sentence begins with a participial phrase (e.g. "Walking along the road..."), that phrase automatically modifies the grammatical SUBJECT of the main clause that immediately follows. If the main subject is not the one performing the action of the participle, it becomes a "Dangling / Misrelated Participle", which is grammatically incorrect.',
+    definitionMr: 'कृदंत (Participle - V-ing) हे विशेषणाचे काम करते. जेव्हा वाक्याची सुरुवात "Walking in the garden..." अशा कृदंताने होते, तेव्हा त्याच्यापुढे येणाऱ्या मुख्य वाक्याचा कर्ता हाच ती क्रिया करणारा असावा लागतो. जर पुढे भलताच कर्ता आला (उदा. "Walking in the garden, a snake bit him" - म्हणजे साप बागेत फिरत होता असा अर्थ होतो!), तर या दोषाला Dangling Participle म्हणतात.',
+    keyPoints: [
+      'A participial clause at the beginning must agree logically with the subject of the following main clause.',
+      'Classic ridiculous error: "Being a rainy day, I did not go out" ➔ Incorrect! (Implies "I" was a rainy day). Correct: "It being a rainy day, I did not go out."',
+      'Another classic error: "Walking on the road, a car hit him" ➔ Incorrect! (Implies the car was walking). Correct: "While he was walking on the road, a car hit him."'
+    ],
+    keyPointsMr: [
+      '१. वाक्याच्या सुरुवातीला जर क्रियापदाचे \'ing\' रूप आले, तर पुढे मुख्य कर्ता तोच मनुष्य असावा लागतो.',
+      '२. परीक्षेतील सर्वात प्रसिद्ध चूक: "Being a rainy day, I stayed home" ➔ चूक! (याचा अर्थ मीच पावसाळी दिवस होतो असा होतो!). बरोबर रूप: "It being a rainy day, I stayed home."',
+      '३. दुसरी प्रसिद्ध चूक: "Walking in the garden, a snake bit him" ➔ चूक! (साप फिरत नव्हता, तो माणूस फिरत होता). बरोबर रूप: "While he was walking in the garden, a snake bit him."'
+    ],
+    examples: [
+      {
+        sentence: 'While walking in the garden, the young boy was bitten by a poisonous snake.',
+        isCorrect: true,
+        explanation: 'Correct. The boy was walking, and the boy was bitten; the subject logically aligns with the participial action.',
+        explanationMr: 'बरोबर! चालणारा मुलगा होता आणि चावा घेतलेलाही मुलगाच होता; त्यामुळे कर्ता सुसंगत आहे. (बागेत चालत असताना त्या लहान मुलाला विषारी सापाने चावा घेतला.)'
+      },
+      {
+        sentence: 'Walking in the garden, a poisonous snake bit him.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic Dangling Participle. This grammatically implies that the snake was walking in the garden!',
+        explanationMr: 'चूक! MPSC चा सर्वात गाजलेला प्रश्न: या वाक्याचा व्याकरणातील अर्थ "साप बागेत फिरत होता आणि त्याने माणसाला चावले" असा हास्यास्पद होतो! म्हणून "While he was walking..." असे हवे.'
+      },
+      {
+        sentence: 'It being a stormy night, the fishermen decided not to venture into the Arabian Sea.',
+        isCorrect: true,
+        explanation: 'Correct. "It being a stormy night" correctly supplies the impersonal subject "It" for the weather.',
+        explanationMr: 'बरोबर! हवामानासाठी "It" हा स्वतंत्र कर्ता सुरुवातीला दिल्याने वाक्य व्याकरणदृष्ट्या परिपूर्ण आहे. (वादळी रात्र असल्याने कोळ्यांनी अरबी समुद्रात न जाण्याचा निर्णय घेतला.)'
+      },
+      {
+        sentence: 'Being a stormy night, the fishermen decided not to venture into the sea.',
+        isCorrect: false,
+        explanation: 'Incorrect! Unattached participle: implies the fishermen were a stormy night. Must be "It being a stormy night".',
+        explanationMr: 'चूक! "Being a stormy night" ने सुरू केल्यास कोळीच वादळी रात्र होते असा अर्थ होतो; म्हणून आधी "It being..." लावणे अनिवार्य आहे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Dangling Participle Trick: Look for sentences starting with "Being..." or "Walking...". If there is no "It" before "Being a hot/rainy day", that sentence has a Dangling Modifier error!',
+    examTipMr: 'MPSC सोपी क्लृप्ती: प्रश्नपत्रिकेत जर "Being a rainy/hot day..." दिसले, तर आधी "It" आहे का ते पाहा. "It" नसेल तर ती १००% चूक असते! तसेच "Walking..., a car hit him" मध्ये "While he was walking..." असायला हवे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Dangling Participle', 'Modifiers', 'Participles', 'Syntax', 'MPSC Rules']
+  },
+
+  // --- 20. Parallelism with Correlative Conjunctions ---
+  {
+    id: 'en_rule_parallelism_correlative_01',
+    language: 'english',
+    category: 'Conjunctions & Parallelism',
+    categoryMr: 'उभयान्वयी अव्यये व समतोल रचना (Parallelism in Conjunctions)',
+    title: 'Parallelism Rule: Equal Grammatical Position for "Not only...but also", "Either...or", "Neither...nor"',
+    titleMr: '"Not only...but also", "Either...or" मधील समतोल व्याकरणीय स्थान नियम (Rule of Parallelism)',
+    formula: 'Verb + Not only + Noun 1 + but also + Noun 2 | OR | Not only + Verb 1 + but also + Verb 2',
+    formulaMr: 'Not only नंतर जे पद (नाम/क्रियापद/विशेषण) येईल, अगदी तेच पद but also नंतरही यावे लागते; अन्यथा समतोल बिघडतो!',
+    definition: 'Correlative conjunctions (not only...but also, either...or, neither...nor, both...and) must join grammatically parallel elements. If "not only" precedes a noun, "but also" must precede a noun; if "not only" precedes a verb, "but also" must precede a verb.',
+    definitionMr: 'जोडीने येणाऱ्या उभयान्वयी अव्ययांमध्ये (उदा. Not only...but also, Either...or, Neither...nor) दोन्ही बाजूंची व्याकरणीय रचना एकसारखी (समतोल - Parallel) असावी लागते. जर \'not only\' नंतर नाम आले असेल, तर \'but also\' नंतरही नामच यावे; जर \'not only\' नंतर क्रियापद आले तर पुढेही क्रियापदच यावे.',
+    keyPoints: [
+      'Symmetric placement: Position the conjunction immediately before the parallel items being contrasted.',
+      'Common Error: "He not only lost his money, but also his luggage" ➔ INCORRECT (verb follows "not only", but noun follows "but also").',
+      'Correct Version: "He lost not only his money, but also his luggage" (both follow with nouns).'
+    ],
+    keyPointsMr: [
+      '१. नियम: जे दोन घटक वेगळे आहेत, त्यांच्या अगदी आधीच हे शब्द ठेवावे लागतात.',
+      '२. सामान्य चूक: "He not only lost his ticket, but also his passport" ➔ चूक! कारण पहिल्या भागात क्रियापद (lost) जोडले गेले, पण दुसऱ्या भागात फक्त नाम (passport) आहे.',
+      '३. अचूक रूप: "He lost not only his ticket, but also his passport" ➔ क्रियापद बाहेर काढून दोन्ही नामांच्या आधी बरोबर जोड्या लावल्या.'
+    ],
+    examples: [
+      {
+        sentence: 'The dedicated officer lost not only his official documents, but also his mobile phone during the rescue operation.',
+        isCorrect: true,
+        explanation: 'Correct. Perfectly parallel: "lost" precedes "not only", so "not only + noun phrase" balances "but also + noun phrase".',
+        explanationMr: 'बरोबर! "lost" हे क्रियापद आधी आले असून "not only" नंतर नाम (official documents) आणि "but also" नंतर नाम (mobile phone) असा उत्कृष्ट समतोल साधला आहे.'
+      },
+      {
+        sentence: 'The officer not only lost his official documents, but also his mobile phone.',
+        isCorrect: false,
+        explanation: 'Incorrect! Violates parallelism: "not only" is placed before the verb "lost", while "but also" is placed before the noun phrase "his mobile phone".',
+        explanationMr: 'चूक! "not only" क्रियापदाच्या आधी ठेवले पण "but also" नामाच्या आधी ठेवले; असा विसंगत क्रम MPSC परीक्षेत चुकीचा ठरतो.'
+      },
+      {
+        sentence: 'She can either speak Marathi or English fluently.',
+        isCorrect: true,
+        explanation: 'Correct. "Either" precedes the noun "Marathi" and "or" precedes the noun "English".',
+        explanationMr: 'बरोबर! "either" नंतर भाषा (मराठी) आणि "or" नंतर भाषा (इंग्रजी) असा समतोल आहे.'
+      },
+      {
+        sentence: 'She either can speak Marathi or English.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Either" before the auxiliary "can" is unbalanced with "English".',
+        explanationMr: 'चूक! "either" साहाय्यकारी क्रियापदाच्या आधी नेल्याने वाक्याची समतोल रचना बिघडते.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Parallelism Clue: Check what immediately follows "but also". If it is a noun, look back at "not only" — it MUST also be followed immediately by a noun!',
+    examTipMr: 'MPSC क्लृप्ती: आधी "but also" च्या पुढे पहा काय आहे (नाम आहे की क्रियापद). जे पद "but also" च्या पुढे असेल, अगदी तसेच पद "not only" च्या पुढे आणून ठेवा; क्रियापद दोन्हीच्या बाहेर काढा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Parallelism', 'Not only but also', 'Correlative Conjunctions', 'Syntax', 'MPSC Rules']
+  },
+
+  // --- 21. "Too...to" Transformation into "So...that...cannot / could not" ---
+  {
+    id: 'en_rule_tooto_sothat_01',
+    language: 'english',
+    category: 'Adverbs & Transformation',
+    categoryMr: 'क्रियाविशेषण व वाक्य रूपांतर (Too...to vs So...that)',
+    title: 'Adverb "TOO...TO" (Negative Force) Transformation into "SO...THAT...CANNOT / COULD NOT"',
+    titleMr: '"Too...to" (अंतर्भूत नकारार्थी अर्थ) चे "So...that...cannot / could not" मध्ये रूपांतर नियम',
+    formula: 'Too + Adjective + to + V1 = So + Adjective + that + Sub + cannot / could not + V1',
+    formulaMr: 'Too + विशेषण + to + V1 = So + विशेषण + that + कर्ता + cannot (वर्तमानकाळ) / could not (भूतकाळ) + V1',
+    definition: 'The adverb "too" followed by an adjective and an infinitive ("too...to") carries an inherently NEGATIVE meaning denoting excess beyond an acceptable limit ("so much that it cannot happen"). In affirmative sentences with "too...to", never add "not". When transforming into complex sentences with "so...that", "cannot" (for present tense) or "could not" (for past tense) is mandatory.',
+    definitionMr: '"Too...to" या रचनेत मूळचाच नकारात्मक अर्थ दडलेला असतो (इतका की ते शक्यच नाही). त्यामुळे "too...to" च्या साध्या वाक्यात "not" लावत नाहीत. जेव्हा या वाक्याचे "so...that" मध्ये रूपांतर करतात, तेव्हा वर्तमानकाळात "cannot" आणि भूतकाळात "could not" लावणे बंधनकारक असते.',
+    keyPoints: [
+      'Inherent negative sense: "He is too weak to walk" means "He is so weak that he cannot walk."',
+      'Never write: "He is too weak not to walk" or "He is too weak that he cannot walk" (mixing the two structures is an error).',
+      'Tense consistency: Present tense (is/am/are) ➔ cannot | Past tense (was/were) ➔ could not.',
+      'Passive infinitive case: "The box is too heavy to lift" ➔ "The box is so heavy that it cannot be lifted."'
+    ],
+    keyPointsMr: [
+      '१. "Too...to" चा अर्थ: "एवढा अशक्त की चालणेही अशक्य" असा अंतर्भूत नकार असतो.',
+      '२. दोन्ही रचना एकत्र मिसळणे चूक: "He is too weak that he cannot walk" ही परीक्षेत वारंवार दिली जाणारी घोडचूक आहे ("too" सोबत "that" कधीही येत नाही; "so" सोबत "that" येते).',
+      '३. काळाचे भान ठेवा: वर्तमानकाळ (is/are) असल्यास \'cannot\'; भूतकाळ (was/were) असल्यास \'could not\'.',
+      '४. उदा. "He was too poor to pay the fees" ➔ "He was so poor that he could not pay the fees."'
+    ],
+    examples: [
+      {
+        sentence: 'The old farmer was too exhausted to continue tilling the parched land.',
+        isCorrect: true,
+        explanation: 'Correct. "Too exhausted to continue" correctly pairs adverb "too" with infinitive "to continue" with natural negative implication.',
+        explanationMr: 'बरोबर! "Too exhausted to continue" या साध्या वाक्यात अंतर्भूत नकार अचूक आहे. (वृद्ध शेतकरी इतका थकलेला होता की त्याला शेत नांगरणे चालू ठेवणे अशक्य होते.)'
+      },
+      {
+        sentence: 'The old farmer was too exhausted that he could not continue.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC Classic Error: Do not combine "too" with "that". It must be "so exhausted that...".',
+        explanationMr: 'चूक! "too" सोबत "that" कधीही जोडता येत नाही; "that" लावायचे असल्यास "so exhausted that he could not..." असे हवे.'
+      },
+      {
+        sentence: 'The news is so good that it cannot be true.',
+        isCorrect: true,
+        explanation: 'Correct transformation of "The news is too good to be true" into "so...that cannot".',
+        explanationMr: 'बरोबर! "The news is too good to be true" या वाक्याचे "so...that it cannot be true" मध्ये अचूक रूपांतर केले आहे.'
+      },
+      {
+        sentence: 'The patient is too weak that he cannot speak.',
+        isCorrect: false,
+        explanation: 'Incorrect. Replace "too" with "so", OR write "The patient is too weak to speak."',
+        explanationMr: 'चूक! एकतर "too weak to speak" म्हणावे किंवा "so weak that he cannot speak" म्हणावे; दोन्हीची सरमिसळ करू नये.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Pair Check:\n• "TOO" is followed by "TO + V1"\n• "SO" is followed by "THAT + CANNOT / COULD NOT"\n• NEVER pair "TOO...THAT"!',
+    examTipMr: 'MPSC जोडी नियम:\n१. "TOO" ची जोडी नेहमी "TO" सोबत असते (Too...to).\n२. "SO" ची जोडी नेहमी "THAT" सोबत असते (So...that).\n३. परीक्षेत "Too...that" दिसल्यास तोच १००% एरर (Error) असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Too to', 'So that', 'Sentence Transformation', 'Adverbs', 'MPSC Rules']
+  },
+
+  // --- 22. Reciprocal Pronouns: "Each other" vs "One another" ---
+  {
+    id: 'en_rule_reciprocal_pronoun_01',
+    language: 'english',
+    category: 'Pronouns & Syntax',
+    categoryMr: 'परस्परसंवाची सर्वनामे (Reciprocal Pronouns)',
+    title: 'Reciprocal Pronouns: "EACH OTHER" (for Two) vs "ONE ANOTHER" (for More than Two)',
+    titleMr: '"Each other" (दोघांसाठी) विरुद्ध "One another" (दोघांपेक्षा जास्त लोकांसाठी) फरक व नियम',
+    formula: '2 Persons / Entities = EACH OTHER | 3 or More Persons / Entities = ONE ANOTHER',
+    formulaMr: 'दोन व्यक्ती किंवा वस्तूंमध्ये परस्परसंबंध = EACH OTHER | दोनपेक्षा अधिक (३ किंवा जास्त) व्यक्तींमध्ये = ONE ANOTHER',
+    definition: 'In standard formal examination English, the reciprocal pronoun "each other" is strictly used when referring to TWO persons or entities interacting mutually. When THREE OR MORE persons or entities are involved in mutual interaction, "one another" must be used.',
+    definitionMr: 'इंग्रजी व्याकरणात "Each other" चा वापर केवळ दोन व्यक्ती किंवा घटकांमधील परस्पर क्रिया दर्शवण्यासाठी केला जातो. जेव्हा दोनपेक्षा जास्त (तीन किंवा त्याहून अधिक) व्यक्ती एकमेकांशी संवाद साधतात किंवा व्यवहार करतात, तेव्हा "One another" चा वापर करणे अनिवार्य असते.',
+    keyPoints: [
+      '"Each other" is reserved strictly for TWO persons/things: "The two brothers helped each other."',
+      '"One another" is strictly for MORE THAN TWO persons/things: "The four ministers consulted one another."',
+      'Possessive forms: "Each other\'s" and "One another\'s" take an apostrophe before the "s": "They pulled each other\'s hair."',
+      'Never write "each others\'" or "one anothers\'" (apostrophe after s is an error).'
+    ],
+    keyPointsMr: [
+      '१. दोन व्यक्तींसाठी: Each other (उदा. The two sisters love each other).',
+      '२. दोनपेक्षा जास्त व्यक्तींसाठी: One another (उदा. All the students of the class helped one another).',
+      '३. षष्ठी रूप (Possessive): दोघांच्या मालकीसाठी \'each other\'s\' आणि सर्वांसाठी \'one another\'s\' (उदा. each other\'s help).',
+      '४. MPSC ट्रॅप: दोन भावांसाठी \'one another\' देणे किंवा चार मित्रांसाठी \'each other\' देणे हा परीक्षकांचा आवडता ट्रॅप आहे!'
+    ],
+    examples: [
+      {
+        sentence: 'The two civil service aspirants helped each other during their daily interview mock sessions.',
+        isCorrect: true,
+        explanation: 'Correct. Since exactly two aspirants ("The two") are involved, "each other" is the proper reciprocal pronoun.',
+        explanationMr: 'बरोबर! येथे बरोबर दोन उमेदवार ("The two") असल्याने "each other" चा वापर अगदी अचूक आहे. (दोन्ही विद्यार्थ्यांनी मुलाखतीच्या मॉक सत्रात एकमेकांना मदत केली.)'
+      },
+      {
+        sentence: 'The two civil service aspirants helped one another.',
+        isCorrect: false,
+        explanation: 'Incorrect! For two persons, "one another" is ungrammatical. It must be "each other".',
+        explanationMr: 'चूक! दोन व्यक्तींसाठी "one another" वापरता येत नाही; तिथे "each other" हवे.'
+      },
+      {
+        sentence: 'All the five district collectors congratulated one another on achieving their revenue targets.',
+        isCorrect: true,
+        explanation: 'Correct. Because five collectors are involved (more than two), "one another" is strictly required.',
+        explanationMr: 'बरोबर! येथे पाच जिल्हाधिकारी (दोनपेक्षा जास्त) असल्याने "one another" हे परस्परसंवाची सर्वनाम अचूक आहे. (महसूल उद्दिष्ट गाठल्याबद्दल पाचही जिल्हाधिकाऱ्यांनी एकमेकांचे अभिनंदन केले.)'
+      },
+      {
+        sentence: 'All the five district collectors congratulated each other.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Each other" cannot refer to five persons. It must be "one another".',
+        explanationMr: 'चूक! पाच व्यक्तींसाठी "each other" चालत नाही; तिथे "one another" हवे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC 2-Second Trick: Look at the number in the sentence!\n• If the sentence specifies "TWO" (two brothers, both partners) ➔ EACH OTHER\n• If the sentence mentions "THREE", "FIVE", "ALL", "PLAYERS" ➔ ONE ANOTHER',
+    examTipMr: 'MPSC २ सेकंदांची क्लृप्ती: वाक्यात किती व्यक्ती आहेत ते मोजा!\n• जर दोन (Two / Both) असतील ➔ EACH OTHER\n• जर दोनापेक्षा जास्त (Three, All, Team, Students) असतील ➔ ONE ANOTHER',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Reciprocal Pronouns', 'Each other', 'One another', 'Pronouns', 'MPSC Rules']
+  },
+
+  // --- 23. Possessive Case Before Gerund (V-ing) ---
+  {
+    id: 'en_rule_gerund_possessive_01',
+    language: 'english',
+    category: 'Gerund & Infinitives',
+    categoryMr: 'धातुसाधित नाम व षष्ठी विभक्ती नियम (Possessive Case Before Gerund)',
+    title: 'Gerund (V-ing) Must Be Preceded by Possessive Case ("my, his, her, their, Ram\'s"), NOT Objective ("me, him, them")',
+    titleMr: 'Gerund (धातुसाधित नाम - V-ing) पूर्वी नेहमी षष्ठी विभक्ती (Possessive Case) वापरण्याचा नियम',
+    formula: 'Verb / Preposition + Possessive (my / his / her / your / their / our / Noun\'s) + GERUND (V-ing) (NEVER me / him / them)',
+    formulaMr: 'Gerund (V-ing) आधी नेहमी षष्ठी (my, your, his, her, their, Noun\'s) येते; द्वितीया (me, him, them, us) कधीही येत नाही!',
+    definition: 'A Gerund is a verbal noun ending in "-ing". Because it functions fundamentally as a NOUN, any noun or pronoun qualifying it must be in the POSSESSIVE CASE (e.g., my, your, his, her, their, our, candidate\'s), NOT the objective case (me, you, him, her, them, us).',
+    definitionMr: 'Gerund (क्रियापदाचे \'ing\' रूप) हे वाक्यात नामाचे (Verbal Noun) काम करते. नामावर मालकी किंवा संबंध दाखवण्यासाठी इंग्रजी व्याकरणात षष्ठी विभक्तीचा (Possessive Adjective - my, your, his, her, their, Rohan\'s) वापर केला जातो. त्यामुळे Gerund च्या आधी द्वितीया विभक्ती (me, him, them) वापरणे ही MPSC परीक्षेत वारंवार विचारली जाणारी गंभीर चूक आहे.',
+    keyPoints: [
+      'Always use possessive before a gerund: "my going", "his coming", "their shouting", "Ramesh\'s scoring".',
+      'Never use objective case before a gerund: "me going" ➔ ERROR | "him speaking" ➔ ERROR | "them interrupting" ➔ ERROR.',
+      'Example: "My father dislikes my going out late at night" (NOT "me going out").',
+      'Example: "The committee approved of his leading the delegation" (NOT "him leading").'
+    ],
+    keyPointsMr: [
+      '१. Gerund च्या आधी नेहमी षष्ठी रूपे: my, his, your, their, our, Ram\'s (उदा. my going, his talking).',
+      '२. Gerund च्या आधी कर्म रूपे (Objective Case) कधीही येत नाहीत: me, him, them, us वापरल्यास चूक ठरते.',
+      '३. उदा. "I object to his going there" बरोबर; "I object to him going there" चूक!',
+      '४. नामाला सुद्धा एपॉस्ट्रॉफी \'s\' लावावा लागतो: "I was surprised at Ramesh\'s passing the exam" (Ramesh passing नाही).'
+    ],
+    examples: [
+      {
+        sentence: 'The senior superintendent objected to his leaving the police station without prior permission.',
+        isCorrect: true,
+        explanation: 'Correct. The gerund "leaving" is properly preceded by the possessive adjective "his".',
+        explanationMr: 'बरोबर! "leaving" या Gerund च्या आधी "his" ही षष्ठी विभक्ती अचूक वापरली आहे. (पूर्वपरवानगीशिवाय पोलीस ठाणे सोडण्यावर वरिष्ठ अधीक्षकांनी आक्षेप घेतला.)'
+      },
+      {
+        sentence: 'The superintendent objected to him leaving the police station without prior permission.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Trap: Objective pronoun "him" before gerund "leaving" is ungrammatical. It must be "his leaving".',
+        explanationMr: 'चूक! MPSC चा सर्वात आवडता ट्रॅप: "leaving" च्या आधी "him" चालत नाही; तिथे षष्ठीचे रूप "his" हवे.'
+      },
+      {
+        sentence: 'My parents do not approve of my staying up late to study for exams.',
+        isCorrect: true,
+        explanation: 'Correct. Possessive "my" properly qualifies the gerund "staying".',
+        explanationMr: 'बरोबर! "staying" (उशिरापर्यंत जागे राहणे) या Gerund च्या आधी "my" (माझे) ही षष्ठी योग्य आहे. (परीक्षेचा अभ्यास करण्यासाठी मी रात्री उशिरापर्यंत जागे राहणे पालकांना आवडत नाही.)'
+      },
+      {
+        sentence: 'My parents do not approve of me staying up late.',
+        isCorrect: false,
+        explanation: 'Incorrect! "me staying" must be corrected to "my staying".',
+        explanationMr: 'चूक! "me staying" ही चूक असून "my staying" अशी रचना हवी.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Gerund Trap: If you see "me + V-ing", "him + V-ing", or "them + V-ing" after verbs/prepositions like object to, approve of, dislike, insist on, replace "me/him/them" with "my/his/their" immediately!',
+    examTipMr: 'MPSC सुवर्ण नियम: वाक्यात जर क्रियापदाच्या \'ing\' रूपाच्या आधी "me", "him", "them", "us" दिसले (उदा. me going, him doing, them shouting), तर तोच भाग डोळे झाकून एरर (Error) म्हणून मार्क करा! तिथे my, his, their पाहिजे.',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Gerund', 'Possessive Case', 'His going', 'Pronouns', 'MPSC Rules']
+  },
+
+  // --- 24. Quantitative Adjectives: "Little / A little / The little" vs "Few / A few / The few" ---
+  {
+    id: 'en_rule_little_few_01',
+    language: 'english',
+    category: 'Adjectives & Determiners',
+    categoryMr: 'परिमाणवाचक विशेषणे (Little vs Few नियम)',
+    title: 'Quantifiers: "LITTLE / A LITTLE / THE LITTLE" (Quantity) vs "FEW / A FEW / THE FEW" (Number)',
+    titleMr: '"Little, A little, The little" (प्रमाण/द्रव्य) विरुद्ध "Few, A few, The few" (संख्या) फरक व नियम',
+    formula: 'Uncountable Nouns = Little / A little / The little | Plural Countable Nouns = Few / A few / The few',
+    formulaMr: 'मोजता न येणारे द्रव्य/वस्तू (Uncountable) = Little (नगण्य), A little (काही), The little (उपलब्ध सर्व) | संख्या (Countable) = Few (नगण्य), A few (काही), The few (उपलब्ध सर्व)',
+    definition: '\'Little\', \'A little\', and \'The little\' express QUANTITY and are strictly used with singular UNCOUNTABLE nouns (milk, water, time, money, knowledge). \'Few\', \'A few\', and \'The few\' express NUMBER and are strictly used with plural COUNTABLE nouns (books, days, friends, questions).\n• Little / Few = Hardly any / Almost none (Negative significance).\n• A little / A few = At least some / A small amount (Positive significance).\n• The little / The few = The specific whole quantity/number that is available.',
+    definitionMr: '\'Little\' आणि त्याचे प्रकार मोजता न येणाऱ्या नामांसाठी (Quantity - उदा. पाणी, दूध, वेळ, ज्ञान, पैसा) वापरले जातात. तर \'Few\' आणि त्याचे प्रकार मोजता येणाऱ्या अनेकवचनी नामांसाठी (Number - उदा. पुस्तके, मित्र, दिवस) वापरले जातात.\n• Little / Few = जवळजवळ नाहीच (नकारात्मक अर्थ).\n• A little / A few = थोडेतरी, काही प्रमाणात (सकारात्मक अर्थ).\n• The little / The few = थोडेच, पण उपलब्ध असलेले सर्वच्या सर्व.',
+    keyPoints: [
+      'Uncountable Nouns (Water, Sugar, Hope, Knowledge) ➔ Little, A little, The little.',
+      'Plural Countable Nouns (Boys, Books, Mistakes, Days) ➔ Few, A few, The few.',
+      '"Little" without "a" has a NEGATIVE meaning: "There is little hope of his recovery" (= almost no hope).',
+      '"A little" has a POSITIVE meaning: "A little knowledge is a dangerous thing" (= some knowledge).',
+      '"The little" means "all of the small quantity available": "He drank the little milk that was left."'
+    ],
+    keyPointsMr: [
+      '१. मोजता न येणाऱ्या नामांसाठी: Little, A little, The little (उदा. water, money, hope, milk).',
+      '२. मोजता येणाऱ्या नामांसाठी: Few, A few, The few (उदा. books, friends, students, mistakes).',
+      '३. \'Little\' किंवा \'Few\' (विना \'a\'): याचा अर्थ "जवळजवळ शून्य" असा नकारात्मक असतो (उदा. He has few friends = त्याला मित्र नाहीतच).',
+      '४. \'A little\' किंवा \'A few\': याचा अर्थ "काही प्रमाणात उपलब्ध" असा सकारात्मक असतो (उदा. A few friends visited me).',
+      '५. \'The little\' किंवा \'The few\': "जे काही थोडे होते ते सर्वच्या सर्व" (उदा. I spent the little money I had).'
+    ],
+    examples: [
+      {
+        sentence: 'A little knowledge of English grammar is helpful for competitive examination aspirants.',
+        isCorrect: true,
+        explanation: 'Correct. "Knowledge" is uncountable, and "a little" properly conveys a positive small amount ("some knowledge").',
+        explanationMr: 'बरोबर! "knowledge" हे मोजता न येणारे नाम असून "a little" म्हणजे "काही प्रमाणात असलेले ज्ञान फायदेशीर ठरते" असा सकारात्मक अर्थ अचूक आहे.'
+      },
+      {
+        sentence: 'A few knowledge of English grammar is helpful.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Knowledge" is uncountable, so "few" cannot be used. It must be "a little knowledge".',
+        explanationMr: 'चूक! "knowledge" हे Uncountable नाम असल्याने त्याच्यासोबत "few" चालत नाही; तिथे "a little" हवे.'
+      },
+      {
+        sentence: 'He wasted the little money that his father had sent him from the village.',
+        isCorrect: true,
+        explanation: 'Correct. "The little" properly denotes the specific total amount of money that was sent.',
+        explanationMr: 'बरोबर! वडिलांनी पाठवलेले जे काही थोडे पैसे होते ते सर्वच्या सर्व त्याने खर्च केले, म्हणून "the little money" अगदी अचूक आहे.'
+      },
+      {
+        sentence: 'The teacher pointed out few mistakes in my essay, so I scored full marks.',
+        isCorrect: false,
+        explanation: 'Incorrect contextual logic: If you scored full marks, there were "no" or "few" without so, but here "a few mistakes" conflicts with scoring full marks.',
+        explanationMr: 'चूक! अर्थ आणि संदर्भानुसार येथे अचूक शब्दयोजना हवी.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Trap Checklist:\n1. Check the Noun: Countable ➔ FEW | Uncountable ➔ LITTLE.\n2. Check the Meaning: Almost None ➔ Little/Few | At least Some ➔ A little / A few | All that remains ➔ The little / The few.',
+    examTipMr: 'MPSC क्लृप्ती:\n१. आधी नाम पाहा: मोजता येणारे असेल तर FEW; मोजता न येणारे (द्रव्य/भाव) असेल तर LITTLE.\n२. अर्थ पाहा: "नाहीच्या बरोबर" असेल तर Little/Few; "थोडेफार" असेल तर A little / A few; "उरलेले सर्व" असेल तर The little / The few!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Determiners', 'Little vs Few', 'A little', 'The few', 'MPSC Rules']
+  },
+
+  // --- 25. Preposition "BETWEEN" Takes Objective Case ("Between you and ME") ---
+  {
+    id: 'en_rule_between_objective_01',
+    language: 'english',
+    category: 'Prepositions & Pronouns',
+    categoryMr: 'शब्दयोगी अव्यये व कर्म विभक्ती नियम (Preposition "Between")',
+    title: 'Preposition "BETWEEN" Strictly Takes OBJECTIVE Pronouns ("Between you and ME", NEVER "I")',
+    titleMr: '"Between" या Preposition नंतर नेहमी कर्म विभक्ती (Objective Case: "Between you and ME") वापरण्याचा नियम',
+    formula: 'Between + Objective Pronoun 1 (you / him / her / them / us) + AND + Objective Pronoun 2 (ME / him / her) (NEVER I / he / she / they)',
+    formulaMr: 'Between नंतर येणारी सर्वनामे नेहमी द्वितीया/कर्म विभक्तीतच (me, him, her, us, them) असावी लागतात; प्रथमा (I, he, she, they) कधीही येत नाही!',
+    definition: 'Like all prepositions in English, the preposition "between" governs pronouns in the OBJECTIVE CASE (Accusative). Therefore, when personal pronouns follow "between", they must strictly be in objective form: "between you and me", "between him and her", "between them and us". Using nominative/subjective pronouns like "between you and I" is a very common grammatical error in examinations.',
+    definitionMr: 'इंग्रजी व्याकरणात कोणत्याही Preposition (शब्दयोगी अव्यय) नंतर येणारे सर्वनाम हे नेहमी कर्म विभक्तीत (Objective Case) असावे लागते. त्यामुळे "between" नंतर येणारी सर्वनामे नेहमी me, him, her, us, them अशीच असावी लागतात. "between you and I" (I हे प्रथमा रूप) वापरणे ही MPSC परीक्षेत विचारली जाणारी अत्यंत प्रसिद्ध चूक आहे.',
+    keyPoints: [
+      'Always say: "Between you and ME" (NOT "between you and I").',
+      'Always say: "Between HIM and HER" (NOT "between he and she").',
+      'The conjunction joining the two objects after "between" must always be "AND", never "to" or "or": "between 10 AM and 5 PM" (NOT "between 10 AM to 5 PM").',
+      '"From" takes "to": "from 10 AM to 5 PM". "Between" takes "and": "between 10 AM and 5 PM".'
+    ],
+    keyPointsMr: [
+      '१. नेहमी "Between you and ME" म्हणावे ("Between you and I" १००% चूक आहे कारण Preposition नंतर कर्म रूप हवे).',
+      '२. नेहमी "Between him and her" म्हणावे ("Between he and she" चूक).',
+      '३. वेळेच्या बाबतीत जोडी नियम: "Between" सोबत नेहमी "AND" येतो (उदा. between 10 am AND 5 pm; \'to 5 pm\' लावल्यास चूक).',
+      '४. "From" ची जोडी "to" सोबत असते (from 10 am to 5 pm); तर "Between" ची जोडी "and" सोबत असते.'
+    ],
+    examples: [
+      {
+        sentence: 'Between you and me, the finance secretary is going to recommend a major tax concession.',
+        isCorrect: true,
+        explanation: 'Correct. The preposition "between" correctly governs the objective pronoun "me" (not "I").',
+        explanationMr: 'बरोबर! "between" हे शब्दयोगी अव्यय असल्याने "I" न येता द्वितीया विभक्ती "me" चा अचूक वापर केला आहे. (आपल्या दोघांमध्येच सांगायचे तर, वित्त सचिव मोठ्या कर सवलतीची शिफारस करणार आहेत.)'
+      },
+      {
+        sentence: 'Between you and I, the finance secretary is going to recommend a tax concession.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC Classic Trap: "between you and I" is ungrammatical. Prepositions govern the objective case, so it must be "between you and me".',
+        explanationMr: 'चूक! MPSC चा सर्वात प्रसिद्ध प्रश्न: "between you and I" ही व्याकरणातील गंभीर चूक आहे; "I" ऐवजी "me" हवे.'
+      },
+      {
+        sentence: 'The preliminary exam will be held between 10:00 AM and 12:00 PM.',
+        isCorrect: true,
+        explanation: 'Correct. "Between" is properly paired with the conjunction "and".',
+        explanationMr: 'बरोबर! "Between" ची जोडी "and" सोबत अचूक लावली आहे. (पूर्व परीक्षा सकाळी १०:०० ते दुपारी १२:०० दरम्यान होईल.)'
+      },
+      {
+        sentence: 'The preliminary exam will be held between 10:00 AM to 12:00 PM.',
+        isCorrect: false,
+        explanation: 'Incorrect! Never pair "between" with "to". Use "between...and", or "from...to".',
+        explanationMr: 'चूक! "between" सोबत "to" चालत नाही; तिथे "and" हवा (Between 10:00 AM and 12:00 PM).'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC 2 Rules for "Between":\n1. Pronoun Case: "Between you and ME" (Never "I")!\n2. Conjunction Pairing: "Between...AND" (Never "Between...TO")!',
+    examTipMr: 'MPSC "Between" चे २ महत्त्वाचे नियम:\n१. सर्वनाम: "Between you and ME" (I दिसल्यास खोडा)!\n२. जोडी: "Between...AND" (Between सोबत \'to\' दिल्यास ती चूक असते; From सोबत \'to\' येतो, Between सोबत \'and\' येतो)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Between you and me', 'Prepositions', 'Objective Case', 'Between and', 'MPSC Rules']
+  },
+
+  // --- 26. "Unless" (Condition) vs "Until" (Time) & No "NOT" Rule ---
+  {
+    id: 'en_rule_unless_until_01',
+    language: 'english',
+    category: 'Conjunctions & Conditionals',
+    categoryMr: 'उभयान्वयी अव्यये व अटींचे नियम (Unless vs Until)',
+    title: '"UNLESS" (Condition) vs "UNTIL" (Time): Clauses Must NEVER Contain "NOT"',
+    titleMr: '"Unless" (अट - जर...नाहीतर) विरुद्ध "Until" (वेळ - तोपर्यंत...नाही) आणि "NOT" न वापरण्याचा नियम',
+    formula: 'Unless = If not (Condition) | Until = Up to the time when (Time) | Both CANNOT take "not" / "never" in their clause',
+    formulaMr: 'Unless = जर...नाहीतर (अट) | Until = तोपर्यंत (वेळ) | या दोन्ही शब्दांच्या उपवाक्यात \'NOT\' किंवा \'NEVER\' कधीही लावत नाहीत!',
+    definition: '"Unless" is a conjunction of CONDITION meaning "if...not" or "except on condition that". "Until" is a conjunction and preposition of TIME meaning "up to the time when". Because both words are inherently negative in meaning, using "not", "no", or "never" inside the clause governed by "unless" or "until" constitutes a double negative error.',
+    definitionMr: '"Unless" हा शब्द \'अट\' (Condition) दर्शवतो (याचा अर्थ \'जर नाही तर\' असा होतो). तर "Until" हा शब्द \'वेळ किंवा कालावधी\' (Time) दर्शवतो (याचा अर्थ \'तोपर्यंत\' असा होतो). या दोन्ही शब्दांमध्ये आधीच नकारात्मक अर्थ समाविष्ट असल्याने यांच्या उपवाक्यात पुन्हा \'not\', \'no\' किंवा \'never\' चा वापर करणे ही व्याकरणाच्या दृष्टीने गंभीर चूक (Double Negative) ठरते.',
+    keyPoints: [
+      '"Unless" expresses CONDITION: "Unless you work hard, you will not pass."',
+      '"Until" expresses TIME: "Wait here until the train arrives."',
+      'Never put "not" or "do not" in an unless/until clause: "Unless you do not study" ➔ ERROR!',
+      'In the main clause (the other part), "not" or "will" can be used normally: "You will not succeed unless you persevere."'
+    ],
+    keyPointsMr: [
+      '१. "Unless" अटीसाठी वापरतात (उदा. अभ्यास केला नाहीतर पास होणार नाही ➔ Unless you study, you will fail).',
+      '२. "Until" वेळेसाठी वापरतात (उदा. मी येईपर्यंत इथेच थांब ➔ Wait here until I return).',
+      '३. ज्या भागात Unless किंवा Until आहे, त्या भागात \'not\' कधीही लावत नाहीत (उदा. "Until the bell does not ring" चूक ➔ "Until the bell rings" बरोबर).',
+      '४. मुख्य वाक्यात मात्र नकार असू शकतो (उदा. "I will not leave until you arrive").'
+    ],
+    examples: [
+      {
+        sentence: 'Unless you practice mock tests regularly, you cannot crack the competitive exam.',
+        isCorrect: true,
+        explanation: 'Correct. "Unless" properly introduces the condition, and its clause contains no negative words.',
+        explanationMr: 'बरोबर! "Unless" ने अचूकपणे अट दर्शवली असून या भागात कुठेही "not" लावलेला नाही. (जोपर्यंत तुम्ही नियमित सराव चाचण्या सोडवत नाही, तोपर्यंत स्पर्धा परीक्षा उत्तीर्ण होणे शक्य नाही.)'
+      },
+      {
+        sentence: 'Unless you do not practice mock tests regularly, you cannot crack the exam.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Trap: "Unless" already means "if not", so adding "do not" creates an ungrammatical double negative.',
+        explanationMr: 'चूक! MPSC चा सर्वात आवडता ट्रॅप: "Unless" मध्ये आधीच नकार असल्याने "do not" लावता येत नाही; "Unless you practice" असे हवे.'
+      },
+      {
+        sentence: 'The candidates must remain seated in the hall until the supervisor collects all answer sheets.',
+        isCorrect: true,
+        explanation: 'Correct. "Until" correctly denotes time ("up to the time when the supervisor collects").',
+        explanationMr: 'बरोबर! पर्यवेक्षक उत्तरपत्रिका गोळा करेपर्यंत (वेळ) बसून राहावे, यासाठी "until" चा वापर अचूक आहे.'
+      },
+      {
+        sentence: 'Wait here until the bus does not arrive.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Until...does not" is wrong. It must be "until the bus arrives".',
+        explanationMr: 'चूक! "until" नंतर "does not arrive" चालत नाही; "until the bus arrives" असे सकारात्मक रूप हवे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC 2-Step Checklist:\n1. Is it Condition or Time? If it specifies time/clock ➔ UNTIL. If condition ➔ UNLESS.\n2. Look immediately inside the Unless/Until clause: If you spot "not", "never", or "no", that is your ERROR!',
+    examTipMr: 'MPSC तपासणी क्लृप्ती:\n१. अट असल्यास "Unless" आणि वेळ असल्यास "Until".\n२. Unless किंवा Until च्या उपवाक्यात जर "not" किंवा "do not" दिसले, तर तोच भाग १००% चुकीचा (Error in Sentence) असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Unless and Until', 'Conditionals', 'Double Negative', 'Conjunctions', 'MPSC Rules']
+  },
+
+  // --- 27. Superfluous & Redundant Expressions (Words to Avoid) ---
+  {
+    id: 'en_rule_redundancy_01',
+    language: 'english',
+    category: 'Vocabulary & Syntax',
+    categoryMr: 'अनावश्यक पुनरुक्ती दोष (Superfluous / Redundant Expressions)',
+    title: 'Superfluous Expressions: "Cousin brother/sister", "Return back", "Repeat again", "Blunder mistake"',
+    titleMr: 'अनावश्यक शब्दांची पुनरुक्ती (Redundancy): "Cousin brother", "Return back", "Blunder mistake" टाळण्याचा नियम',
+    formula: 'Return (NOT return back) | Repeat (NOT repeat again) | Blunder (NOT blunder mistake) | Cousin (NOT cousin brother/sister)',
+    formulaMr: 'Return (परत येणे - back लावू नये) | Repeat (पुन्हा सांगणे - again लावू नये) | Blunder (मोठी चूक - mistake लावू नये) | Cousin (चुलत/मामे भावंड - brother/sister लावू नये)',
+    definition: 'In standard examination English, redundant or superfluous words (words that unnecessarily repeat the meaning already contained in the verb or noun) are strictly considered grammatical errors. Common Indian English colloquialisms like "cousin brother", "return back", and "blunder mistake" must be avoided.',
+    definitionMr: 'इंग्रजी व्याकरणात एखाद्या शब्दात जो अर्थ आधीच दडलेला असतो, तोच अर्थ दाखवणारा दुसरा शब्द सोबत वापरणे याला "Superfluous" (अनावश्यक पुनरुक्ती दोष) म्हणतात. MPSC परीक्षेत अशा शब्दांवर दरवर्षी प्रश्न विचारले जातात.',
+    keyPoints: [
+      'Cousin: Never say "cousin brother" or "cousin sister". Say only "cousin" (e.g. "He is my cousin").',
+      'Return: Never say "return back" (return itself means come back). Say only "return".',
+      'Revert: Never say "revert back". Say only "revert".',
+      'Repeat: Never say "repeat again". Say only "repeat".',
+      'Blunder: Never say "blunder mistake" or "big blunder" (blunder means a big mistake). Say only "blunder".',
+      'Consensus: Never say "consensus of opinion" (consensus means general agreement of opinion). Say only "consensus".'
+    ],
+    keyPointsMr: [
+      '१. Cousin: इंग्रजीत "cousin brother" किंवा "cousin sister" हे शब्द अस्तित्वातच नाहीत! फक्त "cousin" म्हणावे (उदा. She is my cousin).',
+      '२. Return: "return back" चुकीचे आहे; फक्त "return" म्हणावे.',
+      '३. Revert: "revert back" चुकीचे आहे; फक्त "revert" म्हणावे.',
+      '४. Repeat: "repeat again" चुकीचे आहे; फक्त "repeat" म्हणावे.',
+      '५. Blunder: "blunder mistake" किंवा "big blunder" चुकीचे आहे; कारण blunder चा अर्थच "मोठी चूक" असा होतो.',
+      '६. Consensus: "consensus of opinion" चूक; फक्त "consensus" म्हणावे.'
+    ],
+    examples: [
+      {
+        sentence: 'Priya is my cousin and she is preparing for the State Tax Inspector exam.',
+        isCorrect: true,
+        explanation: 'Correct. "Cousin" is used without the redundant addition of "sister".',
+        explanationMr: 'बरोबर! "cousin" शब्दासोबत "sister" न लावता शुद्ध इंग्रजी वाक्य वापरले आहे. (प्रिया माझी चुलत बहीण असून ती एसटीआय परीक्षेची तयारी करत आहे.)'
+      },
+      {
+        sentence: 'Priya is my cousin sister.',
+        isCorrect: false,
+        explanation: 'Incorrect! Indian colloquialism error: In standard English, never say "cousin brother" or "cousin sister". Say "cousin".',
+        explanationMr: 'चूक! MPSC चा अत्यंत लोकप्रिय प्रश्न: इंग्रजीत "cousin sister" चालत नाही; फक्त "cousin" हवे.'
+      },
+      {
+        sentence: 'The sub-divisional magistrate committed a grave blunder in evaluating the tender documents.',
+        isCorrect: true,
+        explanation: 'Correct. "Blunder" correctly stands on its own without the word "mistake".',
+        explanationMr: 'बरोबर! "blunder" सोबत "mistake" लावलेले नाही, त्यामुळे वाक्य निर्दोष आहे.'
+      },
+      {
+        sentence: 'The magistrate committed a blunder mistake.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Blunder mistake" is redundant because "blunder" itself means a grave mistake. Use either "blunder" or "grave mistake".',
+        explanationMr: 'चूक! "blunder mistake" ही पुनरुक्ती आहे; एकतर फक्त "blunder" म्हणा किंवा "big mistake" म्हणा.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Redundancy Hit-List:\n• Return back ➔ Drop "back"\n• Repeat again ➔ Drop "again"\n• Revert back ➔ Drop "back"\n• Cousin brother/sister ➔ Drop "brother/sister"\n• Blunder mistake ➔ Drop "mistake"\n• Consensus of opinion ➔ Drop "of opinion"',
+    examTipMr: 'MPSC टाळावयाची शब्दजोडी (पाठ करा):\n• Return back ➔ back काढून टाका\n• Repeat again ➔ again काढून टाका\n• Revert back ➔ back काढून टाका\n• Cousin sister/brother ➔ sister/brother काढून टाका\n• Blunder mistake ➔ mistake काढून टाका!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Redundancy', 'Superfluous words', 'Cousin', 'Return back', 'MPSC Rules']
+  },
+
+  // --- 28. "ANY OTHER" in Comparative Degree (Exclusion Rule) ---
+  {
+    id: 'en_rule_any_other_comparison_01',
+    language: 'english',
+    category: 'Adjectives & Degrees',
+    categoryMr: 'विशेषणे व तुलना नियम ("Any other" Exclusion Rule)',
+    title: 'Exclusion in Comparative Degree: "ANY OTHER" Must Exclude the Item Being Compared',
+    titleMr: 'तुलना करताना स्वतःचा गट वगळण्यासाठी "ANY OTHER" वापरण्याचा नियम',
+    formula: 'Subject + Verb + Comparative Adjective + THAN ANY OTHER + Singular Noun (Within the same class/category)',
+    formulaMr: 'एकाच गटातील घटकांशी तुलना करताना: Than + ANY OTHER + एकवचनी नाम (Any नंतर \'OTHER\' लावणे अनिवार्य!)',
+    definition: 'When comparing a person or thing with other members belonging to the SAME class or category using Comparative Degree, the subject being compared must be excluded from the comparison group by using the word "OTHER" (e.g., "than any other metal", "than any other boy"). Omitting "other" creates a logical contradiction, implying that the subject is superior to itself.',
+    definitionMr: 'जेव्हा एकाच गटातील एखाद्या घटकाची तुलना त्या गटातील इतर घटकांशी केली जाते, तेव्हा ज्या घटकाची तुलना चालू आहे त्याला वगळण्यासाठी "than any" नंतर "OTHER" हा शब्द लावणे अनिवार्य असते. जर "other" लावला नाही, तर तो घटक स्वतःपेक्षाही श्रेष्ठ आहे असा हास्यास्पद अर्थ निघतो (उदा. "लोखंड इतर कोणत्याही धातूपेक्षा उपयुक्त आहे" ➔ Iron is more useful than any other metal).',
+    keyPoints: [
+      'Within the same category: Always use "than ANY OTHER" (e.g. "Gold is more precious than any other metal").',
+      'Never omit "other": "Gold is more precious than any metal" is logically wrong, because gold cannot be more precious than gold!',
+      'Different category exception: If comparing across two entirely different categories, "other" is NOT used: "Diamond is harder than any metal" (correct, because diamond is not a metal).',
+      'After "any other", the noun is always SINGULAR: "any other metal" (NOT "any other metals").'
+    ],
+    keyPointsMr: [
+      '१. एकाच वर्गातील तुलना करताना: "than ANY OTHER" वापरतात (उदा. शेक्सपियर इतर कोणत्याही नाटककारापेक्षा श्रेष्ठ आहे ➔ greater than any other playwright).',
+      '२. जर \'other\' गाळला तर वाक्य चुकीचे ठरते: "Iron is more useful than any metal" चूक; कारण लोखंडही धातूच असल्याने तो स्वतःपेक्षा जास्त उपयुक्त असू शकत नाही.',
+      '३. भिन्न गटात \'other\' लागत नाही: "Diamond is harder than any metal" बरोबर; कारण हिरा हा धातू नाही.',
+      '४. "any other" नंतर नाम नेहमी एकवचनी येते: any other metal (metals नाही!).'
+    ],
+    examples: [
+      {
+        sentence: 'Iron is more useful than any other metal for infrastructure and industrial development.',
+        isCorrect: true,
+        explanation: 'Correct. "Any other metal" properly excludes iron from the rest of the metal group being compared.',
+        explanationMr: 'बरोबर! लोखंड हा स्वतः एक धातू असल्याने "than any other metal" (इतर कोणत्याही धातूपेक्षा) असा अचूक शब्दप्रयोग केला आहे.'
+      },
+      {
+        sentence: 'Iron is more useful than any metal for infrastructure development.',
+        isCorrect: false,
+        explanation: 'Incorrect! Logical contradiction: "any metal" includes iron itself, implying iron is more useful than itself. Must be "any other metal".',
+        explanationMr: 'चूक! MPSC चा क्लासिक प्रश्न: "any metal" मध्ये लोखंडही आले, म्हणजे लोखंड लोखंडापेक्षाही उपयुक्त ठरते! म्हणून "any other metal" असेच हवे.'
+      },
+      {
+        sentence: 'Chhatrapati Shivaji Maharaj was greater than any other ruler of his contemporary era.',
+        isCorrect: true,
+        explanation: 'Correct. "Any other ruler" properly excludes Shivaji Maharaj from the group of contemporary rulers.',
+        explanationMr: 'बरोबर! "any other ruler" (इतर कोणत्याही राज्यकर्त्यापेक्षा) हा तुलनात्मक क्रम अचूक आहे.'
+      },
+      {
+        sentence: 'Mumbai is bigger than any cities in Maharashtra.',
+        isCorrect: false,
+        explanation: 'Incorrect! Must be "any other city" (singular noun with "other").',
+        explanationMr: 'चूक! "any other city" अशी एकवचनी रचना असायला हवी.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC "Any Other" Clue: In comparative degree ("more...than"), check after "than":\n• "than any metal" ➔ ERROR! (Insert "other")\n• "than any other metals" ➔ ERROR! (Change to singular "metal")',
+    examTipMr: 'MPSC क्लृप्ती: Comparative Degree च्या वाक्यात "than" नंतर लक्ष द्या:\n१. जर "than any + नाम" असेल, तर मध्ये "other" नसणे ही चूक असते!\n२. "any other" नंतर नाम नेहमी एकवचनीच हवे (metal, boy, city; metals किंवा boys नाही)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Any other', 'Degrees of Comparison', 'Adjectives', 'Comparative Degree', 'MPSC Rules']
+  },
+
+  // --- 29. "Doubt / Doubtful" taking "IF / WHETHER" vs "THAT" ---
+  {
+    id: 'en_rule_doubt_whether_that_01',
+    language: 'english',
+    category: 'Conjunctions & Syntax',
+    categoryMr: 'उभयान्वयी अव्यये व संशय दर्शक नियम (Doubt with If vs That)',
+    title: '"DOUBT / DOUBTFUL" Takes "IF / WHETHER" in Affirmative Sentences, but "THAT" in Negative / Interrogative',
+    titleMr: '"Doubt / Doubtful" नंतर होकारार्थी वाक्यात "IF / WHETHER" आणि नकारार्थी/प्रश्नार्थी वाक्यात "THAT" वापरण्याचा नियम',
+    formula: 'Affirmative (संशय आहे) + DOUBT / DOUBTFUL + IF / WHETHER | Negative / Interrogative (संशय नाही) + THAT',
+    formulaMr: 'होकारार्थी वाक्य (मला शंका आहे) ➔ IF किंवा WHETHER | नकारार्थी वाक्य (मला शंका नाही / Do you doubt?) ➔ THAT',
+    definition: 'In English syntax, when "doubt" or "doubtful" is used in an AFFIRMATIVE sentence, it denotes uncertainty and must be followed by "if" or "whether" (never "that"). Conversely, when used in a NEGATIVE or INTERROGATIVE sentence (where doubt is denied or questioned), certainty is implied, and it must strictly be followed by the conjunction "THAT".',
+    definitionMr: 'इंग्रजी व्याकरणात जेव्हा "Doubt" (शंका) किंवा "Doubtful" हा शब्द होकारार्थी वाक्यात येतो, तेव्हा अनिश्चितता व्यक्त होत असल्याने त्याच्यापुढे "IF" किंवा "WHETHER" चा वापर होतो. परंतु जेव्हा वाक्य नकारार्थी (उदा. I have no doubt, I do not doubt) किंवा प्रश्नार्थी असते, तेव्हा कोणतीही शंका उरत नसल्याने निश्चितता दर्शवण्यासाठी केवळ "THAT" चाच वापर होतो.',
+    keyPoints: [
+      'Affirmative Sentences (Uncertainty): "I doubt IF / WHETHER he will succeed" (NOT "that he will succeed").',
+      'Negative Sentences (Certainty): "I do not doubt THAT he will succeed" (NOT "if/whether").',
+      'Interrogative Sentences (Certainty): "Do you doubt THAT he is honest?" (NOT "if/whether").',
+      'Summary rule: Doubt + If/Whether (Affirmative) | No Doubt + That (Negative/Question).'
+    ],
+    keyPointsMr: [
+      '१. होकारार्थी वाक्यात (शंका असताना): IF किंवा WHETHER येते (उदा. I doubt if he will attend).',
+      '२. नकारार्थी वाक्यात (शंका नसताना): THAT येते (उदा. I have no doubt THAT he will pass the MPSC exam).',
+      '३. प्रश्नार्थक वाक्यात: THAT येते (उदा. Does anyone doubt THAT India is developing rapidly?).',
+      '४. परीक्षेत होकारार्थी वाक्यात \'that\' देणे किंवा नकारार्थी वाक्यात \'if\' देणे हा मोठा ट्रॅप असतो.'
+    ],
+    examples: [
+      {
+        sentence: 'I doubt whether the finance minister will present a populist budget in an election year.',
+        isCorrect: true,
+        explanation: 'Correct. In an affirmative sentence denoting uncertainty, "doubt" is properly followed by "whether".',
+        explanationMr: 'बरोबर! वाक्य होकारार्थी (संशय व्यक्त करणारे) असल्याने "doubt" नंतर "whether" चा वापर अचूक आहे. (निवडणूक वर्षात अर्थमंत्री लोकप्रिय अर्थसंकल्प सादर करतील की नाही याबाबत मला शंका वाटते.)'
+      },
+      {
+        sentence: 'I doubt that the finance minister will present a populist budget.',
+        isCorrect: false,
+        explanation: 'Incorrect! In affirmative statements, "doubt" must take "if" or "whether", not "that".',
+        explanationMr: 'चूक! होकारार्थी वाक्यात "doubt" नंतर "that" चालत नाही; तिथे "if" किंवा "whether" हवे.'
+      },
+      {
+        sentence: 'We have no doubt that our candidate will top the Maharashtra Forest Service examination.',
+        isCorrect: true,
+        explanation: 'Correct. Following negative statement "have no doubt", the conjunction "that" is obligatory.',
+        explanationMr: 'बरोबर! "have no doubt" (कोणतीही शंका नाही - नकारार्थी) असल्याने पुढे "that" चा वापर अगदी योग्य आहे.'
+      },
+      {
+        sentence: 'We have no doubt if our candidate will top the examination.',
+        isCorrect: false,
+        explanation: 'Incorrect! In negative contexts, do not use "if". Use "that".',
+        explanationMr: 'चूक! शंका नसताना "if" चालत नाही; तिथे निश्चितता दाखवणारा "that" हवा.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC 1-Second Formula:\n• "Doubt / Doubtful" (Positive) ➔ IF / WHETHER\n• "NO Doubt / Do NOT doubt" (Negative) ➔ THAT',
+    examTipMr: 'MPSC १ सेकंदाची ट्रिक:\n• Doubt (शंका आहे) ➔ IF / WHETHER\n• NO Doubt (शंका नाही) ➔ THAT\nनकारार्थी वाक्यात \'if\' दिसल्यास खोडा आणि \'that\' लावा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Doubt whether', 'Doubt that', 'Conjunctions', 'Syntax', 'MPSC Rules']
+  },
+
+  // --- 30. Collective Nouns: Unanimous (Singular) vs Divided (Plural) ---
+  {
+    id: 'en_rule_collective_noun_sva_01',
+    language: 'english',
+    category: 'Subject-Verb Agreement',
+    categoryMr: 'समुदायवाचक नामे व क्रियापद सुसंगती (Collective Nouns Agreement)',
+    title: 'Collective Nouns: SINGULAR Verb when Acting as One Unit, PLURAL Verb when Divided in Opinion',
+    titleMr: 'समुदायवाचक नामे (Jury, Committee, Team): एकमत असल्यास एकवचनी, मतभेद असल्यास अनेकवचनी क्रियापद नियम',
+    formula: 'United / Unanimous = Singular Verb + "its" | Divided / Conflict = Plural Verb + "their"',
+    formulaMr: 'एकमत/एकजूट निर्णय = एकवचनी क्रियापद (has/is/was) + its | मतभेद/विभागणी = अनेकवचनी क्रियापद (have/are/were) + their',
+    definition: 'A collective noun (e.g. jury, committee, council, team, parliament, board, audience) takes a SINGULAR verb and singular pronoun ("its") when the collection is thought of as one undivided whole. However, when the individual members composing the group are acting separately or are divided in their opinions, it takes a PLURAL verb and plural pronoun ("their").',
+    definitionMr: 'इंग्रजी व्याकरणात समुदायवाचक नामे (उदा. Jury - न्यायपीठ, Committee - समिती, Team - संघ, Parliament - संसद) जेव्हा एकसंध घटक म्हणून एकमुखाने निर्णय घेतात, तेव्हा त्यांच्यासोबत एकवचनी क्रियापद (has/is/was) आणि \'its\' हे सर्वनाम येते. परंतु जेव्हा समितीतील सदस्यांमध्ये मतभेद होतात किंवा ते वैयक्तिक पातळीवर विभागले जातात, तेव्हा अनेकवचनी क्रियापद (have/are/were) आणि \'their\' हे सर्वनाम वापरावे लागते.',
+    keyPoints: [
+      'United Whole: "The jury HAS given ITS verdict" (unanimous decision = singular).',
+      'Divided Members: "The jury WERE divided in THEIR opinions" (conflict among members = plural).',
+      'Pronoun Consistency: If the verb is singular, the pronoun MUST be "its" (never "their"). If plural, pronoun MUST be "their" (never "its").',
+      'Common error: "The committee has submitted their report" ➔ Error! (Mixes singular "has" with plural "their"). Correct: "The committee has submitted its report."'
+    ],
+    keyPointsMr: [
+      '१. एकमत असल्यास: एकवचनी क्रियापद + \'its\' (उदा. The committee has submitted ITS report, \'their\' नाही!).',
+      '२. मतभेद किंवा विभागणी असल्यास: अनेकवचनी क्रियापद + \'their\' (उदा. The committee were divided in THEIR opinion).',
+      '३. सुसंगती नियम: जर क्रियापद एकवचनी घेतले तर सर्वनाम \'its\' च हवे; जर क्रियापद अनेकवचनी घेतले तर सर्वनाम \'their\' च हवे (दोघांची सरमिसळ करता येत नाही).',
+      '४. MPSC चा आवडता प्रश्न: "The jury was divided in their opinions" (was आणि their ची विसंगती ही १००% चूक आहे!).'
+    ],
+    examples: [
+      {
+        sentence: 'The selection committee has unanimously announced its final list of qualified candidates.',
+        isCorrect: true,
+        explanation: 'Correct. "Unanimously" shows the committee acted as a single cohesive unit, requiring singular verb "has" and singular pronoun "its".',
+        explanationMr: 'बरोबर! "Unanimously" (एकमुखाने) हा शब्द दर्शवतो की संपूर्ण समिती एकसंध आहे, म्हणून एकवचनी क्रियापद "has" आणि "its" सर्वनाम अचूक वापरले आहे.'
+      },
+      {
+        sentence: 'The selection committee have unanimously announced their final list.',
+        isCorrect: false,
+        explanation: 'Incorrect! When acting unanimously as one body, the collective noun requires a singular verb ("has", not "have") and singular pronoun ("its", not "their").',
+        explanationMr: 'चूक! एकमत असताना "have" किंवा "their" चालत नाही; "has announced its final list" असे एकवचनच हवे.'
+      },
+      {
+        sentence: 'The jury were divided in their opinions regarding the credibility of the key witness.',
+        isCorrect: true,
+        explanation: 'Correct. Because members of the jury hold conflicting views ("divided in their opinions"), the plural verb "were" and plural pronoun "their" are mandatory.',
+        explanationMr: 'बरोबर! न्यायपीठातील न्यायाधीशांमध्ये मतभेद (divided) झाल्याने सदस्य स्वतंत्र मानले जातात; म्हणून अनेकवचनी क्रियापद "were" आणि "their" अचूक आहे. (प्रमुख साक्षीदाराच्या विश्वासार्हतेबाबत न्यायपीठात मतभेद होते.)'
+      },
+      {
+        sentence: 'The jury was divided in their opinions.',
+        isCorrect: false,
+        explanation: 'Incorrect! Inconsistent agreement: pairing singular verb "was" with plural pronoun "their" is a classic MPSC error. Must be "The jury were divided in their opinions."',
+        explanationMr: 'चूक! MPSC चा सर्वात लोकप्रिय प्रश्न: "was" (एकवचन) आणि "their" (अनेकवचन) अशी विसंगत जोडी चालत नाही; "were divided in their opinions" असे हवे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Consistency Check for Collective Nouns:\n• Check for words like "unanimous / agreed / single" ➔ Singular (has / is / was / its)\n• Check for words like "divided / disputed / different" ➔ Plural (have / are / were / their)\n• NEVER mix "was + their" or "were + its"!',
+    examTipMr: 'MPSC सुवर्ण सुसंगती क्लृप्ती:\n१. एकमत/unanimous असल्यास ➔ has/was + its (एकवचन)\n२. मतभेद/divided असल्यास ➔ were/have + their (अनेकवचन)\n३. जर वाक्यात "was divided in their" दिसले, तर ती अक्षम्य चूक (Error) असते; तिथे "were divided in their" हवे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Collective Nouns', 'Subject-Verb Agreement', 'The jury were divided', 'Jury has', 'MPSC Rules']
+  },
+
+  // --- 31. "Although / Though" Pairs with "YET" or Comma (NEVER "BUT") ---
+  {
+    id: 'en_rule_although_yet_01',
+    language: 'english',
+    category: 'Conjunctions & Syntax',
+    categoryMr: 'उभयान्वयी अव्यये व जोडी नियम (Although...yet)',
+    title: 'Conjunction Pairing: "ALTHOUGH / THOUGH" Pairs Strictly with "YET" or a Comma (NEVER "BUT")',
+    titleMr: '"Although / Though" सोबत नेहमी "YET" किंवा स्वल्पविराम (Comma) येतो; "BUT" कधीही येत नाही!',
+    formula: 'Although / Though + Clause 1, (YET) + Clause 2 (NEVER use "BUT" with Although / Though)',
+    formulaMr: 'Although / Though ने सुरू होणाऱ्या वाक्यात दुसऱ्या भागात फक्त \'yet\' किंवा स्वल्पविराम (,) येतो; \'but\' लावल्यास १००% चूक!',
+    definition: 'In English syntax, "Although" and "Though" are subordinating conjunctions expressing concession or contrast. They are grammatically paired with the coordinating conjunction "YET", or simply followed by a comma (,). They can NEVER be paired with "BUT". Pairing "Although...but" creates a redundant, ungrammatical double conjunction.',
+    definitionMr: 'इंग्रजी व्याकरणात "Although" किंवा "Though" (जरी...तरी) हे विरोध दर्शवणारे अव्यय आहे. या अव्ययाने वाक्याची सुरुवात झाल्यास दुसऱ्या भागात केवळ "YET" किंवा स्वल्पविराम (,) येतो. तिथे "BUT" (परंतु) चा वापर करणे ही व्याकरणाच्या नियमानुसार घोडचूक मानली जाते.',
+    keyPoints: [
+      'Correct combination: "Although...yet" OR "Although...," (comma alone).',
+      'Incorrect combination: "Although...but" (Strictly forbidden in examination English).',
+      'Example: "Although he worked hard, yet he failed" ➔ CORRECT.',
+      'Example: "Although he worked hard, but he failed" ➔ INCORRECT (remove "but").',
+      'If you want to use "but", drop "Although": "He worked hard, but he failed."'
+    ],
+    keyPointsMr: [
+      '१. योग्य जोडी: "Although...YET" किंवा "Although..." नंतर फक्त स्वल्पविराम (,).',
+      '२. चुकीची जोडी: "Although...BUT" (MPSC परीक्षेत ही चूक वारंवार दिली जाते).',
+      '३. उदा. "Although he is poor, yet he is honest" (बरोबर) किंवा "Although he is poor, he is honest" (बरोबर).',
+      '४. "Although he is poor, but he is honest" ➔ १००% चूक! (कारण Although आणि But दोन्ही विरोध दर्शवणारे शब्द एकाच वाक्यात एकत्र येऊ शकत नाहीत).'
+    ],
+    examples: [
+      {
+        sentence: 'Although the candidate faced severe financial hardships, yet he secured the first rank in the MPSC exam.',
+        isCorrect: true,
+        explanation: 'Correct. "Although" is properly paired with "yet" to express concession and triumph.',
+        explanationMr: 'बरोबर! "Although" (जरी) ची जोडी "yet" (तरीही) सोबत अचूक लावली आहे. (जरी त्या उमेदवाराला गंभीर आर्थिक अडचणींचा सामना करावा लागला, तरीही त्याने एमपीएससी परीक्षेत प्रथम क्रमांक मिळवला.)'
+      },
+      {
+        sentence: 'Although the candidate faced severe financial hardships, but he secured the first rank.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Error: "Although" cannot be paired with "but". Replace "but" with "yet" or a comma.',
+        explanationMr: 'चूक! MPSC चा सर्वात आवडता ट्रॅप: "Although" सोबत "but" कधीही येत नाही; "but" काढून तिथे "yet" किंवा फक्त स्वल्पविराम हवा.'
+      },
+      {
+        sentence: 'Though he was tired after the long journey, he attended the emergency cabinet meeting.',
+        isCorrect: true,
+        explanation: 'Correct. "Though" followed by a simple comma without any conjunction is perfectly grammatical.',
+        explanationMr: 'बरोबर! "Though" नंतर दुसऱ्या उपवाक्यात कोणताही चुकीचा शब्द न लावता फक्त स्वल्पविराम दिला आहे.'
+      },
+      {
+        sentence: 'Though he was injured, but he completed the marathon.',
+        isCorrect: false,
+        explanation: 'Incorrect! Drop "but". Write: "Though he was injured, he completed the marathon."',
+        explanationMr: 'चूक! "Though" सोबत "but" चालत नाही; "but" काढून टाकावा.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC 1-Second Clue: If you see a sentence starting with "Although" or "Though", scan the middle immediately! If you see "BUT", that is your ERROR (change to "yet" or drop it)!',
+    examTipMr: 'MPSC १ सेकंदाची क्लृप्ती: जर वाक्याची सुरुवात "Although" किंवा "Though" ने झाली असेल, तर डोळे वाक्याच्या मध्यात न्या. तिथे जर "BUT" दिसला, तर तोच भाग १००% चुकीचा (Error in Sentence) असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Although yet', 'Conjunctions', 'Although and But', 'Error Spotting', 'MPSC Rules']
+  },
+
+  // --- 32. Verbs Requiring Reflexive Pronouns ---
+  {
+    id: 'en_rule_transitive_reflexive_01',
+    language: 'english',
+    category: 'Pronouns & Verbs',
+    categoryMr: 'क्रियापदे व आत्मवाचक सर्वनाम नियम (Verbs with Reflexive Pronouns)',
+    title: 'Verbs Mandatorily Taking Reflexive Pronouns: "Avail of", "Absent", "Adapt", "Reconcile", "Enjoy"',
+    titleMr: '"Avail of", "Absent", "Adapt", "Enjoy" या क्रियापदांनंतर आत्मवाचक सर्वनाम (Reflexive Pronoun) वापरण्याचा अनिवार्य नियम',
+    formula: 'Subject + avail / absent / adapt / reconcile / introduce / enjoy + Reflexive Pronoun (oneself) + Preposition + Object',
+    formulaMr: 'Avail, Absent, Adapt, Enjoy यांच्यानंतर प्रत्यक्ष कर्म नसल्यास नेहमी कर्त्यानुसार आत्मवाचक सर्वनाम (himself, myself, ourselves) लावावेच लागते!',
+    definition: 'Certain transitive verbs in English (such as avail of, absent from, adapt to, reconcile to, introduce to, enjoy) require an object to complete their meaning. When no direct noun object is present in the sentence, a REFLEXIVE PRONOUN (myself, himself, herself, ourselves, themselves) corresponding to the grammatical subject must be supplied.',
+    definitionMr: 'इंग्रजी व्याकरणातील काही विशिष्ट सकर्मक क्रियापदे (जसे की Avail of - लाभ घेणे, Absent from - गैरहजर राहणे, Adapt to - जुळवून घेणे, Enjoy - आनंद घेणे) यांच्यापुढे जर प्रत्यक्ष कर्म (Direct Object) नसेल, तर कर्त्यानुसार आत्मवाचक सर्वनाम (Reflexive Pronoun - myself, himself, herself, ourselves, themselves) वापरणे अनिवार्य असते.',
+    keyPoints: [
+      'Key Verbs: Avail (of), Absent (from), Adapt (to), Reconcile (to), Adjust (to), Introduce, Enjoy.',
+      '"Avail" rule: Always takes reflexive + "of" ➔ "He availed himself of the opportunity" (NOT "He availed the opportunity").',
+      '"Absent" rule: "She absented herself from the office" (NOT "She absented from the office").',
+      '"Enjoy" rule: If followed directly by an object (noun), no reflexive needed: "He enjoyed the movie." But if followed by a prepositional phrase, reflexive is REQUIRED: "He enjoyed himself at the party" (NOT "He enjoyed at the party").'
+    ],
+    keyPointsMr: [
+      '१. महत्त्वाचे शब्द: Avail (of), Absent (from), Adapt (to), Reconcile (to), Enjoy.',
+      '२. Avail चा नियम: यानंतर नेहमी आत्मवाचक सर्वनाम + \'of\' येते (उदा. You must avail yourself of this golden opportunity, \'avail this opportunity\' नाही!).',
+      '३. Absent चा नियम: "He absented himself from class" (He absented from class चूक!).',
+      '४. Enjoy चा नियम: जर पुढे थेट नाम असेल तर लागत नाही (उदा. I enjoyed the movie). पण जर पुढे शब्दयोगी अव्यय (at the party) असेल तर आत्मवाचक सर्वनाम आवश्यक आहे (उदा. I enjoyed myself at the party).'
+    ],
+    examples: [
+      {
+        sentence: 'The ambitious student availed himself of every scholarship opportunity available in Maharashtra.',
+        isCorrect: true,
+        explanation: 'Correct. "Avail" is properly followed by reflexive pronoun "himself" and preposition "of".',
+        explanationMr: 'बरोबर! "Avail" नंतर कर्त्यानुसार (student) "himself" हे आत्मवाचक सर्वनाम आणि "of" हे शब्दयोगी अव्यय अचूक वापरले आहे. (त्या महत्त्वाकांक्षी विद्यार्थ्याने प्रत्येक शिष्यवृत्तीच्या संधीचा पुरेपूर लाभ घेतला.)'
+      },
+      {
+        sentence: 'The student availed of every scholarship opportunity.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC Super-Hit Error: "Avail" cannot be used without a reflexive pronoun. It must be "availed himself of".',
+        explanationMr: 'चूक! MPSC चा वारंवार विचारला जाणारा प्रश्न: "availed of" मध्ये "himself" गाळला आहे; "availed himself of" असेच हवे.'
+      },
+      {
+        sentence: 'The officer absented himself from the headquarters without obtaining casual leave.',
+        isCorrect: true,
+        explanation: 'Correct. "Absent" as a verb requires reflexive pronoun "himself".',
+        explanationMr: 'बरोबर! "absented" या क्रियापदानंतर "himself" हे आत्मवाचक सर्वनाम अचूक वापरले आहे. (रजा मंजूर न करून घेताच अधिकारी मुख्यालयातून गैरहजर राहिले.)'
+      },
+      {
+        sentence: 'All the delegates enjoyed at the annual administrative conference in Mumbai.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Enjoyed at the conference" lacks an object. It must be: "All the delegates enjoyed themselves at the conference."',
+        explanationMr: 'चूक! "enjoyed at" च्या मध्ये कर्म नाही, म्हणून "enjoyed themselves at the conference" असे हवे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Reflexive Verb Checklist:\n• "availed of" ➔ ERROR! Insert reflexive ("availed himself/herself of")\n• "absented from" ➔ ERROR! Insert reflexive ("absented himself/herself from")\n• "enjoyed at the party" ➔ ERROR! Insert reflexive ("enjoyed himself at the party")',
+    examTipMr: 'MPSC परीक्षा क्लृप्ती:\n१. "availed of" दिसल्यास मध्ये himself/herself लावा!\n२. "absented from" दिसल्यास मध्ये himself/herself लावा!\n३. "enjoyed at/in" दिसल्यास मध्ये himself/themselves लावा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Reflexive Pronouns', 'Avail of', 'Absent oneself', 'Enjoy himself', 'MPSC Rules']
+  },
+
+  // --- 33. "AS...AS" (Affirmative/Negative) vs "SO...AS" (Strictly Negative) ---
+  {
+    id: 'en_rule_so_as_as_as_01',
+    language: 'english',
+    category: 'Adjectives & Degrees',
+    categoryMr: 'विशेषणे व समतुल्य तुलना (As...as vs So...as)',
+    title: 'Positive Degree Comparison: "AS...AS" (Affirmative & Negative) vs "SO...AS" (Strictly Negative)',
+    titleMr: 'समतुल्य तुलना: "AS...AS" (होकारार्थी व नकारार्थी) विरुद्ध "SO...AS" (केवळ नकारार्थी वाक्यातच) वापरण्याचा नियम',
+    formula: 'Affirmative = AS + Adjective + AS (NEVER "so...as") | Negative = NOT SO + Adjective + AS (or NOT AS...AS)',
+    formulaMr: 'होकारार्थी वाक्यात नेहमी \'As...as\' येते (\'So...as\' कधीही येत नाही) | नकारार्थी वाक्यात \'Not so...as\' किंवा \'Not as...as\' दोन्ही चालतात.',
+    definition: 'In the Positive Degree of comparison, "AS...AS" is used to show equal quality in BOTH affirmative and negative sentences. However, "SO...AS" can strictly be used ONLY in NEGATIVE sentences. Using "so...as" in an affirmative sentence (e.g. "He is so wise as his father") is considered an error in standard English examination grammar.',
+    definitionMr: 'Positive Degree (समतुल्य तुलना) मध्ये दोन व्यक्ती किंवा घटकांमधील समान गुण दाखवण्यासाठी "AS...AS" चा वापर होकारार्थी व नकारार्थी दोन्ही वाक्यांत केला जातो. परंतु "SO...AS" चा वापर केवळ आणि केवळ **नकारार्थी (Negative)** वाक्यातच करता येतो. होकारार्थी वाक्यात "so...as" वापरणे ही व्याकरणातील चूक मानली जाते.',
+    keyPoints: [
+      'Affirmative Sentences: Use ONLY "as...as" (e.g., "He is AS intelligent AS his brother").',
+      'Never write "He is so intelligent as his brother" in an affirmative sentence.',
+      'Negative Sentences: You can use "not so...as" (preferred) OR "not as...as" (e.g., "He is NOT SO intelligent AS his brother").',
+      'Between "as...as" and "so...as", the adjective MUST always be in its POSITIVE degree form (never comparative: "as tall as", NOT "as taller as").'
+    ],
+    keyPointsMr: [
+      '१. होकारार्थी वाक्य असल्यास: फक्त "As...as" चा वापर करावा (उदा. Sachin is AS talented AS Virat, \'so talented as\' चालत नाही).',
+      '२. नकारार्थी वाक्य असल्यास: "Not so...as" किंवा "Not as...as" दोन्ही चालतात (उदा. Rahul is NOT SO fast AS Rohan).',
+      '३. या दोन शब्दांच्या मध्ये नेहमी विशेषणाचे मूळ रूप (Positive Degree) असावे लागते (उदा. as brave as, \'as braver as\' चालत नाही).'
+    ],
+    examples: [
+      {
+        sentence: 'Rohan is as hardworking as any top scorer in the civil services examination.',
+        isCorrect: true,
+        explanation: 'Correct. In an affirmative statement, "as hardworking as" is the appropriate positive comparison.',
+        explanationMr: 'बरोबर! होकारार्थी वाक्यात समतुल्य तुलना दाखवण्यासाठी "as...as" ची रचना अचूक आहे. (रोहन हा नागरी सेवा परीक्षेतील कोणत्याही अव्वल विद्यार्थ्याइतकाच कष्टाळू आहे.)'
+      },
+      {
+        sentence: 'Rohan is so hardworking as any top scorer.',
+        isCorrect: false,
+        explanation: 'Incorrect! "So...as" cannot be used in affirmative sentences. It must be "as hardworking as".',
+        explanationMr: 'चूक! होकारार्थी वाक्यात "so...as" वापरता येत नाही; तिथे "as hardworking as" असेच हवे.'
+      },
+      {
+        sentence: 'This newly revised textbook is not so difficult as the previous edition.',
+        isCorrect: true,
+        explanation: 'Correct. "Not so...as" is properly used in this negative comparison.',
+        explanationMr: 'बरोबर! वाक्य नकारार्थी ("not") असल्याने "not so difficult as" चा वापर व्याकरणाच्या नियमानुसार उत्कृष्ट आहे.'
+      },
+      {
+        sentence: 'He is as taller as his elder brother.',
+        isCorrect: false,
+        explanation: 'Incorrect! The adjective between "as...as" must be in positive degree ("tall"), not comparative ("taller").',
+        explanationMr: 'चूक! "as...as" च्या मध्ये विशेषणाचे मूळ रूप (tall) पाहिजे; "taller" हे comparative रूप चालत नाही.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Golden Comparison Rule:\n• Affirmative Sentence ➔ "AS...AS" ONLY!\n• Negative Sentence ➔ "NOT SO...AS" or "NOT AS...AS"\n• Check middle word: Must be POSITIVE degree (smart, NOT smarter)!',
+    examTipMr: 'MPSC सुवर्ण तुलना नियम:\n१. होकारार्थी वाक्य ➔ फक्त "AS...AS" (होकारार्थी वाक्यात \'so...as\' दिसल्यास तोच एरर असतो)!\n२. नकारार्थी वाक्य ➔ "NOT SO...AS" किंवा "NOT AS...AS" दोन्ही बरोबर.\n३. मधला शब्द तपासा ➔ मूळ रूपच हवे (as good as, as better as नाही)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['As as', 'So as', 'Positive Degree', 'Degrees of Comparison', 'MPSC Rules']
+  },
+
+  // --- 34. Inherent Negative Verbs ("Forbid", "Deny", "Prohibit") Take NO "NOT" ---
+  {
+    id: 'en_rule_forbid_deny_not_01',
+    language: 'english',
+    category: 'Verbs & Double Negatives',
+    categoryMr: 'नकारार्थी क्रियापदे व "NOT" न वापरण्याचा नियम (Inherent Negatives)',
+    title: 'Verbs with Inherent Negative Meaning: "FORBID", "DENY", "PROHIBIT", "REFUSE" Strictly Take NO "NOT"',
+    titleMr: '"Forbid", "Deny", "Prohibit", "Refuse" या नकारार्थी क्रियापदांनंतर उपवाक्यात "NOT" न वापरण्याचा नियम',
+    formula: 'Forbid / Deny / Prohibit / Prevent / Refuse + NO "NOT" in the following clause',
+    formulaMr: 'Forbid (मनाई करणे), Deny (नाकारणे), Prohibit (प्रतिबंध करणे) यांच्यानंतरच्या भागात \'NOT\' कधीही लावत नाहीत!',
+    definition: 'Certain verbs in English (such as forbid, deny, prohibit, prevent, refuse) inherently possess negative semantics (denoting refusal, prohibition, or negation). Adding "not", "never", or "no" to the subordinate clause or infinitive governed by these verbs results in a grammatically unacceptable double negative.',
+    definitionMr: 'इंग्रजी भाषेतील काही विशिष्ट क्रियापदे जसे की Forbid (मनाई करणे), Deny (नाकारणे/इन्कार करणे), Prohibit (प्रतिबंध घालणे), Prevent (रोखणे) यांमध्ये आधीच नकार सामावलेला असतो. म्हणून यांच्यापुढे येणाऱ्या वाक्यात किंवा इन्फिनिटिव्हमध्ये पुन्हा "not" लावणे ही व्याकरणाच्या नियमानुसार घोडचूक (Double Negative) मानली जाते.',
+    keyPoints: [
+      '"Forbid" takes an affirmative infinitive: "He forbade me TO GO" (NOT "not to go").',
+      '"Deny" takes an affirmative clause: "He denied that he HAD COMMITTED the crime" (NOT "had not committed").',
+      '"Prohibit / Prevent" takes "from + V-ing": "The police prohibited him FROM ENTERING the zone" (NOT "from not entering").',
+      '"Unless" and "Lest" similarly contain negative force and take no "not".'
+    ],
+    keyPointsMr: [
+      '१. Forbid नंतर थेट \'to + V1\' येते, \'not to\' कधीही येत नाही (उदा. My father forbade me to smoke, \'not to smoke\' चूक).',
+      '२. Deny नंतरच्या उपवाक्यात \'not\' लावत नाहीत (उदा. The minister denied that he had taken a bribe, \'had not taken\' चूक!).',
+      '३. Prohibit किंवा Prevent नंतर \'from + V-ing\' येते (उदा. The security prevented him from entering the building).',
+      '४. परीक्षेत या क्रियापदांनंतर \'not\' जोडून उमेदवारांना फसवणे हा MPSC चा अत्यंत आवडता प्रश्नप्रकार आहे.'
+    ],
+    examples: [
+      {
+        sentence: 'The presiding officer forbade the polling agents to use mobile phones inside the booth.',
+        isCorrect: true,
+        explanation: 'Correct. "Forbade" (past of forbid) correctly takes the affirmative infinitive "to use" without "not".',
+        explanationMr: 'बरोबर! "Forbade" (मनाई केली) या नकारार्थी क्रियापदानंतर "to use" आले असून "not" लावलेला नाही. (मतदान केंद्राध्यक्षानी मतदान केंद्रात मोबाईल वापरण्यास मनाई केली.)'
+      },
+      {
+        sentence: 'The presiding officer forbade the polling agents not to use mobile phones.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Trap: Double negative! "Forbade...not to use" means he ordered them TO use phones. Drop "not".',
+        explanationMr: 'चूक! MPSC चा वारंवार विचारला जाणारा प्रश्न: "forbade" आणि "not" एकत्र आल्याने "वापरण्यास मनाई न करण्याची मनाई केली" असा उलटा अर्थ होतो; "not" काढून टाकावा.'
+      },
+      {
+        sentence: 'The accused denied that he had stolen the diamond necklace from the jewellery shop.',
+        isCorrect: true,
+        explanation: 'Correct. "Denied" is properly followed by the affirmative assertion that he had stolen (which is negated by "denied").',
+        explanationMr: 'बरोबर! "Denied" नंतर होकारार्थी उपवाक्य आले आहे. (दागिन्यांच्या दुकानातून हिऱ्याचा हार आपण चोरल्याचा आरोप आरोपीने फेटाळला.)'
+      },
+      {
+        sentence: 'The accused denied that he had not stolen the necklace.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Denied that he had not" implies he confessed to stealing! Drop "not".',
+        explanationMr: 'चूक! "denied" सोबत "not" लावल्याने "मी चोरी केली नाही हे मी नाकारतो (म्हणजे मीच चोरी केली)" असा हास्यास्पद अर्थ निघतो! "not" त्वरित काढावा.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC 1-Second Error Check: When you see "Forbade", "Forbid", or "Denied" in a sentence, scan the following words for "NOT". If you find "NOT", that is 100% your ERROR!',
+    examTipMr: 'MPSC १ सेकंदाची क्लृप्ती: जर वाक्यात Forbid, Forbade किंवा Deny दिसले, तर पुढे डोळे फिरवा. तिथे जर "NOT" दिसला, तर डोळे झाकून तोच भाग चुकीचा (Error in Sentence) म्हणून मार्क करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Forbid not', 'Deny not', 'Double Negative', 'Verbs', 'MPSC Rules']
+  },
+
+  // --- 35. "ITS" (Possessive) vs "IT'S" (It is / It has) & No Apostrophe in Pronouns ---
+  {
+    id: 'en_rule_its_apostrophe_01',
+    language: 'english',
+    category: 'Pronouns & Punctuation',
+    categoryMr: 'सर्वनाम व एपॉस्ट्रॉफी नियम ("Its" विरुद्ध "It\'s")',
+    title: 'Apostrophe Trap: "ITS" (Possessive Determiner) vs "IT\'S" (Contraction of "It is / It has")',
+    titleMr: '"ITS" (मालकी दर्शक - षष्ठी) विरुद्ध "IT\'S" (It is चे संक्षिप्त रूप) आणि सर्वनामांना एपॉस्ट्रॉफी न लावण्याचा नियम',
+    formula: 'ITS = Possessive (त्याचे/तिचे - No apostrophe) | IT\'S = It is / It has | YOURS / HERS / THEIRS = NEVER use apostrophe',
+    formulaMr: 'ITS = मालकी दर्शक सर्वनाम (एपॉस्ट्रॉफी कधीही लावत नाहीत) | IT\'S = It is किंवा It has चे संक्षिप्त रूप | Yours, Hers, Theirs ला कधीही \' लावत नाहीत!',
+    definition: 'In the English pronominal system, possessive pronouns and determiners NEVER take an apostrophe (its, yours, hers, ours, theirs). "ITS" without an apostrophe is the possessive form of "it" meaning "belonging to it". On the other hand, "IT\'S" with an apostrophe is strictly a contraction of "it is" or "it has". Confusing these two is one of the most frequent punctuation errors tested in civil service exams.',
+    definitionMr: 'इंग्रजी व्याकरणात सर्वनामांच्या षष्ठी रूपात (Possessive Pronouns/Determiners) कधीही एपॉस्ट्रॉफी (\') चा वापर केला जात नाही. "ITS" (विना एपॉस्ट्रॉफी) म्हणजे "त्याचे/त्याची/त्याचे" (मालकी). तर "IT\'S" (एपॉस्ट्रॉफीसह) हे "It is" किंवा "It has" चे संक्षिप्त रूप असते. तसेच पत्रलेखनाच्या शेवटी "Yours faithfully" लिहिताना "Your\'s" लिहिणे ही गंभीर चूक मानली जाते.',
+    keyPoints: [
+      '"ITS" = Possessive: "The committee published ITS report" | "The dog wagged ITS tail."',
+      '"IT\'S" = It is / It has: "It\'s raining outside" (= It is raining) | "It\'s been a long day" (= It has been).',
+      'Letter writing closing: ALWAYS write "Yours faithfully" or "Yours sincerely" (NEVER "Your\'s" or "Yours\'").',
+      'Hers / Ours / Theirs: "This book is hers" (NOT "her\'s") | "The victory is ours" (NOT "our\'s").'
+    ],
+    keyPointsMr: [
+      '१. "ITS" (मालकी): The dog wagged ITS tail (कुत्र्याने शेपूट हलवली - येथे it\'s tail लिहिल्यास चूक).',
+      '२. "IT\'S" (It is/has): It\'s a great opportunity (= It is a great opportunity).',
+      '३. MPSC पत्रलेखनाचा ट्रॅप: पत्राच्या शेवटी नेहमी "Yours faithfully" किंवा "Yours obediently" लिहावे; "Your\'s" किंवा "Yours\'" लिहिणे १००% चूक आहे.',
+      '४. Hers, Ours, Theirs: "The car is theirs" (their\'s कधीही होत नाही).'
+    ],
+    examples: [
+      {
+        sentence: 'The Reserve Bank of India announced its monetary policy to regulate retail inflation.',
+        isCorrect: true,
+        explanation: 'Correct. "Its" without apostrophe is the possessive adjective modifying "monetary policy".',
+        explanationMr: 'बरोबर! रिझर्व्ह बँकेचे धोरण (मालकी) असल्याने विना एपॉस्ट्रॉफी "its" चा अचूक वापर केला आहे.'
+      },
+      {
+        sentence: 'The Reserve Bank of India announced it\'s monetary policy.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Punctuation Error: "it\'s" means "it is", making the sentence "announced it is monetary policy". Must be "its".',
+        explanationMr: 'चूक! "it\'s" चा अर्थ "it is" होतो, त्यामुळे "announced it is monetary policy" असा चुकीचा अर्थ निघतो; तिथे "its" हवे.'
+      },
+      {
+        sentence: 'Yours faithfully, Ramesh Patil (MPSC Aspirant).',
+        isCorrect: true,
+        explanation: 'Correct. Possessive pronoun "Yours" does not take an apostrophe in formal correspondence.',
+        explanationMr: 'बरोबर! "Yours faithfully" मध्ये Yours ला एपॉस्ट्रॉफी लावलेला नाही, जे पत्रलेखनाच्या नियमानुसार अगदी अचूक आहे.'
+      },
+      {
+        sentence: 'Your\'s faithfully, Ramesh Patil.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC letter writing trap: Never use an apostrophe in "Yours". Write "Yours faithfully".',
+        explanationMr: 'चूक! "Your\'s" हे इंग्रजीत चुकीचे आहे; फक्त "Yours faithfully" असे लिहावे.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Substitution Test for "IT\'S vs ITS":\nReplace the word with "IT IS".\n• If "IT IS" makes complete sense ➔ IT\'S (with apostrophe)\n• If "IT IS" sounds ridiculous / ungrammatical ➔ ITS (without apostrophe)\n• In "Yours faithfully" ➔ NEVER use an apostrophe!',
+    examTipMr: 'MPSC जादूची युक्ती (Substitute करून पहा):\nत्या शब्दाच्या जागी "IT IS" ठेवून वाचा:\n१. "IT IS" ठेवून अर्थ योग्य वाटला ➔ IT\'S (उदा. It is hot today ➔ It\'s hot today).\n२. "IT IS" ठेवून अर्थ विचित्र वाटला ➔ ITS (उदा. The cat licked it is paw? नाही ➔ its paw).\n३. "Yours faithfully" मध्ये एपॉस्ट्रॉफी (\') कधीही लावायचा नाही!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Its vs It is', 'Apostrophe', 'Yours faithfully', 'Punctuation', 'MPSC Rules']
+  },
+
+  // --- 36. "SUCH...THAT" (Result) vs "SUCH...AS" (Category / Example) ---
+  {
+    id: 'en_rule_such_that_as_01',
+    language: 'english',
+    category: 'Conjunctions & Correlatives',
+    categoryMr: 'उभयान्वयी अव्यये व परिणाम दर्शक नियम (Such that vs Such as)',
+    title: 'Correlative Conjunctions: "SUCH...THAT" (Expresses Result / Effect) vs "SUCH...AS" (Expresses Category / Example)',
+    titleMr: '"SUCH...THAT" (परिणाम दर्शवण्यासाठी) विरुद्ध "SUCH...AS" (उदाहरणे किंवा प्रकार दर्शवण्यासाठी) चा नियम',
+    formula: 'Result / Cause-Effect = SUCH + Noun + THAT + Clause | Category / Example = SUCH + Noun + AS + Noun / Clause',
+    formulaMr: 'परिणाम किंवा प्रभाव दाखवायचा असेल ➔ SUCH...THAT | प्रकार, उदाहरण किंवा साधर्म्य दाखवायचे असेल ➔ SUCH...AS',
+    definition: 'In standard syntax, "SUCH...THAT" is used when the intention is to demonstrate a RESULT, CONSEQUENCE, or DEGREE OF EFFECT ("so intense that a certain result followed"). Conversely, "SUCH...AS" is strictly used when categorizing, giving examples, or comparing similarity ("of the kind or quality that").',
+    definitionMr: 'इंग्रजी व्याकरणात "SUCH...THAT" चा वापर एखाद्या कृतीचा परिणाम (Result/Consequence) किंवा प्रभाव दाखवण्यासाठी केला जातो. तर "SUCH...AS" चा वापर एखाद्या विशिष्ट प्रकारच्या व्यक्ती/वस्तूचे उदाहरण (Example) किंवा वर्गवारी (Category) दाखवण्यासाठी केला जातो.',
+    keyPoints: [
+      '"Such...that" expresses RESULT: "It was such a severe drought THAT crops withered in Marathwada."',
+      '"Such...as" expresses CATEGORY / EXAMPLE: "Such leaders AS Dr. Ambedkar inspire generations."',
+      'Never confuse them: If a subsequent clause states what happened as an outcome, use "THAT", NOT "as".',
+      'Example of outcome: "There was such a noise that I could not sleep" (NOT "as I could not sleep").'
+    ],
+    keyPointsMr: [
+      '१. "SUCH...THAT" (परिणाम): जेव्हा एखाद्या गोष्टीचा तीव्र परिणाम पुढे दाखवला जातो (उदा. It was such cold weather THAT water froze).',
+      '२. "SUCH...AS" (उदाहरण किंवा प्रकार): जेव्हा "अशा प्रकारची माणसे" किंवा उदाहरणे दिली जातात (उदा. I don\'t like such people AS are dishonest).',
+      '३. परीक्षेतील चूक: परिणामाच्या वाक्यात \'as\' देणे किंवा उदाहरणाच्या वाक्यात \'that\' देणे.'
+    ],
+    examples: [
+      {
+        sentence: 'It was such a complicated question that even the subject expert could not answer it within the time limit.',
+        isCorrect: true,
+        explanation: 'Correct. "Such...that" properly introduces the clause of result/consequence.',
+        explanationMr: 'बरोबर! "प्रश्न इतका गुंतागुंतीचा होता की त्याचा परिणाम म्हणून तज्ज्ञही उत्तर देऊ शकले नाहीत", म्हणून परिणाम दाखवणारा "such...that" चा वापर अचूक आहे.'
+      },
+      {
+        sentence: 'It was such a complicated question as even the subject expert could not answer it.',
+        isCorrect: false,
+        explanation: 'Incorrect! When introducing a clause of consequence/result, "that" must be used instead of "as".',
+        explanationMr: 'चूक! येथे परिणाम दाखवला असल्याने "as" चालत नाही; "such a complicated question that..." असे हवे.'
+      },
+      {
+        sentence: 'We need such administrative officers as are deeply committed to social justice.',
+        isCorrect: true,
+        explanation: 'Correct. "Such...as" properly specifies the kind or category of officers needed.',
+        explanationMr: 'बरोबर! येथे अधिकाऱ्यांचा प्रकार (Category) सांगितला असल्याने "such...as" चा वापर योग्य आहे. (आम्हाला अशा प्रशासकीय अधिकाऱ्यांची गरज आहे जे सामाजिक न्यायासाठी कटिबद्ध असतील.)'
+      },
+      {
+        sentence: 'We need such administrative officers that are deeply committed to social justice.',
+        isCorrect: false,
+        explanation: 'Incorrect! When denoting a category of similar type ("of the kind who"), use "such...as".',
+        explanationMr: 'चूक! अशा विशिष्ट प्रकारच्या अधिकाऱ्यांचा उल्लेख असल्याने "such...as" हवे; परिणाम नसल्याने "that" चालत नाही.'
+      }
+    ],
+    exceptions: [],
+    exceptionsMr: [],
+    examTip: 'MPSC Question Test:\nAsk yourself: "Is it a RESULT / CONSEQUENCE?"\n• YES (because of this, that happened) ➔ SUCH...THAT\n• NO (it defines a type / kind / example) ➔ SUCH...AS',
+    examTipMr: 'MPSC परीक्षा क्लृप्ती: स्वतःला एकच प्रश्न विचारा - "हा एखाद्या गोष्टीचा परिणाम आहे का?"\n१. होय (परिणाम आहे - इतका गोंधळ होता की झोप आली नाही) ➔ SUCH...THAT\n२. नाही (फक्त उदाहरण किंवा प्रकार आहे - अशा प्रकारची माणसे) ➔ SUCH...AS',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Such that', 'Such as', 'Correlative Conjunctions', 'Cause and Effect', 'MPSC Rules']
   }
 ];

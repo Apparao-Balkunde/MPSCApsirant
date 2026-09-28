@@ -327,6 +327,21 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
                     <span className="font-semibold text-indigo-600 dark:text-indigo-400 mr-2">सूत्र:</span>
                     {rule.formulaMr || rule.formula}
                   </div>
+
+                  {rule.examples && rule.examples.length > 0 && (
+                    <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs space-y-1">
+                      <div className="flex items-center gap-1.5 font-bold text-slate-800 dark:text-slate-200">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span className="truncate">{rule.examples[0].sentence}</span>
+                      </div>
+                      {rule.examples[0].explanationMr && (
+                        <p className="text-[11px] leading-relaxed text-indigo-950 dark:text-indigo-200 bg-indigo-50/80 dark:bg-indigo-950/50 p-1.5 rounded border border-indigo-200/60 dark:border-indigo-900/50">
+                          <span className="font-bold text-amber-600 dark:text-amber-400 mr-1">💡 मराठीत स्पष्टीकरण:</span>
+                          {rule.examples[0].explanationMr}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div className="md:w-72 bg-amber-50 dark:bg-amber-950/20 p-3 rounded-xl border border-amber-200 dark:border-amber-900/40 text-xs">
@@ -531,11 +546,19 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
                                   ) : (
                                     <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                                   )}
-                                  <div className="space-y-1">
+                                  <div className="space-y-1.5 w-full">
                                     <p className="font-bold text-xs md:text-sm">{ex.sentence}</p>
-                                    <p className="text-[11px] leading-relaxed opacity-90">
-                                      {ex.explanationMr || ex.explanation}
-                                    </p>
+                                    {ex.explanation && (
+                                      <p className="text-[11px] leading-relaxed opacity-90">
+                                        {ex.explanation}
+                                      </p>
+                                    )}
+                                    {ex.explanationMr && (
+                                      <p className="text-[11px] leading-relaxed font-medium text-indigo-950 dark:text-indigo-200 bg-indigo-50/80 dark:bg-indigo-950/50 p-2 rounded-lg border border-indigo-200/70 dark:border-indigo-800/60 mt-1">
+                                        <span className="font-bold text-amber-600 dark:text-amber-400 mr-1.5">💡 मराठीत स्पष्टीकरण:</span>
+                                        {ex.explanationMr}
+                                      </p>
+                                    )}
                                   </div>
                                 </div>
                               </div>
