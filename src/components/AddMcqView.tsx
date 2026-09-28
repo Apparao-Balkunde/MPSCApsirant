@@ -34,6 +34,7 @@ import { QUESTIONS_SET_25 } from '../data/questionsSet25';
 import { QUESTIONS_SET_26 } from '../data/questionsSet26';
 import { QUESTIONS_SET_27 } from '../data/questionsSet27';
 import { QUESTIONS_SET_28 } from '../data/questionsSet28';
+import { QUESTIONS_SET_29 } from '../data/questionsSet29';
 import { NEW_FIREBASE_MCQS } from '../data/mpscQuestions';
 import { FIREBASE_MCQS_BATCH_2 } from '../data/firebaseMcqsBatch2';
 import { NEW_QUESTIONS_BATCH_2026 } from '../data/newQuestionsBatch2026';
@@ -125,6 +126,22 @@ const PRESET_TEMPLATES = [
     expMr: 'बाळशास्त्री जांभेकर यांनी मे १८४० मध्ये "दिग्दर्शन" हे मराठीतील पहिले मासिक सुरू केले. ६ जानेवारी हा त्यांचा जन्मदिवस महाराष्ट्रात "पत्रकार दिन" म्हणून साजरा केला जातो.',
     expEn: 'Balshastri Jambhekar launched "Digdarshan" in May 1840 as the first monthly periodical in Marathi.',
     ref: 'आधुनिक महाराष्ट्राचा इतिहास - डॉ. अनिल कठारे / सुधीर फडके'
+  },
+  {
+    label: 'माहितीचा अधिकार अधिनियम २००५ (RTI - ४८ तास कालमर्यादा)',
+    subjectId: 'polity' as SubjectId,
+    topic: 'माहितीचा अधिकार अधिनियम, २००५ (RTI Act)',
+    subtopic: 'जीवित व वैयक्तिक स्वातंत्र्य कलम ७(१)',
+    difficulty: 'Moderate' as const,
+    exam: 'Both' as const,
+    qMr: 'माहितीचा अधिकार अधिनियम, २००५ च्या कलम ७(१) नुसार, जर मागितलेली माहिती एखाद्या व्यक्तीच्या "जीवित किंवा वैयक्तिक स्वातंत्र्याशी" संबंधित असेल, तर जन माहिती अधिकाऱ्याने ती माहिती किती कालावधीत देणे बंधनकारक आहे?',
+    qEn: 'Under Section 7(1) of the Right to Information Act 2005, if the requested info concerns the "life or liberty" of a person, within what time period must it be provided?',
+    optMr: ['४८ तासांच्या आत (Within 48 hours)', '२४ तासांच्या आत', '७ दिवसांच्या आत', '३० दिवसांच्या आत'],
+    optEn: ['Within 48 hours', 'Within 24 hours', 'Within 7 days', 'Within 30 days'],
+    ansIdx: 0,
+    expMr: 'सर्वसाधारण माहिती ३० दिवसांत देणे आवश्यक असते; मात्र व्यक्तीच्या जीवित किंवा स्वातंत्र्याशी संबंधित माहिती केवळ ४८ तासांच्या आत (Within 48 Hours) देणे बंधनकारक असते.',
+    expEn: 'Information concerning the life or liberty of a person must be provided within 48 hours under Section 7(1) of the RTI Act.',
+    ref: 'माहितीचा अधिकार अधिनियम, २००५ / डॉ. तुकाराम जाधव'
   }
 ];
 
@@ -350,6 +367,7 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
         ...QUESTIONS_SET_26,
         ...QUESTIONS_SET_27,
         ...QUESTIONS_SET_28,
+        ...QUESTIONS_SET_29,
       ];
       const count = await bulkStoreMCQsToFirestore(allBatchQuestions);
       setNotification({

@@ -1,0 +1,297 @@
+import { Question } from '../types';
+
+export const QUESTIONS_SET_29: Question[] = [
+  // =========================================================================
+  // 1. RIGHT TO INFORMATION ACT, 2005 (माहितीचा अधिकार अधिनियम, २००५)
+  // =========================================================================
+  {
+    id: 'info_rti_2901',
+    subjectId: 'polity',
+    topic: 'माहितीचा अधिकार अधिनियम, २००५ (RTI Act)',
+    subtopic: 'माहिती पुरवण्याची कालमर्यादा व कलम ७(१)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'माहितीचा अधिकार अधिनियम, २००५ च्या कलम ७(१) नुसार, जर मागितलेली माहिती एखाद्या व्यक्तीच्या "जीवित किंवा वैयक्तिक स्वातंत्र्याशी" (Life or Liberty) संबंधित असेल, तर जन माहिती अधिकाऱ्याने (PIO) ती माहिती किती कालावधीत देणे बंधनकारक आहे?',
+    questionEn: 'Under Section 7(1) of the Right to Information Act 2005, if the requested information concerns the "life or liberty" of a person, within what time period must the Public Information Officer (PIO) provide it?',
+    optionsMr: [
+      'अर्ज प्राप्त झाल्यापासून ४८ तासांच्या आत (Within 48 hours)',
+      'अर्ज प्राप्त झाल्यापासून २४ तासांच्या आत',
+      'अर्ज प्राप्त झाल्यापासून ७ दिवसांच्या आत',
+      'अर्ज प्राप्त झाल्यापासून ३० दिवसांच्या आत',
+    ],
+    optionsEn: [
+      'Within 48 hours of receipt of the request',
+      'Within 24 hours of receipt of the request',
+      'Within 7 days of receipt of the request',
+      'Within 30 days of receipt of the request',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'माहितीचा अधिकार अधिनियम २००५ च्या कलम ७(१) नुसार सर्वसाधारण माहिती ३० दिवसांत देणे आवश्यक असते; मात्र जर माहिती व्यक्तीच्या जीवित किंवा स्वातंत्र्याशी संबंधित असेल तर ती केवळ ४८ तासांच्या आत (Within 48 Hours) देणे बंधनकारक असते. सहाय्यक जन माहिती अधिकाऱ्याकडे अर्ज दिल्यास त्यात ५ दिवस अतिरिक्त मिळतात.',
+    explanationEn: 'Under Section 7(1) of the RTI Act 2005, where the information sought concerns the life or liberty of a person, it shall be provided within 48 hours of receipt of the request (normal requests require 30 days).',
+    reference: 'माहितीचा अधिकार अधिनियम, २००५ / डॉ. तुकाराम जाधव व महेश शिरापूरकर',
+    yearTag: 'MPSC Rajyaseva & Combine GS-2 Core Act',
+  },
+  {
+    id: 'info_rti_2902',
+    subjectId: 'polity',
+    topic: 'माहितीचा अधिकार अधिनियम, २००५ (RTI Act)',
+    subtopic: 'राज्य मुख्य माहिती आयुक्तांची नियुक्ती समिती (कलम १५)',
+    exam: 'Both',
+    difficulty: 'Hard',
+    questionMr: 'माहितीचा अधिकार अधिनियम २००५ च्या कलम १५(३) नुसार राज्य मुख्य माहिती आयुक्त (SCIC) आणि राज्य माहिती आयुक्तांची नियुक्ती राज्यपाल एका शिफारस समितीच्या सल्ल्याने करतात. या समितीत खालीलपैकी कोणाचा समावेश नसतो?',
+    questionEn: 'Under Section 15(3) of the RTI Act 2005, the Governor appoints the State Chief Information Commissioner on the recommendation of a committee. Who among the following is NOT a member of this committee?',
+    optionsMr: [
+      'उच्च न्यायालयाचे मुख्य न्यायाधीश (Chief Justice of High Court)',
+      'मुख्यमंत्री (समितीचे अध्यक्ष)',
+      'विधानसभेतील विरोधी पक्षनेते',
+      'मुख्यमंत्र्यांनी नामनिर्देशित केलेला एक कॅबिनेट मंत्री',
+    ],
+    optionsEn: [
+      'Chief Justice of the High Court',
+      'Chief Minister (Chairperson)',
+      'Leader of the Opposition in the Legislative Assembly',
+      'A Cabinet Minister nominated by the Chief Minister',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'कलम १५(३) नुसार राज्य माहिती आयुक्तांच्या नियुक्ती समितीत केवळ ३ सदस्य असतात: १) मुख्यमंत्री (अध्यक्ष), २) विधानसभेतील विरोधी पक्षनेता, आणि ३) मुख्यमंत्र्यांनी नामनिर्देशित केलेला एक कॅबिनेट मंत्री. यात उच्च न्यायालयाच्या मुख्य न्यायाधीशांचा समावेश नसतो.',
+    explanationEn: 'The selection committee for the State Information Commission consists solely of: (1) Chief Minister as Chairperson, (2) Leader of Opposition in the Legislative Assembly, and (3) a State Cabinet Minister nominated by the CM. The High Court Chief Justice is not part of it.',
+    reference: 'एम. लक्ष्मीकांत - राज्य माहिती आयोग / RTI Act 2005 Bare Act',
+    yearTag: 'MPSC Rajyaseva GS-2 Polity',
+  },
+  {
+    id: 'info_rti_2903',
+    subjectId: 'polity',
+    topic: 'माहितीचा अधिकार अधिनियम, २००५ (RTI Act)',
+    subtopic: 'माहिती प्रकट करण्यापासून सूट (कलम ८ व कलम २४)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'माहितीचा अधिकार कायदा २००५ मधील कलम ८(१) अन्वये माहिती देण्यापासून सूट मिळालेल्या बाबींमध्ये खालीलपैकी कशाचा समावेश होतो?',
+    questionEn: 'Which of the following matters are exempted from disclosure of information under Section 8(1) of the Right to Information Act 2005?',
+    optionsMr: [
+      'भारताचे सार्वभौमत्व, एकात्मता व सुरक्षेला बाधा आणणारी माहिती, तसेच व्यावसायिक गोपनीयता (Trade Secrets)',
+      'मंत्रिमंडळाने घेतलेले सर्व धोरणात्मक निर्णय',
+      'शासकीय कर्मचाऱ्यांची वेतनश्रेणी व भत्ते',
+      'सार्वजनिक बांधकाम विभागाचा वार्षिक खर्च',
+    ],
+    optionsEn: [
+      'Information affecting sovereignty, integrity, and security of India, and trade secrets',
+      'All policy decisions approved by the Cabinet',
+      'Pay scales and allowances of government employees',
+      'Annual expenditure of the Public Works Department',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'कलम ८(१) अन्वये भारताचे सार्वभौमत्व, सुरक्षितता, वैज्ञानिक किंवा आर्थिक हितसंबंध धोक्यात आणणारी माहिती, न्यायालयाचा अवमान करणारी माहिती, तसेच व्यावसायिक गोपनीयता (Commercial Confidence / Trade Secrets) उघड करण्यास सूट दिलेली आहे. मात्र भ्रष्टाचाराचे आरोप असल्यास कलम २४ मधील संस्थांनाही माहिती द्यावी लागते.',
+    explanationEn: 'Section 8(1) of the RTI Act exempts disclosures prejudicing national security, sovereignty, international relations, cabinet papers under deliberation, and commercial confidence/intellectual property.',
+    reference: 'माहितीचा अधिकार अधिनियम २००५ - अधिकृत संहिता',
+    yearTag: 'MPSC Combine Group B Mains & Prelims',
+  },
+
+  // =========================================================================
+  // 2. INFORMATION TECHNOLOGY ACT, 2000 (माहिती तंत्रज्ञान कायदा, २०००)
+  // =========================================================================
+  {
+    id: 'info_it_2904',
+    subjectId: 'polity',
+    topic: 'माहिती तंत्रज्ञान कायदा, २००० (IT Act)',
+    subtopic: 'कलम ६६A व श्रेया सिंघल खटला (२०१५)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'सर्वोच्च न्यायालयाने २०१५ मधील प्रसिद्ध "श्रेया सिंघल वि. युनियन ऑफ इंडिया" (Shreya Singhal vs. Union of India) या खटल्यात माहिती तंत्रज्ञान कायदा २००० चे कोणते कलम घटनेच्या कलम १९(१)(अ) मधील विचार व अभिव्यक्ती स्वातंत्र्याचा संकोच करत असल्यामुळे असंवैधानिक ठरवून रद्दबातल केले?',
+    questionEn: 'In the landmark 2015 judgment "Shreya Singhal v. Union of India", the Supreme Court struck down which section of the Information Technology Act 2000 for violating freedom of speech under Article 19(1)(a)?',
+    optionsMr: [
+      'कलम ६६-A (Section 66A)',
+      'कलम ६६-F',
+      'कलम ६९-A',
+      'कलम ७९',
+    ],
+    optionsEn: [
+      'Section 66A',
+      'Section 66F',
+      'Section 69A',
+      'Section 79',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'माहिती तंत्रज्ञान कायद्याचे कलम ६६-A संगणक किंवा सोशल मीडियावरून आक्षेपार्ह संदेश पाठवणाऱ्याला ३ वर्षांपर्यंत कारावासाची शिक्षा देण्याची तरतूद करत होते. २४ मार्च २०१५ रोजी सर्वोच्च न्यायालयाने श्रेया सिंघल खटल्यात हे कलम अस्पष्ट आणि घटनेच्या कलम १९(१)(अ) चे उल्लंघन करणारे ठरवून पूर्णपणे रद्द केले.',
+    explanationEn: 'Section 66A of the IT Act criminalized sending offensive messages through a computer or communication device. In Shreya Singhal (2015), the Supreme Court struck it down as an unconstitutional restriction on free speech.',
+    reference: 'सर्वोच्च न्यायालय ऐतिहासिक निवाडे / एम. लक्ष्मीकांत',
+    yearTag: 'MPSC Core Law & Polity GS-2',
+  },
+  {
+    id: 'info_it_2905',
+    subjectId: 'general_science',
+    topic: 'माहिती तंत्रज्ञान व सायबर सुरक्षा (Cyber Security)',
+    subtopic: 'CERT-In ची भूमिका व माहिती तंत्रज्ञान कायदा कलम ७०-B',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'भारतात संगणकीय सुरक्षेशी संबंधित सायबर हल्ले, मालवेअर आणि सायबर धोक्यांचे व्यवस्थापन करणारी राष्ट्रीय नोडल एजन्सी "CERT-In" चे पूर्ण नाव काय आहे?',
+    questionEn: 'What is the full form of "CERT-In", India\'s national nodal agency designated under the Information Technology Act for responding to cyber security incidents?',
+    optionsMr: [
+      'इंडियन कॉम्प्युटर इमर्जन्सी रिस्पॉन्स टीम (Indian Computer Emergency Response Team)',
+      'सायबर इमर्जन्सी रिसर्च टीम इंडिया',
+      'सेंट्रल इलेक्ट्रॉनिक रेकॉर्ड्स टास्कफोर्स इंडिया',
+      'कॉम्प्युटर एव्हिडन्स रिकव्हरी टीम इंडिया',
+    ],
+    optionsEn: [
+      'Indian Computer Emergency Response Team',
+      'Cyber Emergency Research Team of India',
+      'Central Electronic Records Taskforce India',
+      'Computer Evidence Recovery Team India',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'CERT-In (Indian Computer Emergency Response Team) ची स्थापना २००४ मध्ये इलेक्ट्रॉनिक्स व माहिती तंत्रज्ञान मंत्रालयांतर्गत (MeitY) झाली. आयटी कायदा २००० च्या कलम ७०-B अन्वये तिला राष्ट्रीय सायबर सुरक्षेचे अधिकार देण्यात आले आहेत.',
+    explanationEn: 'CERT-In stands for Indian Computer Emergency Response Team. Operating under MeitY, it is the designated national nodal agency under Section 70B of the IT Act for incident analysis and cyber security defence.',
+    reference: 'विज्ञान व तंत्रज्ञान - सचिन भस्के / MeitY वार्षिक अहवाल',
+    yearTag: 'MPSC Science & Technology GS-4',
+  },
+
+  // =========================================================================
+  // 3. INFORMATION & COMMUNICATION TECHNOLOGY (ICT) & SUPERCOMPUTING
+  // =========================================================================
+  {
+    id: 'info_ict_2906',
+    subjectId: 'general_science',
+    topic: 'संगणक व माहिती तंत्रज्ञान (ICT)',
+    subtopic: 'भारतातील महासंगणक (National Supercomputing Mission - NSM)',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'राष्ट्रीय महासंगणक मोहिमेअंतर्गत (National Supercomputing Mission - NSM) C-DAC पुणे द्वारे विकसित करण्यात आलेला आणि जागतिक ५०० महासंगणकांच्या यादीत स्थान मिळवणारा भारताचा आघाडीचा AI महासंगणक कोणता आहे?',
+    questionEn: 'Under the National Supercomputing Mission (NSM), which premier AI supercomputer developed in India (installed at C-DAC Pune) ranks among the world\'s top fastest AI supercomputers?',
+    optionsMr: [
+      'ऐरावत (AIRAWAT - AI Supercomputer)',
+      'परम ८००० (Param 8000)',
+      'सिद्धार्थ',
+      'अनुराग',
+    ],
+    optionsEn: [
+      'AIRAWAT (AI Supercomputer)',
+      'Param 8000',
+      'Siddhartha',
+      'Anurag',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'AIRAWAT (AI Research Analytics and Knowledge Dissemination Platform) हा C-DAC पुणे येथे स्थापित १३.१७ पेटाफ्लॉप्स क्षमतेचा AI महासंगणक असून जागतिक टॉप ५०० महासंगणक यादीत त्याने अव्वल स्थान मिळवले आहे. भारताचा पहिला महासंगणक १९९१ मध्ये डॉ. विजय भटकर यांच्या नेतृत्वाखाली \'परम ८०००\' विकसित करण्यात आला होता.',
+    explanationEn: 'AIRAWAT, installed at C-DAC Pune, is India\'s top AI supercomputer. India\'s first indigenous supercomputer was Param 8000, built in 1991 under Dr. Vijay Bhatkar.',
+    reference: 'C-DAC अधिकृत संकेतस्थळ / विज्ञान व तंत्रज्ञान मासिक',
+    yearTag: 'MPSC State Services Prelims ICT',
+  },
+  {
+    id: 'info_ict_2907',
+    subjectId: 'current_affairs',
+    topic: 'डिजिटल इंडिया व माहिती महामार्ग',
+    subtopic: 'भारतनेट प्रकल्प (BharatNet) व ग्रामीण ब्रॉडबँड कनेक्टिव्हिटी',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'भारतातील सर्व ग्रामपंचायतींना ऑप्टिकल फायबर केबलद्वारे (OFC) हाय-स्पीड ब्रॉडबँड इंटरनेट कनेक्टिव्हिटी पुरवण्यासाठी राबवण्यात येणाऱ्या महत्त्वाकांक्षी प्रकल्पाचे नाव काय आहे?',
+    questionEn: 'What is the name of the flagship project aimed at providing high-speed optical fiber broadband connectivity to all Gram Panchayats across India?',
+    optionsMr: [
+      'भारतनेट प्रकल्प (BharatNet Project)',
+      'डिजिटल व्हिलेज योजना',
+      'ई-क्रांती मिशन',
+      'ग्रामीण डेटा नेटवर्क',
+    ],
+    optionsEn: [
+      'BharatNet Project',
+      'Digital Village Scheme',
+      'e-Kranti Mission',
+      'Rural Data Network',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'भारतनेट (पूर्वीचे नाव National Optical Fibre Network - NOFN, २०११ मध्ये सुरू) हा जगातील सर्वात मोठा ग्रामीण ब्रॉडबँड संपर्क प्रकल्प आहे. भारत ब्रॉडबँड नेटवर्क लिमिटेड (BBNL) द्वारे २.५ लाख ग्रामपंचायतींना प्रत्येकी किमान १०० एमबीपीएस इंटरनेट जोडणी देण्याचे याचे उद्दिष्ट आहे.',
+    explanationEn: 'BharatNet is the world\'s largest rural broadband connectivity project using optical fiber to connect around 2.5 lakh Gram Panchayats with high-speed internet.',
+    reference: 'भारत सरकार दूरसंचार विभाग अहवाल / लोकराज्य',
+    yearTag: 'MPSC Current Affairs & Economy GS-4',
+  },
+
+  // =========================================================================
+  // 4. MAHARASHTRA PUBLIC SERVICES ACT & E-GOVERNANCE
+  // =========================================================================
+  {
+    id: 'info_act_2908',
+    subjectId: 'polity',
+    topic: 'महाराष्ट्र लोकसेवा हक्क अधिनियम, २०१५',
+    subtopic: 'पारदर्शक ई-प्रशासन व "आपले सरकार" पोर्टल',
+    exam: 'Both',
+    difficulty: 'Moderate',
+    questionMr: 'महाराष्ट्र शासनाने नागरिकांना पारदर्शक, गतिमान व कालमर्यादेत सेवा मिळण्यासाठी "महाराष्ट्र लोकसेवा हक्क अधिनियम, २०१५" कधीपासून राज्यात लागू केला?',
+    questionEn: 'On which date did the Government of Maharashtra enforce the "Maharashtra Right to Public Services Act, 2015" to ensure transparent, speedy, and time-bound delivery of public services?',
+    optionsMr: [
+      '२८ एप्रिल २०१५ (28 April 2015)',
+      '१ मे २०१०',
+      '२६ जानेवारी २०१६',
+      '१५ ऑगस्ट २०१४',
+    ],
+    optionsEn: [
+      '28 April 2015',
+      '1 May 2010',
+      '26 January 2016',
+      '15 August 2014',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'महाराष्ट्र लोकसेवा हक्क अधिनियम २८ एप्रिल २०१५ पासून वटहुकुमाद्वारे व पुढे २१ ऑगस्ट २०१५ रोजी कायद्याद्वारे लागू करण्यात आला. या कायद्यांतर्गत "आपले सरकार" (Aaple Sarkar) वेब पोर्टलवरून शेकडो शासकीय सेवा घरबसल्या विहित मुदतीत उपलब्ध करून दिल्या जातात.',
+    explanationEn: 'The Maharashtra Right to Public Services Act 2015 came into force initially on 28 April 2015 by ordinance and enacted on 21 August 2015, operationalized through the Aaple Sarkar portal.',
+    reference: 'महाराष्ट्र शासन राजपत्र / मुख्य सेवा हक्क आयोग अहवाल',
+    yearTag: 'MPSC Combine Group B/C Mains GS-2',
+  },
+
+  // =========================================================================
+  // 5. DATA PROTECTION & DIGITAL PRIVACY
+  // =========================================================================
+  {
+    id: 'info_dpdp_2909',
+    subjectId: 'polity',
+    topic: 'माहिती व वैयक्तिक डेटा संरक्षण कायदा, २०२३',
+    subtopic: 'डिजिटल पर्सनल डेटा प्रोटेक्शन कायदा (DPDP Act 2023)',
+    exam: 'Both',
+    difficulty: 'Hard',
+    questionMr: 'भारतीय नागरिकांच्या डिजिटल डेटा गोपनीयतेचे रक्षण करण्यासाठी संसदेने मंजूर केलेल्या "डिजिटल पर्सनल डेटा प्रोटेक्शन कायदा, २०२३" (DPDP Act) च्या अंमलबजावणीसाठी कोणत्या सर्वोच्च नियामक प्राधिकरणाची स्थापना केली जाणार आहे?',
+    questionEn: 'For enforcing the Digital Personal Data Protection Act 2023 (DPDP Act) to safeguard personal data privacy, which adjudicating authority is established?',
+    optionsMr: [
+      'डेटा प्रोटेक्शन बोर्ड ऑफ इंडिया (Data Protection Board of India - DPBI)',
+      'नॅशनल डेटा कमिशन',
+      'सायबर अपीलीय न्यायाधिकरण',
+      'केंद्रीय गोपनीयता परिषद',
+    ],
+    optionsEn: [
+      'Data Protection Board of India (DPBI)',
+      'National Data Commission',
+      'Cyber Appellate Tribunal',
+      'Central Privacy Council',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'DPDP Act २०२३ अन्वये \'Data Protection Board of India (DPBI)\' ची स्थापना केली जाणार आहे. हे बोर्ड डिजिटल डेटा उल्लंघनाची चौकशी करेल आणि नागरिकांचा डेटा सुरक्षित न ठेवणाऱ्या कंपन्यांवर ₹ २५० कोटींपर्यंतचा मोठा दंड आकारण्याचे अधिकार या बोर्डाला देण्यात आले आहेत.',
+    explanationEn: 'The DPDP Act 2023 establishes the Data Protection Board of India (DPBI) as an independent adjudicatory body empowered to impose penalties up to Rs 250 crore for significant data breaches.',
+    reference: 'DPDP Act 2023 Gazetted Act / नीती आयोग कायदेविषयक विश्लेषण',
+    yearTag: 'MPSC 2026/27 Latest Legal & Digital Acts',
+  },
+
+  // =========================================================================
+  // 6. GENERAL SCIENCE - INFORMATION STORAGE & QUANTUM COMPUTING
+  // =========================================================================
+  {
+    id: 'info_sci_2910',
+    subjectId: 'general_science',
+    topic: 'माहिती तंत्रज्ञान व भौतिकशास्त्र',
+    subtopic: 'क्वांटम कॉम्प्युटिंग व क्युबिट्स (Qubits vs Classical Bits)',
+    exam: 'Both',
+    difficulty: 'Hard',
+    questionMr: 'पारंपरिक संगणकातील माहिती 0 किंवा 1 या बायनरी बिट्स (Bits) मध्ये साठवली जाते; तर क्वांटम संगणकामध्ये माहिती कोणत्या मूलभूत घटकामध्ये साठवली जाते, जो सुपरपोझिशन (Superposition) व एन्टँग्लमेंटच्या नियमांवर काम करतो?',
+    questionEn: 'While classical computers store information in binary bits (0 or 1), what fundamental unit does a Quantum Computer utilize to process information leveraging superposition and entanglement?',
+    optionsMr: [
+      'क्युबिट्स / क्वांटम बिट्स (Qubits - Quantum Bits)',
+      'बाईट्स (Bytes)',
+      'फ्लॉप्स (FLOPs)',
+      'फोटॉन पॅकेट्स',
+    ],
+    optionsEn: [
+      'Qubits (Quantum Bits)',
+      'Bytes',
+      'FLOPs',
+      'Photon Packets',
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'क्वांटम कॉम्प्युटिंगमध्ये माहिती \'क्युबिट\' (Qubit) मध्ये साठवली जाते. पारंपरिक बिट एका वेळी फक्त 0 किंवा 1 असू शकतो, तर क्युबिट सुपरपोझिशनच्या नियमानुसार एकाच वेळी 0 आणि 1 दोन्ही अवस्थांमध्ये राहू शकतो, ज्यामुळे माहितीवर प्रक्रिया करण्याचा वेग अब्जावधी पटीने वाढतो. भारताने \'National Quantum Mission (NQM)\' सुरू केले आहे.',
+    explanationEn: 'Quantum bits (qubits) leverage superposition and entanglement to exist in states of 0, 1, or both simultaneously, radically accelerating computational throughput.',
+    reference: 'विज्ञान व तंत्रज्ञान - सचिन भस्के / DST National Quantum Mission',
+    yearTag: 'MPSC Rajyaseva GS-4 Science & Tech',
+  }
+];
