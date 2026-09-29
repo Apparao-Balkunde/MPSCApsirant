@@ -3985,5 +3985,195 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची क्लृप्ती:\nActive Voice वाक्यात जर Make (made), Let, See (saw), Hear (heard) दिसले, तर पुढच्या क्रियापदाच्या आधीचा "TO" ताबडतोब काढून टाका! (उदा. made me to cry ➔ made me cry)!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Bare Infinitive', 'Made me cry', 'Let him go', 'Causative Verbs', 'MPSC Rules']
+  },
+
+  // --- 51. LIE vs LAY: Forms & Transitive vs Intransitive Confusion ---
+  {
+    id: 'en_rule_lie_vs_lay_01',
+    language: 'english',
+    category: 'Verbs & Confusing Words',
+    categoryMr: 'क्रियापदे: "LIE" (आडवे होणे) वि. "LAY" (ठेवणे) यांमधील काळांची रूपे',
+    title: 'Confusion between "LIE" (Intransitive: Rest/Recline) and "LAY" (Transitive: Place/Put/Produce Egg)',
+    titleMr: '"LIE" (झोपणे/आडवे होणे - अकर्मक) आणि "LAY" (ठेवणे/मांडणे/अंडे घालणे - सकर्मक) यांमधील रूपे व हमखास विचारला जाणारा फरक',
+    formula: '1. LIE (Recline / Intransitive, No Object): Lie (V1) ➔ Lay (V2) ➔ Lain (V3) ➔ Lying (V-ing)\n2. LAY (Put/Place / Transitive, Takes Object): Lay (V1) ➔ Laid (V2) ➔ Laid (V3) ➔ Laying (V-ing)\n3. LIE (Untruth / Intransitive): Lie (V1) ➔ Lied (V2) ➔ Lied (V3) ➔ Lying (V-ing)',
+    formulaMr: '१. LIE (आडवे होणे/विश्रांती घेणे - अकर्मक, कर्म नसते): Lie ➔ Lay (भूतकाळ) ➔ Lain (V3) ➔ Lying\n२. LAY (वस्तू ठेवणे/मांडणे/अंडे घालणे - सकर्मक, कर्म अनिवार्य): Lay ➔ Laid (भूतकाळ) ➔ Laid (V3) ➔ Laying\n३. LIE (खोटे बोलणे - अकर्मक): Lie ➔ Lied ➔ Lied ➔ Lying',
+    definition: 'One of the most frequently tested verbal traps in competitive English exams is the confusion between "lie" and "lay". "LIE" (to recline or rest) is INTRANSITIVE and cannot take a direct object (Past tense: "lay", Past Participle: "lain"). "LAY" (to place or put something down, or for birds to produce eggs) is TRANSITIVE and MUST take a direct object (Past tense: "laid", Past Participle: "laid"). Examiner trap: Using "laid" when no object is present (e.g., "He laid on the bed yesterday" is WRONG; it must be "He lay on the bed").',
+    definitionMr: 'MPSC परीक्षेत हमखास विचारला जाणारा सर्वात मोठा गोंधळ म्हणजे "Lie" आणि "Lay".\n१. "LIE" चा अर्थ स्वतः आडवे होणे, झोपणे किंवा विश्रांती घेणे असा होतो. हे अकर्मक (Intransitive) क्रियापद असून यानंतर कर्म (Object) येत नाही. याची रूपे: Lie (V1) ➔ Lay (V2 - भूतकाळ) ➔ Lain (V3 - पूर्ण काळ) ➔ Lying.\n२. "LAY" चा अर्थ एखादी वस्तू खाली ठेवणे, मांडणे, पाया रचणे किंवा पक्ष्याने अंडे घालणे असा होतो. हे सकर्मक (Transitive) क्रियापद असून यानंतर कर्म (Object) असणे अनिवार्य असते. याची रूपे: Lay (V1) ➔ Laid (V2) ➔ Laid (V3) ➔ Laying.',
+    keyPoints: [
+      '"LIE" (Recline - No Object): "I usually lie down in the afternoon" (Present) | "Yesterday, he lay on the sofa for two hours" (Past V2: lay) | "He has lain in a coma for weeks" (V3: lain).',
+      '"LAY" (Place - Needs Object): "Please lay the book on the table" (Object: the book) | "She laid the sleeping child in the crib" (Past V2: laid, Object: child) | "The foundation stone was laid yesterday" (Passive of lay).',
+      'The Hen Egg Rule: "The hen has laid an egg" (Object: an egg ➔ "laid" is correct; "lain" is wrong!).',
+      'Continuous form: "lying" (He is lying on the grass) vs "laying" (The workers are laying bricks).'
+    ],
+    keyPointsMr: [
+      '१. विश्रांती घेताना कर्म नसते: "Yesterday, he lay on the grass" (काल तो गवतावर आडवा झाला - भूतकाळात "lay" बरोबर; "laid" १००% चूक!).',
+      '२. वस्तू ठेवताना कर्म असते: "He laid his phone on the desk" (त्याने फोन टेबलावर ठेवला - येथे फोन हे कर्म असल्याने "laid" बरोबर).',
+      '३. कोंबडीने अंडे घातले: "The hen laid an egg" (अंडे हे कर्म असल्याने "laid" येते).',
+      '४. जमिनीवर पडलेले असणे: "The keys were lying on the floor" (चाव्या जमिनीवर पडलेल्या होत्या - "lying", "laying" नाही!).'
+    ],
+    examples: [
+      {
+        sentence: 'Exhausted after the grueling marathon, the athlete lay down under the shade of a banyan tree.',
+        isCorrect: true,
+        explanation: 'Correct! "Lay" is the simple past tense (V2) of the intransitive verb "lie" (to recline), properly used without an object.',
+        explanationMr: 'बरोबर! थकलेला धावपटू वडाच्या झाडाखाली आडवा झाला. येथे विश्रांती घेण्याचा भूतकाळ असल्याने "lie" चे दुसरे रूप "lay" अचूक आहे (कर्म नाही).'
+      },
+      {
+        sentence: 'Exhausted after the marathon, the athlete laid down under the shade of a tree.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Laid" is the past tense of "lay" (which requires an object, like "laid the bag"). Here, the athlete himself reclined, so the past tense must be "lay" (from "lie").',
+        explanationMr: 'चूक! MPSC चा सर्वात लोकप्रिय प्रश्न: इथे कोणताही ऑब्जेक्ट (कर्म) ठेवलेला नाही, तर खेळाडू स्वतः झोपला; त्यामुळे "laid" च्या ऐवजी "lay" हवे!'
+      },
+      {
+        sentence: 'The librarian carefully laid the ancient palm-leaf manuscripts on the inspection table.',
+        isCorrect: true,
+        explanation: 'Correct! "Laid" is the past tense of transitive "lay" (put/place), taking the direct object "the ancient palm-leaf manuscripts".',
+        explanationMr: 'बरोबर! ग्रंथपालाने प्राचीन हस्तलिखिते टेबलावर ठेवली. हस्तलिखिते हे कर्म असल्याने सकर्मक क्रियापद "laid" चा वापर बरोबर आहे.'
+      },
+      {
+        sentence: 'The patient has laid in the intensive care unit for three days without regaining consciousness.',
+        isCorrect: false,
+        explanation: 'Incorrect! The patient is reclining (intransitive). The past participle (V3) of "lie" is "lain", NOT "laid". Sentence should be: "The patient has lain in the ICU...".',
+        explanationMr: 'चूक! रुग्ण स्वतः आयसीयूमध्ये झोपलेला आहे. "has" नंतर "lie" चे तिसरे रूप (V3) "lain" हवे ("has lain", "has laid" नाही!).'
+      }
+    ],
+    exceptions: [
+      'LIE (telling a falsehood): Regular verb forms "lied / lied": "He lied under oath before the High Court commission."'
+    ],
+    exceptionsMr: [
+      'खोटे बोलणे (Lie): याचे भूतकाळ व तिसरे रूप नियमित "lied" होते (उदा. "He lied to the police").'
+    ],
+    examTip: 'MPSC 1-Second Lie vs Lay Rule:\n• Ask: "Is there a direct object being placed?"\n  ➔ YES (books, child, bricks, egg) = LAY / LAID / LAID\n  ➔ NO (person resting, sleeping, body on bed) = LIE / LAY / LAIN\n• Remember: Past tense of "LIE" is "LAY" (NOT laid)!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात पुढे कर्म (Object) आहे का ते पाहा:\n• कर्म असेल (पुस्तके, फोन, वीट, अंडे ठेवणे) ➔ LAY / LAID / LAID\n• कर्म नसेल (माणूस स्वतः बेडवर, जमिनीवर झोपला) ➔ LIE / LAY / LAIN\n• "He laid on the bed yesterday" दिसल्यास डोळे झाकून "laid" काढून "LAY" करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Lie vs Lay', 'Verbs', 'Laid vs Lain', 'Transitive Verbs', 'MPSC Super Hit']
+  },
+
+  // --- 52. Position & Degree of "ENOUGH" ---
+  {
+    id: 'en_rule_enough_position_degree_01',
+    language: 'english',
+    category: 'Adverbs & Adjectives',
+    categoryMr: 'विशेषणे व क्रियाविशेषणे: "ENOUGH" चे वाक्यातील स्थान व Positive Degree चा नियम',
+    title: 'Position and Degree of "ENOUGH": Postpositive to Adjective/Adverb but Prepositive to Noun',
+    titleMr: '"ENOUGH" चा सुवर्ण नियम: विशेषण व क्रियाविशेषणानंतर ENOUGH, नामाच्या आधी ENOUGH; आणि विशेषण नेहमी Positive Degree मध्येच!',
+    formula: '1. Adjective (Positive Degree) + ENOUGH (e.g. wise enough, NOT enough wise, NOT wiser enough)\n2. Adverb + ENOUGH (e.g. fast enough, carefully enough, NOT enough fast)\n3. ENOUGH + Noun (e.g. enough money, enough candidates, NOT money enough)',
+    formulaMr: '१. विशेषण (Positive Degree) + ENOUGH (उदा. tall enough, smart enough; "enough tall" किंवा "taller enough" चूक!)\n२. क्रियाविशेषण + ENOUGH (उदा. quickly enough, well enough)\n३. ENOUGH + नाम (उदा. enough time, enough food; "time enough" चूक!)',
+    definition: 'The word "ENOUGH" has a unique structural placement in English syntax:\n1. As an ADVERB qualifying an Adjective or another Adverb, "enough" is placed AFTER the word it modifies (Postpositive position). Furthermore, the adjective MUST be in the POSITIVE DEGREE (never comparative or superlative).\n2. As an ADJECTIVE or DETERMINER qualifying a Noun, "enough" is placed BEFORE the noun.',
+    definitionMr: 'इंग्रजी व्याकरणात "ENOUGH" या शब्दाचे वाक्यातील स्थान अत्यंत काटेकोर असते:\n१. विशेषण (Adjective) किंवा क्रियाविशेषण (Adverb) चे वर्णन करताना "ENOUGH" नेहमी त्या शब्दाच्या नंतर येतो (उदा. "He is brave enough", "enough brave" चूक!).\n२. "ENOUGH" च्या आधी येणारे विशेषण नेहमी पहिल्या रूपात म्हणजेच Positive Degree मध्येच असावे लागते (उदा. "strong enough" बरोबर; "stronger enough" १००% चूक!).\n३. नाम (Noun) चे वर्णन करताना "ENOUGH" नामाच्या आधी येतो (उदा. "I have enough patience", "patience enough" नाही!).',
+    keyPoints: [
+      'Postpositive with Adjective: "He is WISE ENOUGH to understand the legal nuances" (NOT "enough wise").',
+      'Positive Degree Required: "She is SMART enough" (NOT "smarter enough" or "smartest enough").',
+      'Postpositive with Adverb: "The sprinter did not run FAST ENOUGH to qualify" (NOT "enough fast").',
+      'Prepositive with Noun: "The commission has ENOUGH FUNDS to conduct the state exams smoothly" (NOT "funds enough").',
+      'Subsequent Infinitive: "enough" is followed by a "to + V1" infinitive ("tall enough to touch the ceiling").'
+    ],
+    keyPointsMr: [
+      '१. विशेषण + ENOUGH: "The boy is clever enough" ("enough clever" चूक!).',
+      '२. Degree चा नियम: ENOUGH आधी नेहमी Positive Degree येते: "rich enough" (बरोबर) | "richer enough" (चूक!).',
+      '३. क्रियाविशेषण + ENOUGH: "He drove carefully enough" ("enough carefully" चूक!).',
+      '४. ENOUGH + नाम: "Do you have enough sugar?" ("sugar enough" चूक!).',
+      '५. यानंतर पुढे नेहमी "to + क्रियापद" (Infinitive) येते.'
+    ],
+    examples: [
+      {
+        sentence: 'The candidate was experienced enough to handle the complex administrative inquiry without hesitation.',
+        isCorrect: true,
+        explanation: 'Correct! The positive-degree adjective "experienced" is correctly followed by the adverb "enough".',
+        explanationMr: 'बरोबर! "experienced" हे Positive Degree चे विशेषण आधी आले असून त्यानंतर "enough" चे स्थान अचूक आहे.'
+      },
+      {
+        sentence: 'The candidate was enough experienced to handle the administrative inquiry.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Error: "enough" cannot precede an adjective. It must be "experienced enough".',
+        explanationMr: 'चूक! "enough" हे विशेषणाच्या आधी वापरता येत नाही; "enough experienced" ऐवजी "experienced enough" हवे.'
+      },
+      {
+        sentence: 'He was bolder enough to challenge the corrupt decision of the committee.',
+        isCorrect: false,
+        explanation: 'Incorrect! The adjective before "enough" must be in the POSITIVE degree. Change comparative "bolder" to positive "bold" ("bold enough").',
+        explanationMr: 'चूक! "enough" च्या आधी Comparative Degree (bolder) चालत नाही; फक्त Positive Degree "bold" वापरून "bold enough" असावे लागते.'
+      },
+      {
+        sentence: 'The state treasury does not possess enough resources to fund all pending development projects.',
+        isCorrect: true,
+        explanation: 'Correct! "Enough" functions as an adjective/determiner placed BEFORE the noun "resources".',
+        explanationMr: 'बरोबर! "resources" (संसाधने) या नामाच्या आधी "enough" चा वापर अचूक झाला आहे.'
+      }
+    ],
+    exceptions: [
+      'In archaic or poetic English, "enough" occasionally appeared after nouns ("food enough and time to spare"), but in modern standard English and MPSC examinations, it strictly precedes the noun.'
+    ],
+    exceptionsMr: [
+      'प्राचीन काव्यात क्वचित "money enough" आढळते, परंतु आधुनिक इंग्रजी व MPSC च्या नियमांनुसार नामाच्या आधीच "enough money" वापरावे लागते.'
+    ],
+    examTip: 'MPSC 2-Step Checklist for ENOUGH:\n1. Is it modifying an ADJECTIVE? ➔ ADJECTIVE + ENOUGH (e.g. intelligent enough). Look out for inverted order ("enough intelligent" = ERROR)!\n2. Check the DEGREE: Must be POSITIVE! (kind enough ➔ NOT kinder enough).',
+    examTipMr: 'MPSC परीक्षा क्लृप्ती (२ सेकंद टेस्ट):\n१. विशेषण असेल तर रचना: [ विशेषण + ENOUGH ] (उदा. strong enough. जर "enough strong" दिसले तर तीच चूक आहे!).\n२. Degree तपासा: ENOUGH आधी -er प्रत्यय (taller, wiser, smarter) दिसल्यास तो काढून साधा शब्द (tall, wise, smart) करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Enough', 'Adjective Position', 'Positive Degree', 'Spotting Errors', 'MPSC Rules']
+  },
+
+  // --- 53. "TOO...TO" vs "SO...THAT...CANNOT / COULD NOT" ---
+  {
+    id: 'en_rule_too_to_so_that_01',
+    language: 'english',
+    category: 'Sentence Transformation & Conjunctions',
+    categoryMr: 'वाक्य रूपांतरण: "TOO...TO" काढून "SO...THAT...CANNOT / COULD NOT" वापरण्याचा नियम',
+    title: 'Removal of "TOO...TO" and Transformation into "SO...THAT...CANNOT / COULD NOT"',
+    titleMr: '"Remove TOO...TO": नकारात्मक अर्थ, काळांची सुसंगती (Cannot vs Could not) आणि निर्जीव कर्त्यांचा Passive Voice नियम',
+    formula: '1. Present: Subject + is/am/are + TOO + Adj + TO + V1 = Subject + is/am/are + SO + Adj + THAT + Subject + CANNOT + V1\n2. Past: Subject + was/were + TOO + Adj + TO + V1 = Subject + was/were + SO + Adj + THAT + Subject + COULD NOT + V1\n3. Inanimate: The box is too heavy to lift = The box is SO heavy THAT it CANNOT BE LIFTED (or cannot lift it)',
+    formulaMr: '१. वर्तमानकाळ: Too + विशेषण + to + V1 = So + विशेषण + that + कर्ता + CANNOT + V1\n२. भूतकाळ: Too + विशेषण + to + V1 = So + विशेषण + that + कर्ता + COULD NOT + V1\n३. निर्जीव कर्ता असल्यास Passive रूप: The stone is too heavy to move = The stone is so heavy that it CANNOT BE MOVED',
+    definition: 'The correlative construction "TOO + Adjective/Adverb + TO + Verb" conveys an inherently NEGATIVE meaning expressing excess that prevents an action from happening. Because negation is already built into "too...to", adding "not" inside the clause is a double-negative error. In sentence transformation (frequently asked in MPSC Transformation of Sentences):\n• Present Tense uses "CANNOT"\n• Past Tense uses "COULD NOT"\n• When the subject is a non-living thing (e.g. "The news is too good to be true"), the dependent clause must be in the PASSIVE voice or supply a proper pronoun.',
+    definitionMr: '"Too...to" या रचनेत मूळातच नकारात्मक अर्थ दडलेला असतो (एखादी गोष्ट आवश्यकतेपेक्षा इतकी जास्त आहे की त्यामुळे पुढील क्रिया घडू शकत नाही). म्हणून या रचनेत वेगळा "NOT" वापरल्यास डबल निगेटिव्ह होऊन वाक्य चुकीचे ठरते.\n\nवाक्य रूपांतरण करताना (Transformation of Sentences):\n१. मुख्य वाक्य वर्तमानकाळात असल्यास: "SO...THAT...CANNOT" वापरतात.\n२. मुख्य वाक्य भूतकाळात असल्यास: "SO...THAT...COULD NOT" वापरतात (MPSC भूतकाळात cannot देऊन फसवते!).\n३. कर्ता निर्जीव असल्यास that नंतरच्या वाक्यात "cannot be + V3" (Passive) करावे लागते.',
+    keyPoints: [
+      'Inherent Negation: "He is too weak to walk" means "He is SO weak that he CANNOT walk" (He is unable to walk).',
+      'Never Add NOT inside "too...to": "He is too honest to not accept bribe" is INCORRECT! Correct: "He is too honest to accept bribe".',
+      'Tense Agreement Trap: "He WAS too tired to speak" ➔ "He was so tired that he COULD NOT speak" (NOT "cannot speak").',
+      'For-phrase Subject Shift: "The bag is too heavy FOR HER to carry" ➔ "The bag is so heavy that SHE cannot carry it".',
+      'Passive with Inanimate Subjects: "The puzzle was too complex to solve" ➔ "The puzzle was so complex that it COULD NOT BE SOLVED".'
+    ],
+    keyPointsMr: [
+      '१. "Too...to" मध्ये "not" कधीही नसतो: "He is too poor to buy food" (तो इतका गरीब आहे की अन्न विकत घेऊ शकत नाही - "to not buy" चूक!).',
+      '२. काळाची सांगड (Tense Concord): वाक्य "is/are" मध्ये असेल तर "cannot"; "was/were" मध्ये असेल तर "could not"!',
+      '३. "For her / For him" आल्यास: "The tree was too high for him to climb" ➔ "The tree was so high that HE could not climb it".',
+      '४. निर्जीव कर्ता: "The tea is too hot to drink" ➔ "The tea is so hot that one cannot drink it" किंवा "that it cannot be drunk".'
+    ],
+    examples: [
+      {
+        sentence: 'The senior magistrate was too upright and honest to accept a bribe from the syndicate.',
+        isCorrect: true,
+        explanation: 'Correct! "Too upright... to accept" inherently means he was so honest that he would NEVER accept a bribe.',
+        explanationMr: 'बरोबर! "न्यायाधीश इतके प्रामाणिक होते की त्यांनी लाच स्वीकारण्याचा प्रश्नच उद्भवत नव्हता." Too...to ची रचना अचूक आहे.'
+      },
+      {
+        sentence: 'The magistrate was too honest to not accept a bribe.',
+        isCorrect: false,
+        explanation: 'Incorrect! Double negative blunder. "Too...to" already contains negation. Adding "not" inverts the intended meaning completely.',
+        explanationMr: 'चूक! "too...to" मध्ये आधीच नकार असल्याने मध्ये "not" घुसवल्यास अर्थ उलटा होतो; "to not accept" ऐवजी फक्त "to accept" हवे.'
+      },
+      {
+        sentence: 'The old farmer was too frail to work in the fields.',
+        isCorrect: true,
+        explanation: 'Correct! Equivalent to: "The old farmer was so frail that he COULD NOT work in the fields."',
+        explanationMr: 'बरोबर! हे वाक्य भूतकाळात आहे; रूपांतर करताना "The farmer was so frail that he COULD NOT work" असे होते.'
+      },
+      {
+        sentence: 'The injured trekker was so weak that he cannot stand without support.',
+        isCorrect: false,
+        explanation: 'Incorrect! Tense mismatch. The main clause is in the past tense ("was so weak"), so the dependent clause must use "COULD NOT", not "cannot".',
+        explanationMr: 'चूक! MPSC चा हमखास ट्रॅप: मुख्य क्रियापद "was" (भूतकाळ) आहे, म्हणून पुढे "cannot" चालणार नाही; तिथे "COULD NOT" असायला हवे!'
+      }
+    ],
+    exceptions: [
+      '"TOO" meaning "ALSO / AS WELL": When "too" is placed at the end of an affirmative sentence, it simply means "also": "He speaks Marathi; he speaks English too."'
+    ],
+    exceptionsMr: [
+      'वाक्याच्या शेवटी "too" आल्यास त्याचा अर्थ "सुद्धा / देखील" (Also) असा होतो (उदा. "I am coming too").'
+    ],
+    examTip: 'MPSC 2-Step Trap Detector for Transformation:\n1. Check the TENSE:\n   • Present (is/am/are) ➔ CANNOT\n   • Past (was/were) ➔ COULD NOT (If you see "was so...that he cannot", strike "cannot" as error!)\n2. Inside "Too...to": Look for an illegal "NOT" and eliminate it!',
+    examTipMr: 'MPSC २ सेकंदांची क्लृप्ती:\n१. मुख्य क्रियापद पहा:\n   • "is/are" असेल ➔ CANNOT\n   • "was/were" असेल ➔ COULD NOT (जर भूतकाळी वाक्यात "that he cannot" दिसले, तर तिथेच १००% एरर आहे!)\n२. "Too...to" च्या मध्ये कधीही "not" येत नाही!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Too to', 'So that cannot', 'Sentence Transformation', 'Tense Concord', 'MPSC Rules']
   }
 ];
+

@@ -10,11 +10,19 @@ import {
   Settings,
   ShieldCheck,
   Download,
-  HardDrive
+  HardDrive,
+  Maximize2,
+  Minimize2,
+  Smartphone,
+  Tablet,
+  Laptop,
+  Monitor,
+  Type
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 import { UserProgress } from '../types';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
+import { useDeviceScreen } from '../utils/screenUtils';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -38,6 +46,19 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const isMr = language === 'mr';
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
 
+  // Hook for live device detection, fullscreen, and text scaling
+  const { 
+    isFullscreen, 
+    toggleFullscreen, 
+    deviceType, 
+    orientation, 
+    width, 
+    height, 
+    textScale, 
+    setTextScale, 
+    labels 
+  } = useDeviceScreen();
+
   if (!isOpen) return null;
 
   const handleToggle = () => {
@@ -56,6 +77,28 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     setTimeout(() => {
       setFeedbackMessage(null);
     }, 3200);
+  };
+
+  const handleFullscreenToggle = async () => {
+    soundFx.playClickSound();
+    const nextState = await toggleFullscreen();
+    setFeedbackMessage(
+      nextState
+        ? (isMr ? 'पूर्ण स्क्रीन सुरू झाली! (F11 किंवा Esc ने बाहेर पडा)' : 'Full Screen enabled! (Press F11 or Esc to exit)')
+        : (isMr ? 'पूर्ण स्क्रीन बंद झाली.' : 'Exited Full Screen mode.')
+    );
+    setTimeout(() => setFeedbackMessage(null), 3200);
+  };
+
+  const handleTextScaleChange = (scale: 'normal' | 'large') => {
+    soundFx.playClickSound();
+    setTextScale(scale);
+    setFeedbackMessage(
+      scale === 'large'
+        ? (isMr ? 'मजकूर आकार मोठा (Large) केला!' : 'Large text mode activated!')
+        : (isMr ? 'मजकूर आकार सामान्य (Normal) केला!' : 'Normal text mode activated!')
+    );
+    setTimeout(() => setFeedbackMessage(null), 2500);
   };
 
   const handleTestSubmissionSound = () => {
@@ -108,7 +151,120 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         )}
 
         {/* Settings Body */}
-        <div className="py-5 space-y-5">
+        <div className="py-5 space-y-5 max-h-[75vh] overflow-y-auto pr-1">
+          {/* Device & Full Screen Display Option */}
+          <div className="p-4 rounded-xl border border-stone-200 bg-stone-50/60 flex flex-col gap-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-700 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  {deviceType === 'mobile' && <Smartphone className="w-5 h-5 text-amber-600" />}
+                  {deviceType === 'tablet' && <Tablet className="w-5 h-5 text-amber-600" />}
+                  {deviceType === 'laptop' && <Laptop className="w-5 h-5 text-amber-600" />}
+                  {deviceType === 'desktop' && <Monitor className="w-5 h-5 text-amber-600" />}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-bold text-stone-900">
+                      {isMr ? 'डिव्हाइस व स्क्रीन डिस्प्ले (Device & Screen)' : 'Device & Screen Display'}
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-amber-500/20 text-amber-800 border border-amber-500/40">
+                      {isMr ? labels.mr : labels.en}
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-500 mt-1 leading-relaxed">
+                    {isMr
+                      ? `सध्याचा आकार: ${width} × ${height} px (${orientation === 'landscape' ? 'आडवा/Landscape' : 'उभा/Portrait'}). मोबाईल, टॅबलेट, लॅपटॉप व पीसीसाठी अनुकूलित.`
+                      : `Current Viewport: ${width} × ${height} px (${orientation}). Optimized for Mobile, Tablet, Laptop, and PC.`}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 1-Click Fullscreen Action Button */}
+            <div className="pt-2 border-t border-stone-200/80 flex items-center justify-between flex-wrap gap-2">
+              <div className="text-xs font-semibold text-stone-700">
+                {isFullscreen
+                  ? (isMr ? '✅ पूर्ण स्क्रीन मोड सक्रिय आहे' : '✅ Full Screen is Active')
+                  : (isMr ? '📺 पूर्ण स्क्रीन मोड (Full Screen)' : '📺 Full Screen Mode')}
+              </div>
+              <button
+                type="button"
+                id="btn-settings-toggle-fullscreen"
+                onClick={handleFullscreenToggle}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs ${
+                  isFullscreen
+                    ? 'bg-amber-500 text-stone-950 hover:bg-amber-400'
+                    : 'bg-stone-900 hover:bg-stone-800 text-white'
+                }`}
+              >
+                {isFullscreen ? (
+                  <>
+                    <Minimize2 className="w-3.5 h-3.5 animate-pulse" />
+                    <span>{isMr ? 'पूर्ण स्क्रीन बंद करा' : 'Exit Full Screen'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span>{isMr ? 'पूर्ण स्क्रीन सुरू करा' : 'Enter Full Screen'}</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Text Scale / Font Size Setting */}
+            <div className="pt-2 border-t border-stone-200/80 flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-1.5 text-xs text-stone-700 font-semibold">
+                <Type className="w-4 h-4 text-amber-600" />
+                <span>{isMr ? 'मजकूर आकार (Text Size):' : 'Text Size Scaling:'}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => handleTextScaleChange('normal')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors cursor-pointer ${
+                    textScale === 'normal'
+                      ? 'bg-amber-500 text-stone-950 border-amber-500 font-extrabold shadow-2xs'
+                      : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100'
+                  }`}
+                >
+                  {isMr ? 'सामान्य (Normal)' : 'Normal'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleTextScaleChange('large')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors cursor-pointer ${
+                    textScale === 'large'
+                      ? 'bg-amber-500 text-stone-950 border-amber-500 font-extrabold shadow-2xs'
+                      : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100'
+                  }`}
+                >
+                  {isMr ? 'मोठा (Large A+)' : 'Large A+'}
+                </button>
+              </div>
+            </div>
+
+            {/* Device-Specific Display Guidance */}
+            <div className="mt-1 p-2.5 rounded-lg bg-amber-50/70 border border-amber-200/70 text-[11px] text-amber-900 space-y-1">
+              <div className="font-bold flex items-center gap-1 text-amber-950">
+                <span>💡 {isMr ? 'डिव्हाइस प्रदर्शन मार्गदर्शक:' : 'Device Display Tips:'}</span>
+              </div>
+              <ul className="list-disc list-inside space-y-0.5 text-[11px] text-stone-600 pl-1 leading-relaxed">
+                <li>
+                  <strong className="text-stone-800">{isMr ? 'मोबाईल (Mobile):' : 'Mobile:'}</strong>{' '}
+                  {isMr ? 'चाचणी देताना फोन आडवा (Landscape) केल्यास किंवा फुल स्क्रीन केल्यास प्रश्न व पर्याय एकदम छान दिसतात.' : 'Rotate to landscape or tap Full Screen during exams for wide viewing.'}
+                </li>
+                <li>
+                  <strong className="text-stone-800">{isMr ? 'टॅबलेट (Tablet):' : 'Tablet:'}</strong>{' '}
+                  {isMr ? '२-कॉलम सराव आणि प्रश्न तालिका एकाच स्क्रीनवर स्पष्ट दिसते.' : '2-column layout and question palette fit neatly.'}
+                </li>
+                <li>
+                  <strong className="text-stone-800">{isMr ? 'लॅपटॉप व पीसी (Laptop/PC):' : 'Laptop/PC:'}</strong>{' '}
+                  {isMr ? 'F11 की दाबून किंवा वरील बटणाने प्रत्यक्ष MPSC परीक्षा केंद्रासारखा अस्सल CBT अनुभव मिळवा.' : 'Press F11 for real CBT exam hall full screen simulation.'}
+                </li>
+              </ul>
+            </div>
+          </div>
+
           {/* Sound Effects Option */}
           <div className="p-4 rounded-xl border border-stone-200 bg-stone-50/60 flex flex-col gap-3">
             <div className="flex items-start justify-between gap-4">

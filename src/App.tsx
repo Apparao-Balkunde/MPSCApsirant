@@ -35,6 +35,7 @@ import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
+import { FloatingScreenControls } from './components/FloatingScreenControls';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -899,7 +900,7 @@ export default function App() {
             )}
 
             {currentTab === 'grammar' && (
-              <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+              <main className="flex-1 max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
                 <GrammarRulesView
                   savedRuleIds={userProgress.bookmarkedRuleIds || []}
                   onToggleBookmark={handleToggleRuleBookmark}
@@ -933,7 +934,7 @@ export default function App() {
             )}
 
             {currentTab === 'add_mcq' && (
-              <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+              <main className="flex-1 max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
                 <AddMcqView
                   language={userProgress.preferredLanguage}
                   onQuestionAdded={(newQ) => {
@@ -1266,6 +1267,11 @@ export default function App() {
           </div>
         </aside>
       )}
+      {/* Floating Device and Full Screen Quick Controls for Mobile, Tablet, Laptop, and PC */}
+      <FloatingScreenControls
+        language={userProgress.preferredLanguage}
+        onOpenSettings={() => setIsSettingsOpen(true)}
+      />
     </div>
   );
 }

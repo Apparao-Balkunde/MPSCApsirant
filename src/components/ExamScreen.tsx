@@ -15,13 +15,20 @@ import {
   X,
   Volume2,
   VolumeX,
-  Sparkles
+  Sparkles,
+  Maximize2,
+  Minimize2,
+  Smartphone,
+  Tablet,
+  Laptop,
+  Monitor
 } from 'lucide-react';
 import { ExamSession, Question } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
 import { soundFx } from '../utils/audio';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
+import { useDeviceScreen } from '../utils/screenUtils';
 
 interface ExamScreenProps {
   session: ExamSession;
@@ -54,6 +61,9 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
   const [showPaletteMobile, setShowPaletteMobile] = useState<boolean>(false);
   const [soundFeedbackText, setSoundFeedbackText] = useState<string | null>(null);
+
+  // Hook for live device detection, fullscreen, and text scaling
+  const { isFullscreen, toggleFullscreen, deviceType, textScale } = useDeviceScreen();
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const hasPlayed5MinWarning = useRef<boolean>(false);
@@ -349,6 +359,35 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
               <span>{questionLang === 'mr' ? 'English' : 'मराठी'}</span>
             </button>
 
+            {/* 1-Click Full Screen toggle for true CBT exam hall experience */}
+            <button
+              type="button"
+              id="btn-exam-fullscreen-toggle"
+              onClick={async () => {
+                soundFx.playClickSound();
+                await toggleFullscreen();
+              }}
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg border text-xs font-bold transition-all cursor-pointer ${
+                isFullscreen
+                  ? 'bg-amber-500/25 border-amber-400 text-amber-300 shadow-xs'
+                  : 'bg-stone-800 hover:bg-stone-700 border-stone-700 text-stone-300 hover:text-white'
+              }`}
+              title={
+                isFullscreen
+                  ? (questionLang === 'mr' ? 'पूर्ण स्क्रीनमधून बाहेर पडा (Esc)' : 'Exit Full Screen (Esc)')
+                  : (questionLang === 'mr' ? 'अस्सल CBT पूर्ण स्क्रीन मोड (F11 / Tap)' : 'Enter Full Screen CBT Mode (F11 / Tap)')
+              }
+            >
+              {isFullscreen ? (
+                <Minimize2 className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+              ) : (
+                <Maximize2 className="w-3.5 h-3.5 text-stone-300" />
+              )}
+              <span className="hidden sm:inline">
+                {isFullscreen ? (questionLang === 'mr' ? 'सामान्य' : 'Exit') : (questionLang === 'mr' ? 'पूर्ण स्क्रीन' : 'Full')}
+              </span>
+            </button>
+
             {/* Mobile palette trigger */}
             <button
               onClick={() => setShowPaletteMobile(!showPaletteMobile)}
@@ -396,13 +435,13 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
         </div>
       )}
 
-      {/* Main Examination Workspace */}
-      <div className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-5">
+      {/* Main Examination Workspace - Fluid Responsive across Mobile, Tablet, Laptop, and PC */}
+      <div className="flex-1 max-w-7xl 2xl:max-w-[1536px] w-full mx-auto p-2 sm:p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-5">
         {/* Left / Center: Active Question Canvas */}
-        <main className="lg:col-span-8 flex flex-col bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden">
+        <main className="lg:col-span-8 flex flex-col bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden min-h-[500px]">
           {/* Question Title Bar */}
-          <div className="bg-stone-50 border-b border-stone-200 px-4 sm:px-6 py-3 flex items-center justify-between flex-wrap gap-2">
-            <div className="flex items-center gap-2">
+          <div className="bg-stone-50 border-b border-stone-200 px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="bg-stone-900 text-white font-bold text-xs px-2.5 py-1 rounded-md">
                 {questionLang === 'mr' ? 'प्रश्न क्र.' : 'Question'} {currentQuestionIndex + 1}
               </span>
@@ -448,7 +487,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             {currentQuestion ? (
               <div className="space-y-5">
                 {/* Text Content */}
-                <div className="text-base sm:text-lg font-medium text-stone-900 leading-relaxed whitespace-pre-line">
+                <div className={`${textScale === 'large' ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg lg:text-xl'} font-medium text-stone-900 leading-relaxed whitespace-pre-line`}>
                   {questionLang === 'mr' ? currentQuestion.questionMr : currentQuestion.questionEn}
                 </div>
 
@@ -461,22 +500,22 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                         <label
                           key={idx}
                           onClick={() => handleSelectOption(idx)}
-                          className={`flex items-start gap-3 p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                          className={`flex items-start gap-3 p-3 sm:p-4 rounded-xl border-2 transition-all cursor-pointer ${
                             isSelected
-                              ? 'border-amber-500 bg-amber-50/60 shadow-xs'
+                              ? 'border-amber-500 bg-amber-50/60 shadow-xs ring-1 ring-amber-400/50'
                               : 'border-stone-200 hover:border-stone-300 bg-white hover:bg-stone-50/50'
                           }`}
                         >
                           <div
                             className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 transition-colors ${
                               isSelected
-                                ? 'bg-amber-600 text-white'
+                                ? 'bg-amber-600 text-white shadow-xs'
                                 : 'border-2 border-stone-300 text-stone-600'
                             }`}
                           >
                             {idx + 1}
                           </div>
-                          <span className="text-sm sm:text-base text-stone-800 font-medium leading-normal flex-1">
+                          <span className={`${textScale === 'large' ? 'text-base sm:text-lg' : 'text-sm sm:text-base'} text-stone-800 font-medium leading-normal flex-1`}>
                             {optionText}
                           </span>
                         </label>
