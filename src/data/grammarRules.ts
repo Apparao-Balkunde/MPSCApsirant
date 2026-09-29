@@ -4366,7 +4366,202 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर If, When, As soon as, Until, Unless, Before, After च्या लगेच नंतर WILL किंवा SHALL दिसले, तर डोळे झाकून तिथेच एरर मार्क करा! (त्या उपवाक्यातील will काढून साधे वर्तमानकाळी क्रियापद करा)!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Double Future', 'Time Clauses', 'If clauses', 'Will shall prohibition', 'MPSC Rules']
+  },
+
+  // --- 57. ORDER OF MULTIPLE ADJECTIVES (OSASCOMP) ---
+  {
+    id: 'en_rule_order_of_adjectives_01',
+    language: 'english',
+    category: 'Adjectives & Modifiers',
+    categoryMr: 'विशेषणे: नामाआधी येणाऱ्या अनेक विशेषणांचा अचूक क्रम (OSASCOMP नियम)',
+    title: 'Order of Multiple Adjectives Before a Noun: The OSASCOMP Formula',
+    titleMr: 'नामाआधी येणाऱ्या अनेक विशेषणांचा अचूक क्रम (OSASCOMP - Opinion, Size, Age, Shape, Color, Origin, Material, Purpose)',
+    formula: 'Determiner + Opinion ➔ Size ➔ Age ➔ Shape ➔ Color ➔ Origin ➔ Material ➔ Purpose + NOUN (OSASCOMP)',
+    formulaMr: 'निश्चित दर्शक (a/an/the) + मत/गुण (Opinion) ➔ आकारमान (Size) ➔ वय/काळ (Age) ➔ रूप/आकार (Shape) ➔ रंग (Color) ➔ उगम/देश (Origin) ➔ साहित्य/धातू (Material) ➔ उद्देश (Purpose) + नाम',
+    definition: 'When two or more adjectives are placed before a single noun in standard English, they must adhere to a strict, natural hierarchical order known as the OSASCOMP sequence. Violating this order (e.g. placing color before size or material before origin) is a frequent spotting-error trap in civil service exams.\nOrder of Precedence:\n1. Determiner / Article: a, an, the, this, my, two\n2. Opinion / Quality: handsome, delicious, expensive, useful, lovely\n3. Size: large, tiny, huge, tall, short\n4. Age: ancient, modern, old, antique, young\n5. Shape: circular, square, round, triangular, oval\n6. Color: red, black, golden, blue\n7. Origin / Nationality: Indian, Maharashtrian, British, Japanese\n8. Material: teakwood, silk, gold, leather, steel, cotton\n9. Purpose / Qualifier: dining [table], wedding [ring], racing [car], writing [pad].',
+    definitionMr: 'जेव्हा एकाच नामाची माहिती सांगण्यासाठी वाक्यात एकापेक्षा जास्त विशेषणे (Adjectives) लागोपाठ येतात, तेव्हा इंग्रजी व्याकरणात त्यांचा एक ठरावीक नैसर्गिक क्रम पाळावा लागतो. या क्रमाला "OSASCOMP" सूत्र म्हणतात. हा क्रम उलटसुलट केल्यास वाक्य व्याकरणाच्या दृष्टीने अशुद्ध ठरते.\n\nविशेषणांचा क्रम (OSASCOMP):\n१. Opinion (आपले मत/गुण): beautiful, expensive, ugly, handsome\n२. Size (आकारमान): big, small, huge, tall\n३. Age (वय किंवा काळ): old, young, antique, modern, new\n४. Shape (भौमितिक आकार): round, square, oval\n५. Color (रंग): red, black, blue, white\n६. Origin (मूळ देश/प्रदेश): Indian, Swiss, German\n७. Material (कशापासून बनले ते साहित्य): wooden, leather, gold, cotton\n८. Purpose (कशासाठी वापरले जाणारे ते प्रयोजन): dining (table), sports (car), wedding (hall).',
+    keyPoints: [
+      'Opinion precedes physical traits: "an EXPENSIVE black leather wallet" (NOT "a leather black expensive wallet").',
+      'Size precedes Shape: "a LARGE circular dining table" (NOT "a circular large dining table").',
+      'Size precedes Color: "a BIG black dog" (NOT "a black big dog").',
+      'Age precedes Color: "an ANCIENT golden coin" (NOT "a golden ancient coin").',
+      'Origin precedes Material: "an INDIAN silk saree" (NOT "a silk Indian saree").',
+      'Material directly precedes Purpose/Noun: "a red PLASTIC water bottle" (NOT "a plastic red water bottle").'
+    ],
+    keyPointsMr: [
+      '१. Opinion नेहमी आधी: "a beautiful small girl" ("a small beautiful girl" अस्वाभाविक!).',
+      '२. Size आधी, मग Shape: "a huge round stadium" ("a round huge stadium" चूक!).',
+      '३. Size आधी, मग Color: "a big red bus" ("a red big bus" चूक!).',
+      '४. Origin आधी, मग Material: "a Banarasi silk saree" ("a silk Banarasi saree" चूक!).',
+      '५. Material नामाच्या सर्वात जवळ: "a black leather jacket" ("a leather black jacket" चूक!).'
+    ],
+    examples: [
+      {
+        sentence: 'The minister presented the visiting diplomat with a magnificent antique silver trophy crafted by local artisans.',
+        isCorrect: true,
+        explanation: 'Correct! Follows OSASCOMP order: "magnificent" (Opinion) ➔ "antique" (Age) ➔ "silver" (Material) + "trophy" (Noun).',
+        explanationMr: 'बरोबर! "magnificent" (गुण/मत) ➔ "antique" (काळ/वय) ➔ "silver" (धातू/साहित्य) असा OSASCOMP चा अचूक क्रम पाळला आहे.'
+      },
+      {
+        sentence: 'The minister presented the diplomat with a silver magnificent antique trophy.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Scrambled Order: Material ("silver") cannot precede Opinion ("magnificent") or Age ("antique").',
+        explanationMr: 'चूक! MPSC चा लाडका प्रश्न: साहित्य (silver) हे मत (magnificent) च्या आधी येऊ शकत नाही; "a magnificent antique silver trophy" हवे.'
+      },
+      {
+        sentence: 'She wore an elegant long black French silk gown for the state banquet.',
+        isCorrect: true,
+        explanation: 'Correct! Opinion (elegant) ➔ Size (long) ➔ Color (black) ➔ Origin (French) ➔ Material (silk) + Noun (gown).',
+        explanationMr: 'बरोबर! Opinion (elegant) ➔ Size (long) ➔ Color (black) ➔ Origin (French) ➔ Material (silk) ही रचना १००% अचूक आहे.'
+      },
+      {
+        sentence: 'The contractor used a square large concrete slab to cover the trench.',
+        isCorrect: false,
+        explanation: 'Incorrect! Size must precede Shape (S before S in OSASCOMP). Correct order: "a large (Size) square (Shape) concrete slab".',
+        explanationMr: 'चूक! आकारमान (Size: large) हे भौमितिक आकाराच्या (Shape: square) आधी यायला हवे ("a large square concrete slab").'
+      }
+    ],
+    exceptions: [
+      'When two color adjectives modify a noun equally, they are joined by "and": "a black and white photograph" (NOT "a black white photograph").'
+    ],
+    exceptionsMr: [
+      'जेव्हा दोन रंग एकाच वेळी येतात, तेव्हा त्यांच्यामध्ये "and" जोडतात (उदा. "a black and white dog").'
+    ],
+    examTip: 'MPSC OSASCOMP Secret Word:\nRemember the acronym: O-S-A-S-C-O-M-P\n• O = Opinion (lovely, costly)\n• S = Size (huge, small)\n• A = Age (new, antique)\n• S = Shape (round, oval)\n• C = Color (red, black)\n• O = Origin (Indian, Swiss)\n• M = Material (wooden, silk)\n• P = Purpose (wedding, dining)\nIf you see material or color at the front (e.g. "a leather expensive jacket"), strike it as the ERROR!',
+    examTipMr: 'MPSC परीक्षा क्लृप्ती (OSASCOMP शब्द लक्षात ठेवा):\nO (Opinion) ➔ S (Size) ➔ A (Age) ➔ S (Shape) ➔ C (Color) ➔ O (Origin) ➔ M (Material) ➔ P (Purpose)\nपरीक्षेत जर "silk expensive saree" किंवा "leather black jacket" दिसले, तर धातू/साहित्य नामाच्या जवळ आणि गुण (expensive, beautiful) सुरुवातीला आणा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Order of Adjectives', 'OSASCOMP', 'Adjectives', 'Spotting Errors', 'MPSC Rules']
+  },
+
+  // --- 58. FRACTIONS, PERCENTAGES & PROPORTIONS CONCORD ---
+  {
+    id: 'en_rule_fractions_percentage_concord_01',
+    language: 'english',
+    category: 'Subject-Verb Agreement',
+    categoryMr: 'Subject-Verb Agreement: अपूर्णांक, टक्केवारी आणि "The percentage of" चा क्रियापद नियम',
+    title: 'Subject-Verb Concord with Fractions, Percentages & "The percentage of" vs "A percentage of"',
+    titleMr: 'अपूर्णांक (Fractions - Half of, Two-thirds of), टक्केवारी (Percentages) आणि "The percentage of" चा क्रियापद सुवर्ण नियम',
+    formula: '1. Fraction / Percent / Part + of + UNCOUNTABLE Noun ➔ SINGULAR Verb\n2. Fraction / Percent / Part + of + PLURAL COUNTABLE Noun ➔ PLURAL Verb\n3. THE PERCENTAGE OF + Plural Noun ➔ ALWAYS SINGULAR Verb (is / was / has)\n4. A PERCENTAGE OF + Plural Noun ➔ PLURAL Verb (are / were / have)',
+    formulaMr: '१. अपूर्णांक / टक्केवारी + of + मोजता न येणारे एकवचनी नाम ➔ एकवचनी क्रियापद (was/is/has)\n२. अपूर्णांक / टक्केवारी + of + अनेकवचनी नाम ➔ अनेकवचनी क्रियापद (were/are/have)\n३. "THE percentage of" आल्यास ➔ नेहमी एकवचनी क्रियापद (is/was/has)!\n४. "A percentage of" आल्यास ➔ अनेकवचनी क्रियापद',
+    definition: 'In English subject-verb agreement, fractional expressions (half of, one-third of, two-thirds of, three-fourths of, 40% of, a portion of, most of, some of) do NOT determine the grammatical number of the verb by themselves. Instead, the verb AGREES WITH THE OBJECT OF THE PREPOSITION "OF":\n• If the noun after "of" is UNCOUNTABLE / SINGULAR, the verb is SINGULAR ("Two-thirds of the milk was spilled").\n• If the noun after "of" is PLURAL COUNTABLE, the verb is PLURAL ("Two-thirds of the candidates were absent").\n\nTHE DEADLY MPSC TRAP: "THE PERCENTAGE OF":\nWhen the noun phrase begins with "THE percentage of", the subject is the singular noun "percentage", and the verb is ALWAYS SINGULAR, regardless of whether the following noun is plural!\nExample: "The percentage of illiterate citizens IS decreasing" (NOT are decreasing).',
+    definitionMr: 'MPSC परीक्षेत अपूर्णांक (Fractions) आणि टक्केवारी (Percentages) यावर हमखास प्रश्न येतो. याचा सोपा नियम असा:\n१. "Half of / One-third of / Two-thirds of / 70% of" यांसारख्या शब्दांनंतर \'of\' च्या पुढे येणारे नाम पहा:\n   • नाम जर मोजता न येणारे (Uncountable - पाणी, जमीन, काम, दूध) असेल ➔ क्रियापद एकवचनी (was / is)!\n   • नाम जर अनेकवचनी (Books, Students, Villages) असेल ➔ क्रियापद अनेकवचनी (were / are)!\n\n२. MPSC चा सर्वात मोठा ट्रॅप: "THE PERCENTAGE OF":\nवाक्याची सुरुवात जर "The percentage of" ने झाली, तर पुढे नाम जरी अनेकवचनी असले तरीही क्रियापद नेहमी एकवचनीच (IS / WAS) लागते!\nउदा. "The percentage of girls IS higher than boys" ("are higher" चूक!).\n(परंतु "A percentage of girls WERE present" मध्ये मात्र अनेकवचनी होते).',
+    keyPoints: [
+      'Fraction + Uncountable: "Two-thirds of the syllabus HAS been completed" (Syllabus is singular ➔ has).',
+      'Fraction + Plural Countable: "Two-thirds of the members WERE present in the Legislative Assembly" (Members is plural ➔ were).',
+      'Percentage + Uncountable: "Ninety percent of the reservoir water WAS utilized for irrigation" (Water is singular ➔ was).',
+      'Percentage + Plural: "Seventy percent of the applicants WERE graduates" (Applicants is plural ➔ were).',
+      'The Percentage Rule: "THE percentage of successful aspirants IS approximately five percent" (Always singular verb IS).',
+      'Fraction spelling trap: "Two-third" is INCORRECT; it must be "Two-thirds" (plural numerator 2 requires plural thirds).'
+    ],
+    keyPointsMr: [
+      '१. मोजता न येणारे नाम: "Half of the work is done" (काम मोजता येत नाही ➔ is बरोबर).',
+      '२. अनेकवचनी नाम: "Half of the mangoes are rotten" (आंबे अनेकवचनी ➔ are बरोबर).',
+      '३. टक्केवारी: "60% of the land was barren" (जमीन ➔ was) | "60% of the trees were cut" (झाडे ➔ were).',
+      '४. "The percentage of": पुढे कोणतेही नाम असो, क्रियापद १००% एकवचनीच: "The percentage of accidents has decreased".',
+      '५. स्पेलिंग ट्रॅप: १ पेक्षा जास्त अंश असल्यास s लागतो: "Two-thirds" (Two-third चूक!), "Three-fourths" (Three-fourth चूक!).'
+    ],
+    examples: [
+      {
+        sentence: 'Two-thirds of the agricultural land in the district was submerged due to the flash floods.',
+        isCorrect: true,
+        explanation: 'Correct! The noun "land" is uncountable singular, so the verb "was submerged" is correctly singular.',
+        explanationMr: 'बरोबर! "land" (जमीन) हे मोजता न येणारे एकवचनी नाम असल्याने क्रियापद "was" एकवचनी अचूक आहे.'
+      },
+      {
+        sentence: 'Two-thirds of the registered voters have already cast their ballots in the municipal election.',
+        isCorrect: true,
+        explanation: 'Correct! The noun "voters" is plural countable, so the auxiliary verb "have" is correctly plural.',
+        explanationMr: 'बरोबर! "voters" (मतदार) अनेकवचनी असल्याने क्रियापद "have" अनेकवचनी अचूक वापरले आहे.'
+      },
+      {
+        sentence: 'The percentage of candidates who clear the civil services examination are very low.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Super-Hit Error: "THE percentage of" always takes a SINGULAR verb ("is very low", NOT "are very low").',
+        explanationMr: 'चूक! MPSC चा सर्वात लोकप्रिय प्रश्न: "The percentage of" आल्यास पुढे candidates अनेकवचनी असले तरी क्रियापद एकवचनी "is" हवे, "are" नाही!'
+      },
+      {
+        sentence: 'One-third of the budget was allocated to rural healthcare infrastructure.',
+        isCorrect: true,
+        explanation: 'Correct! The noun "budget" is singular, properly governing singular verb "was".',
+        explanationMr: 'बरोबर! "budget" एकवचनी असल्याने "was" योग्य आहे.'
+      }
+    ],
+    exceptions: [
+      '"A percentage of" functions like fractions (agrees with following noun: "A small percentage of the funds WERE misused"). But "THE percentage of" is rigidly singular.'
+    ],
+    exceptionsMr: [
+      '"A percentage of" आल्यास पुढील नामाप्रमाणे बदल होतो, पण "THE percentage of" आल्यास क्रियापद नेहमी एकवचनी (is/was) च राहते.'
+    ],
+    examTip: 'MPSC 2-Step Concord Detector:\n1. Look for: "THE percentage of..." ➔ Lock the verb as SINGULAR (is/was/has)! Ignore any plural noun in between.\n2. Look for: Fractions (Half of, Two-thirds of, 60% of) ➔ Look directly at the noun after "OF":\n   • Uncountable noun = SINGULAR verb\n   • Plural noun = PLURAL verb',
+    examTipMr: 'MPSC २ सेकंदांची क्लृप्ती:\n१. वाक्यात "THE percentage of" दिसले ➔ डोळे झाकून क्रियापद एकवचनी (is/was/has) करा!\n२. अपूर्णांक (Two-thirds of, 50% of) दिसले ➔ "of" नंतरचा शब्द पहा: जर \'s\' लागलेले अनेकवचन असेल तर क्रियापद अनेकवचनी (were/are/have); अन्यथा एकवचनी!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Fractions concord', 'The percentage of', 'Subject Verb Agreement', 'Percentages', 'MPSC Rules']
+  },
+
+  // --- 59. CAUSATIVE VERBS: HAVE vs GET (ACTIVE vs PASSIVE V3) ---
+  {
+    id: 'en_rule_causative_have_get_01',
+    language: 'english',
+    category: 'Verbs & Causatives',
+    categoryMr: 'प्रेरक क्रियापदे: "HAVE" वि. "GET" ची Active व Passive (V3) रचना',
+    title: 'Causative Verbs "HAVE" vs "GET": Active Bare Infinitive vs To-Infinitive and Passive Past Participle (V3)',
+    titleMr: 'प्रेरक क्रियापदे: "HAVE" नंतर विना-TO चे मूळ रूप (V1), "GET" नंतर TO + V1, आणि वस्तू असल्यास तिसरे रूप (V3) चा नियम',
+    formula: '1. Active HAVE: Subject + have/has/had + Person + BARE INFINITIVE (V1) (e.g. I had him clean the room)\n2. Active GET: Subject + get/gets/got + Person + TO-INFINITIVE (to + V1) (e.g. I got him TO CLEAN the room)\n3. Passive Causative: Subject + have/get + THING/OBJECT + PAST PARTICIPLE (V3) (e.g. I had/got my car repaired)',
+    formulaMr: '१. Active HAVE: Have/Had + व्यक्ती + क्रियापदाचे मूळ रूप (विना TO - V1)\n२. Active GET: Get/Got + व्यक्ती + TO + क्रियापदाचे मूळ रूप (to + V1)\n३. Passive HAVE / GET: Have / Get + वस्तू (Object) + क्रियापदाचे ३ रे रूप (V3)',
+    definition: 'Causative verbs express the idea of causing someone else to perform an action rather than doing it oneself. The two most common and tested causative verbs in MPSC are "HAVE" and "GET":\n1. Active HAVE: When you employ, ask, or instruct someone to do something, "HAVE" takes a BARE INFINITIVE (V1 without "to"): "I had the tailor stitch my blazer" (NOT "to stitch").\n2. Active GET: When you persuade or encourage someone to do something, "GET" requires a FULL INFINITIVE (with "to"): "I got the tailor TO STITCH my blazer" (NOT "stitch").\n3. Passive Causative (HAVE / GET something DONE): When an action is arranged on an inanimate object by someone else, both "have" and "get" take a PAST PARTICIPLE (V3):\n"I had my laptop repaired" | "She got her tooth extracted".',
+    definitionMr: 'जेव्हा कर्ता स्वतः क्रिया न करता दुसऱ्या व्यक्तीकडून ती क्रिया करवून घेतो, तेव्हा अशा क्रियापदांना प्रेरक क्रियापदे (Causative Verbs) म्हणतात. MPSC परीक्षेत "HAVE" आणि "GET" या दोन क्रियापदांवर वारंवार प्रश्न येतात:\n\n१. Active Voice मध्ये "HAVE": दुसऱ्या व्यक्तीला काम करायला सांगितले असल्यास "HAVE / HAD" नंतर येणाऱ्या दुसऱ्या क्रियापदाला कधीही "TO" लागत नाही (Bare Infinitive - V1)!\nउदा. "I had the mechanic service my bike" ("to service" चूक!).\n\n२. Active Voice मध्ये "GET": दुसऱ्या व्यक्तीला समजावून किंवा विनंती करून काम करवून घेतल्यास "GET / GOT" नंतर "TO" लावणे अनिवार्य असते!\nउदा. "I got the mechanic TO SERVICE my bike" ("service" चूक!).\n\n३. Passive Voice (वस्तूवर क्रिया करवून घेणे): जेव्हा वस्तू दुरुस्त किंवा तयार करून घेतली जाते, तेव्हा HAVE आणि GET या दोन्हीनंतर क्रियापदाचे ३ रे रूप (Past Participle - V3) येते!\nउदा. "I had my hair cut" (cut हे V3 रूप आहे) | "I got my watch repaired" (repaired हे V3 रूप आहे).',
+    keyPoints: [
+      'Active HAVE takes V1 without "to": "The officer had his assistant type the report" (NOT "to type").',
+      'Active GET takes "to + V1": "The officer got his assistant TO TYPE the report" (NOT "type").',
+      'Passive HAVE/GET takes V3: "I must have my passport RENEWED" (NOT "renew" or "renewing").',
+      'Barber/Haircut Trap: "He cut his hair" means he used scissors himself! If a barber cut it: "He had his hair cut" or "He got his hair cut" (cut is V3).',
+      'Medical Trap: "The patient got his appendix REMOVED by the surgeon" (Past Participle V3).'
+    ],
+    keyPointsMr: [
+      '१. Have नंतर व्यक्ती ➔ विना TO चे रूप: "The teacher had the students write an essay" ("to write" चूक!).',
+      '२. Get नंतर व्यक्ती ➔ TO + मूळ रूप: "The teacher got the students TO WRITE an essay" ("write" चूक!).',
+      '३. Have / Get नंतर वस्तू ➔ ३ रे रूप (V3): "I got my car washed" ("wash" किंवा "washing" चूक!).',
+      '४. केस कापणे: "I cut my hair" चा अर्थ स्वतःचे केस स्वतः कापले असा होतो. न्हाव्याकडून कापून घेतल्यास "I had my hair cut" असेच म्हणतात.',
+      '५. दात काढणे: "I had my tooth extracted" (V3).'
+    ],
+    examples: [
+      {
+        sentence: 'The sub-divisional magistrate had the tehsildar verify all flood relief claims personally.',
+        isCorrect: true,
+        explanation: 'Correct! Causative "had" + person ("the tehsildar") properly takes the bare infinitive "verify" without "to".',
+        explanationMr: 'बरोबर! "had" नंतर व्यक्ती (तहसीलदार) आल्यामुळे "verify" हे विना \'to\' चे मूळ रूप (Bare Infinitive) अचूक वापरले आहे.'
+      },
+      {
+        sentence: 'The magistrate had the tehsildar to verify all flood relief claims.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Error: Causative "have/had" in the active voice cannot take "to". Drop "to" ("had the tehsildar verify").',
+        explanationMr: 'चूक! MPSC चा अत्यंत लाडका प्रश्न: "had" नंतर "to" येत नाही; "to verify" मधील "to" काढून टाकावा.'
+      },
+      {
+        sentence: 'The landlord finally got the municipal corporation to repair the leaking water pipeline.',
+        isCorrect: true,
+        explanation: 'Correct! Causative "got" + person/entity properly takes the to-infinitive "to repair".',
+        explanationMr: 'बरोबर! "got" नंतर व्यक्ती/संस्था आल्याने "to repair" (to-infinitive) चा वापर १००% अचूक आहे.'
+      },
+      {
+        sentence: 'I will go to the diagnostic center tomorrow to have my blood test.',
+        isCorrect: false,
+        explanation: 'Incorrect! Passive causative requires a past participle (V3). Change "have my blood test" to "have my blood tested".',
+        explanationMr: 'चूक! रक्ताची तपासणी करून घेणे (Passive Causative) असल्याने V3 हवे: "to have my blood tested"!'
+      }
+    ],
+    exceptions: [
+      'In casual colloquial American speech, "got someone do" is occasionally heard, but in strict competitive English grammar and MPSC, "GET" strictly requires "TO + V1".'
+    ],
+    exceptionsMr: [
+      'अनौपचारिक इंग्रजीत अमेरिकन लोक क्वचित \'get him do\' बोलतात, परंतु MPSC व प्रमाण इंग्रजी परीक्षेत "GET" नंतर "TO" अनिवार्य असतो.'
+    ],
+    examTip: 'MPSC Causative 3-Way Selector:\n1. HAD + Person ➔ [ V1 without TO ] (had him DO it)\n2. GOT + Person ➔ [ TO + V1 ] (got him TO DO it)\n3. HAD / GOT + Object ➔ [ V3 ] (got it DONE / had it FIXED)',
+    examTipMr: 'MPSC परीक्षा क्लृप्ती (१ सेकंदात उत्तर ओळखा):\n१. HAD + व्यक्ती ➔ [ क्रियापदाचे मूळ रूप (V1 - विना TO) ]\n२. GOT + व्यक्ती ➔ [ TO + क्रियापदाचे मूळ रूप (to + V1) ]\n३. HAD / GOT + वस्तू ➔ [ क्रियापदाचे ३ रे रूप (V3) ]',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Causative Verbs', 'Have vs Get', 'Bare Infinitive', 'Passive Causative', 'MPSC Rules']
   }
 ];
+
 
 
