@@ -4174,6 +4174,199 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC २ सेकंदांची क्लृप्ती:\n१. मुख्य क्रियापद पहा:\n   • "is/are" असेल ➔ CANNOT\n   • "was/were" असेल ➔ COULD NOT (जर भूतकाळी वाक्यात "that he cannot" दिसले, तर तिथेच १००% एरर आहे!)\n२. "Too...to" च्या मध्ये कधीही "not" येत नाही!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Too to', 'So that cannot', 'Sentence Transformation', 'Tense Concord', 'MPSC Rules']
+  },
+
+  // --- 54. STATIVE / NON-CONTINUOUS VERBS ---
+  {
+    id: 'en_rule_stative_non_continuous_01',
+    language: 'english',
+    category: 'Verbs & Tenses',
+    categoryMr: 'क्रियापदे व काळ: स्थितीदर्शक क्रियापदे (Stative Verbs) व चालू काळ (-ING) मनाई नियम',
+    title: 'Stative (Non-Continuous) Verbs: Perception, Cognition, Possession and Emotion Verbs Never Used in Continuous Form',
+    titleMr: 'Stative Verbs: ज्ञानेंद्रिये, मालकी, विचार व भावना दर्शवणाऱ्या क्रियापदांना चालू काळात (-ING) न वापरण्याचा सुवर्ण नियम',
+    formula: 'Subject + Simple Present / Simple Past (V1/V5/V2) [NEVER Continuous "am/is/are/was/were + V-ing"] for Stative meaning',
+    formulaMr: 'स्थितीदर्शक क्रियापदांसोबत नेहमी साधा काळ (Simple Tense) येतो; चालू काळात (-ING) वापरल्यास MPSC परीक्षेत १००% चूक!',
+    definition: 'In English syntax, verbs that describe an involuntary state, mental condition, possession, or sensory perception rather than a physical progressive action are known as STATIVE VERBS. Stative verbs CANNOT be used in continuous/progressive (-ing) tenses when conveying their primary stative meaning.\nMajor Categories:\n1. Verbs of Possession: belong to, have, own, possess, consist of, contain\n2. Verbs of Cognition/Thought: know, believe, understand, remember, forget, mean, recognize\n3. Verbs of Sensory Perception: smell, taste, see, hear, feel\n4. Verbs of Emotion/Desire: love, hate, want, wish, desire, prefer, like\n5. Verbs of Appearance: seem, appear, look, resemble\nExaminer Trap: "He is owning two cars" (WRONG ➔ "He owns two cars") | "This house is belonging to me" (WRONG ➔ "This house belongs to me").',
+    definitionMr: 'इंग्रजी भाषेत अशी अनेक क्रियापदे आहेत जी कोणतीही शारीरिक कृती न दर्शवता केवळ एखाद्या गोष्टीची स्थिती (State), मालकी (Possession), जाणीव (Perception) किंवा मनातील विचार दर्शवतात. अशा क्रियापदांना "Stative Verbs" म्हणतात. त्यांचा वापर चालू काळात (-ing लावून) करणे व्याकरणाच्या दृष्टीने गंभीर चूक मानली जाते.\n\nप्रमुख वर्गवारी:\n१. मालकी दर्शवणारी: Belong to, Own, Possess, Have\n२. विचार व ज्ञान दर्शवणारी: Know, Understand, Believe, Remember, Forget\n३. ज्ञानेंद्रियांची क्रियापदे: Smell, Taste, Hear, See\n४. भावना दर्शवणारी: Love, Hate, Want, Wish, Desire, Prefer\n\nMPSC परीक्षेत हमखास विचारल्या जाणाऱ्या चुका:\n• "He is owning two bungalows" (चूक!) ➔ "He owns two bungalows" (बरोबर!)\n• "I am understanding your difficulty" (चूक!) ➔ "I understand your difficulty" (बरोबर!)\n• "This car is belonging to my uncle" (चूक!) ➔ "This car belongs to my uncle" (बरोबर!).',
+    keyPoints: [
+      'Possession Trap: "This ancestral property belongs to the family" (NOT "is belonging to").',
+      'Cognition Trap: "I have known him for a decade" (NOT "I am knowing him for a decade").',
+      'Perception Trap: "The fresh jasmine smells heavenly" (NOT "is smelling heavenly").',
+      'Taste Trap: "This traditional Kolhapuri mutton dish tastes very spicy" (NOT "is tasting").',
+      'Desire Trap: "She wants to become a Deputy Collector" (NOT "She is wanting").',
+      'Resemblance Trap: "The boy resembles his grandfather" (NOT "is resembling").'
+    ],
+    keyPointsMr: [
+      '१. मालकी: "This land belongs to the farmer" ("is belonging" १००% चूक!).',
+      '२. ओळख / ज्ञान: "I know the answer" ("I am knowing the answer" बोलताना चालते, परीक्षेत १००% चूक!).',
+      '३. सुगंध: "The rose smells sweet" ("is smelling sweet" चूक!).',
+      '४. चव: "Sugar tastes sweet" ("Sugar is tasting sweet" चूक!).',
+      '५. साम्य: "He resembles his father" ("He is resembling his father" चूक!).'
+    ],
+    examples: [
+      {
+        sentence: 'The historical fort situated on the hill belongs to the archaeological department of Maharashtra.',
+        isCorrect: true,
+        explanation: 'Correct! "Belongs to" expresses permanent possession and is properly used in the simple present tense.',
+        explanationMr: 'बरोबर! किल्ल्याची मालकी दर्शवण्यासाठी "belongs to" हे साध्या वर्तमानकाळात अचूक वापरले आहे.'
+      },
+      {
+        sentence: 'The historical fort situated on the hill is belonging to the archaeological department.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Trap: "Belong" is a stative verb of possession and cannot take a continuous form. Change "is belonging to" to "belongs to".',
+        explanationMr: 'चूक! MPSC चा सर्वात लाडका प्रश्न: "belong" ला कधीही "-ing" लावला जात नाही; "is belonging to" ऐवजी "belongs to" हवे.'
+      },
+      {
+        sentence: 'The investigative officer understands the intricate modus operandi of the cyber fraud syndicate.',
+        isCorrect: true,
+        explanation: 'Correct! "Understands" denotes a mental state and correctly uses the simple present tense.',
+        explanationMr: 'बरोबर! "समजणे" ही मानसिक स्थिती असल्याने साध्या वर्तमानकाळात "understands" योग्य आहे.'
+      },
+      {
+        sentence: 'The investigative officer is understanding the modus operandi of the fraud syndicate.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Understand" is a stative cognitive verb. Continuous progressive form "is understanding" is grammatically invalid here.',
+        explanationMr: 'चूक! "understand" हे स्थितीदर्शक क्रियापद असल्याने "is understanding" चालत नाही; फक्त "understands" असावे लागते.'
+      }
+    ],
+    exceptions: [
+      'DYNAMIC USES (Action rather than state): When stative verbs are deliberately used to describe a conscious, active physical process, continuous form is permitted: 1. "He is having lunch" (having = eating). 2. "The chef is tasting the soup to check the salt" (deliberate action). 3. "The judge is hearing the petition tomorrow" (hearing = conducting a judicial session).'
+    ],
+    exceptionsMr: [
+      'कृती दर्शक अपवाद (Dynamic Action): जेव्हा क्रियापद स्थिती न दर्शवता प्रत्यक्ष हालचाल/कृती दर्शवते, तेव्हा -ing चालतो:\n१. "He is having dinner" (येथे have चा अर्थ जेवणे असा आहे, मालकी नाही; त्यामुळे बरोबर!)\n२. "The chef is tasting the soup" (आचारी स्वतः चमच्याने चव चाखून पाहत आहे; त्यामुळे बरोबर!)\n३. "The High Court is hearing the case today" (न्यायालय प्रत्यक्ष खटल्याची सुनावणी घेत आहे; बरोबर!).'
+    ],
+    examTip: 'MPSC Stative Verb Checklist:\nIf you spot: "is belonging to", "are knowing", "is smelling sweet", "is owning", "is resembling", STRIKE IT OUT! Convert directly to Simple Present (belongs, knows, smells, owns, resembles).',
+    examTipMr: 'MPSC परीक्षा क्लृप्ती (१ सेकंद ट्रिक):\nवाक्यात जर "is belonging to", "is owning", "am knowing", "is resembling" किंवा "is smelling" दिसले, तर -ing काढून थेट साधे क्रियापद (belongs, owns, knows, resembles, smells) करा; हमखास तिथेच एरर असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Stative Verbs', 'Continuous Tense', 'Belong to', 'Know vs Knowing', 'MPSC Rules']
+  },
+
+  // --- 55. MORE THAN ONE vs MORE NOUNS THAN ONE ---
+  {
+    id: 'en_rule_more_than_one_concord_01',
+    language: 'english',
+    category: 'Subject-Verb Agreement',
+    categoryMr: 'Subject-Verb Agreement: "More than one" वि. "More + अनेकवचनी नाम + than one" चा नियम',
+    title: 'Subject-Verb Concord with "More than one + Singular Noun" vs "More + Plural Noun + than one"',
+    titleMr: '"More than one" नंतर एकवचन (Singular), तर "More + अनेकवचनी नाम + than one" नंतर अनेकवचन (Plural) चा सुवर्ण नियम',
+    formula: '1. MORE THAN ONE + Singular Noun + SINGULAR Verb (was / is / has / V5)\n2. MORE + Plural Noun + THAN ONE + PLURAL Verb (were / are / have / V1)\n3. MORE THAN TWO / THREE + Plural Noun + PLURAL Verb',
+    formulaMr: '१. MORE THAN ONE + एकवचनी नाम + एकवचनी क्रियापद (was/is/has/V5)\n२. MORE + अनेकवचनी नाम + THAN ONE + अनेकवचनी क्रियापद (were/are/have/V1)\n३. MORE THAN TWO / THREE + अनेकवचनी नाम + अनेकवचनी क्रियापद',
+    definition: 'The expression "more than one" presents a fascinating structural dichotomy in English concord:\n1. When the phrase "MORE THAN ONE" directly precedes a noun, the noun must be SINGULAR and the following verb MUST be SINGULAR (governed by the proximity of the singular word "one").\nExample: "More than one employee was dismissed" (NOT were dismissed).\n2. However, when the noun is shifted between "MORE" and "THAN ONE", the noun must be PLURAL and the verb MUST be PLURAL!\nExample: "More employees than one were dismissed" (NOT was dismissed).\n3. When the number after "more than" is greater than one (two, three, fifty), the noun and verb are naturally PLURAL ("More than fifty candidates were shortlisted").',
+    definitionMr: 'MPSC परीक्षेत "Subject-Verb Agreement" मधील सर्वात जास्त विद्यार्थ्यांची फसवणूक करणारा नियम म्हणजे "More than one":\n१. जेव्हा "More than one" एकत्र सलग येते, तेव्हा त्यापुढे नाम एकवचनी येते आणि क्रियापदही १००% एकवचनीच (was/is/has) वापरावे लागते! जरी अर्थाने एकापेक्षा जास्त व्यक्ती असल्या तरीही इंग्रजी व्याकरणात "one" मुळे क्रियापद एकवचनी राहते.\nउदा. "More than one official was involved" ("were involved" चूक!).\n२. परंतु, जर नामाची जागा बदलून ते "More" आणि "than one" च्या मध्ये आले, तर ते नाम अनेकवचनी होते आणि क्रियापदही अनिवार्यपणे अनेकवचनी (were/are/have) होते!\nउदा. "More officials than one were involved" ("was involved" चूक!).',
+    keyPoints: [
+      '"More than one" contiguous: "More than one applicant WAS rejected" (Singular noun applicant, singular verb was).',
+      '"More [nouns] than one" separated: "More applicants than one WERE rejected" (Plural noun applicants, plural verb were).',
+      '"More than two/three": "More than two soldiers WERE injured in the crossfire" (Plural).',
+      'Pronoun agreement follows verb number: "More than one student forgot HIS hall-ticket" (Singular pronoun "his", NOT "their").'
+    ],
+    keyPointsMr: [
+      '१. More than one सोबत: More than one boy was present (boy एकवचनी, was एकवचनी).',
+      '२. More...than one विभक्त: More boys than one were present (boys अनेकवचनी, were अनेकवचनी).',
+      '३. सर्वनामही एकवचनीच हवे: "More than one student forgot his pen" ("their pen" चूक!).',
+      '४. परीक्षेत MPSC "More than one student were..." असा प्रश्न देऊन फसवते.'
+    ],
+    examples: [
+      {
+        sentence: 'More than one bureaucrat was implicated in the financial irregularities unmasked by the Lokayukta.',
+        isCorrect: true,
+        explanation: 'Correct! "More than one" takes the singular noun "bureaucrat" and the singular verb "was".',
+        explanationMr: 'बरोबर! "More than one" नंतर "bureaucrat" हे एकवचनी नाम आणि "was" हे एकवचनी क्रियापद अचूक आले आहे.'
+      },
+      {
+        sentence: 'More than one bureaucrat were implicated in the financial irregularities.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Trap: Despite plural sense, "More than one" grammatically governs a SINGULAR verb ("was", not "were").',
+        explanationMr: 'चूक! "More than one" नंतर अनेकवचनी "were" चालत नाही; तिथे एकवचनी "was" हवे.'
+      },
+      {
+        sentence: 'More bureaucrats than one were implicated in the financial irregularities.',
+        isCorrect: true,
+        explanation: 'Correct! When plural noun "bureaucrats" precedes "than one", the verb is correctly PLURAL ("were").',
+        explanationMr: 'बरोबर! येथे "bureaucrats" हे अनेकवचनी नाम "More" नंतर आल्यामुळे क्रियापद "were" अनेकवचनी असणे योग्य आहे.'
+      },
+      {
+        sentence: 'More bureaucrats than one was implicated in the irregularities.',
+        isCorrect: false,
+        explanation: 'Incorrect! The head noun is plural "bureaucrats", so the verb must be plural "were", not singular "was".',
+        explanationMr: 'चूक! "More bureaucrats than one" मध्ये मुख्य कर्ता "bureaucrats" अनेकवचनी असल्याने क्रियापद "was" नाही तर "were" हवे.'
+      }
+    ],
+    exceptions: [
+      '"More than one" followed by uncountable noun is invalid (uncountable nouns take "More than enough water/money").'
+    ],
+    exceptionsMr: [
+      '"More than one" हे केवळ मोजता येणाऱ्या (Countable) नामांसोबतच येते; मोजता न येणाऱ्या नामांसोबत "more than enough" किंवा "more than a litre" अशी रचना होते.'
+    ],
+    examTip: 'MPSC 2-Pattern Formula for "MORE":\nPattern A: [ More than one + SINGULAR noun ] ➔ SINGULAR verb (was / is / has)\nPattern B: [ More + PLURAL noun + than one ] ➔ PLURAL verb (were / are / have)',
+    examTipMr: 'MPSC परीक्षेची २ सेकंदांची क्लृप्ती:\n• जर "More than one" एकत्र असेल ➔ क्रियापद एकवचनी (was / is / has)!\n• जर नामाच्या दोन्ही बाजूला "More ... than one" असेल ➔ क्रियापद अनेकवचनी (were / are / have)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['More than one', 'Subject Verb Agreement', 'Concord', 'Singular Verb', 'MPSC Rules']
+  },
+
+  // --- 56. DOUBLE FUTURE PROHIBITION IN SUBORDINATE CLAUSES ---
+  {
+    id: 'en_rule_no_future_in_subordinate_clauses_01',
+    language: 'english',
+    category: 'Tenses & Time Clauses',
+    categoryMr: 'काळ व उपवाक्ये: वेळ व अटीदर्शक उपवाक्यात "WILL / SHALL" ची सक्त मनाई (Double Future Error)',
+    title: 'Prohibition of Future Tense ("WILL" / "SHALL") in Time & Conditional Subordinate Clauses',
+    titleMr: 'वेळ व अटीदर्शक उपवाक्यात (If, When, As soon as, Until, Unless, In case) "WILL / SHALL" ची सक्त मनाई नियम',
+    formula: 'Time/Condition Conjunction (If / When / As soon as / Until / Unless / Before / After / In case) + SIMPLE PRESENT (V1/V5), Main Clause + SIMPLE FUTURE (will/shall + V1)',
+    formulaMr: 'If / When / As soon as / Until / Unless / In case + साधा वर्तमानकाळ (V1/V5), मुख्य वाक्य + साधा भविष्यकाळ (will/shall + V1) (कधीही दोन्हीकडे Will वापरू नये!)',
+    definition: 'In English syntax, when a complex sentence refers to two interrelated future events, the modal auxiliary verbs "WILL" or "SHALL" can NEVER appear in both clauses simultaneously (known as the "Double Future Error"). The subordinate clause introduced by a conjunction of condition or time (such as If, When, As soon as, Until, Unless, Before, After, In case, Provided that, As long as) must strictly use the SIMPLE PRESENT TENSE (V1 or V5), while the independent main clause takes the SIMPLE FUTURE TENSE (will/shall + V1).\nExaminer Trap: "When the Chief Minister will arrive, the conference will begin" (WRONG ➔ "When the Chief Minister arrives, the conference will begin").',
+    definitionMr: 'भविष्यातील दोन घटना दर्शवताना इंग्रजीत एकाच वाक्यात दोनदा "will" किंवा "shall" वापरता येत नाही (याला Double Future Error म्हणतात). अट किंवा वेळ दर्शवणाऱ्या उभयान्वयी अव्ययाने (उदा. If, When, As soon as, Until, Unless, Before, After, In case, Provided that) सुरू होणाऱ्या गौण उपवाक्यात नेहमी साधा वर्तमानकाळ (Simple Present - V1/V5) वापरावा लागतो; तर मुख्य वाक्यात साधा भविष्यकाळ (will/shall + V1) येतो.\n\nMPSC मधील हमखास विचारल्या जाणाऱ्या चुका:\n• "If it will rain, we will stay home" (चूक!) ➔ "If it rains, we will stay home" (बरोबर!)\n• "When I will reach Pune, I will call you" (चूक!) ➔ "When I reach Pune, I will call you" (बरोबर!)\n• "Unless you will work hard, you will fail" (चूक!) ➔ "Unless you work hard, you will fail" (बरोबर!).',
+    keyPoints: [
+      'Conditional "IF": "If the government APPROVES the policy, public works will start" (NOT "If the government will approve").',
+      'Time "WHEN": "When the results ARE announced, merit lists will be published" (NOT "When results will be announced").',
+      'Time "AS SOON AS": "As soon as the bell RINGS, students will enter the hall" (NOT "will ring").',
+      'Condition "UNLESS": "Unless the petitioner SUBMITS the affidavit, the court will dismiss the plea" (NOT "will submit").',
+      'Time "UNTIL": "Wait here until the collector RETURNS" (NOT "until the collector will return").',
+      'Time "BEFORE / AFTER": "Before the exam COMMENCES, examiners will check admit cards" (NOT "will commence").'
+    ],
+    keyPointsMr: [
+      '१. "If" नंतर Will नाही: If you study hard, you will pass ("If you will study hard" चूक!).',
+      '२. "When" नंतर Will नाही: When he arrives, we will welcome him ("When he will arrive" चूक!).',
+      '३. "As soon as" नंतर Will नाही: As soon as I receive the parcel, I will inform you ("As soon as I will receive" चूक!).',
+      '४. "Until" नंतर Will नाही: Wait until the rain stops ("until the rain will stop" चूक!).',
+      '५. "Unless" नंतर Will नाही: Unless he works hard, he will not succeed ("Unless he will work hard" चूक!).'
+    ],
+    examples: [
+      {
+        sentence: 'If the rainfall exceeds the seasonal average, the irrigation department will release surplus water from the dam.',
+        isCorrect: true,
+        explanation: 'Correct! The conditional clause properly uses the simple present tense ("exceeds"), while the main clause uses the future tense ("will release").',
+        explanationMr: 'बरोबर! "If" च्या उपवाक्यात साधा वर्तमानकाळ ("exceeds") आणि मुख्य वाक्यात साधा भविष्यकाळ ("will release") अचूक वापरला आहे.'
+      },
+      {
+        sentence: 'If the rainfall will exceed the seasonal average, the department will release surplus water.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Double-Future Error: Future auxiliary "will" cannot appear in the "if" clause. Change "will exceed" to "exceeds".',
+        explanationMr: 'चूक! MPSC चा अत्यंत लोकप्रिय प्रश्न: "If" च्या वाक्यात "will" वापरता येत नाही; "will exceed" ऐवजी "exceeds" असावे.'
+      },
+      {
+        sentence: 'As soon as the recruitment notification is uploaded on the official portal, aspirants will download the syllabus.',
+        isCorrect: true,
+        explanation: 'Correct! "As soon as" time clause correctly takes the simple present passive ("is uploaded"), not "will be uploaded".',
+        explanationMr: 'बरोबर! "As soon as" नंतर साधा वर्तमानकाळ ("is uploaded") योग्य वापरला आहे.'
+      },
+      {
+        sentence: 'As soon as the notification will be uploaded on the portal, aspirants will download the syllabus.',
+        isCorrect: false,
+        explanation: 'Incorrect! Drop "will be uploaded" in the subordinate time clause; it must be simple present "is uploaded".',
+        explanationMr: 'चूक! "As soon as" नंतर "will" ची सक्त मनाई असते; "will be uploaded" ऐवजी "is uploaded" हवे.'
+      }
+    ],
+    exceptions: [
+      '"WILL" expressing polite request or willingness in an "if" clause: "If you will please step this way, the minister is waiting" (Here "will" expresses polite volition/request, not future tense).'
+    ],
+    exceptionsMr: [
+      'अत्यंत नम्र विनंती किंवा संमती दर्शवताना क्वचित "will" येतो (उदा. "If you will please wait a minute" - येथे \'will\' भविष्यकाळ नाही, तर सौम्य विनंती दर्शवतो).'
+    ],
+    examTip: 'MPSC 1-Second Double-Future Eliminator:\n• Look for: [ IF / WHEN / AS SOON AS / UNTIL / UNLESS ] + [ WILL / SHALL ]\n• If you see "will" or "shall" immediately attached to any of these trigger conjunctions, that is 100% your error! Strike out "will" and use V1/V5.',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर If, When, As soon as, Until, Unless, Before, After च्या लगेच नंतर WILL किंवा SHALL दिसले, तर डोळे झाकून तिथेच एरर मार्क करा! (त्या उपवाक्यातील will काढून साधे वर्तमानकाळी क्रियापद करा)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Double Future', 'Time Clauses', 'If clauses', 'Will shall prohibition', 'MPSC Rules']
   }
 ];
+
 
