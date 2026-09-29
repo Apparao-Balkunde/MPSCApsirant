@@ -6741,8 +6741,187 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• रांग, क्रम किंवा पुढचा क्रमांक असेल (candidate, chapter, train, election) ➔ डोळे झाकून "NEXT" निवडा!\n• प्रत्यक्ष अंतर किंवा जागा असेल (near the station, near Pune) ➔ "NEAR" निवडा!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Near vs Next', 'Adjectives of Sequence', 'Precision of Adjectives', 'Next candidate', 'MPSC Rules']
+  },
+
+  // --- 96. NOUNS & NUMBER: PLURAL-ONLY NOUNS (ALMS, RICHES, PROCEEDS, SURROUNDINGS, WAGES) ---
+  {
+    id: 'en_rule_plural_nouns_alms_riches_proceeds_01',
+    language: 'english',
+    category: 'Nouns & Number',
+    categoryMr: 'नामे व वचन: केवळ अनेकवचनात वापरली जाणारी नामे व क्रियापद नियम (Alms, Riches, Proceeds, Wages)',
+    title: 'Plural Concord: Nouns Always Plural in Form and Function ("ALMS", "RICHES", "PROCEEDS", "EARNINGS", "SURROUNDINGS")',
+    titleMr: 'नेहमी अनेकवचनी मानली जाणारी नामे (Alms, Riches, Proceeds, Surroundings) आणि "Wages" चा विशेष MPSC नियम',
+    formula: '1. PLURAL NOUNS TAKING PLURAL VERB:\n   • ALMS + WERE / ARE (e.g. Alms WERE given to the beggars | ❌ "alms was given")\n   • RICHES + HAVE / ARE (e.g. Riches DO NOT bring happiness | ❌ "riches does not")\n   • PROCEEDS + WERE (e.g. The proceeds of the charity match WERE deposited | ❌ "proceeds was")\n   • SURROUNDINGS + ARE (e.g. The surroundings of the fort ARE majestic | ❌ "surrounding is")\n   • EARNINGS + WERE / ARE (e.g. His earnings ARE meager | ❌ "earnings is")\n2. SPECIAL MPSC TRAP - "WAGES":\n   • Physical Remuneration for Labor ➔ PLURAL VERB (e.g. His wages ARE paid weekly)\n   • Metaphorical / Biblical Punishment ➔ SINGULAR VERB (e.g. The wages of sin IS death)',
+    formulaMr: '१. नेहमी अनेकवचनी नामे व अनेकवचनी क्रियापद:\n   • Alms (भिक्षा) ➔ Alms WERE given (कधीही "alms was" नाही!).\n   • Riches (श्रीमंती/संपत्ती) ➔ Riches HAVE wings.\n   • Proceeds (विक्रीतून जमा झालेली रक्कम) ➔ Proceeds WERE deposited.\n   • Surroundings (आसपासचा परिसर) ➔ Surroundings ARE clean (कधीही "surrounding is" नाही!).\n   • Earnings (कमाई) ➔ His earnings ARE low.\n२. "WAGES" चा दुहेरी MPSC नियम:\n   • मजुरी / पगार म्हणून: अनेकवचनी क्रियापद येते ➔ "His wages ARE paid on Saturday".\n   • पाप किंवा कर्माचे फळ (रूपक): एकवचनी क्रियापद येते ➔ "The wages of sin IS death".',
+    definition: 'In English noun classification and civil service concord testing, a distinct category of nouns exists only in the plural form and inherently governs a PLURAL VERB:\n\n1. NOUNS ALWAYS PLURAL IN FORM AND SYNTAX:\nThese nouns have no singular counterpart with the same meaning and must take a plural verb (are, were, have, do):\n• "ALMS": Charitable relief given to the poor. "Alms WERE distributed among the drought-affected villagers."\n• "RICHES": Wealth and fortune. "Riches DO NOT guarantee peace of mind."\n• "PROCEEDS": Net money obtained from an event or sale. "The proceeds of the exhibition WERE donated to the Chief Minister\'s Relief Fund."\n• "SURROUNDINGS": The environment or physical area around a place. "The scenic surroundings of Mahabaleshwar ATTRACT tourists."\n• "EARNINGS": Total income earned. "His monthly earnings WERE insufficient."\n\n2. THE CLASSIC "WAGES" DUALITY:\n• Meaning monetary payment for manual labor: PLURAL ("Wages ARE paid on the first of every month").\n• Meaning moral consequence or retribution: SINGULAR ("The wages of sin IS death" - Proverbs/Romans).',
+    definitionMr: 'MPSC परीक्षेत "Common Errors in Subject-Verb Agreement" मधील अत्यंत महत्त्वाचा सुवर्ण नियम:\n\n१. नेहमी अनेकवचनात येणारे शब्द:\n• काही इंग्रजी नामे ही नेहमी अनेकवचनातच असतात आणि त्यांच्यापुढे क्रियापदही नेहमी **अनेकवचनी (ARE / WERE / HAVE)** च लागते!\n• Alms (भिक्षा), Riches (संपत्ती), Proceeds (जमा रक्कम), Surroundings (परिसर), Earnings (कमाई), Valuables (मौल्यवान वस्तू), Annals (इतिहास).\n• उदा. "Alms were given" (भिक्षा दिली गेली - "Alms was" ही MPSC मधील १००% घोडचूक मानली जाते).\n• उदा. "The surroundings of the fort are beautiful" ("surrounding is" चूक!).\n\n२. "WAGES" चा हमखास विचारला जाणारा प्रश्न:\n• मजुरीचा मोबदला दर्शवताना: अनेकवचन (उदा. "His wages are twenty thousand rupees").\n• पापाचे किंवा कर्माचे फळ दर्शवताना: एकवचन (उदा. "The wages of sin is death" - येथे \'is\' १००% बरोबर मानला जातो).',
+    keyPoints: [
+      '"ALMS WERE distributed to the destitute after the flood" (NOT "alms was").',
+      '"RICHES DO NOT foster genuine contentment" (Plural verb do).',
+      '"The PROCEEDS of the charity concert WERE credited to the orphanage" (NOT "proceeds was").',
+      '"The natural SURROUNDINGS of the Sahyadri range ARE captivating" (NOT "surrounding is").',
+      '"The wages of sin IS death" (Biblical moral consequence ➔ singular IS).'
+    ],
+    keyPointsMr: [
+      '१. भिक्षा: "Alms were given" ("Alms was given" १००% चूक!).\n२. परिसर: "Surroundings are beautiful" ("surrounding is" चूक!).\n३. जमा रक्कम: "The proceeds were handed over" ("proceeds was" चूक!).\n४. मजुरी: "His wages are paid" (अनेकवचन).\n५. कर्माचे फळ: "The wages of sin is death" (एकवचन).'
+    ],
+    examples: [
+      {
+        sentence: 'During the relief operations, alms were distributed to the displaced families by the district administration.',
+        isCorrect: true,
+        explanation: 'Correct! "Alms" is a plural noun governing the plural auxiliary verb "were".',
+        explanationMr: 'बरोबर! "Alms" हे नाम नेहमी अनेकवचनी असल्याने "were" चा वापर १००% अचूक आहे.'
+      },
+      {
+        sentence: 'During the relief operations, alms was distributed to the displaced families.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Error: "Alms" is grammatically plural. Change "was" to "were".',
+        explanationMr: 'चूक! MPSC चा सर्वात लोकप्रिय प्रश्न: "Alms" नंतर "was" चालत नाही; तिथे "were" हवे.'
+      },
+      {
+        sentence: 'The proceeds of the state handicraft exhibition were remitted to the rural development fund.',
+        isCorrect: true,
+        explanation: 'Correct! "Proceeds" correctly governs the plural verb "were remitted".',
+        explanationMr: 'बरोबर! "Proceeds" हे नाम नेहमी अनेकवचनी मानले जाऊन "were" लागते.'
+      },
+      {
+        sentence: 'The surrounding of the ancient temple was overgrown with thorny bushes.',
+        isCorrect: false,
+        explanation: 'Incorrect! Use the plural noun "surroundings" with plural verb: "The surroundings of the ancient temple were overgrown".',
+        explanationMr: 'चूक! "surrounding was" चुकीचे असून "surroundings were overgrown" अशी शुद्ध रचना करावी.'
+      }
+    ],
+    exceptions: [
+      'Proverbial / biblical usage of "wages": "The wages of sin is death" (Singular verb "is" is universally accepted as correct for this specific idiom).'
+    ],
+    exceptionsMr: [
+      '"The wages of sin is death" या जगप्रसिद्ध वाक्प्रचारात "is" हे एकवचनी रूपच अधिकृत मानले जाते.'
+    ],
+    examTip: 'MPSC 1-Second Plural Strike-off:\n• Spot "ALMS WAS"? ➔ 100% ERROR! Change to "ALMS WERE"!\n• Spot "PROCEEDS WAS"? ➔ 100% ERROR! Change to "PROCEEDS WERE"!\n• Spot "SURROUNDING WAS"? ➔ 100% ERROR! Change to "SURROUNDINGS WERE"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "Alms was", "Proceeds was" किंवा "Surrounding is" दिसले:\n➔ डोळे झाकून तीच चूक मार्क करा! या नामांसोबत नेहमी अनेकवचनी (WERE / ARE) क्रियापद हवे असते!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Alms were', 'Riches have', 'Proceeds were', 'Wages of sin is', 'MPSC Rules']
+  },
+
+  // --- 97. FIXED PREPOSITIONS: "CONGRATULATE ON" & "INSIST ON" ---
+  {
+    id: 'en_rule_congratulate_on_insist_on_01',
+    language: 'english',
+    category: 'Prepositions & Connectives',
+    categoryMr: 'ठराविक शब्दयोगी अव्यये: "CONGRATULATE ON", "INSIST ON", "COMPLIMENT ON" (कधीही "FOR" न वापरण्याचा नियम)',
+    title: 'Fixed Preposition Concord: "CONGRATULATE ON", "INSIST ON", "COMPLIMENT ON" (Strictly Prohibit "FOR")',
+    titleMr: '"CONGRATULATE ON" (अभिनंदन करणे), "INSIST ON" (आग्रह धरणे) - "FOR" च्या वापरावर सक्त बंदीचा MPSC नियम',
+    formula: '1. CONGRATULATE + Person + ON + Success / Promotion / Achievement\n   • ❌ "I congratulated him for his grand success" (FATAL MPSC BLUNDER!)\n   • ✅ "I CONGRATULATED him ON his grand success" (100% CORRECT!)\n2. COMPLIMENT + Person + ON + Appearance / Speech / Performance\n   • ❌ "He complimented her for her speech" ➔ ✅ "He COMPLIMENTED her ON her speech"\n3. INSIST + ON + Gerund / Action (Never "for" / Never "to")\n   • ❌ "He insisted for taking leave" ➔ ✅ "He INSISTED ON taking leave"',
+    formulaMr: '१. CONGRATULATE चा नियम: कोणाचेही यश, पदोन्नती किंवा कामगिरीबद्दल अभिनंदन करताना इंग्रजीत **"CONGRATULATE ON"** च वापरले जाते!\n   • ❌ "I congratulated him for his MPSC selection" (१००% चूक!) ➔ ✅ "I congratulated him ON his MPSC selection" (बरोबर!).\n२. COMPLIMENT चा नियम: कोणाच्या भाषणाची, पोशाखाची किंवा गुणांची स्तुती करताना **"COMPLIMENT ON"** येतो!\n   • ❌ "He complimented her for her singing" (चूक!) ➔ ✅ "He complimented her ON her singing" (बरोबर!).\n३. INSIST चा नियम: एखाद्या गोष्टीचा आग्रह धरताना **"INSIST ON"** वापरतात!\n   • ❌ "He insisted to pay the bill" किंवा "insisted for" (चूक!) ➔ ✅ "He INSISTED ON paying the bill" (बरोबर!).',
+    definition: 'In standard formal British English and competitive examination evaluation (MPSC, SSC, UPSC), certain verbs strictly govern the preposition "ON" (or upon) and categorically reject the preposition "FOR":\n\n1. "CONGRATULATE ON":\nTo express praise and pleasure to a person on a fortunate event or accomplishment. In Indian English, candidates frequently use the colloquial translation "congratulate for", which is strictly penalized:\n• ❌ "The Governor congratulated the police officer for his bravery." ➔ FATAL ERROR!\n• ✅ "The Governor CONGRATULATED the police officer ON his bravery." ➔ CORRECT!\n\n2. "COMPLIMENT ON":\nTo express polite admiration or praise:\n• "The chief guest COMPLIMENTED the district collector ON the immaculate arrangements."\n\n3. "INSIST ON":\nTo state firmly that something must be done (followed by a gerund V-ing):\n• "The vigilance commission INSISTED ON an immediate forensic audit of public expenditure."',
+    definitionMr: 'MPSC परीक्षेत "Fixed Prepositions" मधील दरवर्षी विचारला जाणारा आणि हमखास १ गुण देणारा नियम:\n\n१. "CONGRATULATE" चा नियम:\n• इंग्रजीत अभिनंदन करण्यासाठी "congratulate" या क्रियापदानंतर नेहमी आणि नेहमी **"ON"** हेच शब्दयोगी अव्यय येते!\n• परीक्षेत मुद्दाम "I congratulated him for his success in the examination" असे दिले जाते; हे १००% चुकीचे असते!\n• तिथे "for" काढून "ON" लावणे अनिवार्य आहे.\n\n२. "COMPLIMENT" चा नियम:\n• कौतुक किंवा स्तुती करण्यासाठी "compliment" नंतरही नेहमी **"ON"** येतो ("for" येत नाही).\n• उदा. "She complimented him on his presentation".\n\n३. "INSIST" चा नियम:\n• आग्रह धरण्यासाठी "insist" नंतर नेहमी **"ON + V-ing"** येतो ("for" किंवा "to" चालत नाही).\n• उदा. "He insisted on going there".',
+    keyPoints: [
+      '"The Chief Minister CONGRATULATED the team ON winning the national trophy" (NOT "for winning").',
+      '"I must COMPLIMENT you ON your articulate presentation before the tribunal" (NOT "for your presentation").',
+      '"The revenue minister INSISTED ON reviewing the progress personally" (NOT "insisted to review").',
+      '"Never say \'congratulate for\' in any competitive examination context."'
+    ],
+    keyPointsMr: [
+      '१. यशाबद्दल अभिनंदन: "congratulate on success" ("congratulate for" १००% चूक!).\n२. पदोन्नतीबद्दल अभिनंदन: "congratulated him on his promotion".\n३. कौतुक करणे: "compliment on" ("compliment for" चूक!).\n४. आग्रह धरणे: "insist on" ("insist for" किंवा "insist to" चूक!).'
+    ],
+    examples: [
+      {
+        sentence: 'The divisional commissioner congratulated the sub-divisional magistrate on achieving hundred percent revenue recovery.',
+        isCorrect: true,
+        explanation: 'Correct! The fixed preposition "on" correctly follows "congratulated".',
+        explanationMr: 'बरोबर! "congratulated" नंतर अचूकपणे "on" वापरला आहे.'
+      },
+      {
+        sentence: 'The divisional commissioner congratulated the sub-divisional magistrate for achieving hundred percent revenue recovery.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Preposition Error: Use "congratulate ON", never "congratulate for".',
+        explanationMr: 'चूक! MPSC चा सर्वात लोकप्रिय प्रश्न: "congratulate" नंतर "for" चालत नाही; तिथे "on" हवे.'
+      },
+      {
+        sentence: 'The audit panel insisted on verifying the original land registry documents before releasing the subsidy.',
+        isCorrect: true,
+        explanation: 'Correct! "Insisted on" followed by the gerund "verifying" is grammatically spotless.',
+        explanationMr: 'बरोबर! "insisted on verifying" ही रचना १००% शुद्ध व नियमानुसार आहे.'
+      },
+      {
+        sentence: 'The audit panel insisted for verifying the original land registry documents.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Insist" cannot take "for". Change "insisted for" to "insisted on".',
+        explanationMr: 'चूक! "insisted for" ही चुकीची रचना आहे; "insisted on" असावे.'
+      }
+    ],
+    exceptions: [
+      'None. In standard British English and competitive examinations, "congratulate for" is universally marked incorrect.'
+    ],
+    exceptionsMr: [
+      'कोणताही अपवाद नाही. सर्व स्पर्धा परीक्षांमध्ये "congratulate for" १००% चुकीचेच ठरवले जाते.'
+    ],
+    examTip: 'MPSC 1-Second "CONGRATULATE FOR" Strike-off:\nSpot the phrase "CONGRATULATE / COMPLIMENT + FOR"?\n➔ STRIKE OUT "FOR" IMMEDIATELY AND REPLACE WITH "ON"!\nSpot "INSIST FOR / INSIST TO"? ➔ REPLACE WITH "INSIST ON"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "congratulate for" किंवा "compliment for" दिसले:\n➔ डोळे झाकून "for" खोडून "ON" करा!\nजर "insist for" किंवा "insist to" दिसले:\n➔ खोडून "INSIST ON" करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Congratulate on', 'Insist on', 'Compliment on', 'Fixed Prepositions', 'MPSC Rules']
+  },
+
+  // --- 98. RELATIVE PRONOUNS: "THE SAME... AS" vs "THE SAME... THAT" ---
+  {
+    id: 'en_rule_the_same_as_vs_the_same_that_01',
+    language: 'english',
+    category: 'Relative Pronouns & Precision',
+    categoryMr: 'संबंधवाचक सर्वनामे: "THE SAME... AS" (साम्य/तसाच प्रकार) वि. "THE SAME... THAT" (तीच एक मूळ वस्तू) चा सुवर्ण नियम',
+    title: 'Relative Pronoun Precision: "THE SAME... AS" (Similarity of Kind) vs "THE SAME... THAT" (Identical Thing)',
+    titleMr: '"THE SAME... AS" (सारखेपणा / तसाच प्रकार) विरुद्ध "THE SAME... THAT" (तीच ती एकच मूळ वस्तू) चा MPSC नियम',
+    formula: '1. THE SAME + Noun + AS = Expresses SIMILARITY of kind, make, or appearance (Like this / similar)\n   • "This is THE SAME watch AS mine" (= It is similar to my watch, another piece of the same model)\n   • "He is THE SAME age AS I am"\n2. THE SAME + Noun + THAT = Expresses ABSOLUTE IDENTITY (The very identical entity itself)\n   • "This is THE SAME watch THAT I lost yesterday" (= The very identical singular watch, not a duplicate!)\n   • "This is THE SAME book THAT you lent me last week"',
+    formulaMr: '१. THE SAME... AS चा नियम (सारखेपणा): जेव्हा एखादी वस्तू दुसऱ्या वस्तू सारखीच, त्याच प्रकारची किंवा त्याच मॉडेलची असते, तेव्हा "AS" येतो!\n   • उदा. "This is the same watch as mine" (ही माझ्या घड्याळासारखीच घड्याळ आहे).\n२. THE SAME... THAT चा नियम (तीच ती मूळ एकच वस्तू): जेव्हा आपण त्याच मूळ एकाच वस्तूविषयी बोलतो, तेव्हा "THAT" येतो!\n   • उदा. "This is the same watch THAT I lost yesterday" (काल हरवलेली ही तीच मूळ घड्याळ आहे!).\n   • उदा. "This is the same pen THAT you gave me" (तू दिलेला हा तोच मूळ पेन आहे).\n३. MPSC क्लृप्ती: जर वस्तू तीच मूळ एकच असेल तर THAT; तशीच दुसरी असेल तर AS!',
+    definition: 'In standard English prescriptive grammar and competitive examination relative pronoun evaluation (MPSC, Wren & Martin), a precise distinction governs the correlative use of "AS" versus "THAT" following "THE SAME":\n\n1. "THE SAME... AS" (Similarity of Kind / Quality):\nWhen "the same" denotes resemblance, equivalent quality, or correspondence of type (meaning "similar to" or "like"):\n• "He presented THE SAME arguments AS his predecessor." (Similar in nature).\n• "Her dress is THE SAME color AS mine."\n\n2. "THE SAME... THAT" (Absolute Numerical Identity):\nWhen "the same" designates the single, selfsame, identical person or article previously mentioned or lost:\n• "This is THE SAME candidate THAT stood first in the state merit list." (Identical person).\n• "The police recovered THE SAME stolen motorcycle THAT was reported missing last month." (The very same machine).',
+    definitionMr: 'MPSC परीक्षेत आणि इंग्रजीच्या प्रमाणित व्याकरणात (Wren & Martin) हमखास विचारला जाणारा सुवर्ण नियम:\n\n१. "THE SAME... AS" चा अर्थ (सारखेपणा):\n• जेव्हा एखादी गोष्ट दुसऱ्या गोष्टीसारखीच असते (म्हणजेच तसाच प्रकार, मॉडेल किंवा रंग), तेव्हा "AS" वापरतात.\n• उदा. "My mobile is the same model AS yours" (माझा मोबाईल तुझ्या मोबाईलसारखाच आहे).\n\n२. "THE SAME... THAT" चा अर्थ (तीच मूळ एकच गोष्ट):\n• जेव्हा वस्तू तीच ती एकच मूळ वस्तू असते, तेव्हा "THAT" वापरणे अनिवार्य असते!\n• उदा. काल हरवलेली पर्स सापडली, तर आपण म्हणतो: "This is THE SAME purse THAT I lost yesterday" (येथे "as I lost" चालत नाही; "THAT I lost" च हवे!).\n• परीक्षेत मुद्दाम "This is the same pen as I bought yesterday" असे दिले जाते; तीच वस्तू असल्याने "THAT I bought" असावे लागते!',
+    keyPoints: [
+      '"This is THE SAME watch THAT I lost on the train" (Identical watch recovered ➔ THAT).',
+      '"This watch is THE SAME make AS mine" (Similar brand/make ➔ AS).',
+      '"She has THE SAME difficulty AS you have" (Similar category of problem ➔ AS).',
+      '"This is THE SAME officer THAT resolved the water dispute" (Identical person ➔ THAT).'
+    ],
+    keyPointsMr: [
+      '१. तीच हरवलेली वस्तू: "the same watch that I lost" ("as I lost" चूक!).\n२. तशीच दुसरी घड्याळ: "the same watch as mine" ("that mine" चूक!).\n३. तोच अधिकारी: "the same officer that helped us".\n४. तशीच अडचण: "the same difficulty as yours".'
+    ],
+    examples: [
+      {
+        sentence: 'The anti-corruption bureau seized the same marked currency notes that had been recorded in the pre-trap panchnama.',
+        isCorrect: true,
+        explanation: 'Correct! The currency notes are numerically identical to those recorded in the panchnama, requiring "that".',
+        explanationMr: 'बरोबर! पंचनाम्यात नोंदवलेल्या त्याच मूळ नोटा असल्याने "that" चा वापर १००% अचूक आहे.'
+      },
+      {
+        sentence: 'The anti-corruption bureau seized the same marked currency notes as had been recorded.',
+        isCorrect: false,
+        explanation: 'Incorrect! For the selfsame identical physical objects, standard syntax requires "that", not "as".',
+        explanationMr: 'चूक! त्या मूळ एकच नोटा असल्याने "as" ऐवजी "that" हवे.'
+      },
+      {
+        sentence: 'The applicant holds the same educational qualifications as the required eligibility criteria specify.',
+        isCorrect: true,
+        explanation: 'Correct! "As" properly signifies correspondence of kind and standards.',
+        explanationMr: 'बरोबर! पात्रता निकषांसारखीच पात्रता दर्शवण्यासाठी "as" योग्य आहे.'
+      },
+      {
+        sentence: 'This is the same research paper as was published in the international journal last year.',
+        isCorrect: false,
+        explanation: 'Incorrect! When referring to the identical published paper itself, use "that was published".',
+        explanationMr: 'चूक! तेच मूळ एकच शोधनिबंध असल्याने "that was published" असावे.'
+      }
+    ],
+    exceptions: [
+      'In short elliptical sentences where the verb is omitted, "as" is commonly preferred: "This is the same as mine" (verb omitted).'
+    ],
+    exceptionsMr: [
+      'जेव्हा पुढे क्रियापद नसते, तेव्हा सामान्यतः "as" येतो: "This is the same as mine".'
+    ],
+    examTip: 'MPSC 1-Second "SAME AS vs SAME THAT" Decider:\nAsk: Is it THE IDENTICAL ORIGINAL THING (that was lost, stolen, or bought)?\n➔ YES ➔ MUST BE "THAT" (the same that I lost)!\nIs it just SIMILAR / LIKE (same color, same make, same age)?\n➔ YES ➔ MUST BE "AS" (the same as mine)!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nस्वतःला एकच प्रश्न विचारा: ती तीच मूळ एकच वस्तू आहे का (जी हरवली होती, खरेदी केली होती)?\n➔ होय ➔ डोळे झाकून "THAT" निवडा (उदा. the same watch that I lost)!\n➔ नाही, फक्त तशीच सारखी दिसते आहे? ➔ "AS" निवडा (उदा. the same as mine)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['The same as', 'The same that', 'Relative Pronouns', 'Identity vs Similarity', 'MPSC Rules']
   }
 ];
+
 
 
 
