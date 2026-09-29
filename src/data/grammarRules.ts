@@ -6564,8 +6564,186 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर:\n• "MUTUAL FRIEND" दिसला ➔ चूक! खोडून "COMMON FRIEND" करा!\n• "MUTUAL INTEREST" दिसला ➔ चूक! खोडून "COMMON INTEREST" करा!\n"Mutual" हा शब्द फक्त परस्पर भावनांसाठी (respect, consent, understanding) वापरा!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Common friend', 'Mutual vs Common', 'Mutual respect', 'Precision of Adjectives', 'MPSC Rules']
+  },
+
+  // --- 93. PREPOSITIONAL IDIOMS: "COPE WITH" (NEVER "COPE UP WITH") ---
+  {
+    id: 'en_rule_cope_with_never_cope_up_with_01',
+    language: 'english',
+    category: 'Prepositions & Idioms',
+    categoryMr: 'वाक्प्रचार व शब्दयोगी अव्यये: "COPE WITH" (तोंड देणे / निभावून नेणे) - "Cope UP with" ला सक्त मनाईचा नियम',
+    title: 'Idiomatic Preposition Concord: "COPE WITH" (Strictly Prohibits "UP")',
+    titleMr: 'कोणत्याही संकटाला किंवा कामाच्या तणावाला तोंड देताना "COPE WITH" च वापरणे ("Cope UP with" १००% चूक) चा MPSC नियम',
+    formula: '1. COPE + WITH + Problem / Stress / Situation (CORRECT IDIOM)\n   • ❌ "He cannot cope UP with the pressure" (FATAL MPSC BLUNDER!)\n   • ✅ "He cannot COPE WITH the pressure" (100% CORRECT!)\n2. EXPLANATION: In standard English, the phrasal verb is "cope with" (= to deal successfully with a difficult situation). The adverb "UP" does not exist in this idiom!',
+    formulaMr: '१. COPE WITH चा नियम: एखाद्या संकटाला, कामाच्या दबावाला किंवा कठीण परिस्थितीला यशस्वीपणे तोंड देणे यासाठी इंग्रजीत फक्त "COPE WITH" हाच वाक्प्रचार आहे!\n   • ❌ "He cannot cope UP with the heavy syllabus" (१००% चूक!) ➔ ✅ "He cannot COPE WITH the heavy syllabus" (बरोबर!).\n   • ❌ "How do you cope up with stress?" (चूक!) ➔ ✅ "How do you COPE WITH stress?" (बरोबर!).\n२. MPSC क्लृप्ती: "cope" आणि "with" च्या मध्ये आलेला "UP" हाच परीक्षेतील १००% थेट एरर असतो; तो "UP" तात्काळ खोडून टाका!',
+    definition: 'In standard English prescriptive idiom and competitive examination error detection (MPSC, SSC CGL, UPSC), the locution "COPE UP WITH" is one of the most widely condemned colloquial Indianisms:\n\n1. THE VERBAL IDIOM IS "COPE WITH":\nThe intransitive verb "COPE" already incorporates the idea of managing, contending, or striving against difficulties. Its dedicated grammatical preposition is "WITH":\n• "The municipal corporation struggled to COPE WITH the sudden deluge of monsoon rainfall."\n• "He is finding it hard to COPE WITH the administrative demands of his new posting."\n\n2. "UP" IS AN ERRONEOUS CONTAMINATION:\nThe insertion of "UP" arises from confusion with "keep up with" (keep pace with). In standard British and international English, "cope up with" is considered a non-existent barbarism.',
+    definitionMr: 'MPSC परीक्षेत "Common Errors in Prepositions" मधील वारंवार हमखास विचारला जाणारा सर्वात लोकप्रिय ट्रॅप म्हणजे "Cope up with":\n\n१. नियम:\n• इंग्रजी भाषेत कठीण परिस्थितीला तोंड देण्यासाठी "COPE WITH" हाच एकमेव अधिकृत शब्दप्रयोग आहे.\n• दैनिक मराठी किंवा हिंदी संभाषणात अनेकजण बोलताना "I cannot cope up with this problem" असे चुकीचे बोलतात.\n• परंतु स्पर्धा परीक्षेत "cope" सोबत "UP" लावण्यास सक्त मनाई आहे!\n• "cope up with" मधील "UP" हा शब्द १००% गैरलागू व चुकीचा मानला जातो.\n\n२. परीक्षेतील वाक्यरचना:\n• ❌ "The newly appointed collector could not cope up with the immense workload." (चूक!)\n• ✅ "The newly appointed collector could not COPE WITH the immense workload." (बरोबर!).',
+    keyPoints: [
+      '"She was unable to COPE WITH the emotional shock of bereavement" (NOT "cope up with").',
+      '"How will the state electricity board COPE WITH the peak summer demand?" (Cope with + situation).',
+      '"Civil service aspirants must learn strategies to COPE WITH pre-exam anxiety" (NOT "cope up with anxiety").',
+      '"The hospital infrastructure struggled to COPE WITH the epidemic" (Correct idiom).'
+    ],
+    keyPointsMr: [
+      '१. दबावाला तोंड देणे: "cope with pressure" ("cope up with pressure" १००% चूक!).\n२. तणाव सांभाळणे: "cope with stress" ("cope up with" चूक!).\n३. कामाचा व्याप: "cope with the workload" (कधीही "up" लावू नये).\n४. परीक्षेतील हमखास ट्रिक: "cope" नंतरचा "up" डोळे झाकून खोडून टाका!'
+    ],
+    examples: [
+      {
+        sentence: 'The young tahsildar demonstrated exceptional administrative resilience and managed to cope with the flood crisis.',
+        isCorrect: true,
+        explanation: 'Correct! "Cope with" is the accurate standard idiom meaning to deal successfully with a crisis.',
+        explanationMr: 'बरोबर! संकटाला तोंड देण्यासाठी "cope with" चा वापर १००% प्रमाण व्याकरणाला धरून आहे.'
+      },
+      {
+        sentence: 'The young tahsildar demonstrated resilience and managed to cope up with the flood crisis.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Idiom Error: "Cope up with" is incorrect. Delete the extraneous adverb "up" ("cope with").',
+        explanationMr: 'चूक! MPSC चा अत्यंत आवडता प्रश्न: "cope up with" चुकीचे असून मधील "up" काढून "cope with" करावे.'
+      },
+      {
+        sentence: 'Many candidates find it extremely challenging to cope with the rigorous demands of the state civil services examination.',
+        isCorrect: true,
+        explanation: 'Correct! The preposition "with" directly and correctly follows the verb "cope".',
+        explanationMr: 'बरोबर! "cope" नंतर थेट "with" आल्याने वाक्य अचूक आहे.'
+      },
+      {
+        sentence: 'Many candidates find it extremely challenging to cope up with the demands of the examination.',
+        isCorrect: false,
+        explanation: 'Incorrect! Omit "up" to correct the sentence: "cope with the demands".',
+        explanationMr: 'चूक! "up" काढून "cope with the demands" अशी शुद्ध रचना करावी.'
+      }
+    ],
+    exceptions: [
+      'None. In all official competitive answer keys, "cope up with" is categorically penalized as a grammatical error.'
+    ],
+    exceptionsMr: [
+      'कोणताही अपवाद नाही. MPSC च्या सर्व परीक्षांमध्ये "cope up with" ही १००% चूकच ठरवली जाते.'
+    ],
+    examTip: 'MPSC 1-Second "COPE UP" Strike-Off:\nSpot the phrase "COPE UP WITH"?\n➔ STRIKE OUT "UP" IMMEDIATELY!\nFormula: COPE + WITH (No "UP" allowed)! That is your guaranteed 1 mark!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "COPE UP WITH" दिसले:\n➔ डोळे झाकून मधील "UP" खोडून टाका! तीच तुमची हमखास अचूक उत्तराची जागा आहे!\nसूत्र: COPE + WITH (UP ला सक्त मनाई)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Cope with', 'Cope up with error', 'Phrasal Verbs', 'Prepositions', 'MPSC Rules']
+  },
+
+  // --- 94. TRANSITIVE VERBS: "COMPRISE" vs "CONSIST OF" ---
+  {
+    id: 'en_rule_comprise_no_of_vs_consist_of_01',
+    language: 'english',
+    category: 'Verbs & Prepositions',
+    categoryMr: 'सकर्मक क्रियापदे: "COMPRISE" नंतर Active Voice मध्ये "OF" न वापरण्याचा आणि "CONSIST OF" चा सुवर्ण नियम',
+    title: 'Transitive Concord: "COMPRISE" (Active Voice Rejects "OF") vs "CONSIST OF"',
+    titleMr: '"COMPRISE" नंतर Active Voice मध्ये कधीही "OF" येत नाही, तर "CONSIST" नंतर "OF" अनिवार्य असतो चा MPSC नियम',
+    formula: '1. COMPRISE + Direct Object (ACTIVE VOICE - STRICTLY NO "OF")\n   • ❌ "The committee comprises of five members" (FATAL MPSC BLUNDER!)\n   • ✅ "The committee COMPRISES five members" (CORRECT!)\n2. CONSIST + OF + Object (MANDATORY "OF")\n   • ✅ "The committee CONSISTS OF five members"\n3. BE COMPOSED + OF (PASSIVE EQUIVALENT)\n   • ✅ "The committee IS COMPOSED OF five members"\n4. GOLDEN EQUIVALENCE: COMPRISE = CONSIST OF (Never write "comprises of"!)',
+    formulaMr: '१. COMPRISE चा नियम (Active Voice): "Comprise" हे सकर्मक क्रियापद (Transitive Verb) असल्याने यानंतर Active Voice मध्ये "OF" लावण्यास सक्त मनाई आहे!\n   • ❌ "The book comprises of ten chapters" (१००% चूक!) ➔ ✅ "The book COMPRISES ten chapters" (बरोबर!).\n२. CONSIST OF चा नियम: "Consist" वापरल्यास पुढे "OF" लावणे अनिवार्य असते!\n   • ✅ "The book CONSISTS OF ten chapters".\n३. समीकरण: COMPRISE = CONSIST OF (म्हणून "comprise" नंतर पुन्हा "of" लावणे ही पुनरुक्ती ठरते).',
+    definition: 'In standard formal syntax and competitive examination grammar (MPSC, UPSC, SSC), the verb "COMPRISE" is one of the most frequently tested prepositional traps:\n\n1. "COMPRISE" IS TRANSITIVE (NO PREPOSITION IN ACTIVE VOICE):\n"COMPRISE" means "to consist of", "to be composed of", or "to embrace/contain". Because the meaning of "of" is already embedded within "comprise", adding the preposition "OF" in active voice creates a redundant error:\n• ❌ "The selection panel comprises of three senior IAS officers." ➔ FATAL ERROR!\n• ✅ "The selection panel COMPRISES three senior IAS officers." ➔ CORRECT STANDARD ENGLISH!\n\n2. "CONSIST" REQUIRES "OF":\nUnlike comprise, "consist" is intransitive and requires the preposition "of":\n• "The selection panel CONSISTS OF three senior IAS officers."\n\n3. PASSIVE EXCEPTION:\nIn the passive voice, "be comprised of" occasionally appears in modern administrative usage (e.g. "The panel was comprised of three members"), but in the active voice, "comprises of" is universally condemned as an error.',
+    definitionMr: 'MPSC परीक्षेत "Spotting Errors" मधील अत्यंत सोपा परंतु दरवर्षी विचारला जाणारा सुवर्ण नियम म्हणजे "Comprise of" चा ट्रॅप:\n\n१. नियम:\n• इंग्रजीत "COMPRISE" चा अर्थच "समाविष्ट असणे किंवा मिळून बनलेला असणे" असा होतो (म्हणजेच "Consist of").\n• त्यामुळे Active Voice च्या वाक्यात "comprise" नंतर पुन्हा "OF" लावणे ही इंग्रजी व्याकरणात घोडचूक मानली जाते!\n• परीक्षेत मुद्दाम "This team comprises of eleven players" असे वाक्य दिले जाते; हे १००% चुकीचे असते!\n\n२. शुद्ध रचना:\n• "This team COMPRISES eleven players" (बरोबर! - of न लावता)\n• किंवा "This team CONSISTS OF eleven players" (बरोबर! - of लावून).\n\n३. MPSC ची सुवर्ण क्लृप्ती:\n• Active वाक्यात "comprises of" दिसल्यास तो "of" ताबडतोब खोडून टाका; तिथेच हमखास १ गुण देणारा एरर असतो!',
+    keyPoints: [
+      '"The Indian Parliament COMPRISES the President, Lok Sabha, and Rajya Sabha" (NOT "comprises of").',
+      '"A cricket team COMPRISES eleven players" (Active voice ➔ directly takes object).',
+      '"A cricket team CONSISTS OF eleven players" (Consist takes mandatory of).',
+      '"The syllabus COMPRISES general studies and optional subjects" (NOT "comprises of").'
+    ],
+    keyPointsMr: [
+      '१. संसद: "Parliament comprises the President and two Houses" ("comprises of" १००% चूक!).\n२. पुस्तकाचे धडे: "The book comprises ten chapters" ("comprises of ten chapters" चूक!).\n३. consist सोबत of: "consists of ten chapters" (बरोबर).\n४. comprise सोबत of नाही: "comprises ten chapters" (बरोबर).'
+    ],
+    examples: [
+      {
+        sentence: 'The appellate administrative tribunal comprises a judicial member and an administrative expert.',
+        isCorrect: true,
+        explanation: 'Correct! The transitive verb "comprises" correctly governs its object directly without "of".',
+        explanationMr: 'बरोबर! "comprises" नंतर कोणताही "of" न लावता थेट नाम आल्याने वाक्य १००% शुद्ध आहे.'
+      },
+      {
+        sentence: 'The appellate administrative tribunal comprises of a judicial member and an expert.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Preposition Error: "Comprise" never takes "of" in active voice. Strike out "of".',
+        explanationMr: 'चूक! MPSC चा सर्वात लोकप्रिय प्रश्न: Active Voice मध्ये "comprises" नंतर "of" येत नाही; "of" काढून टाकावा.'
+      },
+      {
+        sentence: 'The district disaster management authority consists of representatives from police, health, and revenue departments.',
+        isCorrect: true,
+        explanation: 'Correct! "Consists" properly takes the preposition "of".',
+        explanationMr: 'बरोबर! "consists" नंतर "of" चा वापर नियमानुसार अचूक आहे.'
+      },
+      {
+        sentence: 'The district disaster management authority consists representatives from various departments.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Consists" requires the preposition "of". Say "consists of representatives".',
+        explanationMr: 'चूक! "consists" नंतर "of" गाळला आहे; "consists of" हवे.'
+      }
+    ],
+    exceptions: [
+      'In passive voice only, "be comprised of" is recognized by some descriptive dictionaries (e.g. "The committee was comprised of experts"), but active "comprises of" is strictly penalized across all competitive examinations.'
+    ],
+    exceptionsMr: [
+      'Passive Voice मध्ये क्वचित "was comprised of" आढळतो; परंतु Active Voice मध्ये "comprises of" १००% चुकीचेच मानले जाते.'
+    ],
+    examTip: 'MPSC 1-Second "COMPRISES OF" Eliminator:\nSpot the active construction "COMPRISES OF"?\n➔ STRIKE OUT "OF" IMMEDIATELY!\nRemember: COMPRISE = No "OF" | CONSIST = Must have "OF"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "COMPRISES OF" दिसले:\n➔ डोळे झाकून तो "OF" खोडून टाका! Active वाक्यात "comprise" ला OF चालत नाही!\nलक्षात ठेवा: COMPRISE सोबत OF कधीच नाही | CONSIST सोबत OF नेहमीच!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Comprise no of', 'Consist of', 'Transitive verbs', 'Spotting Errors', 'MPSC Rules']
+  },
+
+  // --- 95. ADJECTIVES: "NEAR" vs "NEXT" ---
+  {
+    id: 'en_rule_near_distance_vs_next_order_01',
+    language: 'english',
+    category: 'Adjectives & Precision',
+    categoryMr: 'विशेषणे: "NEAR" (भौतिक अंतर / जवळीक) वि. "NEXT" (क्रम / अनुक्रम) चा सुवर्ण नियम',
+    title: 'Adjectival Distinction: "NEAR" (Denotes Physical Distance) vs "NEXT" (Denotes Sequential Order)',
+    titleMr: '"NEAR" (जवळचे अंतर) विरुद्ध "NEXT" (पुढील क्रम / पुढचा क्रमांक) चा MPSC मधील नियम',
+    formula: '1. NEAR = Close proximity in space or distance (e.g. My house is NEAR the railway station | Is there a clinic NEAR here?)\n2. NEXT = Adjoining position in sequence, rank, order, or succession (e.g. The NEXT candidate | The NEXT house in the row | Sit NEXT TO me)\n3. FATAL MPSC BLUNDER:\n   • ❌ "Who will be the near Chief Minister?" (GROSS ERROR!) ➔ ✅ "Who will be the NEXT Chief Minister?" (Order in succession)\n   • ❌ "He lives in the near house" ➔ ✅ "He lives in the NEXT house" (Adjoining in row)',
+    formulaMr: '१. NEAR चा नियम (भौतिक अंतर): जेव्हा जागेचे किंवा अंतराचे जवळ असणे दर्शवायचे असते, तेव्हा "NEAR" वापरतात.\n   • उदा. "The bank is near the post office" (बँक पोस्ट ऑफिसच्या जवळ आहे).\n   • उदा. "near the school", "near the lake".\n२. NEXT चा नियम (क्रम किंवा अनुक्रम): जेव्हा रांगेतील पुढचा क्रमांक, पुढचा व्यक्ती किंवा क्रम दर्शवायचा असतो, तेव्हा "NEXT" वापरतात.\n   • उदा. "Who is the NEXT candidate?" (पुढील उमेदवार कोण आहे? - येथे "near candidate" चालत नाही!).\n   • उदा. "He lives in the NEXT house" (तो शेजारच्या लगतच्या घरात राहतो).\n   • उदा. "the NEXT station", "the NEXT week".\n३. MPSC क्लृप्ती: अंतर असेल तर NEAR; क्रम/रांग असेल तर NEXT!',
+    definition: 'In descriptive English adjective classification, "NEAR" and "NEXT" represent two distinct positive and superlative developments expressing distance versus sequence:\n\n1. "NEAR" (Proximity of Distance / Space):\n"NEAR" denotes that an object or location is situated at a short physical distance from another:\n• "The tehsil office is located NEAR the civil court."\n• "Winter is drawing near."\n\n2. "NEXT" (Proximity of Sequence / Order):\n"NEXT" (etymologically the superlative form of near) signifies the immediate subsequent item in an ordered series, succession, or row:\n• "The NEXT hearing of the public interest litigation will take place on Monday."\n• "She took a seat NEXT TO the collector on the dais."\n• "Who is the NEXT in line for the promotion?"',
+    definitionMr: 'MPSC परीक्षेत "Adjectives of Sequence vs Distance" या घटकामध्ये विचारला जाणारा महत्त्वाचा फरक:\n\n१. "NEAR" चा अर्थ (अंतर):\n• एखाद्या ठिकाणाचे अंतर जवळ आहे हे दाखवण्यासाठी "NEAR" चा वापर केला जातो.\n• उदा. "My village is near Pune" (माझे गाव पुण्याजवळ आहे).\n• उदा. "Come near" (जवळ ये).\n\n२. "NEXT" चा अर्थ (क्रम):\n• एकामागोमाग येणाऱ्या गोष्टींमध्ये पुढचा क्रमांक कोणाचा आहे हे दर्शवण्यासाठी "NEXT" चा वापर केला जातो.\n• उदा. "Who will be the NEXT President?" (पुढील राष्ट्रपती कोण असतील? - येथे "near President" म्हणणे हास्यास्पद चूक ठरते).\n• उदा. "Please call the NEXT candidate" (पुढच्या उमेदवाराला बोलवा).\n• उदा. "the next chapter" (पुढचा धडा), "the next train" (पुढची गाडी).',
+    keyPoints: [
+      '"The public library is situated NEAR the collectorate" (Physical distance ➔ near).',
+      '"The NEXT general election will be held in May" (Temporal sequence ➔ next).',
+      '"He lives in the NEXT room" (Adjoining adjacent room in a row ➔ next).',
+      '"Sit NEXT TO me" (Beside in sequence ➔ next to).'
+    ],
+    keyPointsMr: [
+      '१. जवळचे अंतर: "near the station" (स्थानकाजवळ).\n२. पुढचा उमेदवार: "next candidate" ("near candidate" १००% चूक!).\n३. पुढची तारीख: "next hearing" (पुढील सुनावणी).\n४. शेजारचे घर: "the next house" (रांगेतील पुढचे घर).'
+    ],
+    examples: [
+      {
+        sentence: 'The sub-divisional police officer announced that the next round of coastal patrolling would commence at midnight.',
+        isCorrect: true,
+        explanation: 'Correct! "Next" accurately designates the subsequent chronological patrol in the series.',
+        explanationMr: 'बरोबर! गस्तीचा पुढचा क्रम दर्शवण्यासाठी "next" चा वापर १००% अचूक आहे.'
+      },
+      {
+        sentence: 'The sub-divisional police officer announced that the near round of coastal patrolling would commence at midnight.',
+        isCorrect: false,
+        explanation: 'Incorrect! Precision Error: "Near" denotes physical distance, not sequential occurrence. Use "next round".',
+        explanationMr: 'चूक! क्रमासाठी "near" चालत नाही; तिथे "next round" हवे.'
+      },
+      {
+        sentence: 'Is there a primary health center situated near the state highway?',
+        isCorrect: true,
+        explanation: 'Correct! "Near" properly indicates physical proximity to the highway.',
+        explanationMr: 'बरोबर! महामार्गाजवळील अंतर दर्शवण्यासाठी "near" चा वापर योग्य आहे.'
+      },
+      {
+        sentence: 'The revenue inspector instructed the near candidate to produce his original caste validity certificate.',
+        isCorrect: false,
+        explanation: 'Incorrect! A candidate in an interview queue follows a sequence; use "the next candidate".',
+        explanationMr: 'चूक! मुलाखतीच्या रांगेतील उमेदवारासाठी "next candidate" असावे; "near candidate" नव्हे.'
+      }
+    ],
+    exceptions: [
+      'In fixed idiomatic phrases like "in the near future", "near" qualifies "future" temporally, but for items in a sequence or queue, "next" is mandatory.'
+    ],
+    exceptionsMr: [
+      '"in the near future" (नजीकच्या भविष्यात) या वाक्प्रचारात "near" चालतो; परंतु रांग, क्रम किंवा व्यक्तीसाठी मात्र "next" च वापरावा लागतो.'
+    ],
+    examTip: 'MPSC 1-Second Queue & Distance Test:\n• Are you talking about a QUEUE, ORDER, OR SUCCESSION (candidate, election, station, chapter)? ➔ MUST BE "NEXT"!\n• Are you talking about PHYSICAL KILOMETERS / DISTANCE (near Pune, near the river)? ➔ MUST BE "NEAR"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• रांग, क्रम किंवा पुढचा क्रमांक असेल (candidate, chapter, train, election) ➔ डोळे झाकून "NEXT" निवडा!\n• प्रत्यक्ष अंतर किंवा जागा असेल (near the station, near Pune) ➔ "NEAR" निवडा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Near vs Next', 'Adjectives of Sequence', 'Precision of Adjectives', 'Next candidate', 'MPSC Rules']
   }
 ];
+
 
 
 
