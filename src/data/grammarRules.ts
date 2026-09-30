@@ -7096,11 +7096,421 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "ONE AND A HALF" दिसले की पुढच्या शब्दाकडे बोट ठेवा:\nत्याला "S" लागला आहे का ते पाहा (hours, years, kilometers):\n• "S" नसेल (उदा. one and a half hour) ➔ डोळे झाकून तीच चूक मार्क करा!\n• शुद्ध रूप: "one and a half HOURS"!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Half an hour', 'One and a half hours', 'Nouns and Number', 'Fractions Concord', 'MPSC Rules']
+  },
+
+  // --- 102. PREPOSITIONAL IDIOMS: "WITH REGARD TO" (NEVER "WITH REGARDS TO") & "AS REGARDS" ---
+  {
+    id: 'en_rule_with_regard_to_never_with_regards_01',
+    language: 'english',
+    category: 'Prepositions & Idioms',
+    categoryMr: 'शब्दयोगी अव्यये व वाक्प्रचार: "WITH REGARD TO" (कधीही \'With Regards To\' नाही!) आणि "AS REGARDS" चा सुवर्ण नियम',
+    title: 'Prepositional Concord: "WITH REGARD TO" & "IN REGARD TO" (Singular "Regard") vs "AS REGARDS" vs "GIVE MY REGARDS TO"',
+    titleMr: '"WITH REGARD TO" (च्या संदर्भात - एकवचनी Regard) आणि "AS REGARDS" विरुद्ध "REGARDS" (सस्नेह नमस्कार) चा MPSC नियम',
+    formula: '1. PREPOSITION OF REFERENCE (CONCERNING / ABOUT):\n   • WITH REGARD TO (STRICTLY SINGULAR "REGARD")\n   • ❌ "With regards to your letter..." (FATAL MPSC BLUNDER!)\n   • ✅ "WITH REGARD TO your letter..." (100% CORRECT!)\n   • IN REGARD TO (Singular "regard")\n   • AS REGARDS (Notice the "s" - single compound prepositional phrase)\n2. SOCIAL GREETING / GOOD WISHES (PLURAL ONLY):\n   • GIVE MY REGARDS TO (Always Plural "Regards" when conveying respect/greetings)\n   • "Please convey my warm REGARDS to your family"',
+    formulaMr: '१. संदर्भासाठी वापरण्यात येणारा नियम (च्या बाबतीत / विषयी):\n   • अधिकृत प्रमाण इंग्रजीत "WITH REGARD TO" किंवा "IN REGARD TO" अशीच एकवचनी रचना असते!\n   • ❌ "With regards to" (MPSC परीक्षेत हमखास विचारली जाणारी १००% घोडचूक!) ➔ ✅ "WITH REGARD TO" (बरोबर!).\n   • किंवा एकच शब्द वापरायचा असल्यास: "AS REGARDS" (येथे s लागतो; उदा. As regards the new syllabus).\n२. आदरयुक्त नमस्कार / सदिच्छा (केवळ अनेकवचन):\n   • जेव्हा आपण कोणाला नमस्कार किंवा शुभेच्छा पाठवतो, तेव्हा मात्र नेहमी अनेकवचनी "REGARDS" येतो!\n   • उदा. "Give my kind REGARDS to your parents" (तुमच्या पालकांना माझा सस्नेह नमस्कार सांगा).\n३. MPSC क्लृप्ती: पत्राचा किंवा विषयाचा संदर्भ असेल तर "with regard to" मधील "s" काढून टाका!',
+    definition: 'In administrative correspondence, formal English prose, and civil service examinations (MPSC, UPSC, SSC), confusing the singular and plural forms of "REGARD" is heavily penalized:\n\n1. "WITH REGARD TO" / "IN REGARD TO":\nWhen functioning as a compound preposition meaning "in connection with", "concerning", or "relating to", the noun "REGARD" must be strictly in the SINGULAR number without an "s":\n• ❌ "With regards to the departmental inquiry, no prima facie evidence was discovered." ➔ GROSS ERROR!\n• ✅ "With REGARD to the departmental inquiry, no evidence was discovered." ➔ PRECISE STANDARD ENGLISH!\n\n2. "AS REGARDS":\nIn this particular prepositional idiom, the word ends with "s": "As regards your promotion, a decision will be announced next week."\n\n3. "REGARDS" (Plural Noun - Greetings):\n"REGARDS" with an "s" exists in English primarily to signify courteous greetings, compliments, and respects: "Best regards", "Kind regards", "Give him my regards".',
+    definitionMr: 'MPSC परीक्षेत "Common Errors in Prepositions and Idiomatic Phrases" या घटकातून दरवर्षी विचारला जाणारा सर्वात प्रसिद्ध आणि फसवणारा नियम म्हणजे "With regard to":\n\n१. "WITH REGARD TO" चा नियम:\n• इंग्रजी प्रशासकीय आणि अधिकृत लेखनात एखाद्या विषयाचा संबंध किंवा संदर्भ जोडण्यासाठी "with regard to" (एकवचनी) असाच वाक्प्रचार आहे.\n• भारतीय विद्यार्थ्यांच्या बोलण्यात आणि अनधिकृत इंग्रजीत चुकीने "with regards to" किंवा "in regards to" असा "s" जोडला जातो. परीक्षेत हा १००% एरर (Error) मानला जातो!\n• शुद्ध रूप: "WITH REGARD TO" किंवा "IN REGARD TO".\n\n२. "AS REGARDS" चा नियम:\n• या विशिष्ट वाक्प्रचारात मात्र "regards" ला "s" असतो (उदा. As regards the examination fee, it has been waived).\n\n३. "GIVE MY REGARDS" चा नियम:\n• पालकांना किंवा वरिष्ठांना नमस्कार व आदर व्यक्त करताना मात्र अनिवार्यपणे अनेकवचनी "REGARDS" वापरला जातो (उदा. Give my regards to uncle).',
+    keyPoints: [
+      '"WITH REGARD TO your representation, the state government has issued a resolution" (NOT "with regards to").',
+      '"IN REGARD TO judicial appointments, the collegium system prevails" (NOT "in regards to").',
+      '"AS REGARDS the reserved category seats, separate guidelines apply" (Notice \'s\' in As regards).',
+      '"Please convey my heartfelt REGARDS to the honorable magistrate" (Greetings ➔ plural regards).'
+    ],
+    keyPointsMr: [
+      '१. अर्जाच्या संदर्भात: "with regard to" ("with regards to" १००% चूक!).\n२. नियमाच्या संदर्भात: "in regard to" ("in regards to" चूक!).\n३. एकच वाक्प्रचार: "as regards" (येथे s लागतो).\n४. नमस्कार पाठवणे: "convey my regards" (येथे s लागतो).'
+    ],
+    examples: [
+      {
+        sentence: 'With regard to the implementation of the New Education Policy, the education department has constituted a high-level committee.',
+        isCorrect: true,
+        explanation: 'Correct! "With regard to" (singular regard) is the precise standard prepositional phrase.',
+        explanationMr: 'बरोबर! "With regard to" मध्ये \'regard\' एकवचनी असल्याने रचना व्याकरणाच्या नियमानुसार परिपूर्ण आहे.'
+      },
+      {
+        sentence: 'With regards to the implementation of the New Education Policy, the education department has constituted a committee.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Prepositional Error: "With regards to" is ungrammatical. Use singular "with regard to".',
+        explanationMr: 'चूक! MPSC चा सर्वात आवडता ट्रॅप: "with regards to" चुकीचे असून तिथे "with regard to" असावे.'
+      },
+      {
+        sentence: 'The sub-divisional magistrate conveyed his warmest regards to the visiting election commissioners.',
+        isCorrect: true,
+        explanation: 'Correct! In greetings and courteous respects, the plural form "regards" is properly used.',
+        explanationMr: 'बरोबर! सस्नेह नमस्कार किंवा आदरासाठी अनेकवचनी "regards" चा वापर बरोबर आहे.'
+      },
+      {
+        sentence: 'In regards to your pending pension file, the treasury has cleared all audit objections.',
+        isCorrect: false,
+        explanation: 'Incorrect! "In regards to" is an erroneous colloquialism. Use "In regard to" or "With regard to".',
+        explanationMr: 'चूक! "In regards to" चालत नाही; तिथे एकवचनी "In regard to" हवे.'
+      }
+    ],
+    exceptions: [
+      'None for the prepositional phrase. "With regards to" is universally condemned in standard prescriptive examinations and grammar authorities (Fowler, Wren & Martin, Oxford Guide).'
+    ],
+    exceptionsMr: [
+      'कोणताही अपवाद नाही. सर्व स्पर्धा परीक्षांमध्ये "with regards to" हे १००% चुकीचेच ठरवले जाते.'
+    ],
+    examTip: 'MPSC 1-Second "REGARD" S-Remover:\nSpot "WITH REGARDS TO" or "IN REGARDS TO" in an MPSC question?\n➔ IMMEDIATELY STRIKE OUT THE "S"!\nFormula: "WITH REGARD TO" (No \'S\')!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "WITH REGARDS TO" किंवा "IN REGARDS TO" दिसले:\n➔ तात्काळ त्या "regards" मधील शेवटचा "S" खोडा आणि "with regard to" करा!\nतीच तुमची हमखास १ गुण देणारी जागा आहे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['With regard to', 'With regards error', 'As regards', 'Prepositional idioms', 'MPSC Rules']
+  },
+
+  // --- 103. VERB CONCORD: "SUCCEED IN" + GERUND (V-ing) (NEVER "SUCCEED TO + V1") ---
+  {
+    id: 'en_rule_succeed_in_plus_gerund_01',
+    language: 'english',
+    category: 'Gerunds & Infinitives',
+    categoryMr: 'क्रियापदे व धातुसाधिते: "SUCCEED IN" नंतर नेहमी GERUND (V-ing) वापरण्याचा नियम ("succeed to" १००% चूक)',
+    title: 'Prepositional Verb Concord: "SUCCEED IN + GERUND (V-ing)" (Never Infinitive "SUCCEED TO + V1")',
+    titleMr: '"SUCCEED IN" नंतर नेहमी धातूचे "-ing" रूप (Gerund) वापरण्याचा MPSC नियम ("succeed to" चालत नाही)',
+    formula: '1. Subject + SUCCEED / SUCCEEDED + IN + GERUND (V-ing)\n   • ❌ "He succeeded to pass the MPSC exam" (FATAL MPSC ERROR!)\n   • ✅ "He succeeded IN PASSING the MPSC exam" (100% CORRECT!)\n   • ❌ "The police succeeded to trace the absconding suspect" ➔ ✅ "succeeded IN TRACING"\n2. CONTRAST WITH "MANAGE":\n   • MANAGE + TO + V1 (e.g. He managed TO PASS the exam)\n   • SUCCEED + IN + V-ing (e.g. He succeeded IN PASSING the exam)\n   • Never mix the two structures!',
+    formulaMr: '१. SUCCEED चा नियम (यशस्वी होणे):\n   • इंग्रजी व्याकरणात "succeed" (किंवा भूतकाळ "succeeded") या क्रियापदानंतर नेहमी "IN" हे शब्दयोगी अव्यय येते आणि त्यापुढे **GERUND (V-ing)** चे रूप येते!\n   • ❌ "He succeeded to qualify" (१००% चूक!) ➔ ✅ "He succeeded IN QUALIFYING" (बरोबर!).\n   • ❌ "She succeeded to convince him" ➔ ✅ "She succeeded IN CONVINCING him".\n२. MANAGE विरुद्ध SUCCEED मधील फरक:\n   • "Manage" नंतर "to + V1" येतो (उदा. He managed TO QUALIFY).\n   • "Succeed" नंतर "IN + V-ing" येतो (उदा. He succeeded IN QUALIFYING).\n   • परीक्षेत "succeeded to qualify" देऊन ट्रॅप लावला जातो!',
+    definition: 'In English syntax and competitive examination verb-complementation rules (MPSC, SSC CGL, UPSC), the verb "SUCCEED" (meaning to achieve success in a task) is syntactically distinct from verbs like "manage" or "attempt":\n\n1. "SUCCEED" REQUIRES PREPOSITION "IN" + GERUND (V-ing):\n"Succeed" cannot take an infinitive ("to + V1") when denoting the successful accomplishment of an objective. It governs a prepositional phrase introduced by "in", which naturally demands a gerund:\n• ❌ "The candidate succeeded to solve the mathematical problem." ➔ GROSS ERROR!\n• ✅ "The candidate succeeded IN SOLVING the mathematical problem." ➔ PRECISE STANDARD FORM!\n\n2. INHERITANCE / SUCCESSION SENSE (DIFFERENT PREPOSITION):\nWhen "succeed" means to inherit a throne, property, or administrative title, it takes "TO": "Prince Charles succeeded TO the throne." But when denoting achievement, it strictly takes "IN + V-ing".',
+    definitionMr: 'MPSC परीक्षेत "Verbs taking specific Prepositions and Non-finite Forms" मधील दरवर्षी येणारा अत्यंत आवडता नियम म्हणजे "Succeed in + V-ing":\n\n१. नियम:\n• जेव्हा एखाद्या कामात यश मिळवणे किंवा यशस्वी होणे हा अर्थ असतो, तेव्हा "succeed" नंतर "to" न येता नेहमी "IN" येतो.\n• Preposition (In) नंतर क्रियापदाचे मूळ रूप कधीही येत नसल्याने पुढे अनिवार्यपणे धातूला "-ing" प्रत्यय (Gerund) लावावा लागतो!\n• उदा. "He succeeded in getting the job" (त्याला नोकरी मिळवण्यात यश आले).\n\n२. परीक्षकांचा हमखास ट्रॅप:\n• परीक्षेत मुद्दाम "He succeeded to secure the first rank" असे वाक्य दिले जाते. मराठीत भाषांतर करताना "पहिला क्रमांक मिळवण्यात यशस्वी झाला" असे वाटल्यामुळे विद्यार्थी "to secure" बरोबर मानतात; परंतु इंग्रजी व्याकरणात हे १००% चुकीचे असून "succeeded IN SECURING" असेच असावे लागते!',
+    keyPoints: [
+      '"The intelligence agency SUCCEEDED IN FOILING the planned cyberattack" (NOT "succeeded to foil").',
+      '"After three attempts, he SUCCEEDED IN CLEARING the civil services interview" (NOT "succeeded to clear").',
+      '"Compare: He MANAGED TO CLEAR the interview vs He SUCCEEDED IN CLEARING the interview."',
+      '"Succession to office/throne: \'succeeded to the post of Chief Secretary\' (Different meaning)."'
+    ],
+    keyPointsMr: [
+      '१. परीक्षा उत्तीर्ण होणे: "succeeded in passing" ("succeeded to pass" १००% चूक!).\n२. ध्येय गाठणे: "succeeded in achieving" ("succeeded to achieve" चूक!).\n३. चोर पकडणे: "succeeded in arresting" ("succeeded to arrest" चूक!).\n४. Manage ची रचना: "managed to pass" (Manage सोबत \'to\' चालतो; पण Succeed सोबत फक्त \'in + V-ing\' चालतो).'
+    ],
+    examples: [
+      {
+        sentence: 'Through persistent hard work and strategic revision, Rohini succeeded in topping the Maharashtra Agricultural Service examination.',
+        isCorrect: true,
+        explanation: 'Correct! "Succeeded" is properly complemented by "in" + gerund "topping".',
+        explanationMr: 'बरोबर! "succeeded" नंतर "in" आणि "topping" (Gerund) ची रचना नियमानुसार अचूक आहे.'
+      },
+      {
+        sentence: 'Through persistent hard work, Rohini succeeded to top the agricultural service examination.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Complementation Error: "Succeeded" cannot take an infinitive ("to top"). Use "succeeded in topping".',
+        explanationMr: 'चूक! MPSC चा वारंवार विचारला जाणारा ट्रॅप: "succeeded to top" चुकीचे असून "succeeded in topping" हवे.'
+      },
+      {
+        sentence: 'The rescue teams succeeded in evacuating all stranded villagers before the floodwaters submerged the causeway.',
+        isCorrect: true,
+        explanation: 'Correct! "Succeeded in evacuating" is the required idiomatic form.',
+        explanationMr: 'बरोबर! "succeeded in evacuating" असा "in + V-ing" चा अचूक वापर केला आहे.'
+      },
+      {
+        sentence: 'The rescue teams succeeded to evacuate all stranded villagers before the causeway was submerged.',
+        isCorrect: false,
+        explanation: 'Incorrect! Replace "succeeded to evacuate" with "succeeded in evacuating".',
+        explanationMr: 'चूक! "succeeded to evacuate" ऐवजी "succeeded in evacuating" अशी शुद्ध रचना करावी.'
+      }
+    ],
+    exceptions: [
+      'When "succeed" denotes following in sequence or inheriting a title, office, or estate, it takes "to" (e.g., "Queen Elizabeth II succeeded to the British throne in 1952"). When meaning accomplishing a goal, it NEVER takes "to".'
+    ],
+    exceptionsMr: [
+      'जेव्हा वारसा हक्काने पद मिळणे असा अर्थ असतो, तेव्हा "succeeded to the throne" असा "to" येतो; परंतु ध्येय साध्य करण्याच्या अर्थाने फक्त "succeeded IN + V-ing" च येतो!'
+    ],
+    examTip: 'MPSC 1-Second "SUCCEED TO" Fixer:\nSpot "SUCCEEDED TO [Verb]" in an MPSC question?\n➔ Cross out "TO", write "IN", and add "-ING" to the verb!\nFormula: SUCCEEDED IN + V-ing!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "succeeded to pass", "succeeded to win" किंवा "succeeded to get" दिसले:\n➔ तात्काळ "to" खोडून "IN" करा आणि क्रियापदाला "-ing" लावा (succeeded in passing, succeeded in winning)!\nतीच तुमची हमखास १ गुण देणारी जागा आहे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Succeed in', 'Gerunds', 'Prepositional Verbs', 'Succeeded to error', 'MPSC Rules']
+  },
+
+  // --- 104. MODAL PERFECTS: "SHOULD HAVE + V3", "COULD HAVE + V3", "MUST HAVE + V3" ---
+  {
+    id: 'en_rule_modal_perfect_should_have_could_have_01',
+    language: 'english',
+    category: 'Modals & Conditionals',
+    categoryMr: 'सहाय्यकारी क्रियापदे: "SHOULD HAVE + V3" (कर्तव्य अपूर्ण राहिले), "COULD HAVE + V3" (संधी गमावली) आणि "MUST HAVE + V3" चा सुवर्ण नियम',
+    title: 'Modal Perfects of the Past: "SHOULD HAVE + V3" (Unfulfilled Duty) vs "COULD HAVE + V3" (Unrealized Ability) vs "MUST HAVE + V3" (Certain Deduction)',
+    titleMr: '"SHOULD HAVE + V3" (करायला हवे होते पण केले नाही), "COULD HAVE + V3" (करू शकला असता पण केले नाही) चा MPSC नियम',
+    formula: '1. SHOULD HAVE + V3 (PAST UNFULFILLED OBLIGATION / REGRET):\n   • Meaning: It was someone\'s duty to do it, but they DID NOT do it!\n   • "You SHOULD HAVE INFORMED the police earlier" (तुम्ही आधी कळवायला हवे होते, पण कळवले नाही)\n   • ❌ "You should have inform..." (V1 after should have is FATAL ERROR! Must be V3!)\n2. COULD HAVE + V3 (PAST UNREALIZED CAPABILITY / OPPORTUNITY):\n   • Meaning: One had the ability/chance to do it, but DID NOT do it!\n   • "He COULD HAVE WON the race, but he slipped" (तो शर्यत जिंकू शकला असता, पण त्याने संधी गमावली)\n3. MUST HAVE + V3 (STRONG LOGICAL DEDUCTION ABOUT THE PAST):\n   • "The train was scheduled at 9 AM; it MUST HAVE ARRIVED by now"',
+    formulaMr: '१. SHOULD HAVE + V3 चा नियम (अपूर्ण कर्तव्य / पश्चात्ताप):\n   • अर्थ: "अमूक एक गोष्ट करायला हवी होती, परंतु ती केली गेली नाही!"\n   • रचना: कर्ता + SHOULD HAVE + क्रियापदाचे तिसरे रूप (V3).\n   • उदा. "You should have studied hard" (तू प्रामाणिक अभ्यास करायला हवा होतास - पण केला नाहीस!).\n   • ❌ "He should have report" (चूक!) ➔ ✅ "He should have REPORTED" (V3 - बरोबर!).\n२. COULD HAVE + V3 चा नियम (संधी होती पण गमावली):\n   • अर्थ: "भूतकाळात एखादी गोष्ट करण्याची ताकद किंवा संधी होती, परंतु प्रत्यक्षात ती घडली नाही!"\n   • उदा. "With a little more preparation, she COULD HAVE TOPPED the MPSC exam" (थोड्या जास्त तयारीनिशी ती टॉपर येऊ शकली असती - पण तिने संधी सोडली).\n३. MUST HAVE + V3 चा नियम (भूतकाळातील ठाम तर्क / निष्कर्ष):\n   • अर्थ: "एखादी गोष्ट नक्कीच घडली असावी असा भूतकाळातील पक्का अंदाज!"\n   • उदा. "The lights are off; they MUST HAVE GONE to sleep" (लाईट्स बंद आहेत; ते नक्कीच झोपले असावेत).',
+    definition: 'In standard English prescriptive grammar and competitive examination tense evaluation (MPSC, SSC, UPSC), modal perfect constructions ("Modal + HAVE + V3") convey nuanced epistemic and counterfactual meanings about past events that cannot be expressed by simple past tense:\n\n1. "SHOULD HAVE + V3" (Counterfactual Moral Expectation):\nSignifies that an action was desirable, obligatory, or advisable in the past, but the subject failed to execute it. In negative form ("should not have + V3"), it expresses condemnation of a past committed action:\n• "The government should have anticipated the flood crisis." (They failed to anticipate it).\n• "You should not have leaked the confidential file." (You did leak it, which was wrong).\n\n2. "COULD HAVE + V3" (Unrealized Past Potential):\nSignifies that the subject possessed the capability, opportunity, or resource to accomplish something in the past, but did not bring it to fruition.\n\n3. EXAMINER TRAP:\nExaminers frequently trap candidates by placing a bare base verb (V1) or continuous form instead of the Past Participle (V3) after "have": e.g., "He should have attend" (FATAL ERROR ➔ "should have attended").',
+    definitionMr: 'MPSC परीक्षेत इंग्रजी व्याकरणामध्ये "Modal Auxiliaries in Past" या घटकावर दरवर्षी प्रश्न विचारले जातात. जेव्हा Modal नंतर "HAVE" येतो, तेव्हा पुढे नेहमी **क्रियापदाचे ३ रे रूप (Past Participle - V3)** च वापरावे लागते:\n\n१. "SHOULD HAVE + V3":\n• भूतकाळात करायला हवे होते पण राहिले, अशा गोष्टींसाठी वापरतात.\n• उदा. "You should have submitted the application on time" (तुम्ही वेळेवर अर्ज सादर करायला हवा होता).\n\n२. "COULD HAVE + V3":\n• भूतकाळात तसे करू शकलो असतो, पण संधी गेली.\n• उदा. "He could have saved the child" (तो त्या बाळाला वाचवू शकला असता).\n\n३. परीक्षकांचा हमखास ट्रॅप:\n• परीक्षेत मुद्दाम "should have inform" किंवा "could have pass" असे क्रियापदाचे पहिले रूप (V1) दिले जाते; "HAVE" नंतर कधीही V1 येत नाही, तिथे "informed" किंवा "passed" हे V3 रूपच असणे बंधनकारक आहे!',
+    keyPoints: [
+      '"The treasury officer SHOULD HAVE VERIFIED the pension vouchers before releasing funds" (Duty failed ➔ V3 verified).',
+      '"You SHOULD NOT HAVE SIGNED the blank tender document" (Condemnation of past action).',
+      '"With adequate rainfall, the state COULD HAVE HARVESTED a bumper kharif crop" (Past lost potential).',
+      '"Always verify: Modal + HAVE + V3 (Never V1 or V2 after \'have\')."'
+    ],
+    keyPointsMr: [
+      '१. कर्तव्य न करणे: "should have submitted" ("should have submit" १००% चूक!).\n२. संधी वाया जाणे: "could have won" ("could have win" चूक!).\n३. नक्कीच झाले असावे: "must have reached" ("must have reach" चूक!).\n४. MPSC सुवर्ण सूत्र: Modal + HAVE दिसल्यास पुढे V3 च असला पाहिजे!'
+    ],
+    examples: [
+      {
+        sentence: 'The municipal commissioner should have ordered an immediate structural audit of the dilapidated bridge.',
+        isCorrect: true,
+        explanation: 'Correct! "Should have" is properly accompanied by the past participle "ordered" (V3) to express unfulfilled duty.',
+        explanationMr: 'बरोबर! "Should have" नंतर "ordered" हे V3 रूप अचूकपणे आले असून दुर्लक्षित राहिलेले कर्तव्य व्यक्त होते.'
+      },
+      {
+        sentence: 'The municipal commissioner should have order an immediate structural audit of the bridge.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Modal Error: "Should have" requires the past participle "ordered" (V3), not bare base form "order" (V1).',
+        explanationMr: 'चूक! MPSC चा सर्वात आवडता ट्रॅप: "should have" नंतर V1 (order) चालत नाही; तिथे V3 (ordered) हवे.'
+      },
+      {
+        sentence: 'With timely intervention by the fire brigade, the historical archive could have been saved from destruction.',
+        isCorrect: true,
+        explanation: 'Correct! "Could have been saved" properly conveys unrealized past capability in passive voice.',
+        explanationMr: 'बरोबर! "could have been saved" (वाचवता आले असते) अशी अचूक रचना केली आहे.'
+      },
+      {
+        sentence: 'You ought to have inform the vigilance directorate regarding the bribery attempt.',
+        isCorrect: false,
+        explanation: 'Incorrect! Following "ought to have", the past participle "informed" (V3) is strictly required.',
+        explanationMr: 'चूक! "ought to have" नंतर "informed" (V3) हवे; "inform" चालत नाही.'
+      }
+    ],
+    exceptions: [
+      'None. Following "have" in any modal perfect sequence (should have, could have, would have, might have, must have, ought to have), the verb MUST be in the past participle form (V3).'
+    ],
+    exceptionsMr: [
+      'कोणताही अपवाद नाही. कोणत्याही Modal नंतर \'have\' आल्यास त्यापुढील क्रियापद १००% V3 रूपातच असावे लागते.'
+    ],
+    examTip: 'MPSC 1-Second "MODAL + HAVE" V3 Scan:\nSpot "SHOULD HAVE / COULD HAVE / WOULD HAVE / MUST HAVE" in a sentence?\n➔ IMMEDIATELY GLANCE AT THE NEXT VERB!\n• If it is V1 (e.g. should have do, should have submit) ➔ 100% ERROR!\n• Change to V3 (should have done, should have submitted)!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "should have", "could have", "would have" किंवा "must have" दिसले:\n➔ तात्काळ पुढच्या क्रियापदाकडे बोट ठेवा!\n• जर ते मूळ रूपात (V1 - उदा. inform, submit, do) असेल ➔ डोळे झाकून तीच चूक मार्क करा!\n• शुद्ध रूप: V3 (informed, submitted, done) करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Should have V3', 'Could have V3', 'Modal Perfects', 'Unfulfilled obligation', 'MPSC Rules']
+  },
+
+  // --- 105. CONFUSING WORDS: "AFFECT" (VERB) vs "EFFECT" (NOUN / VERB) ---
+  {
+    id: 'en_rule_affect_vs_effect_01',
+    language: 'english',
+    category: 'Confusing Words & Verbs',
+    categoryMr: 'शब्दभेद व क्रियापदे: "AFFECT" (क्रियापद - परिणाम करणे) वि. "EFFECT" (नाम - परिणाम / प्रभाव) चा MPSC सुवर्ण नियम',
+    title: 'Semantic Concord: "AFFECT" (Verb = To Influence) vs "EFFECT" (Noun = Result / Verb = To Bring About)',
+    titleMr: '"AFFECT" (क्रियापद: परिणाम करणे) विरुद्ध "EFFECT" (नाम: परिणाम किंवा घडून आणणे) मधील सूक्ष्म फरक व परीक्षा ट्रिक्स',
+    formula: '1. AFFECT = VERB (ACTION):\n   • Meaning: To influence, impact, or produce a change in something.\n   • Mnemonic: "A" for Action = "A" for Affect!\n   • "The unexpected drought AFFECTED the sugarcane crop" (दुष्काळाने उसाच्या पिकावर परिणाम केला)\n   • ❌ "The drought effected the crop..." (FATAL MPSC ERROR!)\n2. EFFECT = NOUN (END RESULT):\n   • Meaning: The result, outcome, consequence, or impression.\n   • Mnemonic: "E" for End Result = "E" for Effect!\n   • Usually preceded by articles or adjectives: "THE effect", "AN effect", "NO effect", "SIDE effect"\n   • "The new policy had a positive EFFECT on farmers" (नवीन धोरणाचा शेतकऱ्यांवर सकारात्मक परिणाम झाला)\n3. SPECIAL VERB EXCEPTION: "TO EFFECT" = TO BRING ABOUT / EXECUTE:\n   • "The new director effected sweeping administrative reforms" (नवीन संचालकांनी प्रशासकीय सुधारणा घडून आणल्या/अंमलात आणल्या)',
+    formulaMr: '१. AFFECT = क्रियापद (Action - क्रिया):\n   • अर्थ: एखाद्या गोष्टीवर अनिष्ट किंवा अनुकूल परिणाम करणे / प्रभाव पाडणे.\n   • क्लृप्ती: Action चा "A" म्हणजेच AFFECT चा "A"!\n   • उदा. "Inflation affects the poor directly" (महागाई गरिबांवर थेट परिणाम करते).\n   • ❌ "The exam affected him bad" मधील affected बरोबर आहे; पण "The exam had a bad affect" चूक!\n२. EFFECT = नाम (End Result - शेवटचा निकाल / परिणाम):\n   • अर्थ: परिणामाचे नाव (Noun). याच्या आधी सहसा "the", "an", "no", "side", "positive" असे शब्द येतात.\n   • क्लृप्ती: End Result चा "E" म्हणजेच EFFECT चा "E"!\n   • उदा. "The medicine had no side EFFECT" (औषधाचा कोणताही दुष्परिणाम झाला नाही).\n३. विशेष क्रियापद अपवाद (परीक्षकांचा गुप्त ट्रॅप):\n   • "To effect changes / reforms" चा अर्थ "सुधारणा घडून आणणे" किंवा "लागू करणे" असा होतो (उदा. The Chief Minister effected drastic changes in the cabinet).',
+    definition: 'In standard English prescriptive grammar and competitive civil service evaluation (MPSC Rajyaseva, PSI/STI/ASO, SSC CGL), confusing "AFFECT" and "EFFECT" is one of the top five tested vocabulary traps:\n\n1. "AFFECT" AS A TRANSITIVE VERB:\n"Affect" is almost exclusively used as a transitive verb meaning "to produce an effect upon", "to influence", or "to alter". It never requires an external preposition like "on" when used directly as a verb:\n• ❌ "The unseasonal hailstorm affected on the orange orchards." ➔ REDUNDANCY ERROR!\n• ✅ "The unseasonal hailstorm AFFECTED the orange orchards." ➔ CORRECT!\n\n2. "EFFECT" AS A NOUN:\n"Effect" functions as a noun signifying the consequence, aftermath, or outcome. When paired with the preposition "on", it forms the common idiom "have an effect on":\n• "Pollution has a detrimental EFFECT on public health."\n\n3. THE HIGH-LEVEL MPSC EXCEPTION ("EFFECT" AS A VERB):\nIn formal administrative and legal English, "EFFECT" can function as a verb meaning "to bring about", "to achieve", or "to accomplish" (distinct from affect):\n• "The government hopes to EFFECT peace in the border region." (to bring about peace).\n• "The finance ministry effected major tax cuts." (brought about / executed cuts).',
+    definitionMr: 'MPSC परीक्षेत "AFFECT" आणि "EFFECT" वर दरवर्षी किमान १ प्रश्न हमखास येतो. यातील फरक खालीलप्रमाणे काटेकोरपणे लक्षात ठेवावा:\n\n१. AFFECT (क्रियापद - Verb):\n• याचा अर्थ "परिणाम करणे" असा होतो. जेव्हा वाक्यात मुख्य क्रियापदाची जागा रिकामी असते, तेव्हा नेहमी "AFFECT" किंवा "AFFECTED" येतो.\n• महत्त्वाचा नियम: Affect नंतर "on" लावू नये (उदा. "It affected my health" बरोबर; "affected ON my health" चूक!).\n\n२. EFFECT (नाम - Noun):\n• याचा अर्थ "झालेला परिणाम" असा होतो. नामाच्या आधी "the", "a", "an", "no", "ill", "adverse" असे शब्द येतात.\n• उदा. "The greenhouse effect" (हरितगृह परिणाम), "Adverse effect on crops" (पिकांवर विपरीत परिणाम).\n\n३. MPSC चा सर्वात कठीण ट्रॅप ("Effect" क्रियापद म्हणून):\n• जेव्हा एखादी गोष्ट "घडून आणणे" किंवा "अंमलात आणणे" (To bring about / execute) असा अर्थ असतो, तेव्हा "effect" हे क्रियापद म्हणून वापरले जाते (उदा. The legislature effected constitutional amendments).',
+    keyPoints: [
+      '"The prolonged drought heavily AFFECTED the agrarian economy of Marathwada" (Verb ➔ affected).',
+      '"The fiscal stimulus produced a dramatic EFFECT on industrial revival" (Noun preceded by \'a dramatic\' ➔ effect).',
+      '"Beware the preposition trap: Say \'It affected him\', NEVER \'It affected ON him\'.',
+      '"The reform committee was empowered to EFFECT vital structural changes" (Verb meaning \'bring about\').'
+    ],
+    keyPointsMr: [
+      '१. क्रियापद हवे असल्यास: AFFECT (A for Action).\n२. नाम हवे असल्यास: EFFECT (E for End Result).\n३. ट्रॅप १: "Affect" नंतर "on" चालत नाही ("The news affected me", "affected on me" चूक!).\n४. ट्रॅप २: "The" किंवा "an" नंतर नेहमी EFFECT येतो ("The affect of medicine" १००% चूक, "The effect of medicine" बरोबर!).'
+    ],
+    examples: [
+      {
+        sentence: 'The severe global recession adversely affected the export revenue of Indian textile manufacturers.',
+        isCorrect: true,
+        explanation: 'Correct! "Affected" is properly employed as a transitive verb meaning "influenced / impacted".',
+        explanationMr: 'बरोबर! "affected" हे क्रियापद म्हणून अचूक वापरले आहे (जागतिक मंदीने भारतीय कापड निर्यातीवर प्रतिकूल परिणाम केला).'
+      },
+      {
+        sentence: 'The severe global recession adversely effected the export revenue of Indian textile manufacturers.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Error: "effected" cannot mean influenced. Replace with verb "affected".',
+        explanationMr: 'चूक! MPSC चा प्रसिद्ध ट्रॅप: येथे परिणाम करणे हा अर्थ असल्याने "effected" चालत नाही; क्रियापद "affected" हवे.'
+      },
+      {
+        sentence: 'The implementation of the new GST slab had an instantaneous effect on wholesale prices across Maharashtra.',
+        isCorrect: true,
+        explanation: 'Correct! Preceded by the indefinite article and adjective "an instantaneous", the noun "effect" is precise.',
+        explanationMr: 'बरोबर! "an instantaneous" या विशेषणानंतर "effect" हे नाम (Noun) १००% अचूक आले आहे.'
+      },
+      {
+        sentence: 'The excessive heat wave affected on the performance of the civil service aspirants.',
+        isCorrect: false,
+        explanation: 'Incorrect! Transitive verb "affect" governs its object directly without the preposition "on". Delete "on" ("affected the performance").',
+        explanationMr: 'चूक! "affect" या क्रियापदानंतर "on" हा शब्दयोगी अव्यय येत नाही; "affected the performance" असे लिहावे.'
+      }
+    ],
+    exceptions: [
+      'In psychology and psychiatry, "AFFECT" (accented on the first syllable) exists as a technical noun denoting facial expression or emotional demeanor (e.g. "The patient displayed a flat affect"). In general English examinations, stick to Affect = Verb, Effect = Noun.'
+    ],
+    exceptionsMr: [
+      'मानसशास्त्रात Affect हे नाम म्हणून चेहऱ्यावरील भाव दर्शवण्यासाठी वापरतात; परंतु MPSC आणि सर्व स्पर्धा परीक्षांमध्ये सामान्यतः Affect = Verb आणि Effect = Noun हाच नियम ग्राह्य धरला जातो.'
+    ],
+    examTip: 'MPSC 1-Second "A vs E" Clue:\n• Do you see "a / an / the / side / adverse" before the blank? ➔ Choose EFFECT (Noun)!\n• Is it the main verb performing an action (e.g. It will _____ him)? ➔ Choose AFFECT (Verb)!\n• If you see "AFFECTED ON", immediately strike out "ON"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• रिकाम्या जागेच्या आधी "the / an / a / adverse / ill" दिसले ➔ डोळे झाकून "EFFECT" निवडा (Noun)!\n• जर क्रिया दाखवणारे मुख्य क्रियापद असेल ➔ "AFFECT" निवडा (Action)!\n• वाक्यात "affected ON" दिसल्यास लगेच "ON" खोडा; तिथेच एरर असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Affect vs Effect', 'Confusing Words', 'Vocabulary Concord', 'Transitive Verbs', 'MPSC Rules']
+  },
+
+  // --- 106. NOUNS WITH "C" vs VERBS WITH "S": "ADVICE" vs "ADVISE" & "PRACTICE" vs "PRACTISE" ---
+  {
+    id: 'en_rule_noun_c_vs_verb_s_advice_practice_01',
+    language: 'english',
+    category: 'Spelling & Word Classes',
+    categoryMr: 'शब्दजाती व शब्दभेद: "C" चे नाम (Noun) वि. "S" चे क्रियापद (Verb) - "Advice vs Advise", "Practice vs Practise", "Licence vs License"',
+    title: 'Orthographic Concord: Nouns with "C" (Advice, Practice, Licence, Device) vs Verbs with "S" (Advise, Practise, License, Devise)',
+    titleMr: '"C" ने संपणारे नाम (सल्ला, सराव, परवाना) विरुद्ध "S" ने संपणारे क्रियापद (सल्ला देणे, सराव करणे) चा MPSC सुवर्ण नियम',
+    formula: '1. NOUNS WITH "C" (THE THING / IDEA):\n   • ADVICE (Noun - सल्ला): "He gave me valuable ADVICE" (NOT "valuable advise")\n   • PRACTICE (Noun - सराव / प्रथा): "PRACTICE makes a man perfect" (NOT "Practise makes...")\n   • LICENCE (Noun - परवाना): "Driving LICENCE" (British standard)\n   • DEVICE (Noun - यंत्र / साधन): "A mechanical DEVICE"\n2. VERBS WITH "S" (THE ACTION PERFORMED):\n   • ADVISE (Verb - सल्ला देणे): "The doctor ADVISED him to rest" (NOT "adviced him")\n   • PRACTISE (Verb - सराव करणे): "Aspirants must PRACTISE mock tests daily" (NOT "must practice")\n   • LICENSE (Verb - परवानगी देणे): "The state government LICENSED the sugar cooperative"\n   • DEVISE (Verb - योजना आखणे): "We must DEVISE an effective strategy"',
+    formulaMr: '१. "C" असणारे शब्द = नाम (Noun - वस्तू किंवा संकल्पना):\n   • ADVICE (सल्ला) ➔ "Take my advice" (माझा सल्ला घे).\n   • PRACTICE (सराव / प्रथा) ➔ "Practice makes a man perfect" (सराव माणसाला परिपूर्ण बनवतो).\n   • LICENCE (परवाना) ➔ "Driving licence" (वाहन चालवण्याचा परवाना).\n   • DEVICE (यंत्र) ➔ "Electronic device".\n२. "S" असणारे शब्द = क्रियापद (Verb - कृती करणे):\n   • ADVISE (सल्ला देणे) ➔ "I advise you to work hard" (मी तुला मेहनत करण्याचा सल्ला देतो).\n   • PRACTISE (सराव करणे) ➔ "You should practise English grammar daily".\n   • भूतकाळ करताना नेहमी "S" लाच -d लागतो: ADVISED (बरोबर), ADVICED (१००% चूक!).\n   • LICENSED (परवाना दिला), DEVISED (योजना आखली).',
+    definition: 'In British standard English and Indian civil service examination conventions (governed by the Oxford Prescriptive Lexicon and MPSC official answer keys):\n\n1. NOUN vs VERB DIFFERENTIATION BY SUFFIX (-CE vs -SE):\nPairs of homophones or near-homophones systematically distinguish grammatical category through the consonant letters "C" and "S":\n• "C" marks the NOUN (Advice = the counsel given; Practice = the custom, exercise, or profession).\n• "S" marks the VERB (Advise = to give counsel; Practise = to perform exercises or pursue a profession).\n\n2. EXAMINER PAST TENSE TRAP:\nBecause English verbs end with "S" in this pair, inflections (-ed, -ing) can ONLY attach to the "S" spelling:\n• ❌ "The advocate adviced his client." ➔ GROSS SPELLING ERROR (Non-existent word)!\n• ✅ "The advocate ADVISED his client." ➔ PRECISE STANDARD FORM!\n• ❌ "The students were practicing." (In British/MPSC English, verbal -ing takes \'s\': "practising").',
+    definitionMr: 'MPSC परीक्षेत ब्रिटिश इंग्रजी प्रमाण मानले जात असल्याने "C" आणि "S" मधील फरक दरवर्षी विचारला जातो:\n\n१. ADVICE विरुद्ध ADVISE:\n• ADVICE (C असलेले) हे नाम आहे. उदा. "He gave me good advice" (त्याने मला चांगला सल्ला दिला).\n• ADVISE (S असलेले) हे क्रियापद आहे. उदा. "He advised me to study" (त्याने मला अभ्यास करण्याचा सल्ला दिला).\n• सर्वात मोठा ट्रॅप: इंग्रजीत "adviced" असा कोणताही शब्द अस्तित्वात नाही! परीक्षेमध्ये "He adviced me" असे देऊन चूक विचारली जाते; तिथे "advised" हवे!\n\n२. PRACTICE विरुद्ध PRACTISE:\n• PRACTICE (C) = नाम (सराव किंवा प्रथा). उदा. "It is in daily practice".\n• PRACTISE (S) = क्रियापद (सराव करणे). उदा. "He practises running every morning".\n\n३. LICENCE विरुद्ध LICENSE:\n• तुमच्या खिशातील ड्रायव्हिंग परवाना हे नाम असल्याने "Driving Licence" (C) असते; तर परवानगी देणे हे क्रियापद असल्याने "licensed" (S) होते.',
+    keyPoints: [
+      '"The senior counsel gave his client sound ADVICE" (Noun \'advice\' with \'c\').',
+      '"The public health officer ADVISED citizens to boil drinking water" (Verb \'advised\' with \'s\').',
+      '"Remember: \'Adviced\' and \'practiced\' (as verb in British English) are classic examination traps.',
+      '"Noun takes C (Advice, Practice, Licence) | Verb takes S (Advise, Practise, License)."'
+    ],
+    keyPointsMr: [
+      '१. "C" म्हणजे Noun (Advice = सल्ला, Practice = सराव, Licence = परवाना).\n२. "S" म्हणजे Verb (Advise = सल्ला देणे, Practise = सराव करणे, License = परवाना देणे).\n३. परीक्षेत "adviced" दिसल्यास तोच १००% एरर असतो; तिथे "advised" हवे!\n४. "You must practice" चूक ➔ "You must practise" (सहाय्यकारी क्रियापदानंतर verb हवा).'
+    ],
+    examples: [
+      {
+        sentence: 'The experienced agricultural officer advised the marginal farmers to adopt drip irrigation systems.',
+        isCorrect: true,
+        explanation: 'Correct! "Advised" (with \'s\') is properly used as the past tense transitive verb.',
+        explanationMr: 'बरोबर! सल्ला दिला या अर्थाने क्रियापदाचे भूतकाळी रूप "advised" (s असलेले) अचूक वापरले आहे.'
+      },
+      {
+        sentence: 'The experienced agricultural officer adviced the marginal farmers to adopt drip irrigation systems.',
+        isCorrect: false,
+        explanation: 'Incorrect! Fatal MPSC Spelling Trap: "adviced" is non-existent. The verb past form is strictly "advised" (with \'s\').',
+        explanationMr: 'चूक! MPSC चा सर्वात प्रसिद्ध ट्रॅप: "adviced" असा शब्द इंग्रजीत नसतो; तिथे "advised" हवे.'
+      },
+      {
+        sentence: 'Regular practice of previous years\' question papers is indispensable for passing the MPSC prelims.',
+        isCorrect: true,
+        explanation: 'Correct! "Practice" (with \'c\') functions correctly as the subject noun.',
+        explanationMr: 'बरोबर! "सराव" या अर्थाने कर्त्याच्या जागी "Practice" (c असलेले नाम) योग्य आहे.'
+      },
+      {
+        sentence: 'Every serious aspirant ought to practice answering descriptive questions every Sunday.',
+        isCorrect: false,
+        explanation: 'Incorrect! Following the modal "ought to", the verb form "practise" (with \'s\') is mandatory in British/MPSC English.',
+        explanationMr: 'चूक! "ought to" नंतर क्रियापद हवे असल्याने ब्रिटिश/MPSC नियमांनुसार "practise" (s असलेले) हवे.'
+      }
+    ],
+    exceptions: [
+      'In American English, "practice" is commonly used as both noun and verb, and "license" is used for both. However, in MPSC, UPSC, and British Commonwealth examinations, the strict prescriptive distinction (C = Noun, S = Verb) is mandatory and strictly graded.'
+    ],
+    exceptionsMr: [
+      'अमेरिकन इंग्रजीत दोन्हीकडे "practice" चालतो, परंतु MPSC व भारतीय स्पर्धा परीक्षा ब्रिटिश व्याकरणाचे काटेकोर नियम पाळत असल्याने Noun साठी \'C\' आणि Verb साठी \'S\' हाच नियम अंतिम मानला जातो.'
+    ],
+    examTip: 'MPSC 1-Second C vs S Formula:\n• Is it an ACTION (sallaa dene / sarav karne)? ➔ Pick "S" (Advise, Practise)!\n• Is it an OBJECT/CONCEPT (sallaa / sarav)? ➔ Pick "C" (Advice, Practice)!\n• If you see "ADVICED" with a "C", strike it out immediately — it is 100% WRONG!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• जर कृती (क्रियापद) असेल ➔ "S" निवडा (Advise, Practise)!\n• जर संकल्पना किंवा वस्तू (नाम) असेल ➔ "C" निवडा (Advice, Practice)!\n• वाक्यात "ADVICED" (c असलेला भूतकाळ) दिसल्यास विचारही करू नका; तोच शब्द १००% चुकीचा असतो (तिथे "advised" हवे)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Advice vs Advise', 'Practice vs Practise', 'Noun vs Verb', 'Spelling Rules', 'MPSC Rules']
+  },
+
+  // --- 107. VERB CONJUGATION DUALITY: "HANGED" (CAPITAL PUNISHMENT) vs "HUNG" (SUSPENDED AN OBJECT) ---
+  {
+    id: 'en_rule_hanged_vs_hung_01',
+    language: 'english',
+    category: 'Irregular Verbs & Confusion',
+    categoryMr: 'क्रियापदे व भूतकाळी रूपे: "HANGED" (फाशी देणे - व्यक्तीसाठी) वि. "HUNG" (टांगणे/लटकवणे - वस्तूसाठी) चा MPSC सुवर्ण नियम',
+    title: 'Semantic Verb Conjugation: "HANGED" (Execution / Death by Rope) vs "HUNG" (Suspended Objects, Clothes, Pictures)',
+    titleMr: '"HANGED" (फाशीची शिक्षा देणे) विरुद्ध "HUNG" (वस्तू भिंतीवर किंवा खुंटीवर टांगणे) मधील फरक आणि MPSC चा आवडता ट्रॅप',
+    formula: '1. EXECUTION / CAPITAL PUNISHMENT (PERSON DIES BY NOOSE):\n   • Base (V1): HANG ➔ Past (V2): HANGED ➔ Participle (V3): HANGED\n   • ❌ "The convicted criminal was hung till death." (FATAL MPSC ERROR!)\n   • ✅ "The convicted criminal was HANGED till death." (100% CORRECT!)\n2. SUSPENDING AN INANIMATE OBJECT (PICTURE, CLOTHES, COAT, BELL):\n   • Base (V1): HANG ➔ Past (V2): HUNG ➔ Participle (V3): HUNG\n   • ❌ "The peon hanged the portrait of Shivaji Maharaj." (FATAL MPSC ERROR!)\n   • ✅ "The peon HUNG the portrait of Shivaji Maharaj on the wall." (100% CORRECT!)',
+    formulaMr: '१. फाशी देणे / फासावर लटकवून मृत्यूची शिक्षा (व्यक्तीसाठी):\n   • क्रियापदाची रूपे: HANG ➔ भूतकाळ (V2): HANGED ➔ ३ रे रूप (V3): HANGED\n   • ❌ "The murderer was hung yesterday" (MPSC मधील हमखास विचारली जाणारी १००% घोडचूक!)\n   • ✅ "The murderer was HANGED yesterday" (बरोबर!).\n२. वस्तू, कपडे, फोटो, घंटा टांगणे किंवा लटकवणे (निर्जीव वस्तूसाठी):\n   • क्रियापदाची रूपे: HANG ➔ भूतकाळ (V2): HUNG ➔ ३ रे रूप (V3): HUNG\n   • ❌ "He hanged his coat on the peg" (चूक!)\n   • ✅ "He HUNG his coat on the peg" (बरोबर!).\n३. MPSC परीक्षा क्लृप्ती: जर फाशी (Death/Criminal/Convict) असेल तर शेवटी "-ED" (Hanged); आणि वस्तू (Picture/Clothes/Clock) असेल तर "HUNG"!',
+    definition: 'In standard prescriptive English lexicography and competitive civil service examinations (MPSC Rajyaseva, PSI/STI/ASO, SSC CGL), the verb "HANG" possesses two entirely distinct inflectional paradigms depending upon whether the object suspended is a living human being put to death or an inanimate physical article:\n\n1. "HANG - HANGED - HANGED" (Capital Punishment):\nWhen the verb denotes execution or suicide by suspension by the neck with a rope, the verb is conjugated as a REGULAR verb ending in "-ed":\n• "Bhagat Singh, Sukhdev, and Rajguru were HANGED by the colonial British authorities on March 23, 1931."\n• Replacing "hanged" with "hung" in capital punishment contexts is one of the most frequently tested errors in civil service papers.\n\n2. "HANG - HUNG - HUNG" (Suspending Inanimate Objects):\nWhen the verb denotes attaching or suspending an object from above so that the lower part is free (e.g. paintings, tapestries, coats, lanterns, curtains, wall clocks):\n• "The curator HUNG the rare miniature painting in the central gallery."\n• Saying a picture or cloth was "hanged" implies the bizarre and ungrammatical notion that the object was put to death!',
+    definitionMr: 'MPSC परीक्षेत "Irregular Verbs" या घटकातून दरवर्षी विचारला जाणारा सर्वात प्रसिद्ध नियम म्हणजे "HANG" ची दोन वेगवेगळी भूतकाळी रूपे:\n\n१. HANGED (फाशी देणे):\n• जेव्हा एखाद्या गुन्हेगाराला किंवा व्यक्तीला फाशी देऊन मृत्युदंडाची शिक्षा दिली जाते, किंवा कोणी गळफास घेतो, तेव्हा भूतकाळ आणि V3 रूप नेहमी "HANGED" असेच लिहावे लागते.\n• परीक्षेतील ट्रॅप: "The prisoner was hung" असे दिले जाते; कैद्याला वस्तूंसारखे टांगता येत नाही, त्याला फाशी दिली जाते, त्यामुळे "hanged" च हवे.\n\n२. HUNG (वस्तू टांगणे):\n• जेव्हा भिंतीवर फोटो, फ्रेम, घड्याळ किंवा खुंटीवर कपडे/कोट टांगले जातात, तेव्हा भूतकाळ व V3 रूप "HUNG" असे होते.\n• उदा. "She hung her umbrella behind the door".\n• परीक्षेतील ट्रॅप: "He hanged a photo on the wall" (त्याने फोटोला फाशी दिली असा विचित्र अर्थ होतो; त्यामुळे photo सोबत "hung" च हवे!).',
+    keyPoints: [
+      '"The sessions court ruled that the traitor be HANGED by the neck until he is dead" (Capital execution ➔ hanged).',
+      '"The artist HUNG his masterpiece in the Maharashtra State Art Gallery" (Object/painting ➔ hung).',
+      '"Never say \'The coat was hanged\' — inanimate articles are strictly \'HUNG\'.',
+      '"Formula: Person executed = HANGED | Inanimate item suspended = HUNG."'
+    ],
+    keyPointsMr: [
+      '१. फाशीची शिक्षा (Execution): HANGED (The convict was hanged).\n२. फोटो / कपडे टांगणे (Object): HUNG (The picture was hung on the wall).\n३. MPSC मधील सर्वात जास्त विचारलेला प्रश्न: "The prisoner was hung" ➔ चूक, "hanged" हवे!\n४. "He hanged the calendar" ➔ चूक, कॅलेंडरला फाशी देत नाहीत; "hung" हवे!'
+    ],
+    examples: [
+      {
+        sentence: 'The notorious dacoit was sentenced to death and hanged at the Yerwada Central Jail in Pune.',
+        isCorrect: true,
+        explanation: 'Correct! "Hanged" is the required standard past participle for death by judicial execution.',
+        explanationMr: 'बरोबर! कायदेशीर फाशीच्या शिक्षेसाठी "hanged" हे क्रियापदाचे योग्य रूप वापरले आहे.'
+      },
+      {
+        sentence: 'The notorious dacoit was sentenced to death and hung at the Yerwada Central Jail.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Error: Human beings executed by hanging take "hanged", NEVER "hung".',
+        explanationMr: 'चूक! MPSC चा वारंवार विचारला जाणारा प्रश्न: गुन्हेगाराला फाशी दिल्यास "hung" चालत नाही; तिथे "hanged" हवे.'
+      },
+      {
+        sentence: 'The newly elected Speaker of the Legislative Assembly hung the commemorative medal in his office.',
+        isCorrect: true,
+        explanation: 'Correct! For suspending an inanimate object (medal), the past form "hung" is precise.',
+        explanationMr: 'बरोबर! पदक (Medal) ही निर्जीव वस्तू असल्याने त्याच्यासाठी "hung" चा वापर अचूक आहे.'
+      },
+      {
+        sentence: 'The peon hanged the notice on the official bulletin board of the collectorate.',
+        isCorrect: false,
+        explanation: 'Incorrect! An inanimate notice cannot be "hanged" (which implies execution). Use "hung".',
+        explanationMr: 'चूक! नोटीस फलकावर लावणे/टांगणे यासाठी "hanged" येत नाही; "hung" हवे.'
+      }
+    ],
+    exceptions: [
+      'None. The semantic split is absolute in prescriptive examinations. Hang/Hanged/Hanged for execution, Hang/Hung/Hung for all other physical suspension.'
+    ],
+    exceptionsMr: [
+      'कोणताही अपवाद नाही. फाशीसाठी Hanged आणि वस्तू लटकवण्यासाठी Hung हाच नियम सर्व इंग्रजी परीक्षांमध्ये ग्राह्य धरला जातो.'
+    ],
+    examTip: 'MPSC 1-Second Execution Rule:\n• Is a PRISONER / CRIMINAL / PERSON dying? ➔ Pick HANGED!\n• Is it a PICTURE / COAT / CALENDAR / CLOTH? ➔ Pick HUNG!\n• If you see "The murderer was hung", strike "hung" and write "hanged"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• कैदी, गुन्हेगार किंवा फाशीचा उल्लेख असेल (Prisoner / Criminal / Sentence to death) ➔ डोळे झाकून "HANGED" निवडा!\n• कपडे, फोटो, घंटा किंवा कॅलेंडर असेल (Picture / Coat / Notice / Clock) ➔ "HUNG" निवडा!\n• वाक्यात "was hung till death" दिसल्यास तोच भाग १००% चुकीचा असतो!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Hanged vs Hung', 'Irregular Verbs', 'Verb Conjugation', 'Capital Punishment', 'MPSC Rules']
+  },
+
+  // --- 108. CONFUSING HOMOPHONES: "LOOSE" (ADJECTIVE) vs "LOSE" (VERB) vs "LOSS" (NOUN) ---
+  {
+    id: 'en_rule_loose_vs_lose_loss_01',
+    language: 'english',
+    category: 'Confusing Words & Verbs',
+    categoryMr: 'शब्दभेद व शब्दजाती: "LOOSE" (विशेषण - ढिला/सैल) वि. "LOSE" (क्रियापद - गमावणे/हरणे) वि. "LOSS" (नाम - नुकसान/तोटा) चा सुवर्ण नियम',
+    title: 'Lexical Concord: "LOOSE" (Adjective = Unbound/Slack) vs "LOSE" (Verb = To Misplace/Forfeit) vs "LOSS" (Noun = Deficit/Deprivation)',
+    titleMr: '"LOOSE" (ढिला किंवा सैल) विरुद्ध "LOSE" (गमावणे किंवा पराभूत होणे) विरुद्ध "LOSS" (नुकसान) चा MPSC नियम',
+    formula: '1. LOOSE /luːs/ = ADJECTIVE (OPPOSITE OF TIGHT / FASTENED):\n   • Meaning: Free, unfastened, slack, not fitting tightly.\n   • Rhymes with "GOOSE". Notice the double "O"!\n   • "These formal trousers are too LOOSE for the interview" (ही पॅन्ट खूप सैल/ढिली आहे)\n   • ❌ "Do not loose your hall-ticket" (FATAL MPSC ERROR! Must be LOSE!)\n2. LOSE /luːz/ = VERB (ACTION OF MISPLACING OR SUFFERING DEFEAT):\n   • Past: LOST | Participle: LOST | Continuous: LOSING\n   • Rhymes with "CHOOSE". Single "O"!\n   • "Be composed and do not LOSE your temper" (संयम राख आणि राग अनावर होऊ देऊ नकोस)\n   • "If you arrive late, you will LOSE your candidature"\n3. LOSS /lɒs/ = NOUN (THE STATE OR AMOUNT LOST):\n   • "The state transport corporation incurred a massive financial LOSS"',
+    formulaMr: '१. LOOSE = विशेषण (Adjective - सैल / ढिला / मोकळा):\n   • उच्चार: "लूस" (जसे Goose - हंस). दोन "O" असतात!\n   • अर्थ: घट्ट नसलेला, सैल झालेला किंवा सुटा.\n   • उदा. "Loose clothes" (सैल कपडे), "Loose motion" (जुलाब), "A loose screw" (सैल झालेला स्क्रू).\n२. LOSE = क्रियापद (Verb - हरणे / गमावणे / विसरणे):\n   • उच्चार: "लूझ" (जसे Choose - निवडणे). फक्त एकच "O" असतो!\n   • रूपे: Lose ➔ भूतकाळ: Lost ➔ V3: Lost ➔ Continuous: Losing.\n   • उदा. "Do not lose your patience" (संयम गमावू नकोस).\n   • ❌ "Do not loose your mind" (MPSC चा हमखास ट्रॅप - चूक!) ➔ ✅ "Do not LOSE your mind" (बरोबर!).\n३. LOSS = नाम (Noun - नुकसान / तोटा / हानी):\n   • उदा. "Profit and Loss" (नफा आणि तोटा), "A great loss to the nation" (देशाचे मोठे नुकसान).',
+    definition: 'In standard English prescriptive spelling and civil service vocabulary evaluation (MPSC, UPSC, CDS, Banking), misplacing the double "O" in "LOOSE" for the single "O" verb "LOSE" is one of the most penalised spelling blunders:\n\n1. "LOOSE" (Adjective):\nQualifies a noun to indicate lack of tightness, detachment, or freedom from restraint. It can also function as a verb meaning "to release / unleash" (e.g. "He loosed the hounds"), but in 99% of competitive exams, it is tested as an adjective:\n• "The bolt has come LOOSE."\n• "Wear LOOSE clothing in hot summer weather."\n\n2. "LOSE" (Verb):\nDenotes forfeiting something, being deprived of an asset, misplacing an object, or failing to win a contest. Its inflected forms are "loses, losing, lost":\n• "Civil services aspirants cannot afford to LOSE precious study hours."\n• "If you do not practice speed writing, you might LOSE marks in Paper 1."\n\n3. "LOSS" (Noun):\nDenotes the detriment, casualty, forfeiture, or financial deficit resulting from losing:\n• "The company reported a quarterly LOSS of ten crore rupees."',
+    definitionMr: 'MPSC परीक्षेत "Common Errors in Spelling & Homophones" या घटकामध्ये परीक्षकांचा सर्वात आवडता प्रश्न "Loose vs Lose" वर असतो:\n\n१. LOOSE (सैल / ढिला):\n• यात दोन "O" (Double O) असतात. हा शब्द एखाद्या नामाचे वर्णन करणारे विशेषण (Adjective) असतो.\n• उदा. "My shirt is loose" (माझा शर्ट सैल आहे).\n\n२. LOSE (गमावणे / हरणे):\n• यात एकच "O" (Single O) असतो. हे क्रियापद (Verb) आहे. याचा भूतकाळ "lost" असा होतो.\n• उदा. "We must not lose hope" (आपण आशा गमावता कामा नये).\n• परीक्षकांचा ट्रॅप: "You will loose the match" किंवा "Don\'t loose your admit card" अशी वाक्ये दिली जातात; येथे सैल असा अर्थ नसून गमावणे/हरणे असा असल्याने "LOSE" च हवे!\n\n३. LOSS (नुकसान):\n• हे नाम (Noun) असून "Loss of property / Loss of life" अशा ठिकाणी वापरले जाते.',
+    keyPoints: [
+      '"Do not LOSE your concentration during the final fifteen minutes of the examination" (Verb ➔ lose with one \'o\').',
+      '"A candidate who arrives without the original photo ID will LOSE the opportunity to sit for the exam" (Verb ➔ lose).',
+      '"The mechanic tightened the LOOSE nuts on the state transport bus" (Adjective ➔ loose with double \'o\').',
+      '"Memory aid: LOSE has LOST an \'O\'! (Lose मध्ये एक \'O\' हरवला आहे!)"'
+    ],
+    keyPointsMr: [
+      '१. गमावणे / हरणे: LOSE (एकच O - क्रियापद) ➔ "Don\'t lose your temper" ("loose" १००% चूक!).\n२. सैल / ढिला: LOOSE (दोन O - विशेषण) ➔ "Loose trousers" ("lose trousers" चूक!).\n३. नुकसान / तोटा: LOSS (नाम) ➔ "Profit and loss".\n४. स्मरण क्लृप्ती: LOSE मध्ये स्वतः एक \'O\' हरवलेला (Lost) असतो!'
+    ],
+    examples: [
+      {
+        sentence: 'A determined civil service aspirant does not lose courage even after facing repeated setbacks in the preliminary examination.',
+        isCorrect: true,
+        explanation: 'Correct! "Lose" (with single \'o\') is properly used as the transitive verb meaning "to forfeit or be deprived of".',
+        explanationMr: 'बरोबर! "धैर्य गमावणे" या अर्थाने क्रियापदाचे मूळ रूप "lose" (एकच \'o\' असलेले) अचूक वापरले आहे.'
+      },
+      {
+        sentence: 'A determined civil service aspirant does not loose courage even after facing repeated setbacks.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Homophone Trap: "Loose" is an adjective meaning slack. Use verb "lose".',
+        explanationMr: 'चूक! MPSC चा सर्वात आवडता ट्रॅप: "loose" म्हणजे सैल/ढिला; धैर्य गमावण्यासाठी क्रियापद "lose" हवे.'
+      },
+      {
+        sentence: 'The police cordon was breached because the security ropes had become loose during the evening storm.',
+        isCorrect: true,
+        explanation: 'Correct! "Loose" (double \'o\') correctly serves as an adjective describing the slack condition of the ropes.',
+        explanationMr: 'बरोबर! दोऱ्या सैल झाल्याचे वर्णन करण्यासाठी विशेषण "loose" (दोन \'o\') योग्य आहे.'
+      },
+      {
+        sentence: 'If you fail to verify your answers, you may loose valuable marks due to negative marking.',
+        isCorrect: false,
+        explanation: 'Incorrect! Following the modal auxiliary "may", the base verb "lose" (single \'o\') is required.',
+        explanationMr: 'चूक! गुण गमावणे या अर्थाने "may loose" चुकीचे असून "may lose" हवे.'
+      }
+    ],
+    exceptions: [
+      '"Loose" can rarely be used as a verb meaning "to unbind or unleash" (e.g., "The hunter loosed the arrows" or "He loosed the rabid dog"), but when meaning to forfeit, misplace, or fail to retain, "LOSE" is the only correct standard English form.'
+    ],
+    exceptionsMr: [
+      'बाण सोडणे किंवा शिकारी कुत्रे मोकळे सोडणे यासाठी क्वचित "loosed" क्रियापद म्हणून वापरतात; परंतु गमावणे किंवा पराभूत होणे या अर्थाने केवळ आणि केवळ "LOSE" हाच एक शब्द येतो.'
+    ],
+    examTip: 'MPSC 1-Second "O" Count Test:\n• To misplace something or suffer defeat? ➔ 1 "O" = LOSE!\n• Clothes/screws too slack or unfastened? ➔ 2 "O"s = LOOSE!\n• If you see "loose your temper" or "loose marks", eliminate the second "O" immediately!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• गमावणे, हरणे किंवा नुकसान होणे (Temper, Marks, Match, Hope, Admit Card) ➔ एकच "O" = LOSE!\n• सैल किंवा ढिले असणे (Shirt, Shoes, Screw, Wire) ➔ दोन "O" = LOOSE!\n• वाक्यात "loose your temper" किंवा "loose marks" दिसल्यास लगेच दुसरा "O" खोडा; तिथे "lose" करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Loose vs Lose', 'Confusing Words', 'Spelling Rules', 'Homophones', 'MPSC Rules']
   }
 ];
-
-
-
 
 
 

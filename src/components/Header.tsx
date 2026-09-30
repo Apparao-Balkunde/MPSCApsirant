@@ -257,7 +257,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <FileText className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
                 <span>{isMr ? 'व्याकरण' : 'Grammar'}</span>
                 <span className="text-[9px] px-1 py-0.2 rounded bg-amber-400 text-stone-950 font-black uppercase hidden xl:inline">
-                  {isMr ? '१२१ नियम 🏆' : '121 Rules 🏆'}
+                  {isMr ? '१२८ नियम 🏆' : '128 Rules 🏆'}
                 </span>
               </button>
 
@@ -424,10 +424,10 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-2.5 text-xs">
                       <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
                         <div className="font-bold text-amber-400 mb-0.5">
-                          {isMr ? '१२१ व्याकरण नियम अद्ययावत 📚' : '121 High-Yield Grammar Rules 📚'}
+                          {isMr ? '१२८ व्याकरण नियम अद्ययावत 📚' : '128 High-Yield Grammar Rules 📚'}
                         </div>
                         <p className="text-stone-300 text-[11px] leading-relaxed">
-                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Fewer vs Less, Worth + V-ing, Half an hour यांसह १२१ नियम सज्ज आहेत.' : '121 Marathi & English grammar rules with Fewer vs Less, Worth + V-ing, Half an hour & MPSC shortcuts.'}
+                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Hanged vs Hung, Loose vs Lose, Affect vs Effect यांसह १२८ नियम सज्ज आहेत.' : '128 Marathi & English grammar rules with Hanged vs Hung, Loose vs Lose, Affect vs Effect & MPSC shortcuts.'}
                         </p>
                       </div>
 
