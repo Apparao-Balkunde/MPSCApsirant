@@ -35,7 +35,6 @@ import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
-import { FloatingScreenControls } from './components/FloatingScreenControls';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -1267,11 +1266,6 @@ export default function App() {
           </div>
         </aside>
       )}
-      {/* Floating Device and Full Screen Quick Controls for Mobile, Tablet, Laptop, and PC */}
-      <FloatingScreenControls
-        language={userProgress.preferredLanguage}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-      />
     </div>
   );
 }
