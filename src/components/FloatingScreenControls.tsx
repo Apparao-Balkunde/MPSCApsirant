@@ -96,6 +96,9 @@ export const FloatingScreenControls: React.FC<FloatingScreenControlsProps> = ({
                 <div className="text-[10px] text-stone-400 font-mono">
                   {width} × {height} px • {orientation === 'landscape' ? (isMr ? 'आडवा मोड' : 'Landscape') : (isMr ? 'उभा मोड' : 'Portrait')}
                 </div>
+                <div className="text-[9px] text-amber-400/90 font-mono mt-0.5">
+                  Media Query: @media ({width < 640 ? 'max-width: 639px' : width < 1024 ? 'min-width: 640px' : 'min-width: 1024px'})
+                </div>
               </div>
             </div>
             <button

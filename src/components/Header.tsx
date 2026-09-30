@@ -33,6 +33,7 @@ import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
 import { type User } from 'firebase/auth';
 import { useDeviceScreen } from '../utils/screenUtils';
+import { useIsMobile, useIsCompactLandscape, useIsTouchDevice } from '../hooks/useMediaQuery';
 
 export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq';
 
@@ -80,6 +81,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   // Live Screen & Device Detector Hook
   const { isFullscreen, toggleFullscreen, deviceType, width, isSupported: isFsSupported } = useDeviceScreen();
+  const isMobile = useIsMobile();
+  const isCompactLandscape = useIsCompactLandscape();
+  const isTouchDevice = useIsTouchDevice();
 
   const deviceLabelMr = deviceType === 'mobile' ? 'मोबाईल' : deviceType === 'tablet' ? 'टॅबलेट' : deviceType === 'laptop' ? 'लॅपटॉप' : 'पीसी';
   const deviceLabelEn = deviceType === 'mobile' ? 'Mobile' : deviceType === 'tablet' ? 'Tablet' : deviceType === 'laptop' ? 'Laptop' : 'Desktop PC';
@@ -129,7 +133,8 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       {/* Portal Top Bar / Announcement Banner - Responsive for Mobile, Tablet, Laptop, PC */}
-      <div className="bg-gradient-to-r from-amber-800 via-amber-900 to-stone-900 text-amber-50 px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-medium border-b border-amber-600/40 select-none">
+      {!isCompactLandscape && (
+        <div className="bg-gradient-to-r from-amber-800 via-amber-900 to-stone-900 text-amber-50 px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-medium border-b border-amber-600/40 select-none">
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto flex items-center justify-between gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
           <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
             <span className="bg-amber-950/80 text-amber-300 text-[10px] uppercase tracking-wider font-extrabold px-1.5 sm:px-2 py-0.5 rounded border border-amber-500/50 shrink-0">
@@ -181,6 +186,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </div>
+      )}
 
       <header className="sticky top-0 z-40 bg-stone-900/98 backdrop-blur-md border-b border-stone-800 text-stone-100 shadow-md">
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8">
@@ -418,19 +424,19 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-2.5 text-xs">
                       <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
                         <div className="font-bold text-amber-400 mb-0.5">
-                          {isMr ? '११५ व्याकरण नियम अद्ययावत 📚' : '115 High-Yield Grammar Rules 📚'}
+                          {isMr ? '११८ व्याकरण नियम अद्ययावत 📚' : '118 High-Yield Grammar Rules 📚'}
                         </div>
                         <p className="text-stone-300 text-[11px] leading-relaxed">
-                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Cope with (never up), Comprise (no of), Near vs Next यांसह ११५ नियम सज्ज आहेत.' : '115 Marathi & English grammar rules with Cope with, Comprise (no of), Near vs Next & MPSC shortcuts.'}
+                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Alms were, Congratulate on, The same as vs that यांसह ११८ नियम सज्ज आहेत.' : '118 Marathi & English grammar rules with Alms were, Congratulate on, The same as vs that & MPSC shortcuts.'}
                         </p>
                       </div>
 
                       <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
                         <div className="font-bold text-emerald-400 mb-0.5">
-                          {isMr ? 'डिव्हाइस अनुकूलन व पूर्ण स्क्रीन 🖥️' : 'Responsive View & Full Screen 🖥️'}
+                          {isMr ? 'मीडिया क्वेरी (Media Query) व अनुकूलन 🖥️' : 'Responsive Media Queries & useMediaQuery 🖥️'}
                         </div>
                         <p className="text-stone-300 text-[11px] leading-relaxed">
-                          {isMr ? 'मोबाईल, टॅबलेट, लॅपटॉप आणि पीसीवर आपोआप उत्तम स्क्रीन आकार आणि फुल स्क्रीन मोड उपलब्ध!' : 'Optimized viewport layout and 1-click full screen mode for all devices.'}
+                          {isMr ? 'मोबाईल, टॅबलेट, लॅपटॉप व पीसीसाठी CSS Media Queries आणि React useMediaQuery हुक लागू करण्यात आले आहेत.' : 'CSS Media Queries and useMediaQuery hook optimized for all mobile, tablet & desktop viewports.'}
                         </p>
                       </div>
                     </div>

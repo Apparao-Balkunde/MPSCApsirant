@@ -23,6 +23,7 @@ import { soundFx } from '../utils/audio';
 import { UserProgress } from '../types';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 import { useDeviceScreen } from '../utils/screenUtils';
+import { useIsTouchDevice } from '../hooks/useMediaQuery';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -173,8 +174,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   </div>
                   <p className="text-xs text-stone-500 mt-1 leading-relaxed">
                     {isMr
-                      ? `सध्याचा आकार: ${width} × ${height} px (${orientation === 'landscape' ? 'आडवा/Landscape' : 'उभा/Portrait'}). मोबाईल, टॅबलेट, लॅपटॉप व पीसीसाठी अनुकूलित.`
-                      : `Current Viewport: ${width} × ${height} px (${orientation}). Optimized for Mobile, Tablet, Laptop, and PC.`}
+                      ? `सध्याचा आकार: ${width} × ${height} px (${orientation === 'landscape' ? 'आडवा/Landscape' : 'उभा/Portrait'}). सक्रिय Media Query: @media (${width < 640 ? 'max-width: 639px' : width < 1024 ? 'min-width: 640px' : 'min-width: 1024px'}).`
+                      : `Current Viewport: ${width} × ${height} px (${orientation}). Active Media Query: @media (${width < 640 ? 'max-width: 639px' : width < 1024 ? 'min-width: 640px' : 'min-width: 1024px'}).`}
                   </p>
                 </div>
               </div>
