@@ -7627,8 +7627,127 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• वाक्यात "PASSING MARKS" दिसले ➔ लगेच "-ING" खोडून "PASS MARKS" करा!\n• वाक्यात "DRESSING SENSE" दिसले ➔ लगेच "-ING" खोडून "DRESS SENSE" करा!\n• वाक्यात "CENT PERCENT" दिसले ➔ खोडून "HUNDRED PERCENT" करा!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Pass marks', 'Dress sense', 'Indianisms', 'Colloquial Errors', 'MPSC Rules']
+  },
+
+  // --- 111. ADJECTIVES ENDING IN "-LY" vs ADVERBS OF MANNER: "COWARDLY", "MISERLY", "FRIENDLY" ---
+  {
+    id: 'en_rule_adjective_ending_ly_vs_adverb_01',
+    language: 'english',
+    category: 'Adjectives vs Adverbs',
+    categoryMr: 'विशेषण वि. क्रियाविशेषण: "-LY" ने संपणारी विशेषणे (Cowardly, Miserly, Friendly) आणि MPSC चा सर्वात कठीण Adverb ट्रॅप',
+    title: 'Adjective Concord: Words Ending in "-LY" (Noun + ly = Adjective: Cowardly, Miserly, Friendly) vs Adverbial Phrases ("In a cowardly manner")',
+    titleMr: '"-LY" लागल्यामुळे क्रियाविशेषण वाटणारी विशेषणे (Cowardly, Miserly, Friendly) आणि "In a ... manner" वापरण्याचा सुवर्ण नियम',
+    formula: '1. FUNDAMENTAL MORPHOLOGY RULE:\n   • Adjective + -ly = ADVERB (e.g. Brave ➔ Bravely, Swift ➔ Swiftly, Honest ➔ Honestly)\n   • Noun + -ly = ADJECTIVE! (e.g. Coward ➔ Cowardly, Miser ➔ Miserly, Friend ➔ Friendly, Scholar ➔ Scholarly)\n2. FATAL MPSC GRAMMAR ERROR:\n   • ❌ "The soldier fought cowardly." (FATAL ERROR! "Cowardly" is an adjective, cannot modify verb "fought")\n   • ✅ "The soldier fought IN A COWARDLY MANNER." (100% CORRECT!)\n   • ❌ "He behaves friendly with all colleagues." (FATAL ERROR!)\n   • ✅ "He behaves IN A FRIENDLY MANNER." (100% CORRECT!)\n   • ❌ "He spent his pension miserly." (FATAL ERROR!)\n   • ✅ "He spent his pension IN A MISERLY MANNER / LIKE A MISER." (100% CORRECT!)',
+    formulaMr: '१. व्याकरणातील मूळ फरक:\n   • Adjective (विशेषण) + -ly = Adverb (क्रियाविशेषण): जसे की Brave ➔ Bravely (शौर्याने), Slow ➔ Slowly.\n   • Noun (नाम) + -ly = ADJECTIVE (विशेषण!): जसे की Friend ➔ Friendly (मित्रत्वाचे), Coward ➔ Cowardly (भ्याड), Miser ➔ Miserly (कंजूष), Brother ➔ Brotherly.\n२. MPSC चा सर्वात कठीण स्पॉटिंग एरर:\n   • हे शब्द विशेषण (Adjectives) असल्याने ते थेट क्रियापदाचे वर्णन (Adverb म्हणून) करू शकत नाहीत!\n   • ❌ "The police officer behaved cowardly" (१००% चूक!)\n   • ✅ "The police officer behaved IN A COWARDLY MANNER" (बरोबर!).\n   • ❌ "He talked friendly with me" (चूक!) ➔ ✅ "He talked IN A FRIENDLY MANNER" (बरोबर!).\n   • ❌ "The old man lives miserly" (चूक!) ➔ ✅ "The old man lives IN A MISERLY MANNER" (बरोबर!).',
+    definition: 'In advanced prescriptive English syntax and competitive examination evaluation (MPSC Rajyaseva, PSI/STI/ASO, UPSC CDS), examiners test the morphological distinction between adverbs and adjectives ending in "-ly":\n\n1. THE "NOUN + LY = ADJECTIVE" LAW:\nWhile appending the suffix "-ly" to a descriptive adjective generates an adverb of manner (quick ➔ quickly, sincere ➔ sincerely), appending "-ly" to a NOUN systematically produces a DESCRIPTIVE ADJECTIVE, NOT AN ADVERB:\n• Friend (noun) + ly = Friendly (adjective: "a friendly smile")\n• Coward (noun) + ly = Cowardly (adjective: "a cowardly act")\n• Miser (noun) + ly = Miserly (adjective: "a miserly trader")\n• Scholar (noun) + ly = Scholarly (adjective: "a scholarly book")\n• Gentleman (noun) + ly = Gentlemanly (adjective)\n\n2. REQUIRING ADVERBIAL PHRASES:\nBecause these words are grammatically adjectives, they CANNOT modify a verb directly. To employ them adverbially to modify an action, English requires the circumlocution "in a + adjective + manner / way":\n• ❌ "The captured deserter behaved cowardly." ➔ ERROR!\n• ✅ "The captured deserter behaved IN A COWARDLY MANNER." ➔ CORRECT!\n• ❌ "The tribal villagers welcomed the district collector friendly." ➔ ERROR!\n• ✅ "The tribal villagers welcomed the district collector IN A FRIENDLY MANNER." ➔ CORRECT!',
+    definitionMr: 'MPSC मधील सर्व उमेदवारांना फसवणारा हा सर्वात महत्त्वाचा नियम आहे. सामान्यतः विद्यार्थ्यांना असे वाटते की ज्या शब्दाच्या शेवटी "-ly" असतो, तो क्रियाविशेषण (Adverb) असतो; परंतु इंग्रजी व्याकरणात:\n\n१. नामाला (Noun) "-ly" लावल्यास तो ADJECTIVE (विशेषण) बनतो:\n• Coward (नाम) + ly = Cowardly (भ्याड - विशेषण)\n• Miser (नाम) + ly = Miserly (कंजूष - विशेषण)\n• Friend (नाम) + ly = Friendly (स्नेही - विशेषण)\n• Scholar (नाम) + ly = Scholarly (विद्वत्तापूर्ण - विशेषण)\n\n२. नियमाचा वापर:\n• विशेषण असल्याने हे शब्द नामाआधी येऊ शकतात (उदा. "a cowardly man", "a friendly neighbor").\n• परंतु ते क्रियापदाची क्रिया कशी घडली हे सांगू शकत नाहीत!\n• क्रियापदासाठी क्रियाविशेषण हवे असल्यास नेहमी **"in a cowardly manner"**, **"in a friendly manner"** किंवा **"in a miserly way"** अशीच रचना करावी लागते.\n• परीक्षेमध्ये "He fought cowardly" किंवा "He treated me friendly" असे देऊन चूक विचारली जाते.',
+    keyPoints: [
+      '"The sentry abandoned his post and acted IN A COWARDLY MANNER" (NOT "acted cowardly").',
+      '"The local villagers received the visiting dignitaries IN A FRIENDLY MANNER" (NOT "received friendly").',
+      '"Despite possessing immense wealth, the landlord lived IN A MISERLY MANNER" (NOT "lived miserly").',
+      '"Remember: Noun + ly = Adjective! To modify a verb, you MUST write \'in a ... manner\'."'
+    ],
+    keyPointsMr: [
+      '१. Cowardly, Miserly, Friendly, Scholarly हे क्रियाविशेषण (Adverb) नसून विशेषण (Adjective) आहेत!\n२. क्रियापदाचे वर्णन करताना "in a cowardly manner", "in a friendly manner" अशीच रचना करावी लागते.\n३. ❌ "The soldier fought cowardly" ➔ घोडचूक!\n४. ✅ "The soldier fought in a cowardly manner" ➔ १००% बरोबर!'
+    ],
+    examples: [
+      {
+        sentence: 'When faced with the armed militants, the corrupt constable acted in a cowardly manner and fled the checkpoint.',
+        isCorrect: true,
+        explanation: 'Correct! "In a cowardly manner" correctly provides the required adverbial prepositional phrase.',
+        explanationMr: 'बरोबर! "cowardly" हे विशेषण असल्याने "in a cowardly manner" ही क्रियाविशेषण रचना १००% अचूक आहे.'
+      },
+      {
+        sentence: 'When faced with the armed militants, the corrupt constable acted cowardly and fled the checkpoint.',
+        isCorrect: false,
+        explanation: 'Incorrect! Fatal MPSC Trap: "Cowardly" is an adjective, NOT an adverb. You must write "in a cowardly manner".',
+        explanationMr: 'चूक! MPSC चा सर्वात कठीण ट्रॅप: "cowardly" हे विशेषण आहे; ते क्रियापदासोबत थेट येत नाही, "in a cowardly manner" हवे.'
+      },
+      {
+        sentence: 'The new tehsildar greeted all the visiting farmers in a friendly manner.',
+        isCorrect: true,
+        explanation: 'Correct! "In a friendly manner" functions properly as an adverbial adjunct.',
+        explanationMr: 'बरोबर! शेतकऱ्यांचे स्वागत कसे केले हे सांगण्यासाठी "in a friendly manner" ही रचना अचूक आहे.'
+      },
+      {
+        sentence: 'The new tehsildar greeted all the visiting farmers friendly.',
+        isCorrect: false,
+        explanation: 'Incorrect! "Friendly" cannot modify the verb "greeted". It must be "in a friendly manner".',
+        explanationMr: 'चूक! "greeted" या क्रियापदानंतर "friendly" थेट चालत नाही; "in a friendly manner" हवे.'
+      }
+    ],
+    exceptions: [
+      'Words like "fast", "hard", "early", and "late" can function as both adjectives and adverbs without any "-ly" change (e.g., "a fast train" vs "he ran fast"). Never say "fastly"!'
+    ],
+    exceptionsMr: [
+      'Fast, hard, late हे शब्द विशेषण आणि क्रियाविशेषण दोन्ही म्हणून जसेच्या तसे काम करतात (उदा. He ran fast; "fastly" असा शब्द नसतो!).'
+    ],
+    examTip: 'MPSC 1-Second "-LY" Adjective Formula:\n• Spot "fought cowardly" ➔ ERROR! Change to "fought IN A COWARDLY MANNER"!\n• Spot "behaved friendly" ➔ ERROR! Change to "behaved IN A FRIENDLY MANNER"!\n• Spot "lived miserly" ➔ ERROR! Change to "lived IN A MISERLY MANNER"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• वाक्यात "fought cowardly" दिसले ➔ चूक! लगेच "in a cowardly manner" करा!\n• वाक्यात "behaved friendly" दिसले ➔ चूक! लगेच "in a friendly manner" करा!\n• वाक्यात "spent miserly" दिसले ➔ चूक! लगेच "in a miserly manner" करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Adjectives ending in ly', 'Cowardly vs in a cowardly manner', 'Adverbs of manner', 'Miserly', 'MPSC Rules']
+  },
+
+  // --- 112. VERB DIFFERENTIATION: "DROWN" (LIVING BEINGS) vs "SINK" (INANIMATE OBJECTS) ---
+  {
+    id: 'en_rule_drown_vs_sink_01',
+    language: 'english',
+    category: 'Irregular Verbs & Confusion',
+    categoryMr: 'क्रियापदे व शब्दभेद: "DROWN" (सजीव पाण्यात बुडणे/मरणे) वि. "SINK" (निर्जीव वस्तू/जहाज पाण्यात बुडणे) चा MPSC सुवर्ण नियम',
+    title: 'Semantic Animacy Concord: "DROWN" (Living Beings Die by Water Suffocation) vs "SINK" (Inanimate Objects Submerge)',
+    titleMr: '"DROWN" (माणसे किंवा सजीव पाण्यात बुडून मरणे) विरुद्ध "SINK" (जहाज किंवा निर्जीव वस्तू पाण्यात बुडणे) चा फरक व ट्रॅप',
+    formula: '1. DROWN (FOR LIVING BEINGS - HUMANS & ANIMALS):\n   • Forms: Drown (V1) ➔ Drowned (V2) ➔ Drowned (V3)\n   • Meaning: To die or suffocate by submersion under water.\n   • ❌ "The passenger ship drowned in the violent storm." (FATAL MPSC BLUNDER!)\n   • ❌ "Two innocent children sank in the river." (FATAL MPSC BLUNDER!)\n   • ✅ "Two innocent children DROWNED in the river." (100% CORRECT!)\n2. SINK (FOR INANIMATE OBJECTS - SHIPS, BOATS, STONES, COINS):\n   • Forms: Sink (V1) ➔ Sank (V2) ➔ Sunk (V3)\n   • Meaning: To submerge or go down beneath the surface of liquid.\n   • ✅ "The passenger ship SANK in the violent storm." (100% CORRECT!)\n   • ✅ "The heavy anchor SANK to the bottom of the sea."',
+    formulaMr: '१. DROWN = सजीव प्राणी किंवा व्यक्ती पाण्यात बुडून मरणे:\n   • रूपे: Drown ➔ भूतकाळ: Drowned ➔ ३ रे रूप: Drowned.\n   • सजीवांचा पाण्यात श्वास कोंडून मृत्यू होतो, म्हणून सजीवांसाठी नेहमी **DROWN / DROWNED** वापरतात.\n   • ❌ "Three fishermen sank in the ocean" (MPSC मधील १००% घोडचूक!) ➔ ✅ "Three fishermen DROWNED in the ocean" (बरोबर!).\n२. SINK = निर्जीव वस्तू (जहाज, बोट, दगड, नाणे) पाण्यात बुडणे / तळाला जाणे:\n   • रूपे: Sink ➔ भूतकाळ: Sank ➔ ३ रे रूप: Sunk.\n   • निर्जीव वस्तूंना जीव नसल्याने त्या कधीही "drown" होत नाहीत; त्या नेहमी **SINK / SANK / SUNK** होतात!\n   • ❌ "The cargo boat drowned near Mumbai port" (१००% चूक!) ➔ ✅ "The cargo boat SANK near Mumbai port" (बरोबर!).',
+    definition: 'In standard prescriptive English lexicography and competitive civil service examinations (MPSC Rajyaseva, Combined Group B/C, SSC CGL), the verbs "DROWN" and "SINK" observe a strict animacy dichotomy:\n\n1. "DROWN" (Applicable Only to Living Entities):\n"Drown" specifically denotes death caused by the inhalation of water into the respiratory system. Because inanimate non-breathing vessels cannot asphyxiate, applying "drown" to inanimate objects (such as cargo ships, ferries, submarines, or iron anchors) is a severe conceptual and grammatical blunder:\n• "Tragically, five youths DROWNED while swimming in the flooded reservoir."\n\n2. "SINK" (Applicable to Inanimate Physical Objects & Vessels):\n"Sink" (past tense "sank", past participle "sunk") signifies descending below the surface or falling to the bottom of a liquid due to gravity or loss of buoyancy:\n• "The battleship SANK within twenty minutes after the torpedo strike."\n\n3. THE PASSIVE CAUSATIVE EXCEPTION:\nA living creature can be said to be "sunk" ONLY in metaphorical or poetic usages (e.g. "sunk in meditation"), but physical submersion causing fatal drowning strictly takes "drown". If a ship goes down with passengers: "The ship SANK, and thirty passengers were DROWNED."',
+    definitionMr: 'MPSC परीक्षेत "Confusing Verbs" या घटकातून "Drown vs Sink" वर अनेक वेळा प्रश्न आले आहेत. यातील मूलभूत फरक अत्यंत सोपा आहे:\n\n१. DROWN (सजीवांसाठी):\n• मनुष्य किंवा प्राणी पाण्यात बुडून मरण पावल्यास नेहमी **DROWN** (भूतकाळ: **DROWNED**) हाच शब्द येतो.\n• परीक्षेत मुद्दाम "A boy sank in the well" असे दिले जाते; माणसासाठी "sank" चालत नाही, तिथे "drowned" हवे!\n\n२. SINK (निर्जीवांसाठी):\n• जहाज, बोट, दगड किंवा कोणतीही वस्तू पाण्यात बुडाल्यास **SINK** (भूतकाळ: **SANK**, ३ रे रूप: **SUNK**) येतो.\n• जहाजाला श्वास नसतो, त्यामुळे "The boat drowned" हे वाक्य इंग्रजीत हास्यास्पद मानले जाते; तिथे "The boat sank" असेच हवे!\n\n३. संयुक्त वाक्य (MPSC मधील क्लासिक उदाहरण):\n• "The ship SANK and fifty sailors were DROWNED" (जहाज बुडाले म्हणून sank, आणि खलाशी बुडून मरण पावले म्हणून drowned!).',
+    keyPoints: [
+      '"The pleasure boat SANK in the Arabian Sea, but luckily all the passengers were rescued before they DROWNED" (Boat sank | People drowned).',
+      '"Never say \'The Titanic was drowned\' — an inanimate vessel strictly \'SANK\'.',
+      '"A non-swimmer who falls into deep water risks being DROWNED (NOT sunk).',
+      '"Forms: Sink ➔ Sank ➔ Sunk (Objects) | Drown ➔ Drowned ➔ Drowned (Living Beings)."'
+    ],
+    keyPointsMr: [
+      '१. मनुष्य किंवा प्राणी पाण्यात बुडून मेला ➔ DROWNED.\n२. जहाज किंवा बोट पाण्यात बुडाली ➔ SANK.\n३. दगड किंवा नाणे पाण्यात बुडाले ➔ SANK / SUNK.\n४. MPSC सुवर्ण वाक्य: "The ship sank and many sailors were drowned"!'
+    ],
+    examples: [
+      {
+        sentence: 'During the monsoon flash flood in Pune, the wooden bridge collapsed and three parked trucks sank into the gushing river.',
+        isCorrect: true,
+        explanation: 'Correct! Inanimate motor vehicles descending under water are properly described with "sank".',
+        explanationMr: 'बरोबर! ट्रक्स ही निर्जीव वाहने असल्याने पाण्यात बुडण्यासाठी "sank" हे रूप अगदी योग्य आहे.'
+      },
+      {
+        sentence: 'During the monsoon flash flood in Pune, three parked trucks drowned into the gushing river.',
+        isCorrect: false,
+        explanation: 'Incorrect! Inanimate objects cannot "drown" (which requires lungs). They "sink" (past tense: "sank").',
+        explanationMr: 'चूक! वाहनांना फुफ्फुसे नसतात; त्यामुळे ती "drowned" होत नाहीत, "sank" होतात.'
+      },
+      {
+        sentence: 'A courageous police constable plunged into the swollen canal and rescued a farmer from being drowned.',
+        isCorrect: true,
+        explanation: 'Correct! Living human beings submerged in water take the verb "drown".',
+        explanationMr: 'बरोबर! जिवंत माणसाचा पाण्यात जीव जाण्याच्या धोक्यासाठी "drowned" योग्य आहे.'
+      },
+      {
+        sentence: 'A courageous police constable plunged into the swollen canal and rescued a farmer from being sunk.',
+        isCorrect: false,
+        explanation: 'Incorrect! Human victims of water immersion take "drowned", never "sunk".',
+        explanationMr: 'चूक! माणसासाठी "sunk" वापरणे अशुद्ध आहे; "drowned" हवे.'
+      }
+    ],
+    exceptions: [
+      'Metaphorical usage: A person can be "sunk in grief" (दुःखात बुडालेला) or "sunk in debt" (कर्जात बुडालेला), but physical submersion in liquid causing death is strictly "drown".'
+    ],
+    exceptionsMr: [
+      'अलंकारिक भाषेत "sunk in thought" (विचारात गढलेला) किंवा "sunk in debt" (कर्जात बुडालेला) म्हणतात; परंतु प्रत्यक्ष पाण्यात बुडून मरण्यासाठी फक्त "Drown" च येतो.'
+    ],
+    examTip: 'MPSC 1-Second Animacy Test:\n• Is it a SHIP / BOAT / TRUCK / COIN? ➔ Pick SINK / SANK / SUNK!\n• Is it a PERSON / PASSENGER / CHILD / ANIMAL? ➔ Pick DROWN / DROWNED!\n• If you see "The ship drowned", strike "drowned" and write "sank"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• जहाज, बोट, गाडी किंवा दगड असेल (Ship / Boat / Truck / Coin) ➔ SANK / SUNK निवडा!\n• मनुष्य, प्रवासी, मूल किंवा प्राणी असेल (Person / Boy / Passenger / Animal) ➔ DROWNED निवडा!\n• वाक्यात "The ship drowned" दिसल्यास विचारही करू नका; डोळे झाकून तीच १००% घोडचूक मार्क करा (तिथे "sank" हवे)!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Drown vs Sink', 'Confusing Verbs', 'Animacy Concord', 'Irregular Verbs', 'MPSC Rules']
   }
 ];
+
 
 
 
