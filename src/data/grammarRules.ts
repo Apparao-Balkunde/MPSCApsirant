@@ -7841,6 +7841,93 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा क्लृप्ती:\n• वाक्यात \"Consequently\" (परिणामी) दिसले ➔ त्याच्या अगदी आधीचे \"कारण\" असणारे वाक्य शोधा आणि त्यांची जोडी बनवा!\n• वाक्यात \"However\" (परंतु) दिसले ➔ त्याच्या अगदी आधी समस्या नसलेले सकारात्मक वाक्य शोधा!\n• उपाययोजना किंवा सरकारी निर्णय असणारे वाक्य सहसा शेवटी येते, हे लक्षात ठेवून पर्यायांची फेररचना करा!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Para Jumbles', 'Discourse Markers', 'Cause and Effect', 'Sentence Rearrangement', 'MPSC Rules']
+  },
+
+  // --- 115. PARA JUMBLES (S1 & S6 FIXED ANCHORS): THE BRACKET TECHNIQUE ---
+  {
+    id: 'en_rule_parajumble_s1_s6_fixed_anchors_01',
+    language: 'english',
+    category: 'Sentence Rearrangement & Para Jumbles',
+    categoryMr: 'पॅराजंबल्स (S1 व S6 फिक्स पॅटर्न): पहिले (S1) व शेवटचे (S6) वाक्य निश्चित असताना P, Q, R, S क्रमवारी लावण्याची पद्धत (मराठी अर्थासह)',
+    title: 'Para Jumbles: S1 & S6 Fixed Anchors (The "Bracket" Technique for P-Q-R-S Rearrangement)',
+    titleMr: 'पॅराजंबल्स (S1 व S6 फिक्स पॅटर्न): पहिले वाक्य (S1) आणि शेवटचे वाक्य (S6) दिले असताना मधली P, Q, R, S वाक्ये अचूक जोडण्याची ब्रॅकेट पद्धत',
+    formula: "THE S1 - [P, Q, R, S] - S6 BRACKET FORMULA:\n1. S1 TO OPENING LINK: Look for the immediate continuation of S1 (find which sentence P/Q/R/S directly answers or elaborates S1's subject).\n2. S6 PRECEDING LINK: Look for which sentence P/Q/R/S directly leads into S6 (often a climax, reason, or consequence).\n3. INTERNAL MANDATORY PAIR: Link the remaining two sentences using noun-pronoun, time, or cause-effect clues.\n4. ELIMINATION: Check options that start with your chosen first letter (e.g. if P follows S1, immediately eliminate options starting with Q, R, S).",
+    formulaMr: "S1 - [P, Q, R, S] - S6 सोडवण्याची ब्रॅकेट पद्धत:\n१. S1 नंतरचे पहिले वाक्य शोधणे: S1 मध्ये मांडलेल्या मूळ कल्पनेला किंवा कर्त्याला P, Q, R, S पैकी कोणते वाक्य थेट पुढे नेते ते शोधा.\n२. S6 च्या आधीचे वाक्य शोधणे: S6 मध्ये शेवट किंवा निष्कर्ष दिलेला असतो; त्या निष्कर्षाकडे नेणारे शेवटचे पाऊल P, Q, R, S पैकी कोणते आहे ते तपासा.\n३. अंतर्गत जोडी (Internal Mandatory Pair): उरलेल्या दोन वाक्यांमध्ये नाम-सर्वनाम किंवा कालक्रम जोडी बनवा.\n४. पर्यायांचा वापर: S1 नंतर जर P येत असेल, तर Q, R, S ने सुरू होणारे पर्याय ताबडतोब बाद करा!",
+    definition: "In MPSC Rajyaseva, PSI/STI/ASO, and SSC exams, the 'S1-S6' format anchors the first sentence (S1) and the sixth sentence (S6), asking candidates to rearrange the intermediate four sentences labeled P, Q, R, and S. Because the outer boundaries are fixed, candidates possess two powerful anchor clues: the forward hook from S1 and the backward hook into S6.",
+    definitionMr: "MPSC च्या इंग्रजी प्रश्नपत्रिकेत 'S1 व S6' हा प्रकार वारंवार विचारला जातो. यात पहिले वाक्य (S1) आणि शेवटचे वाक्य (S6) त्यांच्या मूळ जागी स्थिर असतात, आणि मधल्या चार वाक्यांचा (P, Q, R, S) क्रम विस्कळीत केलेला असतो.\n\nही वाक्ये सोडवताना संपूर्ण परिच्छेद वाचण्याऐवजी S1 नंतर लगेच कोणती क्रिया घडते (Forward Link) आणि S6 च्या आधी नेमकी कोणती घटना घडते (Backward Link) हे शोधून अवघ्या काही सेकंदांत बरोबर उत्तराचा पर्याय निवडता येतो.",
+    keyPoints: [
+      '"S1 Hook: Identify the exact noun or idea in S1; find the pronoun or elaboration in P, Q, R, or S that directly attaches to it."',
+      '"S6 Lead-in: S6 often begins with Hence, Therefore, Thus, Finally, or expresses the ultimate outcome; find the sentence immediately causing S6."',
+      '"Option First Letter Test: If you identify the sentence following S1 (say, Q), eliminate all options not starting with Q."',
+      '"Option Last Letter Test: If you identify the sentence preceding S6 (say, S), eliminate all options not ending with S."'
+    ],
+    keyPointsMr: [
+      '१. S1 चा संदर्भ: S1 मधील नाम किंवा संकल्पनेला पुढे नेणारे वाक्य (P, Q, R, S पैकी) लगेच शोधा.',
+      '२. S6 चे पूर्वगामी वाक्य: S6 मध्ये जर "Hence" किंवा निष्कर्ष असेल, तर S6 च्या आधी नेमके कोणते वाक्य येईल ते ओळखा.',
+      '३. पर्यायांची सुरुवात: S1 नंतर येणारे वाक्य समजताच चुकीचे पर्याय लगेच खोडा.',
+      '४. पर्यायांचा शेवट: S6 च्या आधी येणारे वाक्य समजताच पर्यायांचे शेवटचे अक्षर तपासा.'
+    ],
+    examples: [
+      {
+        sentence: "Rearrange P, Q, R, S between S1 and S6 in the correct logical sequence:\n\n[S1] Chhatrapati Shivaji Maharaj realized that controlling the sea was vital for safeguarding the Konkan coastline.\n[P] To fulfill this maritime vision, he commenced the construction of the formidable sea fort of Sindhudurg at Malvan in 1664.\n[Q] He personally selected a rocky island called Kurte after traditional engineers verified its solid bedrock foundation.\n[R] Thousands of skilled stone masons, divers, and blacksmiths laboured tirelessly using molten lead to secure the submerged ramparts.\n[S] Within three grueling years of engineering genius, the maritime fortress stood impregnable against Portuguese and British naval assaults.\n[S6] Hence, modern historians rightfully revere Shivaji Maharaj as the Father of the Indian Navy.\n\nCorrect Sequence: P - Q - R - S",
+        isCorrect: true,
+        explanation: "Step-by-Step Logic:\n1. S1 states Shivaji Maharaj's realization regarding sea control. Sentence P immediately links to this vision: 'To fulfill this maritime vision, he commenced construction...'. Therefore, P must follow S1.\n2. Sentence Q describes site selection ('He personally selected Kurte island'). This must precede actual construction work.\n3. Sentence R describes the construction effort ('Thousands of masons laboured using molten lead').\n4. Sentence S describes completion ('Within three years, the fortress stood impregnable'). Sentence S naturally connects into S6 ('Hence, historians revere him as Father of the Indian Navy').\nTherefore, the sequence is P-Q-R-S.",
+        explanationMr: "मराठीत सविस्तर वाक्य-दर-वाक्य अर्थ व अचूक क्रमवारी:\n\n[S1] Chhatrapati Shivaji Maharaj realized that controlling the sea was vital for safeguarding the Konkan coastline.\n➔ मराठी अर्थ: छत्रपती शिवाजी महाराजांना जाणीव झाली की कोकण किनारपट्टीच्या रक्षणासाठी समुद्रावर नियंत्रण असणे अत्यंत आवश्यक आहे.\n\n[P] To fulfill this maritime vision, he commenced the construction of the formidable sea fort of Sindhudurg at Malvan in 1664.\n➔ मराठी अर्थ: ही सागरी दूरदृष्टी प्रत्यक्षात आणण्यासाठी त्यांनी १६६४ मध्ये मालवण येथे 'सिंधुदुर्ग' या अजिंक्य जलदुर्गाचे बांधकाम सुरू केले.\n\n[Q] He personally selected a rocky island called Kurte after traditional engineers verified its solid bedrock foundation.\n➔ मराठी अर्थ: पारंपारिक तज्ज्ञांनी खडकाळ पाया तपासल्यानंतर त्यांनी स्वतः 'कुर्ते' नावाच्या खडकाळ बेटाची निवड केली.\n\n[R] Thousands of skilled stone masons, divers, and blacksmiths laboured tirelessly using molten lead to secure the submerged ramparts.\n➔ मराठी अर्थ: हजारो कुशल पाथरवट, पाणबुडे आणि लोहारांनी समुद्रात बुडालेल्या तटबंदीला वितळलेल्या शिशाचा वापर करून घट्ट बसवण्यासाठी अहोरात्र कष्ट केले.\n\n[S] Within three grueling years of engineering genius, the maritime fortress stood impregnable against Portuguese and British naval assaults.\n➔ मराठी अर्थ: अभियांत्रिकी कौशल्याच्या अवघ्या तीन वर्षांत हा सागरी किल्ला पोर्तुगीज आणि ब्रिटिश आरमाराच्या हल्ल्यांविरुद्ध अजिंक्य ठरला.\n\n[S6] Hence, modern historians rightfully revere Shivaji Maharaj as the Father of the Indian Navy.\n➔ मराठी अर्थ: म्हणूनच आधुनिक इतिहासकार छत्रपती शिवाजी महाराजांचा 'भारतीय आरमाराचे जनक' म्हणून यथोचित गौरव करतात.\n\n🎯 क्रम कसा ठरवला:\n१. S1 नंतर P येतो: S1 मधील सागरी सुरक्षेचा विचार पूर्ण करण्यासाठी जलदुर्गाचे बांधकाम सुरू झाले (P मध्ये 'To fulfill this maritime vision' हा थेट संदर्भ आहे).\n२. P नंतर Q: किल्ला बांधण्यासाठी आधी जागेची निवड झाली (Q मध्ये बेटाची निवड).\n३. Q नंतर R: जागा निवडल्यावर हजारो कारागिरांनी बांधकाम सुरू केले (R मध्ये बांधकाम वर्णन).\n४. R नंतर S: बांधकामानंतर ३ वर्षांत किल्ला तयार झाला (S मध्ये किल्ला उभा राहिला).\n५. S नंतर S6: किल्ला उभा राहून आरमार अजिंक्य ठरल्यामुळेच S6 मध्ये महाराजांना 'भारतीय आरमाराचे जनक' म्हटले गेले (S-S6 नैसर्गिक सांगता).\n➔ म्हणून अचूक क्रम: P - Q - R - S!"
+      }
+    ],
+    exceptions: [
+      'In some questions, S1 introduces two parallel subjects (e.g. agriculture and industry), in which case P, Q, R, S will address them sequentially before S6 synthesizes them.'
+    ],
+    exceptionsMr: [
+      'जर S1 मध्ये दोन मुद्द्यांचा उल्लेख असेल (उदा. शेती आणि उद्योग), तर मधल्या वाक्यांमध्ये आधी एकाचा व नंतर दुसऱ्याचा क्रम येतो.'
+    ],
+    examTip: "MPSC S1-S6 Bracket Elimination Formula:\n1. Find the sentence immediately continuing S1 ➔ Eliminate 2 options instantly!\n2. Find the sentence immediately preceding S6 ➔ Select the final correct option without reading every word!",
+    examTipMr: "MPSC S1-S6 ब्रॅकेट क्लृप्ती:\n१. S1 च्या पुढचे लगेच येणारे वाक्य ओळखा ➔ २ पर्याय लगेच बाद होतात!\n२. S6 च्या आधी येणारे वाक्य ओळखा ➔ उरलेल्या दोन पर्यायांतून लगेच अंतिम उत्तर मिळते!",
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Para Jumbles', 'S1 S6 Pattern', 'Sentence Rearrangement', 'Bracket Technique', 'MPSC Rules']
+  },
+
+  // --- 116. PARA JUMBLES: GENERAL-TO-SPECIFIC INVERTED PYRAMID ---
+  {
+    id: 'en_rule_parajumble_general_to_specific_pyramid_02',
+    language: 'english',
+    category: 'Sentence Rearrangement & Para Jumbles',
+    categoryMr: "पॅराजंबल्स: 'General to Specific' (व्यापक संकल्पनेकडून स्थानिक सुधारणेकडे) मांडणीचा सुवर्ण नियम (मराठी अर्थ व स्पष्टीकरण)",
+    title: 'Para Jumbles: The "General-to-Specific" Inverted Pyramid Law (Universal Concept ➔ National Context ➔ Local Reform)',
+    titleMr: "पॅराजंबल्स (A, B, C, D): 'General to Specific' (व्यापक वैश्विक कल्पनेकडून विशिष्ट ऐतिहासिक घटनेकडे) मांडणीची पद्धत",
+    formula: "THE INVERTED PYRAMID DISCOURSE PROGRESSION:\n1. UNIVERSAL / PHILOSOPHICAL TRUTH: Broad statement about humanity, democracy, science, or education.\n2. HISTORICAL / REGIONAL CONTEXT: How this broad concept was challenged or situated in a specific era/state.\n3. SPECIFIC AGENT / CATALYST: The leader, law, committee, or initiative formed to address it.\n4. CONCRETE RESULT / MILESTONE: The specific institution, date, outcome, or statute established.",
+    formulaMr: "उलटा पिरॅमिड मांडणी नियम (General to Specific):\n१. व्यापक / वैश्विक सत्य (Universal Statement): शिक्षण, विज्ञान, स्वातंत्र्य किंवा मानवी हक्कांबद्दलचे व्यापक विधान.\n२. विशिष्ट ऐतिहासिक किंवा प्रादेशिक संदर्भ: त्या काळात किंवा महाराष्ट्रात असलेली परिस्थिती/समस्या.\n३. प्रत्यक्ष समाजसुधारक किंवा निर्णय: त्या समस्येवर मात करण्यासाठी व्यक्तीने घेतलेला पुढाकार.\n४. ठोस ऐतिहासिक घटना / तारीख / निकाल: त्यातून स्थापन झालेली संस्था किंवा मिळालेला परिणाम.",
+    definition: "Standard English expository prose follows an inverted pyramid architecture moving systematically from universal, timeless abstractions down to concrete, time-bound historical events. When rearranging sentences dealing with social reform, philosophy, governance, or science, candidates should position the broadest universal claim first and the specific local milestone last.",
+    definitionMr: "इंग्रजी निबंध आणि परिच्छेदांमध्ये नेहमी 'व्यापक संकल्पनेकडून विशिष्ट घटनेकडे' (General to Specific) असा प्रवास होतो. पॅराजंबल्स सोडवताना सर्वात व्यापक, वैश्विक किंवा तात्त्विक वाक्य आधी येते; त्यानंतर त्या देशातील/काळातील परिस्थिती येते; त्यानंतर समाजसुधारक किंवा नेत्याचा निर्णय येतो; आणि शेवटी स्थापन झालेली शाळा/संस्था किंवा घटना येते.",
+    keyPoints: [
+      '"Broadest statement is first: A universal statement about education or justice always precedes specific events in Pune or Mumbai."',
+      '"Problem precedes Reformer: The social evil (denial of education) must be stated before the reformer resolves to abolish it."',
+      '"Reformer precedes Foundation: The resolution to build a school must precede the mention of the actual school opening."',
+      '"Specific Dates (e.g. 1848) usually conclude the sequence as the culmination of the reform process."'
+    ],
+    keyPointsMr: [
+      '१. सर्वात व्यापक वाक्य पहिले: शिक्षणाचे वैश्विक महत्त्व सांगणारे वाक्य हे नेहमी पुणे किंवा महाराष्ट्रातील घटनेच्या आधी येते.',
+      '२. समस्या आधी, सुधारक नंतर: समाजातील वाईट रूढी आधी मांडली जाते, मग सुधारक त्यावर उपाय शोधतात.',
+      '३. विचार आधी, कृती नंतर: आधी शाळा सुरू करण्याचा निर्धार येतो, मग प्रत्यक्ष शाळा सुरू होते.',
+      '४. विशिष्ट तारीख/वर्ष: १ जानेवारी १८४८ सारखी अचूक तारीख ही परिच्छेदाचा अंतिम निकाल असते.'
+    ],
+    examples: [
+      {
+        sentence: "Arrange the sentences (A, B, C, D) in the correct logical sequence:\n\n[A] Recognizing that women's emancipation was impossible without knowledge, Mahatma Jyotirao Phule and Krantijyoti Savitribai Phule resolved to shatter this age-old orthodoxy.\n[B] Education has globally been acknowledged as the most transformative instrument for human dignity and social justice.\n[C] Consequently, on January 1, 1848, they established India's first indigenous school for girls at Bhidewada in Pune.\n[D] In nineteenth-century Maharashtra, however, retrograde social barriers categorically denied formal schooling to women and oppressed castes.\n\nCorrect Sequence: B - D - A - C",
+        isCorrect: true,
+        explanation: "Step-by-Step Logic:\n1. Sentence B states the broad universal truth about education ('Education has globally been acknowledged...'). This is the overarching general theme and MUST OPEN the paragraph.\n2. Sentence D narrows the context to 19th-century Maharashtra and introduces the dark reality of educational deprivation ('In nineteenth-century Maharashtra, however, social barriers denied schooling...').\n3. Sentence A introduces the reformers' response ('Recognizing that emancipation was impossible, Phule resolved to shatter orthodoxy...').\n4. Sentence C provides the historical culmination starting with 'Consequently' ('Consequently, on January 1, 1848, they established the school at Bhidewada...').\nTherefore, the sequence is B-D-A-C.",
+        explanationMr: "मराठीत सविस्तर वाक्य-दर-वाक्य अर्थ व क्रम स्पष्टीकरण:\n\n[A] Recognizing that women's emancipation was impossible without knowledge, Mahatma Jyotirao Phule and Krantijyoti Savitribai Phule resolved to shatter this age-old orthodoxy.\n➔ मराठी अर्थ: ज्ञानाशिवाय महिलांची मुक्ती अशक्य आहे हे ओळखून महात्मा जोतीराव फुले आणि क्रांतिज्योती सावित्रीबाई फुले यांनी ही शतकानुशतके चाललेली रूढी मोडून काढण्याचा निर्धार केला.\n\n[B] Education has globally been acknowledged as the most transformative instrument for human dignity and social justice.\n➔ मराठी अर्थ: शिक्षणाला जागतिक स्तरावर मानवी प्रतिष्ठा आणि सामाजिक न्यायाचे सर्वात प्रभावी परिवर्तनाचे साधन मानले गेले आहे.\n\n[C] Consequently, on January 1, 1848, they established India's first indigenous school for girls at Bhidewada in Pune.\n➔ मराठी अर्थ: परिणामी, १ जानेवारी १८४८ रोजी त्यांनी पुण्यातील भिडेवाड्यात भारतातील मुलींची पहिली देशी शाळा स्थापन केली.\n\n[D] In nineteenth-century Maharashtra, however, retrograde social barriers categorically denied formal schooling to women and oppressed castes.\n➔ मराठी अर्थ: तथापि, एकोणिसाव्या शतकातील महाराष्ट्रात प्रतिगामी सामाजिक बंधनांमुळे महिला आणि वंचित घटकांना औपचारिक शिक्षणापासून सक्त वंचित ठेवले गेले होते.\n\n🎯 अचूक क्रम (B - D - A - C) कसा ठरवला:\n१. वैश्विक सत्य पहिले [B]: शिक्षणाचे जागतिक महत्त्व सांगणारे [B] हे सर्वात व्यापक (General) वाक्य असल्याने ते पहिले येईल.\n२. महाराष्ट्रातील वास्तव [D]: जगातील परिस्थितीनंतर १९ व्या शतकातील महाराष्ट्रातील स्थिती व अडथळे [D] मध्ये सांगितले (B नंतर D).\n३. सुधारकांचा निर्धार [A]: या भीषण वास्तवावर मात करण्यासाठी महात्मा फुले व सावित्रीबाईंनी निर्धार केला (D नंतर A).\n४. प्रत्यक्ष कृती व शाळा स्थापना [C]: निर्धाराचे रूपांतर १ जानेवारी १८४८ च्या ऐतिहासिक भिडेवाडा शाळेत झाले ([C] Consequently, they established the school... हा अंतिम निकाल).\n➔ म्हणून अचूक क्रम: B - D - A - C!"
+      }
+    ],
+    exceptions: [
+      'In news reporting style, the specific breaking event is stated first, followed by historical background. But in MPSC formal expository passages, General-to-Specific is the gold standard.'
+    ],
+    exceptionsMr: [
+      'वृत्तपत्रात कधीकधी ताजी बातमी आधी देऊन नंतर पार्श्वभूमी देतात; परंतु MPSC च्या परीक्षेत नेहमी व्यापक तत्त्व आधी आणि ऐतिहासिक घटना नंतर असाच क्रम बरोबर मानला जातो.'
+    ],
+    examTip: "MPSC Inverted Pyramid Trick:\n• Find the most abstract/philosophical sentence (e.g. Education, Freedom, Democracy) ➔ That is your OPENER!\n• Find the sentence with a specific date and venue (e.g. 1848, Bhidewada, Pune) ➔ That is your CLOSER!",
+    examTipMr: "MPSC उलटा पिरॅमिड परीक्षा क्लृप्ती:\n• सर्वात तात्त्विक/व्यापक वाक्य (उदा. शिक्षण, न्याय, लोकशाही) ➔ ते पहिले वाक्य असते!\n• अचूक तारीख, वर्ष व ठिकाण असलेले वाक्य (उदा. १८४८, भिडेवाडा, पुणे) ➔ ते शेवटचे वाक्य असते!",
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Para Jumbles', 'General to Specific', 'Inverted Pyramid', 'Sentence Rearrangement', 'MPSC Rules']
   }
 ];
-
