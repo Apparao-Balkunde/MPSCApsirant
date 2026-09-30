@@ -257,7 +257,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <FileText className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
                 <span>{isMr ? 'व्याकरण' : 'Grammar'}</span>
                 <span className="text-[9px] px-1 py-0.2 rounded bg-amber-400 text-stone-950 font-black uppercase hidden xl:inline">
-                  {isMr ? '१३२ नियम 🏆' : '132 Rules 🏆'}
+                  {isMr ? '१३४ नियम 🏆' : '134 Rules 🏆'}
                 </span>
               </button>
 
@@ -424,10 +424,10 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-2.5 text-xs">
                       <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
                         <div className="font-bold text-amber-400 mb-0.5">
-                          {isMr ? '१३२ व्याकरण नियम अद्ययावत 📚' : '132 High-Yield Grammar Rules 📚'}
+                          {isMr ? '१३४ व्याकरण नियम अद्ययावत 📚' : '134 High-Yield Grammar Rules 📚'}
                         </div>
                         <p className="text-stone-300 text-[11px] leading-relaxed">
-                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Cowardly vs in a cowardly manner, Drown vs Sink, Tell a lie vs Speak the truth यांसह १३२ नियम सज्ज आहेत.' : '132 Marathi & English grammar rules with Cowardly manner, Drown vs Sink, Tell a lie & MPSC shortcuts.'}
+                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Para Jumbles (मराठी अर्थ व ४-स्टेप ट्रिक), Drown vs Sink, Cowardly manner यांसह १३४ नियम सज्ज आहेत.' : '134 Marathi & English grammar rules with Para Jumbles (Marathi translations & tricks), Drown vs Sink, & MPSC shortcuts.'}
                         </p>
                       </div>
 
