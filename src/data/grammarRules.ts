@@ -6919,8 +6919,186 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nस्वतःला एकच प्रश्न विचारा: ती तीच मूळ एकच वस्तू आहे का (जी हरवली होती, खरेदी केली होती)?\n➔ होय ➔ डोळे झाकून "THAT" निवडा (उदा. the same watch that I lost)!\n➔ नाही, फक्त तशीच सारखी दिसते आहे? ➔ "AS" निवडा (उदा. the same as mine)!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['The same as', 'The same that', 'Relative Pronouns', 'Identity vs Similarity', 'MPSC Rules']
+  },
+
+  // --- 99. QUANTIFIERS: "FEWER" (NUMBER / COUNTABLE) vs "LESS" (QUANTITY / UNCOUNTABLE) ---
+  {
+    id: 'en_rule_less_quantity_vs_fewer_number_01',
+    language: 'english',
+    category: 'Adjectives & Quantifiers',
+    categoryMr: 'विशेषणे व परिमाण: "FEWER" (संख्या / मोजता येणारी नामे) वि. "LESS" (प्रमाण / अमोज नामे) चा सुवर्ण नियम',
+    title: 'Quantifier Concord: "FEWER" (Countable Plural Nouns / Number) vs "LESS" (Uncountable Nouns / Quantity)',
+    titleMr: '"FEWER" (मोजता येणाऱ्या अनेकवचनी नामांसाठी) विरुद्ध "LESS" (केवळ प्रमाणासाठी / एकवचनी अमोज नामांसाठी) चा MPSC नियम',
+    formula: '1. FEWER + Plural Countable Noun (Denotes NUMBER / Countable Units)\n   • ❌ "There were less than fifty candidates in the hall" (FATAL MPSC ERROR!)\n   • ✅ "There were FEWER than fifty candidates in the hall" (100% CORRECT!)\n   • ❌ "No less than twenty soldiers were injured" (FATAL MPSC TRAP!)\n   • ✅ "No FEWER than twenty soldiers were injured"\n2. LESS + Singular Uncountable Noun (Denotes QUANTITY / Degree / Mass)\n   • ✅ "He consumes LESS sugar / water / oil / patience / time"\n   • ❌ "He consumes fewer sugar" (INCORRECT!)\n3. GOLDEN EQUIVALENCE: Many ➔ More ➔ FEWER | Much ➔ More ➔ LESS',
+    formulaMr: '१. FEWER चा नियम (संख्या): ज्या गोष्टी १, २, ३, ४ अशा प्रत्यक्ष संख्येत मोजता येतात आणि ज्यांचे अनेकवचन होते (उदा. students, books, candidates, chairs), त्यांच्याआधी नेहमी "FEWER" येतो!\n   • ❌ "There are less books on the shelf" (१००% चूक!) ➔ ✅ "There are FEWER books on the shelf" (बरोबर!).\n   • ❌ "No less than thirty people were present" (MPSC चा आवडता ट्रॅप!) ➔ ✅ "No FEWER than thirty people were present" (बरोबर!).\n२. LESS चा नियम (प्रमाण / वस्तुमान): ज्या गोष्टी संख्येत मोजता येत नाहीत (उदा. water, milk, sugar, courage, time, money), त्यांच्याआधी "LESS" येतो!\n   • ✅ "Drink LESS coffee" (कमी कॉफी प्या).\n   • ✅ "He has LESS patience than his brother".\n३. MPSC क्लृप्ती: अनेकवचनी नाम (s/es) दिसले की डोळे झाकून "FEWER" निवडा; अमोज नाम असल्यास "LESS" निवडा!',
+    definition: 'In standard prescriptive English and civil service examination evaluation (MPSC, SSC, UPSC), the quantitative distinction between "FEWER" and "LESS" is an absolute benchmark of grammatical precision:\n\n1. "FEWER" (Comparative of "Few" - Pertains to NUMBER):\n"FEWER" refers strictly to discrete, individual countable items that can be enumerated:\n• "FEWER applicants qualified for the preliminary screening this year." (Applicants are countable).\n• "No FEWER than one hundred delegates attended the state convention."\n\n2. "LESS" (Comparative of "Little" - Pertains to QUANTITY / AMOUNT / DEGREE):\n"LESS" refers to continuous mass, substance, time, or abstract non-countable concepts:\n• "The drought has resulted in LESS rainfall across the Marathwada region." (Rainfall is uncountable).\n• "Spend LESS time on social media and more on revision."',
+    definitionMr: 'MPSC परीक्षेत "Spotting Errors in Adjectives" या घटकामध्ये दरवर्षी हमखास विचारला जाणारा सर्वात लोकप्रिय ट्रॅप म्हणजे "Less" आणि "Fewer" मधील फरक:\n\n१. "FEWER" चा अर्थ व वापर:\n• इंग्रजीत "Few" चे Comparative रूप "Fewer" आहे.\n• ज्या गोष्टींना अनेकवचन असते व ज्या मोजता येतात, त्यांच्यासाठी "FEWER" चाच वापर करावा लागतो.\n• परीक्षेत मुद्दाम "There were less boys in the class" असे दिले जाते; हे १००% चुकीचे असून तिथे "FEWER boys" असावे लागते!\n\n२. "LESS" चा अर्थ व वापर:\n• "Little" चे Comparative रूप "Less" आहे.\n• जे पदार्थ लिटर, किलो, किंवा अमूर्त संकल्पना (तहान, भूक, धैर्य) म्हणून मोजले जातात, तिथे "LESS" येतो.\n• उदा. "less water", "less sugar", "less trouble".\n\n३. "NO FEWER THAN" चा MPSC सुवर्ण नियम:\n• जेव्हा संख्येशी तुलना असते, तेव्हा परीक्षेच्या पेपरमध्ये "No less than 50 persons" असा ट्रॅप दिला जातो. अशा वेळी "No less than" खोडून "NO FEWER THAN" करणे हा हमखास १ गुण देणारा नियम आहे!',
+    keyPoints: [
+      '"There were FEWER road accidents recorded after the new traffic regulations" (Accidents are countable ➔ fewer).',
+      '"The drought-hit district received LESS water allocation this season" (Water is uncountable ➔ less).',
+      '"No FEWER than twenty sub-inspectors were deployed for election security" (NOT "no less than twenty sub-inspectors").',
+      '"He made FEWER grammatical blunders in his English essay" (Blunders are countable ➔ fewer).'
+    ],
+    keyPointsMr: [
+      '१. मोजता येणारे लोक: "fewer people" ("less people" १००% चूक!).\n२. अपघात: "fewer accidents" ("less accidents" चूक!).\n३. नोकरीचे अर्ज: "fewer applicants" ("less applicants" चूक!).\n४. पाणी किंवा साखर: "less sugar / less water" (बरोबर).\n५. MPSC हमखास क्लृप्ती: "No less than fifty students" मधील \'less\' खोडून \'fewer\' करा!'
+    ],
+    examples: [
+      {
+        sentence: 'Due to stringent administrative scrutiny, fewer ineligible candidates were granted caste validity certificates.',
+        isCorrect: true,
+        explanation: 'Correct! "Candidates" is a plural countable noun, requiring the comparative quantifier "fewer".',
+        explanationMr: 'बरोबर! "Candidates" हे मोजता येणारे अनेकवचनी नाम असल्याने "fewer" चा वापर १००% अचूक आहे.'
+      },
+      {
+        sentence: 'Due to stringent scrutiny, less ineligible candidates were granted caste validity certificates.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Quantifier Error: "Candidates" are countable. Replace "less" with "fewer".',
+        explanationMr: 'चूक! उमेदवारांची संख्या मोजता येत असल्याने "less" चालत नाही; तिथे "fewer" हवे.'
+      },
+      {
+        sentence: 'No fewer than forty civil service aspirants cleared the main examination from our study circle.',
+        isCorrect: true,
+        explanation: 'Correct! "No fewer than" is the standard idiomatic construction for enumerated persons ("forty aspirants").',
+        explanationMr: 'बरोबर! ४० उमेदवारांची संख्या असल्याने "No fewer than" चा वापर नियमाला धरून आहे.'
+      },
+      {
+        sentence: 'No less than forty civil service aspirants cleared the main examination.',
+        isCorrect: false,
+        explanation: 'Incorrect! MPSC Super-hit Trap: With countable plural numbers (forty aspirants), use "no fewer than", not "no less than".',
+        explanationMr: 'चूक! MPSC चा अत्यंत आवडता प्रश्न: संख्येशी संबंधित वाक्यात "No less than" चुकीचे असून "No fewer than" असावे.'
+      }
+    ],
+    exceptions: [
+      'Amounts of money, periods of time, and distances viewed as a single collective measurement or lump sum unit can take "less": e.g., "The distance is less than five miles", "He finished the sprint in less than ten seconds", "It costs less than fifty rupees" (lump sum measurement).'
+    ],
+    exceptionsMr: [
+      'जेव्हा अंतर, वेळ किंवा पैशांची रक्कम ही एकसंध मोजमाप (lump sum unit) म्हणून पाहिली जाते, तेव्हा "less" चालतो: उदा. "less than five miles", "less than ten minutes", "less than 100 rupees".'
+    ],
+    examTip: 'MPSC 1-Second "FEWER vs LESS" Decider:\n• Look at the following noun: Is it PLURAL with an "S" (candidates, books, cars, accidents)?\n  ➔ MUST BE "FEWER"!\n• Spot "NO LESS THAN [Number] persons / candidates"?\n  ➔ 100% ERROR! Change "LESS" to "FEWER"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nपुढील नामाकडे बोट ठेवा: त्याला "s/es" लागून अनेकवचन झाले आहे का (candidates, students, mistakes)?\n➔ होय ➔ डोळे झाकून "FEWER" निवडा!\nपरीक्षेत जर "No less than 20 students" दिसले ➔ तात्काळ "less" खोडून "FEWER" करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Fewer vs Less', 'Countable vs Uncountable', 'Quantifiers', 'No fewer than', 'MPSC Rules']
+  },
+
+  // --- 100. VERB IDIOMS: "WORTH" + GERUND (V-ing) (NEVER INFINITIVE "TO + V1") ---
+  {
+    id: 'en_rule_worth_plus_gerund_01',
+    language: 'english',
+    category: 'Gerunds & Infinitives',
+    categoryMr: 'धातुसाधिते: "WORTH" नंतर नेहमी GERUND (V-ing) वापरण्याचा आणि Infinitive (to + V1) टाळण्याचा सुवर्ण नियम',
+    title: 'Gerund Concord: "WORTH" Strictly Governs a GERUND (V-ing) (Never Infinitive "TO + V1")',
+    titleMr: '"WORTH" (पात्र / लायक) नंतर नेहमी धातूचे "-ing" रूप (Gerund) वापरण्याचा MPSC नियम ("to + V1" १००% चूक)',
+    formula: '1. Subject + Be Verb (is / are / was / were) + WORTH + GERUND (V-ing)\n   • ❌ "This historic fort is worth to see" (FATAL MPSC BLUNDER!)\n   • ✅ "This historic fort is WORTH SEEING" (100% CORRECT!)\n   • ❌ "His proposed policy is worth to consider" ➔ ✅ "His policy is WORTH CONSIDERING"\n   • ❌ "The novel is worth to read" ➔ ✅ "The novel is WORTH READING"\n2. EXPLANATION: In standard English idiom, the adjective "worth" takes a gerund participle as its complement, NEVER a full infinitive (to + V1)!',
+    formulaMr: '१. WORTH चा नियम: इंग्रजीत जेव्हा एखाद्या गोष्टीचे मूल्य, पाहण्यासारखे किंवा वाचण्यासारखे असणे दर्शवायचे असते, तेव्हा "WORTH" नंतर नेहमी **GERUND (V-ing)** चे रूप येते!\n   • ❌ "This fort is worth to visit" (१००% चूक!) ➔ ✅ "This fort is WORTH VISITING" (बरोबर!).\n   • ❌ "This book is worth to read" (चूक!) ➔ ✅ "This book is WORTH READING" (बरोबर!).\n   • ❌ "The movie is worth to watch" (चूक!) ➔ ✅ "The movie is WORTH WATCHING" (बरोबर!).\n२. MPSC क्लृप्ती: "worth" नंतर "to + क्रियापदाचे पहिले रूप" दिसल्यास तो "to" काढून क्रियापदाला "-ing" लावा!',
+    definition: 'In standard formal syntax and civil service error identification (MPSC, SSC CGL, UPSC), the adjective "WORTH" is syntactically unique. It requires a GERUND (verbal noun ending in -ing) acting as its prepositional-like complement, and categorically rejects the infinitive:\n\n1. "WORTH" TAKES AN ACTIVE GERUND (V-ing):\nEven though the semantic meaning implies a passive idea ("worthy of being read / seen"), English idiom requires an active Gerund form directly following "worth":\n• "Raigad Fort is a historical site WORTH VISITING." (NOT "worth to visit").\n• "The collector\'s administrative reforms are WORTH EMULATING." (NOT "worth to emulate").\n\n2. REJECTS "TO + V1":\nConstructing "worth to do" or "worth to see" is a non-standard literal translation that is penalized in all examination answer keys.',
+    definitionMr: 'MPSC परीक्षेत "Non-Finite Verbs / Gerunds" मधील दरवर्षी विचारला जाणारा अत्यंत सोपा आणि हमखास गुण मिळवून देणारा नियम म्हणजे "Worth + V-ing":\n\n१. नियम:\n• इंग्रजी व्याकरणात "WORTH" या शब्दानंतर क्रियापदाचे नेहमी **"-ing" प्रत्यय जोडलेले रूप (Gerund)** च वापरावे लागते.\n• कोणत्याही परिस्थितीत "worth" नंतर "to + मूळ क्रियापद" (Infinitive) वापरता येत नाही!\n• परीक्षेत मुद्दाम "The museum is worth to visit" असे वाक्य दिले जाते; हे व्याकरणाच्या नियमानुसार घोडचूक मानली जाते.\n\n२. शुद्ध रचना:\n• "The museum is WORTH VISITING" (संग्रहालय भेट देण्यासारखे आहे).\n• "This advice is WORTH REMEMBERING" (हा सल्ला लक्षात ठेवण्याजोगा आहे).\n• "The movie is WORTH WATCHING" (हा चित्रपट पाहण्यासारखा आहे).',
+    keyPoints: [
+      '"The ancient Ajanta paintings are definitely WORTH SEEING" (NOT "worth to see").',
+      '"This comprehensive compilation of PYQs is WORTH PURCHASING" (NOT "worth to purchase").',
+      '"The proposal submitted by the municipal commissioner is WORTH CONSIDERING" (NOT "worth to consider").',
+      '"Never follow \'worth\' with an infinitive (\'to + V1\') in any competitive examination context."'
+    ],
+    keyPointsMr: [
+      '१. पाहण्यासारखे: "worth seeing" ("worth to see" १००% चूक!).\n२. वाचण्यासारखे: "worth reading" ("worth to read" चूक!).\n३. भेट देण्यासारखे: "worth visiting" ("worth to visit" चूक!).\n४. विचार करण्यासारखे: "worth considering" ("worth to consider" चूक!).'
+    ],
+    examples: [
+      {
+        sentence: 'The architectural splendour of the Ellora monolithic rock temples is certainly worth seeing.',
+        isCorrect: true,
+        explanation: 'Correct! "Worth" is appropriately complemented by the gerund "seeing".',
+        explanationMr: 'बरोबर! "worth" नंतर अचूकपणे "seeing" (Gerund) वापरला आहे.'
+      },
+      {
+        sentence: 'The architectural splendour of the Ellora monolithic rock temples is certainly worth to see.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Gerund Error: "Worth" cannot take an infinitive ("to see"). Use "worth seeing".',
+        explanationMr: 'चूक! MPSC चा वारंवार विचारला जाणारा ट्रॅप: "worth to see" चुकीचे असून "worth seeing" हवे.'
+      },
+      {
+        sentence: 'The recommendations of the administrative reforms committee are worth considering before policy implementation.',
+        isCorrect: true,
+        explanation: 'Correct! "Worth considering" is the idiomatic standard form.',
+        explanationMr: 'बरोबर! "worth considering" ही रचना नियमानुसार १००% शुद्ध आहे.'
+      },
+      {
+        sentence: 'The recommendations of the administrative reforms committee are worth to consider.',
+        isCorrect: false,
+        explanation: 'Incorrect! Replace "worth to consider" with the gerund structure "worth considering".',
+        explanationMr: 'चूक! "worth to consider" ऐवजी "worth considering" अशी शुद्ध रचना करावी.'
+      }
+    ],
+    exceptions: [
+      'None. The construction "worth + V-ing" is uniformly required across formal British and Indian competitive examination English.'
+    ],
+    exceptionsMr: [
+      'कोणताही अपवाद नाही. MPSC च्या सर्व परीक्षांमध्ये "worth" नंतर फक्त "V-ing" च बरोबर मानले जाते.'
+    ],
+    examTip: 'MPSC 1-Second "WORTH TO" Strike-off:\nSpot the construction "WORTH TO [Verb]" (e.g. worth to see, worth to visit)?\n➔ STRIKE OUT "TO" AND ADD "-ING" TO THE VERB!\nFormula: WORTH + V-ing!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "worth to see", "worth to visit" किंवा "worth to read" दिसले:\n➔ तात्काळ "to" खोडून क्रियापदाला "-ing" लावा (worth seeing, worth visiting, worth reading)!\nतीच तुमची हमखास १ गुण देणारी जागा आहे!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Worth plus gerund', 'Gerunds', 'Non-finite verbs', 'Worth seeing', 'MPSC Rules']
+  },
+
+  // --- 101. FRACTIONS & MEASURES: "HALF AN HOUR" & "ONE AND A HALF HOURS" ---
+  {
+    id: 'en_rule_half_an_hour_vs_one_and_half_hours_01',
+    language: 'english',
+    category: 'Nouns & Measures',
+    categoryMr: 'नामे व परिमाणे: "HALF AN HOUR" (कधीही \'A Half Hour\' नाही) आणि "ONE AND A HALF HOURS" (नेहमी अनेकवचनी Hours) चा नियम',
+    title: 'Fractional & Temporal Concord: "HALF AN HOUR" (Never "A Half Hour") & "ONE AND A HALF HOURS" (Mandatory Plural)',
+    titleMr: '"HALF AN HOUR" ची अचूक रचना आणि "ONE AND A HALF HOURS" (दीड तास) मधील अनेकवचनाचा MPSC सुवर्ण नियम',
+    formula: '1. FRACTION FORMULA FOR 30 MINUTES:\n   • HALF + AN + HOUR (CORRECT IDIOM)\n   • ❌ "a half hour" (INCORRECT COLLOQUIALISM IN EXAMS!)\n2. FRACTION FORMULA FOR 1.5 UNITS (DÎD):\n   • AN HOUR AND A HALF (Singular unit first)\n   • ONE AND A HALF + PLURAL NOUN (Hours / Years / Miles / Kilograms)\n   • ❌ "one and a half hour" (FATAL MPSC BLUNDER! 1.5 is plural > 1!)\n   • ✅ "one and a half HOURS" (100% CORRECT!)\n   • ❌ "two and a half hour" ➔ ✅ "two and a half HOURS"',
+    formulaMr: '१. अर्धा तास सांगण्याचा नियम:\n   • इंग्रजीत "HALF AN HOUR" हीच एकमेव अधिकृत रचना आहे!\n   • "a half hour" असे बोलणे स्पर्धा परीक्षेत चूक मानले जाते.\n२. दीड तास (१.५) सांगण्याचा MPSC सुवर्ण नियम:\n   • रचना अ: "AN HOUR AND A HALF" (बरोबर!).\n   • रचना ब: "ONE AND A HALF HOURS" (दीड हे एकापेक्षा जास्त असल्याने "hour" चे अनेकवचन "HOURS" करणे अनिवार्य आहे!).\n   • ❌ "one and a half hour" (MPSC मधील सर्वात मोठा ट्रॅप - १००% चूक!) ➔ ✅ "one and a half HOURS" (बरोबर!).\n   • ❌ "one and a half year" (चूक!) ➔ ✅ "one and a half YEARS" (बरोबर!).',
+    definition: 'In standard English prescriptive grammar and competitive examination error detection (MPSC, SSC, UPSC), numerical concord involving fractional numbers is strictly enforced:\n\n1. "HALF AN HOUR":\nThe determiner "half" directly precedes the indefinite article and unit of measurement:\n• "The cabinet meeting was adjourned for HALF AN HOUR." (NOT "a half hour").\n\n2. PLURAL CONCORD WITH "ONE AND A HALF":\nBecause "one and a half" represents a quantity strictly greater than unity (1.5 > 1), the governed countable noun MUST BE IN THE PLURAL NUMBER:\n• ❌ "The candidates were given one and a half hour to complete the paper." ➔ GROSS ERROR!\n• ✅ "The candidates were given ONE AND A HALF HOURS to complete the paper." ➔ ACCURATE!\n• Alternative singular phrasing: "an hour and a half".',
+    definitionMr: 'MPSC परीक्षेत "Common Errors in Nouns & Numbers" मधील अत्यंत लोकप्रिय आणि उमेदवारांना फसवणारा सुवर्ण नियम:\n\n१. अर्धा तास:\n• इंग्रजीत "half an hour" (अर्धा तास) अशी रचना असते ("a half hour" अशी नाही).\n• उदा. "I will return in half an hour" (मी अर्ध्या तासात परत येईन).\n\n२. दीड तास किंवा दीड वर्ष (१.५):\n• जेव्हा "one and a half" येतो, तेव्हा पुढे येणारे नाम **नेहमी अनेकवचनी (Plural)** च असावे लागते!\n• कारण दीड हे एकापेक्षा जास्त (1.5 > 1) असते; आणि इंग्रजीत १ पेक्षा जास्त कोणतीही संख्या ही अनेकवचनी मानली जाते!\n• परीक्षेत मुद्दाम "one and a half hour" किंवा "one and a half year" असे एकवचन दिले जाते; ही १००% चूक असते.\n• शुद्ध रूप: "one and a half HOURS", "one and a half YEARS", "two and a half HOURS".',
+    keyPoints: [
+      '"The delegation waited outside the ministry for HALF AN HOUR" (NOT "a half hour").',
+      '"The prelims GS Paper-I duration is strictly TWO HOURS" (Standard plural).',
+      '"The mains descriptive paper was scheduled for ONE AND A HALF HOURS" (Plural hours ➔ 1.5 > 1).',
+      '"Alternatively, you may say: \'AN HOUR AND A HALF\' (Notice the singular \'hour\' when preceded by \'an\')."'
+    ],
+    keyPointsMr: [
+      '१. अर्धा तास: "half an hour" ("a half hour" चूक!).\n२. दीड तास: "one and a half hours" ("one and a half hour" १००% चूक!).\n३. पर्यायी दीड तास: "an hour and a half" (बरोबर).\n४. दीड वर्ष: "one and a half years" ("one and a half year" चूक!).'
+    ],
+    examples: [
+      {
+        sentence: 'The district collector granted a relaxation of half an hour for late applicants arriving from flood-hit talukas.',
+        isCorrect: true,
+        explanation: 'Correct! "Half an hour" is the standard idiomatic construction.',
+        explanationMr: 'बरोबर! "half an hour" ची रचना व्याकरणाच्या नियमानुसार १००% अचूक आहे.'
+      },
+      {
+        sentence: 'The district collector granted a relaxation of a half hour for late applicants.',
+        isCorrect: false,
+        explanation: 'Incorrect! Idiomatic Error: Use "half an hour" instead of "a half hour".',
+        explanationMr: 'चूक! "a half hour" ऐवजी प्रमाण इंग्रजीत "half an hour" असावे.'
+      },
+      {
+        sentence: 'The mock test for general studies lasted for one and a half hours without any intermission.',
+        isCorrect: true,
+        explanation: 'Correct! Because 1.5 > 1, the noun "hours" must be plural after "one and a half".',
+        explanationMr: 'बरोबर! दीड (1.5) हा एकापेक्षा मोठा असल्याने "one and a half" नंतर "hours" हे अनेकवचनी रूप अगदी योग्य आहे.'
+      },
+      {
+        sentence: 'The mock test for general studies lasted for one and a half hour without any intermission.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic MPSC Number Error: "one and a half" requires a plural noun ("one and a half hours").',
+        explanationMr: 'चूक! MPSC चा सर्वात लोकप्रिय ट्रॅप: "one and a half hour" चालत नाही; तिथे "one and a half hours" हवे.'
+      }
+    ],
+    exceptions: [
+      'When using the pattern "a [unit] and a half", the noun remains singular because it directly follows the article "a/an": "an hour and a half", "a mile and a half". But with "one and a half", the noun MUST be plural: "one and a half hours", "one and a half miles".'
+    ],
+    exceptionsMr: [
+      'जेव्हा "an hour and a half" अशी रचना असते, तेव्हा \'hour\' एकवचनी राहतो (कारण त्याच्या आधी \'an\' आहे); परंतु जेव्हा "one and a half" अशी रचना असते, तेव्हा पुढे "hours" हे अनेकवचनीच लागते!'
+    ],
+    examTip: 'MPSC 1-Second "ONE AND A HALF" Plural Check:\nSpot "ONE AND A HALF [Noun]" in a spotting error question?\n➔ Immediately check the noun: Does it end in "S" (hours, years, miles)?\n• If NO "S" (e.g. one and a half hour) ➔ THAT IS YOUR 100% ERROR!\n• Change to: ONE AND A HALF HOURS!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\nवाक्यात जर "ONE AND A HALF" दिसले की पुढच्या शब्दाकडे बोट ठेवा:\nत्याला "S" लागला आहे का ते पाहा (hours, years, kilometers):\n• "S" नसेल (उदा. one and a half hour) ➔ डोळे झाकून तीच चूक मार्क करा!\n• शुद्ध रूप: "one and a half HOURS"!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Half an hour', 'One and a half hours', 'Nouns and Number', 'Fractions Concord', 'MPSC Rules']
   }
 ];
+
 
 
 
