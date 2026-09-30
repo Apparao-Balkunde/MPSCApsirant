@@ -7509,6 +7509,124 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• गमावणे, हरणे किंवा नुकसान होणे (Temper, Marks, Match, Hope, Admit Card) ➔ एकच "O" = LOSE!\n• सैल किंवा ढिले असणे (Shirt, Shoes, Screw, Wire) ➔ दोन "O" = LOOSE!\n• वाक्यात "loose your temper" किंवा "loose marks" दिसल्यास लगेच दुसरा "O" खोडा; तिथे "lose" करा!',
     practiceQuestionIds: ['en_vocab_01'],
     tags: ['Loose vs Lose', 'Confusing Words', 'Spelling Rules', 'Homophones', 'MPSC Rules']
+  },
+
+  // --- 109. FIXED IDIOMATIC ARTICLES: "TELL A LIE" vs "SPEAK THE TRUTH" & ARTICLE COLLOCATIONS ---
+  {
+    id: 'en_rule_idiomatic_articles_tell_lie_speak_truth_01',
+    language: 'english',
+    category: 'Articles & Collocations',
+    categoryMr: 'उपपदे व वाक्प्रचार: "TELL A LIE" (खोटे बोलणे) वि. "SPEAK THE TRUTH" (खरे बोलणे) आणि ठराविक Articles चे MPSC सुवर्ण नियम',
+    title: 'Idiomatic Collocation Concord: "TELL A LIE" (Takes "A") vs "SPEAK THE TRUTH" (Takes "THE")',
+    titleMr: '"TELL A LIE" ("A" उपपद) विरुद्ध "SPEAK THE TRUTH" ("THE" उपपद) आणि परीक्षेत हमखास विचारल्या जाणाऱ्या Articles च्या जोड्या',
+    formula: '1. LYING: TELL + A + LIE (Never "speak a lie", never "tell lie" without "a")\n   • ❌ "Do not speak a lie" (FATAL MPSC ERROR!)\n   • ❌ "Never tell lie" (ARTICLE MISSING!)\n   • ✅ "Never TELL A LIE" (100% CORRECT!)\n2. TRUTH: SPEAK + THE + TRUTH (Never "tell a truth", never "speak truth" without "the")\n   • ❌ "Always tell a truth" (ERROR!)\n   • ❌ "He spoke truth" (ARTICLE MISSING!)\n   • ✅ "Always SPEAK THE TRUTH" (100% CORRECT!)\n3. FIXED PHRASES MANDATORILY TAKING "A / AN":\n   • In A hurry | Make A noise | In A nutshell | In A temper | At A loss | Have A headache | Catch A cold | Have A cough\n4. FIXED PHRASES STRICTLY TAKING NO ARTICLE (ZERO ARTICLE):\n   • At fault | By mistake | In danger | On foot | In trouble | In debt | By car/bus/train | At dawn | At dusk',
+    formulaMr: '१. खोटे बोलणे: नेहमी "TELL A LIE" असेच म्हणतात!\n   • क्रियापद: TELL (Speak कधीही चालत नाही).\n   • उपपद: "A" (Lie च्या आधी "a" अनिवार्य असतो).\n   • ❌ "He spoke a lie" (चूक!) ➔ ✅ "He TOLD A LIE" (बरोबर!).\n   • ❌ "Do not tell lie" (चूक!) ➔ ✅ "Do not TELL A LIE" (बरोबर!).\n२. खरे बोलणे: नेहमी "SPEAK THE TRUTH" असेच म्हणतात!\n   • क्रियापद: SPEAK (Tell सहसा टाळतात).\n   • उपपद: "THE" (Truth च्या आधी "the" अनिवार्य असतो).\n   • ❌ "Always speak a truth" (चूक!) ➔ ✅ "Always SPEAK THE TRUTH" (बरोबर!).\n३. "A" अनिवार्य असणारे वाक्प्रचार (पाठ करा):\n   • In A hurry (घाईत असणे) | Make A noise (गोंगाट करणे) | In A nutshell (थोडक्यात सांगणे) | At A loss (गोंधळून जाणे) | Catch A cold (सर्दी होणे).\n४. कोणतेही Article न घेणारे वाक्प्रचार (Zero Article):\n   • On foot (पायी चालणे - on the foot चूक!) | By mistake (चुकून) | At fault (दोषी) | In danger (धोक्यात).',
+    definition: 'In standard formal English lexicography and competitive civil service examinations (MPSC Rajyaseva, PSI/STI/ASO, SSC CGL), fixed idiomatic collocations govern the pairing of verbs and articles with absolute rigidity:\n\n1. "TELL A LIE" (Indefinite Article \'A\'):\nIn English, a lie is considered an individual countable fabrication. Therefore, the verb is strictly "TELL" and it takes the indefinite article "A":\n• ❌ "The witness spoke a lie before the judicial commission." ➔ VERB COLLOCATION ERROR!\n• ✅ "The witness TOLD A LIE before the judicial commission." ➔ CORRECT!\n• ❌ "A gentleman does not tell lie." ➔ MISSING ARTICLE ERROR! (Must be "tell a lie").\n\n2. "SPEAK THE TRUTH" (Definite Article \'THE\'):\nTruth is conceived as a singular, universal, absolute reality. Therefore, it requires the definite article "THE" and pairs canonically with the verb "SPEAK":\n• ❌ "The officer always speaks truth." ➔ DETERMINER OMISSION ERROR!\n• ✅ "The officer always SPEAKS THE TRUTH." ➔ PRECISE STANDARD ENGLISH!\n\n3. EXAMINER TRAP ON "MAKE A NOISE" & "IN A HURRY":\nMPSC repeatedly presents sentences omitting the article \'a\':\n• ❌ "The children were making noise in the classroom." ➔ ERROR! (Must be "making a noise").\n• ❌ "He left in hurry." ➔ ERROR! (Must be "in a hurry").',
+    definitionMr: 'MPSC परीक्षेत "Articles & Idiomatic Collocations" वर हमखास प्रश्न विचारले जातात. इंग्रजी व्याकरणात काही शब्दांसोबत ठराविकच उपपदे (Articles) येतात:\n\n१. TELL A LIE वि. SPEAK THE TRUTH:\n• खोटे बोलण्यासाठी "Told a lie / Tell a lie" वापरतात. यात "a" काढल्यास किंवा "spoke" वापरल्यास वाक्य चुकीचे ठरते.\n• खरे बोलण्यासाठी "Speak the truth" वापरतात. यात "the" गाळल्यास ("speaks truth") ते वाक्य १००% चुकीचे असते.\n\n२. "A" उपपद अनिवार्य असणारे शब्द:\n• "Make a noise" (गोंगाट करणे): परीक्षेत "Don\'t make noise" असे देतात; पण प्रमाण इंग्रजीत "Don\'t make A noise" हवे!\n• "In a hurry" (घाईत असणे): "He was in hurry" चूक ➔ "He was in A hurry" बरोबर!\n• "In a nutshell" (थोडक्यात): "To put it in nutshell" चूक ➔ "in A nutshell" बरोबर!\n\n३. Zero Article (उपपद न वापरण्याचे वाक्प्रचार):\n• "On foot" (पायी): परीक्षेत "He went on the foot" किंवा "on a foot" देतात; ते चूक असून फक्त "ON FOOT" हवे!\n• "By bus/train": "by the bus" चूक ➔ "by bus" बरोबर!',
+    keyPoints: [
+      '"An upright public servant always SPEAKS THE TRUTH without fear or favor" (Speak + the truth).',
+      '"The accused TOLD A LIE under oath during the cross-examination" (Told + a lie).',
+      '"The supervisor instructed the candidates not to MAKE A NOISE in the examination hall" (Make a noise).',
+      '"The collector visited the drought-affected village ON FOOT" (Strictly NO article: on foot, NOT on the foot).'
+    ],
+    keyPointsMr: [
+      '१. खोटे बोलणे: TELL A LIE (Tell + a lie) ➔ "Never tell a lie" ("speak a lie" किंवा "tell lie" चूक!).\n२. खरे बोलणे: SPEAK THE TRUTH (Speak + the truth) ➔ "Always speak the truth" ("speak truth" चूक!).\n३. गोंगाट करणे: MAKE A NOISE (a noise हवे).\n४. पायी चालणे: ON FOOT (येथे कोणतेही article चालत नाही; on the foot चूक!).\n५. घाईत असणे: IN A HURRY (a hurry हवे).'
+    ],
+    examples: [
+      {
+        sentence: 'A responsible civil servant must always speak the truth even under intense political pressure.',
+        isCorrect: true,
+        explanation: 'Correct! The canonical collocation "speak the truth" (verb "speak" + definite article "the") is precisely observed.',
+        explanationMr: 'बरोबर! "speak the truth" ही वाक्प्रचाराची रचना व्याकरणदृष्ट्या १००% अचूक आहे.'
+      },
+      {
+        sentence: 'A responsible civil servant must always speak truth even under political pressure.',
+        isCorrect: false,
+        explanation: 'Incorrect! Fatal MPSC Omission Error: The definite article "the" is missing before "truth". Say "speak the truth".',
+        explanationMr: 'चूक! MPSC चा प्रसिद्ध ट्रॅप: "truth" च्या आधी "the" लावणे बंधनकारक आहे ("speak the truth").'
+      },
+      {
+        sentence: 'Under cross-examination, the dishonest witness told a lie regarding his whereabouts on the night of the crime.',
+        isCorrect: true,
+        explanation: 'Correct! "Told a lie" correctly combines the verb "tell" and indefinite article "a".',
+        explanationMr: 'बरोबर! "told a lie" (tell + a lie) ही खोटे बोलण्याची रचना अगदी अचूक आहे.'
+      },
+      {
+        sentence: 'Under cross-examination, the dishonest witness spoke a lie regarding his whereabouts.',
+        isCorrect: false,
+        explanation: 'Incorrect! Collocation Error: English verbs do not pair "speak" with "a lie". You must use "told a lie".',
+        explanationMr: 'चूक! खोटे बोलण्यासाठी "spoke a lie" वापरता येत नाही; "told a lie" च हवे.'
+      }
+    ],
+    exceptions: [
+      'In everyday informal speech, "tell the truth" is commonly heard, but in formal prescriptive examination grammar and MPSC official key conventions, "Speak the truth" is the established standard pairing opposed to "Tell a lie".'
+    ],
+    exceptionsMr: [
+      'बोलचालीत कधीकधी "tell the truth" वापरतात, परंतु MPSC परीक्षेच्या अधिकृत उत्तरतालिकेनुसार "Speak the truth" आणि "Tell a lie" या जोड्याच प्रमाण मानल्या जातात.'
+    ],
+    examTip: 'MPSC 1-Second Article Collocation Rule:\n• With LIE ➔ Use verb TELL + article A ("Tell A lie")!\n• With TRUTH ➔ Use verb SPEAK + article THE ("Speak THE truth")!\n• If you see "make noise" without "a", insert "a" immediately ("make a noise")!\n• If you see "on the foot", delete "the" ("on foot")!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• "LIE" सोबत ➔ क्रियापद TELL + उपपद "A" (Tell A lie)!\n• "TRUTH" सोबत ➔ क्रियापद SPEAK + उपपद "THE" (Speak THE truth)!\n• "make noise" किंवा "in hurry" दिसल्यास मध्ये "A" टाका (Make a noise / In a hurry)!\n• "on the foot" दिसल्यास "the" खोडून फक्त "ON FOOT" करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Tell a lie', 'Speak the truth', 'Articles', 'Idiomatic Collocations', 'MPSC Rules']
+  },
+
+  // --- 110. COMMON COLLOQUIAL INDIANISMS: "PASS MARKS" vs "PASSING MARKS" & "DRESS SENSE" ---
+  {
+    id: 'en_rule_slang_colloquial_passing_marks_dress_sense_01',
+    language: 'english',
+    category: 'Colloquialisms & Indian English',
+    categoryMr: 'भारतीय बोलचालीतील चुका (Indianisms): "PASS MARKS" (कधीही "Passing Marks" नाही) व "DRESS SENSE" चा MPSC सुवर्ण नियम',
+    title: 'Standard Examination English: "PASS MARKS" (NOT "Passing Marks") & "DRESS SENSE" (NOT "Dressing Sense")',
+    titleMr: 'प्रमाण इंग्रजी वि. भारतीय चुकीची सवय: "PASS MARKS", "DRESS SENSE", "LINK LANGUAGE" मधील MPSC चे आवडीचे ट्रॅप्स',
+    formula: '1. PASS MARKS (NOT "PASSING MARKS"):\n   • The qualifying minimum score to pass an examination is "PASS MARKS".\n   • ❌ "He scored barely thirty-five passing marks." (FATAL MPSC BLUNDER!)\n   • ✅ "He scored barely thirty-five PASS MARKS." (100% CORRECT!)\n2. DRESS SENSE (NOT "DRESSING SENSE"):\n   • Elegance or taste in choosing clothes is "DRESS SENSE".\n   • ❌ "She has an impressive dressing sense." (SLANG ERROR!)\n   • ✅ "She has an impressive DRESS SENSE." (100% CORRECT!)\n3. LINK LANGUAGE (NOT "LINKING LANGUAGE"):\n   • A common language connecting different linguistic regions is a "LINK LANGUAGE".\n4. FAMILY RELATIONSHIPS:\n   • ❌ "He is my family member." (Indianism error)\n   • ✅ "He is A MEMBER OF MY FAMILY." (Standard English)\n5. HUNDRED PERCENT (NOT "CENT PERCENT"):\n   • ❌ "I agree cent percent." ➔ ✅ "I agree HUNDRED PERCENT."',
+    formulaMr: '१. उत्तीर्ण होण्यासाठी आवश्यक गुण: नेहमी **"PASS MARKS"** म्हणावे ("Passing marks" इंग्रजीत चूक मानले जाते!)\n   • ❌ "What are the passing marks for MPSC Prelims?" (परीक्षेतील १००% घोडचूक!)\n   • ✅ "What are the PASS MARKS for MPSC Prelims?" (बरोबर!).\n२. कपड्यांची आवड / पद्धत: नेहमी **"DRESS SENSE"** म्हणावे ("Dressing sense" चूक!)\n   • ❌ "He has a great dressing sense" ➔ ✅ "He has a great DRESS SENSE".\n३. संपर्काची भाषा: **"LINK LANGUAGE"** (Linking language चूक!).\n४. कुटुंबातील व्यक्ती:\n   • ❌ "He is my family member" (बोलचालीतील चूक) ➔ ✅ "He is A MEMBER OF MY FAMILY" (प्रमाण इंग्रजी).\n५. १०० टक्के खात्री: **"HUNDRED PERCENT"** (Cent percent हा इंग्रजीत शब्द नसतो).',
+    definition: 'In competitive examinations (MPSC, UPSC, SSC, Bank PO), Indian colloquial speech patterns ("Indianisms") that deviate from Oxford standard English are systematically tested under Spotting Errors and Sentence Improvement:\n\n1. "PASS MARKS" vs "PASSING MARKS":\nIn standard English syntax, the noun "pass" functions attributively to modify "marks" (forming a compound noun "pass marks" = the minimum qualifying mark required for passing). Adding the progressive suffix "-ing" to form "passing marks" is a widespread Indian colloquialism that prescriptive grammar marks as a fatal error:\n• "A candidate must secure at least forty PASS MARKS to qualify for the descriptive paper."\n\n2. "DRESS SENSE" vs "DRESSING SENSE":\nThe standard compound noun denotes aesthetic taste in attire. The modifier is the noun "dress", NOT the participle "dressing":\n• "An officer attending official diplomatic banquets is expected to possess impeccable DRESS SENSE."\n\n3. "MEMBER OF MY FAMILY" vs "FAMILY MEMBER":\nIn strict prescriptive grammar, "family member" is considered loose usage. The precise idiomatic expression is "a member of my family".\n\n4. "LINK LANGUAGE":\nA shared vehicle of communication among diverse linguistic groups is a "link language", never "linking language".',
+    definitionMr: 'MPSC परीक्षेत भारतीय विद्यार्थ्यांच्या बोलचालीतील सवयींवरून (Indian English Errors) प्रश्न हमखास विचारले जातात. यातील प्रमुख ५ शब्द अचूक लक्षात ठेवावे:\n\n१. PASS MARKS (उत्तीर्ण गुण):\n• आपण मराठीत बोलताना सवयीने "Passing marks किती आहेत?" असे विचारतो; परंतु इंग्रजी व्याकरणात "passing marks" असा कोणताही शब्द अस्तित्वात नाही!\n• यासाठी शुद्ध शब्द **"PASS MARKS"** असा आहे.\n• परीक्षेत "passing marks" दिसल्यास तिथेच १००% एरर मार्क करावा!\n\n२. DRESS SENSE (कपड्यांची समज):\n• इंग्रजीत "dressing sense" नसून **"DRESS SENSE"** असा शब्द आहे (जसे common sense असते, तसे dress sense).\n\n३. LINK LANGUAGE (संपर्क भाषा):\n• दोन वेगवेगळ्या भाषा बोलणाऱ्यांना जोडणारी भाषा म्हणजे **"LINK LANGUAGE"** (linking language नाही).\n\n४. MEMBER OF THE FAMILY (कुटुंबातील सदस्य):\n• इंग्रजीत "He is my family member" ऐवजी **"He is a member of my family"** अशी शुद्ध रचना केली जाते.\n\n५. HUNDRED PERCENT (शतप्रतिशत):\n• "cent percent" हा शब्द इंग्रजीत नसतो; त्याऐवजी **"hundred percent"** वापरावा.',
+    keyPoints: [
+      '"Candidates who failed to secure the minimum PASS MARKS were disqualified from the merit list" (PASS MARKS, NOT passing marks).',
+      '"A diplomat must demonstrate refined etiquette and exceptional DRESS SENSE" (DRESS SENSE, NOT dressing sense).',
+      '"English serves as an administrative LINK LANGUAGE across diverse Indian states" (LINK LANGUAGE, NOT linking language).',
+      '"Shri Sharma introduced the young IAS probationer as A MEMBER OF HIS FAMILY" (A member of his family, NOT his family member).'
+    ],
+    keyPointsMr: [
+      '१. पासिंग मार्क्स ➔ चूक! शुद्ध रूप: PASS MARKS.\n२. ड्रेसिंग सेन्स ➔ चूक! शुद्ध रूप: DRESS SENSE.\n३. लिंकिंग लँग्वेज ➔ चूक! शुद्ध रूप: LINK LANGUAGE.\n४. फॅमिली मेंबर ➔ चूक! शुद्ध रूप: A MEMBER OF MY FAMILY.\n५. सेंट पर्सेंट ➔ चूक! शुद्ध रूप: HUNDRED PERCENT.'
+    ],
+    examples: [
+      {
+        sentence: 'To clear the qualifying CSAT paper, an aspirant must secure at least thirty-three percent pass marks.',
+        isCorrect: true,
+        explanation: 'Correct! The standard compound noun "pass marks" is properly used instead of the colloquial "passing marks".',
+        explanationMr: 'बरोबर! "pass marks" ही प्रमाण इंग्रजी रचना अचूक वापरली आहे.'
+      },
+      {
+        sentence: 'To clear the qualifying CSAT paper, an aspirant must secure at least thirty-three percent passing marks.',
+        isCorrect: false,
+        explanation: 'Incorrect! Classic Indianism Error: "Passing marks" is non-standard. The official grammatical term is "pass marks".',
+        explanationMr: 'चूक! MPSC चा अत्यंत आवडीचा ट्रॅप: "passing marks" हा शब्द इंग्रजीत नसतो; तिथे "pass marks" हवे.'
+      },
+      {
+        sentence: 'The young bureaucrat was widely admired for his courteous demeanor and elegant dress sense.',
+        isCorrect: true,
+        explanation: 'Correct! "Dress sense" is the proper standard compound noun denoting taste in clothing.',
+        explanationMr: 'बरोबर! कपड्यांच्या आवडीसाठी "dress sense" हा शब्द १००% अचूक आहे.'
+      },
+      {
+        sentence: 'The young bureaucrat was widely admired for his courteous demeanor and elegant dressing sense.',
+        isCorrect: false,
+        explanation: 'Incorrect! Slang Error: "Dressing sense" is an ungrammatical Indianism. Replace with "dress sense".',
+        explanationMr: 'चूक! "dressing sense" ही बोलचालीतील चूक आहे; प्रमाण इंग्रजीत "dress sense" असा शब्द आहे.'
+      }
+    ],
+    exceptions: [
+      'While "passing grade" or "passing score" occasionally appears in American university jargon, "passing marks" is strictly marked incorrect across all MPSC, UPSC, and British-patterned competitive tests in India.'
+    ],
+    exceptionsMr: [
+      'अमेरिकेत काही ठिकाणी "passing score" म्हणतात; परंतु भारतात MPSC आणि UPSC च्या सर्व परीक्षांमध्ये केवळ आणि केवळ "PASS MARKS" हेच रूप बरोबर धरले जाते.'
+    ],
+    examTip: 'MPSC 1-Second Indianism Eliminator:\n• If you see "PASSING MARKS" ➔ Strike out "-ING" and make it "PASS MARKS"!\n• If you see "DRESSING SENSE" ➔ Strike out "-ING" and make it "DRESS SENSE"!\n• If you see "CENT PERCENT" ➔ Replace with "HUNDRED PERCENT"!',
+    examTipMr: 'MPSC १ सेकंदाची परीक्षा ट्रिक:\n• वाक्यात "PASSING MARKS" दिसले ➔ लगेच "-ING" खोडून "PASS MARKS" करा!\n• वाक्यात "DRESSING SENSE" दिसले ➔ लगेच "-ING" खोडून "DRESS SENSE" करा!\n• वाक्यात "CENT PERCENT" दिसले ➔ खोडून "HUNDRED PERCENT" करा!',
+    practiceQuestionIds: ['en_vocab_01'],
+    tags: ['Pass marks', 'Dress sense', 'Indianisms', 'Colloquial Errors', 'MPSC Rules']
   }
 ];
 
