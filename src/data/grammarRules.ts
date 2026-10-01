@@ -7795,7 +7795,7 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     ],
     examTip: 'MPSC 30-Second Para Jumble Elimination Hack:\n1. Look at the FIRST LETTERS of the 4 options (e.g. Option 1: B..., Option 2: C..., Option 3: B..., Option 4: A...).\n2. Find the OPENING sentence. If it is B, eliminate Options 2 and 4 immediately!\n3. Now between Option 1 (B-A-D-C) and Option 3 (B-C-D-A), just find ONE mandatory pair (e.g. Does D follow A, or does C follow B?).\n4. Mark your answer and move on — never waste time reading all 4 combinations!',
     examTipMr: 'MPSC ३० सेकंदांची पॅराजंबल हॅक:\n१. पर्यायांची पहिली अक्षरे पहा (उदा. १. B-A..., २. C-D..., ३. B-D..., ४. A-B...).\n२. फक्त पहिले वाक्य शोधा! जर पहिले वाक्य B असेल, तर पर्याय २ आणि ४ ताबडतोब बाद करा!\n३. आता फक्त पर्याय १ आणि ३ उरले. या दोघांमध्ये फक्त एक अनिवार्य जोडी (Mandatory Pair) शोधा (उदा. B नंतर A येतो की D येतो).\n४. बरोबर उत्तर निवडा आणि पुढे चला; चारही पर्याय वाचून वेळ वाया घालवू नका!',
-    practiceQuestionIds: ['en_vocab_01'],
+    practiceQuestionIds: ['gq_en_08'],
     tags: ['Para Jumbles', 'Sentence Rearrangement', 'Mandatory Pairs', 'Option Elimination', 'MPSC Rules']
   },
 
@@ -7839,7 +7839,7 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     ],
     examTip: 'MPSC 1-Second "Consequently / However" Linker:\n• Spot \"Consequently\"? Look for the CAUSE sentence immediately before it!\n• Spot \"However\"? Look for the POSITIVE statement immediately before it!\n• If only one option ends with the governmental action/solution (e.g. sentence B), that option is almost always the winner!',
     examTipMr: 'MPSC १ सेकंदाची परीक्षा क्लृप्ती:\n• वाक्यात \"Consequently\" (परिणामी) दिसले ➔ त्याच्या अगदी आधीचे \"कारण\" असणारे वाक्य शोधा आणि त्यांची जोडी बनवा!\n• वाक्यात \"However\" (परंतु) दिसले ➔ त्याच्या अगदी आधी समस्या नसलेले सकारात्मक वाक्य शोधा!\n• उपाययोजना किंवा सरकारी निर्णय असणारे वाक्य सहसा शेवटी येते, हे लक्षात ठेवून पर्यायांची फेररचना करा!',
-    practiceQuestionIds: ['en_vocab_01'],
+    practiceQuestionIds: ['gq_en_09'],
     tags: ['Para Jumbles', 'Discourse Markers', 'Cause and Effect', 'Sentence Rearrangement', 'MPSC Rules']
   },
 
@@ -7883,7 +7883,7 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     ],
     examTip: "MPSC S1-S6 Bracket Elimination Formula:\n1. Find the sentence immediately continuing S1 ➔ Eliminate 2 options instantly!\n2. Find the sentence immediately preceding S6 ➔ Select the final correct option without reading every word!",
     examTipMr: "MPSC S1-S6 ब्रॅकेट क्लृप्ती:\n१. S1 च्या पुढचे लगेच येणारे वाक्य ओळखा ➔ २ पर्याय लगेच बाद होतात!\n२. S6 च्या आधी येणारे वाक्य ओळखा ➔ उरलेल्या दोन पर्यायांतून लगेच अंतिम उत्तर मिळते!",
-    practiceQuestionIds: ['en_vocab_01'],
+    practiceQuestionIds: ['gq_en_10'],
     tags: ['Para Jumbles', 'S1 S6 Pattern', 'Sentence Rearrangement', 'Bracket Technique', 'MPSC Rules']
   },
 
@@ -7927,7 +7927,7 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     ],
     examTip: "MPSC Inverted Pyramid Trick:\n• Find the most abstract/philosophical sentence (e.g. Education, Freedom, Democracy) ➔ That is your OPENER!\n• Find the sentence with a specific date and venue (e.g. 1848, Bhidewada, Pune) ➔ That is your CLOSER!",
     examTipMr: "MPSC उलटा पिरॅमिड परीक्षा क्लृप्ती:\n• सर्वात तात्त्विक/व्यापक वाक्य (उदा. शिक्षण, न्याय, लोकशाही) ➔ ते पहिले वाक्य असते!\n• अचूक तारीख, वर्ष व ठिकाण असलेले वाक्य (उदा. १८४८, भिडेवाडा, पुणे) ➔ ते शेवटचे वाक्य असते!",
-    practiceQuestionIds: ['en_vocab_01'],
+    practiceQuestionIds: ['gq_en_11'],
     tags: ['Para Jumbles', 'General to Specific', 'Inverted Pyramid', 'Sentence Rearrangement', 'MPSC Rules']
   }
 ];
