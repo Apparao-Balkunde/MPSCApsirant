@@ -17,10 +17,15 @@ import {
   QrCode, 
   Compass, 
   Share2,
-  Scale
+  Scale,
+  Camera,
+  Upload,
+  X,
+  Image as ImageIcon
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { UserProgress, ExamPatternId } from '../types';
+import { updateStudentProfile, getLocalStudentSession } from '../lib/firebase';
 
 interface MpscHallOfFameAndPredictorProps {
   userProgress: UserProgress;
@@ -68,6 +73,50 @@ export const MpscHallOfFameAndPredictor: React.FC<MpscHallOfFameAndPredictorProp
   const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
     return localStorage.getItem('mpsc_sound_fx') !== 'false';
   });
+
+  // Candidate photo state
+  const [candidatePhoto, setCandidatePhoto] = useState<string>(() => {
+    try {
+      const fromLocal = localStorage.getItem('mpsc_aspirant_photo');
+      if (fromLocal) return fromLocal;
+      const session = getLocalStudentSession();
+      return session?.photoURL || '/emblem_of_india.svg';
+    } catch {
+      return '/emblem_of_india.svg';
+    }
+  });
+
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const photoInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleCustomPhotoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target?.result as string;
+      if (dataUrl) {
+        saveCandidatePhoto(dataUrl);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const saveCandidatePhoto = (photoUrl: string) => {
+    setCandidatePhoto(photoUrl);
+    try {
+      localStorage.setItem('mpsc_aspirant_photo', photoUrl);
+      updateStudentProfile(aspirantName, 'apparaobalkunde901@gmail.com', photoUrl);
+    } catch {}
+    setIsPhotoModalOpen(false);
+    if (soundEnabled) playPrestigeFanfare();
+    confetti({
+      particleCount: 60,
+      spread: 60,
+      origin: { y: 0.7 },
+    });
+  };
 
   const toggleSound = () => {
     const next = !soundEnabled;
@@ -548,19 +597,38 @@ export const MpscHallOfFameAndPredictor: React.FC<MpscHallOfFameAndPredictorProp
 
             {/* Candidate Photo & Info */}
             <div className="flex items-center gap-3.5 bg-stone-900/90 p-3 rounded-xl border border-stone-800">
-              <div className="w-14 h-14 rounded-xl overflow-hidden border border-amber-400/50 shrink-0 bg-stone-950 flex items-center justify-center relative shadow-md">
+              <div 
+                onClick={() => setIsPhotoModalOpen(true)}
+                className="w-14 h-14 rounded-xl overflow-hidden border-2 border-amber-400/60 shrink-0 bg-stone-950 flex items-center justify-center relative shadow-md cursor-pointer group"
+                title={isMr ? "फोटो किंवा अवतार बदला" : "Change Photo"}
+              >
                 <img
-                  src="/emblem_of_india.svg"
+                  src={candidatePhoto}
                   alt="Aspirant Avatar"
-                  className="w-10 h-10 object-contain"
+                  className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <Camera className="w-5 h-5 text-white drop-shadow" />
+                </div>
+                <div className="absolute bottom-0 right-0 p-0.5 rounded-tl bg-amber-500 text-stone-950">
+                  <Camera className="w-2.5 h-2.5" />
+                </div>
               </div>
 
               <div className="min-w-0 flex-1">
-                <h4 className="text-sm font-black text-white truncate">
-                  {aspirantName}
-                </h4>
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-black text-white truncate">
+                    {aspirantName}
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={() => setIsPhotoModalOpen(true)}
+                    className="text-[10px] text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
+                  >
+                    {isMr ? 'फोटो बदला' : 'Change'}
+                  </button>
+                </div>
                 <p className="text-[11px] text-amber-400 font-bold truncate">
                   {isMr ? 'भावी वर्ग-१ प्रशासकीय अधिकारी' : 'Future Civil Services Officer'}
                 </p>
@@ -613,6 +681,106 @@ export const MpscHallOfFameAndPredictor: React.FC<MpscHallOfFameAndPredictorProp
           </div>
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* MODAL: CHOOSE OR UPLOAD ASPIRANT PHOTO */}
+      {/* ========================================================================= */}
+      {isPhotoModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 border border-amber-500/40 rounded-2xl w-full max-w-md p-5 sm:p-6 shadow-2xl space-y-4 text-stone-100 relative">
+            {/* Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                  <Camera className="w-4 h-4 text-amber-400" />
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-white">
+                  {isMr ? 'पाससाठी फोटो किंवा अवतार निवडा' : 'Choose Pass Photo or Avatar'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsPhotoModalOpen(false)}
+                className="w-8 h-8 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Hidden Input for Device Camera / File Upload */}
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleCustomPhotoFile}
+            />
+
+            {/* Option 1: Upload from device / Camera */}
+            <button
+              type="button"
+              onClick={() => photoInputRef.current?.click()}
+              className="w-full p-3.5 rounded-xl border border-dashed border-amber-400 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Upload className="w-4 h-4 text-amber-400" />
+              <span className="text-xs font-black">
+                {isMr ? '📸 मोबाईल / कॅमेऱ्यावरून स्वतःचा फोटो निवडा' : '📸 Upload My Own Photo from Device'}
+              </span>
+            </button>
+
+            {/* Option 2: Choose from Inspiring Presets */}
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-stone-300">
+                {isMr ? 'किंवा खालील प्रेरणादायी अवतार निवडा:' : 'Or Select an Inspiring Avatar:'}
+              </span>
+
+              <div className="grid grid-cols-3 gap-2.5">
+                {[
+                  { name: isMr ? 'राजमुद्रा' : 'Emblem', src: '/emblem_of_india.svg' },
+                  { name: isMr ? 'छत्रपती शिवाजी महाराज' : 'Shivaji Maharaj', src: '/chhatrapati_shivaji_maharaj.jpg' },
+                  { name: isMr ? 'डॉ. आंबेडकर' : 'Dr. Ambedkar', src: '/dr_babasaheb_ambedkar.jpg' },
+                  { name: isMr ? 'किल्ले रायगड' : 'Raigad Fort', src: '/raigad_fort.jpg' },
+                  { name: isMr ? 'मंत्रालय' : 'Mantralaya', src: '/mantralaya.jpg' },
+                  { name: isMr ? 'संविधान' : 'Constitution', src: '/constitution_of_india.jpg' },
+                ].map((item) => (
+                  <button
+                    key={item.src}
+                    type="button"
+                    onClick={() => saveCandidatePhoto(item.src)}
+                    className={`p-2 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center gap-1.5 ${
+                      candidatePhoto === item.src
+                        ? 'bg-amber-500/20 border-amber-400 ring-2 ring-amber-400/40'
+                        : 'bg-stone-850 border-stone-800 hover:bg-stone-800 hover:border-stone-700'
+                    }`}
+                  >
+                    <div className="w-12 h-12 rounded-lg overflow-hidden border border-stone-700 bg-stone-900 shrink-0">
+                      <img
+                        src={item.src}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <span className="text-[10px] font-bold text-stone-200 truncate w-full">
+                      {item.name}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Cancel Button */}
+            <div className="pt-2 border-t border-stone-800 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setIsPhotoModalOpen(false)}
+                className="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold cursor-pointer"
+              >
+                {isMr ? 'बंद करा' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

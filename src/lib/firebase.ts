@@ -143,14 +143,14 @@ export async function loginAsPreviewUser(customName?: string, customEmail?: stri
   return studentUser;
 }
 
-export function updateStudentProfile(displayName: string, email: string): User {
+export function updateStudentProfile(displayName: string, email: string, photoURL?: string | null): User {
   const existing = getLocalStudentSession();
   const uid = existing?.uid || ('user_' + Math.random().toString(36).substring(2, 12));
   const updatedUser = {
     ...(existing || {}), uid,
     displayName: displayName.trim() || 'Apparao Balkunde',
     email: email.trim() || 'apparaobalkunde901@gmail.com',
-    photoURL: existing?.photoURL || null,
+    photoURL: photoURL !== undefined ? photoURL : (existing?.photoURL || null),
     isAnonymous: false, emailVerified: true,
   } as unknown as User;
   try { if (typeof window !== 'undefined') localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(updatedUser)); } catch (e) {

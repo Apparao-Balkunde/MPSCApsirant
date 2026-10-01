@@ -1,107 +1,247 @@
-import React, { useState } from 'react';
-import { Landmark, BookOpen, Award, Compass, Eye, Sparkles, Shield, Library, CheckCircle2, Crown, Flag } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  Landmark, 
+  BookOpen, 
+  Award, 
+  Compass, 
+  Eye, 
+  Sparkles, 
+  Shield, 
+  Library, 
+  CheckCircle2, 
+  Crown, 
+  Flag, 
+  Plus, 
+  Upload, 
+  Trash2, 
+  X, 
+  Image as ImageIcon 
+} from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 interface AspirantInspirationCardProps {
   language: 'mr' | 'en';
 }
 
+interface GalleryPhoto {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  src: string;
+  badge: string;
+  tag: string;
+  isCustom?: boolean;
+}
+
+const DEFAULT_PHOTOS: GalleryPhoto[] = [
+  {
+    id: 'shivaji_maharaj',
+    title: 'छत्रपती शिवाजी महाराज',
+    subtitle: 'प्रशासकीय नीती व लोककल्याणकारी स्वराज्य',
+    description: 'अष्टप्रधान मंडळ, कार्यक्षम महसूल व्यवस्था, दुर्ग व्यवस्थापन आणि निष्कलंक प्रशासनाचे शाश्वत प्रेरणास्थान.',
+    src: '/chhatrapati_shivaji_maharaj.jpg',
+    badge: '👑 स्वराज्य प्रेरणा',
+    tag: 'आदर्श राज्यकारभार व नीती',
+  },
+  {
+    id: 'ambedkar',
+    title: 'भारतरत्न डॉ. बाबासाहेब आंबेडकर',
+    subtitle: 'भारतीय संविधानाचे शिल्पकार • प्रज्ञासूर्य',
+    description: 'देशाची लोकशाही, मूलभूत हक्क आणि कायद्याच्या राज्याची पायाभरणी करणारे मार्गदर्शक विचार.',
+    src: '/dr_babasaheb_ambedkar.jpg',
+    badge: '📖 संविधान शिल्पकार',
+    tag: 'समानता, न्याय व बंधुता',
+  },
+  {
+    id: 'raigad',
+    title: 'किल्ले रायगड (नगारखाना)',
+    subtitle: 'स्वराज्याची राजधानी • ऐतिहासिक वारसा',
+    description: 'छत्रपती शिवाजी महाराजांचा राज्याभिषेक सोहळा आणि महाराष्ट्राच्या असीम स्वाभिमानाचे पवित्र प्रतीक.',
+    src: '/raigad_fort.jpg',
+    badge: '🚩 स्वराज्याची राजधानी',
+    tag: 'महाराष्ट्र इतिहास व वारसा',
+  },
+  {
+    id: 'open_book',
+    title: 'MPSC संदर्भ ग्रंथ व स्वाध्याय',
+    subtitle: 'उघडलेले संदर्भ पुस्तक • वस्तुनिष्ठ सराव',
+    description: 'राज्यव्यवस्था, इतिहास, भूगोल आणि व्याकरण विषयांचे मानक संदर्भ ग्रंथ, नोट्स आणि मागील वर्षांच्या प्रश्नांचे (PYQs) विश्लेषण.',
+    src: '/open_reference_book.jpg',
+    badge: '📚 संदर्भ ग्रंथ',
+    tag: 'MPSC सर्व विषय सराव',
+  },
+  {
+    id: 'mantralaya',
+    title: 'मंत्रालय, मुंबई',
+    subtitle: 'महाराष्ट्र शासनाचे प्रशासकीय मुख्यालय',
+    description: 'राजपत्रित वर्ग-१ व वर्ग-२ अधिकाऱ्यांच्या प्रशासकीय धोरणांचे आणि लोकसेवेचे सर्वोच्च केंद्रस्थान.',
+    src: '/mantralaya.jpg',
+    badge: '🏛️ सचिवालय',
+    tag: 'ध्येय: उपजिल्हाधिकारी / DYSP',
+  },
+  {
+    id: 'constitution',
+    title: 'भारतीय संविधान',
+    subtitle: 'मूळ ऐतिहासिक प्रत • सुवर्ण कॅलिग्राफी',
+    description: 'MPSC सामान्य अध्ययन-२ (राज्यव्यवस्था व कायदे) चा मूळ गाभा आणि देशाचा सर्वोच्च कायदा.',
+    src: '/constitution_of_india.jpg',
+    badge: '📜 सर्वोच्च कायदा',
+    tag: 'कलमे, अनुसूची व कायदे',
+  },
+  {
+    id: 'library',
+    title: 'अभ्यासिका व ग्रंथालय',
+    subtitle: 'पुस्तकांचे दालन • अखंड सातत्य',
+    description: 'हजारो पुस्तकांनी समृद्ध अभ्यासिका — जिथे स्पर्धा परीक्षेच्या यशाची मजबूत पायाभरणी होते.',
+    src: '/library_books.jpg',
+    badge: '🏛️ ग्रंथालय',
+    tag: 'सातत्यपूर्ण वाचन',
+  },
+  {
+    id: 'gateway',
+    title: 'गेटवे ऑफ इंडिया',
+    subtitle: 'महाराष्ट्राचा ऐतिहासिक मानबिंदू',
+    description: 'महाराष्ट्राच्या समृद्ध वारसा, इतिहास आणि स्पर्धा परीक्षेतील उच्च ध्येयाचे शाश्वत प्रतीक.',
+    src: '/gateway_of_india.jpg',
+    badge: '🚩 मानबिंदू',
+    tag: 'राज्यसेवा व संयुक्त परीक्षा',
+  },
+];
+
+const CUSTOM_IMAGES_STORAGE_KEY = 'mpsc_custom_gallery_images';
+
+// Helper to compress uploaded image using Canvas
+function compressImage(file: File, maxWidth = 1200, maxHeight = 900, quality = 0.85): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(event.target?.result as string);
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve(dataUrl);
+      };
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.src = event.target?.result as string;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
 export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = ({ language }) => {
   const isMr = language === 'mr';
-  const [selectedPhoto, setSelectedPhoto] = useState<number>(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const photos = [
-    {
-      id: 'shivaji_maharaj',
-      title: isMr ? 'छत्रपती शिवाजी महाराज' : 'Chhatrapati Shivaji Maharaj',
-      subtitle: isMr ? 'प्रशासकीय नीती व लोककल्याणकारी स्वराज्य' : 'Pinnacle of Good Governance & Public Welfare',
-      description: isMr 
-        ? 'अष्टप्रधान मंडळ, कार्यक्षम महसूल व्यवस्था, दुर्ग व्यवस्थापन आणि निष्कलंक प्रशासनाचे शाश्वत प्रेरणास्थान.' 
-        : 'The foundational inspiration of Maharashtra administration, ethical governance, and public welfare.',
-      src: '/chhatrapati_shivaji_maharaj.jpg',
-      badge: isMr ? '👑 स्वराज्य प्रेरणा' : '👑 Sovereign Pride',
-      tag: isMr ? 'आदर्श राज्यकारभार व नीती' : 'Ethical Governance',
-    },
-    {
-      id: 'ambedkar',
-      title: isMr ? 'भारतरत्न डॉ. बाबासाहेब आंबेडकर' : 'Dr. B.R. Ambedkar',
-      subtitle: isMr ? 'भारतीय संविधानाचे शिल्पकार • प्रज्ञासूर्य' : 'Architect of the Indian Constitution',
-      description: isMr 
-        ? 'देशाची लोकशाही, मूलभूत हक्क आणि कायद्याच्या राज्याची पायाभरणी करणारे मार्गदर्शक विचार.' 
-        : 'The architect of Modern Democratic India, fundamental rights, and constitutional morality.',
-      src: '/dr_babasaheb_ambedkar.jpg',
-      badge: isMr ? '📖 संविधान शिल्पकार' : '📖 Constitution Maker',
-      tag: isMr ? 'समानता, न्याय व बंधुता' : 'Justice & Democracy',
-    },
-    {
-      id: 'raigad',
-      title: isMr ? 'किल्ले रायगड (नगारखाना)' : 'Raigad Fort (Nagarkhana)',
-      subtitle: isMr ? 'स्वराज्याची राजधानी • ऐतिहासिक वारसा' : 'Capital of Swarajya • Historic Heritage',
-      description: isMr 
-        ? 'छत्रपती शिवाजी महाराजांचा राज्याभिषेक सोहळा आणि महाराष्ट्राच्या असीम स्वाभिमानाचे पवित्र प्रतीक.' 
-        : 'The capital fortress of Swarajya where Chhatrapati Shivaji Maharaj was crowned in 1674.',
-      src: '/raigad_fort.jpg',
-      badge: isMr ? '🚩 स्वराज्याची राजधानी' : '🚩 Capital Fort',
-      tag: isMr ? 'महाराष्ट्र इतिहास व वारसा' : 'Maharashtra Heritage',
-    },
-    {
-      id: 'open_book',
-      title: isMr ? 'MPSC संदर्भ ग्रंथ व स्वाध्याय' : 'Reference Books & Study Desk',
-      subtitle: isMr ? 'उघडलेले संदर्भ पुस्तक • वस्तुनिष्ठ सराव' : 'Open Reference Book • Objective Practice',
-      description: isMr 
-        ? 'राज्यव्यवस्था, इतिहास, भूगोल आणि व्याकरण विषयांचे मानक संदर्भ ग्रंथ, नोट्स आणि मागील वर्षांच्या प्रश्नांचे (PYQs) विश्लेषण.' 
-        : 'Open standard reference volumes, handwritten notes, and comprehensive PYQ analysis for MPSC aspirants.',
-      src: '/open_reference_book.jpg',
-      badge: isMr ? '📚 संदर्भ ग्रंथ' : '📚 Reference Book',
-      tag: isMr ? 'MPSC सर्व विषय सराव' : 'All Subjects Practice',
-    },
-    {
-      id: 'mantralaya',
-      title: isMr ? 'मंत्रालय, मुंबई' : 'Mantralaya, Mumbai',
-      subtitle: isMr ? 'महाराष्ट्र शासनाचे प्रशासकीय मुख्यालय' : 'Administrative Headquarters of Govt of Maharashtra',
-      description: isMr 
-        ? 'राजपत्रित वर्ग-१ व वर्ग-२ अधिकाऱ्यांच्या प्रशासकीय धोरणांचे आणि लोकसेवेचे सर्वोच्च केंद्रस्थान.' 
-        : 'The executive nerve center where Maharashtra Civil Service officers implement public policies.',
-      src: '/mantralaya.jpg',
-      badge: isMr ? '🏛️ सचिवालय' : '🏛️ Secretariat',
-      tag: isMr ? 'ध्येय: उपजिल्हाधिकारी / DYSP' : 'Target: Deputy Collector / DYSP',
-    },
-    {
-      id: 'constitution',
-      title: isMr ? 'भारतीय संविधान' : 'The Constitution of India',
-      subtitle: isMr ? 'मूळ ऐतिहासिक प्रत • सुवर्ण कॅलिग्राफी' : 'Original Historical Edition • Gold Calligraphy',
-      description: isMr 
-        ? 'MPSC सामान्य अध्ययन-२ (राज्यव्यवस्था व कायदे) चा मूळ गाभा आणि देशाचा सर्वोच्च कायदा.' 
-        : 'The supreme law of India and core foundation of MPSC GS-2 (Polity, Governance, & Laws).',
-      src: '/constitution_of_india.jpg',
-      badge: isMr ? '📜 सर्वोच्च कायदा' : '📜 Supreme Law',
-      tag: isMr ? 'कलमे, अनुसूची व कायदे' : 'Articles, Schedules & Rights',
-    },
-    {
-      id: 'library',
-      title: isMr ? 'अभ्यासिका व ग्रंथालय' : 'Aspirant Study Library',
-      subtitle: isMr ? 'पुस्तकांचे दालन • अखंड सातत्य' : 'Library Book Stacks • Relentless Practice',
-      description: isMr 
-        ? 'हजारो पुस्तकांनी समृद्ध अभ्यासिका — जिथे स्पर्धा परीक्षेच्या यशाची मजबूत पायाभरणी होते.' 
-        : 'Immense library collections empowering aspirants to build deep conceptual mastery.',
-      src: '/library_books.jpg',
-      badge: isMr ? '🏛️ ग्रंथालय' : '🏛️ Library',
-      tag: isMr ? 'सातत्यपूर्ण वाचन' : 'Dedicated Reading',
-    },
-    {
-      id: 'gateway',
-      title: isMr ? 'गेटवे ऑफ इंडिया' : 'Gateway of India, Mumbai',
-      subtitle: isMr ? 'महाराष्ट्राचा ऐतिहासिक मानबिंदू' : 'Historic Pride of Maharashtra',
-      description: isMr 
-        ? 'महाराष्ट्राच्या समृद्ध वारसा, इतिहास आणि स्पर्धा परीक्षेतील उच्च ध्येयाचे शाश्वत प्रतीक.' 
-        : 'Timeless emblem of Maharashtra’s rich heritage, history, and administrative aspiration.',
-      src: '/gateway_of_india.jpg',
-      badge: isMr ? '🚩 मानबिंदू' : '🚩 Pride',
-      tag: isMr ? 'राज्यसेवा व संयुक्त परीक्षा' : 'Rajyaseva & Combine Exams',
-    },
-  ];
+  // Load custom photos from localStorage
+  const [customPhotos, setCustomPhotos] = useState<GalleryPhoto[]>(() => {
+    try {
+      const raw = localStorage.getItem(CUSTOM_IMAGES_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const [selectedPhoto, setSelectedPhoto] = useState<number>(0);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [uploadPreview, setUploadPreview] = useState<string | null>(null);
+  const [newTitle, setNewTitle] = useState('');
+  const [newSubtitle, setNewSubtitle] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+
+  // Combined photo list: custom user images first, then default images
+  const allPhotos: GalleryPhoto[] = [...customPhotos, ...DEFAULT_PHOTOS];
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsUploading(true);
+      const dataUrl = await compressImage(file);
+      setUploadPreview(dataUrl);
+      if (!newTitle) {
+        setNewTitle(file.name.replace(/\.[^/.]+$/, '').slice(0, 30));
+      }
+    } catch (err) {
+      console.error('Image compression error:', err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleSaveCustomImage = () => {
+    if (!uploadPreview) return;
+
+    const newPhoto: GalleryPhoto = {
+      id: 'custom_' + Date.now(),
+      title: newTitle.trim() || (isMr ? 'माझे अभ्यास छायाचित्र' : 'My Study Photo'),
+      subtitle: newSubtitle.trim() || (isMr ? 'विद्यार्थी संदर्भ नोट्स व साहित्य' : 'Personal Study Material'),
+      description: newDescription.trim() || (isMr ? 'माझ्या MPSC तयारीसाठी अपलोड केलेले वैयक्तिक प्रेरणा छायाचित्र.' : 'Personal study image uploaded for MPSC preparation.'),
+      src: uploadPreview,
+      badge: isMr ? '✨ माझी इमेज' : '✨ My Image',
+      tag: isMr ? 'वैयक्तिक अभ्यास साहित्य' : 'Personal Study Notes',
+      isCustom: true,
+    };
+
+    const updated = [newPhoto, ...customPhotos];
+    setCustomPhotos(updated);
+    try {
+      localStorage.setItem(CUSTOM_IMAGES_STORAGE_KEY, JSON.stringify(updated));
+    } catch (e) {
+      console.warn('LocalStorage quota warning:', e);
+    }
+
+    // Reset modal & select newly added photo
+    setIsAddModalOpen(false);
+    setUploadPreview(null);
+    setNewTitle('');
+    setNewSubtitle('');
+    setNewDescription('');
+    setSelectedPhoto(0);
+
+    confetti({
+      particleCount: 70,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  };
+
+  const handleDeleteCustomPhoto = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const updated = customPhotos.filter((p) => p.id !== id);
+    setCustomPhotos(updated);
+    try {
+      localStorage.setItem(CUSTOM_IMAGES_STORAGE_KEY, JSON.stringify(updated));
+    } catch {}
+    setSelectedPhoto(0);
+  };
+
+  const currentPhoto = allPhotos[selectedPhoto] || allPhotos[0];
 
   return (
-    <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 rounded-2xl border border-amber-500/35 p-5 sm:p-6 shadow-xl text-stone-100 space-y-4">
+    <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 rounded-2xl border border-amber-500/35 p-5 sm:p-6 shadow-xl text-stone-100 space-y-4 relative">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-800">
         <div className="flex items-center gap-3">
@@ -114,21 +254,32 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
                 {isMr ? 'एमपीएससी प्रेरणा व ऐतिहासिक व्हिज्युअल दालन' : 'MPSC Heritage & Inspiration Visual Gallery'}
               </h3>
               <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-extrabold uppercase border border-amber-500/30">
-                {isMr ? '८ ऐतिहासिक छायाचित्रे' : '8 Heritage Photos'}
+                {allPhotos.length} {isMr ? 'छायाचित्रे उपलब्ध' : 'Photos'}
               </span>
             </div>
             <p className="text-xs text-stone-400 mt-0.5">
               {isMr 
-                ? 'छत्रपती शिवाजी महाराज, डॉ. बाबासाहेब आंबेडकर, किल्ले रायगड, संविधान व मंत्रालय — प्रशासकीय ध्येयाची प्रेरणा.' 
-                : 'Chhatrapati Shivaji Maharaj, Dr. B.R. Ambedkar, Raigad Fort, Constitution, and Mantralaya.'}
+                ? 'छत्रपती शिवाजी महाराज, डॉ. आंबेडकर, किल्ले रायगड, संदर्भ पुस्तके किंवा तुमची स्वतःची इमेज जोडा.' 
+                : 'Chhatrapati Shivaji Maharaj, Dr. Ambedkar, Raigad Fort, books, or add your custom images.'}
             </p>
           </div>
         </div>
 
-        {/* Selected badge */}
-        <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-800 text-amber-300 text-xs font-bold border border-stone-700">
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-          <span>{photos[selectedPhoto].badge}</span>
+        {/* Action Buttons: Add Image + Selected Badge */}
+        <div className="flex items-center gap-2 self-start sm:self-center">
+          <button
+            type="button"
+            onClick={() => setIsAddModalOpen(true)}
+            className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer hover:scale-105"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            <span>{isMr ? 'माझी इमेज जोडा' : 'Add My Image'}</span>
+          </button>
+
+          <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-800 text-amber-300 text-xs font-bold border border-stone-700">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>{currentPhoto.badge}</span>
+          </div>
         </div>
       </div>
 
@@ -137,8 +288,8 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
         {/* Large Featured Photo View */}
         <div className="lg:col-span-8 relative rounded-xl overflow-hidden border border-amber-500/30 bg-stone-950 shadow-lg group aspect-[16/10] sm:aspect-[16/9]">
           <img
-            src={photos[selectedPhoto].src}
-            alt={photos[selectedPhoto].title}
+            src={currentPhoto.src}
+            alt={currentPhoto.title}
             className="w-full h-full object-cover object-center filter contrast-[1.05] brightness-95 transition-all duration-700 group-hover:scale-105"
             referrerPolicy="no-referrer"
             loading="lazy"
@@ -147,35 +298,67 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
           {/* Vignette Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/20 to-transparent pointer-events-none" />
 
+          {/* Delete Button for Custom Image */}
+          {currentPhoto.isCustom && (
+            <button
+              type="button"
+              onClick={(e) => handleDeleteCustomPhoto(currentPhoto.id, e)}
+              className="absolute top-3 right-3 p-2 rounded-xl bg-rose-900/80 hover:bg-rose-800 text-white border border-rose-500/50 text-xs font-bold flex items-center gap-1 transition-all shadow-lg cursor-pointer"
+              title={isMr ? "ही इमेज हटवा" : "Delete Image"}
+            >
+              <Trash2 className="w-3.5 h-3.5 text-rose-300" />
+              <span>{isMr ? 'हटवा' : 'Delete'}</span>
+            </button>
+          )}
+
           {/* Bottom Floating Info Pill */}
           <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3 sm:p-4 rounded-xl bg-stone-950/90 backdrop-blur-md border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xl">
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500 text-stone-950 font-black uppercase">
-                  {photos[selectedPhoto].badge}
+                  {currentPhoto.badge}
                 </span>
                 <span className="text-xs text-amber-300 font-bold">
-                  {photos[selectedPhoto].tag}
+                  {currentPhoto.tag}
                 </span>
               </div>
               <h4 className="text-sm sm:text-base font-extrabold text-white mt-1">
-                {photos[selectedPhoto].title}
+                {currentPhoto.title}
               </h4>
               <p className="text-[11px] text-stone-300 leading-relaxed mt-0.5 line-clamp-2">
-                {photos[selectedPhoto].description}
+                {currentPhoto.description}
               </p>
             </div>
 
             <div className="shrink-0 flex items-center gap-1.5 text-stone-400 text-[11px] font-semibold">
               <Eye className="w-3.5 h-3.5 text-amber-400" />
-              <span>{isMr ? 'मूळ छायाचित्र' : 'Original Photo'}</span>
+              <span>{currentPhoto.isCustom ? (isMr ? 'तुमची इमेज' : 'Your Upload') : (isMr ? 'मूळ छायाचित्र' : 'Original Photo')}</span>
             </div>
           </div>
         </div>
 
-        {/* Right Photo Selector Cards (Scrollable list of 8 items) */}
+        {/* Right Photo Selector Cards (Scrollable list) */}
         <div className="lg:col-span-4 flex flex-col gap-2 max-h-[420px] overflow-y-auto pr-1.5 custom-scrollbar">
-          {photos.map((item, idx) => {
+          {/* Quick Add Image Card at Top of list */}
+          <button
+            type="button"
+            onClick={() => setIsAddModalOpen(true)}
+            className="w-full p-2.5 rounded-xl border border-dashed border-amber-500/50 hover:border-amber-400 bg-amber-500/10 hover:bg-amber-500/15 text-amber-300 text-left transition-all cursor-pointer flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
+              <Plus className="w-5 h-5 text-amber-400 stroke-[3]" />
+            </div>
+            <div>
+              <h5 className="text-xs font-black text-white">
+                {isMr ? '+ माझी स्वतःची इमेज जोडा' : '+ Upload Custom Image'}
+              </h5>
+              <p className="text-[10px] text-amber-300/80">
+                {isMr ? 'पुस्तके, नोट्स किंवा ध्येयाचे छायाचित्र' : 'Books, notes, or vision board photo'}
+              </p>
+            </div>
+          </button>
+
+          {allPhotos.map((item, idx) => {
             const isSelected = selectedPhoto === idx;
             return (
               <button
@@ -224,6 +407,137 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
           })}
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* MODAL: UPLOAD CUSTOM IMAGE (माझी इमेज जोडा) */}
+      {/* ========================================================================= */}
+      {isAddModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 border border-amber-500/40 rounded-2xl w-full max-w-lg p-5 sm:p-6 shadow-2xl space-y-4 text-stone-100 relative">
+            {/* Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                  <Upload className="w-4 h-4 text-amber-400" />
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-white">
+                  {isMr ? 'गॅलरीत नवीन इमेज जोडा' : 'Add Image to Gallery'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsAddModalOpen(false)}
+                className="w-8 h-8 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Hidden File Input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+
+            {/* Drop / Select Image Box */}
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              className={`border-2 border-dashed rounded-xl p-4 sm:p-6 text-center cursor-pointer transition-all ${
+                uploadPreview
+                  ? 'border-amber-400 bg-stone-900/60'
+                  : 'border-stone-700 hover:border-amber-400 hover:bg-stone-850/50'
+              }`}
+            >
+              {uploadPreview ? (
+                <div className="space-y-3">
+                  <div className="w-full h-44 rounded-lg overflow-hidden border border-stone-700 bg-stone-950">
+                    <img
+                      src={uploadPreview}
+                      alt="Upload Preview"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      fileInputRef.current?.click();
+                    }}
+                    className="text-xs font-bold text-amber-400 hover:underline inline-flex items-center gap-1"
+                  >
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{isMr ? 'दुसरी इमेज निवडा' : 'Change Image'}</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-2 py-4">
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto">
+                    <ImageIcon className="w-6 h-6 text-amber-400" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white">
+                    {isMr ? 'मोबाईल / संगणकावरून इमेज निवडा' : 'Choose Image from Device / Camera'}
+                  </h4>
+                  <p className="text-xs text-stone-400">
+                    {isMr ? 'JPG, PNG, WebP (पुस्तके, नोट्स किंवा ध्येयाचा फोटो)' : 'JPG, PNG, WebP format supported'}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Form Fields */}
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-bold text-stone-300 mb-1">
+                  {isMr ? 'इमेजचे नाव / शीर्षक *' : 'Title / Caption *'}
+                </label>
+                <input
+                  type="text"
+                  placeholder={isMr ? "उदा. माझे अभ्यास टेबल / हस्तलिखित नोट्स" : "e.g. My Study Desk / Polity Notes"}
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-white text-xs focus:outline-hidden focus:border-amber-400"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-stone-300 mb-1">
+                  {isMr ? 'उपशीर्षक (Subtitle)' : 'Subtitle'}
+                </label>
+                <input
+                  type="text"
+                  placeholder={isMr ? "उदा. सामान्य अध्ययन रिव्हिजन" : "e.g. GS-2 Revision Material"}
+                  value={newSubtitle}
+                  onChange={(e) => setNewSubtitle(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-white text-xs focus:outline-hidden focus:border-amber-400"
+                />
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="pt-3 border-t border-stone-800 flex items-center justify-end gap-2.5">
+              <button
+                type="button"
+                onClick={() => setIsAddModalOpen(false)}
+                className="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold cursor-pointer"
+              >
+                {isMr ? 'रद्द करा' : 'Cancel'}
+              </button>
+              <button
+                type="button"
+                disabled={!uploadPreview || isUploading}
+                onClick={handleSaveCustomImage}
+                className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-xs disabled:opacity-50 transition-all shadow-md cursor-pointer flex items-center gap-1.5"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                <span>{isMr ? 'इमेज गॅलरीत जोडा' : 'Add to Gallery'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
