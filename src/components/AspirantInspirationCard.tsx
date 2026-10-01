@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Landmark, BookOpen, Award, Compass, Eye, Sparkles, Shield, Library, CheckCircle2 } from 'lucide-react';
+import { Landmark, BookOpen, Award, Compass, Eye, Sparkles, Shield, Library, CheckCircle2, Crown, Flag } from 'lucide-react';
 
 interface AspirantInspirationCardProps {
   language: 'mr' | 'en';
@@ -10,6 +10,39 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
   const [selectedPhoto, setSelectedPhoto] = useState<number>(0);
 
   const photos = [
+    {
+      id: 'shivaji_maharaj',
+      title: isMr ? 'छत्रपती शिवाजी महाराज' : 'Chhatrapati Shivaji Maharaj',
+      subtitle: isMr ? 'प्रशासकीय नीती व लोककल्याणकारी स्वराज्य' : 'Pinnacle of Good Governance & Public Welfare',
+      description: isMr 
+        ? 'अष्टप्रधान मंडळ, कार्यक्षम महसूल व्यवस्था, दुर्ग व्यवस्थापन आणि निष्कलंक प्रशासनाचे शाश्वत प्रेरणास्थान.' 
+        : 'The foundational inspiration of Maharashtra administration, ethical governance, and public welfare.',
+      src: '/chhatrapati_shivaji_maharaj.jpg',
+      badge: isMr ? '👑 स्वराज्य प्रेरणा' : '👑 Sovereign Pride',
+      tag: isMr ? 'आदर्श राज्यकारभार व नीती' : 'Ethical Governance',
+    },
+    {
+      id: 'ambedkar',
+      title: isMr ? 'भारतरत्न डॉ. बाबासाहेब आंबेडकर' : 'Dr. B.R. Ambedkar',
+      subtitle: isMr ? 'भारतीय संविधानाचे शिल्पकार • प्रज्ञासूर्य' : 'Architect of the Indian Constitution',
+      description: isMr 
+        ? 'देशाची लोकशाही, मूलभूत हक्क आणि कायद्याच्या राज्याची पायाभरणी करणारे मार्गदर्शक विचार.' 
+        : 'The architect of Modern Democratic India, fundamental rights, and constitutional morality.',
+      src: '/dr_babasaheb_ambedkar.jpg',
+      badge: isMr ? '📖 संविधान शिल्पकार' : '📖 Constitution Maker',
+      tag: isMr ? 'समानता, न्याय व बंधुता' : 'Justice & Democracy',
+    },
+    {
+      id: 'raigad',
+      title: isMr ? 'किल्ले रायगड (नगारखाना)' : 'Raigad Fort (Nagarkhana)',
+      subtitle: isMr ? 'स्वराज्याची राजधानी • ऐतिहासिक वारसा' : 'Capital of Swarajya • Historic Heritage',
+      description: isMr 
+        ? 'छत्रपती शिवाजी महाराजांचा राज्याभिषेक सोहळा आणि महाराष्ट्राच्या असीम स्वाभिमानाचे पवित्र प्रतीक.' 
+        : 'The capital fortress of Swarajya where Chhatrapati Shivaji Maharaj was crowned in 1674.',
+      src: '/raigad_fort.jpg',
+      badge: isMr ? '🚩 स्वराज्याची राजधानी' : '🚩 Capital Fort',
+      tag: isMr ? 'महाराष्ट्र इतिहास व वारसा' : 'Maharashtra Heritage',
+    },
     {
       id: 'open_book',
       title: isMr ? 'MPSC संदर्भ ग्रंथ व स्वाध्याय' : 'Reference Books & Study Desk',
@@ -22,6 +55,17 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
       tag: isMr ? 'MPSC सर्व विषय सराव' : 'All Subjects Practice',
     },
     {
+      id: 'mantralaya',
+      title: isMr ? 'मंत्रालय, मुंबई' : 'Mantralaya, Mumbai',
+      subtitle: isMr ? 'महाराष्ट्र शासनाचे प्रशासकीय मुख्यालय' : 'Administrative Headquarters of Govt of Maharashtra',
+      description: isMr 
+        ? 'राजपत्रित वर्ग-१ व वर्ग-२ अधिकाऱ्यांच्या प्रशासकीय धोरणांचे आणि लोकसेवेचे सर्वोच्च केंद्रस्थान.' 
+        : 'The executive nerve center where Maharashtra Civil Service officers implement public policies.',
+      src: '/mantralaya.jpg',
+      badge: isMr ? '🏛️ सचिवालय' : '🏛️ Secretariat',
+      tag: isMr ? 'ध्येय: उपजिल्हाधिकारी / DYSP' : 'Target: Deputy Collector / DYSP',
+    },
+    {
       id: 'constitution',
       title: isMr ? 'भारतीय संविधान' : 'The Constitution of India',
       subtitle: isMr ? 'मूळ ऐतिहासिक प्रत • सुवर्ण कॅलिग्राफी' : 'Original Historical Edition • Gold Calligraphy',
@@ -29,7 +73,7 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
         ? 'MPSC सामान्य अध्ययन-२ (राज्यव्यवस्था व कायदे) चा मूळ गाभा आणि देशाचा सर्वोच्च कायदा.' 
         : 'The supreme law of India and core foundation of MPSC GS-2 (Polity, Governance, & Laws).',
       src: '/constitution_of_india.jpg',
-      badge: isMr ? '📖 संविधान' : '📖 Constitution',
+      badge: isMr ? '📜 सर्वोच्च कायदा' : '📜 Supreme Law',
       tag: isMr ? 'कलमे, अनुसूची व कायदे' : 'Articles, Schedules & Rights',
     },
     {
@@ -42,17 +86,6 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
       src: '/library_books.jpg',
       badge: isMr ? '🏛️ ग्रंथालय' : '🏛️ Library',
       tag: isMr ? 'सातत्यपूर्ण वाचन' : 'Dedicated Reading',
-    },
-    {
-      id: 'mantralaya',
-      title: isMr ? 'मंत्रालय, मुंबई' : 'Mantralaya, Mumbai',
-      subtitle: isMr ? 'महाराष्ट्र शासनाचे प्रशासकीय मुख्यालय' : 'Administrative Headquarters of Govt of Maharashtra',
-      description: isMr 
-        ? 'राजपत्रित वर्ग-१ व वर्ग-२ अधिकाऱ्यांच्या प्रशासकीय धोरणांचे आणि लोकसेवेचे सर्वोच्च केंद्रस्थान.' 
-        : 'The executive nerve center where Maharashtra Civil Service officers implement public policies.',
-      src: '/mantralaya.jpg',
-      badge: isMr ? '🏛️ सचिवालय' : '🏛️ Secretariat',
-      tag: isMr ? 'ध्येय: उपजिल्हाधिकारी / DYSP' : 'Target: Deputy Collector / DYSP',
     },
     {
       id: 'gateway',
@@ -68,26 +101,26 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
   ];
 
   return (
-    <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 rounded-2xl border border-amber-500/30 p-5 sm:p-6 shadow-xl text-stone-100 space-y-4">
+    <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 rounded-2xl border border-amber-500/35 p-5 sm:p-6 shadow-xl text-stone-100 space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-800">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center shrink-0 shadow-sm">
-            <BookOpen className="w-5 h-5 text-amber-400" />
+            <Landmark className="w-5 h-5 text-amber-400" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-base sm:text-lg font-black text-white">
-                {isMr ? 'एमपीएससी संदर्भ ग्रंथ व व्हिज्युअल दालन' : 'MPSC Reference Books & Visual Gallery'}
+                {isMr ? 'एमपीएससी प्रेरणा व ऐतिहासिक व्हिज्युअल दालन' : 'MPSC Heritage & Inspiration Visual Gallery'}
               </h3>
               <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-extrabold uppercase border border-amber-500/30">
-                {isMr ? '📚 पुस्तके व ऐतिहासिक छायाचित्रे' : '📚 Books & Heritage Photos'}
+                {isMr ? '८ ऐतिहासिक छायाचित्रे' : '8 Heritage Photos'}
               </span>
             </div>
             <p className="text-xs text-stone-400 mt-0.5">
               {isMr 
-                ? 'उघडलेली संदर्भ पुस्तके, भारतीय संविधान, ग्रंथालय आणि मंत्रालय — तुमच्या ध्येयाचा प्रेरणास्रोत.' 
-                : 'Open reference books, the Constitution, library stacks, and Mantralaya powering your civil services journey.'}
+                ? 'छत्रपती शिवाजी महाराज, डॉ. बाबासाहेब आंबेडकर, किल्ले रायगड, संविधान व मंत्रालय — प्रशासकीय ध्येयाची प्रेरणा.' 
+                : 'Chhatrapati Shivaji Maharaj, Dr. B.R. Ambedkar, Raigad Fort, Constitution, and Mantralaya.'}
             </p>
           </div>
         </div>
@@ -115,7 +148,7 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/20 to-transparent pointer-events-none" />
 
           {/* Bottom Floating Info Pill */}
-          <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3 sm:p-4 rounded-xl bg-stone-950/85 backdrop-blur-md border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xl">
+          <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-3 sm:p-4 rounded-xl bg-stone-950/90 backdrop-blur-md border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xl">
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500 text-stone-950 font-black uppercase">
@@ -140,8 +173,8 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
           </div>
         </div>
 
-        {/* Right Photo Selector Cards */}
-        <div className="lg:col-span-4 flex flex-col gap-2 sm:gap-2.5 max-h-[380px] overflow-y-auto pr-1 custom-scrollbar">
+        {/* Right Photo Selector Cards (Scrollable list of 8 items) */}
+        <div className="lg:col-span-4 flex flex-col gap-2 max-h-[420px] overflow-y-auto pr-1.5 custom-scrollbar">
           {photos.map((item, idx) => {
             const isSelected = selectedPhoto === idx;
             return (
@@ -151,12 +184,12 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
                 onClick={() => setSelectedPhoto(idx)}
                 className={`w-full p-2 sm:p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-center gap-2.5 ${
                   isSelected
-                    ? 'bg-amber-500/15 border-amber-500/60 shadow-md ring-1 ring-amber-500/30'
+                    ? 'bg-amber-500/20 border-amber-400 shadow-md ring-1 ring-amber-400/40'
                     : 'bg-stone-850/70 border-stone-800 hover:bg-stone-800/80 hover:border-stone-700'
                 }`}
               >
                 {/* Thumbnail */}
-                <div className="w-14 h-12 sm:w-16 sm:h-14 rounded-lg overflow-hidden border border-stone-700 shrink-0 relative">
+                <div className="w-14 h-12 sm:w-16 sm:h-14 rounded-lg overflow-hidden border border-stone-700 shrink-0 relative bg-stone-900">
                   <img
                     src={item.src}
                     alt={item.title}
@@ -189,19 +222,6 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
               </button>
             );
           })}
-
-          {/* Motivational Footer Ribbon */}
-          <div className="p-2.5 rounded-xl bg-stone-900/90 border border-stone-800 text-stone-300 text-xs space-y-1">
-            <div className="flex items-center gap-1.5 text-amber-400 font-bold text-[11px]">
-              <Compass className="w-3.5 h-3.5 text-orange-400 shrink-0" />
-              <span>{isMr ? 'प्रशासकीय ब्रीदवाक्य' : 'Administrative Motto'}</span>
-            </div>
-            <p className="text-[10px] text-stone-400 italic">
-              {isMr 
-                ? '"प्रतिपच्चंद्रलेखेव वर्धिष्णुर्विश्ववंदिता..."' 
-                : 'Duty, Integrity & Public Service for Maharashtra State.'}
-            </p>
-          </div>
         </div>
       </div>
     </div>

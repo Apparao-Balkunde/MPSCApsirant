@@ -158,30 +158,35 @@ const MOTIVATIONAL_QUOTES = [
     authorMr: "भारतरत्न डॉ. बाबासाहेब आंबेडकर",
     quoteEn: "Education is the milk of a tigress, and whoever drinks it will roar!",
     authorEn: "Dr. B.R. Ambedkar",
+    image: "/dr_babasaheb_ambedkar.jpg",
   },
   {
     quoteMr: "प्रतिपच्चंद्रलेखेव वर्धिष्णुर्विश्ववंदिता शाहसूनोः शिवस्यैषा मुद्रा भद्राय राजते!",
     authorMr: "छत्रपती शिवाजी महाराज",
     quoteEn: "Ever increasing like the crescent moon, adored by the universe, this seal brings public welfare!",
     authorEn: "Chhatrapati Shivaji Maharaj",
+    image: "/chhatrapati_shivaji_maharaj.jpg",
   },
   {
     quoteMr: "स्वप्ने ती नव्हेत जी झोपेत पडतात, स्वप्ने ती आहेत जी तुम्हाला झोपूच देत नाहीत!",
     authorMr: "डॉ. ए. पी. जे. अब्दुल कलाम",
     quoteEn: "Dream is not what you see in sleep, dream is the thing which does not let you sleep!",
     authorEn: "Dr. A.P.J. Abdul Kalam",
+    image: "/constitution_of_india.jpg",
   },
   {
     quoteMr: "विद्येविना मती गेली, मतीविना नीती गेली, नीतीविना गती गेली, गतीविना वित्त गेले!",
     authorMr: "क्रांतिसूर्य महात्मा जोतीराव फुले",
     quoteEn: "Without knowledge, intellect is lost; without intellect, morality is lost; without morality, progress is lost!",
     authorEn: "Mahatma Jyotirao Phule",
+    image: "/raigad_fort.jpg",
   },
   {
     quoteMr: "प्रशासनात येण्याचा उद्देश सत्तेचा उपभोग घेणे नसून सामान्यांच्या जीवनात सकारात्मक बदल घडवणे हाच असावा.",
-    authorMr: "MPSC टॉपर मार्गदर्शक विचार",
+    authorMr: "MPSC मार्गदर्शक विचार",
     quoteEn: "The true aim of joining civil services is not power, but creating a meaningful positive impact on common lives.",
     authorEn: "MPSC Ranker Wisdom",
+    image: "/mantralaya.jpg",
   },
 ];
 
@@ -615,16 +620,30 @@ export const MpscCommandCenter: React.FC<MpscCommandCenterProps> = ({
               </button>
             </div>
 
-            {/* Motivational Quote */}
-            <div className="relative py-2">
-              <span className="text-4xl text-amber-500/20 font-serif absolute -top-3 -left-1">“</span>
-              <p className="text-sm font-bold text-stone-200 leading-relaxed italic pl-3">
-                {isMr ? MOTIVATIONAL_QUOTES[quoteIndex].quoteMr : MOTIVATIONAL_QUOTES[quoteIndex].quoteEn}
-              </p>
-              <div className="mt-3 text-right">
-                <span className="text-xs font-black text-amber-400">
-                  — {isMr ? MOTIVATIONAL_QUOTES[quoteIndex].authorMr : MOTIVATIONAL_QUOTES[quoteIndex].authorEn}
-                </span>
+            {/* Motivational Quote with Portrait Thumbnail */}
+            <div className="relative py-2 flex items-start gap-3">
+              {/* Author Portrait Image */}
+              <div className="w-12 h-14 sm:w-14 sm:h-16 rounded-xl overflow-hidden border border-amber-400/40 shrink-0 bg-stone-950 shadow-md relative group">
+                <img
+                  src={MOTIVATIONAL_QUOTES[quoteIndex].image}
+                  alt={MOTIVATIONAL_QUOTES[quoteIndex].authorMr}
+                  className="w-full h-full object-cover object-top"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent pointer-events-none" />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <span className="text-3xl text-amber-500/25 font-serif leading-none block -mb-2">“</span>
+                <p className="text-xs sm:text-sm font-bold text-stone-200 leading-relaxed italic">
+                  {isMr ? MOTIVATIONAL_QUOTES[quoteIndex].quoteMr : MOTIVATIONAL_QUOTES[quoteIndex].quoteEn}
+                </p>
+                <div className="mt-2 text-right">
+                  <span className="text-xs font-black text-amber-400">
+                    — {isMr ? MOTIVATIONAL_QUOTES[quoteIndex].authorMr : MOTIVATIONAL_QUOTES[quoteIndex].authorEn}
+                  </span>
+                </div>
               </div>
             </div>
 
