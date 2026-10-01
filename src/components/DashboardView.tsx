@@ -35,6 +35,9 @@ import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { WeeklyGoalCard } from './WeeklyGoalCard';
 import { LeaderboardCard } from './LeaderboardCard';
 import { ExamCountdownCard } from './ExamCountdownCard';
+import { MpscHeroVisual } from './MpscHeroVisual';
+import { AspirantInspirationCard } from './AspirantInspirationCard';
+import { MpscCommandCenter } from './MpscCommandCenter';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 
@@ -249,107 +252,114 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       )}
 
-      {/* Aspirant Hero Greeting & Momentum Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-stone-900 via-stone-850 to-stone-900 text-stone-100 p-6 sm:p-8 border border-stone-800 shadow-lg">
-        {/* Subtle decorative background badge */}
-        <div className="absolute right-4 -bottom-6 text-stone-800/40 select-none pointer-events-none hidden md:block">
-          <Award className="w-64 h-64" />
-        </div>
+      {/* Aspirant Hero Greeting & Momentum Banner with Impressive Visual */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 text-stone-100 p-6 sm:p-8 lg:p-10 border border-amber-500/30 shadow-2xl">
+        {/* Subtle decorative background aura */}
+        <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-1/3 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-2xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
-            <Flame className="w-3.5 h-3.5 text-orange-400 fill-orange-400" />
-            <span>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Left Column: Heading, Info, Streak & Primary CTA Buttons */}
+          <div className="lg:col-span-7 xl:col-span-7 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold shadow-sm">
+              <Flame className="w-3.5 h-3.5 text-orange-400 fill-orange-400 animate-pulse" />
+              <span>
+                {isMr 
+                  ? `${userProgress.streakDays} दिवसांचे निरंतर अध्ययन सातत्य!` 
+                  : `${userProgress.streakDays} Days Consistent Practice Streak!`}
+              </span>
+            </div>
+
+            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+              {isMr ? 'एमपीएससी २०२५-२६ तयारी आणि सराव परीक्षा' : 'Crack MPSC 2025-26 with Precision'}
+            </h1>
+
+            <p className="text-sm sm:text-base text-stone-300 leading-relaxed">
               {isMr 
-                ? `${userProgress.streakDays} दिवसांचे निरंतर अध्ययन सातत्य!` 
-                : `${userProgress.streakDays} Days Consistent Practice Streak!`}
-            </span>
+                ? 'राज्यसेवा (राजपत्रित वर्ग-१ व वर्ग-२) आणि संयुक्त गट-ब व क परीक्षांसाठी वस्तुनिष्ठ सराव चाचण्या, १/४ नकारात्मक गुणांकनासह रिअल टाइम परीक्षा पद्धती आणि अचूक विश्लेषण.'
+                : 'Timed mock tests for Rajyaseva and Combine exams with real CBT palette, 1/4 negative marking, bilingual explanations, and deep analytics.'}
+            </p>
+
+            <div className="flex items-center gap-3 pt-2 flex-wrap">
+              <button
+                id="btn-quick-daily-challenge"
+                onClick={() => onStartExam('daily_10_challenge')}
+                className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-extrabold text-sm flex items-center gap-2 shadow-md hover:shadow-amber-500/25 transition-all cursor-pointer hover:scale-[1.02]"
+              >
+                <Zap className="w-4 h-4 fill-stone-950" />
+                <span>{isMr ? 'दैनिक १० मिनिटांचे चॅलेंज सोडवा' : 'Take Daily 10-Min Challenge'}</span>
+              </button>
+
+              {userProgress.bookmarkedQuestionIds.length > 0 && (
+                <button
+                  onClick={onOpenBookmarks}
+                  className="px-4 py-3 rounded-xl bg-stone-800/90 hover:bg-stone-700 text-stone-200 border border-stone-700 font-bold text-sm flex items-center gap-2 transition-colors cursor-pointer shadow-sm"
+                >
+                  <Bookmark className="w-4 h-4 text-amber-400" />
+                  <span>
+                    {isMr ? 'जतन केलेले प्रश्न' : 'Saved Questions'} ({userProgress.bookmarkedQuestionIds.length})
+                  </span>
+                </button>
+              )}
+
+              {onOpenGrammarRules && (
+                <button
+                  id="btn-hero-grammar-rules"
+                  onClick={onOpenGrammarRules}
+                  className="px-4 py-3 rounded-xl bg-indigo-950/80 hover:bg-indigo-900 text-indigo-200 border border-indigo-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                >
+                  <FileText className="w-4 h-4 text-indigo-400" />
+                  <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम' : 'Grammar Rules & Shortcuts'}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
+                    {isMr ? '१३६ नियम 🏆' : '136 Rules'}
+                  </span>
+                </button>
+              )}
+
+              {onOpenInformationHub && (
+                <button
+                  id="btn-hero-information-hub"
+                  onClick={onOpenInformationHub}
+                  className="px-4 py-3 rounded-xl bg-amber-950/70 hover:bg-amber-900 text-amber-200 border border-amber-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                  title={isMr ? "माहितीचा अधिकार (RTI), IT कायदा व MPSC परीक्षा माहिती केंद्र उघडा" : "Open RTI, IT Act & MPSC Information Hub"}
+                >
+                  <Scale className="w-4 h-4 text-amber-400" />
+                  <span>{isMr ? '📚 परीक्षा व कायदे माहिती केंद्र' : '📚 Exam & Legal Info Hub'}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
+                    RTI/IT
+                  </span>
+                </button>
+              )}
+
+              {onOpenAddQuestion && (
+                <button
+                  id="btn-hero-add-mcq"
+                  onClick={onOpenAddQuestion}
+                  className="px-4 py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                  title={isMr ? "नवीन MCQ प्रश्न तयार करा किंवा नमुना प्रश्न जोडा" : "Add custom MCQ question to Bank"}
+                >
+                  <PlusCircle className="w-4 h-4 text-amber-400" />
+                  <span>{isMr ? '➕ MCQ प्रश्न ॲड करा' : '➕ Add MCQ Question'}</span>
+                </button>
+              )}
+
+              {onOpenExamCountdown && (
+                <button
+                  id="btn-hero-exam-countdown"
+                  onClick={onOpenExamCountdown}
+                  className="px-4 py-3 rounded-xl bg-stone-800/90 hover:bg-stone-750 text-amber-300 border border-amber-500/30 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+                  title={isMr ? "MPSC परीक्षा काउंटडाउन व वेळापत्रक उघडा" : "Open MPSC Exam Countdown & Timetable"}
+                >
+                  <Clock className="w-4 h-4 text-amber-400 animate-pulse" />
+                  <span>{isMr ? '⏳ परीक्षा काउंटडाउन' : '⏳ Exam Countdown'}</span>
+                </button>
+              )}
+            </div>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
-            {isMr ? 'एमपीएससी तयारी आणि सराव परीक्षा' : 'Crack MPSC 2025-26 with Precision'}
-          </h1>
-
-          <p className="text-sm sm:text-base text-stone-300 leading-relaxed">
-            {isMr 
-              ? 'राज्यसेवा (राजपत्रित) व संयुक्त गट ब आणि क परीक्षांसाठी वस्तुनिष्ठ सराव चाचण्या, नकारात्मक गुणांकनासह रिअल टाइम परीक्षा पद्धती आणि अचूक विश्लेषण.'
-              : 'Timed mock tests for Rajyaseva and Combine exams with real CBT palette, negative marking, bilingual explanations, and deep analytics.'}
-          </p>
-
-          <div className="flex items-center gap-3 pt-2 flex-wrap">
-            <button
-              id="btn-quick-daily-challenge"
-              onClick={() => onStartExam('daily_10_challenge')}
-              className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-extrabold text-sm flex items-center gap-2 shadow-md hover:shadow-amber-500/20 transition-all cursor-pointer"
-            >
-              <Zap className="w-4 h-4 fill-stone-950" />
-              <span>{isMr ? 'दैनिक १० मिनिटांचे चॅलेंज सोडवा' : 'Take Daily 10-Min Challenge'}</span>
-            </button>
-
-            {userProgress.bookmarkedQuestionIds.length > 0 && (
-              <button
-                onClick={onOpenBookmarks}
-                className="px-4 py-3 rounded-xl bg-stone-800/90 hover:bg-stone-700 text-stone-200 border border-stone-700 font-bold text-sm flex items-center gap-2 transition-colors cursor-pointer"
-              >
-                <Bookmark className="w-4 h-4 text-amber-400" />
-                <span>
-                  {isMr ? 'जतन केलेले प्रश्न' : 'Saved Questions'} ({userProgress.bookmarkedQuestionIds.length})
-                </span>
-              </button>
-            )}
-
-            {onOpenGrammarRules && (
-              <button
-                id="btn-hero-grammar-rules"
-                onClick={onOpenGrammarRules}
-                className="px-4 py-3 rounded-xl bg-indigo-950/80 hover:bg-indigo-900 text-indigo-200 border border-indigo-500/30 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm"
-              >
-                <FileText className="w-4 h-4 text-indigo-400" />
-                <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम' : 'Grammar Rules & Shortcuts'}</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
-                  {isMr ? 'नवीन' : 'New'}
-                </span>
-              </button>
-            )}
-
-            {onOpenInformationHub && (
-              <button
-                id="btn-hero-information-hub"
-                onClick={onOpenInformationHub}
-                className="px-4 py-3 rounded-xl bg-amber-950/70 hover:bg-amber-900 text-amber-200 border border-amber-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
-                title={isMr ? "माहितीचा अधिकार (RTI), IT कायदा व MPSC परीक्षा माहिती केंद्र उघडा" : "Open RTI, IT Act & MPSC Information Hub"}
-              >
-                <Scale className="w-4 h-4 text-amber-400" />
-                <span>{isMr ? '📚 परीक्षा व कायदे माहिती केंद्र' : '📚 Exam & Legal Info Hub'}</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
-                  {isMr ? 'RTI/IT' : 'RTI/IT'}
-                </span>
-              </button>
-            )}
-
-            {onOpenAddQuestion && (
-              <button
-                id="btn-hero-add-mcq"
-                onClick={onOpenAddQuestion}
-                className="px-4 py-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
-                title={isMr ? "नवीन MCQ प्रश्न तयार करा किंवा नमुना प्रश्न जोडा" : "Add custom MCQ question to Bank"}
-              >
-                <PlusCircle className="w-4 h-4 text-amber-400" />
-                <span>{isMr ? '➕ MCQ प्रश्न ॲड करा' : '➕ Add MCQ Question'}</span>
-              </button>
-            )}
-
-            {onOpenExamCountdown && (
-              <button
-                id="btn-hero-exam-countdown"
-                onClick={onOpenExamCountdown}
-                className="px-4 py-3 rounded-xl bg-stone-800/90 hover:bg-stone-750 text-amber-300 border border-amber-500/30 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm"
-                title={isMr ? "MPSC परीक्षा काउंटडाउन व वेळापत्रक उघडा" : "Open MPSC Exam Countdown & Timetable"}
-              >
-                <Clock className="w-4 h-4 text-amber-400 animate-pulse" />
-                <span>{isMr ? '⏳ परीक्षा काउंटडाउन' : '⏳ Exam Countdown'}</span>
-              </button>
-            )}
+          {/* Right Column: Impressive MPSC Civil Services Artwork Showcase */}
+          <div className="lg:col-span-5 xl:col-span-5 flex justify-center items-center w-full">
+            <MpscHeroVisual language={language} />
           </div>
         </div>
       </div>
@@ -360,6 +370,29 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         onStartExam={onStartExam}
         onOpenFullSchedule={onOpenExamCountdown || (() => {})}
       />
+
+      {/* MPSC Civil Services Aspirant Vision & Prestigious Cadre Banner */}
+      <div className="relative rounded-2xl overflow-hidden border border-amber-500/30 bg-stone-950 shadow-xl group">
+        <img
+          src="/mpsc_officer_banner.svg"
+          alt={isMr ? "महाराष्ट्र लोकसेवा आयोग - नागरी सेवा अधिकारी ध्येय व अभ्यास" : "MPSC Maharashtra Civil Services Aspirant Preparation"}
+          className="w-full h-auto object-cover max-h-[320px] sm:max-h-[380px] transition-transform duration-700 group-hover:scale-[1.01]"
+          referrerPolicy="no-referrer"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent pointer-events-none" />
+      </div>
+
+      {/* MPSC Interactive Command Center: Dream Post Simulator & Rapid-Fire Challenge */}
+      <MpscCommandCenter
+        userProgress={userProgress}
+        language={language}
+        onStartExam={onStartExam}
+        questionsPool={pool}
+      />
+
+      {/* MPSC Photographic Visual Inspiration Gallery */}
+      <AspirantInspirationCard language={language} />
 
       {/* Snapshot Metrics Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1105,33 +1138,52 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       )}
 
-      {/* Grammar Rules Spotlight Card */}
+      {/* Grammar Rules Spotlight Card with Open Book Image */}
       {onOpenGrammarRules && (
-        <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-indigo-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 text-white rounded-2xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 flex flex-col md:flex-row items-center justify-between gap-5 relative overflow-hidden group">
           <div className="absolute right-0 top-0 translate-x-12 -translate-y-12 w-48 h-48 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
-          <div className="space-y-2 relative z-10 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold border border-amber-400/30">
-              <FileText className="w-3.5 h-3.5" />
-              <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम कोश' : 'Grammar Rules & Exam Shortcuts'}</span>
+          
+          <div className="flex items-center gap-4 relative z-10 max-w-2xl">
+            {/* Book Image Thumbnail */}
+            <div className="w-24 h-20 sm:w-28 sm:h-24 rounded-xl overflow-hidden border border-amber-500/40 shrink-0 shadow-lg relative group-hover:scale-105 transition-transform duration-500 hidden sm:block">
+              <img
+                src="/open_reference_book.jpg"
+                alt={isMr ? "MPSC संदर्भ पुस्तक" : "MPSC Reference Book"}
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-1 left-1.5 px-1.5 py-0.5 rounded bg-amber-500 text-stone-950 text-[9px] font-black uppercase">
+                {isMr ? '१३६ नियम' : '136 Rules'}
+              </div>
             </div>
-            <h3 className="text-xl font-extrabold text-white">
-              {isMr
-                ? 'नियम, अचूक सूत्रे, अपवाद व MPSC शॉर्टकट क्लृप्त्या'
-                : 'Formulas, Exceptions & Right vs Wrong Examples'}
-            </h3>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              {isMr
-                ? 'वर्णविचार, संधी, विभक्ती, प्रयोग, समास, Subject-Verb Agreement, Tenses, Voice, Speech, Articles व Prepositions चे सर्व नियम एकाच ठिकाणी.'
-                : 'Comprehensive rules with exam shortcuts, right vs. wrong sentences, and targeted MCQs for high scoring.'}
-            </p>
+
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold border border-amber-400/30">
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम कोश' : 'Grammar Rules & Exam Shortcuts'}</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-extrabold text-white">
+                {isMr
+                  ? 'नियम, अचूक सूत्रे, अपवाद व MPSC शॉर्टकट क्लृप्त्या'
+                  : 'Formulas, Exceptions & Right vs Wrong Examples'}
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                {isMr
+                  ? 'वर्णविचार, संधी, विभक्ती, प्रयोग, समास, Subject-Verb Agreement, Tenses, Voice, Speech, Articles व Prepositions चे सर्व नियम एकाच ठिकाणी.'
+                  : 'Comprehensive rules with exam shortcuts, right vs. wrong sentences, and targeted MCQs for high scoring.'}
+              </p>
+            </div>
           </div>
 
           <button
             id="btn-open-grammar-rules-spotlight"
             onClick={onOpenGrammarRules}
-            className="relative z-10 px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shrink-0 shadow-sm cursor-pointer"
+            className="relative z-10 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 transition-all shrink-0 shadow-md cursor-pointer hover:scale-105"
           >
-            <span>{isMr ? 'नियम व सूत्रे अभ्यासा ➜' : 'Explore Grammar Rules ➜'}</span>
+            <BookOpen className="w-4 h-4" />
+            <span>{isMr ? 'नियम व पुस्तके अभ्यासा ➜' : 'Explore Grammar Rules ➜'}</span>
           </button>
         </div>
       )}
