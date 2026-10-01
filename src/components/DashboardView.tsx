@@ -39,8 +39,22 @@ import { MpscHeroVisual } from './MpscHeroVisual';
 import { AspirantInspirationCard } from './AspirantInspirationCard';
 import { MpscCommandCenter } from './MpscCommandCenter';
 import { MpscHallOfFameAndPredictor } from './MpscHallOfFameAndPredictor';
+import { MpscBookShelf } from './MpscBookShelf';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
+
+const SUBJECT_BOOK_COVERS: Record<string, string> = {
+  marathi_grammar: '/open_reference_book.jpg',
+  english_grammar: '/mpsc_textbooks.jpg',
+  maharashtra_history: '/vintage_reference_books.jpg',
+  maharashtra_geography: '/mpsc_textbooks.jpg',
+  polity: '/constitution_of_india.jpg',
+  general_science: '/stack_of_books.jpg',
+  csat: '/pile_of_books.jpg',
+  economy: '/stack_of_books.jpg',
+  environment: '/open_reference_book.jpg',
+  current_affairs: '/library_books.jpg',
+};
 
 interface DashboardViewProps {
   userProgress: UserProgress;
@@ -952,7 +966,27 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Card 1: Rajyaseva GS Prelims */}
-          <div className="bg-white rounded-2xl border-2 border-stone-200 hover:border-amber-500/80 p-6 flex flex-col justify-between transition-all hover:shadow-md group">
+          <div className="bg-white rounded-2xl border-2 border-stone-200 hover:border-amber-500/80 p-6 flex flex-col justify-between transition-all hover:shadow-md group overflow-hidden">
+            {/* Top Photo Banner */}
+            <div className="h-32 -mx-6 -mt-6 mb-4 rounded-t-xl overflow-hidden relative bg-stone-950">
+              <img
+                src="/mantralaya.jpg"
+                alt="Mantralaya"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white">
+                <span className="font-black text-xs drop-shadow-md">
+                  {isMr ? 'मंत्रालय • राजपत्रित वर्ग-१' : 'Mantralaya • Class-1'}
+                </span>
+                <span className="text-[10px] font-mono bg-amber-500/90 text-stone-950 font-black px-1.5 py-0.5 rounded shadow-xs">
+                  २०० गुण
+                </span>
+              </div>
+            </div>
+
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider">
@@ -993,7 +1027,27 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Card 2: Combine Group B & C Prelims */}
-          <div className="bg-white rounded-2xl border-2 border-stone-200 hover:border-blue-500/80 p-6 flex flex-col justify-between transition-all hover:shadow-md group">
+          <div className="bg-white rounded-2xl border-2 border-stone-200 hover:border-blue-500/80 p-6 flex flex-col justify-between transition-all hover:shadow-md group overflow-hidden">
+            {/* Top Photo Banner */}
+            <div className="h-32 -mx-6 -mt-6 mb-4 rounded-t-xl overflow-hidden relative bg-stone-950">
+              <img
+                src="/gateway_of_india.jpg"
+                alt="Gateway of India"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white">
+                <span className="font-black text-xs drop-shadow-md">
+                  {isMr ? 'संयुक्त गट-ब व क • PSI / STI / ASO' : 'Combine Group B & C'}
+                </span>
+                <span className="text-[10px] font-mono bg-blue-500/90 text-white font-black px-1.5 py-0.5 rounded shadow-xs">
+                  १०० गुण
+                </span>
+              </div>
+            </div>
+
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider">
@@ -1034,7 +1088,27 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Card 3: Maharashtra Special */}
-          <div className="bg-white rounded-2xl border-2 border-stone-200 hover:border-emerald-500/80 p-6 flex flex-col justify-between transition-all hover:shadow-md group">
+          <div className="bg-white rounded-2xl border-2 border-stone-200 hover:border-emerald-500/80 p-6 flex flex-col justify-between transition-all hover:shadow-md group overflow-hidden">
+            {/* Top Photo Banner */}
+            <div className="h-32 -mx-6 -mt-6 mb-4 rounded-t-xl overflow-hidden relative bg-stone-950">
+              <img
+                src="/raigad_fort.jpg"
+                alt="Raigad Fort"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white">
+                <span className="font-black text-xs drop-shadow-md">
+                  {isMr ? 'किल्ले रायगड • महाराष्ट्र विशेष' : 'Raigad Fort • Maharashtra'}
+                </span>
+                <span className="text-[10px] font-mono bg-emerald-500/90 text-white font-black px-1.5 py-0.5 rounded shadow-xs">
+                  विशेष वेटेज
+                </span>
+              </div>
+            </div>
+
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
@@ -1076,7 +1150,26 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
           {/* Card 4: Current Affairs 2026/27 Special */}
           <div className="bg-white rounded-2xl border-2 border-indigo-200 hover:border-indigo-500 p-6 flex flex-col justify-between transition-all hover:shadow-md group relative overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-indigo-50 rounded-full blur-xl pointer-events-none" />
+            {/* Top Photo Banner */}
+            <div className="h-32 -mx-6 -mt-6 mb-4 rounded-t-xl overflow-hidden relative bg-stone-950">
+              <img
+                src="/open_reference_book.jpg"
+                alt="Current Affairs Book"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white">
+                <span className="font-black text-xs drop-shadow-md">
+                  {isMr ? 'वार्षिकी व संदर्भ • चालू घडामोडी २०२६' : 'Current Affairs 2026'}
+                </span>
+                <span className="text-[10px] font-mono bg-indigo-500/90 text-white font-black px-1.5 py-0.5 rounded shadow-xs">
+                  २५ प्रश्न
+                </span>
+              </div>
+            </div>
+
             <div className="space-y-3 relative">
               <div className="flex items-center justify-between">
                 <span className="px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
@@ -1197,6 +1290,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       )}
 
+      {/* MPSC Standard Reference Bookshelf & Visual Covers */}
+      <MpscBookShelf
+        language={language}
+        onStartExam={onStartExam}
+        onOpenGrammarRules={onOpenGrammarRules}
+      />
+
       {/* Subject-Wise Quick Practice Grid */}
       <div>
         <div className="flex items-center justify-between mb-4">
@@ -1217,25 +1317,35 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             return (
               <div
                 key={sub.id}
-                className="bg-white rounded-xl border border-stone-200 p-5 hover:border-stone-300 transition-all flex flex-col justify-between"
+                className="bg-white rounded-xl border border-stone-200 p-4 hover:border-amber-400 hover:shadow-xs transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700">
-                      {count} {isMr ? 'प्रश्न उपलब्ध' : 'Questions'}
-                    </span>
+                  <div className="flex items-start gap-3 mb-2.5">
+                    <div className="w-12 h-14 rounded-lg overflow-hidden border border-stone-200 shrink-0 bg-stone-900 shadow-2xs relative">
+                      <img
+                        src={SUBJECT_BOOK_COVERS[sub.id] || '/open_reference_book.jpg'}
+                        alt={sub.nameMr}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-stone-100 text-stone-700 inline-block mb-1">
+                        {count} {isMr ? 'प्रश्न उपलब्ध' : 'Questions'}
+                      </span>
+                      <h3 className="font-bold text-sm sm:text-base text-stone-900 leading-tight">
+                        {isMr ? sub.nameMr : sub.nameEn}
+                      </h3>
+                    </div>
                   </div>
 
-                  <h3 className="font-bold text-base text-stone-900 mb-1">
-                    {isMr ? sub.nameMr : sub.nameEn}
-                  </h3>
-
-                  <p className="text-xs text-stone-500 line-clamp-2">
+                  <p className="text-xs text-stone-500 line-clamp-2 mt-1">
                     {isMr ? sub.descriptionMr : sub.descriptionEn}
                   </p>
                 </div>
 
-                <div className="pt-4 mt-3 border-t border-stone-100 flex items-center justify-between">
+                <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between">
                   <span className="text-[11px] text-stone-400 font-semibold">
                     MPSC Prelims & Combine
                   </span>

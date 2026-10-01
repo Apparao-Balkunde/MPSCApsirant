@@ -35,6 +35,7 @@ import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
+import { CustomImageManagerModal } from './components/CustomImageManagerModal';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -52,7 +53,7 @@ import {
   subscribeToRealtimeUserData,
 } from './services/firestoreSync';
 import { type User } from 'firebase/auth';
-import { CheckCircle2, RotateCcw, X, AlertCircle, Copy, Check } from 'lucide-react';
+import { CheckCircle2, RotateCcw, X, AlertCircle, Copy, Check, Camera } from 'lucide-react';
 
 interface SyncToastState {
   id: string;
@@ -91,6 +92,9 @@ export default function App() {
 
   // MPSC Exam & Legal Information Hub modal state
   const [isInformationHubOpen, setIsInformationHubOpen] = useState<boolean>(false);
+
+  // Custom Image Manager modal state
+  const [isImageManagerOpen, setIsImageManagerOpen] = useState<boolean>(false);
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -794,6 +798,7 @@ export default function App() {
             onOpenCloudSync={() => setIsCloudSyncOpen(true)}
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
+            onOpenCustomImageManager={() => setIsImageManagerOpen(true)}
           />
           <main className="flex-1">
             <ExamResultView
@@ -844,6 +849,7 @@ export default function App() {
             onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
             onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
             onOpenInformationHub={() => setIsInformationHubOpen(true)}
+            onOpenCustomImageManager={() => setIsImageManagerOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -1106,6 +1112,27 @@ export default function App() {
           handleStartExam('custom', subjectId, customTitle);
         }}
       />
+
+      {/* Universal Custom Image Manager Modal */}
+      <CustomImageManagerModal
+        isOpen={isImageManagerOpen}
+        onClose={() => setIsImageManagerOpen(false)}
+        language={userProgress.preferredLanguage}
+      />
+
+      {/* Floating Quick Add Image Trigger */}
+      <button
+        type="button"
+        id="btn-floating-add-image"
+        onClick={() => setIsImageManagerOpen(true)}
+        className="fixed bottom-20 right-4 z-30 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-xs px-3.5 py-2.5 rounded-full shadow-2xl border-2 border-amber-300 flex items-center gap-2 cursor-pointer transition-all hover:scale-105 active:scale-95 group"
+        title={userProgress.preferredLanguage === 'mr' ? 'तुम्हाला पाहिजे तशी इमेज ॲड करा' : 'Add Any Image You Want'}
+      >
+        <Camera className="w-4 h-4 text-stone-950" />
+        <span className="hidden sm:inline font-black">
+          {userProgress.preferredLanguage === 'mr' ? '📸 इमेज ॲड करा' : 'Add Image'}
+        </span>
+      </button>
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}
       {syncToast && (

@@ -93,6 +93,47 @@ export const MpscHeroVisual: React.FC<MpscHeroVisualProps> = ({ language }) => {
           </div>
         </div>
 
+        {/* Two Grand Inspiration Photo Medallions */}
+        <div className="grid grid-cols-2 gap-2 my-2">
+          <div className="flex items-center gap-2 p-1.5 rounded-xl bg-stone-850/90 border border-stone-800">
+            <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-amber-400/80 shrink-0 bg-stone-900 shadow-sm">
+              <img
+                src="/chhatrapati_shivaji_maharaj.jpg"
+                alt="Chhatrapati Shivaji Maharaj"
+                className="w-full h-full object-cover object-top"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-black text-amber-300 truncate">
+                {isMr ? 'छत्रपती शिवाजी महाराज' : 'Shivaji Maharaj'}
+              </p>
+              <p className="text-[9px] text-stone-400 truncate">
+                {isMr ? 'स्वराज्य प्रेरणा' : 'Sovereign Pride'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 p-1.5 rounded-xl bg-stone-850/90 border border-stone-800">
+            <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-amber-400/80 shrink-0 bg-stone-900 shadow-sm">
+              <img
+                src="/dr_babasaheb_ambedkar.jpg"
+                alt="Dr. B.R. Ambedkar"
+                className="w-full h-full object-cover object-top"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-black text-amber-300 truncate">
+                {isMr ? 'डॉ. बाबासाहेब आंबेडकर' : 'Dr. Ambedkar'}
+              </p>
+              <p className="text-[9px] text-stone-400 truncate">
+                {isMr ? 'संविधान शिल्पकार' : 'Constitution Maker'}
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Motivational Rajmudra Inscription Quote */}
         <div className="mt-3 pt-2.5 border-t border-stone-800 flex flex-col gap-1.5">
           <div className="flex items-center gap-2 text-amber-400 text-xs font-bold">
