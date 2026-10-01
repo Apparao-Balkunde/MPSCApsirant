@@ -38,6 +38,7 @@ import { ExamCountdownCard } from './ExamCountdownCard';
 import { MpscHeroVisual } from './MpscHeroVisual';
 import { AspirantInspirationCard } from './AspirantInspirationCard';
 import { MpscCommandCenter } from './MpscCommandCenter';
+import { MpscHallOfFameAndPredictor } from './MpscHallOfFameAndPredictor';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 
@@ -806,6 +807,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         )}
       </div>
+
+      {/* MPSC Real-Time Cutoff Predictor, Hall of Fame Medals & Digital Pass */}
+      <MpscHallOfFameAndPredictor
+        userProgress={userProgress}
+        language={language}
+        currentUserName={currentUserName}
+        onStartExam={onStartExam}
+      />
 
       {/* Top 5 Aspirants Leaderboard */}
       <LeaderboardCard
