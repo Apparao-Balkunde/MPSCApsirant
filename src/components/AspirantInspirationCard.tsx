@@ -162,6 +162,18 @@ export const AspirantInspirationCard: React.FC<AspirantInspirationCardProps> = (
     }
   });
 
+  // Keep custom photos synced when images are added or deleted in CustomImageManagerModal
+  useEffect(() => {
+    const handleUpdate = () => {
+      try {
+        const raw = localStorage.getItem(CUSTOM_IMAGES_STORAGE_KEY);
+        setCustomPhotos(raw ? JSON.parse(raw) : []);
+      } catch {}
+    };
+    window.addEventListener('mpsc_images_updated', handleUpdate);
+    return () => window.removeEventListener('mpsc_images_updated', handleUpdate);
+  }, []);
+
   const [selectedPhoto, setSelectedPhoto] = useState<number>(0);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [uploadPreview, setUploadPreview] = useState<string | null>(null);

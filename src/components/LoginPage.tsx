@@ -29,7 +29,6 @@ import {
   loginWithEmail, 
   registerWithEmail, 
   loginAsGuest, 
-  loginAsPreviewUser,
   logoutUser, 
   formatAuthErrorMessage 
 } from '../lib/firebase';
@@ -100,13 +99,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       if (err?.code !== 'auth/popup-closed-by-user') {
         if (err?.code === 'auth/unauthorized-domain') {
           try {
-            const previewUser = await loginAsPreviewUser(displayName.trim() || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant'), email.trim() || null);
-            if (previewUser) {
+            // Dynamic anonymous or guest-user handler consistent with new firebase.ts logic
+            const guestUser = await loginAsGuest();
+            if (guestUser) {
               soundFx.playCorrectSound();
               setAuthSuccess(
                 isMr 
-                  ? 'विद्यार्थी खाते यशस्वीरीत्या सुरू झाले! तुमचा सर्व सराव सुरक्षितपणे साठवला जाईल.' 
-                  : 'Successfully logged in! Your progress is now safely backed up.'
+                  ? 'पाहुणा (Guest) मोडमध्ये तात्पुरते खाते सुरू झाले. आपला सराव सुरक्षित साठवला जाईल.' 
+                  : 'Signed in via dynamic Guest session! Your progress is safely stored.'
               );
               if (onTriggerSync) {
                 try {
