@@ -147,7 +147,7 @@ export const CustomImageManagerModal: React.FC<CustomImageManagerModalProps> = (
     if (targetDestination === 'pass' || targetDestination === 'all') {
       try {
         localStorage.setItem('mpsc_aspirant_photo', imageSrc);
-        updateStudentProfile('Apparao Balkunde', 'apparaobalkunde901@gmail.com', imageSrc);
+        updateStudentProfile('MPSC Aspirant', '', imageSrc);
       } catch (e) {
         console.warn('Pass save error:', e);
       }
