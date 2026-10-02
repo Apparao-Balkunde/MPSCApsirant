@@ -48,13 +48,23 @@ export function getLocalStudentSession(): User | null {
     const raw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_USER_KEY) : null;
     if (!raw) return null;
     const user = JSON.parse(raw) as any;
-    if (user && user.email === 'student@mpscsarathi.online') {
-      user.email = 'apparaobalkunde901@gmail.com';
-      if (!user.displayName || user.displayName === 'एमपीएससी उमेदवार') {
-        user.displayName = 'Apparao Balkunde';
+
+    // Migrate legacy preview/guest sessions so old test identity data
+    // is not exposed after the privacy fix.
+    if (user) {
+      if (user.email === 'student@mpscsarathi.online') {
+        user.email = null;
+      }
+      if (typeof user.displayName === 'string' && user.displayName === 'Apparao Balkunde (Guest)') {
+        user.displayName = 'Guest User';
+        user.email = null;
+      }
+      if (typeof user.displayName === 'string' && user.displayName === 'एमपीएससी उमेदवार') {
+        user.displayName = 'MPSC Student';
       }
       try { localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(user)); } catch {}
     }
+
     return user as User;
   } catch {
     return null;
@@ -108,12 +118,12 @@ export async function registerWithEmail(email: string, pass: string, displayName
 }
 
 export async function loginAsGuest() {
-  return loginAsPreviewUser('Apparao Balkunde (Guest)', 'apparaobalkunde901@gmail.com');
+  return loginAsPreviewUser('Guest User', '');
 }
 
 export async function loginAsPreviewUser(customName?: string, customEmail?: string): Promise<User> {
-  const name = customName?.trim() || 'Apparao Balkunde';
-  const email = customEmail?.trim() || 'apparaobalkunde901@gmail.com';
+  const name = customName?.trim() || 'Guest User';
+  const email = customEmail?.trim() || null;
   try {
     const result = await signInAnonymously(auth);
     if (result.user) {
@@ -133,7 +143,7 @@ export async function loginAsPreviewUser(customName?: string, customEmail?: stri
   const uid = existingUid || ('user_' + Math.random().toString(36).substring(2, 12));
   const studentUser = {
     uid, displayName: name, email, photoURL: null,
-    isAnonymous: false, emailVerified: true,
+    isAnonymous: true, emailVerified: false,
   } as unknown as User;
 
   try { if (typeof window !== 'undefined') localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(studentUser)); } catch (e) {
@@ -148,8 +158,8 @@ export function updateStudentProfile(displayName: string, email: string, photoUR
   const uid = existing?.uid || ('user_' + Math.random().toString(36).substring(2, 12));
   const updatedUser = {
     ...(existing || {}), uid,
-    displayName: displayName.trim() || 'Apparao Balkunde',
-    email: email.trim() || 'apparaobalkunde901@gmail.com',
+    displayName: displayName.trim() || 'MPSC Student',
+    email: email.trim() || null,
     photoURL: photoURL !== undefined ? photoURL : (existing?.photoURL || null),
     isAnonymous: false, emailVerified: true,
   } as unknown as User;
@@ -212,11 +222,9 @@ export async function trySsoLogin(): Promise<User | null> {
     }
 
     const result = await signInWithCustomToken(auth, firebaseToken);
-    const cleanUrl = window.location.origin + window.location.pathname +
-      (params.toString() ? `?${params}` : '') + window.location.hash;
     params.delete('token');
     const finalUrl = window.location.origin + window.location.pathname +
-      (params.toString() ? `?${params}` : '') + window.location.hash;
+      (params.toString() ? `?${params.toString()}` : '') + window.location.hash;
     window.history.replaceState({}, document.title, finalUrl);
 
     return result.user;
