@@ -40,9 +40,9 @@ COPY --from=builder /app/public ./public
 # Expose app port
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1
+# Health check (Use 127.0.0.1 to avoid Alpine IPv6 localhost resolution mismatch)
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/api/health || exit 1
 
 # Start production server
 CMD ["node", "dist/server.cjs"]
