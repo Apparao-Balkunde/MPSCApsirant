@@ -57,8 +57,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
 
   // Form states
-  const [displayName, setDisplayName] = useState('Apparao Balkunde');
-  const [email, setEmail] = useState('apparaobalkunde901@gmail.com');
+  const [displayName, setDisplayName] = useState('MPSC Aspirant');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -66,8 +66,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
   // Edit profile state
   const [isEditingProfile, setIsEditingProfile] = useState(false);
-  const [editName, setEditName] = useState('Apparao Balkunde');
-  const [editEmail, setEditEmail] = useState('apparaobalkunde901@gmail.com');
+  const [editName, setEditName] = useState('MPSC Aspirant');
+  const [editEmail, setEditEmail] = useState('');
 
   // Status & feedback
   const [isLoading, setIsLoading] = useState(false);
@@ -85,8 +85,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       setIsLoading(false);
     }
     if (currentUser) {
-      const currentEmail = currentUser.email === 'student@mpscsarathi.online' ? 'apparaobalkunde901@gmail.com' : (currentUser.email || 'apparaobalkunde901@gmail.com');
-      const currentName = (!currentUser.displayName || currentUser.displayName === 'एमपीएससी उमेदवार') ? 'Apparao Balkunde' : currentUser.displayName;
+      const currentEmail = currentUser.email === 'student@mpscsarathi.online' ? '' : (currentUser.email || '');
+      const currentName = (!currentUser.displayName || currentUser.displayName === 'एमपीएससी उमेदवार') ? 'MPSC Aspirant' : currentUser.displayName;
       setEditName(currentName);
       setEditEmail(currentEmail);
       if (currentUser.email === 'student@mpscsarathi.online') {
@@ -136,7 +136,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         // Domain not yet in Firebase Console authorized domains list
         // Seamlessly auto-sign in so student is NEVER blocked by a red error
         try {
-          const previewUser = await loginAsPreviewUser(displayName || 'Apparao Balkunde', email || 'apparaobalkunde901@gmail.com');
+          const previewUser = await loginAsPreviewUser(displayName || 'MPSC Aspirant', email || '');
           if (previewUser) {
             soundFx.playCorrectSound();
             setAuthSuccess(
@@ -261,13 +261,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     setIsLoading(true);
     soundFx.playClickSound();
     try {
-      const user = await loginAsPreviewUser(displayName || 'Apparao Balkunde', email || 'apparaobalkunde901@gmail.com');
+      const user = await loginAsPreviewUser(displayName || 'MPSC Aspirant', email || '');
       if (user) {
         soundFx.playCorrectSound();
         setAuthSuccess(
           isMr 
-            ? `स्वागत आहे, ${user.displayName || 'Apparao Balkunde'}! यशस्वीरीत्या लॉगिन झाले.` 
-            : `Welcome, ${user.displayName || 'Apparao Balkunde'}! Successfully logged in.`
+            ? `स्वागत आहे, ${user.displayName || 'MPSC Aspirant'}! यशस्वीरीत्या लॉगिन झाले.` 
+            : `Welcome, ${user.displayName || 'MPSC Aspirant'}! Successfully logged in.`
         );
         if (onTriggerSync) {
           try {
@@ -292,7 +292,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     e.preventDefault();
     soundFx.playClickSound();
     try {
-      const updated = updateStudentProfile(editName || 'Apparao Balkunde', editEmail || 'apparaobalkunde901@gmail.com');
+      const updated = updateStudentProfile(editName || 'MPSC Aspirant', editEmail || '');
       if (updated) {
         soundFx.playCorrectSound();
         setAuthSuccess(isMr ? 'माहिती यशस्वीरीत्या अद्ययावत झाली!' : 'Profile updated successfully!');
@@ -473,7 +473,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   {currentUser.photoURL ? (
                     <img 
                       src={currentUser.photoURL} 
-                      alt={currentUser.displayName || 'Apparao Balkunde'} 
+                      alt={currentUser.displayName || 'MPSC Aspirant'} 
                       className="w-full h-full object-cover" 
                     />
                   ) : (
@@ -484,7 +484,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
                       <h3 className="font-black text-stone-100 text-sm truncate">
-                        {currentUser.displayName || 'Apparao Balkunde'}
+                        {currentUser.displayName || 'MPSC Aspirant'}
                       </h3>
                       <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 shrink-0">
                         <ShieldCheck className="w-3 h-3" />
@@ -500,7 +500,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     </button>
                   </div>
                   <p className="text-xs text-stone-400 truncate mt-0.5">
-                    {currentUser.email === 'student@mpscsarathi.online' ? 'apparaobalkunde901@gmail.com' : (currentUser.email || 'apparaobalkunde901@gmail.com')}
+                    {currentUser.email === 'student@mpscsarathi.online' ? '' : (currentUser.email || '')}
                   </p>
                   <p className="text-[10px] text-stone-500 font-mono mt-0.5 truncate">
                     UID: {currentUser.uid}
@@ -523,7 +523,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                         type="text"
                         value={editName}
                         onChange={(e) => setEditName(e.target.value)}
-                        placeholder="Apparao Balkunde"
+                        placeholder="MPSC Aspirant"
                         className="w-full px-3 py-2 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
                       />
                     </div>
@@ -535,7 +535,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                         type="email"
                         value={editEmail}
                         onChange={(e) => setEditEmail(e.target.value)}
-                        placeholder="apparaobalkunde901@gmail.com"
+                        placeholder=""
                         className="w-full px-3 py-2 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
                       />
                     </div>
@@ -663,7 +663,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                       type="text"
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
-                      placeholder="Apparao Balkunde"
+                      placeholder="MPSC Aspirant"
                       className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
                     />
                   </div>
@@ -673,7 +673,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="apparaobalkunde901@gmail.com"
+                      placeholder=""
                       className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
                     />
                   </div>
