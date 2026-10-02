@@ -201,15 +201,15 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
       if (err?.code !== 'auth/popup-closed-by-user') {
         if (err?.code === 'auth/unauthorized-domain') {
           try {
-            await loginAsPreviewUser('Apparao Balkunde', 'apparaobalkunde901@gmail.com');
+            await loginAsPreviewUser('MPSC Aspirant', '');
             await onTriggerSync();
             setActionNotice(isMr ? 'विद्यार्थी खाते सक्रिय झाले व सर्व डेटा सुरक्षित सिंक झाला!' : 'Signed in and all data synced!');
             logAction({
               actionType: 'auth_login',
               titleMr: 'विद्यार्थी खाते सक्रिय झाले व डेटा सिंक झाला',
               titleEn: 'Signed In & Synced as Preview User',
-              detailsMr: 'खाते: Apparao Balkunde (apparaobalkunde901@gmail.com)',
-              detailsEn: 'Account: Apparao Balkunde (apparaobalkunde901@gmail.com)',
+              detailsMr: 'खाते: MPSC Aspirant ()',
+              detailsEn: 'Account: MPSC Aspirant ()',
               status: 'success',
               badgeLabel: 'Auth'
             });
@@ -1082,12 +1082,12 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                     <p className="text-xs font-bold text-stone-900 truncate">
                       {currentUser?.displayName && currentUser.displayName !== 'एमपीएससी उमेदवार'
                         ? currentUser.displayName 
-                        : 'Apparao Balkunde'}
+                        : 'MPSC Aspirant'}
                     </p>
                     <p className="text-[11px] text-stone-500 truncate font-mono">
                       {currentUser?.email === 'student@mpscsarathi.online' 
-                        ? 'apparaobalkunde901@gmail.com' 
-                        : (currentUser?.email || 'apparaobalkunde901@gmail.com')}
+                        ? '' 
+                        : (currentUser?.email || '')}
                     </p>
                   </div>
                 </div>
