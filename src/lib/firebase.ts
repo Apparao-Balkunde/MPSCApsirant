@@ -48,23 +48,11 @@ export function getLocalStudentSession(): User | null {
     const raw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_USER_KEY) : null;
     if (!raw) return null;
     const user = JSON.parse(raw) as any;
-
-    // Migrate legacy preview/guest sessions so old test identity data
-    // is not exposed after the privacy fix.
-    if (user) {
-      if (user.email === 'student@mpscsarathi.online') {
-        user.email = null;
-      }
-      if (typeof user.displayName === 'string' && user.displayName === 'Apparao Balkunde (Guest)') {
-        user.displayName = 'Guest User';
-        user.email = null;
-      }
-      if (typeof user.displayName === 'string' && user.displayName === 'एमपीएससी उमेदवार') {
-        user.displayName = 'MPSC Student';
-      }
+    if (user && (user.displayName === 'Apparao Balkunde (Guest)' || (user.displayName === 'Apparao Balkunde' && user.email === 'apparaobalkunde901@gmail.com'))) {
+      user.displayName = 'Guest User';
+      user.email = null;
       try { localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(user)); } catch {}
     }
-
     return user as User;
   } catch {
     return null;
@@ -118,12 +106,12 @@ export async function registerWithEmail(email: string, pass: string, displayName
 }
 
 export async function loginAsGuest() {
-  return loginAsPreviewUser('Guest User', '');
+  return loginAsPreviewUser('Guest User', null);
 }
 
-export async function loginAsPreviewUser(customName?: string, customEmail?: string): Promise<User> {
+export async function loginAsPreviewUser(customName?: string, customEmail?: string | null): Promise<User> {
   const name = customName?.trim() || 'Guest User';
-  const email = customEmail?.trim() || null;
+  const email = customEmail !== undefined ? (customEmail ? customEmail.trim() : null) : null;
   try {
     const result = await signInAnonymously(auth);
     if (result.user) {
@@ -143,7 +131,7 @@ export async function loginAsPreviewUser(customName?: string, customEmail?: stri
   const uid = existingUid || ('user_' + Math.random().toString(36).substring(2, 12));
   const studentUser = {
     uid, displayName: name, email, photoURL: null,
-    isAnonymous: true, emailVerified: false,
+    isAnonymous: false, emailVerified: true,
   } as unknown as User;
 
   try { if (typeof window !== 'undefined') localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(studentUser)); } catch (e) {
@@ -153,13 +141,13 @@ export async function loginAsPreviewUser(customName?: string, customEmail?: stri
   return studentUser;
 }
 
-export function updateStudentProfile(displayName: string, email: string, photoURL?: string | null): User {
+export function updateStudentProfile(displayName?: string, email?: string | null, photoURL?: string | null): User {
   const existing = getLocalStudentSession();
   const uid = existing?.uid || ('user_' + Math.random().toString(36).substring(2, 12));
   const updatedUser = {
     ...(existing || {}), uid,
-    displayName: displayName.trim() || 'MPSC Student',
-    email: email.trim() || null,
+    displayName: displayName?.trim() || existing?.displayName || 'Guest User',
+    email: email !== undefined ? (email ? email.trim() : null) : (existing?.email || null),
     photoURL: photoURL !== undefined ? photoURL : (existing?.photoURL || null),
     isAnonymous: false, emailVerified: true,
   } as unknown as User;
@@ -222,9 +210,11 @@ export async function trySsoLogin(): Promise<User | null> {
     }
 
     const result = await signInWithCustomToken(auth, firebaseToken);
+    const cleanUrl = window.location.origin + window.location.pathname +
+      (params.toString() ? `?${params}` : '') + window.location.hash;
     params.delete('token');
     const finalUrl = window.location.origin + window.location.pathname +
-      (params.toString() ? `?${params.toString()}` : '') + window.location.hash;
+      (params.toString() ? `?${params}` : '') + window.location.hash;
     window.history.replaceState({}, document.title, finalUrl);
 
     return result.user;

@@ -13,7 +13,7 @@ import {
   Compass
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { updateStudentProfile } from '../lib/firebase';
+import { updateStudentProfile, getLocalStudentSession } from '../lib/firebase';
 
 interface CustomImageManagerModalProps {
   isOpen: boolean;
@@ -147,7 +147,8 @@ export const CustomImageManagerModal: React.FC<CustomImageManagerModalProps> = (
     if (targetDestination === 'pass' || targetDestination === 'all') {
       try {
         localStorage.setItem('mpsc_aspirant_photo', imageSrc);
-        updateStudentProfile('MPSC Aspirant', '', imageSrc);
+        const session = getLocalStudentSession();
+        updateStudentProfile(session?.displayName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant'), session?.email || null, imageSrc);
       } catch (e) {
         console.warn('Pass save error:', e);
       }

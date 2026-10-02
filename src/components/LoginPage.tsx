@@ -64,7 +64,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   
   // Form fields
-  const [displayName, setDisplayName] = useState('MPSC Aspirant');
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -89,8 +89,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         soundFx.playCorrectSound();
         setAuthSuccess(
           isMr 
-            ? `स्वागत आहे, ${user.displayName || 'MPSC Aspirant'}! Google द्वारे यशस्वीरीत्या लॉगिन झाले.` 
-            : `Welcome, ${user.displayName || 'MPSC Aspirant'}! Successfully logged in with Google.`
+            ? `स्वागत आहे, ${user.displayName || 'विद्यार्थी'}! Google द्वारे यशस्वीरीत्या लॉगिन झाले.` 
+            : `Welcome, ${user.displayName || 'Student'}! Successfully logged in with Google.`
         );
         if (onTriggerSync) {
           await onTriggerSync();
@@ -100,7 +100,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       if (err?.code !== 'auth/popup-closed-by-user') {
         if (err?.code === 'auth/unauthorized-domain') {
           try {
-            const previewUser = await loginAsPreviewUser(displayName || 'MPSC Aspirant', email || '');
+            const previewUser = await loginAsPreviewUser(displayName.trim() || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant'), email.trim() || null);
             if (previewUser) {
               soundFx.playCorrectSound();
               setAuthSuccess(

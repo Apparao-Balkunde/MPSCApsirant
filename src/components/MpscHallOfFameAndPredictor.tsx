@@ -67,7 +67,7 @@ export const MpscHallOfFameAndPredictor: React.FC<MpscHallOfFameAndPredictorProp
   onStartExam,
 }) => {
   const isMr = language === 'mr';
-  const aspirantName = currentUserName || 'MPSC Aspirant';
+  const aspirantName = currentUserName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant');
 
   // Sound FX toggle (persisted)
   const [soundEnabled, setSoundEnabled] = useState<boolean>(() => {
@@ -107,7 +107,8 @@ export const MpscHallOfFameAndPredictor: React.FC<MpscHallOfFameAndPredictorProp
     setCandidatePhoto(photoUrl);
     try {
       localStorage.setItem('mpsc_aspirant_photo', photoUrl);
-      updateStudentProfile(aspirantName, '', photoUrl);
+      const session = getLocalStudentSession();
+      updateStudentProfile(aspirantName, session?.email || null, photoUrl);
     } catch {}
     setIsPhotoModalOpen(false);
     if (soundEnabled) playPrestigeFanfare();

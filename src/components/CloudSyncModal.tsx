@@ -201,15 +201,16 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
       if (err?.code !== 'auth/popup-closed-by-user') {
         if (err?.code === 'auth/unauthorized-domain') {
           try {
-            await loginAsPreviewUser('MPSC Aspirant', '');
+            const defaultName = isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant';
+            await loginAsPreviewUser(defaultName, null);
             await onTriggerSync();
             setActionNotice(isMr ? 'विद्यार्थी खाते सक्रिय झाले व सर्व डेटा सुरक्षित सिंक झाला!' : 'Signed in and all data synced!');
             logAction({
               actionType: 'auth_login',
               titleMr: 'विद्यार्थी खाते सक्रिय झाले व डेटा सिंक झाला',
               titleEn: 'Signed In & Synced as Preview User',
-              detailsMr: 'खाते: MPSC Aspirant ()',
-              detailsEn: 'Account: MPSC Aspirant ()',
+              detailsMr: `खाते: ${defaultName}`,
+              detailsEn: `Account: ${defaultName}`,
               status: 'success',
               badgeLabel: 'Auth'
             });
@@ -1080,14 +1081,10 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-bold text-stone-900 truncate">
-                      {currentUser?.displayName && currentUser.displayName !== 'एमपीएससी उमेदवार'
-                        ? currentUser.displayName 
-                        : 'MPSC Aspirant'}
+                      {currentUser?.displayName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant')}
                     </p>
                     <p className="text-[11px] text-stone-500 truncate font-mono">
-                      {currentUser?.email === 'student@mpscsarathi.online' 
-                        ? '' 
-                        : (currentUser?.email || '')}
+                      {currentUser?.email || (isMr ? 'स्थानिक खाते (Local Guest)' : 'Local Guest Account')}
                     </p>
                   </div>
                 </div>
