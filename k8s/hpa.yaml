@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mpsc-portal-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mpsc-portal-deployment
+  minReplicas: 2 # किमान २ पॉड्स नेहमी सुरू राहतील
+  maxReplicas: 10 # ट्रॅफिक वाढल्यास आपोआप १० पॉड्सपर्यंत वाढेल
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70 # जेव्हा CPU वापर ७०% च्या पुढे जाईल, तेव्हा नवीन पॉड तयार होईल

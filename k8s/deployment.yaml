@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mpsc-portal-deployment
+  labels:
+    app: mpsc-portal
+spec:
+  replicas: 3 # सुरवातीला ३ पॉड्स (कंटेनर्स) एकाच वेळी चालतील
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0 # झीरो डाउनटाइम: अपडेट करताना ॲप कधीही बंद पडणार नाही
+  selector:
+    matchLabels:
+      app: mpsc-portal
+  template:
+    metadata:
+      labels:
+        app: mpsc-portal
+    spec:
+      containers:
+      - name: mpsc-portal
+        image: mpsc-portal:latest # लोकल किंवा Docker Hub इमेज
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: http
+        resources:
+          requests:
+            cpu: "100m"      # 0.1 CPU Core किमान
+            memory: "128Mi"  # 128 MB RAM किमान
+          limits:
+            cpu: "500m"      # 0.5 CPU Core कमाल
+            memory: "512Mi"  # 512 MB RAM कमाल
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "3000"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
