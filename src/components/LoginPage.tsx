@@ -64,8 +64,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   
   // Form fields
-  const [displayName, setDisplayName] = useState('Apparao Balkunde');
-  const [email, setEmail] = useState('apparaobalkunde901@gmail.com');
+  const [displayName, setDisplayName] = useState('MPSC Aspirant');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -89,8 +89,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({
         soundFx.playCorrectSound();
         setAuthSuccess(
           isMr 
-            ? `स्वागत आहे, ${user.displayName || 'Apparao Balkunde'}! Google द्वारे यशस्वीरीत्या लॉगिन झाले.` 
-            : `Welcome, ${user.displayName || 'Apparao Balkunde'}! Successfully logged in with Google.`
+            ? `स्वागत आहे, ${user.displayName || 'MPSC Aspirant'}! Google द्वारे यशस्वीरीत्या लॉगिन झाले.` 
+            : `Welcome, ${user.displayName || 'MPSC Aspirant'}! Successfully logged in with Google.`
         );
         if (onTriggerSync) {
           await onTriggerSync();
@@ -100,7 +100,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       if (err?.code !== 'auth/popup-closed-by-user') {
         if (err?.code === 'auth/unauthorized-domain') {
           try {
-            const previewUser = await loginAsPreviewUser(displayName || 'Apparao Balkunde', email || 'apparaobalkunde901@gmail.com');
+            const previewUser = await loginAsPreviewUser(displayName || 'MPSC Aspirant', email || '');
             if (previewUser) {
               soundFx.playCorrectSound();
               setAuthSuccess(
