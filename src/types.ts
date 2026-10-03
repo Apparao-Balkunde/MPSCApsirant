@@ -151,6 +151,8 @@ export interface GrammarRule {
   examTipMr: string;
   practiceQuestionIds?: string[];
   tags: string[];
+  bookmarkable?: boolean;
+  isBookmarkable?: boolean;
 }
 
 export interface LeaderboardEntry {
