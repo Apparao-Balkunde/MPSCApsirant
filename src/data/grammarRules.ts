@@ -7929,5 +7929,137 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: "MPSC उलटा पिरॅमिड परीक्षा क्लृप्ती:\n• सर्वात तात्त्विक/व्यापक वाक्य (उदा. शिक्षण, न्याय, लोकशाही) ➔ ते पहिले वाक्य असते!\n• अचूक तारीख, वर्ष व ठिकाण असलेले वाक्य (उदा. १८४८, भिडेवाडा, पुणे) ➔ ते शेवटचे वाक्य असते!",
     practiceQuestionIds: ['gq_en_11', 'gq_en_15'],
     tags: ['Para Jumbles', 'General to Specific', 'Inverted Pyramid', 'Sentence Rearrangement', 'MPSC Rules']
+  },
+
+  // --- 117. DEGREES OF COMPARISON: INTERCHANGE OF SUPERLATIVE, COMPARATIVE & POSITIVE ---
+  {
+    id: 'en_rule_degrees_of_comparison_transformation_01',
+    language: 'english',
+    category: 'Degrees of Comparison & Sentence Transformation',
+    categoryMr: 'वाक्य रूपांतरण: Degrees of Comparison (तुलनेच्या अंशांचे परस्पर रूपांतरण नियम)',
+    title: 'Interchange of Degrees of Comparison: Sole Superlative ("No other... than any other") vs "One of the" Superlative ("Very few... than most other")',
+    titleMr: 'तुलनेची रूपे (Degrees of Comparison): Superlative, Comparative व Positive Degree मधील परस्पर रूपांतरणाचे सुवर्ण नियम (\'No other\' विरुद्ध \'Very few\')',
+    formula: "TYPE I: SOLE / ABSOLUTE SUPERLATIVE (एकमेव श्रेष्ठ):\n• Superlative: Subject + verb + THE + Superlative (-est/most) + Singular Noun\n  (e.g., Kalidasa is the greatest dramatist in India.)\n• Comparative: Subject + verb + Comparative (-er/more) + THAN ANY OTHER + Singular Noun\n  (e.g., Kalidasa is greater than any other dramatist in India.)\n• Positive: NO OTHER + Singular Noun + verb (singular) + SO / AS + Positive Adj + AS + Subject\n  (e.g., No other dramatist in India is so great as Kalidasa.)\n\nTYPE II: 'ONE OF THE' SUPERLATIVE (अनेकांपैकी एक श्रेष्ठ):\n• Superlative: Subject + verb + ONE OF THE + Superlative (-est/most) + PLURAL Noun\n  (e.g., Pune is one of the cleanest cities in India.)\n• Comparative: Subject + verb + Comparative (-er/more) + THAN MOST OTHER / MANY OTHER + PLURAL Noun\n  (e.g., Pune is cleaner than most other cities in India.)\n• Positive: VERY FEW + PLURAL Noun + verb (plural: are/were) + AS + Positive Adj + AS + Subject\n  (e.g., Very few cities in India are as clean as Pune.)",
+    formulaMr: "प्रकार १: एकमेव अद्वितीय (Sole Superlative):\n• Superlative: कर्ता + क्रियापद + the + Superlative रूप + एकवचनी नाम.\n  (उदा. Mount Everest is the highest peak in the world.)\n• Comparative: कर्ता + क्रियापद + Comparative रूप + than any other + एकवचनी नाम.\n  (उदा. Mount Everest is higher than any other peak in the world.)\n• Positive: No other + एकवचनी नाम + so / as + मूळ विशेषण + as + कर्ता.\n  (उदा. No other peak in the world is as high as Mount Everest.)\n\nप्रकार २: 'One of the' असणारी वाक्ये (अनेकांपैकी एक):\n• Superlative: कर्ता + क्रियापद + one of the + Superlative रूप + अनेकवचनी नाम.\n  (उदा. Chhatrapati Shivaji Maharaj was one of the greatest rulers in India.)\n• Comparative: कर्ता + क्रियापद + Comparative रूप + than most other + अनेकवचनी नाम.\n  (उदा. Chhatrapati Shivaji Maharaj was greater than most other rulers in India.)\n• Positive: Very few + अनेकवचनी नाम + अनेकवचनी क्रियापद (were/are) + as + मूळ विशेषण + as + कर्ता.\n  (उदा. Very few rulers in India were as great as Chhatrapati Shivaji Maharaj.)",
+    definition: "Transformation of sentences involving degrees of comparison without altering the original meaning is an evergreen, high-weightage topic in MPSC Rajyaseva, Combined Group B & C, and Departmental PSI exams. English grammar categorizes comparative transformations into two non-negotiable structural paradigms: Sole Superlative (which implies nobody else equals the subject) and 'One of the' Superlative (which places the subject in an elite cluster of equals).",
+    definitionMr: "अर्थ न बदलता वाक्यातील विशेषणाची तुलनात्मक पदवी (Degree) बदलणे हा MPSC च्या इंग्रजी व्याकरण प्रश्नपत्रिकेतील सर्वात महत्त्वाचा घटक आहे. यामध्ये परीक्षेच्या दृष्टीने २ मुख्य प्रकार पडतात:\n१. 'The' असणारी एकमेव श्रेष्ठता दर्शक वाक्ये: याचे Positive करताना 'No other' ने सुरुवात होते आणि Comparative करताना 'than any other' नंतर एकवचनी नाम येते.\n२. 'One of the' असणारी अनेकांपैकी श्रेष्ठता दर्शक वाक्ये: याचे Positive करताना १००% 'Very few' ने सुरुवात होते व क्रियापद अनेकवचनी (are/were) लागते; तसेच Comparative करताना 'than most other' किंवा 'than many other' नंतर अनेकवचनी नाम येते.",
+    keyPoints: [
+      '"Sole Superlative Rule: The + Superlative ➔ Positive begins with NO OTHER + Singular Noun | Comparative takes THAN ANY OTHER + Singular Noun."',
+      '"One of the Rule: One of the + Plural Noun ➔ Positive begins with VERY FEW + Plural Noun (takes plural verb: are/were) | Comparative takes THAN MOST OTHER + Plural Noun."',
+      '"Singular vs Plural Noun Trap: In Type I, \'than any other\' is strictly followed by SINGULAR noun (than any other king, NOT kings). In Type II, \'than most other\' is strictly followed by PLURAL noun (than most other kings)."',
+      '"Negative Co-relative Adverbs: Positive degree after \'No other\' prefer \'so... as\' or \'as... as\'; after \'Very few\', use \'as... as\'."',
+      '"Two Entities Only: When comparison is strictly between TWO persons or things, Superlative degree DOES NOT EXIST (only Positive and Comparative can interchange: \'Ram is taller than Shyam\' ➔ \'Shyam is not so tall as Ram\')."'
+    ],
+    keyPointsMr: [
+      '१. प्रकार १ (The + Superlative): Positive करताना "No other" ने सुरुवात होते आणि पुढे नाम एकवचनीच (Singular) येते: "No other metal is as useful as iron".',
+      '२. प्रकार १ चा Comparative: "than any other" नंतर नाम नेहमी एकवचनीच लागते (than any other metal, metals नाही!).',
+      '३. प्रकार २ (One of the): Positive करताना "Very few" ने सुरुवात होते आणि क्रियापद अनेकवचनी (were/are) लागते: "Very few kings were as brave as...".',
+      '४. प्रकार २ चा Comparative: "than most other" किंवा "than many other" नंतर नाम नेहमी अनेकवचनी (Plural) येते: "than most other kings".',
+      '५. केवळ दोघांची तुलना: जेव्हा फक्त दोन व्यक्ती किंवा वस्तूंची तुलना असते, तेव्हा Superlative degree नसते! फक्त Comparative व Positive मध्ये बदल होतो (उदा. \'He is stronger than me\' ➔ \'I am not so strong as he\').'
+    ],
+    examples: [
+      {
+        sentence: "Transform into Positive Degree:\nSuperlative: 'Iron is the most useful of all metals.'\nPositive: 'No other metal is so useful as iron.'",
+        isCorrect: true,
+        explanation: "Correct! The superlative has 'the most useful' (Type I - Sole Superlative). Its positive degree transformation strictly begins with 'No other' followed by the singular noun 'metal' and the 'so/as useful as' correlation.",
+        explanationMr: "अचूक! 'The most useful' हे प्रकार १ मधील वाक्य असल्याने Positive degree ची सुरुवात 'No other' ने होते व 'metal' हे नाम एकवचनी राहते: 'No other metal is so useful as iron'."
+      },
+      {
+        sentence: "Transform into Positive Degree:\nSuperlative: 'Dr. B.R. Ambedkar was one of the greatest intellectuals of modern India.'\nPositive: 'No other intellectual of modern India was as great as Dr. B.R. Ambedkar.'",
+        isCorrect: false,
+        explanation: "Incorrect! Classic MPSC Trap: The original sentence has 'ONE OF THE greatest'. It cannot be transformed with 'No other'! The correct positive degree must begin with 'Very few' and take a plural verb: 'Very few intellectuals of modern India were as great as Dr. B.R. Ambedkar.'",
+        explanationMr: "चूक! MPSC चा सर्वात मोठा ट्रॅप: मूळ वाक्यात 'one of the' आले आहे. त्यामुळे 'No other' वापरता येत नाही! 'one of the' चे Positive रूप नेहमी 'Very few' ने सुरू होते व क्रियापद अनेकवचनी हवे: 'Very few intellectuals of modern India were as great as Dr. B.R. Ambedkar.'"
+      },
+      {
+        sentence: "Transform into Comparative Degree:\nSuperlative: 'Mumbai is one of the busiest seaports in Asia.'\nComparative: 'Mumbai is busier than most other seaports in Asia.'",
+        isCorrect: true,
+        explanation: "Correct! For 'one of the' superlatives, the comparative degree formula is: Comparative adjective ('busier') + 'than most other' + plural noun ('seaports').",
+        explanationMr: "अचूक! 'One of the' चे Comparative रूपांतर करताना Comparative विशेषणानंतर 'than most other' आणि पुढे अनेकवचनी नाम 'seaports' येते: 'Mumbai is busier than most other seaports in Asia'."
+      },
+      {
+        sentence: "Transform into Comparative Degree:\nSuperlative: 'The Nile is the longest river in the world.'\nComparative: 'The Nile is longer than any other river in the world.'",
+        isCorrect: true,
+        explanation: "Correct! Type I sole superlative ('the longest') transforms into comparative using 'longer than any other' followed strictly by the singular noun 'river' (NOT rivers).",
+        explanationMr: "अचूक! प्रकार १ मध्ये 'the longest' चे Comparative करताना 'longer than any other' नंतर एकवचनी नाम 'river' लागते."
+      }
+    ],
+    exceptions: [
+      'When comparing two aspects of the same person, use \'more + positive adjective\' rather than the -er suffix: \'He is more wise than brave\' (NOT wiser than brave).',
+      'Superior, inferior, senior, junior, prior are Latin adjectives that take \'to\', not \'than\', and do not participate in standard three-degree transformation.'
+    ],
+    exceptionsMr: [
+      'जेव्हा एकाच व्यक्तीच्या दोन गुणांची आपसात तुलना होते, तेव्हा -er न लावता \'more\' वापरले जाते (उदा. \'He is more brave than wise\').',
+      'Senior, junior, superior, inferior या लॅटिन शब्दांनंतर \'than\' ऐवजी \'to\' येतो.'
+    ],
+    examTip: "MPSC 1-Second Degree Elimination Formula:\n1. Look at Superlative:\n   • 'THE + Est' ➔ Match Positive with 'NO OTHER' + Singular noun!\n   • 'ONE OF THE + Est' ➔ Match Positive with 'VERY FEW' + Plural noun!\n2. Look at Comparative:\n   • 'THE + Est' ➔ Match with 'THAN ANY OTHER' + Singular noun!\n   • 'ONE OF THE + Est' ➔ Match with 'THAN MOST OTHER' + Plural noun!",
+    examTipMr: "MPSC १ सेकंदांची डिग्री एलिमिनेशन क्लृप्ती:\n१. मूळ वाक्यात 'the + superlative' आहे की 'one of the' हे तपासा:\n   • जर 'The' असेल ➔ Positive मध्ये 'No other' असलेला पर्याय निवडा! (Comparative मध्ये 'than any other')\n   • जर 'One of the' असेल ➔ Positive मध्ये 'Very few' असलेला पर्याय निवडा! (Comparative मध्ये 'than most other')\n२. हा सोपा नियम वापरल्यास ४ पैकी ३ चुकीचे पर्याय अवघ्या ५ सेकंदांत बाद होतात!",
+    practiceQuestionIds: ['mr_gram_03', 'gq_en_01'],
+    tags: ['Degrees of Comparison', 'Superlative to Positive', 'No other', 'Very few', 'Than any other', 'MPSC Rules']
+  },
+
+  // --- 118. DIRECT TO INDIRECT SPEECH: EXCLAMATORY & OPTATIVE SENTENCES ---
+  {
+    id: 'en_rule_direct_indirect_exclamatory_optative_01',
+    language: 'english',
+    category: 'Direct and Indirect Speech',
+    categoryMr: 'प्रत्यक्ष व अप्रत्यक्ष कथन (Direct & Indirect Speech): उद्गारार्थी (Exclamatory) व सदिच्छादर्शक (Optative) वाक्यांचे नियम',
+    title: 'Direct to Indirect Speech: Exclamatory Sentences ("What a", "How", "Alas", "Hurrah") and Optative Sentences (Wishes & Prayers with "May")',
+    titleMr: 'प्रत्यक्ष व अप्रत्यक्ष कथन: उद्गारार्थी (Exclamatory) आणि सदिच्छा/प्रार्थनादर्शक (Optative) वाक्यांचे Indirect Speech मध्ये अचूक रूपांतरण नियम',
+    formula: "1. EXCLAMATORY SENTENCES (उद्गारार्थी वाक्ये):\n• Reporting Verb: said / said to ➔\n   - Hurrah / Ha! ➔ exclaimed with joy / delight\n   - Alas! / Oh! ➔ exclaimed with sorrow / grief\n   - Bravo! ➔ applauded + Object + saying that\n   - What a...! / How...! ➔ exclaimed with wonder / surprise\n   - Fie! / Ugh! ➔ exclaimed with contempt / disgust\n• Conjunction: THAT (Interjections like Alas, Hurrah, Wow are DROPPED).\n• Structure: Exclamatory word order ➔ ASSERTIVE STATEMENT (Subject + Verb + Modifier).\n• Intensifiers: 'What a + noun' ➔ 'a very / a great + noun' | 'How + adj' ➔ 'very + adj'.\n\n2. OPTATIVE SENTENCES (इच्छा, प्रार्थना व आशीर्वाददर्शक वाक्ये):\n• Reporting Verb: said / said to ➔ wished (for greetings/desires), prayed (for blessings/God), cursed (for curses/ill-will).\n• Conjunction: THAT\n• Tense & Order: 'May + Subject + V1' ➔ 'Subject + MIGHT + V1' (Assertive word order, exclamation mark removed).",
+    formulaMr: "१. उद्गारार्थी वाक्ये (Exclamatory Sentences):\n• Said / said to ऐवजी भावनेनुसार क्रियापद:\n   - Hurrah! ➔ exclaimed with joy\n   - Alas! ➔ exclaimed with sorrow / grief\n   - What a / How ➔ exclaimed with wonder / surprise\n   - Bravo! ➔ applauded + व्यक्ती + saying that\n• जोडशब्द (Conjunction): 'that' येतो (Alas, Hurrah हे केवलप्रयोगी शब्द काढून टाकले जातात).\n• वाक्याची रचना: उद्गारार्थी रचनेचे रूपांतर 'विधानार्थी' (Assertive: कर्ता + क्रियापद) रचनेमध्ये होते.\n• 'What a / How' च्या जागी 'very / a great' शब्द येतो (उदा. How beautiful ➔ very beautiful).\n\n२. सदिच्छा/प्रार्थनादर्शक वाक्ये (Optative Sentences):\n• Said / said to ऐवजी:\n   - देवाकडे प्रार्थना असेल ➔ prayed\n   - सदिच्छा / शुभेच्छा असेल ➔ wished\n   - शाप असेल ➔ cursed\n• जोडशब्द: 'that' येतो.\n• 'May + कर्ता' चे रूपांतर 'कर्ता + MIGHT + क्रियापदाचे पहिले रूप' असे विधानार्थी होते आणि उद्गारवाचक चिन्ह निघून जाते.",
+    definition: "Converting direct speech into reported (indirect) speech requires transforming affective, emotional utterances into standard formal assertive discourse. In MPSC examinations, exclamatory and optative sentences represent recurring focal points because candidates frequently forget to invert the exclamatory word order back into an assertive subject-verb sequence, or fail to adjust the modal auxiliary 'may' into 'might'.",
+    definitionMr: "MPSC च्या इंग्रजी व्याकरण परीक्षेत Direct चे Indirect Speech करताना 'उद्गारार्थी' (Exclamatory) आणि 'सदिच्छा/प्रार्थनादर्शक' (Optative) वाक्यांवर हमखास प्रश्न विचारले जातात. या वाक्यांचे रूपांतर करताना मुख्य २ गोष्टींचे भान ठेवावे लागते:\n१. Indirect करताना उद्गारवाचक चिन्ह (!) काढून वाक्य 'विधानार्थी' (Assertive - कर्ता आधी व क्रियापद नंतर) बनवावे लागते.\n२. 'May' चे भूतकाळात रूपांतर 'might' करावे लागते आणि 'What/How' ऐवजी 'very' लावावे लागते.",
+    keyPoints: [
+      '"Exclamatory to Assertive Shift: The exclamation order (How brave he is!) MUST transform into assertive order in indirect speech (he was very brave). Never retain an exclamatory word order!"',
+      '"Interjections are Purged: Words expressing sheer emotion like \'Alas!\', \'Hurrah!\', \'Oh!\', \'Bravo!\' are deleted in indirect speech because their emotion is absorbed into the reporting verb (exclaimed with sorrow / joy)."',
+      '"The What/How Replacement Law: \'What a lovely morning!\' becomes \'it was a very lovely morning\'; \'What a fool!\' becomes \'he was a great fool\'."',
+      '"Optative May ➔ Might: In optative prayers, \'May God bless you\' becomes \'prayed that God might bless him\'. The inverted word order \'May God\' strictly becomes \'God might\'."',
+      '"Good morning vs Good night: \'Said, Good morning\' becomes \'wished good morning\'; \'Said, Good night / Good bye\' becomes \'bade good night / bade good bye\'."'
+    ],
+    keyPointsMr: [
+      '१. उद्गारार्थीचे विधानार्थी करणे: Indirect Speech मध्ये उद्गारवाचक रचना निघून जाते आणि वाक्याचा क्रम \'कर्ता + क्रियापद\' असा होतो (How cold it is ➔ that it was very cold).',
+      '२. केवलप्रयोगी शब्द वगळणे: Hurrah, Alas, Bravo हे शब्द Indirect करताना गाळले जातात, कारण त्यांचा अर्थ \'exclaimed with joy / sorrow\' मध्ये आधीच आलेला असतो.',
+      '३. What/How चा बदल: \'How beautiful\' चे Indirect मध्ये \'very beautiful\' होते, आणि \'What a sight\' चे \'a very beautiful sight\' किंवा \'What a fool\' चे \'a great fool\' होते.',
+      '४. Optative मध्ये May चे Might: \'May God bless you\' चे Indirect करताना \'prayed that God might bless him\' असे होते (\'May God\' ऐवजी \'God might\' हा कर्ता-सहाय्यक क्रम येतो).',
+      '५. Good morning vs Good bye: सकाळच्या भेटीत \'wished good morning\' होते, पण निरोप घेताना \'bade good bye / bade good night\' होते.'
+    ],
+    examples: [
+      {
+        sentence: "Direct: The captain said, 'Hurrah! We have won the inter-district championship!'\nIndirect: The captain exclaimed with joy that they had won the inter-district championship.",
+        isCorrect: true,
+        explanation: "Correct! 'Hurrah' expresses triumph, so the reporting verb correctly becomes 'exclaimed with joy'. 'That' serves as conjunction. Present perfect 'have won' shifts to past perfect 'had won'.",
+        explanationMr: "अचूक! 'Hurrah' हा आनंदाचा उद्गार असल्याने reporting verb 'exclaimed with joy' झाले, 'that' हा जोडशब्द आला आणि 'have won' चे भूतकाळात 'had won' झाले."
+      },
+      {
+        sentence: "Direct: She said, 'Alas! I have lost my grandmother's gold necklace!'\nIndirect: She exclaimed with sorrow that she had lost her grandmother's gold necklace.",
+        isCorrect: true,
+        explanation: "Correct! 'Alas' denotes grief and is replaced by 'exclaimed with sorrow'. Pronoun 'I' shifts to 'she', and 'have lost' becomes 'had lost'.",
+        explanationMr: "अचूक! 'Alas' हा दुःखाचा उद्गार असल्याने 'exclaimed with sorrow' आले आणि वाक्य सुरळीत विधानार्थी झाले."
+      },
+      {
+        sentence: "Direct: The elderly grandmother said to the orphan, 'May God protect and guide you always!'\nIndirect: The elderly grandmother prayed that God may protect and guide him always.",
+        isCorrect: false,
+        explanation: "Incorrect! Fatal MPSC Modal Error: In indirect speech, the present modal 'may' must backshift to 'might' ('prayed that God MIGHT protect and guide him always'). Leaving 'may' unchanged in the past context is an error.",
+        explanationMr: "चूक! MPSC मधील सर्वात नेहमीची चूक: Direct चे Indirect करताना 'may' चा भूतकाळ 'might' होणे बंधनकारक आहे: 'prayed that God might protect and guide him always'."
+      },
+      {
+        sentence: "Direct: The traveler said, 'What a terrifying precipice this is!'\nIndirect: The traveler exclaimed with wonder that that was a very terrifying precipice.",
+        isCorrect: true,
+        explanation: "Correct! 'What a terrifying precipice' is converted to 'a very terrifying precipice'. Demonstrative 'this' changes to 'that', resulting in 'that that was a very terrifying precipice' (first 'that' is conjunction, second 'that' is demonstrative).",
+        explanationMr: "अचूक! 'What a terrifying precipice' चे 'a very terrifying precipice' झाले. 'this' चे 'that' झाले आणि पहिला 'that' हा Conjunction आहे."
+      }
+    ],
+    exceptions: [
+      'In direct greetings without a main verb (e.g. He said to me, "Good morning!"), do not use "that"; write directly: "He wished me a good morning."',
+      'For farewells (e.g. She said, "Good-bye, friends!"), use "bade": "She bade her friends good-bye."'
+    ],
+    exceptionsMr: [
+      'फक्त सदिच्छा असल्यास (उदा. "Good morning"), \'that\' जोडशब्द न वापरता थेट वाक्य लिहावे: \'He wished me a good morning\'.',
+      'निरोप घेताना \'bade\' वापरावे: \'He bade good bye to his friends\'.'
+    ],
+    examTip: "MPSC Indirect Speech 2-Second Trap Spotter:\n1. In Optative sentences, scan the options for 'MIGHT'. Any option retaining 'MAY' is an immediate trap ➔ ELIMINATE!\n2. In Exclamatory sentences, scan the word order: Any option keeping the question/exclamatory order (e.g. 'that was it very lovely' or 'that how lovely it was') is FALSE. Choose the option with subject first (e.g. 'that it was very lovely')!",
+    examTipMr: "MPSC २ सेकंदांची परीक्षा क्लृप्ती:\n१. वाक्यात 'May God...' दिसले ➔ पर्यायांमध्ये फक्त 'God MIGHT...' शोधा! ज्या पर्यायात 'may' तसाच ठेवला आहे तो पर्याय लगेच बाद करा!\n२. उद्गारार्थी वाक्यात पर्यायांमध्ये 'that it was very...' हा सरळ विधानार्थी क्रम पहा; 'How' किंवा 'What' शिल्लक ठेवलेले पर्याय ताबडतोब खोडा!",
+    practiceQuestionIds: ['gq_en_02', 'gq_en_06'],
+    tags: ['Direct Indirect Speech', 'Exclamatory Sentences', 'Optative Sentences', 'May to Might', 'Narration', 'MPSC Rules']
   }
 ];
