@@ -8061,5 +8061,137 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: "MPSC २ सेकंदांची परीक्षा क्लृप्ती:\n१. वाक्यात 'May God...' दिसले ➔ पर्यायांमध्ये फक्त 'God MIGHT...' शोधा! ज्या पर्यायात 'may' तसाच ठेवला आहे तो पर्याय लगेच बाद करा!\n२. उद्गारार्थी वाक्यात पर्यायांमध्ये 'that it was very...' हा सरळ विधानार्थी क्रम पहा; 'How' किंवा 'What' शिल्लक ठेवलेले पर्याय ताबडतोब खोडा!",
     practiceQuestionIds: ['gq_en_02', 'gq_en_06'],
     tags: ['Direct Indirect Speech', 'Exclamatory Sentences', 'Optative Sentences', 'May to Might', 'Narration', 'MPSC Rules']
+  },
+
+  // --- 119. COMPOUND NOUNS: PLURALIZATION VS POSSESSIVE CASE ---
+  {
+    id: 'en_rule_compound_nouns_plurals_possessive_01',
+    language: 'english',
+    category: 'Nouns & Morphology',
+    categoryMr: 'नाम व वचनविचार: संयुक्त नामांचे अनेकवचन (Compound Nouns Pluralization) व षष्ठी विभक्ती (\'s) नियम',
+    title: 'Compound Nouns Pluralization ("Sons-in-law", "Passers-by") vs Possessive Case ("Son-in-law\'s") & Double Plurals ("Men-servants")',
+    titleMr: 'संयुक्त नामांचे अनेकवचन (Compound Nouns) व षष्ठी विभक्ती (\'s) चा सुवर्ण नियम: मुख्य शब्दाला \'s\' लावणे विरुद्ध शेवटच्या शब्दाला \'\'s\' लावणे',
+    formula: "1. PLURALIZATION RULE: ADD 'S' TO THE HEAD / PRINCIPAL NOUN (मुख्य नामाला अनेकवचनाचा प्रत्यय):\n• Son-in-law ➔ Sons-in-law (NOT Son-in-laws)\n• Daughter-in-law ➔ Daughters-in-law\n• Brother-in-law ➔ Brothers-in-law\n• Passer-by ➔ Passers-by (NOT Passer-bys)\n• Looker-on ➔ Lookers-on (NOT Looker-ons)\n• Commander-in-chief ➔ Commanders-in-chief (NOT Commander-in-chiefs)\n• Governor-General ➔ Governors-General\n• Court-martial ➔ Courts-martial\n\n2. DOUBLE PLURAL NOUNS (When Man / Woman specifies a profession):\n• Man-servant ➔ Men-servants (BOTH parts pluralized!)\n• Woman-servant ➔ Women-servants\n• Lord-justice ➔ Lords-justices\n• Knight-templar ➔ Knights-templars\n(Exception: Woman doctor ➔ Women doctors | But Man-eater ➔ Man-eaters, Woman-hater ➔ Woman-haters because here 'man/woman' is the object, not the agent)\n\n3. NOUNS ENDING IN '-FUL': ADD 'S' AT THE VERY END (शेवटी 's' लावा):\n• Spoonful ➔ Spoonfuls (NOT Spoonsful)\n• Handful ➔ Handfuls (NOT Handsful)\n• Mouthful ➔ Mouthfuls | Cupful ➔ Cupfuls\n\n4. THE DEADLY MPSC POSSESSIVE TRAP ('S FOR OWNERSHIP):\n• For Possessive Case, add apostrophe 's to the VERY LAST WORD, NEVER to the first word:\n  - His son-in-law's car (CORRECT) | His son's-in-law car (WRONG!)\n  - The Commander-in-chief's order (CORRECT) | Commander's-in-chief (WRONG!)",
+    formulaMr: "१. अनेकवचनाचा नियम (Pluralization): अनेकवचन करताना 's' नेहमी मूळ मुख्य नामाला (Principal word) लागतो:\n• Son-in-law ➔ Sons-in-law ('Son' हा मुख्य घटक आहे; 'Son-in-laws' चूक!)\n• Passer-by ➔ Passers-by ('Passer' मुख्य आहे; 'Passer-bys' चूक!)\n• Looker-on ➔ Lookers-on ('Looker' मुख्य आहे; 'Looker-ons' चूक!)\n• Commander-in-chief ➔ Commanders-in-chief\n• Step-son ➔ Step-sons ('Son' हा शेवटी मुख्य नाम आहे; 'Steps-son' चूक!)\n\n२. दोन्ही शब्दांचे अनेकवचन (Double Plurals):\n• Man-servant ➔ Men-servants (दोन्ही शब्दांचे Men आणि servants असे अनेकवचन होते!)\n• Woman-servant ➔ Women-servants\n\n३. '-ful' शेवटी असणारे शब्द:\n• Spoonful ➔ Spoonfuls ('Spoonsful' चूक!)\n• Handful ➔ Handfuls ('Handsful' चूक!)\n\n४. MPSC चा सर्वात घातक षष्ठी विभक्ती ट्रॅप (Possessive Case 's):\n• मालकी हक्क दाखवण्यासाठी (Apostrophe 's) नेहमी शेवटच्या शब्दाला लागतो, पहिल्या शब्दाला नाही!\n• उदा. 'His son-in-law's bungalow' (अचूक) | 'His son's-in-law bungalow' (चूक!).\n• फरक लक्षात ठेवा: अनेकवचन करताना 'Sons-in-law' होते, पण मालकी हक्क दाखवताना 'Son-in-law's' होते!",
+    definition: "A compound noun is an amalgamated lexical unit formed by two or more words joined together (with or without hyphens). In MPSC Rajyaseva, PSI/STI/ASO, and Combined Group B & C exams, examiners repeatedly test the critical structural dichotomy between Pluralization (which modifies the core semantic noun head) and the Possessive Genitive Case (which strictly attaches to the final terminal element of the compound phrase).",
+    definitionMr: "दोन किंवा अधिक शब्दांच्या संयोगाने बनणाऱ्या नामाला संयुक्त नाम (Compound Noun) म्हणतात. MPSC परीक्षेत यावर २ पद्धतीचे प्रश्न हमखास येतात:\n१. अनेकवचन (Plural): जेव्हा एकापेक्षा जास्त व्यक्ती सांगायच्या असतात, तेव्हा 's' हा मुख्य शब्दाला लागतो (उदा. Sons-in-law).\n२. मालकी हक्क (Possessive 's): जेव्हा त्या व्यक्तीच्या मालकीची वस्तू सांगायची असते, तेव्हा 's हा शेवटच्या शब्दाला लागतो (उदा. Son-in-law's car).\nविद्यार्थी या दोघांमध्ये नेहमी गल्लत करतात आणि हमखास गुण गमावतात.",
+    keyPoints: [
+      '"The Head-Word Plurality Principle: Always locate the primary noun carrying the substantive meaning (Son, Passer, Commander) and add -s to it: Sons-in-law, Passers-by, Commanders-in-chief."',
+      '"Terminal Element in Prepositional Tail: In \'Passer-by\', \'by\' is a preposition and can never take a plural -s. Hence, Passer-bys is universally ungrammatical."',
+      '"Double Shift with Man/Woman: When \'man\' or \'woman\' combines with a profession to indicate gender, BOTH components undergo pluralization: Man-servant ➔ Men-servants; Woman-servant ➔ Women-servants."',
+      '"The -ful Suffix Rule: Words like mouthful, spoonful, handful represent measures of volume. Modern English treats them as unitary nouns and pluralizes exclusively at the end: spoonfuls, handfuls."',
+      '"The Possessive Apostrophe Rule: While the plural attaches to the head noun (Sons-in-law), the possessive apostrophe-s attaches strictly to the last word of the compound (My son-in-law\'s promotion)."'
+    ],
+    keyPointsMr: [
+      '१. मुख्य नाम ओळखा: अनेकवचन करताना मूळ मुख्य शब्दाला \'s\' लावा (Passer-by मध्ये \'by\' हे अव्यय असल्याने अनेकवचन \'Passers-by\' होते, \'Passer-bys\' नाही).',
+      '२. Man/Woman नोकर: Man-servant चे अनेकवचन \'Men-servants\' होते (दोन्ही शब्दांना अनेकवचन लागते).',
+      '३. Spoonful: चमचाभर मोजमाप दर्शवणाऱ्या नामांना शेवटी \'s\' लागतो: Spoonfuls, Handfuls (Spoonsful चूक!).',
+      '४. अनेकवचन vs मालकी हक्क: अनेकवचन = Sons-in-law | मालकी हक्क = Son-in-law\'s.',
+      '५. Step-son / Maid-servant: येथे मूळ नाम शेवटी असल्याने अनेकवचन Step-sons आणि Maid-servants होते.'
+    ],
+    examples: [
+      {
+        sentence: "Identify the correct plural form:\nSentence: 'All his sons-in-law gathered at the family estate for the annual festival.'",
+        isCorrect: true,
+        explanation: "Correct! The principal noun is 'son', which takes the plural marker 's' to yield 'sons-in-law'. Writing 'son-in-laws' is an error.",
+        explanationMr: "अचूक! 'Son' हे मुख्य नाम असल्याने अनेकवचन 'sons-in-law' बरोबर आहे. 'son-in-laws' चुकीचे ठरले असते."
+      },
+      {
+        sentence: "Spot the error in the sentence:\nSentence: 'Several passer-bys stopped to assist the injured motorcyclist after the collision.'",
+        isCorrect: false,
+        explanation: "Incorrect! Glaring MPSC Error: 'By' is a preposition and cannot take plural 's'. The plural marker belongs to the head noun 'passer'. The correct phrase must be 'Several passers-by stopped...'.",
+        explanationMr: "चूक! MPSC चा अत्यंत लोकप्रिय प्रश्न: 'by' हे अव्यय असल्याने त्याला 's' लागत नाही. मुख्य नाम 'passer' असल्याने बरोबर रूप 'passers-by' हवे!"
+      },
+      {
+        sentence: "Identify the correct possessive form:\nSentence: 'The Commander-in-chief's decision to modernize coastal surveillance was welcomed by the armed forces.'",
+        isCorrect: true,
+        explanation: "Correct! In the possessive genitive case, the apostrophe 's attaches to the very last word of the compound noun ('Commander-in-chief\'s'). Adding apostrophe to the first word ('Commander\'s-in-chief') is an error.",
+        explanationMr: "अचूक! मालकी किंवा अधिकार दाखवताना (Possessive 's) अपोस्ट्रॉफी 's हा शेवटच्या शब्दाला लागतो: 'Commander-in-chief\'s decision'."
+      },
+      {
+        sentence: "Spot the error in the recipe instruction:\nSentence: 'Add two spoonsful of pure honey and one cup of warm water.'",
+        isCorrect: false,
+        explanation: "Incorrect! Measure nouns ending in '-ful' pluralize only at the end. The correct form is 'two spoonfuls', NOT 'two spoonsful'.",
+        explanationMr: "चूक! '-ful' असणाऱ्या शब्दांचे अनेकवचन शेवटी 's' लावून होते: 'two spoonfuls' हवे, 'spoonsful' नाही!"
+      }
+    ],
+    exceptions: [
+      'In "Man-eater" (वाघ किंवा नरभक्षक प्राणी) and "Woman-hater" (स्त्रीद्वेष्टा), the plural is "Man-eaters" and "Woman-haters" (NOT Men-eaters / Women-haters), because here man/woman is the grammatical object receiving the action, not the subject performing it!',
+      'Governor-General historically accepted both "Governors-General" (preferred in British English) and "Governor-Generals" (in modern administrative usage), but MPSC strictly tests "Governors-General".'
+    ],
+    exceptionsMr: [
+      'Man-eater (नरभक्षक) चे अनेकवचन "Man-eaters" होते ("Men-eaters" चूक!), कारण येथे मनुष्य खाणारा प्राणी असा अर्थ आहे.',
+      'Woman-hater (स्त्रीद्वेष्टा) चे अनेकवचन "Woman-haters" होते ("Women-haters" चूक!).'
+    ],
+    examTip: "MPSC 2-Step Compound Noun Quick Rule:\n1. PLURAL (अनेकवचन विचारले)? ➔ Add 's' to FIRST / MAIN WORD: Sons-in-law, Passers-by, Commanders-in-chief!\n2. POSSESSIVE (मालकी हक्क / 's विचारला)? ➔ Add ''s' to LAST WORD: Son-in-law's, Commander-in-chief's!\n3. NOUNS WITH '-FUL'? ➔ Always add 's' at the END: Spoonfuls, Handfuls!",
+    examTipMr: "MPSC २ सेकंदांची परीक्षा क्लृप्ती:\n१. अनेकवचन (Plural) विचारले ➔ पहिल्या मुख्य शब्दाला 's' लावा (Sons-in-law, Passers-by)!\n२. षष्ठी विभक्ती (Possessive 's) विचारली ➔ शेवटच्या शब्दाला 's लावा (Son-in-law's car)!\n३. '-ful' चे अनेकवचन ➔ नेहमी शेवटी 's' लावा (Spoonfuls, Handfuls)!",
+    practiceQuestionIds: ['gq_en_03', 'gq_en_07'],
+    tags: ['Compound Nouns', 'Pluralization', 'Possessive Case', 'Sons-in-law', 'Passers-by', 'MPSC Rules']
+  },
+
+  // --- 120. FOREIGN PLURALS (LATIN & GREEK NOUNS) & SUBJECT-VERB CONCORD ---
+  {
+    id: 'en_rule_foreign_plurals_latin_greek_nouns_01',
+    language: 'english',
+    category: 'Nouns & Subject-Verb Agreement',
+    categoryMr: 'नाम व क्रियापद सुसंगती: लॅटिन व ग्रीक शब्दांचे अनेकवचन (Foreign Plurals - Criterion/Criteria, Phenomenon/Phenomena)',
+    title: 'Foreign Plurals (Latin & Greek Nouns): "Criterion/Criteria", "Phenomenon/Phenomena", "Crisis/Crises", "Datum/Data" & Concord Rules',
+    titleMr: 'विदेशी भाषेतील (लॅटिन व ग्रीक) नामांचे अनेकवचन आणि क्रियापद सुसंगती नियम (Criterion ➔ Criteria, Phenomenon ➔ Phenomena, Crisis ➔ Crises)',
+    formula: "1. GREEK NOUNS ENDING IN '-ON' ➔ CHANGE TO '-A':\n• Singular: Criterion ➔ Plural: Criteria (NOT Criterions!)\n  - 'This criterion is...' | 'These criteria are...'\n• Singular: Phenomenon ➔ Plural: Phenomena (NOT Phenomenons!)\n  - 'A rare phenomenon was observed' | 'Several astronomical phenomena were observed'\n\n2. GREEK NOUNS ENDING IN '-IS' ➔ CHANGE TO '-ES' (PRONOUNCED /i:z/):\n• Crisis ➔ Crises (An economic crisis ➔ Several financial crises)\n• Thesis ➔ Theses (A doctoral thesis ➔ Published theses)\n• Hypothesis ➔ Hypotheses\n• Basis ➔ Bases (The scientific basis ➔ Multiple legal bases)\n• Axis ➔ Axes | Oasis ➔ Oases | Synopsis ➔ Synopses | Analysis ➔ Analyses\n\n3. LATIN NOUNS ENDING IN '-UM' ➔ CHANGE TO '-A':\n• Datum ➔ Data (Singular: datum | Plural: data)\n• Medium ➔ Media (Television is a medium | Mass media ARE influential)\n• Bacterium ➔ Bacteria (A single bacterium ➔ Thousands of bacteria)\n• Stratum ➔ Strata (A social stratum ➔ Different geological strata)\n• Curriculum ➔ Curricula (or Curriculums) | Memorandum ➔ Memoranda | Erratum ➔ Errata\n\n4. LATIN NOUNS ENDING IN '-US' ➔ CHANGE TO '-I':\n• Alumnus (male singular) ➔ Alumni (plural: both men & mixed groups)\n• Alumna (female singular) ➔ Alumnae (plural of female graduates)\n• Radius ➔ Radii (NOT Radiuses) | Focus ➔ Foci | Fungus ➔ Fungi | Terminus ➔ Termini | Locus ➔ Loci | Syllabus ➔ Syllabi\n\n5. LATIN NOUNS ENDING IN '-EX / -IX' ➔ CHANGE TO '-ICES':\n• Index ➔ Indices (in algebra/economics) or Indexes (book lists)\n• Matrix ➔ Matrices | Appendix ➔ Appendices | Vertex ➔ Vertices",
+    formulaMr: "१. ग्रीक भाषेतील '-on' चे '-a' होणे:\n• एकवचन: Criterion ➔ अनेकवचन: Criteria ('Criteria' हे अनेकवचन असल्याने 'are' लागते, 'is' नाही!).\n• एकवचन: Phenomenon ➔ अनेकवचन: Phenomena ('Phenomena' हे अनेकवचन आहे; 'Phenomenas' शब्द अस्तित्वात नाही!).\n\n२. ग्रीक भाषेतील '-is' चे '-es' होणे:\n• Crisis ➔ Crises (आर्थिक संकट ➔ अनेक संकटे; Crises नंतर 'were/are' येते).\n• Thesis ➔ Theses (निबंध ➔ अनेक प्रबंध).\n• Hypothesis ➔ Hypotheses | Basis ➔ Bases | Oasis ➔ Oases | Analysis ➔ Analyses.\n\n३. लॅटिन भाषेतील '-um' चे '-a' होणे:\n• Datum ➔ Data (Data हे मुळात Datum चे अनेकवचन आहे).\n• Medium ➔ Media (माध्यम ➔ अनेक माध्यमे; Social media are...).\n• Bacterium ➔ Bacteria (जीवाणू ➔ अनेक जीवाणू; Bacteria were found).\n• Stratum ➔ Strata (थर ➔ अनेक थर).\n• Memorandum ➔ Memoranda | Erratum ➔ Errata.\n\n४. लॅटिन भाषेतील '-us' चे '-i' होणे:\n• Alumnus (माजी विद्यार्थी) ➔ Alumni (अनेक माजी विद्यार्थी).\n• Alumna (माजी विद्यार्थिनी) ➔ Alumnae.\n• Radius ➔ Radii (त्रिज्या ➔ अनेक त्रिज्या).\n• Syllabus ➔ Syllabi (अभ्यासक्रम ➔ अभ्यासक्रम).\n• Fungus ➔ Fungi | Terminus ➔ Termini.\n\n५. '-ex / -ix' चे '-ices' होणे:\n• Matrix ➔ Matrices | Appendix ➔ Appendices | Index ➔ Indices.",
+    definition: "A significant percentage of formal scientific, academic, and administrative English terms originate as direct loanwords from Classical Latin and Ancient Greek. Rather than following the default Germanic pluralization pattern (adding -s or -es), these loanwords preserve their classical etymological inflections. In MPSC examinations, examiners exploit these words to test both Vocabulary Identification and Subject-Verb Agreement (e.g. falsely pairing plural 'criteria' or 'phenomena' with singular 'is/was').",
+    definitionMr: "इंग्रजी भाषेतील अनेक शास्त्रीय, प्रशासकीय आणि शैक्षणिक शब्द थेट लॅटिन व ग्रीक भाषेतून आलेले आहेत. इंग्रजीतील सामान्य शब्दांप्रमाणे त्यांना 's' न लावता त्यांच्या मूळ भाषेतील नियमांनुसार अनेकवचन केले जाते. MPSC परीक्षेत या शब्दांवर दोन पद्धतींचे प्रश्न विचारले जातात:\n१. एका शब्दाचे अनेकवचनी रूप ओळखा (उदा. Criterion चे अनेकवचन Criteria).\n२. क्रियापदाची चूक ओळखा (उदा. 'This criteria is wrong' ➔ 'Criteria' अनेकवचनी असल्याने 'These criteria are wrong' असे हवे!).",
+    keyPoints: [
+      '"Criteria & Phenomena are PLURAL: Never write \'This criteria is\'. The singular is CRITERION. Say: \'This criterion is satisfied\' or \'These criteria are satisfied\'."',
+      '"Phenomena is PLURAL: \'A strange phenomena\' is an egregious error. Correct: \'A strange phenomenon\' (singular) or \'Many strange phenomena\' (plural)."',
+      '"Crisis vs Crises: With \'is\' it is SINGULAR (crisis); with \'es\' it is PLURAL (crises). A serious crisis ➔ Multiple severe crises."',
+      '"Bacteria & Media take PLURAL verbs: In formal civil services English, bacteria and media govern plural verbs: \'These bacteria were isolated\' | \'Mass media have reported the news\'."',
+      '"Alumnus vs Alumni: Alumnus is one male graduate; Alumna is one female graduate; Alumni is the plural for all male or mixed graduates; Alumnae is the plural for all female graduates."'
+    ],
+    keyPointsMr: [
+      '१. Criteria व Phenomena हे अनेकवचनी आहेत: \'This criteria is\' चूक; \'These criteria are\' किंवा \'This criterion is\' बरोबर.',
+      '२. Phenomenon हे एकवचन आहे: \'A strange phenomenon\' (एकवचन) | \'Natural phenomena are\' (अनेकवचन).',
+      '३. Crisis चे Crises: शेवटी \'is\' असल्यास एकवचन (Crisis), आणि \'es\' असल्यास अनेकवचन (Crises).',
+      '४. Bacterium चे Bacteria: एक जीवाणू म्हणजे Bacterium; अनेक जीवाणू म्हणजे Bacteria (\'Bacteria are\' बरोबर).',
+      '५. Alumnus चे Alumni: महाविद्यालयाचा एक माजी छात्र = Alumnus; सर्व माजी विद्यार्थी = Alumni.'
+    ],
+    examples: [
+      {
+        sentence: "Spot the error in the selection criteria statement:\nSentence: 'This selection criteria was strictly formulated by the Maharashtra Public Service Commission.'",
+        isCorrect: false,
+        explanation: "Incorrect! Classic MPSC Super-Hit Error: 'Criteria' is plural. Either use singular 'criterion' ('This selection criterion was strictly formulated...') or use plural pronoun and verb ('These selection criteria were strictly formulated...').",
+        explanationMr: "चूक! MPSC चा सर्वात आवडता प्रश्न: 'Criteria' हे अनेकवचन आहे. त्यामुळे 'This criteria was' चूक! बरोबर वाक्य: 'These selection criteria were...' किंवा 'This selection criterion was...'!"
+      },
+      {
+        sentence: "Identify whether the sentence is grammatically correct:\nSentence: 'The northern lights (Aurora Borealis) is a magnificent atmospheric phenomenon that attracts researchers worldwide.'",
+        isCorrect: true,
+        explanation: "Correct! The article 'a' and adjective 'magnificent' correctly modify the singular noun 'phenomenon'. Using plural 'phenomena' here would be ungrammatical.",
+        explanationMr: "अचूक! 'a' हे एकवचनी उपपद असल्याने 'phenomenon' हे एकवचनी रूप वापरणे १००% अचूक आहे."
+      },
+      {
+        sentence: "Identify the correct plural formation:\nSentence: 'The cabinet convened an emergency session to resolve the severe financial crises engulfing the cooperative banking sector.'",
+        isCorrect: true,
+        explanation: "Correct! 'Crises' (pronounced /kraɪsi:z/) is the proper plural form of 'crisis' denoting multiple compounding economic emergencies.",
+        explanationMr: "अचूक! अनेक संकटे दर्शवण्यासाठी 'crisis' चे योग्य अनेकवचनी रूप 'crises' वापरले आहे."
+      },
+      {
+        sentence: "Spot the error in the medical laboratory report:\nSentence: 'A virulent bacteria was detected in the municipal water supply sample.'",
+        isCorrect: false,
+        explanation: "Incorrect! 'Bacteria' is plural. With the singular article 'A', the singular noun 'bacterium' must be used: 'A virulent bacterium was detected...'. Alternatively: 'Virulent bacteria were detected...'.",
+        explanationMr: "चूक! 'A' नंतर एकवचनी रूप 'bacterium' हवे: 'A virulent bacterium was detected' किंवा अनेकवचन करताना 'Virulent bacteria were detected'!"
+      }
+    ],
+    exceptions: [
+      'In everyday conversational English, "data" is increasingly used with a singular verb ("the data is clear"), but in formal MPSC, UPSC, and SSC examinations, "data" is strictly treated as a plural noun originating from "datum" (hence: "these data show...", NOT "this data shows...").',
+      'Words like "agenda" (originally plural of agendum) and "stamina" (originally plural of stamen) are now universally treated as SINGULAR in modern English.'
+    ],
+    exceptionsMr: [
+      'दैनंदिन इंग्रजीत Data नंतर कधीकधी एकवचनी क्रियापद वापरतात; परंतु MPSC च्या परीक्षेत Data ला \'Datum\' चे अनेकवचन मानून \'These data show\' असाच नियम ग्राह्य धरला जातो.',
+      'Agenda (मूळ Agendum) आणि Stamina हे शब्द आता इंग्रजीत एकवचनी मानले जातात.'
+    ],
+    examTip: "MPSC Foreign Plural Cheat-Sheet:\n1. -ON ➔ -A: Criterion ➔ Criteria | Phenomenon ➔ Phenomena (ALWAYS PLURAL!)\n2. -IS ➔ -ES: Crisis ➔ Crises | Basis ➔ Bases | Thesis ➔ Theses | Analysis ➔ Analyses\n3. -UM ➔ -A: Datum ➔ Data | Medium ➔ Media | Bacterium ➔ Bacteria | Stratum ➔ Strata\n4. -US ➔ -I: Alumnus ➔ Alumni | Radius ➔ Radii | Fungus ➔ Fungi | Terminus ➔ Termini",
+    examTipMr: "MPSC विदेशी अनेकवचनांची चार्ट क्लृप्ती:\n१. -ON चा होतो -A: Criterion ➔ Criteria | Phenomenon ➔ Phenomena (हे अनेकवचनी आहेत, क्रियापद are/were लावा!)\n२. -IS चा होतो -ES: Crisis ➔ Crises | Basis ➔ Bases | Thesis ➔ Theses\n३. -UM चा होतो -A: Datum ➔ Data | Medium ➔ Media | Bacterium ➔ Bacteria\n४. -US चा होतो -I: Alumnus ➔ Alumni | Radius ➔ Radii | Syllabus ➔ Syllabi",
+    practiceQuestionIds: ['gq_en_04', 'gq_en_05'],
+    tags: ['Foreign Plurals', 'Latin Plurals', 'Greek Nouns', 'Criteria', 'Phenomena', 'Subject Verb Agreement', 'MPSC Rules']
   }
 ];
