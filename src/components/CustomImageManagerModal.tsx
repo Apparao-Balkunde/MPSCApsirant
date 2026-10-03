@@ -90,8 +90,8 @@ export const CustomImageManagerModal: React.FC<CustomImageManagerModalProps> = (
   const [subtitle, setSubtitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
 
-  // Target destination: 'gallery' | 'pass' | 'hero' | 'all'
-  const [targetDestination, setTargetDestination] = useState<'gallery' | 'pass' | 'hero' | 'all'>('gallery');
+  // Target destination: 'gallery' | 'pass' | 'hero' | 'background' | 'all'
+  const [targetDestination, setTargetDestination] = useState<'gallery' | 'pass' | 'hero' | 'background' | 'all'>('gallery');
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -224,6 +224,23 @@ export const CustomImageManagerModal: React.FC<CustomImageManagerModalProps> = (
         setHasHeroBanner(true);
       } catch (e) {
         console.warn('Hero save error:', e);
+      }
+    }
+
+    // 4. If destination includes 'background' or 'all'
+    if (targetDestination === 'background' || targetDestination === 'all') {
+      try {
+        localStorage.setItem('mpsc_portal_background_config', JSON.stringify({
+          presetId: 'custom',
+          customUrl: imageSrc,
+          opacity: 0.20,
+          blur: 1,
+          overlayMode: 'vignette',
+          enabled: true,
+        }));
+        window.dispatchEvent(new Event('mpsc_background_changed'));
+      } catch (e) {
+        console.warn('Background save error:', e);
       }
     }
 
@@ -684,8 +701,9 @@ export const CustomImageManagerModal: React.FC<CustomImageManagerModalProps> = (
               <label className="block text-xs font-bold text-stone-300">
                 {isMr ? 'ही इमेज कुठे दिसायला हवी? (Choose Placement) *' : 'Where should this image appear? *'}
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                 {[
+                  { id: 'background', labelMr: '🎨 पार्श्वभूमी वॉलपेपर', labelEn: 'Background Wallpaper' },
                   { id: 'gallery', labelMr: '🖼️ प्रेरणा दालन', labelEn: 'Gallery' },
                   { id: 'pass', labelMr: '🪪 डिजिटल पास', labelEn: 'Digital Pass' },
                   { id: 'hero', labelMr: '🏛️ मुख्य बॅनर', labelEn: 'Hero Banner' },

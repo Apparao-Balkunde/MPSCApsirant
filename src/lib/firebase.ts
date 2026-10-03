@@ -104,28 +104,10 @@ export function getLocalStudentSession(): User | null {
 
     const user = JSON.parse(raw) as any;
 
-    if (
-      user &&
-      user.email === 'student@mpscsarathi.online'
-    ) {
-      user.email =
-        'apparaobalkunde901@gmail.com';
-
-      if (
-        !user.displayName ||
-        user.displayName === 'एमपीएससी उमेदवार'
-      ) {
-        user.displayName =
-          'Apparao Balkunde';
-      }
-
-      try {
-        localStorage.setItem(
-          LOCAL_USER_KEY,
-          JSON.stringify(user)
-        );
-      } catch {}
-    }
+    // 🔴 सुरक्षा दुरुस्ती — आधी इथे प्रत्येक saved session चा ईमेल/नाव
+    // developer च्या (Apparao Balkunde) वैयक्तिक ईमेलने बदलला जात होता.
+    // आता असं कुठलंही auto-replace होत नाही — जो session साठवलेला आहे
+    // तोच जसाच्या तसा परत दिला जातो.
 
     return user as User;
 
@@ -297,10 +279,13 @@ export async function registerWithEmail(
 // GUEST LOGIN
 // ============================================================
 
+// 🔴 सुरक्षा दुरुस्ती — आधी इथे developer चं खरं नाव आणि वैयक्तिक Gmail
+// हार्डकोड केलेलं होतं, त्यामुळे प्रत्येक guest विद्यार्थ्याला तेच नाव/ईमेल
+// दिसत होतं. आता साधं, generic "Guest" ओळख वापरतो — कुठलाही खरा ईमेल नाही.
 export async function loginAsGuest() {
   return loginAsPreviewUser(
-    'Apparao Balkunde (Guest)',
-    'apparaobalkunde901@gmail.com'
+    'Guest User',
+    undefined
   );
 }
 
@@ -311,16 +296,18 @@ export async function loginAsGuest() {
 
 export async function loginAsPreviewUser(
   customName?: string,
-  customEmail?: string | null
+  customEmail?: string
 ): Promise<User> {
 
   const name =
     customName?.trim() ||
-    'Apparao Balkunde';
+    'Guest User';
 
+  // 🔴 सुरक्षा दुरुस्ती — आधी इथे डिफॉल्ट म्हणून developer चा वैयक्तिक
+  // ईमेल वापरला जात होता. आता ईमेल दिलाच नाही तर रिकामाच राहतो.
   const email =
     customEmail?.trim() ||
-    'apparaobalkunde901@gmail.com';
+    '';
 
   try {
 
@@ -376,8 +363,8 @@ export async function loginAsPreviewUser(
     displayName: name,
     email,
     photoURL: null,
-    isAnonymous: false,
-    emailVerified: true,
+    isAnonymous: true,
+    emailVerified: false,
   } as unknown as User;
 
 
@@ -414,9 +401,8 @@ export async function loginAsPreviewUser(
 // ============================================================
 
 export function updateStudentProfile(
-  displayName?: string,
-  email?: string | null,
-  photoURL?: string | null
+  displayName: string,
+  email: string
 ): User {
 
   const existing =
@@ -434,18 +420,21 @@ export function updateStudentProfile(
     ...(existing || {}),
     uid,
 
+    // 🔴 सुरक्षा दुरुस्ती — आधी इथेही रिकामं टाकलं की developer चं नाव/ईमेल
+    // डिफॉल्ट म्हणून बसत होतं. आता विद्यार्थ्याने जे दिलं तेच राहतं.
     displayName:
-      displayName?.trim() ||
-      'Apparao Balkunde',
+      displayName.trim() ||
+      existing?.displayName ||
+      'Guest User',
 
     email:
-      email?.trim() ||
-      'apparaobalkunde901@gmail.com',
+      email.trim() ||
+      existing?.email ||
+      '',
 
     photoURL:
-      photoURL !== undefined
-        ? photoURL
-        : (existing?.photoURL || null),
+      existing?.photoURL ||
+      null,
 
     isAnonymous: false,
     emailVerified: true,

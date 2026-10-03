@@ -36,6 +36,7 @@ import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
 import { CustomImageManagerModal } from './components/CustomImageManagerModal';
+import { BackgroundWallpaper } from './components/BackgroundWallpaper';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -760,7 +761,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-100 text-stone-900 flex flex-col antialiased">
+    <div className="min-h-screen bg-stone-100/90 text-stone-900 flex flex-col antialiased relative">
+      {/* Ambient MPSC Portal Background Wallpaper */}
+      <BackgroundWallpaper language={userProgress.preferredLanguage} />
+
       {/* If taking an active exam, show ExamScreen */}
       {activeSession && !activeResult ? (
         <ExamScreen

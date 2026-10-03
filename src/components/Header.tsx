@@ -28,7 +28,8 @@ import {
   Smartphone,
   Tablet,
   Laptop,
-  Camera
+  Camera,
+  Image as ImageIcon
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -344,6 +345,19 @@ export const Header: React.FC<HeaderProps> = ({
                   <span>{isMr ? '📸 इमेज ॲड करा' : 'Add Image'}</span>
                 </button>
               )}
+
+              <button
+                type="button"
+                id="btn-header-wallpaper"
+                onClick={() => {
+                  document.getElementById('btn-portal-wallpaper-toggle')?.click();
+                }}
+                className="hidden lg:flex items-center gap-1.5 px-2 xl:px-2.5 py-1.5 rounded-lg bg-stone-850 hover:bg-stone-800 border border-amber-500/40 text-xs xl:text-sm font-bold text-amber-300 hover:text-white shadow-xs transition-all cursor-pointer hover:scale-105"
+                title={isMr ? "🎨 पार्श्वभूमी वॉलपेपर निवडा (Background Wallpaper)" : "Change Portal Background Wallpaper"}
+              >
+                <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
+                <span>{isMr ? 'वॉलपेपर' : 'Wallpaper'}</span>
+              </button>
             </nav>
 
             {/* Right: Action Controls, Device Indicator & Fullscreen Button */}
