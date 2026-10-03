@@ -523,6 +523,43 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                     }
                   )}
                 </div>
+
+                {/* THREE EXAM ACTION BUTTONS: PREVIOUS, NEXT, AND SUBMIT EXAM (Directly Under Options) */}
+                <div className="pt-5 mt-6 border-t border-stone-200/90 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                    {/* 1. Previous Question Button */}
+                    <button
+                      id="btn-inline-prev"
+                      onClick={handlePrev}
+                      disabled={currentQuestionIndex === 0}
+                      className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm border border-stone-300 bg-white hover:bg-stone-100 text-stone-800 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span>{questionLang === 'mr' ? 'मागील (Previous)' : 'Previous'}</span>
+                    </button>
+
+                    {/* 2. Next Question Button */}
+                    <button
+                      id="btn-inline-next"
+                      onClick={handleSaveAndNext}
+                      disabled={currentQuestionIndex === questions.length - 1}
+                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-500 hover:bg-amber-600 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                    >
+                      <span>{questionLang === 'mr' ? 'पुढील (Next)' : 'Next'}</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* 3. Submit Exam Button */}
+                  <button
+                    id="btn-inline-submit-exam"
+                    onClick={() => setShowSubmitModal(true)}
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>{questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}</span>
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="p-8 text-center text-stone-500">
@@ -575,8 +612,17 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                 disabled={currentQuestionIndex === questions.length - 1}
                 className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-xs disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 cursor-pointer"
               >
-                <span>{questionLang === 'mr' ? 'जतन करा व पुढे' : 'Save & Next'}</span>
+                <span>{questionLang === 'mr' ? 'पुढे (Next)' : 'Next'}</span>
                 <ChevronRight className="w-4 h-4" />
+              </button>
+
+              <button
+                id="btn-footer-submit-exam"
+                onClick={() => setShowSubmitModal(true)}
+                className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs flex items-center gap-1.5 cursor-pointer ml-1"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>{questionLang === 'mr' ? 'सबमिट' : 'Submit'}</span>
               </button>
             </div>
           </div>
