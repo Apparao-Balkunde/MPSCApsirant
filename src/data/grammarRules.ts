@@ -8324,5 +8324,137 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: "MPSC ३ सेकंदांची परीक्षा क्लृप्ती:\n१. वाक्यात 'insist that / recommend that / essential that' दिसले ➔ पुढच्या क्रियापदाकडे पहा!\n२. जर क्रियापदाला 's/es' (उदा. visits, writes) किंवा भूतकाळ (visited, wrote) लावला असेल ➔ तीच वाक्यातील चूक आहे! लगेच क्रियापदाचे मूळ रूप (visit, write) करा!\n३. जर 'is / was' दिला असेल ➔ त्याच्या जागी 'BE' करा!",
     practiceQuestionIds: ['gq_en_08', 'gq_en_09'],
     tags: ['Mandative Subjunctive', 'Verbs of Demand', 'Subjunctive Mood', 'Bare Infinitive', 'It is essential that', 'MPSC Rules']
+  },
+
+  // --- 123. TRANSFORMATION OF SENTENCES: SIMPLE, COMPOUND & COMPLEX ---
+  {
+    id: 'en_rule_sentence_transformation_simple_compound_complex_01',
+    language: 'english',
+    category: 'Sentence Synthesis & Transformation',
+    categoryMr: 'वाक्य रूपांतरण: केवल, संयुक्त व मिश्र वाक्य (Simple, Compound & Complex) परस्पर रूपांतरण सूत्रे',
+    title: 'Sentence Transformation: Simple, Compound & Complex Sentences (FANBOYS vs Subordinating Conjunctions vs Participles)',
+    titleMr: 'वाक्य रूपांतरण: केवल (Simple), संयुक्त (Compound) आणि मिश्र (Complex) वाक्यांचे परस्पर रूपांतरणाचे सुवर्ण नियम व सूत्रे',
+    formula: "1. THREE STRUCTURAL BLUEPRINTS:\n• SIMPLE: Exactly 1 Independent Clause (1 Subject + 1 Finite Verb). Non-finite forms (Participles: V-ing/V3, Infinitives: to+V1, Prepositions) replace additional verbs.\n  - Example: \"Hearing the alarming sound, the watchman rushed out.\"\n• COMPOUND: 2+ Independent Clauses joined by COORDINATING CONJUNCTIONS (FANBOYS: For, And, Nor, But, Or, Yet, So) or Correlatives (Not only... but also).\n  - Example: \"The watchman heard the alarming sound, AND he rushed out.\"\n• COMPLEX: 1 Independent Main Clause + 1+ Dependent Subordinate Clauses joined by SUBORDINATING CONJUNCTIONS (Because, Although/Though, If, Unless, When, As soon as, Since, After, That).\n  - Example: \"As soon as the watchman heard the alarming sound, he rushed out.\"\n\n2. THE 5 CORE MPSC TRANSFORMATION BRIDGES:\n• Bridge 1 (Condition):\n  - Simple: \"By studying consistently, you will succeed.\"\n  - Compound: \"Study consistently, AND you will succeed.\"\n  - Complex: \"IF you study consistently, you will succeed.\"\n• Bridge 2 (Contrast / Concession):\n  - Simple: \"IN SPITE OF being impoverished, he was scrupulously honest.\"\n  - Compound: \"He was impoverished, BUT / YET he was scrupulously honest.\"\n  - Complex: \"ALTHOUGH / THOUGH he was impoverished, he was scrupulously honest.\"\n• Bridge 3 (Immediate Time Sequence):\n  - Simple: \"ON SEEING the tiger, the villagers retreated.\"\n  - Compound: \"The villagers saw the tiger AND immediately retreated.\"\n  - Complex: \"AS SOON AS the villagers saw the tiger, they retreated.\"\n• Bridge 4 (Cause & Reason):\n  - Simple: \"BEING ILL, he could not take the exam.\"\n  - Compound: \"He was ill, SO / THEREFORE he could not take the exam.\"\n  - Complex: \"AS / BECAUSE / SINCE he was ill, he could not take the exam.\"\n• Bridge 5 (Addition / Correlative):\n  - Compound: \"He is not only a skilled doctor but also an author.\"\n  - Simple: \"BESIDES BEING a skilled doctor, he is an author.\"",
+    formulaMr: "१. तीन वाक्यांचे मूलभूत प्रकार (Sentence Types):\n• केवल वाक्य (Simple Sentence): ज्या वाक्यात फक्त एकच मुख्य उद्देश (Subject) आणि एकच मुख्य क्रियापद (Finite Verb) असते. यात दोन वाक्ये जोडण्यासाठी Participle (V-ing), Infinitive (to+V1) किंवा Preposition वापरतात.\n  - उदा. 'Hearing the bell, the students entered the classroom.'\n• संयुक्त वाक्य (Compound Sentence): दोन किंवा अधिक स्वतंत्र मुख्य वाक्ये 'FANBOYS' (For, And, Nor, But, Or, Yet, So) किंवा 'Not only... but also' या उभयान्वयी अव्ययांनी जोडलेली असतात.\n  - उदा. 'The bell rang, AND the students entered the classroom.'\n• मिश्र वाक्य (Complex Sentence): एक मुख्य वाक्य आणि त्यावर अवलंबून असणारे एक किंवा अधिक गौण वाक्ये (Subordinate Clauses) 'Although, Because, Since, If, Unless, As soon as, That, Which, Who' ने जोडलेली असतात.\n  - उदा. 'When the bell rang, the students entered the classroom.'\n\n२. MPSC परीक्षेतील ५ प्रमुख रूपांतरण पूल (Transformation Bridges):\n• १. अटीचे वाक्य (Condition):\n  - Simple: By working hard, you will pass.\n  - Compound: Work hard, AND you will pass.\n  - Complex: IF you work hard, you will pass.\n• २. विरोधाभास (Contrast):\n  - Simple: In spite of / Despite his poverty...\n  - Compound: He was poor, BUT he was honest.\n  - Complex: THOUGH / ALTHOUGH he was poor...\n• ३. तात्काळ कृती (Immediate Time):\n  - Simple: On seeing the police...\n  - Compound: He saw the police AND fled.\n  - Complex: AS SOON AS he saw the police...\n• ४. कारण (Reason):\n  - Simple: Being fatigued...\n  - Compound: He was fatigued, SO he rested.\n  - Complex: BECAUSE / SINCE he was fatigued...",
+    definition: "Sentence synthesis and transformation without altering original semantics constitutes a foundational pillar in civil services English examinations (MPSC Rajyaseva Paper 1 Descriptive & Paper 2 Objective, Combined Group B & C). The essence of mastery lies in recognizing the grammatical markers that define each sentence type: Simple sentences permit strictly one finite verb; Compound sentences link equal, autonomous clauses via coordinating conjunctions; Complex sentences weave dependent clauses into a main clause using subordinating conjunctions.",
+    definitionMr: "MPSC च्या मुख्य परीक्षेत इंग्रजी पेपर १ (वर्णनात्मक) आणि पेपर २ (वस्तुनिष्ठ) या दोन्हीमध्ये केवल (Simple), संयुक्त (Compound) आणि मिश्र (Complex) वाक्यांच्या परस्पर रूपांतरणावर दरवर्षी ३ ते ५ प्रश्न विचारले जातात. यातील मुख्य नियम म्हणजे:\n• केवल वाक्यात फक्त एकच मुख्य क्रियापद असू शकते (दुसऱ्या क्रियापदाला 'ing' लावून कृदंत बनवावे लागते).\n• संयुक्त वाक्यात 'And, But, Or, So, Yet' येतात.\n• मिश्र वाक्यात 'Though, Although, Because, If, As soon as' येतात.",
+    keyPoints: [
+      '"One Finite Verb in Simple: A Simple sentence can NEVER have two independent finite verbs. Convert secondary verbs into participles (seeing, hearing), infinitives (to see), or prepositions (in spite of)."',
+      '"FANBOYS in Compound: For, And, Nor, But, Or, Yet, So connect independent coordinate clauses. Both halves can stand alone as complete grammatical sentences."',
+      '"Subordinators in Complex: Words like although, because, since, if, unless, while, as soon as produce subordinate dependent clauses that cannot stand alone."',
+      '"Despite vs In spite of: In simple sentences, use \'Despite\' (WITHOUT of) or \'In spite of\'. Never write \'Despite of\'!"',
+      '"Count the Finite Verbs: If you see two finite verbs joined by \'and/but\', it is COMPOUND. If joined by \'although/if/because\', it is COMPLEX. If only one finite verb exists, it is SIMPLE."'
+    ],
+    keyPointsMr: [
+      '१. केवल वाक्यात एकच क्रियापद: वाक्यात दोन मुख्य क्रियापदे चालत नाहीत; एका क्रियापदाचे रूप \'Seeing / Hearing / To do / In spite of\' असे बदलावे लागते.',
+      '२. संयुक्त वाक्यात FANBOYS: For, And, Nor, But, Or, Yet, So हे शब्द दोन स्वतंत्र वाक्यांना जोडतात.',
+      '३. मिश्र वाक्यात गौणत्वसूचक अव्यये: Although, Though, If, Unless, Because, As soon as हे शब्द मिश्र वाक्यात येतात.',
+      '४. Despite चे भान ठेवा: केवल वाक्यात \'Despite\' नंतर कधीही \'of\' येत नाही; \'In spite of\' मध्ये मात्र \'of\' लागतो.',
+      '५. क्रियापदे मोजण्याची ट्रिक: वाक्यात मुख्य क्रियापदे मोजा - १ क्रियापद = Simple | २ क्रियापदे + And/But = Compound | २ क्रियापदे + If/Though = Complex!'
+    ],
+    examples: [
+      {
+        sentence: "Transform into Complex Sentence:\nSimple: 'Inspite of his old age, he climbed the steep hill easily.'\nComplex: 'Although he was old, he climbed the steep hill easily.'",
+        isCorrect: true,
+        explanation: "Correct! The simple sentence uses prepositional phrase 'Inspite of his old age'. The complex sentence correctly introduces the subordinating conjunction 'Although' creating a dependent adverbial clause of concession ('Although he was old') and retains the independent main clause.",
+        explanationMr: "अचूक! केवल वाक्यातील 'Inspite of' चे मिश्र वाक्यात रूपांतर करताना 'Although' (जरी... तरी) हे गौणत्वसूचक उभयान्वयी अव्यय अचूक वापरले आहे."
+      },
+      {
+        sentence: "Transform into Compound Sentence:\nSimple: 'Besides giving him sound financial advice, the mentor helped him find an investor.'\nCompound: 'The mentor not only gave him sound financial advice but also helped him find an investor.'",
+        isCorrect: true,
+        explanation: "Correct! The simple sentence prepositional phrase 'Besides giving' is properly expanded into two coordinate independent clauses connected by correlative conjunction 'not only... but also'.",
+        explanationMr: "अचूक! केवल वाक्यातील 'Besides giving' चा विस्तार करून दोन स्वतंत्र वाक्ये 'not only... but also' ने जोडून संयुक्त वाक्य तयार केले आहे."
+      },
+      {
+        sentence: "Spot the error in the sentence transformation:\nCompound: 'Work hard, or you will fail the civil services examination.'\nComplex: 'Unless you do not work hard, you will fail the civil services examination.'",
+        isCorrect: false,
+        explanation: "Incorrect! Fatal Double Negative Trap: 'Unless' inherently means 'if... not'. Writing 'Unless you do not work hard' creates an ungrammatical double negative. The correct complex sentence must be: 'Unless you work hard, you will fail...' OR 'If you do not work hard, you will fail...'.",
+        explanationMr: "चूक! 'Unless' मध्ये आधीच नकार दडलेला असतो, त्यामुळे त्याच्यासोबत 'do not' वापरता येत नाही! बरोबर वाक्य: 'Unless you work hard, you will fail...' किंवा 'If you do not work hard, you will fail...'!"
+      },
+      {
+        sentence: "Transform into Simple Sentence:\nComplex: 'He was so exhausted that he could not walk another mile.'\nSimple: 'He was too exhausted to walk another mile.'",
+        isCorrect: true,
+        explanation: "Correct! The complex sentence with subordinate clause ('that he could not walk') is seamlessly condensed into a simple sentence using the infinitive construction 'too exhausted to walk' with strictly ONE finite verb ('was').",
+        explanationMr: "अचूक! मिश्र वाक्यातील 'so... that... not' चे केवल वाक्यात रूपांतर करताना 'too... to' रचना वापरून एकाच मुख्य क्रियापदात (was) वाक्य अचूक बसवले आहे."
+      }
+    ],
+    exceptions: [
+      'Conjunctive adverbs like "however", "moreover", "therefore", "nevertheless" can join compound sentences, but they MUST be preceded by a semicolon (;) or period, NOT a comma alone (which causes a comma splice error).',
+      'Relative clauses (who, which, whose, whom) always produce Complex sentences, never Compound sentences.'
+    ],
+    exceptionsMr: [
+      'However, therefore, moreover हे शब्द दोन वाक्ये जोडताना त्यांच्या आधी स्वल्पविराम (comma) न वापरता अर्धविराम (semicolon ;) किंवा पूर्णविराम आवश्यक असतो.',
+      'Who, Which, That असणारे वाक्य हे नेहमी मिश्र (Complex) वाक्यच असते.'
+    ],
+    examTip: "MPSC Sentence Type Identification in 1 Second:\n1. Count Finite Verbs:\n   • Exactly ONE finite verb ➔ SIMPLE!\n2. Check the Conjunction:\n   • Joined by AND, BUT, OR, SO, YET, FOR, NOR ➔ COMPOUND!\n   • Joined by THOUGH, ALTHOUGH, BECAUSE, IF, UNLESS, AS SOON AS, THAT, WHO, WHICH ➔ COMPLEX!",
+    examTipMr: "MPSC १ सेकंदांची वाक्य प्रकार ओळख क्लृप्ती:\n१. क्रियापदे मोजा: संपूर्ण वाक्यात फक्त एकच मुख्य क्रियापद असेल ➔ SIMPLE (केवल वाक्य)!\n२. जोडशब्द तपासा:\n   • वाक्यात AND, BUT, OR, SO, YET आले ➔ COMPOUND (संयुक्त वाक्य)!\n   • वाक्यात THOUGH, ALTHOUGH, BECAUSE, IF, UNLESS, AS SOON AS आले ➔ COMPLEX (मिश्र वाक्य)!",
+    practiceQuestionIds: ['mr_gram_03', 'gq_en_02'],
+    tags: ['Simple Compound Complex', 'Sentence Transformation', 'FANBOYS', 'Subordinating Conjunctions', 'MPSC Rules']
+  },
+
+  // --- 124. PREPOSITIONS OF AGENCY & MATERIAL: BY VS WITH & MADE OF VS MADE FROM ---
+  {
+    id: 'en_rule_prepositions_agency_material_by_with_made_of_from_01',
+    language: 'english',
+    category: 'Prepositions of Agency & Material',
+    categoryMr: 'शब्दयोगी अव्यये: \'By\' विरुद्ध \'With\' (कर्ता विरुद्ध साधन) आणि \'Made of\' विरुद्ध \'Made from\' (भौतिक बदल विरुद्ध रासायनिक बदल)',
+    title: 'Prepositions of Agency & Substance: "By" (The Doer) vs "With" (The Instrument) & "Made of" (Physical) vs "Made from" (Chemical)',
+    titleMr: 'साधन व माध्यम दर्शक शब्दयोगी अव्यये: \'By\' विरुद्ध \'With\' (कर्ता विरुद्ध साधन) आणि \'Made of\' विरुद्ध \'Made from\' (भौतिक बदल विरुद्ध रासायनिक बदल)',
+    formula: "1. \"BY\" vs \"WITH\" FORMULA (THE AGENT vs THE INSTRUMENT):\n• BY + THE AGENT / PERSON / DOER (क्रिया करणारा सजीव व्यक्ती):\n  - \"The letter was written BY the collector.\"\n  - \"The venomous snake was killed BY the security guard.\"\n• WITH + THE INSTRUMENT / TOOL / WEAPON / BODY ORGAN (वापरलेले निर्जीव हत्यार किंवा साधन):\n  - \"The collector wrote the letter WITH a pen (NOT by a pen).\"\n  - \"The security guard killed the snake WITH a lathi (NOT by a lathi).\"\n  - \"She chopped the vegetables WITH a sharp knife.\"\n  - \"The boy hit the ball WITH a bat.\"\n• MASTER FORMULA: \"The tiger was shot BY the forest officer WITH a tranquilizer rifle.\"\n\n2. \"MADE OF\" vs \"MADE FROM\" FORMULA (PHYSICAL vs CHEMICAL TRANSFORMATION):\n• MADE OF ➔ PHYSICAL CHANGE (The original material is still identifiable and preserved):\n  - \"The chair is MADE OF teak wood.\" (Wood remains wood!)\n  - \"The bridal ring is MADE OF solid gold.\"\n  - \"This historical fort is MADE OF basalt rock.\"\n• MADE FROM ➔ CHEMICAL CHANGE (The original material has been chemically converted into a new substance):\n  - \"Paper is MADE FROM wood pulp.\" (Paper has chemically changed from wood!)\n  - \"Curd / Paneer / Butter is MADE FROM cow milk.\"\n  - \"Wine is MADE FROM fermented grapes.\"\n  - \"Bread is MADE FROM wheat flour.\"\n• MADE WITH ➔ INGREDIENTS in culinary dishes:\n  - \"This Kolhapuri curry is MADE WITH freshly roasted coconut and spices.\"",
+    formulaMr: "१. 'BY' विरुद्ध 'WITH' (कर्ता विरुद्ध साधन):\n• BY = क्रिया करणारा कर्ता (Doer / Person):\n  - क्रिया ज्या व्यक्तीने केली त्याच्या आधी 'BY' लागतो:\n  - उदा. 'The tiger was killed BY the hunter.'\n• WITH = वापरलेले हत्यार, साधन किंवा शस्त्र (Instrument / Weapon):\n  - क्रिया करण्यासाठी जे निर्जीव साधन वापरले त्याच्या आधी 'WITH' लागतो:\n  - उदा. 'The hunter killed the tiger WITH a gun' ('by a gun' चूक!).\n  - उदा. 'He cut the apple WITH a knife' ('by a knife' १००% चूक!).\n• एकत्र सूत्र: 'The snake was killed BY the farmer WITH a stick.'\n\n२. 'MADE OF' विरुद्ध 'MADE FROM' (भौतिक बदल विरुद्ध रासायनिक बदल):\n• MADE OF ➔ भौतिक बदल (Physical Change - वस्तूचा मूळ घटक तसाच राहतो):\n  - लाकडापासून बनवलेली खुर्ची आजही लाकूडच आहे ➔ 'The table is MADE OF wood.'\n  - सोन्याची अंगठी ➔ 'The ring is MADE OF gold.'\n  - दगडाचा किल्ला ➔ 'The fort is MADE OF stone.'\n• MADE FROM ➔ रासायनिक बदल (Chemical Change - मूळ घटक पूर्णपणे बदलून नवीन पदार्थ बनतो):\n  - दुधापासून बनवलेले दही/ताक/पनीर ➔ 'Curd is MADE FROM milk' ('made of milk' चूक!).\n  - झाडाच्या लगद्यापासून बनवलेला कागद ➔ 'Paper is MADE FROM wood pulp.'\n  - द्राक्षांपासून बनवलेली वाईन ➔ 'Wine is MADE FROM grapes.'\n  - गव्हापासून बनवलेला ब्रेड ➔ 'Bread is MADE FROM wheat.'",
+    definition: "Prepositional selection in English often hinges on subtle physical and causal relationships. MPSC exams exploit two specific traps: confusing personal agency ('by') with instrumental agency ('with'), and misjudging the chemical integrity of manufacturing materials ('made of' vs 'made from'). Recognizing whether an entity is the conscious actor or the unconscious instrument, and whether a raw material has undergone physical shaping or chemical transmutation, guarantees error-free answers.",
+    definitionMr: "MPSC च्या इंग्रजी परीक्षेत शब्दयोगी अव्ययांवर (Prepositions) विचारले जाणारे हे दोन सर्वात आवडते प्रश्न प्रकार आहेत:\n१. व्यक्तीने केलेल्या क्रियेसाठी 'By' लागतो, पण वापरलेल्या शस्त्रासाठी/साधनासाठी 'With' लागतो (उदा. चाकूने सफरचंद कापताना 'with a knife' म्हणावे, 'by a knife' नाही).\n२. मूळ पदार्थ न बदलता वस्तू बनवली तर 'Made of' (लाकडाचे टेबल), आणि रासायनिक बदल होऊन नवीन पदार्थ बनला तर 'Made from' (दुधाचे दही किंवा लाकडाचा कागद).",
+    keyPoints: [
+      '"By for the Living Agent: Use \'by\' when referring to the person or entity performing the act (by Shakespeare, by the police)."',
+      '"With for the Instrument: Use \'with\' for the tool, implement, weapon, or instrument held in the hand (with a pen, with a sword, with an axe)."',
+      '"The Pen/Knife Trap: Never write \'written by a pen\' or \'cut by a knife\'. Always write \'written WITH a pen\', \'cut WITH a knife\'."',
+      '"Made of = Reversible/Identifiable: If you can still see and feel the original material in the finished product, use \'made of\' (table made of wood)."',
+      '"Made from = Irreversible/Transmuted: If the raw material has completely transformed its physical state and identity, use \'made from\' (glass made from sand)."'
+    ],
+    keyPointsMr: [
+      '१. सजीव कर्ता = By: काम करणाऱ्या व्यक्तीच्या मागे By लावा (उदा. written by Tagore).',
+      '२. निर्जीव शस्त्र किंवा हत्यार = With: वापरलेल्या हत्याराच्या मागे With लावा (उदा. cut with a sword, written with a pen).',
+      '३. पेन आणि चाकूचा ट्रॅप: MPSC मध्ये \'cut by a knife\' देऊन फसवतात; अचूक रूप \'cut with a knife\' हेच असते!',
+      '४. Made of: मूळ वस्तू डोळ्यांना दिसते आणि बदलत नाही (उदा. टेबल लाकडाचेच आहे - Made of wood).',
+      '५. Made from: मूळ वस्तूचे रूपांतर पूर्णपणे नवीन पदार्थात होते (उदा. दुधाचे दही बनले - Curd is made from milk).'
+    ],
+    examples: [
+      {
+        sentence: "Spot the error in the police crime scene report:\nSentence: 'The burglar opened the locked iron safe by a sharp crowbar before escaping with the cash.'",
+        isCorrect: false,
+        explanation: "Incorrect! Classic Preposition Trap: 'A sharp crowbar' is an inanimate tool/instrument, NOT a conscious agent. An instrument requires the preposition 'with': 'opened the locked iron safe WITH a sharp crowbar...'.",
+        explanationMr: "चूक! 'Crowbar' (पहारीसारखे हत्यार) हे निर्जीव साधन असल्याने 'by' चालणार नाही; त्याऐवजी 'WITH a sharp crowbar' हवे!"
+      },
+      {
+        sentence: "Identify whether the sentence is grammatically correct:\nSentence: 'The manuscript was meticulously transcribed by the young clerk with a quill pen.'",
+        isCorrect: true,
+        explanation: "Correct! The human agent ('the young clerk') is correctly governed by 'by', and the writing instrument ('a quill pen') is correctly governed by 'with'.",
+        explanationMr: "अचूक! कर्त्यासाठी 'by the young clerk' आणि वापरलेल्या बोरूसाठी 'with a quill pen' हा वापर १००% अचूक आहे."
+      },
+      {
+        sentence: "Spot the error in the dairy production label:\nSentence: 'This premium organic cheddar cheese is proudly made of fresh cow milk in Maharashtra.'",
+        isCorrect: false,
+        explanation: "Incorrect! Chemical Transformation Error: When milk is curdled and fermented into cheese, a complete chemical transformation occurs (milk can never be restored from cheese). Such irreversible changes require 'made from': '...cheese is proudly MADE FROM fresh cow milk...'.",
+        explanationMr: "चूक! दुधापासून चीज बनताना रासायनिक बदल होतो (चीजचे परत दूध होऊ शकत नाही). अशा रासायनिक बदलासाठी 'made from' लागते: 'cheese is MADE FROM milk'!"
+      },
+      {
+        sentence: "Identify whether the sentence is grammatically correct:\nSentence: 'Traditional Maharashtrian Paithani sarees are made of fine mulberry silk threads and pure gold zari.'",
+        isCorrect: true,
+        explanation: "Correct! The silk threads and gold zari remain fundamentally silk and gold throughout the weaving process (physical change). Hence, 'made of' is entirely correct.",
+        explanationMr: "अचूक! पैठणी साडी विणताना रेशीम आणि सोन्याची जर यांचे मूळ स्वरूप टिकून राहते (भौतिक बदल); म्हणून 'made of silk threads' बरोबर आहे."
+      }
+    ],
+    exceptions: [
+      'In idiomatic usage, transport takes "by" without article (by car, by train, by bus, by air), but if a specific article or possessive is added, use "in/on" (in my car, on the 5 o\'clock train).',
+      '"Handmade by artisans" uses "by" because artisans are the agents creating the item.'
+    ],
+    exceptionsMr: [
+      'वाहनाने प्रवास करताना By car, By train, By bus होते; परंतु आधी \'my\' किंवा \'a\' आल्यास \'in my car\' किंवा \'on the train\' होते.',
+      'Handmade by artisans मध्ये कारागीर हे कर्ते असल्याने By बरोबर आहे.'
+    ],
+    examTip: "MPSC 1-Second Preposition Solver:\n1. Human / Animal Doer ➔ BY (killed by the hunter)\n2. Tool / Weapon / Knife / Pen ➔ WITH (killed with an arrow, written with a pen)\n3. Wood table / Gold ring (Same substance) ➔ MADE OF\n4. Curd from milk / Paper from wood (New substance) ➔ MADE FROM",
+    examTipMr: "MPSC १ सेकंदांची परीक्षा क्लृप्ती:\n१. सजीव व्यक्ती / प्राणी ➔ BY लावा (killed by the hunter)!\n२. हत्यार / शस्त्र / पेन / काठी ➔ WITH लावा (cut with a knife, written with a pen)!\n३. लाकडाचे टेबल / सोन्याचे दागिने (पदार्थ तसाच राहिला) ➔ MADE OF!\n४. दुधाचे दही / लाकडाचा कागद (पदार्थ बदलला) ➔ MADE FROM!",
+    practiceQuestionIds: ['gq_en_05', 'gq_en_06'],
+    tags: ['Prepositions', 'By vs With', 'Made of vs Made from', 'Instruments', 'Agents', 'MPSC Rules']
   }
 ];
