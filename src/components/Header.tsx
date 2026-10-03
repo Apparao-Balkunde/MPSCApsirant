@@ -453,10 +453,10 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-2.5 text-xs">
                       <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
                         <div className="font-bold text-amber-400 mb-0.5">
-                          {isMr ? '१४० व्याकरण नियम अद्ययावत 📚' : '140 High-Yield Grammar Rules 📚'}
+                          {isMr ? '१४२ व्याकरण नियम अद्ययावत 📚' : '142 High-Yield Grammar Rules 📚'}
                         </div>
                         <p className="text-stone-300 text-[11px] leading-relaxed">
-                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Compound Nouns (Sons-in-law) व Foreign Plurals (Criteria/Phenomena) यांसह १४० नियम सज्ज आहेत.' : '140 Marathi & English grammar rules with Compound Nouns & Foreign Plurals (Criteria/Phenomena).'}
+                          {isMr ? 'व्याकरण नियम टॅबमध्ये आता Later vs Latter (Time vs Position) व Mandative Subjunctive (Bare V1) यांसह १४२ नियम सज्ज आहेत.' : '142 Marathi & English grammar rules with Later vs Latter & Mandative Subjunctive.'}
                         </p>
                       </div>
 

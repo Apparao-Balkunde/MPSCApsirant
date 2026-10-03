@@ -8193,5 +8193,136 @@ export const GRAMMAR_RULES: GrammarRule[] = [
     examTipMr: "MPSC विदेशी अनेकवचनांची चार्ट क्लृप्ती:\n१. -ON चा होतो -A: Criterion ➔ Criteria | Phenomenon ➔ Phenomena (हे अनेकवचनी आहेत, क्रियापद are/were लावा!)\n२. -IS चा होतो -ES: Crisis ➔ Crises | Basis ➔ Bases | Thesis ➔ Theses\n३. -UM चा होतो -A: Datum ➔ Data | Medium ➔ Media | Bacterium ➔ Bacteria\n४. -US चा होतो -I: Alumnus ➔ Alumni | Radius ➔ Radii | Syllabus ➔ Syllabi",
     practiceQuestionIds: ['gq_en_04', 'gq_en_05'],
     tags: ['Foreign Plurals', 'Latin Plurals', 'Greek Nouns', 'Criteria', 'Phenomena', 'Subject Verb Agreement', 'MPSC Rules']
+  },
+
+  // --- 121. ADJECTIVES OF TIME & POSITION: LATER VS LATTER, LATEST VS LAST & FORMER VS LATTER ---
+  {
+    id: 'en_rule_later_latter_latest_last_former_01',
+    language: 'english',
+    category: 'Adjectives of Time & Position',
+    categoryMr: 'काल व क्रमवाचक विशेषणे: \'Later, Latter, Latest, Last\' आणि \'Former vs Latter\' मधील सूक्ष्म भेद व नियम',
+    title: '"Later" vs "Latter" (Time vs Position), "Latest" vs "Last", and "The Former" vs "The Latter" (Two vs More than Two)',
+    titleMr: '\'Later\' विरुद्ध \'Latter\' (वेळ विरुद्ध स्थान), \'Latest\' विरुद्ध \'Last\' आणि \'The Former\' विरुद्ध \'The Latter\' (दोन घटक विरुद्ध दोनापेक्षा जास्त)',
+    formula: "1. TIME vs POSITION DISTINCTION:\n• LATER & LATEST refer strictly to TIME (वेळेचा संदर्भ):\n  - Later: Comparative of late (उशिरा / नंतर) ➔ \"I will attend the lecture later.\"\n  - Latest: Superlative of late (सर्वात नवीन / अद्ययावत) ➔ \"Have you read the latest MPSC notification?\"\n• LATTER & LAST refer strictly to POSITION / ORDER (क्रमाचा संदर्भ):\n  - Latter: Second of TWO items mentioned (नंतरचा / दुसरा) ➔ \"Between tea and milk, I choose the latter.\"\n  - Last: Final item in a series of MORE THAN TWO (सर्वात शेवटचा) ➔ \"December is the last month of the year.\"\n\n2. THE \"TWO\" vs \"MORE THAN TWO\" GOLD LAW:\n• For TWO entities: Use 'THE FORMER' (पहिला) and 'THE LATTER' (दुसरा).\n  - Example: \"Between Shivaji Maharaj and Sambhaji Maharaj, the former laid the foundations and the latter fought valiantly.\"\n• For THREE OR MORE entities: NEVER use former or latter! Use 'FIRST' and 'LAST'!\n  - Example: \"Of Pune, Mumbai, and Nagpur, the last (NOT the latter) has the highest summer temperature.\"\n\n3. THE MPSC SPELLING & PRONUNCIATION TRAP:\n• Later (One 't', /leɪtər/) = Opposite of 'earlier' (Time)\n• Latter (Double 'tt', /lætər/) = Opposite of 'former' (Position)",
+    formulaMr: "१. वेळ विरुद्ध स्थान (Time vs Position):\n• Later व Latest हे नेहमी वेळेचा (Time) संदर्भ देतात:\n  - Later (उशिरा): 'He arrived later than me' (तो माझ्यापेक्षा उशिरा आला).\n  - Latest (सर्वात ताजी/नवीन): 'This is the latest news' (ही सर्वात ताजी बातमी आहे).\n• Latter व Last हे नेहमी स्थानाचा किंवा क्रमाचा (Position) संदर्भ देतात:\n  - Latter (दोघांपैकी दुसरा): 'Between tea and coffee, I prefer the latter' (चहा आणि कॉफीमध्ये मला कॉफी जास्त आवडते).\n  - Last (शेवटचा): 'He was the last student in the queue' (तो रांगेतला शेवटचा विद्यार्थी होता).\n\n२. दोन घटक विरुद्ध दोनापेक्षा जास्त घटक:\n• फक्त २ व्यक्ती किंवा वस्तू असतील ➔ 'The Former' (पहिला) आणि 'The Latter' (दुसरा) वापरा.\n• ३ किंवा अधिक व्यक्ती/वस्तू असतील ➔ 'The Former/Latter' कधीही वापरू नका; त्याऐवजी 'First' (पहिला) आणि 'Last' (शेवटचा) वापरा!\n\n३. स्पेलिंगचा सोपा फरक:\n• Later (एकच 't') = वेळेचा संदर्भ (Time).\n• Latter (दोन 'tt') = स्थानाचा संदर्भ (Position - 'Former' च्या विरुद्ध).",
+    definition: "Adjectives of time and position (later, latter, latest, last) originate from the common positive root 'late', but modern English differentiates their comparative and superlative forms into two entirely independent semantic axes: one temporal (Time: late ➔ later ➔ latest) and one sequential (Order/Position: late ➔ latter ➔ last). In MPSC exams, questions routinely test candidates on using 'latter' instead of 'later' (or vice versa), and misusing 'latter' for a group of three or more nouns.",
+    definitionMr: "इंग्रजी व्याकरणात 'Late' या शब्दापासून तुलनात्मक रूपे तयार होताना दोन स्वतंत्र शाखा पडतात:\n१. वेळेची शाखा: Late ➔ Later (अधिक उशिरा) ➔ Latest (सर्वात ताजी बातमी/घडामोड).\n२. क्रमाची शाखा: Late ➔ Latter (दोघांपैकी दुसरा) ➔ Last (सर्वात शेवटचा).\nMPSC परीक्षेत 'Later' आणि 'Latter' च्या स्पेलिंगमध्ये मुद्दाम फसवले जाते, किंवा ३ व्यक्तींच्या नावापुढे चुकीने 'the latter' देऊन त्रुटी शोधायला लावली जाते.",
+    keyPoints: [
+      '"Later is for TIME: Means at a subsequent time or after the expected hour. Example: \'See you later\' | \'The bus arrived later than yesterday\'."',
+      '"Latter is for POSITION: Strictly refers to the second of two persons or things previously named. Example: \'Of health and wealth, the former is more precious than the latter\'."',
+      '"Latest means RECENT: \'What is the latest news?\' means the most up-to-date news. Do NOT confuse with \'last\' (the terminal one)."',
+      '"Last means FINAL: \'The last chapter of the book\' means the ending chapter. No more chapters follow."',
+      '"The Rule of Two: NEVER use \'the latter\' when referring to three or more items. For three or more, use \'the last\'!"'
+    ],
+    keyPointsMr: [
+      '१. Later = वेळ: उशिरा किंवा नंतर (उदा. \'I will call you later\').',
+      '२. Latter = दुसरा: आधी उल्लेख केलेल्या दोन घटकांपैकी दुसरा घटक (उदा. \'Between pen and pencil, the latter is cheaper\').',
+      '३. Latest = ताजी/नवीन घडामोड: \'The latest edition of the textbook\' (पुस्तकाची सर्वात नवीन आवृत्ती).',
+      '४. Last = सर्वात अखेरचा: ज्याच्यानंतर कोणीही उरत नाही (उदा. \'The last page of the paper\').',
+      '५. तीन व्यक्ती असतील तर: \'Ram, Lakshman, and Bharat\' चा उल्लेख असल्यास शेवटच्या व्यक्तीसाठी \'the last\' वापरावे, \'the latter\' वापरणे १००% चूक आहे!'
+    ],
+    examples: [
+      {
+        sentence: "Identify the correct usage of position adjectives:\nSentence: 'Of Kalidasa, Bhavabhuti, and Bhasa, the last was the earliest classical Sanskrit dramatist.'",
+        isCorrect: true,
+        explanation: "Correct! Because THREE authors are mentioned ('Kalidasa, Bhavabhuti, and Bhasa'), we must use 'the last' (or 'the first'), NOT 'the latter'. Using 'the latter' for three entities is an error.",
+        explanationMr: "अचूक! येथे ३ नाटककारांचा उल्लेख असल्याने 'the last' वापरणे १००% योग्य आहे. ३ जणांसाठी 'the latter' वापरता येत नाही."
+      },
+      {
+        sentence: "Spot the error in the comparative statement:\nSentence: 'Between Sanskrit and Latin, the later has influenced modern English vocabulary more profoundly.'",
+        isCorrect: false,
+        explanation: "Incorrect! Fatal Spelling/Usage Error: The sentence compares the position of two languages ('Sanskrit and Latin'). Position requires 'the LATTER' (with double 't'), NOT 'later' (which refers to time).",
+        explanationMr: "चूक! MPSC चा सर्वात लोकप्रिय प्रश्न: येथे वेळेचा नव्हे तर दोन भाषांमधील 'दुसऱ्या' भाषेचा (Latin) संदर्भ आहे. म्हणून 'the latter' (दोन 't') हवे, 'later' नाही!"
+      },
+      {
+        sentence: "Identify whether the sentence is grammatically correct:\nSentence: 'Have you received the latest weather bulletin issued by the Regional Meteorological Centre?'",
+        isCorrect: true,
+        explanation: "Correct! 'Latest' properly refers to the most recent, up-to-date weather broadcast. Using 'last' here would imply no further bulletins will ever be published.",
+        explanationMr: "अचूक! हवामानाची 'सर्वात ताजी / अद्ययावत' बातमी असल्याने 'latest bulletin' हा शब्दप्रयोग अचूक आहे."
+      },
+      {
+        sentence: "Spot the error in the sibling description:\nSentence: 'Ramesh has three daughters; the latter is preparing for the civil services examination.'",
+        isCorrect: false,
+        explanation: "Incorrect! Classic MPSC Rule Violation: Ramesh has THREE daughters. 'Latter' is restricted to TWO entities. For three or more, use 'the youngest' or 'the last': 'the last is preparing...'.",
+        explanationMr: "चूक! रमेशला ३ मुली आहेत. ३ जणींसाठी 'the latter' वापरणे चूक आहे; त्याऐवजी 'the last' किंवा 'the youngest' हवे!"
+      }
+    ],
+    exceptions: [
+      'While "the latter" strictly refers to the second of two, in legal drafting, "the latter" is occasionally used loosely, but in MPSC competitive English, the Rule of Two is absolute.',
+      'Expressions like "in these latter days" is an archaic idiom meaning "in modern times", but in standard grammar questions, time is strictly governed by "later/latest".'
+    ],
+    exceptionsMr: [
+      'कायदेशीर इंग्रजीत कधीकधी शिथिलता आढळते; परंतु MPSC च्या प्रश्नपत्रिकेत २ साठीच \'latter\' आणि २ पेक्षा जास्त साठी \'last\' हा नियम कटाक्षाने पाळला जातो.'
+    ],
+    examTip: "MPSC Later vs Latter 2-Second Formula:\n1. Count the Items: Exactly 2 ➔ FORMER & LATTER | 3 or more ➔ FIRST & LAST!\n2. Check the Meaning: Time (वेळ / उशिरा) ➔ LATER (Single 't') | Position (दुसरा / क्रम) ➔ LATTER (Double 'tt')!\n3. News / Updates ➔ LATEST (ताजी बातमी) | Ending / Final ➔ LAST (शेवटचा)!",
+    examTipMr: "MPSC २ सेकंदांची परीक्षा क्लृप्ती:\n१. संख्या मोजा: बरोबर २ असतील ➔ Former आणि Latter | ३ किंवा अधिक असतील ➔ First आणि Last!\n२. वेळ विचारली आहे ➔ LATER (एक 't') | क्रम किंवा स्थान विचारले आहे ➔ LATTER (दोन 'tt')!\n३. ताजी बातमी ➔ LATEST | शेवटचा क्रमांक ➔ LAST!",
+    practiceQuestionIds: ['mr_gram_03', 'gq_en_01'],
+    tags: ['Later vs Latter', 'Latest vs Last', 'The Former', 'Adjectives', 'Position vs Time', 'MPSC Rules']
+  },
+
+  // --- 122. THE MANDATIVE SUBJUNCTIVE: BARE VERB AFTER VERBS OF DEMAND & URGENCY ---
+  {
+    id: 'en_rule_mandative_subjunctive_verbs_of_demand_01',
+    language: 'english',
+    category: 'Subjunctive Mood & Verb Forms',
+    categoryMr: 'आज्ञार्थक / संकल्पात्मक क्रियापद (The Mandative Subjunctive): Demand, Insist, Recommend, Suggest नंतर क्रियापदाचे मूळ रूप (V1 - Bare Verb)',
+    title: 'The Mandative Subjunctive: Bare Base Verb (V1 without "-s/-es/-ed") after Verbs of Demand, Insist, Suggest, Recommend & "It is essential that"',
+    titleMr: 'मँडेटिव्ह सब्जेक्टिव्ह (The Mandative Subjunctive): Demand, Insist, Recommend, Suggest व "It is vital/essential that" नंतर क्रियापदाचे मूळ रूप वापरण्याचा नियम',
+    formula: "THE MANDATIVE SUBJUNCTIVE FORMULA:\nSubject 1 + Verb of Urgency (demanded / insisted / recommended / suggested) + THAT + Subject 2 + BARE BASE VERB (V1 / BE)!\n\n1. VERB TRIGGERS:\n• demand, insist, recommend, suggest, propose, urge, request, mandate, require, decree, advise.\n• Example: \"The committee recommended that the officer SUBMIT (NOT submits, NOT submitted) his defense.\"\n• Example: \"The magistrate insisted that the prisoner BE (NOT is, NOT was) present in court.\"\n\n2. ADJECTIVE TRIGGERS (IT IS + ADJECTIVE + THAT):\n• essential, vital, imperative, crucial, necessary, mandatory, important, urgent.\n• Example: \"It is essential that every citizen VOTE (NOT votes) in the elections.\"\n• Example: \"It is imperative that national harmony BE preserved.\"\n\n3. NEGATIVE MANDATIVE SUBJUNCTIVE:\n• Place 'NOT' directly before the bare base verb (DO NOT use do/does/did!):\n• Example: \"The doctor suggested that she NOT OVERWORK (NOT does not overwork, NOT did not overwork).\"\n• Example: \"The director ordered that the secret files NOT BE destroyed.\"",
+    formulaMr: "मँडेटिव्ह सब्जेक्टिव्हचे सूत्र (The Mandative Subjunctive Formula):\nकर्ता १ + मागणी/आदेश दर्शक क्रियापद (demanded / insisted / recommended / suggested) + THAT + कर्ता २ + क्रियापदाचे मूळ रूप (Bare V1 / 'be')!\n\n१. हे क्रियापद दिसताच नियम लागू होतो:\n• Demand (मागणी करणे), Insist (आग्रह धरणे), Recommend (शिफारस करणे), Suggest (सुचवणे), Propose (प्रस्ताव ठेवणे), Order (आदेश देणे), Urge (कळकळीची विनंती करणे).\n• उदा. 'The doctor recommended that he TAKE (NOT takes, NOT took) complete bed rest.'\n• उदा. 'The judge ordered that the accused BE (NOT is, NOT was) produced before the court.'\n\n२. हे विशेषण दिसताच नियम लागू होतो (It is essential/vital that...):\n• Essential (अत्यावश्यक), Vital (महत्त्वाचे), Imperative (अनिवार्य), Mandatory (बंधनकारक), Crucial.\n• उदा. 'It is essential that every candidate BRING (NOT brings) his admit card.'\n\n३. नकारार्थी रचना (Negative Subjunctive):\n• यात do/does/did लागत नाही; थेट मूळ रूपाच्या आधी 'NOT' लावावे लागते:\n• उदा. 'The committee suggested that he NOT RESIGN' (does not resign चूक!).",
+    definition: "In formal English grammar, the Mandative Subjunctive is used in subordinate 'that'-clauses following verbs, nouns, or adjectives that express a demand, recommendation, proposal, necessity, or urgent requirement. Regardless of whether the subject of the 'that'-clause is third-person singular (he, she, it, the candidate) or the main clause is in the past tense (insisted, demanded), the verb in the subjunctive clause ALWAYS remains in its UNINFLECTED BARE BASE FORM (V1 without -s, -es, or -ed; and 'be' instead of is/am/are/was/were).",
+    definitionMr: "MPSC च्या इंग्रजी व्याकरण परीक्षेत हा घटक अत्यंत महत्त्वाचा मानला जातो. जेव्हा मुख्य वाक्यात मागणी, शिफारस किंवा आदेश दर्शवणारे क्रियापद (उदा. insisted, recommended, demanded) असते, तेव्हा 'that' नंतर येणाऱ्या वाक्यात कर्ता जरी एकवचनी (He, She, It, The student) असला किंवा मुख्य वाक्य जरी भूतकाळात असले, तरीही क्रियापदाला 's/es' किंवा 'ed' लागत नाही! ते क्रियापदाच्या मूळ रूपातच (Bare Base Form - V1 किंवा 'BE') राहते.",
+    keyPoints: [
+      '"No Third-Person -s/-es: In subjunctive clauses, third-person singular never takes -s: \'She suggested that he LEAVE\' (NOT leaves)."',
+      '"No Tense Backshift: Even if the main verb is in past tense (insisted), the subjunctive verb does not shift to past: \'He insisted that she ACCOMPANY him\' (NOT accompanied)."',
+      '"The Verb BE: The subjunctive form of the verb \'to be\' is always BE (never is, are, was, were): \'They demanded that the report BE published\'."',
+      '"Negative Structure: Direct \'NOT + V1\', never \'does not / did not\': \'He requested that she not speak\'."',
+      '"British vs American/Formal MPSC: In informal British, people sometimes use \'should + V1\'; but in formal standard MPSC questions, the bare subjunctive (V1 without should) is tested as the primary correct choice."'
+    ],
+    keyPointsMr: [
+      '१. क्रियापदाला \'s/es\' लागत नाही: कर्ता \'He\' किंवा \'The officer\' असला तरी क्रियापदाला \'s\' लागत नाही: \'insisted that he GO\' (\'goes\' चूक!).',
+      '२. मुख्य वाक्य भूतकाळात असले तरी पुढे भूतकाळ होत नाही: \'demanded that he ATTEND\' (\'attended\' चूक!).',
+      '३. \'To Be\' च्या जागी फक्त \'BE\' येतो: is, was, were वापरता येत नाही: \'ordered that the prisoner BE released\' (\'was released\' चूक!).',
+      '४. नकारार्थी वाक्यात \'not\' थेट येतो: \'suggested that he NOT participate\' (\'did not participate\' चूक!).',
+      '५. \'Essential / Vital that\' नंतरही हाच नियम लागू होतो.'
+    ],
+    examples: [
+      {
+        sentence: "Spot the error in the administrative directive:\nSentence: 'The Chief Secretary recommended that the district collector immediately visits the flood-affected villages.'",
+        isCorrect: false,
+        explanation: "Incorrect! Subjunctive Violation: After the verb of recommendation 'recommended that', the subjunctive clause requires the bare base verb 'visit' (NOT inflected 'visits'). The correct sentence is: 'The Chief Secretary recommended that the district collector immediately VISIT the flood-affected villages.'",
+        explanationMr: "चूक! 'recommended that' नंतर मँडेटिव्ह सब्जेक्टिव्ह नियमानुसार क्रियापदाला 's' लागत नाही; मूळ रूप 'visit' हवे: 'recommended that the district collector immediately VISIT...'!"
+      },
+      {
+        sentence: "Identify whether the sentence is grammatically correct:\nSentence: 'The Lokayukta insisted that the tainted officer be suspended pending an impartial inquiry.'",
+        isCorrect: true,
+        explanation: "Correct! After 'insisted that', the subjunctive form of 'to be' is strictly 'be' (NOT 'is' or 'was'). This is the quintessential Mandative Subjunctive in formal governance English.",
+        explanationMr: "अचूक! 'insisted that' नंतर 'to be' चे मूळ रूप 'be' वापरणे १००% अचूक आहे ('was suspended' किंवा 'is suspended' चुकीचे ठरले असते)."
+      },
+      {
+        sentence: "Identify the correct verb form after urgency adjectives:\nSentence: 'It is imperative that every citizen respect the constitutional ideals and national flag.'",
+        isCorrect: true,
+        explanation: "Correct! 'It is imperative that' triggers the mandative subjunctive. Even though 'every citizen' is grammatically singular, the subjunctive requires bare 'respect' (NOT 'respects').",
+        explanationMr: "अचूक! 'It is imperative that' नंतर कर्ता एकवचनी असला तरी क्रियापदाला 's' न लावता मूळ रूप 'respect' वापरणे अचूक आहे."
+      },
+      {
+        sentence: "Spot the error in the board resolution:\nSentence: 'The chairman proposed that the CEO does not sign the controversial international agreement.'",
+        isCorrect: false,
+        explanation: "Incorrect! Negative Subjunctive Error: Negative subjunctive never uses auxiliary 'does not' or 'did not'. Place 'not' directly before the base verb: 'The chairman proposed that the CEO NOT SIGN the controversial international agreement.'",
+        explanationMr: "चूक! नकारार्थी मँडेटिव्ह सब्जेक्टिव्हमध्ये 'does not / did not' येत नाही; थेट 'NOT' + मूळ रूप लागते: 'proposed that the CEO NOT SIGN...'!"
+      }
+    ],
+    exceptions: [
+      'In informal British English, candidates may encounter "should + bare verb" (e.g. "recommended that he should visit"). MPSC accepts this as an alternative, but when testing pure error-detection, the inflected form ("visits" or "visited") is categorically wrong.',
+      'When "insist" means stating a fact firmly (indicative) rather than demanding an action, standard tense rules apply: "He insisted that he was innocent" (Indicative fact ➔ "was" is correct).'
+    ],
+    exceptionsMr: [
+      'ब्रिटिश इंग्रजीत कधीकधी "should visit" चालते, पण "visits" किंवा "visited" १००% चुकीचे असते.',
+      'जर "insist" चा अर्थ मागणी न करता एखादे सत्य ठामपणे सांगणे असा असेल, तर सामान्य भूतकाळ चालतो: "He insisted that he was innocent" (येथे तो स्वतः निर्दोष असल्याचा दावा करत आहे).'
+    ],
+    examTip: "MPSC Subjunctive 3-Second Trap Spotter:\n1. Spot the Trigger: demand that / insist that / recommend that / suggest that / essential that.\n2. Look at the Verb: If it has '-s' (e.g. submits, visits, leaves) or past tense '-ed' (e.g. submitted, visited) ➔ THAT IS THE ERROR! Change to bare V1 (submit, visit, leave)!\n3. Look for 'to be': If you see 'was / is' ➔ CHANGE TO 'BE'!",
+    examTipMr: "MPSC ३ सेकंदांची परीक्षा क्लृप्ती:\n१. वाक्यात 'insist that / recommend that / essential that' दिसले ➔ पुढच्या क्रियापदाकडे पहा!\n२. जर क्रियापदाला 's/es' (उदा. visits, writes) किंवा भूतकाळ (visited, wrote) लावला असेल ➔ तीच वाक्यातील चूक आहे! लगेच क्रियापदाचे मूळ रूप (visit, write) करा!\n३. जर 'is / was' दिला असेल ➔ त्याच्या जागी 'BE' करा!",
+    practiceQuestionIds: ['gq_en_08', 'gq_en_09'],
+    tags: ['Mandative Subjunctive', 'Verbs of Demand', 'Subjunctive Mood', 'Bare Infinitive', 'It is essential that', 'MPSC Rules']
   }
 ];
