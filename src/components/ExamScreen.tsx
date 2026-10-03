@@ -436,7 +436,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
       )}
 
       {/* Main Examination Workspace - Fluid Responsive across Mobile, Tablet, Laptop, and PC */}
-      <div className="flex-1 max-w-7xl 2xl:max-w-[1536px] w-full mx-auto p-2 sm:p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-5">
+      <div className="flex-1 max-w-7xl 2xl:max-w-[1536px] w-full mx-auto p-2 sm:p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-5 pb-28 sm:pb-24">
         {/* Left / Center: Active Question Canvas */}
         <main className="lg:col-span-8 flex flex-col bg-white rounded-xl border border-stone-200 shadow-sm overflow-hidden min-h-[500px]">
           {/* Question Title Bar */}
@@ -739,6 +739,74 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
           </div>
         </aside>
       </div>
+
+      {/* PERSISTENT FIXED BOTTOM ACTION BAR - Fixed to viewport for superior navigation ergonomics */}
+      <nav
+        aria-label="Exam Navigation"
+        className="fixed bottom-0 inset-x-0 z-40 bg-white/95 dark:bg-stone-900/95 backdrop-blur-md border-t border-stone-200 dark:border-stone-800 shadow-[0_-4px_25px_rgba(0,0,0,0.12)] px-3 sm:px-6 py-2.5 transition-all"
+      >
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto flex items-center justify-between gap-3">
+          {/* Left: Question status & Mobile Palette trigger */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold px-2.5 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-300/80 dark:border-stone-700 shrink-0 flex items-center gap-1.5">
+              <span>{questionLang === 'mr' ? 'प्रश्न' : 'Q'}:</span>
+              <strong className="text-stone-900 dark:text-white font-extrabold text-xs sm:text-sm">{currentQuestionIndex + 1}</strong>
+              <span className="text-stone-400">/</span>
+              <span className="text-stone-500 dark:text-stone-400">{questions.length}</span>
+            </span>
+
+            {/* Mobile Question Palette Toggle */}
+            <button
+              onClick={() => setShowPaletteMobile(!showPaletteMobile)}
+              className="lg:hidden px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 border border-stone-300 dark:border-stone-700 flex items-center gap-1 cursor-pointer"
+            >
+              <span>{questionLang === 'mr' ? 'तालिका' : 'Palette'}</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-600 text-white font-bold">
+                {answeredCount}
+              </span>
+            </button>
+          </div>
+
+          {/* Center / Right: THREE ESSENTIAL NAVIGATION BUTTONS: Previous, Next, and Submit Exam */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* 1. Previous Button */}
+            <button
+              id="btn-fixed-prev"
+              onClick={handlePrev}
+              disabled={currentQuestionIndex === 0}
+              className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-stone-300 dark:border-stone-700 bg-white hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+              title={questionLang === 'mr' ? 'मागील प्रश्न (Previous)' : 'Previous Question'}
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>{questionLang === 'mr' ? 'मागील' : 'Previous'}</span>
+            </button>
+
+            {/* 2. Next Button */}
+            <button
+              id="btn-fixed-next"
+              onClick={handleSaveAndNext}
+              disabled={currentQuestionIndex === questions.length - 1}
+              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-500 hover:bg-amber-400 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 transition-all cursor-pointer"
+              title={questionLang === 'mr' ? 'पुढील प्रश्न (Next)' : 'Next Question'}
+            >
+              <span>{questionLang === 'mr' ? 'पुढे (Next)' : 'Next'}</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+
+            {/* 3. Submit Exam Button */}
+            <button
+              id="btn-fixed-submit-exam"
+              onClick={() => setShowSubmitModal(true)}
+              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              title={questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}
+            >
+              <Send className="w-4 h-4" />
+              <span className="hidden xs:inline sm:inline">{questionLang === 'mr' ? 'चाचणी सबमिट करा' : 'Submit Exam'}</span>
+              <span className="inline xs:hidden sm:hidden">{questionLang === 'mr' ? 'सबमिट' : 'Submit'}</span>
+            </button>
+          </div>
+        </div>
+      </nav>
 
       {/* Pre-Submission Modal */}
       {showSubmitModal && (
