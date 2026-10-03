@@ -13,7 +13,8 @@ import {
   RotateCcw,
   Grid,
   CircleDot,
-  Palette
+  Palette,
+  Maximize2
 } from 'lucide-react';
 
 export type BackgroundPatternType = 'none' | 'dots' | 'grid' | 'noise' | 'diagonal_lines';
@@ -27,6 +28,7 @@ export interface BackgroundConfig {
   pattern: BackgroundPatternType;
   patternOpacity: number; // 0.10 to 0.95
   patternColor: string; // e.g. '#18181b', '#ffffff', '#f59e0b'
+  patternScale: number; // 0.5 to 2.5 (e.g. 0.5x to 2.5x)
   enabled: boolean;
 }
 
@@ -100,9 +102,11 @@ export const PATTERN_OPTIONS = [
 export function getPatternStyle(
   pattern: BackgroundPatternType, 
   opacity: number, 
-  patternColor = '#18181b'
+  patternColor = '#18181b',
+  patternScale = 1.0
 ): React.CSSProperties {
   const color = patternColor || '#18181b';
+  const scale = Math.max(0.4, Math.min(3.0, patternScale || 1.0));
   
   // Extract RGB components for SVG color matrix
   let c = color.replace('#', '').trim();
@@ -117,32 +121,45 @@ export function getPatternStyle(
   const bNorm = (b / 255).toFixed(2);
 
   switch (pattern) {
-    case 'dots':
+    case 'dots': {
+      const dotRadius = Math.max(0.75, 1.25 * Math.sqrt(scale)).toFixed(2);
+      const dotSpacing = Math.round(18 * scale);
       return {
-        backgroundImage: `radial-gradient(${hexToRgba(color, 0.45)} 1.25px, transparent 1.25px)`,
-        backgroundSize: '18px 18px',
+        backgroundImage: `radial-gradient(${hexToRgba(color, 0.45)} ${dotRadius}px, transparent ${dotRadius}px)`,
+        backgroundSize: `${dotSpacing}px ${dotSpacing}px`,
         opacity,
       };
-    case 'grid':
+    }
+    case 'grid': {
+      const gridSpacing = Math.round(24 * scale);
+      const lineWidth = scale >= 2.0 ? 1.5 : 1;
       return {
         backgroundImage: `
-          linear-gradient(to right, ${hexToRgba(color, 0.22)} 1px, transparent 1px),
-          linear-gradient(to bottom, ${hexToRgba(color, 0.22)} 1px, transparent 1px)
+          linear-gradient(to right, ${hexToRgba(color, 0.22)} ${lineWidth}px, transparent ${lineWidth}px),
+          linear-gradient(to bottom, ${hexToRgba(color, 0.22)} ${lineWidth}px, transparent ${lineWidth}px)
         `,
-        backgroundSize: '24px 24px',
+        backgroundSize: `${gridSpacing}px ${gridSpacing}px`,
         opacity,
       };
-    case 'noise':
+    }
+    case 'noise': {
+      const freq = (0.8 / Math.sqrt(scale)).toFixed(3);
+      const tileSize = Math.round(200 * scale);
       return {
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 ${rNorm} 0 0 0 0 ${gNorm} 0 0 0 0 ${bNorm} 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 ${tileSize} ${tileSize}' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 ${rNorm} 0 0 0 0 ${gNorm} 0 0 0 0 ${bNorm} 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         backgroundRepeat: 'repeat',
+        backgroundSize: `${tileSize}px ${tileSize}px`,
         opacity,
       };
-    case 'diagonal_lines':
+    }
+    case 'diagonal_lines': {
+      const hatchSpacing = Math.round(12 * scale);
+      const lineWidth = scale >= 2.0 ? 1.5 : 1;
       return {
-        backgroundImage: `repeating-linear-gradient(45deg, ${hexToRgba(color, 0.15)} 0, ${hexToRgba(color, 0.15)} 1px, transparent 0, transparent 12px)`,
+        backgroundImage: `repeating-linear-gradient(45deg, ${hexToRgba(color, 0.15)} 0, ${hexToRgba(color, 0.15)} ${lineWidth}px, transparent 0, transparent ${hatchSpacing}px)`,
         opacity,
       };
+    }
     case 'none':
     default:
       return { display: 'none' };
@@ -220,6 +237,7 @@ const DEFAULT_CONFIG: BackgroundConfig = {
   pattern: 'dots',
   patternOpacity: 0.55,
   patternColor: '#18181b',
+  patternScale: 1.0,
   enabled: true,
 };
 
@@ -236,6 +254,7 @@ export function getStoredBackgroundConfig(): BackgroundConfig {
         pattern: parsed.pattern || DEFAULT_CONFIG.pattern,
         patternOpacity: parsed.patternOpacity !== undefined ? parsed.patternOpacity : DEFAULT_CONFIG.patternOpacity,
         patternColor: parsed.patternColor || DEFAULT_CONFIG.patternColor,
+        patternScale: typeof parsed.patternScale === 'number' ? parsed.patternScale : DEFAULT_CONFIG.patternScale,
       };
     }
   } catch (e) {
@@ -363,7 +382,7 @@ export const BackgroundWallpaper: React.FC<BackgroundWallpaperProps> = ({ langua
         {config.pattern !== 'none' && (
           <div 
             className="absolute inset-0 pointer-events-none transition-all duration-700 ease-in-out"
-            style={getPatternStyle(config.pattern, config.patternOpacity ?? 0.55, config.patternColor ?? '#18181b')}
+            style={getPatternStyle(config.pattern, config.patternOpacity ?? 0.55, config.patternColor ?? '#18181b', config.patternScale ?? 1.0)}
           />
         )}
 
@@ -640,7 +659,7 @@ export const BackgroundWallpaper: React.FC<BackgroundWallpaperProps> = ({ langua
                           {pat.id !== 'none' && (
                             <div 
                               className="absolute inset-0"
-                              style={getPatternStyle(pat.id, 0.75, config.patternColor ?? '#18181b')}
+                              style={getPatternStyle(pat.id, 0.75, config.patternColor ?? '#18181b', config.patternScale ?? 1.0)}
                             />
                           )}
                           <span className="text-[10px] font-mono text-stone-400 relative z-10 px-1 py-0.5 rounded bg-stone-900/80">
@@ -690,6 +709,60 @@ export const BackgroundWallpaper: React.FC<BackgroundWallpaperProps> = ({ langua
                       <span>{isMr ? 'अति सुक्ष्म (15%)' : 'Subtle (15%)'}</span>
                       <span>{isMr ? 'संतुलित (55% - शिफारस)' : 'Balanced (55% - Ideal)'}</span>
                       <span>{isMr ? 'ठळक (95%)' : 'Prominent (95%)'}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Pattern Scale / Density Slider (Resize patterns for screen density) */}
+                {config.pattern !== 'none' && (
+                  <div className="pt-2.5 border-t border-stone-750/70 space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-stone-300 flex items-center gap-1.5 font-bold">
+                        <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{isMr ? 'पॅटर्न आकार / स्केल (Pattern Scale / Density)' : 'Pattern Size / Scale (Density)'}</span>
+                      </span>
+                      <span className="font-mono text-amber-400 font-bold px-2 py-0.5 rounded bg-stone-900 border border-stone-700">
+                        {(config.patternScale ?? 1.0).toFixed(1)}x ({Math.round((config.patternScale ?? 1.0) * 100)}%)
+                      </span>
+                    </div>
+
+                    <input
+                      type="range"
+                      min="0.5"
+                      max="2.5"
+                      step="0.1"
+                      value={config.patternScale ?? 1.0}
+                      onChange={(e) => handleUpdateConfig({ patternScale: parseFloat(e.target.value) })}
+                      className="w-full h-1.5 bg-stone-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                    />
+
+                    {/* Quick scale presets */}
+                    <div className="flex items-center gap-1.5 pt-0.5">
+                      {[
+                        { val: 0.6, mr: 'लहान (0.6x)', en: 'Compact (0.6x)' },
+                        { val: 1.0, mr: 'सामान्य (1.0x)', en: 'Normal (1.0x)' },
+                        { val: 1.5, mr: 'मध्यम (1.5x)', en: 'Medium (1.5x)' },
+                        { val: 2.0, mr: 'मोठा (2.0x)', en: 'Large (2.0x)' },
+                      ].map((preset) => (
+                        <button
+                          key={preset.val}
+                          type="button"
+                          onClick={() => handleUpdateConfig({ patternScale: preset.val })}
+                          className={`flex-1 py-1 text-[11px] font-semibold rounded-lg border transition-all cursor-pointer ${
+                            Math.abs((config.patternScale ?? 1.0) - preset.val) < 0.05
+                              ? 'bg-amber-500 text-stone-950 border-amber-400 font-bold shadow-xs'
+                              : 'bg-stone-900 text-stone-400 border-stone-750 hover:bg-stone-800 hover:text-stone-200'
+                          }`}
+                        >
+                          {isMr ? preset.mr : preset.en}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="flex justify-between text-[10px] text-stone-400">
+                      <span>{isMr ? 'हाय-डीपीआय / कॉम्पॅक्ट (50%)' : 'High-DPI / Compact (50%)'}</span>
+                      <span>{isMr ? 'डिफॉल्ट (100%)' : 'Default (100%)'}</span>
+                      <span>{isMr ? 'मोठा स्क्रीन (250%)' : 'Large Screen (250%)'}</span>
                     </div>
                   </div>
                 )}

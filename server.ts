@@ -94,6 +94,17 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Permissive CORS, CORP, and COEP headers to prevent COEP/CORP blocking on custom domains, CDNs (Cloudflare), and proxies
+  app.use((_req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    res.setHeader("Cross-Origin-Embedder-Policy", "unsafe-none");
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+    next();
+  });
+
   app.use(express.json({ limit: "5mb" }));
 
   // API Routes
