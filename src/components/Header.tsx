@@ -261,7 +261,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <FileText className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
                 <span>{isMr ? 'व्याकरण' : 'Grammar'}</span>
                 <span className="text-[9px] px-1 py-0.2 rounded bg-amber-400 text-stone-950 font-black uppercase hidden xl:inline">
-                  {isMr ? '१३६ नियम 🏆' : '136 Rules 🏆'}
+                  {isMr ? '१४४ नियम (Modules) 🏆' : '144 Rules (Modules) 🏆'}
                 </span>
               </button>
 

@@ -17,7 +17,7 @@ import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 interface SubjectPracticeViewProps {
   language: 'mr' | 'en';
   onStartSubjectExam: (subjectId: SubjectId, title: string) => void;
-  onOpenGrammarRules?: () => void;
+  onOpenGrammarRules?: (language?: 'all' | 'marathi' | 'english', moduleId?: string) => void;
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
   onOpenAddQuestion?: (subjectId?: SubjectId) => void;
   questionsPool?: Question[];
@@ -123,11 +123,23 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
               <div className="pt-5 mt-4 border-t border-stone-100 space-y-2">
                 {(sub.id === 'marathi_grammar' || sub.id === 'english_grammar') && onOpenGrammarRules && (
                   <button
-                    onClick={onOpenGrammarRules}
+                    onClick={() =>
+                      onOpenGrammarRules(
+                        sub.id === 'english_grammar' ? 'english' : 'marathi'
+                      )
+                    }
                     className="w-full py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 border border-indigo-200 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5 text-indigo-600" />
-                    <span>{isMr ? '📖 व्याकरण नियम व सूत्रे पहा' : '📖 View Grammar Rules & Shortcuts'}</span>
+                    <span>
+                      {sub.id === 'english_grammar'
+                        ? isMr
+                          ? '🇬🇧 इंग्रजी व्याकरण ज्ञानकोश (Study Modules)'
+                          : '🇬🇧 English Grammar Modules Repository'
+                        : isMr
+                        ? '📖 मराठी व्याकरण नियम व सूत्रे पहा'
+                        : '📖 View Marathi Grammar Rules'}
+                    </span>
                   </button>
                 )}
 

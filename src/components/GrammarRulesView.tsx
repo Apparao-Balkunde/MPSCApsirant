@@ -13,22 +13,33 @@ import {
   Copy,
   Check,
   Zap,
+  Layers,
+  ArrowRight,
 } from 'lucide-react';
 import { GrammarRule } from '../types';
 import { GRAMMAR_RULES } from '../data/grammarRules';
+import {
+  EnglishGrammarRepository,
+  ENGLISH_STUDY_MODULES,
+} from './EnglishGrammarRepository';
 
-interface GrammarRulesViewProps {
+export interface GrammarRulesViewProps {
   onStartPracticeWithQuestions?: (questionIds: string[], title: string) => void;
   savedRuleIds?: string[];
   onToggleBookmark?: (ruleId: string) => void;
+  initialLanguage?: 'all' | 'marathi' | 'english';
+  initialModuleId?: string;
 }
 
 export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
   onStartPracticeWithQuestions,
   savedRuleIds = [],
   onToggleBookmark,
+  initialLanguage = 'all',
+  initialModuleId = 'all',
 }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<'all' | 'marathi' | 'english'>('all');
+  const [selectedLanguage, setSelectedLanguage] = useState<'all' | 'marathi' | 'english'>(initialLanguage);
+  const [selectedEnglishModuleId, setSelectedEnglishModuleId] = useState<string>(initialModuleId);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showSavedOnly, setShowSavedOnly] = useState<boolean>(false);
@@ -170,49 +181,56 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
         </div>
       </div>
 
-      {/* Filter and Search Bar */}
+      {/* Language Navigation and Distinct Modules Strip */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 md:p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
         {/* Language Tabs */}
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+          <div className="flex flex-wrap items-center p-1 bg-slate-100 dark:bg-slate-800 rounded-xl gap-1">
             <button
               onClick={() => {
                 setSelectedLanguage('all');
                 setSelectedCategory('all');
               }}
-              className={`px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all ${
+              className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all ${
                 selectedLanguage === 'all'
-                  ? 'bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow-sm font-semibold'
+                  ? 'bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow-sm font-bold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
               }`}
             >
-              सर्व नियम (All)
+              सर्व नियम (All - {GRAMMAR_RULES.length})
             </button>
+
+            <button
+              onClick={() => {
+                setSelectedLanguage('english');
+                setSelectedCategory('all');
+                setSelectedEnglishModuleId('all');
+              }}
+              className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                selectedLanguage === 'english'
+                  ? 'bg-sky-600 text-white shadow-sm font-bold ring-2 ring-sky-400/40'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-200/50'
+              }`}
+            >
+              <span>🇬🇧</span>
+              <span>English Grammar Modules</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-sky-400/20 text-sky-200 border border-sky-400/30 font-bold hidden sm:inline">
+                ८ मॉड्यूल्स
+              </span>
+            </button>
+
             <button
               onClick={() => {
                 setSelectedLanguage('marathi');
                 setSelectedCategory('all');
               }}
-              className={`px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all flex items-center gap-1.5 ${
+              className={`px-3.5 sm:px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all flex items-center gap-1.5 ${
                 selectedLanguage === 'marathi'
-                  ? 'bg-amber-500 text-slate-950 shadow-sm font-semibold'
+                  ? 'bg-amber-500 text-slate-950 shadow-sm font-bold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
               }`}
             >
-              <span>🚩</span> मराठी व्याकरण
-            </button>
-            <button
-              onClick={() => {
-                setSelectedLanguage('english');
-                setSelectedCategory('all');
-              }}
-              className={`px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all flex items-center gap-1.5 ${
-                selectedLanguage === 'english'
-                  ? 'bg-sky-600 text-white shadow-sm font-semibold'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
-              }`}
-            >
-              <span>🇬🇧</span> English Grammar
+              <span>🚩</span> मराठी व्याकरण ({GRAMMAR_RULES.filter((r) => r.language === 'marathi').length})
             </button>
           </div>
 
@@ -266,22 +284,76 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
         </div>
       </div>
 
-      {/* Rules Count & State */}
-      <div className="flex items-center justify-between px-1 text-xs text-slate-500 dark:text-slate-400">
-        <div>
-          दाखवत आहे:{' '}
-          <span className="font-semibold text-slate-800 dark:text-slate-200">
-            {filteredRules.length} नियम
-          </span>{' '}
-          {selectedCategory !== 'all' && `(${selectedCategory})`}
-        </div>
-        {searchQuery && (
-          <div>
-            शोध परिणाम:{' '}
-            <span className="font-semibold text-indigo-600 dark:text-indigo-400">"{searchQuery}"</span>
+      {/* DISTINCT STUDY MODULES QUICK ACCESS (Visible in 'all' view) */}
+      {selectedLanguage === 'all' && (
+        <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-4 md:p-5 rounded-2xl border border-indigo-500/30 text-white space-y-2.5 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2 text-xs md:text-sm font-bold text-sky-300">
+              <Layers className="w-4 h-4 text-sky-400" />
+              <span>इंग्रजी व्याकरण अभ्यास मॉड्यूल्स (English Grammar Study Modules):</span>
+            </div>
+            <button
+              onClick={() => {
+                setSelectedLanguage('english');
+                setSelectedEnglishModuleId('all');
+              }}
+              className="text-xs text-sky-400 hover:text-sky-300 font-semibold flex items-center gap-1 self-start sm:self-auto cursor-pointer"
+            >
+              सर्व ८ अभ्यास मॉड्यूल्स उघडा <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </div>
-        )}
-      </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            {ENGLISH_STUDY_MODULES.filter((m) => m.id !== 'all').map((mod) => (
+              <button
+                key={mod.id}
+                onClick={() => {
+                  setSelectedLanguage('english');
+                  setSelectedEnglishModuleId(mod.id);
+                }}
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-sky-500/25 hover:border-sky-400/50 text-slate-200 border border-white/10 transition-all flex items-center gap-1.5 group cursor-pointer"
+              >
+                <span>{mod.icon}</span>
+                <span>{mod.titleEn}</span>
+                <span className="text-[10px] text-sky-300 font-bold group-hover:translate-x-0.5 transition-transform">
+                  →
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* RENDER ENGLISH GRAMMAR REPOSITORY IF ENGLISH IS SELECTED */}
+      {selectedLanguage === 'english' ? (
+        <EnglishGrammarRepository
+          initialModuleId={selectedEnglishModuleId}
+          savedRuleIds={savedRuleIds}
+          onToggleBookmark={onToggleBookmark}
+          onStartPracticeWithQuestions={onStartPracticeWithQuestions}
+          onBackToOverview={() => {
+            setSelectedLanguage('all');
+            setSelectedEnglishModuleId('all');
+          }}
+        />
+      ) : (
+        <>
+          {/* Rules Count & State */}
+          <div className="flex items-center justify-between px-1 text-xs text-slate-500 dark:text-slate-400">
+            <div>
+              दाखवत आहे:{' '}
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
+                {filteredRules.length} नियम
+              </span>{' '}
+              {selectedCategory !== 'all' && `(${selectedCategory})`}
+            </div>
+            {searchQuery && (
+              <div>
+                शोध परिणाम:{' '}
+                <span className="font-semibold text-indigo-600 dark:text-indigo-400">"{searchQuery}"</span>
+              </div>
+            )}
+          </div>
 
       {/* CHEAT SHEET MODE */}
       {viewMode === 'cheatsheet' ? (
@@ -628,6 +700,8 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
           )}
         </div>
       )}
+      </>
+    )}
     </div>
   );
 };

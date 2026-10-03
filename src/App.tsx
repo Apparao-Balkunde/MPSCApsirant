@@ -97,6 +97,16 @@ export default function App() {
   // Custom Image Manager modal state
   const [isImageManagerOpen, setIsImageManagerOpen] = useState<boolean>(false);
 
+  // Grammar rules navigation state
+  const [grammarInitialLanguage, setGrammarInitialLanguage] = useState<'all' | 'marathi' | 'english'>('all');
+  const [grammarInitialModuleId, setGrammarInitialModuleId] = useState<string>('all');
+
+  const handleOpenGrammarRules = (lang: 'all' | 'marathi' | 'english' = 'all', modId: string = 'all') => {
+    setGrammarInitialLanguage(lang);
+    setGrammarInitialModuleId(modId);
+    setCurrentTab('grammar');
+  };
+
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
@@ -897,7 +907,7 @@ export default function App() {
               <SubjectPracticeView
                 language={userProgress.preferredLanguage}
                 onStartSubjectExam={(subId, title) => handleStartExam('custom', subId, title)}
-                onOpenGrammarRules={() => setCurrentTab('grammar')}
+                onOpenGrammarRules={(lang, modId) => handleOpenGrammarRules(lang, modId)}
                 onOpenHardQuestionsHub={(subId) => setIsHardQuestionsHubOpen(true)}
                 onOpenAddQuestion={(subjectId?: SubjectId) => {
                   setAddQuestionSubject(subjectId);
@@ -911,6 +921,8 @@ export default function App() {
             {currentTab === 'grammar' && (
               <main className="flex-1 max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
                 <GrammarRulesView
+                  initialLanguage={grammarInitialLanguage}
+                  initialModuleId={grammarInitialModuleId}
                   savedRuleIds={userProgress.bookmarkedRuleIds || []}
                   onToggleBookmark={handleToggleRuleBookmark}
                   onStartPracticeWithQuestions={(qIds, title) => {
