@@ -48,20 +48,48 @@ export interface FirestoreErrorInfo {
 // the app stops sending network requests and seamlessly functions offline with local storage.
 let firestoreQuotaExceeded = false;
 try {
-  firestoreQuotaExceeded = typeof window !== 'undefined' && sessionStorage.getItem('mpsc_firestore_quota_exceeded') === 'true';
+  if (typeof window !== 'undefined') {
+    const today = new Date().toISOString().slice(0, 10);
+    const storedDate = localStorage.getItem('mpsc_firestore_quota_exceeded_date');
+    if (storedDate === today) {
+      firestoreQuotaExceeded = true;
+    } else if (storedDate) {
+      localStorage.removeItem('mpsc_firestore_quota_exceeded_date');
+    }
+  }
 } catch {
   // ignore
 }
 
 export function isFirestoreQuotaExceeded(): boolean {
-  return firestoreQuotaExceeded;
+  if (firestoreQuotaExceeded) return true;
+  try {
+    if (typeof window !== 'undefined') {
+      const today = new Date().toISOString().slice(0, 10);
+      const storedDate = localStorage.getItem('mpsc_firestore_quota_exceeded_date');
+      if (storedDate === today) {
+        firestoreQuotaExceeded = true;
+        return true;
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return false;
 }
 
 export function setFirestoreQuotaExceeded(val: boolean): void {
   firestoreQuotaExceeded = val;
   try {
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem('mpsc_firestore_quota_exceeded', val ? 'true' : 'false');
+      const today = new Date().toISOString().slice(0, 10);
+      if (val) {
+        localStorage.setItem('mpsc_firestore_quota_exceeded_date', today);
+        sessionStorage.setItem('mpsc_firestore_quota_exceeded', 'true');
+      } else {
+        localStorage.removeItem('mpsc_firestore_quota_exceeded_date');
+        sessionStorage.removeItem('mpsc_firestore_quota_exceeded');
+      }
     }
   } catch {
     // ignore
