@@ -33,6 +33,8 @@ export type ExamPatternId =
   | 'mpsc_pyq_2023'
   | 'mpsc_combine_pre_2023'
   | 'mpsc_combine_pre_2022'
+  | 'mpsc_combine_pre_2021'
+  | 'mpsc_combine_pre_2020'
   | 'mpsc_pyq_2022'
   | 'mpsc_combine_mains_pyq'
   | 'custom';

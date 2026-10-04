@@ -25,6 +25,8 @@ import { MPSC_PYQ_2024_FULL_100 } from '../data/mpscPyq2024';
 import { MPSC_PYQ_2023_GS } from '../data/mpscPyq2023';
 import { MPSC_COMBINE_PRE_2023 } from '../data/mpscCombinePre2023';
 import { MPSC_COMBINE_PRE_2022_FULL_100 } from '../data/mpscCombinePre2022';
+import { MPSC_COMBINE_PRE_2021 } from '../data/mpscCombinePre2021';
+import { MPSC_COMBINE_PRE_2020 } from '../data/mpscCombinePre2020';
 import { MPSC_PYQ_2022 } from '../data/mpscPyq2022';
 import { MPSC_COMBINE_MAINS_PYQ } from '../data/mpscCombineMainsPyq';
 
@@ -137,6 +139,46 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['अधिकृत PYQ', 'पूर्ण १०० प्रश्न', '६० मिनिटे', '१०० गुण', 'अंतिम की'],
     tagsEn: ['Official PYQ', '100 Questions', '60 Mins', '100 Marks', 'Final Key'],
     questions: MPSC_COMBINE_PRE_2022_FULL_100
+  },
+  {
+    id: 'mpsc_combine_prelims_2021',
+    patternId: 'mpsc_combine_pre_2021',
+    titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०२१ (२६ फेब्रुवारी २०२२)',
+    titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2021 (26 Feb 2022)',
+    examDate: '२६ फेब्रुवारी २०२२',
+    category: 'combine',
+    categoryLabelMr: 'गट-ब संयुक्त पूर्व २०२१',
+    categoryLabelEn: 'Group B Prelims 2021',
+    bookletCode: 'U14 (संच A)',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'आयोगाने २६ फेब्रुवारी २०२२ रोजी घेतलेली गट-ब संयुक्त पूर्व परीक्षा. पंचायत राज, इतिहास, भूगोल, सामान्य विज्ञान व अर्थव्यवस्था या सर्व विषयांचे अधिकृत प्रश्न व संदर्भ स्पष्टीकरण.',
+    descriptionEn: 'MPSC Group B Combined Prelims held on 26 Feb 2022 with Official Key and detailed references for Polity, Geography, History, and Science.',
+    tagsMr: ['२६ फेब्रु २०२२', 'गट-ब पूर्व २०२१', '६० मिनिटे', '१०० प्रश्न'],
+    tagsEn: ['26 Feb 2022', 'Group B Prelims', '60 Mins', '100 Questions'],
+    questions: MPSC_COMBINE_PRE_2021
+  },
+  {
+    id: 'mpsc_combine_prelims_2020',
+    patternId: 'mpsc_combine_pre_2020',
+    titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०२० (०४ सप्टेंबर २०२१)',
+    titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2020 (04 Sept 2021)',
+    examDate: '०४ सप्टेंबर २०२१',
+    category: 'combine',
+    categoryLabelMr: 'गट-ब संयुक्त पूर्व २०२०',
+    categoryLabelEn: 'Group B Prelims 2020',
+    bookletCode: 'A14 (संच A)',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'आयोगाने ४ सप्टेंबर २०२१ रोजी घेतलेली गट-ब संयुक्त पूर्व परीक्षा. समाजसुधारक, भारतीय राज्यघटना, आधुनिक भारताचा इतिहास आणि विज्ञान विश्लेषणासह.',
+    descriptionEn: 'MPSC Group B Combined Prelims conducted on 04 Sept 2021 covering Maharashtra History, Polity, Geography, Economics, and Science.',
+    tagsMr: ['०४ सप्टें २०२१', 'गट-ब पूर्व २०२०', '६० मिनिटे', '१०० प्रश्न'],
+    tagsEn: ['04 Sept 2021', 'Group B Prelims', '60 Mins', '100 Questions'],
+    questions: MPSC_COMBINE_PRE_2020
   },
   {
     id: 'mpsc_pyq_2022_archive',
