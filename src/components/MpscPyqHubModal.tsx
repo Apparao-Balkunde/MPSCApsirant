@@ -294,6 +294,7 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [studyingPaper, setStudyingPaper] = useState<OfficialPaperMeta | null>(null);
   const [studyFilterSubject, setStudyFilterSubject] = useState<string>('all');
+  const [studySearchQuery, setStudySearchQuery] = useState<string>('');
 
   if (!isOpen) return null;
 
@@ -395,6 +396,10 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
                 <span>📅 {studyingPaper.examDate}</span>
                 <span>•</span>
                 <span>📝 {studyingPaper.questions.length} {isMr ? 'प्रश्न उपलब्ध' : 'Questions'}</span>
+                <span>•</span>
+                <span className="text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-md border border-emerald-300">
+                  {isMr ? 'अचूक उत्तरतालिका व संदर्भ स्पष्टीकरण' : 'Key & Explanations'}
+                </span>
               </div>
 
               <div className="flex items-center gap-2">
@@ -402,29 +407,95 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
                   onClick={() => handleLaunchPaper(studyingPaper)}
                   className="px-4 py-1.5 rounded-xl bg-stone-900 hover:bg-amber-600 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                 >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>{isMr ? 'ही परीक्षा २ तासांत सोडवा' : 'Take Timed Mock Test'}</span>
+                  <Play className="w-3.5 h-3.5 fill-current text-amber-400" />
+                  <span>{isMr ? 'ही परीक्षा वेळेत सोडवा' : 'Take Timed Mock Test'}</span>
                 </button>
+              </div>
+            </div>
+
+            {/* Subject Filters & Search Toolbar inside Paper */}
+            <div className="px-4 py-2.5 border-b border-stone-200 bg-white flex items-center justify-between gap-3 shrink-0 flex-wrap">
+              {/* Search in Paper */}
+              <div className="relative flex-1 min-w-[200px] max-w-sm">
+                <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder={isMr ? 'प्रश्नात किंवा स्पष्टीकरणात शोधा...' : 'Search in questions & explanations...'}
+                  value={studySearchQuery}
+                  onChange={(e) => setStudySearchQuery(e.target.value)}
+                  className="w-full pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg text-xs font-medium text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                />
+                {studySearchQuery && (
+                  <button 
+                    onClick={() => setStudySearchQuery('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 text-xs"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+
+              {/* Subject Filter Pills */}
+              <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none text-xs">
+                {[
+                  { id: 'all', mr: 'सर्व प्रश्न', en: 'All' },
+                  { id: 'maharashtra_history', mr: 'इतिहास', en: 'History' },
+                  { id: 'maharashtra_geography', mr: 'भूगोल', en: 'Geography' },
+                  { id: 'polity', mr: 'राज्यघटना', en: 'Polity' },
+                  { id: 'economy', mr: 'अर्थव्यवस्था', en: 'Economy' },
+                  { id: 'general_science', mr: 'विज्ञान', en: 'Science' },
+                  { id: 'current_affairs', mr: 'चालू घडामोडी', en: 'Current Affairs' },
+                  { id: 'csat', mr: 'अंकगणित/बुद्धिमत्ता', en: 'Aptitude' },
+                ].map((subj) => (
+                  <button
+                    key={subj.id}
+                    onClick={() => setStudyFilterSubject(subj.id)}
+                    className={`px-2.5 py-1 rounded-lg font-bold whitespace-nowrap transition-all cursor-pointer ${
+                      studyFilterSubject === subj.id
+                        ? 'bg-amber-500 text-stone-950 shadow-xs'
+                        : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
+                    }`}
+                  >
+                    {isMr ? subj.mr : subj.en}
+                  </button>
+                ))}
               </div>
             </div>
 
             {/* Questions List with Explanations in the exact requested clean format */}
             <div className="p-4 sm:p-6 overflow-y-auto space-y-6 bg-stone-50/50">
-              {studyingPaper.questions.map((q, qIndex) => {
+              {studyingPaper.questions
+                .map((q, originalIndex) => ({ q, originalIndex }))
+                .filter(({ q, originalIndex }) => {
+                  const matchesSubject = studyFilterSubject === 'all' || q.subjectId === studyFilterSubject;
+                  const qText = isMr ? q.questionMr : q.questionEn;
+                  const expText = isMr ? q.explanationMr : q.explanationEn;
+                  const topicText = q.topic || '';
+                  const subtopicText = q.subtopic || '';
+                  const search = studySearchQuery.toLowerCase().trim();
+                  const matchesSearch = !search ||
+                    qText.toLowerCase().includes(search) ||
+                    expText.toLowerCase().includes(search) ||
+                    topicText.toLowerCase().includes(search) ||
+                    subtopicText.toLowerCase().includes(search) ||
+                    `#${originalIndex + 1}`.includes(search);
+                  return matchesSubject && matchesSearch;
+                })
+                .map(({ q, originalIndex }) => {
                 const options = isMr ? q.optionsMr : q.optionsEn;
                 const questionText = isMr ? q.questionMr : q.questionEn;
                 const explanationText = isMr ? q.explanationMr : q.explanationEn;
 
                 return (
                   <div
-                    key={q.id || qIndex}
+                    key={q.id || originalIndex}
                     className="bg-white rounded-2xl border-2 border-stone-200/90 shadow-sm p-5 sm:p-6 space-y-4 hover:border-stone-300 transition-all"
                   >
                     {/* Top Meta */}
                     <div className="flex items-center justify-between gap-2 flex-wrap border-b border-stone-100 pb-3">
                       <div className="flex items-center gap-2">
                         <span className="w-7 h-7 rounded-lg bg-stone-900 text-white font-black text-xs flex items-center justify-center">
-                          #{qIndex + 1}
+                          #{originalIndex + 1}
                         </span>
                         <span className="text-xs font-bold text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200">
                           {q.topic}
