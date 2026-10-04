@@ -7,7 +7,8 @@ import {
   Sparkles, 
   Search, 
   Filter,
-  FileText
+  FileText,
+  CheckCircle2
 } from 'lucide-react';
 import { Question, UserProgress } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
@@ -185,47 +186,50 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
                   {isMr ? q.questionMr : q.questionEn}
                 </div>
 
-                {/* Options with correct answer highlighted */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                {/* Options with correct answer highlighted - Image 2 format */}
+                <div className="flex flex-col gap-2.5 pt-1">
                   {(isMr ? q.optionsMr : q.optionsEn).map((opt, optIdx) => {
                     const isCorrect = q.correctAnswerIndex === optIdx;
+                    const optionLetter = ['A', 'B', 'C', 'D', 'E', 'F'][optIdx] || `${optIdx + 1}`;
+
                     return (
                       <div
                         key={optIdx}
-                        className={`p-2.5 rounded-xl border flex items-center gap-2 ${
+                        className={`px-4 py-3 rounded-xl border text-xs sm:text-sm flex items-center gap-3.5 transition-colors ${
                           isCorrect
-                            ? 'border-emerald-400 bg-emerald-50 text-emerald-950 font-bold'
-                            : 'border-stone-200 bg-stone-50/50 text-stone-700'
+                            ? 'border-emerald-500 bg-[#edf8f2] text-emerald-950 font-bold shadow-[0_1px_3px_rgba(16,185,129,0.08)]'
+                            : 'border-stone-200/90 bg-[#fbf9f6] text-stone-800'
                         }`}
                       >
-                        <span className={`w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
-                          isCorrect ? 'bg-emerald-600 text-white' : 'bg-stone-200 text-stone-600'
+                        <span className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 shadow-xs ${
+                          isCorrect ? 'bg-emerald-600 text-white' : 'bg-[#ece8e2] text-stone-700'
                         }`}>
-                          {optIdx + 1}
+                          {optionLetter}
                         </span>
-                        <span className="flex-1">{opt}</span>
+                        <span className="flex-1 text-sm sm:text-base font-medium">{opt}</span>
                         {isCorrect && (
-                          <span className="text-[10px] font-bold text-emerald-700 uppercase">
-                            {isMr ? 'अचूक' : 'Correct'}
-                          </span>
+                          <div className="ml-auto shrink-0 flex items-center gap-1 text-emerald-600">
+                            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                          </div>
                         )}
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Solution & Reference */}
-                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-xs sm:text-sm text-stone-700 space-y-1.5">
-                  <div className="font-bold text-stone-900 flex items-center gap-1.5">
-                    <BookOpen className="w-3.5 h-3.5 text-amber-600" />
-                    <span>{isMr ? 'स्पष्टीकरण:' : 'Explanation:'}</span>
+                {/* Solution & Reference - Exactly matching image 2 */}
+                <div className="mt-3.5 p-4 sm:p-5 rounded-xl bg-[#fff9f5] border border-[#f5d7c3] space-y-2 text-xs sm:text-sm text-stone-800 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                  <div className="font-bold text-orange-700 flex items-center gap-1.5 text-sm sm:text-base">
+                    <span className="text-base">📖</span>
+                    <span>{isMr ? 'स्पष्टीकरण' : 'Explanation'}</span>
                   </div>
-                  <p className="leading-relaxed whitespace-pre-line">
+                  <p className="leading-relaxed text-stone-700 italic whitespace-pre-line font-normal text-xs sm:text-sm">
                     {isMr ? q.explanationMr : q.explanationEn}
                   </p>
                   {q.reference && (
-                    <div className="text-[11px] text-stone-500 font-medium pt-1 border-t border-stone-200">
-                      {isMr ? 'संदर्भ:' : 'Reference:'} {q.reference}
+                    <div className="mt-3 pt-2 text-xs text-stone-500 font-medium border-t border-orange-200/60 flex items-center gap-1.5">
+                      <span className="font-semibold text-stone-600">{isMr ? 'संदर्भ ग्रंथ:' : 'Reference:'}</span>
+                      <span className="text-stone-700">{q.reference}</span>
                     </div>
                   )}
                 </div>

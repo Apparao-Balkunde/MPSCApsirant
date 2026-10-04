@@ -296,7 +296,7 @@ export async function loginAsGuest() {
 
 export async function loginAsPreviewUser(
   customName?: string,
-  customEmail?: string
+  customEmail?: string | null
 ): Promise<User> {
 
   const name =
@@ -306,7 +306,7 @@ export async function loginAsPreviewUser(
   // 🔴 सुरक्षा दुरुस्ती — आधी इथे डिफॉल्ट म्हणून developer चा वैयक्तिक
   // ईमेल वापरला जात होता. आता ईमेल दिलाच नाही तर रिकामाच राहतो.
   const email =
-    customEmail?.trim() ||
+    (customEmail && customEmail.trim()) ||
     '';
 
   try {
@@ -402,7 +402,8 @@ export async function loginAsPreviewUser(
 
 export function updateStudentProfile(
   displayName: string,
-  email: string
+  email?: string | null,
+  photoURL?: string | null
 ): User {
 
   const existing =
@@ -428,13 +429,12 @@ export function updateStudentProfile(
       'Guest User',
 
     email:
-      email.trim() ||
+      (email ? email.trim() : '') ||
       existing?.email ||
       '',
 
     photoURL:
-      existing?.photoURL ||
-      null,
+      photoURL !== undefined ? photoURL : (existing?.photoURL || null),
 
     isAnonymous: false,
     emailVerified: true,

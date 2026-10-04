@@ -8,9 +8,6 @@ import {
   RotateCcw, 
   Home, 
   Bookmark, 
-  Sparkles, 
-  ChevronDown, 
-  ChevronUp,
   BookOpen,
   Filter
 } from 'lucide-react';
@@ -45,7 +42,6 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
 }) => {
   const isMr = language === 'mr';
   const [filter, setFilter] = useState<'all' | 'wrong' | 'correct' | 'unattempted' | 'saved'>('all');
-  const [expandedQuestionId, setExpandedQuestionId] = useState<string | null>(null);
 
   // Trigger confetti if accuracy >= 60%
   useEffect(() => {
@@ -344,8 +340,6 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
             const isWrong = isAnswered && userChoice !== q.correctAnswerIndex;
             const isBookmarked = bookmarkedIds.includes(q.id);
 
-            const isExpanded = expandedQuestionId === q.id || filteredQuestions.length <= 3;
-
             return (
               <div key={`${q.id}-${idx}`} className="py-5 space-y-3">
                 {/* Question Header */}
@@ -378,16 +372,6 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    {/* Ask AI Mentor */}
-                    <button
-                      onClick={() => onOpenAiMentor(q, userChoice !== undefined ? (isMr ? q.optionsMr[userChoice] : q.optionsEn[userChoice]) : undefined)}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 transition-colors cursor-pointer"
-                      title="Ask AI Mentor for deep breakdown and memory tricks"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                      <span className="hidden sm:inline">{isMr ? 'मार्गदर्शक AI कडून समजून घ्या' : 'Ask AI Mentor'}</span>
-                    </button>
-
                     {/* Bookmark Toggle */}
                     <button
                       onClick={() => onToggleBookmark(q.id)}
@@ -396,82 +380,79 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
                           ? 'bg-amber-100 border-amber-300 text-amber-800'
                           : 'bg-white border-stone-300 text-stone-500 hover:bg-stone-50'
                       }`}
-                      title={isBookmarked ? 'Remove bookmark' : 'Bookmark question'}
+                      title={isBookmarked ? (isMr ? 'जतन केलेले काढा' : 'Remove bookmark') : (isMr ? 'प्रश्न जतन करा' : 'Bookmark question')}
                     >
                       <Bookmark className={`w-4 h-4 ${isBookmarked ? 'fill-amber-600 text-amber-600' : ''}`} />
-                    </button>
-
-                    {/* Toggle Accordion */}
-                    <button
-                      onClick={() => setExpandedQuestionId(isExpanded ? null : q.id)}
-                      className="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500 cursor-pointer"
-                    >
-                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
                   </div>
                 </div>
 
                 {/* Question Text */}
-                <div className="text-stone-900 font-medium text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                <div className="text-stone-900 font-semibold text-sm sm:text-base leading-relaxed whitespace-pre-line">
                   {isMr ? q.questionMr : q.questionEn}
                 </div>
 
-                {/* Options List */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                {/* Options List - Formatted matching image 2 */}
+                <div className="flex flex-col gap-2.5 pt-1">
                   {(isMr ? q.optionsMr : q.optionsEn).map((optText, optIdx) => {
                     const isSelectedByCandidate = userChoice === optIdx;
                     const isTheCorrectOption = q.correctAnswerIndex === optIdx;
+                    const optionLetter = ['A', 'B', 'C', 'D', 'E', 'F'][optIdx] || `${optIdx + 1}`;
 
-                    let optStyle = 'border-stone-200 bg-white text-stone-700';
+                    let containerStyle = 'border-stone-200/90 bg-[#fbf9f6] text-stone-800 hover:border-stone-300';
+                    let badgeStyle = 'bg-[#ece8e2] text-stone-700 font-bold';
+
                     if (isTheCorrectOption) {
-                      optStyle = 'border-emerald-500 bg-emerald-50/70 text-emerald-950 font-bold';
+                      containerStyle = 'border border-emerald-500 bg-[#edf8f2] text-emerald-950 font-bold shadow-[0_1px_3px_rgba(16,185,129,0.08)]';
+                      badgeStyle = 'bg-emerald-600 text-white font-bold';
                     } else if (isSelectedByCandidate && !isTheCorrectOption) {
-                      optStyle = 'border-rose-400 bg-rose-50/70 text-rose-950 line-through';
+                      containerStyle = 'border border-rose-400 bg-rose-50/70 text-rose-950';
+                      badgeStyle = 'bg-rose-500 text-white font-bold';
                     }
 
                     return (
                       <div
                         key={optIdx}
-                        className={`p-3 rounded-xl border text-xs sm:text-sm flex items-start gap-2.5 ${optStyle}`}
+                        className={`px-4 py-3 rounded-xl border text-xs sm:text-sm flex items-center gap-3.5 transition-colors ${containerStyle}`}
                       >
-                        <span className={`w-5 h-5 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
-                          isTheCorrectOption
-                            ? 'bg-emerald-600 text-white'
-                            : isSelectedByCandidate
-                            ? 'bg-rose-500 text-white'
-                            : 'bg-stone-200 text-stone-700'
-                        }`}>
-                          {optIdx + 1}
+                        <span className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 shadow-xs ${badgeStyle}`}>
+                          {optionLetter}
                         </span>
-                        <span className="flex-1">{optText}</span>
+                        <span className={`flex-1 text-sm sm:text-base font-medium ${isSelectedByCandidate && !isTheCorrectOption ? 'line-through text-rose-900' : ''}`}>
+                          {optText}
+                        </span>
                         {isTheCorrectOption && (
-                          <span className="text-[10px] font-bold uppercase text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">
-                            {isMr ? 'अचूक उत्तर' : 'Correct'}
-                          </span>
+                          <div className="ml-auto shrink-0 flex items-center gap-1 text-emerald-600">
+                            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                          </div>
+                        )}
+                        {isSelectedByCandidate && !isTheCorrectOption && (
+                          <div className="ml-auto shrink-0 flex items-center gap-1.5 text-xs font-bold text-rose-700 bg-rose-100/90 px-2 py-0.5 rounded-md">
+                            <XCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                            <span>{isMr ? 'तुमची निवड' : 'Your choice'}</span>
+                          </div>
                         )}
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Detailed Explanation Box */}
-                {isExpanded && (
-                  <div className="mt-3 p-4 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2 text-xs sm:text-sm text-stone-800">
-                    <div className="font-bold text-amber-900 flex items-center gap-1.5">
-                      <BookOpen className="w-4 h-4 text-amber-700" />
-                      <span>{isMr ? 'स्पष्टीकरण व संदर्भ (Detailed Solution):' : 'Explanation & Official Reference:'}</span>
-                    </div>
-                    <p className="leading-relaxed text-stone-700 whitespace-pre-line">
-                      {isMr ? q.explanationMr : q.explanationEn}
-                    </p>
-                    {q.reference && (
-                      <div className="pt-2 text-xs text-stone-500 font-semibold border-t border-amber-200/60 flex items-center gap-1">
-                        <span>{isMr ? 'संदर्भ ग्रंथ:' : 'Reference:'}</span>
-                        <span className="text-stone-700">{q.reference}</span>
-                      </div>
-                    )}
+                {/* Detailed Explanation Box - Exactly matching image 2 */}
+                <div className="mt-3.5 p-4 sm:p-5 rounded-xl bg-[#fff9f5] border border-[#f5d7c3] space-y-2 text-xs sm:text-sm text-stone-800 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                  <div className="font-bold text-orange-700 flex items-center gap-1.5 text-sm sm:text-base">
+                    <span className="text-base">📖</span>
+                    <span>{isMr ? 'स्पष्टीकरण' : 'Explanation'}</span>
                   </div>
-                )}
+                  <p className="leading-relaxed text-stone-700 italic whitespace-pre-line font-normal text-xs sm:text-sm">
+                    {isMr ? q.explanationMr : q.explanationEn}
+                  </p>
+                  {q.reference && (
+                    <div className="mt-3 pt-2 text-xs text-stone-500 font-medium border-t border-orange-200/60 flex items-center gap-1.5">
+                      <span className="font-semibold text-stone-600">{isMr ? 'संदर्भ ग्रंथ:' : 'Reference:'}</span>
+                      <span className="text-stone-700">{q.reference}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}
