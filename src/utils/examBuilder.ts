@@ -111,6 +111,8 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2023_'));
   } else if (options.patternId === 'mpsc_combine_pre_2023') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_combine_23_'));
+  } else if (options.patternId === 'mpsc_combine_pre_2022') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_combine_22_'));
   } else if (options.patternId === 'mpsc_pyq_2022') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2022_'));
   } else if (options.patternId === 'mpsc_combine_mains_pyq') {
@@ -143,13 +145,14 @@ export function createExamSession(options: {
     ? 25
     : options.patternId === 'hard_challenge'
     ? 25
-    : (options.patternId === 'mpsc_pyq_2024' || options.patternId === 'mpsc_pyq_2023' || options.patternId === 'mpsc_combine_pre_2023' || options.patternId === 'mpsc_pyq_2022' || options.patternId === 'mpsc_combine_mains_pyq')
+    : (options.patternId === 'mpsc_pyq_2024' || options.patternId === 'mpsc_pyq_2023' || options.patternId === 'mpsc_combine_pre_2023' || options.patternId === 'mpsc_combine_pre_2022' || options.patternId === 'mpsc_pyq_2022' || options.patternId === 'mpsc_combine_mains_pyq')
     ? undefined
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
   const isOfficialSequential = options.patternId === 'mpsc_pyq_2024' || 
     options.patternId === 'mpsc_pyq_2023' || 
     options.patternId === 'mpsc_combine_pre_2023' || 
+    options.patternId === 'mpsc_combine_pre_2022' || 
     options.patternId === 'mpsc_pyq_2022' || 
     options.patternId === 'mpsc_combine_mains_pyq';
   const shuffled = isOfficialSequential
@@ -175,6 +178,11 @@ export function createExamSession(options: {
     durationMinutes = options.durationMinutes || 120;
   } else if (options.patternId === 'mpsc_combine_pre_2023') {
     defaultTitle = options.title || 'MPSC अराजपत्रित गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२३ (30 April 2023)';
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_combine_pre_2022') {
+    defaultTitle = options.title || 'MPSC दुय्यम सेवा गट-ब संयुक्त पूर्व परीक्षा २०२२ (08 Oct 2022, Booklet A16)';
     marksPerQuestion = 1;
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || 60;

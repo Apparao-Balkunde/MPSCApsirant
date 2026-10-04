@@ -24,6 +24,7 @@ import { soundFx } from '../utils/audio';
 import { MPSC_PYQ_2024_FULL_100 } from '../data/mpscPyq2024';
 import { MPSC_PYQ_2023_GS } from '../data/mpscPyq2023';
 import { MPSC_COMBINE_PRE_2023 } from '../data/mpscCombinePre2023';
+import { MPSC_COMBINE_PRE_2022_FULL_100 } from '../data/mpscCombinePre2022';
 import { MPSC_PYQ_2022 } from '../data/mpscPyq2022';
 import { MPSC_COMBINE_MAINS_PYQ } from '../data/mpscCombineMainsPyq';
 
@@ -116,6 +117,26 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['३० एप्रिल २०२३', 'गट-ब व क', '६० मिनिटे', '१०० प्रश्न'],
     tagsEn: ['30 April 2023', 'Group B & C', '60 Mins', '100 Questions'],
     questions: MPSC_COMBINE_PRE_2023
+  },
+  {
+    id: 'mpsc_combine_prelims_2022_official',
+    patternId: 'mpsc_combine_pre_2022',
+    titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०२२ (०८ ऑक्टोबर २०२२)',
+    titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2022 (08 Oct 2022)',
+    examDate: '०८ ऑक्टोबर २०२२',
+    category: 'combine',
+    categoryLabelMr: 'गट-ब संयुक्त पूर्व २०२२',
+    categoryLabelEn: 'Group B Prelims 2022',
+    bookletCode: 'A16 (संच A)',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोगाने ०८ ऑक्टोबर २०२२ रोजी घेतलेली मूळ प्रश्नपत्रिका (प्रश्नपुस्तिका A16, संच A). १०० प्रश्न, आयोगाची अंतिम अधिकृत उत्तरतालिका (३० नोव्हेंबर २०२२) आणि प्रत्येक प्रश्नाचे सविस्तर संदर्भ स्पष्टीकरण.',
+    descriptionEn: 'Official MPSC Group B Combined Prelims Question Paper (Booklet A16, Set A) conducted on 08 October 2022 with Final Official Answer Key and in-depth step-by-step solutions.',
+    tagsMr: ['अधिकृत PYQ', 'पूर्ण १०० प्रश्न', '६० मिनिटे', '१०० गुण', 'अंतिम की'],
+    tagsEn: ['Official PYQ', '100 Questions', '60 Mins', '100 Marks', 'Final Key'],
+    questions: MPSC_COMBINE_PRE_2022_FULL_100
   },
   {
     id: 'mpsc_pyq_2022_archive',

@@ -43,6 +43,7 @@ import { MPSC_PYQ_2024_FULL_100 } from './mpscPyq2024';
 import { MPSC_PYQ_2023_GS } from './mpscPyq2023';
 import { MPSC_COMBINE_PRE_2023 } from './mpscCombinePre2023';
 import { MPSC_PYQ_2022 } from './mpscPyq2022';
+import { MPSC_COMBINE_PRE_2022_FULL_100 } from './mpscCombinePre2022';
 import { MPSC_COMBINE_MAINS_PYQ } from './mpscCombineMainsPyq';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
@@ -1018,6 +1019,8 @@ export const MPSC_QUESTIONS: Question[] = [
   ...MPSC_COMBINE_PRE_2023,
   // MPSC Prelims 2022 Official PYQ
   ...MPSC_PYQ_2022,
+  // MPSC Group B Combined Prelims 2022 (08 Oct 2022, Booklet A16 - Set A) Full 100 Questions with Official Key
+  ...MPSC_COMBINE_PRE_2022_FULL_100,
   // MPSC Group B Combined Mains Official Papers (मराठी, इंग्रजी, GS व कायदे)
   ...MPSC_COMBINE_MAINS_PYQ,
 ];
