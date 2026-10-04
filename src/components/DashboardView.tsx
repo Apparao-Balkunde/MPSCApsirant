@@ -1000,11 +1000,60 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-xl font-extrabold text-stone-900">
-              {isMr ? 'मुख्य सराव परीक्षा पॅटर्न' : 'Full Exam Practice Modules'}
+              {isMr ? 'मुख्य सराव परीक्षा व मागील वर्षाच्या प्रश्नपत्रिका' : 'Full Exam Practice Modules & Official PYQs'}
             </h2>
             <p className="text-xs text-stone-500">
               {isMr ? 'परीक्षेच्या प्रत्यक्ष स्वरूपानुसार नकारात्मक गुणांकनासह सराव करा.' : 'Practice in authentic MPSC time-bound formats with negative markings.'}
             </p>
+          </div>
+        </div>
+
+        {/* Featured: MPSC 2024 Official Paper 1 PYQ Banner */}
+        <div className="bg-gradient-to-r from-stone-900 via-amber-950 to-stone-900 rounded-2xl border-2 border-amber-500/50 p-6 sm:p-7 shadow-lg text-white mb-6 relative overflow-hidden">
+          <div className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none">
+            <Award className="w-56 h-56 text-amber-400" />
+          </div>
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div className="space-y-2 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-3 py-1 rounded-full bg-amber-500 text-stone-950 text-xs font-black uppercase tracking-wider shadow-xs">
+                  {isMr ? 'अधिकृत मागील वर्षाची प्रश्नपत्रिका (PYQ)' : 'Official Previous Year Paper'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                  {isMr ? '१ डिसेंबर २०२४ (प्रश्नपुस्तिका W18 - संच A)' : '01 Dec 2024 (Booklet W18 - Set A)'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
+                  {isMr ? '१०० प्रश्न • अधिकृत उत्तरतालिका व सविस्तर स्पष्टीकरण' : '100 Questions • Official Answer Key'}
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                {isMr 
+                  ? 'महाराष्ट्र राजपत्रित नागरी सेवा संयुक्त (पूर्व) स्पर्धा परीक्षा-२०२४' 
+                  : 'Maharashtra Gazetted Civil Services Combined (Prelims) Exam 2024'}
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'महाराष्ट्र लोकसेवा आयोगाने (MPSC) १ डिसेंबर २०२४ रोजी घेतलेल्या पेपर-१ (GS) मधील सर्व १०० प्रश्न, आयोगाची अधिकृत उत्तरतालिका आणि प्रत्येक प्रश्नाचे संदर्भग्रंथासहित सविस्तर स्पष्टीकरण अभ्यासा किंवा प्रत्यक्ष २ तासांची ऑनलाइन परीक्षा सोडवा.'
+                  : 'Practice all 100 questions from MPSC Civil Services Prelims Paper-1 (01 Dec 2024) with official MPSC answer key and in-depth reference solutions.'}
+              </p>
+              <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <span>⏱️ {isMr ? 'वेळ: २ तास (१२० मिनिटे)' : 'Duration: 2 Hours (120 Mins)'}</span>
+                <span>•</span>
+                <span>🎯 {isMr ? 'एकूण गुण: २००' : 'Total Marks: 200'}</span>
+                <span>•</span>
+                <span>⚖️ {isMr ? 'नकारात्मक: १/४ (-०.५०)' : 'Negative: 1/4 (-0.50)'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                onClick={() => onStartExam('mpsc_pyq_2024', undefined, isMr ? 'MPSC नागरी सेवा संयुक्त पूर्व परीक्षा २०२४ (अधिकृत पेपर १)' : 'MPSC Civil Services Prelims 2024 (Official Paper 1)')}
+                className="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                <span>{isMr ? '२०२४ अधिकृत परीक्षा सुरू करा' : 'Start 2024 Official Paper'}</span>
+              </button>
+            </div>
           </div>
         </div>
 

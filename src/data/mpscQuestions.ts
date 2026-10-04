@@ -39,6 +39,7 @@ import { QUESTIONS_SET_29 } from './questionsSet29';
 import { QUESTIONS_SET_30 } from './questionsSet30';
 import { MARATHI_VOCAB_QUESTIONS } from './marathiVocabQuestions';
 import { ENGLISH_VOCAB_QUESTIONS } from './englishVocabQuestions';
+import { MPSC_PYQ_2024_FULL_100 } from './mpscPyq2024';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -1005,4 +1006,6 @@ export const MPSC_QUESTIONS: Question[] = [
   // Marathi & English Vocabulary (समानार्थी, विरुद्धार्थी, म्हणी, वाक्प्रचार, One-Word Substitutions)
   ...MARATHI_VOCAB_QUESTIONS,
   ...ENGLISH_VOCAB_QUESTIONS,
+  // MPSC Rajyaseva / Civil Services Combined Prelims Paper 1 (01 Dec 2024, Booklet W18 - Set A) Full 100 PYQ with Official Key
+  ...MPSC_PYQ_2024_FULL_100,
 ];

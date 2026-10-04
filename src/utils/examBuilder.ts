@@ -105,6 +105,8 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter(
       (q) => q.subjectId === 'current_affairs' || q.yearTag?.includes('2026') || q.yearTag?.includes('2027')
     );
+  } else if (options.patternId === 'mpsc_pyq_2024') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2024_'));
   } else {
     eligibleQuestions = [...pool];
   }
@@ -133,9 +135,13 @@ export function createExamSession(options: {
     ? 25
     : options.patternId === 'hard_challenge'
     ? 25
+    : options.patternId === 'mpsc_pyq_2024'
+    ? undefined
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
-  const shuffled = [...uniqueEligible].sort(() => 0.5 - Math.random());
+  const shuffled = options.patternId === 'mpsc_pyq_2024' 
+    ? [...uniqueEligible] 
+    : [...uniqueEligible].sort(() => 0.5 - Math.random());
   const selected = limit ? shuffled.slice(0, limit) : shuffled;
 
   // Pattern specifics
@@ -144,7 +150,12 @@ export function createExamSession(options: {
   let negativeMarkRate = 0.25; // 1/4th penalty (i.e. -0.5 for 2 marks)
   let defaultTitle = 'MPSC Practice Test';
 
-  if (options.patternId === 'hard_challenge') {
+  if (options.patternId === 'mpsc_pyq_2024') {
+    defaultTitle = options.title || 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२४ (Original Paper 1)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 120;
+  } else if (options.patternId === 'hard_challenge') {
     defaultTitle = options.title || 'MPSC 100k Hard Level Challenge (कठीण स्तर सराव)';
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
