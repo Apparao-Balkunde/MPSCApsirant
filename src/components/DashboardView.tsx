@@ -42,6 +42,7 @@ import { MpscHallOfFameAndPredictor } from './MpscHallOfFameAndPredictor';
 import { MpscBookShelf } from './MpscBookShelf';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
+import { DailyChallengeModal } from './DailyChallengeModal';
 
 const SUBJECT_BOOK_COVERS: Record<string, string> = {
   marathi_grammar: '/open_reference_book.jpg',
@@ -133,6 +134,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   // Recent Activity computation: latest 5 completed exams & study sessions
   const [activityFilter, setActivityFilter] = useState<'all' | 'exams' | 'sessions'>('all');
   const [exportSuccessMsg, setExportSuccessMsg] = useState<string | null>(null);
+  const [showDailyChallengeModal, setShowDailyChallengeModal] = useState<boolean>(false);
 
   const handleRecentActivityExport = () => {
     if (onOpenBackupModal) {
@@ -298,11 +300,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <div className="flex items-center gap-3 pt-2 flex-wrap">
               <button
                 id="btn-quick-daily-challenge"
-                onClick={() => onStartExam('daily_10_challenge')}
+                onClick={() => setShowDailyChallengeModal(true)}
                 className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-extrabold text-sm flex items-center gap-2 shadow-md hover:shadow-amber-500/25 transition-all cursor-pointer hover:scale-[1.02]"
               >
                 <Zap className="w-4 h-4 fill-stone-950" />
                 <span>{isMr ? 'दैनिक १० मिनिटांचे चॅलेंज सोडवा' : 'Take Daily 10-Min Challenge'}</span>
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-stone-950/20 text-stone-950">
+                  {isMr ? 'GS • इंग्रजी • मराठी' : 'GS • Eng • Mar'}
+                </span>
               </button>
 
               {userProgress.bookmarkedQuestionIds.length > 0 && (
@@ -369,6 +374,45 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <span>{isMr ? '⏳ परीक्षा काउंटडाउन' : '⏳ Exam Countdown'}</span>
                 </button>
               )}
+            </div>
+
+            {/* Quick Subject Chips for 10-Minute Challenge */}
+            <div className="pt-2 flex items-center gap-2 flex-wrap text-xs">
+              <span className="text-stone-400 font-medium text-[11px] flex items-center gap-1">
+                <span>⚡ {isMr ? '१०-मिनिट थेट विषय निवडा:' : '10-Min Quick Subject:'}</span>
+              </span>
+
+              <button
+                onClick={() => onStartExam('daily_10_challenge', 'gs', isMr ? 'दैनिक १०-मिनिट चॅलेंज: सामान्य अध्ययन (GS)' : 'Daily 10-Min: General Studies (GS)')}
+                className="px-2.5 py-1 rounded-lg bg-blue-950/70 hover:bg-blue-900 text-blue-300 border border-blue-500/40 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 hover:scale-105 shadow-xs"
+              >
+                <span>🏛️</span>
+                <span>{isMr ? 'सामान्य अध्ययन (GS)' : 'GS'}</span>
+              </button>
+
+              <button
+                onClick={() => onStartExam('daily_10_challenge', 'english_grammar', isMr ? 'दैनिक १०-मिनिट चॅलेंज: इंग्रजी व्याकरण (English)' : 'Daily 10-Min: English Grammar')}
+                className="px-2.5 py-1 rounded-lg bg-sky-950/70 hover:bg-sky-900 text-sky-300 border border-sky-500/40 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 hover:scale-105 shadow-xs"
+              >
+                <span>🔤</span>
+                <span>{isMr ? 'इंग्रजी व्याकरण (English)' : 'English'}</span>
+              </button>
+
+              <button
+                onClick={() => onStartExam('daily_10_challenge', 'marathi_grammar', isMr ? 'दैनिक १०-मिनिट चॅलेंज: मराठी व्याकरण (Marathi)' : 'Daily 10-Min: Marathi Grammar')}
+                className="px-2.5 py-1 rounded-lg bg-amber-950/70 hover:bg-amber-900 text-amber-300 border border-amber-500/40 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 hover:scale-105 shadow-xs"
+              >
+                <span>🚩</span>
+                <span>{isMr ? 'मराठी व्याकरण (Marathi)' : 'Marathi'}</span>
+              </button>
+
+              <button
+                onClick={() => onStartExam('daily_10_challenge', undefined, isMr ? 'दैनिक १०-मिनिट चॅलेंज: सर्वसमावेशक (Combo)' : 'Daily 10-Min: Full Combo')}
+                className="px-2.5 py-1 rounded-lg bg-emerald-950/70 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition-all cursor-pointer flex items-center gap-1 hover:scale-105 shadow-xs"
+              >
+                <span>🎯</span>
+                <span>{isMr ? 'सर्वसमावेशक (Combo)' : 'Full Combo'}</span>
+              </button>
             </div>
           </div>
 
@@ -1362,6 +1406,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           })}
         </div>
       </div>
+
+      {/* Daily 10-Minute Challenge Subject Selector Modal */}
+      <DailyChallengeModal
+        isOpen={showDailyChallengeModal}
+        onClose={() => setShowDailyChallengeModal(false)}
+        language={language}
+        onStartChallenge={(subjectId, title) => {
+          onStartExam('daily_10_challenge', subjectId, title);
+        }}
+      />
     </div>
   );
 };

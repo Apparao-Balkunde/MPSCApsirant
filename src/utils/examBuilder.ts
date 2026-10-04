@@ -41,8 +41,52 @@ export function createExamSession(options: {
       subjectId: options.subjectId || 'all',
       count: requestedCount,
     });
+  } else if (options.patternId === 'daily_10_challenge') {
+    if (options.subjectId === 'english_grammar') {
+      eligibleQuestions = pool.filter((q) => q.subjectId === 'english_grammar');
+    } else if (options.subjectId === 'marathi_grammar') {
+      eligibleQuestions = pool.filter((q) => q.subjectId === 'marathi_grammar');
+    } else if (options.subjectId === 'gs') {
+      eligibleQuestions = pool.filter(
+        (q) =>
+          q.subjectId !== 'english_grammar' &&
+          q.subjectId !== 'marathi_grammar' &&
+          q.subjectId !== 'csat'
+      );
+    } else if (options.subjectId) {
+      eligibleQuestions = pool.filter((q) => q.subjectId === options.subjectId);
+    } else {
+      // Balanced Combo: GS + Marathi + English
+      const gsQs = pool
+        .filter(
+          (q) =>
+            q.subjectId !== 'english_grammar' &&
+            q.subjectId !== 'marathi_grammar' &&
+            q.subjectId !== 'csat'
+        )
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 5);
+      const marathiQs = pool
+        .filter((q) => q.subjectId === 'marathi_grammar')
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 5);
+      const englishQs = pool
+        .filter((q) => q.subjectId === 'english_grammar')
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 5);
+      eligibleQuestions = [...gsQs, ...marathiQs, ...englishQs];
+    }
   } else if (options.subjectId) {
-    eligibleQuestions = pool.filter((q) => q.subjectId === options.subjectId);
+    if (options.subjectId === 'gs') {
+      eligibleQuestions = pool.filter(
+        (q) =>
+          q.subjectId !== 'english_grammar' &&
+          q.subjectId !== 'marathi_grammar' &&
+          q.subjectId !== 'csat'
+      );
+    } else {
+      eligibleQuestions = pool.filter((q) => q.subjectId === options.subjectId);
+    }
   } else if (options.patternId === 'rajyaseva_gs') {
     eligibleQuestions = pool.filter(
       (q) => q.exam === 'Rajyaseva' || q.exam === 'Both'
@@ -83,7 +127,9 @@ export function createExamSession(options: {
   const uniqueEligible = Array.from(uniqueEligibleMap.values());
 
   // Shuffle questions and apply sensible limits for large question banks
-  const defaultLimit = options.patternId === 'current_affairs_2026'
+  const defaultLimit = options.patternId === 'daily_10_challenge'
+    ? (options.limit || (options.subjectId ? 10 : 15))
+    : options.patternId === 'current_affairs_2026'
     ? 25
     : options.patternId === 'hard_challenge'
     ? 25
@@ -114,7 +160,15 @@ export function createExamSession(options: {
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || Math.max(10, selected.length * 0.8);
   } else if (options.patternId === 'daily_10_challenge') {
-    defaultTitle = 'Daily 10-Minute Rapid MPSC Challenge';
+    defaultTitle = options.title || (
+      options.subjectId === 'english_grammar'
+        ? 'Daily 10-Minute Challenge: इंग्रजी व्याकरण (English Grammar)'
+        : options.subjectId === 'marathi_grammar'
+        ? 'Daily 10-Minute Challenge: मराठी व्याकरण (Marathi Grammar)'
+        : options.subjectId === 'gs'
+        ? 'Daily 10-Minute Challenge: सामान्य अध्ययन (General Studies - GS)'
+        : 'Daily 10-Minute Rapid MPSC Challenge'
+    );
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
     durationMinutes = 10;
