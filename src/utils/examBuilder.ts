@@ -107,6 +107,14 @@ export function createExamSession(options: {
     );
   } else if (options.patternId === 'mpsc_pyq_2024') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2024_'));
+  } else if (options.patternId === 'mpsc_pyq_2023') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2023_'));
+  } else if (options.patternId === 'mpsc_combine_pre_2023') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_combine_23_'));
+  } else if (options.patternId === 'mpsc_pyq_2022') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2022_'));
+  } else if (options.patternId === 'mpsc_combine_mains_pyq') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_mains_'));
   } else {
     eligibleQuestions = [...pool];
   }
@@ -135,11 +143,16 @@ export function createExamSession(options: {
     ? 25
     : options.patternId === 'hard_challenge'
     ? 25
-    : options.patternId === 'mpsc_pyq_2024'
+    : (options.patternId === 'mpsc_pyq_2024' || options.patternId === 'mpsc_pyq_2023' || options.patternId === 'mpsc_combine_pre_2023' || options.patternId === 'mpsc_pyq_2022' || options.patternId === 'mpsc_combine_mains_pyq')
     ? undefined
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
-  const shuffled = options.patternId === 'mpsc_pyq_2024' 
+  const isOfficialSequential = options.patternId === 'mpsc_pyq_2024' || 
+    options.patternId === 'mpsc_pyq_2023' || 
+    options.patternId === 'mpsc_combine_pre_2023' || 
+    options.patternId === 'mpsc_pyq_2022' || 
+    options.patternId === 'mpsc_combine_mains_pyq';
+  const shuffled = isOfficialSequential
     ? [...uniqueEligible] 
     : [...uniqueEligible].sort(() => 0.5 - Math.random());
   const selected = limit ? shuffled.slice(0, limit) : shuffled;
@@ -155,6 +168,26 @@ export function createExamSession(options: {
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || 120;
+  } else if (options.patternId === 'mpsc_pyq_2023') {
+    defaultTitle = options.title || 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२३ (Paper 1 - GS)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 120;
+  } else if (options.patternId === 'mpsc_combine_pre_2023') {
+    defaultTitle = options.title || 'MPSC अराजपत्रित गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२३ (30 April 2023)';
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_pyq_2022') {
+    defaultTitle = options.title || 'MPSC राज्यसेवा / संयुक्त पूर्व परीक्षा २०२२ (अधिकृत PYQ)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_combine_mains_pyq') {
+    defaultTitle = options.title || 'MPSC गट-ब संयुक्त मुख्य परीक्षा (अधिकृत पेपर १ व २ PYQ)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
   } else if (options.patternId === 'hard_challenge') {
     defaultTitle = options.title || 'MPSC 100k Hard Level Challenge (कठीण स्तर सराव)';
     marksPerQuestion = 2;

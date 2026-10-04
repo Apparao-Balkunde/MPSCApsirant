@@ -40,6 +40,10 @@ import { QUESTIONS_SET_30 } from './questionsSet30';
 import { MARATHI_VOCAB_QUESTIONS } from './marathiVocabQuestions';
 import { ENGLISH_VOCAB_QUESTIONS } from './englishVocabQuestions';
 import { MPSC_PYQ_2024_FULL_100 } from './mpscPyq2024';
+import { MPSC_PYQ_2023_GS } from './mpscPyq2023';
+import { MPSC_COMBINE_PRE_2023 } from './mpscCombinePre2023';
+import { MPSC_PYQ_2022 } from './mpscPyq2022';
+import { MPSC_COMBINE_MAINS_PYQ } from './mpscCombineMainsPyq';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -1008,4 +1012,12 @@ export const MPSC_QUESTIONS: Question[] = [
   ...ENGLISH_VOCAB_QUESTIONS,
   // MPSC Rajyaseva / Civil Services Combined Prelims Paper 1 (01 Dec 2024, Booklet W18 - Set A) Full 100 PYQ with Official Key
   ...MPSC_PYQ_2024_FULL_100,
+  // MPSC Rajyaseva Prelims 2023 GS Paper 1 PYQ
+  ...MPSC_PYQ_2023_GS,
+  // MPSC Combine Group B & C Prelims (30 April 2023) Official PYQ
+  ...MPSC_COMBINE_PRE_2023,
+  // MPSC Prelims 2022 Official PYQ
+  ...MPSC_PYQ_2022,
+  // MPSC Group B Combined Mains Official Papers (मराठी, इंग्रजी, GS व कायदे)
+  ...MPSC_COMBINE_MAINS_PYQ,
 ];

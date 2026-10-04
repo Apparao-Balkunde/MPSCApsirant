@@ -73,6 +73,7 @@ interface DashboardViewProps {
   onOpenCloudSync?: () => void;
   onOpenAddQuestion?: () => void;
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
+  onOpenPyqHub?: () => void;
   onOpenBackupModal?: () => void;
   onOpenExamCountdown?: () => void;
   onOpenInformationHub?: () => void;
@@ -103,6 +104,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenBackupModal,
   onOpenExamCountdown,
   onOpenInformationHub,
+  onOpenPyqHub,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1045,13 +1047,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                onClick={() => onOpenPyqHub?.()}
+                className="px-5 py-3.5 bg-stone-900/90 hover:bg-stone-800 text-amber-300 hover:text-white border border-amber-500/50 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <BookOpen className="w-4 h-4 text-amber-400" />
+                <span>{isMr ? 'सर्व प्रश्नपत्रिका व स्पष्टीकरणे पहा (PYQ Hub)' : 'All Question Papers & Solutions'}</span>
+              </button>
               <button
                 onClick={() => onStartExam('mpsc_pyq_2024', undefined, isMr ? 'MPSC नागरी सेवा संयुक्त पूर्व परीक्षा २०२४ (अधिकृत पेपर १)' : 'MPSC Civil Services Prelims 2024 (Official Paper 1)')}
                 className="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
               >
                 <Play className="w-4 h-4 fill-current" />
-                <span>{isMr ? '२०२४ अधिकृत परीक्षा सुरू करा' : 'Start 2024 Official Paper'}</span>
+                <span>{isMr ? '२०२४ अधिकृत परीक्षा सोडवा' : 'Start 2024 Official Paper'}</span>
               </button>
             </div>
           </div>

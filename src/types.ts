@@ -30,6 +30,10 @@ export type ExamPatternId =
   | 'daily_10_challenge'
   | 'hard_challenge'
   | 'mpsc_pyq_2024'
+  | 'mpsc_pyq_2023'
+  | 'mpsc_combine_pre_2023'
+  | 'mpsc_pyq_2022'
+  | 'mpsc_combine_mains_pyq'
   | 'custom';
 
 export interface Question {

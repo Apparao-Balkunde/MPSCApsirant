@@ -53,6 +53,7 @@ export interface HeaderProps {
   onOpenSettings?: () => void;
   onToggleSoundEffects?: () => void;
   onOpenHardQuestionsHub?: () => void;
+  onOpenPyqHub?: () => void;
   onOpenExamCountdown?: () => void;
   onOpenInformationHub?: () => void;
   onOpenCustomImageManager?: () => void;
@@ -72,6 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSettings,
   onToggleSoundEffects,
   onOpenHardQuestionsHub,
+  onOpenPyqHub,
   onOpenExamCountdown,
   onOpenInformationHub,
   onOpenCustomImageManager,
@@ -331,6 +333,18 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400/40 animate-pulse" />
                   <span>{isMr ? '१ लाख प्रश्न' : '100k Qs'}</span>
+                </button>
+              )}
+
+              {onOpenPyqHub && (
+                <button
+                  id="nav-pyq-hub-btn"
+                  onClick={onOpenPyqHub}
+                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-amber-300 border border-amber-400/50 cursor-pointer shadow-xs hover:scale-105"
+                  title={isMr ? "मागील वर्षाच्या अधिकृत प्रश्नपत्रिका व स्पष्टीकरणे (PYQs)" : "Official Previous Year Question Papers & Solutions"}
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{isMr ? 'मागील प्रश्नपत्रिका' : 'PYQ Papers'}</span>
                 </button>
               )}
 
@@ -661,6 +675,16 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Flame className="w-3.5 h-3.5 fill-amber-400" />
               <span>{isMr ? '१ लाख' : '100k'}</span>
+            </button>
+          )}
+
+          {onOpenPyqHub && (
+            <button
+              onClick={onOpenPyqHub}
+              className="px-2 py-1 rounded-lg font-bold text-amber-300 flex items-center gap-1 shrink-0 cursor-pointer bg-amber-500/20 border border-amber-500/40"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+              <span>{isMr ? 'PYQ' : 'PYQ'}</span>
             </button>
           )}
 

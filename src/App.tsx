@@ -33,6 +33,7 @@ import { SettingsModal } from './components/SettingsModal';
 import { LocalBackupModal } from './components/LocalBackupModal';
 import { LegalModal } from './components/LegalModal';
 import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
+import { MpscPyqHubModal } from './components/MpscPyqHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
 import { CustomImageManagerModal } from './components/CustomImageManagerModal';
@@ -87,6 +88,9 @@ export default function App() {
 
   // 100k Hard Questions Hub modal state
   const [isHardQuestionsHubOpen, setIsHardQuestionsHubOpen] = useState<boolean>(false);
+
+  // MPSC Official Previous Year Question Papers (PYQ Hub) modal state
+  const [isPyqHubOpen, setIsPyqHubOpen] = useState<boolean>(false);
 
   // MPSC Exam Countdown & Timetable modal state
   const [isExamCountdownOpen, setIsExamCountdownOpen] = useState<boolean>(false);
@@ -861,6 +865,7 @@ export default function App() {
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
             onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
+            onOpenPyqHub={() => setIsPyqHubOpen(true)}
             onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
             onOpenInformationHub={() => setIsInformationHubOpen(true)}
             onOpenCustomImageManager={() => setIsImageManagerOpen(true)}
@@ -889,6 +894,7 @@ export default function App() {
                   setIsCloudSyncOpen(true);
                 }}
                 onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
+                onOpenPyqHub={() => setIsPyqHubOpen(true)}
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
                 onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
                 onOpenInformationHub={() => setIsInformationHubOpen(true)}
@@ -1108,6 +1114,15 @@ export default function App() {
         onClose={() => setIsHardQuestionsHubOpen(false)}
         language={userProgress.preferredLanguage}
         onStartHardExam={handleStartHardExam}
+      />
+
+      {/* MPSC Official Previous Year Question Papers (PYQ Hub) Modal */}
+      <MpscPyqHubModal
+        isOpen={isPyqHubOpen}
+        onClose={() => setIsPyqHubOpen(false)}
+        language={userProgress.preferredLanguage}
+        onStartExam={handleStartExam}
+        questionsPool={questions}
       />
 
       {/* MPSC Exam Countdown & Timetable Modal */}
