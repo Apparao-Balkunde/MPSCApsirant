@@ -39,6 +39,7 @@ import { QUESTIONS_SET_29 } from './questionsSet29';
 import { QUESTIONS_SET_30 } from './questionsSet30';
 import { MARATHI_VOCAB_QUESTIONS } from './marathiVocabQuestions';
 import { ENGLISH_VOCAB_QUESTIONS } from './englishVocabQuestions';
+import { MPSC_COMBINE_PRE_2026_FULL_100 } from './mpscCombinePre2026';
 import { MPSC_PYQ_2024_FULL_100 } from './mpscPyq2024';
 import { MPSC_PYQ_2023_GS } from './mpscPyq2023';
 import { MPSC_COMBINE_PRE_2023 } from './mpscCombinePre2023';
@@ -1013,6 +1014,8 @@ export const MPSC_QUESTIONS: Question[] = [
   // Marathi & English Vocabulary (समानार्थी, विरुद्धार्थी, म्हणी, वाक्प्रचार, One-Word Substitutions)
   ...MARATHI_VOCAB_QUESTIONS,
   ...ENGLISH_VOCAB_QUESTIONS,
+  // MPSC Non-Gazetted Group B Combined Prelims Exam 2026 (14 June 2026, Booklet H25 - Set A) Full 100 Questions with Official Final Key
+  ...MPSC_COMBINE_PRE_2026_FULL_100,
   // MPSC Rajyaseva / Civil Services Combined Prelims Paper 1 (01 Dec 2024, Booklet W18 - Set A) Full 100 PYQ with Official Key
   ...MPSC_PYQ_2024_FULL_100,
   // MPSC Rajyaseva Prelims 2023 GS Paper 1 PYQ

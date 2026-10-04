@@ -29,6 +29,7 @@ export type ExamPatternId =
   | 'current_affairs_2026'
   | 'daily_10_challenge'
   | 'hard_challenge'
+  | 'mpsc_combine_pre_2026'
   | 'mpsc_pyq_2024'
   | 'mpsc_pyq_2023'
   | 'mpsc_combine_pre_2023'

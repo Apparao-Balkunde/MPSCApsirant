@@ -1018,49 +1018,52 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
             <div className="space-y-2 max-w-3xl">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="px-3 py-1 rounded-full bg-amber-500 text-stone-950 text-xs font-black uppercase tracking-wider shadow-xs">
-                  {isMr ? 'अधिकृत मागील वर्षाची प्रश्नपत्रिका (PYQ)' : 'Official Previous Year Paper'}
+                <span className="px-3 py-1 rounded-full bg-amber-500 text-stone-950 text-xs font-black uppercase tracking-wider shadow-xs flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-stone-950" />
+                  {isMr ? 'अधिकृत मागील प्रश्नपत्रिका व सविस्तर स्पष्टीकरणे' : 'Official Previous Question Papers & Solutions'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
-                  {isMr ? '१ डिसेंबर २०२४ (प्रश्नपुस्तिका W18 - संच A)' : '01 Dec 2024 (Booklet W18 - Set A)'}
+                  {isMr ? '२०२६ (H25), २०२४, २०२३, २०२२, २०२१, २०२० उपलब्ध' : '2026 (H25), 2024, 2023, 2022, 2021, 2020'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold">
-                  {isMr ? '१०० प्रश्न • अधिकृत उत्तरतालिका व सविस्तर स्पष्टीकरण' : '100 Questions • Official Answer Key'}
+                  {isMr ? '६००+ अधिकृत PYQs • अंतिम की व संदर्भ स्पष्टीकरण' : '600+ Official PYQs • Final Key & Solutions'}
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-white">
                 {isMr 
-                  ? 'महाराष्ट्र राजपत्रित नागरी सेवा संयुक्त (पूर्व) स्पर्धा परीक्षा-२०२४' 
-                  : 'Maharashtra Gazetted Civil Services Combined (Prelims) Exam 2024'}
+                  ? 'MPSC मागील वर्षांच्या अधिकृत प्रश्नपत्रिका व सविस्तर स्पष्टीकरणे (PYQ Hub)' 
+                  : 'MPSC Official Previous Question Papers (PYQ Hub) & In-Depth Solutions'}
               </h2>
               <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
                 {isMr
-                  ? 'महाराष्ट्र लोकसेवा आयोगाने (MPSC) १ डिसेंबर २०२४ रोजी घेतलेल्या पेपर-१ (GS) मधील सर्व १०० प्रश्न, आयोगाची अधिकृत उत्तरतालिका आणि प्रत्येक प्रश्नाचे संदर्भग्रंथासहित सविस्तर स्पष्टीकरण अभ्यासा किंवा प्रत्यक्ष २ तासांची ऑनलाइन परीक्षा सोडवा.'
-                  : 'Practice all 100 questions from MPSC Civil Services Prelims Paper-1 (01 Dec 2024) with official MPSC answer key and in-depth reference solutions.'}
+                  ? 'महाराष्ट्र गट-ब संयुक्त पूर्व परीक्षा २०२६ (१४ जून २०२६, H25), राज्यसेवा २०२४ (W18), गट-ब २०२२ (A16) आणि मागील सर्व परीक्षांच्या मूळ प्रश्नपत्रिका, आयोगाची अधिकृत अंतिम उत्तरतालिका आणि प्रत्येक प्रश्नाचे संदर्भग्रंथासह सविस्तर स्पष्टीकरण वाचा किंवा थेट परीक्षा द्या.'
+                  : 'Practice all 100 questions from MPSC Combine Prelims 2026 (14 June 2026, Booklet H25), Rajyaseva 2024, and past official papers with official keys and reference explanations.'}
               </p>
               <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
-                <span>⏱️ {isMr ? 'वेळ: २ तास (१२० मिनिटे)' : 'Duration: 2 Hours (120 Mins)'}</span>
+                <span>⏱️ {isMr ? 'वेळ: ६० / १२० मिनिटे' : 'Duration: 60 / 120 Mins'}</span>
                 <span>•</span>
-                <span>🎯 {isMr ? 'एकूण गुण: २००' : 'Total Marks: 200'}</span>
+                <span>📖 {isMr ? 'वाचा व अभ्यास करा (Study Mode)' : 'Read Questions & Solutions'}</span>
                 <span>•</span>
-                <span>⚖️ {isMr ? 'नकारात्मक: १/४ (-०.५०)' : 'Negative: 1/4 (-0.50)'}</span>
+                <span>🎯 {isMr ? '१०० / २०० गुण' : '100 / 200 Marks'}</span>
+                <span>•</span>
+                <span>⚖️ {isMr ? 'नकारात्मक: १/४ (-०.२५ / -०.५०)' : 'Negative: 1/4th'}</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3 shrink-0 flex-wrap">
               <button
                 onClick={() => onOpenPyqHub?.()}
-                className="px-5 py-3.5 bg-stone-900/90 hover:bg-stone-800 text-amber-300 hover:text-white border border-amber-500/50 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
               >
-                <BookOpen className="w-4 h-4 text-amber-400" />
-                <span>{isMr ? 'सर्व प्रश्नपत्रिका व स्पष्टीकरणे पहा (PYQ Hub)' : 'All Question Papers & Solutions'}</span>
+                <BookOpen className="w-4 h-4 text-stone-950" />
+                <span>{isMr ? 'प्रश्न व स्पष्टीकरणे वाचा (PYQ Hub)' : 'All Question Papers & Solutions'}</span>
               </button>
               <button
-                onClick={() => onStartExam('mpsc_pyq_2024', undefined, isMr ? 'MPSC नागरी सेवा संयुक्त पूर्व परीक्षा २०२४ (अधिकृत पेपर १)' : 'MPSC Civil Services Prelims 2024 (Official Paper 1)')}
-                className="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+                onClick={() => onStartExam('mpsc_combine_pre_2026', undefined, isMr ? 'MPSC गट-ब संयुक्त पूर्व परीक्षा २०२६ (१४ जून २०२६, संच A)' : 'MPSC Group B Prelims 2026 (14 June 2026, Set A)')}
+                className="px-5 py-3.5 bg-stone-900/90 hover:bg-stone-800 text-amber-300 hover:text-white border border-amber-500/50 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
               >
-                <Play className="w-4 h-4 fill-current" />
-                <span>{isMr ? '२०२४ अधिकृत परीक्षा सोडवा' : 'Start 2024 Official Paper'}</span>
+                <Play className="w-4 h-4 fill-current text-amber-400" />
+                <span>{isMr ? '२०२६ परीक्षा सोडवा (H25)' : 'Take 2026 Exam (H25)'}</span>
               </button>
             </div>
           </div>

@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { ExamPatternId, Question } from '../types';
 import { soundFx } from '../utils/audio';
+import { MPSC_COMBINE_PRE_2026_FULL_100 } from '../data/mpscCombinePre2026';
 import { MPSC_PYQ_2024_FULL_100 } from '../data/mpscPyq2024';
 import { MPSC_PYQ_2023_GS } from '../data/mpscPyq2023';
 import { MPSC_COMBINE_PRE_2023 } from '../data/mpscCombinePre2023';
@@ -60,6 +61,26 @@ export interface OfficialPaperMeta {
 }
 
 export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
+  {
+    id: 'mpsc_combine_prelims_2026_official',
+    patternId: 'mpsc_combine_pre_2026',
+    titleMr: 'MPSC गट-ब (अराजपत्रित) सेवा संयुक्त पूर्व परीक्षा २०२६ (१४ जून २०२६)',
+    titleEn: 'MPSC Non-Gazetted Group B Combined Prelims Exam 2026 (14 June 2026)',
+    examDate: '१४ जून २०२६',
+    category: 'combine',
+    categoryLabelMr: 'गट-ब संयुक्त पूर्व २०२६',
+    categoryLabelEn: 'Group B Prelims 2026',
+    bookletCode: 'H25 (संच A)',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोगाने १४ जून २०२६ रोजी घेतलेली अधिकृत प्रश्नपत्रिका (प्रश्नपुस्तिका H25, संच A, जाहिरात क्र. ०११/२०२६). पूर्ण १०० प्रश्न, २८ जून २०२६ ची अधिकृत उत्तरतालिका आणि प्रत्येक प्रश्नाचे सविस्तर संदर्भ स्पष्टीकरण व गणितीय पायऱ्या.',
+    descriptionEn: 'Official MPSC Group B Combined Prelims Question Paper (Booklet H25, Set A) conducted on 14 June 2026 with Final Official Answer Key (28 June 2026) and in-depth step-by-step solutions.',
+    tagsMr: ['अधिकृत PYQ', 'पूर्ण १०० प्रश्न', '६० मिनिटे', '१०० गुण', 'अंतिम की'],
+    tagsEn: ['Official PYQ', '100 Questions', '60 Mins', '100 Marks', 'Final Key'],
+    questions: MPSC_COMBINE_PRE_2026_FULL_100
+  },
   {
     id: 'mpsc_rajyaseva_prelims_2024_p1',
     patternId: 'mpsc_pyq_2024',

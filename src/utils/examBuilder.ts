@@ -105,6 +105,8 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter(
       (q) => q.subjectId === 'current_affairs' || q.yearTag?.includes('2026') || q.yearTag?.includes('2027')
     );
+  } else if (options.patternId === 'mpsc_combine_pre_2026') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_combine_26_'));
   } else if (options.patternId === 'mpsc_pyq_2024') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2024_'));
   } else if (options.patternId === 'mpsc_pyq_2023') {
@@ -149,11 +151,12 @@ export function createExamSession(options: {
     ? 25
     : options.patternId === 'hard_challenge'
     ? 25
-    : (options.patternId === 'mpsc_pyq_2024' || options.patternId === 'mpsc_pyq_2023' || options.patternId === 'mpsc_combine_pre_2023' || options.patternId === 'mpsc_combine_pre_2022' || options.patternId === 'mpsc_combine_pre_2021' || options.patternId === 'mpsc_combine_pre_2020' || options.patternId === 'mpsc_pyq_2022' || options.patternId === 'mpsc_combine_mains_pyq')
+    : (options.patternId === 'mpsc_combine_pre_2026' || options.patternId === 'mpsc_pyq_2024' || options.patternId === 'mpsc_pyq_2023' || options.patternId === 'mpsc_combine_pre_2023' || options.patternId === 'mpsc_combine_pre_2022' || options.patternId === 'mpsc_combine_pre_2021' || options.patternId === 'mpsc_combine_pre_2020' || options.patternId === 'mpsc_pyq_2022' || options.patternId === 'mpsc_combine_mains_pyq')
     ? undefined
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
-  const isOfficialSequential = options.patternId === 'mpsc_pyq_2024' || 
+  const isOfficialSequential = options.patternId === 'mpsc_combine_pre_2026' ||
+    options.patternId === 'mpsc_pyq_2024' || 
     options.patternId === 'mpsc_pyq_2023' || 
     options.patternId === 'mpsc_combine_pre_2023' || 
     options.patternId === 'mpsc_combine_pre_2022' || 
@@ -172,7 +175,12 @@ export function createExamSession(options: {
   let negativeMarkRate = 0.25; // 1/4th penalty (i.e. -0.5 for 2 marks)
   let defaultTitle = 'MPSC Practice Test';
 
-  if (options.patternId === 'mpsc_pyq_2024') {
+  if (options.patternId === 'mpsc_combine_pre_2026') {
+    defaultTitle = options.title || 'MPSC अराजपत्रित गट-ब संयुक्त पूर्व परीक्षा २०२६ (14 June 2026, Booklet H25)';
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_pyq_2024') {
     defaultTitle = options.title || 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२४ (Original Paper 1)';
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
