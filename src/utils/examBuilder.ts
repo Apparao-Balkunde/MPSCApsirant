@@ -131,6 +131,8 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2025_comb_'));
   } else if (options.patternId === 'mpsc_rajyaseva_pre_2021') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2021_gs_'));
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2020') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2020_gs_'));
   } else {
     eligibleQuestions = [...pool];
   }
@@ -168,6 +170,7 @@ export function createExamSession(options: {
        options.patternId === 'mpsc_combine_pre_2022' || 
        options.patternId === 'mpsc_combine_pre_2021' || 
        options.patternId === 'mpsc_rajyaseva_pre_2021' || 
+       options.patternId === 'mpsc_rajyaseva_pre_2020' || 
        options.patternId === 'mpsc_combine_pre_2020' || 
        options.patternId === 'mpsc_pyq_2022' || 
        options.patternId === 'mpsc_group_c_pre' ||
@@ -184,6 +187,7 @@ export function createExamSession(options: {
     options.patternId === 'mpsc_combine_pre_2022' || 
     options.patternId === 'mpsc_combine_pre_2021' || 
     options.patternId === 'mpsc_rajyaseva_pre_2021' || 
+    options.patternId === 'mpsc_rajyaseva_pre_2020' || 
     options.patternId === 'mpsc_combine_pre_2020' || 
     options.patternId === 'mpsc_pyq_2022' || 
     options.patternId === 'mpsc_group_c_pre' ||
@@ -261,6 +265,11 @@ export function createExamSession(options: {
     durationMinutes = options.durationMinutes || 60;
   } else if (options.patternId === 'mpsc_rajyaseva_pre_2021') {
     defaultTitle = options.title || 'MPSC राज्यसेवा पूर्व परीक्षा २०२१ (२३ जानेवारी २०२२, Paper 1 - GS)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 120;
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2020') {
+    defaultTitle = options.title || 'MPSC राज्यसेवा पूर्व परीक्षा २०२० (२१ मार्च २०२१, Paper 1 - GS)';
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || 120;

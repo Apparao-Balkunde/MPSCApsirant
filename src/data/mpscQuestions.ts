@@ -52,6 +52,7 @@ import { MPSC_GROUP_C_PYQ } from './mpscGroupCPyq';
 import { MPSC_RAJYASEVA_PRE_2025 } from './mpscRajyasevaPre2025';
 import { MPSC_COMBINE_PRE_2025 } from './mpscCombinePre2025';
 import { MPSC_RAJYASEVA_PRE_2021 } from './mpscRajyasevaPre2021';
+import { MPSC_RAJYASEVA_PRE_2020 } from './mpscRajyasevaPre2020';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -1044,4 +1045,6 @@ export const MPSC_QUESTIONS: Question[] = [
   ...MPSC_COMBINE_PRE_2025,
   // MPSC Rajyaseva Prelims 2021 (Paper 1 - GS)
   ...MPSC_RAJYASEVA_PRE_2021,
+  // MPSC Rajyaseva Prelims 2020 (Paper 1 - GS)
+  ...MPSC_RAJYASEVA_PRE_2020,
 ];

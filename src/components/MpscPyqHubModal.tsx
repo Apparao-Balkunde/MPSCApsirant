@@ -34,6 +34,7 @@ import { MPSC_GROUP_C_PYQ } from '../data/mpscGroupCPyq';
 import { MPSC_RAJYASEVA_PRE_2025 } from '../data/mpscRajyasevaPre2025';
 import { MPSC_COMBINE_PRE_2025 } from '../data/mpscCombinePre2025';
 import { MPSC_RAJYASEVA_PRE_2021 } from '../data/mpscRajyasevaPre2021';
+import { MPSC_RAJYASEVA_PRE_2020 } from '../data/mpscRajyasevaPre2020';
 
 interface MpscPyqHubModalProps {
   isOpen: boolean;
@@ -244,6 +245,26 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['राज्यसेवा २०२१', 'GS पेपर १', 'अधिकृत उत्तरतालिका', '१२० मिनिटे', 'सविस्तर विश्लेषण'],
     tagsEn: ['Rajyaseva 2021', 'GS Paper 1', 'Official Key', '120 Mins', 'Detailed Solutions'],
     questions: MPSC_RAJYASEVA_PRE_2021
+  },
+  {
+    id: 'mpsc_rajyaseva_prelims_2020_p1',
+    patternId: 'mpsc_rajyaseva_pre_2020',
+    titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२० (२१ मार्च २०२१) - पेपर १ (GS)',
+    titleEn: 'MPSC Rajyaseva Prelims Exam 2020 (21 March 2021) - Paper 1 (GS)',
+    examDate: '२१ मार्च २०२१',
+    category: 'rajyaseva',
+    categoryLabelMr: 'राज्यसेवा पूर्व २०२०',
+    categoryLabelEn: 'Rajyaseva Prelims 2020',
+    bookletCode: 'GS20 (संच A)',
+    totalQuestions: MPSC_RAJYASEVA_PRE_2020.length,
+    totalMarks: MPSC_RAJYASEVA_PRE_2020.length * 2,
+    durationMinutes: 120,
+    negativeMarking: '१/४ (०.५० गुण वजा)',
+    descriptionMr: '२१ मार्च २०२१ रोजी आयोगातर्फे घेण्यात आलेली अधिकृत राज्यसेवा पूर्व परीक्षा २०२० (सामान्य अध्ययन पेपर १). रिट अधिकार (कलम ३२ व २२६), छत्रपती शाहू महाराज प्राथमिक शिक्षण कायदा १९१७, सह्याद्री शिखरांचा क्रम, प्रकाशाचे पूर्ण आंतरिक परावर्तन (TIR), सुरेश तेंडुलकर दारिद्र्य समिती २००९, मॉन्ट्रियल प्रोटोकॉल १९८७, सरकारिया आयोग १९८३, डिप्रेस्ड क्लासेस मिशन १९०६, pH स्केल, नीती आयोग आणि वासुदेव बळवंत फडके उठाव यावरील मूळ प्रश्न.',
+    descriptionEn: 'Official MPSC Rajyaseva Prelims 2020 Paper 1 (General Studies) conducted on 21 March 2021 with comprehensive bilingual solutions, covering Writs (Art 32/226), Shahu Maharaj Education Act 1917, Sahyadri Peak elevation order, Total Internal Reflection (TIR), Tendulkar Poverty Committee, Montreal Protocol 1987, Sarkaria Commission, Depressed Classes Mission, pH scale, NITI Aayog, and Vasudev Balwant Phadke revolt.',
+    tagsMr: ['राज्यसेवा २०२०', 'GS पेपर १', 'अधिकृत उत्तरतालिका', '१२० मिनिटे', 'सविस्तर विश्लेषण'],
+    tagsEn: ['Rajyaseva 2020', 'GS Paper 1', 'Official Key', '120 Mins', 'Detailed Solutions'],
+    questions: MPSC_RAJYASEVA_PRE_2020
   },
   {
     id: 'mpsc_combine_prelims_2020',
