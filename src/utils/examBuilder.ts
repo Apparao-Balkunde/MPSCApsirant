@@ -125,6 +125,10 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_mains_'));
   } else if (options.patternId === 'mpsc_group_c_pre') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_group_c_'));
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2025') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2025_gs_'));
+  } else if (options.patternId === 'mpsc_combine_pre_2025') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2025_comb_'));
   } else {
     eligibleQuestions = [...pool];
   }

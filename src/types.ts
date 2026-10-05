@@ -38,6 +38,8 @@ export type ExamPatternId =
   | 'mpsc_pyq_2022'
   | 'mpsc_combine_mains_pyq'
   | 'mpsc_group_c_pre'
+  | 'mpsc_rajyaseva_pre_2025'
+  | 'mpsc_combine_pre_2025'
   | 'custom';
 
 export interface Question {

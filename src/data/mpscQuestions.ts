@@ -49,6 +49,8 @@ import { MPSC_COMBINE_PRE_2021 } from './mpscCombinePre2021';
 import { MPSC_COMBINE_PRE_2020 } from './mpscCombinePre2020';
 import { MPSC_COMBINE_MAINS_PYQ } from './mpscCombineMainsPyq';
 import { MPSC_GROUP_C_PYQ } from './mpscGroupCPyq';
+import { MPSC_RAJYASEVA_PRE_2025 } from './mpscRajyasevaPre2025';
+import { MPSC_COMBINE_PRE_2025 } from './mpscCombinePre2025';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -1035,4 +1037,8 @@ export const MPSC_QUESTIONS: Question[] = [
   ...MPSC_COMBINE_MAINS_PYQ,
   // MPSC Group C Combined Examination Official PYQs (उद्योग निरीक्षक, कर सहाय्यक, लिपिक-टंकलेखक)
   ...MPSC_GROUP_C_PYQ,
+  // MPSC Rajyaseva / Civil Services Combined Prelims 2025 (Paper 1 - GS)
+  ...MPSC_RAJYASEVA_PRE_2025,
+  // MPSC Group B & C Combined Prelims 2025
+  ...MPSC_COMBINE_PRE_2025,
 ];

@@ -31,6 +31,8 @@ import { MPSC_COMBINE_PRE_2020 } from '../data/mpscCombinePre2020';
 import { MPSC_PYQ_2022 } from '../data/mpscPyq2022';
 import { MPSC_COMBINE_MAINS_PYQ } from '../data/mpscCombineMainsPyq';
 import { MPSC_GROUP_C_PYQ } from '../data/mpscGroupCPyq';
+import { MPSC_RAJYASEVA_PRE_2025 } from '../data/mpscRajyasevaPre2025';
+import { MPSC_COMBINE_PRE_2025 } from '../data/mpscCombinePre2025';
 
 interface MpscPyqHubModalProps {
   isOpen: boolean;
@@ -81,6 +83,46 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['अधिकृत PYQ', 'पूर्ण १०० प्रश्न', '६० मिनिटे', '१०० गुण', 'अंतिम की'],
     tagsEn: ['Official PYQ', '100 Questions', '60 Mins', '100 Marks', 'Final Key'],
     questions: MPSC_COMBINE_PRE_2026_FULL_100
+  },
+  {
+    id: 'mpsc_rajyaseva_prelims_2025_p1',
+    patternId: 'mpsc_rajyaseva_pre_2025',
+    titleMr: 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२५ (पेपर १ - GS)',
+    titleEn: 'MPSC Gazetted Civil Services Combined Prelims 2025 (Paper 1 - GS)',
+    examDate: '२०२५ अधिकृत',
+    category: 'rajyaseva',
+    categoryLabelMr: 'राज्यसेवा पूर्व २०२५',
+    categoryLabelEn: 'Rajyaseva Prelims 2025',
+    bookletCode: 'GS25 (संच A)',
+    totalQuestions: MPSC_RAJYASEVA_PRE_2025.length,
+    totalMarks: MPSC_RAJYASEVA_PRE_2025.length * 2,
+    durationMinutes: 120,
+    negativeMarking: '१/४ (०.५० गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोगाने २०२५ च्या नागरी सेवेसाठी घेतलेली अधिकृत प्रश्नपत्रिका. नारी शक्ती वंदन अधिनियम, नवीन तीन फौजदारी संहिता (BNS), १६ वा वित्त आयोग, वाढवण महाबंदर, अहिल्यानगर व मराठी अभिजात भाषेवरील सर्व प्रश्न.',
+    descriptionEn: 'Official MPSC Civil Services Prelims 2025 Paper 1 (General Studies) covering 106th CAA, Bharatiya Nyaya Sanhita, 16th Finance Commission, Vadhavan Port, and Classical Marathi language status.',
+    tagsMr: ['राज्यसेवा २०२५', 'GS पेपर १', 'नवीन कायदे', 'अभिजात मराठी', '१२० मिनिटे'],
+    tagsEn: ['Rajyaseva 2025', 'GS Paper 1', 'BNS Codes', '120 Mins', 'Classical Marathi'],
+    questions: MPSC_RAJYASEVA_PRE_2025
+  },
+  {
+    id: 'mpsc_combine_prelims_2025_official',
+    patternId: 'mpsc_combine_pre_2025',
+    titleMr: 'MPSC अराजपत्रित गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२५ (PSI, STI, ASO व कर सहाय्यक)',
+    titleEn: 'MPSC Non-Gazetted Group B & C Combined Prelims Exam 2025 (PSI, STI, ASO)',
+    examDate: '२०२५ अधिकृत',
+    category: 'combine',
+    categoryLabelMr: 'गट-ब व क संयुक्त २०२५',
+    categoryLabelEn: 'Group B & C Prelims 2025',
+    bookletCode: 'K25 (संच A)',
+    totalQuestions: MPSC_COMBINE_PRE_2025.length,
+    totalMarks: MPSC_COMBINE_PRE_2025.length,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोग गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२५. राज्यघटना (उपराष्ट्रपती कलम ६४), १८५७ चा कोल्हापूर उठाव, सह्याद्री घाट, निकटदृष्टिता, RBI मौद्रिक धोरण समिती आणि अंकगणित बुद्धिमत्ता यांचे अधिकृत प्रश्न.',
+    descriptionEn: 'Official MPSC Group B & C Combined Prelims 2025 covering Polity, Maharashtra History (Kolhapur 1857), Geography, Science, RBI MPC, and Reasoning.',
+    tagsMr: ['संयुक्त पूर्व २०२५', 'गट-ब व क', '६० मिनिटे', 'अधिकृत उत्तरतालिका'],
+    tagsEn: ['Combine 2025', 'Group B & C', '60 Mins', 'Official Key'],
+    questions: MPSC_COMBINE_PRE_2025
   },
   {
     id: 'mpsc_rajyaseva_prelims_2024_p1',
