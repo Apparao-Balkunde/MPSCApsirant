@@ -189,6 +189,20 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
       ...session,
       markedForReview: updatedMarked,
     });
+    if (soundEffectsEnabled) {
+      soundFx.playToggleSound(!isMarked);
+    }
+  };
+
+  const handleJumpToNextMarked = () => {
+    if (!questions.length) return;
+    for (let i = 1; i <= questions.length; i++) {
+      const idx = (currentQuestionIndex + i) % questions.length;
+      if (session.markedForReview[questions[idx].id]) {
+        setCurrentQuestionIndex(idx);
+        return;
+      }
+    }
   };
 
   const handleSaveAndNext = () => {
@@ -767,18 +781,59 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             </button>
           </div>
 
-          {/* Center / Right: THREE ESSENTIAL NAVIGATION BUTTONS: Previous, Next, and Submit Exam */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Center / Right: NAVIGATION & REVIEW ACTIONS */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5">
+            {/* 0. Mark for Review Button in Persistent Fixed Bottom Bar */}
+            <button
+              id="btn-fixed-mark-review"
+              onClick={handleToggleMarkReview}
+              className={`px-2.5 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold border transition-all flex items-center gap-1.5 cursor-pointer shadow-xs ${
+                currentQuestion && session.markedForReview[currentQuestion.id]
+                  ? 'bg-purple-600 hover:bg-purple-700 text-white border-purple-600 shadow-purple-600/25 ring-2 ring-purple-400/40'
+                  : 'bg-white dark:bg-stone-800 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-800 hover:bg-purple-50 dark:hover:bg-purple-950/40 hover:border-purple-400'
+              }`}
+              title={
+                currentQuestion && session.markedForReview[currentQuestion.id]
+                  ? (questionLang === 'mr' ? 'पुनरावलोकन चिन्ह काढा (Unmark Review)' : 'Unmark from Review')
+                  : (questionLang === 'mr' ? 'पुनरावलोकनासाठी चिन्हांकित करा (Mark for Review)' : 'Mark for Review')
+              }
+            >
+              <Bookmark className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${
+                currentQuestion && session.markedForReview[currentQuestion.id]
+                  ? 'fill-white text-white'
+                  : 'text-purple-600 dark:text-purple-400'
+              }`} />
+              <span className="hidden md:inline">
+                {currentQuestion && session.markedForReview[currentQuestion.id]
+                  ? (questionLang === 'mr' ? 'चिन्हांकित केले' : 'Marked for Review')
+                  : (questionLang === 'mr' ? 'पुनरावलोकनार्थ ठेवा' : 'Mark for Review')}
+              </span>
+              <span className="inline md:hidden">
+                {currentQuestion && session.markedForReview[currentQuestion.id]
+                  ? (questionLang === 'mr' ? 'चिन्हांकित' : 'Marked')
+                  : (questionLang === 'mr' ? 'रिव्ह्यू' : 'Review')}
+              </span>
+              {markedCount > 0 && (
+                <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-0.5 ${
+                  currentQuestion && session.markedForReview[currentQuestion.id]
+                    ? 'bg-white/20 text-white'
+                    : 'bg-purple-100 dark:bg-purple-900/60 text-purple-800 dark:text-purple-200'
+                }`}>
+                  {markedCount}
+                </span>
+              )}
+            </button>
+
             {/* 1. Previous Button */}
             <button
               id="btn-fixed-prev"
               onClick={handlePrev}
               disabled={currentQuestionIndex === 0}
-              className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-stone-300 dark:border-stone-700 bg-white hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-stone-300 dark:border-stone-700 bg-white hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer"
               title={questionLang === 'mr' ? 'मागील प्रश्न (Previous)' : 'Previous Question'}
             >
               <ChevronLeft className="w-4 h-4" />
-              <span>{questionLang === 'mr' ? 'मागील' : 'Previous'}</span>
+              <span className="hidden xs:inline">{questionLang === 'mr' ? 'मागील' : 'Previous'}</span>
             </button>
 
             {/* 2. Next Button */}
@@ -786,7 +841,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
               id="btn-fixed-next"
               onClick={handleSaveAndNext}
               disabled={currentQuestionIndex === questions.length - 1}
-              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-500 hover:bg-amber-400 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 transition-all cursor-pointer"
+              className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-500 hover:bg-amber-400 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer"
               title={questionLang === 'mr' ? 'पुढील प्रश्न (Next)' : 'Next Question'}
             >
               <span>{questionLang === 'mr' ? 'पुढे (Next)' : 'Next'}</span>
@@ -797,12 +852,12 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             <button
               id="btn-fixed-submit-exam"
               onClick={() => setShowSubmitModal(true)}
-              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               title={questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}
             >
-              <Send className="w-4 h-4" />
-              <span className="hidden xs:inline sm:inline">{questionLang === 'mr' ? 'चाचणी सबमिट करा' : 'Submit Exam'}</span>
-              <span className="inline xs:hidden sm:hidden">{questionLang === 'mr' ? 'सबमिट' : 'Submit'}</span>
+              <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">{questionLang === 'mr' ? 'चाचणी सबमिट करा' : 'Submit Exam'}</span>
+              <span className="inline sm:hidden">{questionLang === 'mr' ? 'सबमिट' : 'Submit'}</span>
             </button>
           </div>
         </div>
@@ -820,6 +875,29 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                 ? 'खाली दिलेल्या माहितीची खात्री करा. सबमिट केल्यानंतर उत्तरे बदलता येणार नाहीत.'
                 : 'Review your submission stats. You cannot modify answers after submitting.'}
             </p>
+
+            {/* If there are questions marked for review, show an actionable reminder */}
+            {markedCount > 0 && (
+              <div className="p-3 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-xs flex items-center justify-between gap-2.5 mb-4">
+                <div className="flex items-center gap-2">
+                  <Bookmark className="w-4 h-4 text-purple-600 shrink-0 fill-purple-600" />
+                  <span className="font-semibold">
+                    {questionLang === 'mr'
+                      ? `तुम्ही ${markedCount} प्रश्न पुनरावलोकनासाठी (Marked) ठेवले आहेत.`
+                      : `You have ${markedCount} questions marked for review.`}
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowSubmitModal(false);
+                    handleJumpToNextMarked();
+                  }}
+                  className="px-2.5 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-[11px] font-bold cursor-pointer transition-colors shrink-0 shadow-xs"
+                >
+                  {questionLang === 'mr' ? 'तपासा' : 'Review'}
+                </button>
+              </div>
+            )}
 
             {/* Stats summary table */}
             <div className="bg-stone-50 rounded-xl p-3.5 border border-stone-200 space-y-2 text-xs font-semibold mb-5">

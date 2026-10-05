@@ -279,6 +279,34 @@ export const ENGLISH_STUDY_MODULES: StudyModule[] = [
         r.title.toLowerCase().includes('later vs latter') ||
         r.tags.some((t) => t.toLowerCase().includes('noun') || t.toLowerCase().includes('plural') || t.toLowerCase().includes('pronoun'))),
   },
+  {
+    id: 'english_vocabulary_and_idioms',
+    titleEn: 'English Vocabulary, Synonyms & Idioms',
+    titleMr: 'इंग्रजी शब्दसंग्रह, समानार्थी-विरुद्धार्थी व वाक्प्रचार',
+    badge: 'High Scoring (25-50 Marks)',
+    icon: '📖',
+    colorScheme: {
+      bg: 'bg-indigo-950/40',
+      border: 'border-indigo-700/50',
+      text: 'text-indigo-200',
+      accent: 'from-indigo-600 to-violet-600',
+      badgeBg: 'bg-indigo-500/20 text-indigo-300 border-indigo-400/30',
+    },
+    descriptionEn: 'High-yield synonyms, antonyms, one-word substitutions, phrasal verbs, idioms, and confusing homophones frequently tested in MPSC.',
+    descriptionMr: 'MPSC परीक्षेत वारंवार विचारले जाणारे समानार्थी शब्द, विरुद्धार्थी, म्हणी-वाक्प्रचार आणि Confusing Words (उदा. Affect vs Effect, Beside vs Besides).',
+    keyTopics: ['Synonyms & Antonyms', 'One-Word Substitution', 'Idioms & Phrases', 'Confusing Words (Affect vs Effect)', 'Latin & Greek Roots'],
+    matcher: (r) =>
+      r.language === 'english' &&
+      (r.category.toLowerCase().includes('vocab') ||
+        r.category.toLowerCase().includes('idiom') ||
+        r.category.toLowerCase().includes('confusing') ||
+        r.title.toLowerCase().includes('affect') ||
+        r.title.toLowerCase().includes('beside') ||
+        r.title.toLowerCase().includes('loose') ||
+        r.title.toLowerCase().includes('later') ||
+        r.title.toLowerCase().includes('vocabulary') ||
+        r.tags.some((t) => t.toLowerCase().includes('vocab') || t.toLowerCase().includes('confusing') || t.toLowerCase().includes('idiom'))),
+  },
 ];
 
 export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> = ({
