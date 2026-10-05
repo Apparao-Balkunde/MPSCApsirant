@@ -33,6 +33,7 @@ import { MPSC_COMBINE_MAINS_PYQ } from '../data/mpscCombineMainsPyq';
 import { MPSC_GROUP_C_PYQ } from '../data/mpscGroupCPyq';
 import { MPSC_RAJYASEVA_PRE_2025 } from '../data/mpscRajyasevaPre2025';
 import { MPSC_COMBINE_PRE_2025 } from '../data/mpscCombinePre2025';
+import { MPSC_RAJYASEVA_PRE_2021 } from '../data/mpscRajyasevaPre2021';
 
 interface MpscPyqHubModalProps {
   isOpen: boolean;
@@ -223,6 +224,26 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['२६ फेब्रु २०२२', 'गट-ब पूर्व २०२१', '६० मिनिटे', '१०० प्रश्न'],
     tagsEn: ['26 Feb 2022', 'Group B Prelims', '60 Mins', '100 Questions'],
     questions: MPSC_COMBINE_PRE_2021
+  },
+  {
+    id: 'mpsc_rajyaseva_prelims_2021_p1',
+    patternId: 'mpsc_rajyaseva_pre_2021',
+    titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२१ (२३ जानेवारी २०२२) - पेपर १ (GS)',
+    titleEn: 'MPSC Rajyaseva Prelims Exam 2021 (23 Jan 2022) - Paper 1 (GS)',
+    examDate: '२३ जानेवारी २०२२',
+    category: 'rajyaseva',
+    categoryLabelMr: 'राज्यसेवा पूर्व २०२१',
+    categoryLabelEn: 'Rajyaseva Prelims 2021',
+    bookletCode: 'GS21 (संच A)',
+    totalQuestions: MPSC_RAJYASEVA_PRE_2021.length,
+    totalMarks: MPSC_RAJYASEVA_PRE_2021.length * 2,
+    durationMinutes: 120,
+    negativeMarking: '१/४ (०.५० गुण वजा)',
+    descriptionMr: '२३ जानेवारी २०२२ रोजी आयोगातर्फे घेण्यात आलेली अधिकृत राज्यसेवा पूर्व परीक्षा २०२१ (सामान्य अध्ययन पेपर १). कॅग, आद्य पत्रकार बाळशास्त्री जांभेकर, जायकवाडी नाथसागर, गाडगीळ समिती, रक्तगट, FRBM २००३, १०२ वी घटनादुरुस्ती, शारदा सदन, लिगो-इंडिया, सायलोझिझम, नदी जलविभाजक आणि केशवानंद भारती खटला यावरील अधिकृत प्रश्न.',
+    descriptionEn: 'Official MPSC Rajyaseva Prelims 2021 Paper 1 (General Studies) conducted on 23 Jan 2022 with detailed bilingual solutions, covering CAG, Balshastri Jambhekar, Jayakwadi Nathsagar, Gadgil Panel, Blood groups, FRBM Act, 102nd CAA, Sharada Sadan, LIGO-India, River Divides, and Basic Structure Doctrine.',
+    tagsMr: ['राज्यसेवा २०२१', 'GS पेपर १', 'अधिकृत उत्तरतालिका', '१२० मिनिटे', 'सविस्तर विश्लेषण'],
+    tagsEn: ['Rajyaseva 2021', 'GS Paper 1', 'Official Key', '120 Mins', 'Detailed Solutions'],
+    questions: MPSC_RAJYASEVA_PRE_2021
   },
   {
     id: 'mpsc_combine_prelims_2020',

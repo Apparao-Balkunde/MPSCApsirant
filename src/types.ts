@@ -40,6 +40,7 @@ export type ExamPatternId =
   | 'mpsc_group_c_pre'
   | 'mpsc_rajyaseva_pre_2025'
   | 'mpsc_combine_pre_2025'
+  | 'mpsc_rajyaseva_pre_2021'
   | 'custom';
 
 export interface Question {

@@ -129,6 +129,8 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2025_gs_'));
   } else if (options.patternId === 'mpsc_combine_pre_2025') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2025_comb_'));
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2021') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2021_gs_'));
   } else {
     eligibleQuestions = [...pool];
   }
@@ -157,18 +159,34 @@ export function createExamSession(options: {
     ? 25
     : options.patternId === 'hard_challenge'
     ? 25
-    : (options.patternId === 'mpsc_combine_pre_2026' || options.patternId === 'mpsc_pyq_2024' || options.patternId === 'mpsc_pyq_2023' || options.patternId === 'mpsc_combine_pre_2023' || options.patternId === 'mpsc_combine_pre_2022' || options.patternId === 'mpsc_combine_pre_2021' || options.patternId === 'mpsc_combine_pre_2020' || options.patternId === 'mpsc_pyq_2022' || options.patternId === 'mpsc_combine_mains_pyq')
+    : (options.patternId === 'mpsc_combine_pre_2026' || 
+       options.patternId === 'mpsc_rajyaseva_pre_2025' ||
+       options.patternId === 'mpsc_combine_pre_2025' ||
+       options.patternId === 'mpsc_pyq_2024' || 
+       options.patternId === 'mpsc_pyq_2023' || 
+       options.patternId === 'mpsc_combine_pre_2023' || 
+       options.patternId === 'mpsc_combine_pre_2022' || 
+       options.patternId === 'mpsc_combine_pre_2021' || 
+       options.patternId === 'mpsc_rajyaseva_pre_2021' || 
+       options.patternId === 'mpsc_combine_pre_2020' || 
+       options.patternId === 'mpsc_pyq_2022' || 
+       options.patternId === 'mpsc_group_c_pre' ||
+       options.patternId === 'mpsc_combine_mains_pyq')
     ? undefined
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
   const isOfficialSequential = options.patternId === 'mpsc_combine_pre_2026' ||
+    options.patternId === 'mpsc_rajyaseva_pre_2025' ||
+    options.patternId === 'mpsc_combine_pre_2025' ||
     options.patternId === 'mpsc_pyq_2024' || 
     options.patternId === 'mpsc_pyq_2023' || 
     options.patternId === 'mpsc_combine_pre_2023' || 
     options.patternId === 'mpsc_combine_pre_2022' || 
     options.patternId === 'mpsc_combine_pre_2021' || 
+    options.patternId === 'mpsc_rajyaseva_pre_2021' || 
     options.patternId === 'mpsc_combine_pre_2020' || 
     options.patternId === 'mpsc_pyq_2022' || 
+    options.patternId === 'mpsc_group_c_pre' ||
     options.patternId === 'mpsc_combine_mains_pyq';
   const shuffled = isOfficialSequential
     ? [...uniqueEligible] 
@@ -226,6 +244,26 @@ export function createExamSession(options: {
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_group_c_pre') {
+    defaultTitle = options.title || 'MPSC गट-क संयुक्त पूर्व परीक्षा (अधिकृत PYQ)';
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2025') {
+    defaultTitle = options.title || 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२५ (Paper 1 - GS)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 120;
+  } else if (options.patternId === 'mpsc_combine_pre_2025') {
+    defaultTitle = options.title || 'MPSC अराजपत्रित गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२५';
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2021') {
+    defaultTitle = options.title || 'MPSC राज्यसेवा पूर्व परीक्षा २०२१ (२३ जानेवारी २०२२, Paper 1 - GS)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 120;
   } else if (options.patternId === 'hard_challenge') {
     defaultTitle = options.title || 'MPSC 100k Hard Level Challenge (कठीण स्तर सराव)';
     marksPerQuestion = 2;
