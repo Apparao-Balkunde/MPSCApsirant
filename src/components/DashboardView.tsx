@@ -62,7 +62,7 @@ interface DashboardViewProps {
   language: 'mr' | 'en';
   currentUserId?: string;
   currentUserName?: string;
-  onStartExam: (patternId: ExamPatternId, subjectId?: SubjectId, title?: string) => void;
+  onStartExam: (patternId: ExamPatternId, subjectId?: any, title?: string) => void;
   onOpenBookmarks: () => void;
   onOpenAnalytics: () => void;
   onReviewExamResult?: (result: ExamResult) => void;

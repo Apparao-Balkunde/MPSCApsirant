@@ -508,7 +508,7 @@ export default function App() {
   // Start exam handler - uses active questions pool
   const handleStartExam = (
     patternId: ExamPatternId,
-    subjectId?: SubjectId,
+    subjectId?: any,
     title?: string,
     customQuestionIds?: string[],
     limit?: number

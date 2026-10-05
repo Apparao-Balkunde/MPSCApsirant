@@ -18,7 +18,7 @@ interface DailyChallengeModalProps {
   isOpen: boolean;
   onClose: () => void;
   language: 'mr' | 'en';
-  onStartChallenge: (subjectId?: SubjectId, title?: string) => void;
+  onStartChallenge: (subjectId?: SubjectId | 'gs', title?: string) => void;
 }
 
 export const DailyChallengeModal: React.FC<DailyChallengeModalProps> = ({
@@ -89,7 +89,7 @@ export const DailyChallengeModal: React.FC<DailyChallengeModalProps> = ({
     },
   ];
 
-  const handleSelectOption = (subjectId?: SubjectId, titleMr?: string, titleEn?: string) => {
+  const handleSelectOption = (subjectId?: SubjectId | 'gs', titleMr?: string, titleEn?: string) => {
     onClose();
     const title = isMr ? titleMr : titleEn;
     onStartChallenge(subjectId, title);

@@ -4,7 +4,7 @@ import { getHardQuestionsPool, findQuestionById } from './hardQuestionsEngine';
 
 export function createExamSession(options: {
   patternId: ExamPatternId;
-  subjectId?: SubjectId;
+  subjectId?: SubjectId | 'gs' | 'all';
   customQuestionIds?: string[];
   title?: string;
   limit?: number;
@@ -38,7 +38,7 @@ export function createExamSession(options: {
   } else if (options.patternId === 'hard_challenge') {
     const requestedCount = options.limit || 25;
     eligibleQuestions = getHardQuestionsPool({
-      subjectId: options.subjectId || 'all',
+      subjectId: options.subjectId === 'gs' || !options.subjectId ? 'all' : (options.subjectId as SubjectId | 'all'),
       count: requestedCount,
     });
   } else if (options.patternId === 'daily_10_challenge') {

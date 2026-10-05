@@ -202,7 +202,7 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
         if (err?.code === 'auth/unauthorized-domain') {
           try {
             const defaultName = isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant';
-            await loginAsPreviewUser(defaultName, null);
+            await loginAsPreviewUser(defaultName, undefined);
             await onTriggerSync();
             setActionNotice(isMr ? 'विद्यार्थी खाते सक्रिय झाले व सर्व डेटा सुरक्षित सिंक झाला!' : 'Signed in and all data synced!');
             logAction({
