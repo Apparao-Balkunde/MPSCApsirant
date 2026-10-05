@@ -27,9 +27,7 @@ import {
   Monitor,
   Smartphone,
   Tablet,
-  Laptop,
-  Camera,
-  Image as ImageIcon
+  Laptop
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -76,7 +74,6 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPyqHub,
   onOpenExamCountdown,
   onOpenInformationHub,
-  onOpenCustomImageManager,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -347,31 +344,6 @@ export const Header: React.FC<HeaderProps> = ({
                   <span>{isMr ? 'मागील प्रश्नपत्रिका' : 'PYQ Papers'}</span>
                 </button>
               )}
-
-              {onOpenCustomImageManager && (
-                <button
-                  id="nav-custom-image-btn"
-                  onClick={onOpenCustomImageManager}
-                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-amber-300 border border-amber-400/50 cursor-pointer shadow-xs hover:scale-105"
-                  title={isMr ? "📸 तुम्हाला पाहिजे तशी इमेज ॲड करा" : "Add Any Image You Want"}
-                >
-                  <Camera className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{isMr ? '📸 इमेज ॲड करा' : 'Add Image'}</span>
-                </button>
-              )}
-
-              <button
-                type="button"
-                id="btn-header-wallpaper"
-                onClick={() => {
-                  document.getElementById('btn-portal-wallpaper-toggle')?.click();
-                }}
-                className="hidden lg:flex items-center gap-1.5 px-2 xl:px-2.5 py-1.5 rounded-lg bg-stone-850 hover:bg-stone-800 border border-amber-500/40 text-xs xl:text-sm font-bold text-amber-300 hover:text-white shadow-xs transition-all cursor-pointer hover:scale-105"
-                title={isMr ? "🎨 पार्श्वभूमी वॉलपेपर निवडा (Background Wallpaper)" : "Change Portal Background Wallpaper"}
-              >
-                <ImageIcon className="w-3.5 h-3.5 text-amber-400" />
-                <span>{isMr ? 'वॉलपेपर' : 'Wallpaper'}</span>
-              </button>
             </nav>
 
             {/* Right: Action Controls, Device Indicator & Fullscreen Button */}
@@ -699,16 +671,6 @@ export const Header: React.FC<HeaderProps> = ({
             <PlusCircle className="w-3.5 h-3.5" />
             <span>{isMr ? '+ MCQ' : '+ MCQ'}</span>
           </button>
-
-          {onOpenCustomImageManager && (
-            <button
-              onClick={onOpenCustomImageManager}
-              className="px-2 py-1 rounded-lg font-bold flex items-center gap-1 shrink-0 cursor-pointer bg-amber-500/20 text-amber-300 border border-amber-500/40"
-            >
-              <Camera className="w-3.5 h-3.5 text-amber-400" />
-              <span>{isMr ? 'इमेज' : 'Image'}</span>
-            </button>
-          )}
 
           {/* Quick Full Screen trigger in mobile/tablet submenu */}
           <button

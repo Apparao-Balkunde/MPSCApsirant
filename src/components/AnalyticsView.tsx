@@ -461,7 +461,6 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
         csat: { proficiency: 58, attempts: 19, correct: 11, incorrect: 8, status: 'moderate' },
         marathi_grammar: { proficiency: 85, attempts: 26, correct: 22, incorrect: 4, status: 'strong' },
         english_grammar: { proficiency: 48, attempts: 21, correct: 10, incorrect: 11, status: 'weak' },
-        gs: { proficiency: 75, attempts: 20, correct: 15, incorrect: 5, status: 'strong' },
       };
 
       return targetSubjectIds.map((subId) => {
