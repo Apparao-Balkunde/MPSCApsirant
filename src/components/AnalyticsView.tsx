@@ -62,6 +62,7 @@ interface RadarSubjectItem {
   fullName: string;
   proficiency: number;
   benchmark: number;
+  topperTarget: number;
   gap: number;
   fullMark: number;
   attempts: number;
@@ -71,6 +72,20 @@ interface RadarSubjectItem {
   color: string;
   advice: string;
 }
+
+// Crisp, distinctive short names for Radar Chart axes to prevent collisions
+const RADAR_SUBJECT_NAMES: Record<SubjectId, { mr: string; en: string }> = {
+  polity: { mr: 'राज्यघटना', en: 'Polity' },
+  maharashtra_history: { mr: 'महाराष्ट्र इतिहास', en: 'History' },
+  maharashtra_geography: { mr: 'महाराष्ट्र भूगोल', en: 'Geography' },
+  general_science: { mr: 'सामान्य विज्ञान', en: 'Gen Science' },
+  economy: { mr: 'अर्थव्यवस्था', en: 'Economy' },
+  environment: { mr: 'पर्यावरण', en: 'Environment' },
+  current_affairs: { mr: 'चालू घडामोडी', en: 'Current Affairs' },
+  csat: { mr: 'CSAT बुद्धिमत्ता', en: 'CSAT' },
+  marathi_grammar: { mr: 'मराठी व्याकरण', en: 'Marathi Grammar' },
+  english_grammar: { mr: 'इंग्रजी व्याकरण', en: 'English Grammar' },
+};
 
 // Subject-specific tailored preparation advice for MPSC aspirants
 const SUBJECT_ADVICE: Record<string, { mr: string; en: string }> = {
@@ -284,6 +299,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   // Radar Chart interactive states
   const [radarScope, setRadarScope] = useState<'prelims_core' | 'all'>('prelims_core');
   const [showRadarBenchmark, setShowRadarBenchmark] = useState<boolean>(true);
+  const [showTopperBenchmark, setShowTopperBenchmark] = useState<boolean>(false);
   const [focusedRadarSubject, setFocusedRadarSubject] = useState<SubjectId | null>(null);
 
   // Active subjects for multi_compare mode
@@ -466,7 +482,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       return targetSubjectIds.map((subId) => {
         const meta = SUBJECTS.find((s) => s.id === subId);
         const sample = sampleMap[subId];
-        const shortName = meta ? (isMr ? meta.nameMr.split(' ')[0] : meta.nameEn.split(' ')[0]) : subId;
+        const shortName = RADAR_SUBJECT_NAMES[subId]?.[isMr ? 'mr' : 'en'] || subId;
         const fullName = meta ? (isMr ? meta.nameMr : meta.nameEn) : subId;
         const advice = SUBJECT_ADVICE[subId]?.[isMr ? 'mr' : 'en'] || '';
 
@@ -476,6 +492,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
           fullName,
           proficiency: sample.proficiency,
           benchmark: 65,
+          topperTarget: 80,
           gap: sample.proficiency - 65,
           fullMark: 100,
           attempts: sample.attempts,
@@ -495,7 +512,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       const correct = stats?.correct || 0;
       const incorrect = stats?.incorrect || 0;
       const proficiency = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
-      const shortName = meta ? (isMr ? meta.nameMr.split(' ')[0] : meta.nameEn.split(' ')[0]) : subId;
+      const shortName = RADAR_SUBJECT_NAMES[subId]?.[isMr ? 'mr' : 'en'] || subId;
       const fullName = meta ? (isMr ? meta.nameMr : meta.nameEn) : subId;
       const advice = SUBJECT_ADVICE[subId]?.[isMr ? 'mr' : 'en'] || '';
 
@@ -509,6 +526,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
         fullName,
         proficiency,
         benchmark: 65,
+        topperTarget: 80,
         gap: attempts > 0 ? proficiency - 65 : -65,
         fullMark: 100,
         attempts,
@@ -523,7 +541,36 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
 
   const strengthsList = useMemo(() => radarData.filter((r) => r.proficiency >= 70), [radarData]);
   const moderateList = useMemo(() => radarData.filter((r) => r.proficiency >= 50 && r.proficiency < 70), [radarData]);
-  const weakList = useMemo(() => radarData.filter((r) => r.proficiency < 50), [radarData]);
+  
+  // Sorted with the weakest subjects at the very top for urgent focus
+  const weakList = useMemo(() => {
+    return [...radarData]
+      .filter((r) => r.proficiency < 50 || (r.attempts > 0 && r.proficiency < 65))
+      .sort((a, b) => a.proficiency - b.proficiency);
+  }, [radarData]);
+
+  const criticalWeakestSubject = useMemo(() => {
+    if (weakList.length === 0) return null;
+    return weakList[0];
+  }, [weakList]);
+
+  const radarSummaryStats = useMemo(() => {
+    if (radarData.length === 0) return null;
+    const totalProf = radarData.reduce((acc, r) => acc + r.proficiency, 0);
+    const avgProf = Math.round(totalProf / radarData.length);
+    const sorted = [...radarData].sort((a, b) => b.proficiency - a.proficiency);
+    const topSubject = sorted[0];
+    const weakestSubject = sorted[sorted.length - 1];
+    const clearedCutoffCount = radarData.filter((r) => r.proficiency >= 65).length;
+    return {
+      avgProf,
+      topSubject,
+      weakestSubject,
+      clearedCutoffCount,
+      totalCount: radarData.length,
+    };
+  }, [radarData]);
+
   const focusedSubjectItem = useMemo(() => {
     if (!focusedRadarSubject) return null;
     return radarData.find((r) => r.id === focusedRadarSubject) || null;
@@ -1084,8 +1131,8 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
             </div>
             <p className="text-xs text-stone-500 mt-1">
               {isMr 
-                ? 'Recharts द्वारे MPSC कट-ऑफ उद्दिष्ट (६५%) विरुद्ध आपली प्रवीणता तपासा — आपले प्रबळ (Strengths) व कमजोर (Weaknesses) विषय एका दृष्टिक्षेपात ओळखा.' 
-                : '360° visual evaluation using Recharts comparing your subject mastery against the 65% safe cutoff target.'}
+                ? '३६०° रडार आलेखाद्वारे MPSC कट-ऑफ (६५%) व टॉपर लक्ष्याशी (८०%) तुलना करून कमकुवत विषय (Weak Areas) त्वरित ओळखा व सराव करा.' 
+                : '360° visual radar chart comparing your subject mastery against the 65% safe cutoff & 80% topper standard to pinpoint weak areas.'}
             </p>
           </div>
 
@@ -1126,43 +1173,130 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                   ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                   : 'bg-stone-50 text-stone-600 border-stone-200'
               }`}
+              title={isMr ? '६५% कट-ऑफ सुरक्षित रेषा' : '65% Safe Cutoff Target Line'}
             >
               <span className={`w-2 h-2 rounded-full ${showRadarBenchmark ? 'bg-emerald-600 animate-pulse' : 'bg-stone-400'}`}></span>
-              <span>{isMr ? '६५% कट-ऑफ लक्ष्य' : '65% Cutoff Line'}</span>
+              <span>{isMr ? '६५% कट-ऑफ लक्ष्य' : '65% Cutoff'}</span>
             </button>
+
+            {/* Topper Standard Benchmark Toggle */}
+            <button
+              type="button"
+              onClick={() => setShowTopperBenchmark(!showTopperBenchmark)}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                showTopperBenchmark
+                  ? 'bg-sky-50 text-sky-800 border-sky-300'
+                  : 'bg-stone-50 text-stone-600 border-stone-200'
+              }`}
+              title={isMr ? '८०% टॉपर सरासरी रेषा' : '80% Topper League Line'}
+            >
+              <span className={`w-2 h-2 rounded-full ${showTopperBenchmark ? 'bg-sky-600 animate-pulse' : 'bg-stone-400'}`}></span>
+              <span>{isMr ? '८०% टॉपर उद्दिष्ट' : '80% Topper'}</span>
+            </button>
+
+            {/* Sample vs Real Data Indicator if limited tests */}
+            {history.length < 2 && (
+              <button
+                type="button"
+                onClick={() => setUseSampleData(!useSampleData)}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                  useSampleData
+                    ? 'bg-amber-50 text-amber-800 border-amber-300'
+                    : 'bg-stone-100 text-stone-700 border-stone-300'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span>{useSampleData ? (isMr ? 'नमुना डेटा (Sample)' : 'Sample Data') : (isMr ? 'माझा डेटा' : 'My Data')}</span>
+              </button>
+            )}
           </div>
         </div>
+
+        {/* 4-Stat Diagnostic Ribbon */}
+        {radarSummaryStats && (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200/90">
+              <span className="text-[11px] font-bold text-amber-900 block">
+                {isMr ? '📊 सरासरी विषय प्रवीणता' : 'Average Subject Accuracy'}
+              </span>
+              <span className="text-xl font-black text-amber-950 font-mono block mt-0.5">
+                {radarSummaryStats.avgProf}%
+              </span>
+              <span className="text-[10px] text-amber-800 block mt-0.5">
+                {isMr ? `${radarSummaryStats.totalCount} विषयांची एकत्रित सरासरी` : `Average of ${radarSummaryStats.totalCount} subjects`}
+              </span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200/90">
+              <span className="text-[11px] font-bold text-emerald-900 block">
+                {isMr ? '🌟 सर्वोच्च कामगिरी विषय' : 'Top Performing Subject'}
+              </span>
+              <span className="text-sm font-black text-emerald-950 truncate block mt-0.5" title={radarSummaryStats.topSubject.fullName}>
+                {radarSummaryStats.topSubject.fullName}
+              </span>
+              <span className="text-[10px] font-mono font-bold text-emerald-700 block mt-0.5">
+                {radarSummaryStats.topSubject.proficiency}% {isMr ? 'अचूकता' : 'accuracy'}
+              </span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-rose-50/80 border border-rose-200/90">
+              <span className="text-[11px] font-bold text-rose-900 flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 text-rose-600 shrink-0" />
+                <span>{isMr ? '⚠️ सर्वाधिक कमजोर विषय' : 'Primary Weak Area'}</span>
+              </span>
+              <span className="text-sm font-black text-rose-950 truncate block mt-0.5" title={radarSummaryStats.weakestSubject.fullName}>
+                {radarSummaryStats.weakestSubject.fullName}
+              </span>
+              <span className="text-[10px] font-mono font-bold text-rose-700 block mt-0.5">
+                {radarSummaryStats.weakestSubject.proficiency}% ({radarSummaryStats.weakestSubject.gap}% {isMr ? 'तूट' : 'deficit'})
+              </span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-stone-100/80 border border-stone-200">
+              <span className="text-[11px] font-bold text-stone-700 block">
+                {isMr ? '🎯 कट-ऑफ सुरक्षित विषय' : 'Cutoff Cleared (≥65%)'}
+              </span>
+              <span className="text-xl font-black text-stone-900 font-mono block mt-0.5">
+                {radarSummaryStats.clearedCutoffCount} / {radarSummaryStats.totalCount}
+              </span>
+              <span className="text-[10px] text-stone-500 block mt-0.5">
+                {isMr ? '६५% पेक्षा जास्त अचूकतेचे विषय' : 'Subjects exceeding benchmark'}
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* 2-Column Grid: Left: RadarChart, Right: Strengths & Weaknesses Breakdown */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Column 1: RECHARTS RADAR CHART CANVAS */}
           <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
-            <div className="h-80 sm:h-96 w-full relative">
+            <div className="h-80 sm:h-96 md:h-[420px] w-full relative">
               {radarData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
+                  <RadarChart cx="50%" cy="50%" outerRadius="66%" data={radarData}>
                     <PolarGrid stroke="#e2e8f0" strokeDasharray="3 3" />
                     <PolarAngleAxis 
                       dataKey="subject" 
                       tick={({ x, y, textAnchor, payload }: any) => {
                         const item = radarData.find((d) => d.subject === payload.value);
                         const isSelected = focusedRadarSubject === item?.id;
+                        const isWeak = item?.status === 'weak';
                         return (
                           <text
                             x={x}
                             y={y}
                             textAnchor={textAnchor}
-                            fill={isSelected ? '#d97706' : '#334155'}
+                            fill={isSelected ? '#d97706' : isWeak ? '#e11d48' : '#334155'}
                             fontSize={11}
-                            fontWeight={isSelected ? 800 : 600}
-                            className="cursor-pointer transition-colors hover:fill-amber-600"
+                            fontWeight={isSelected || isWeak ? 800 : 600}
+                            className="cursor-pointer transition-colors hover:fill-amber-600 select-none"
                             onClick={() => {
                               if (item) {
                                 setFocusedRadarSubject(focusedRadarSubject === item.id ? null : item.id);
                               }
                             }}
                           >
-                            {payload.value}
+                            {isWeak ? `⚠️ ${payload.value}` : payload.value}
                           </text>
                         );
                       }} 
@@ -1170,7 +1304,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                     <PolarRadiusAxis 
                       angle={30} 
                       domain={[0, 100]} 
-                      ticks={[25, 50, 65, 75, 100]}
+                      ticks={[25, 50, 65, 80, 100]}
                       tick={{ fill: '#94a3b8', fontSize: 10 }}
                       stroke="#cbd5e1"
                     />
@@ -1184,7 +1318,20 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                         strokeDasharray="4 4"
                         strokeWidth={1.5}
                         fill="#10b981"
-                        fillOpacity={0.08}
+                        fillOpacity={0.06}
+                      />
+                    )}
+
+                    {/* Topper Standard Benchmark Radar (80%) */}
+                    {showTopperBenchmark && (
+                      <Radar
+                        name={isMr ? 'टॉपर उद्दिष्ट (८०%)' : 'Topper Target (80%)'}
+                        dataKey="topperTarget"
+                        stroke="#0284c7"
+                        strokeDasharray="3 3"
+                        strokeWidth={1.5}
+                        fill="#0ea5e9"
+                        fillOpacity={0.05}
                       />
                     )}
 
@@ -1203,20 +1350,36 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                         const fill = isStrong ? '#059669' : isWeak ? '#e11d48' : '#d97706';
                         const isSelected = focusedRadarSubject === payload.id;
                         return (
-                          <circle
-                            key={payload.id}
-                            cx={cx}
-                            cy={cy}
-                            r={isSelected ? 7 : 4.5}
-                            fill={fill}
-                            stroke="#ffffff"
-                            strokeWidth={2}
-                            className="cursor-pointer transition-all hover:scale-125"
+                          <g 
+                            key={payload.id} 
+                            className="cursor-pointer" 
                             onClick={() => setFocusedRadarSubject(focusedRadarSubject === payload.id ? null : payload.id)}
-                          />
+                          >
+                            {isWeak && (
+                              <circle
+                                cx={cx}
+                                cy={cy}
+                                r={10}
+                                fill="none"
+                                stroke="#e11d48"
+                                strokeWidth={1.5}
+                                strokeDasharray="2 2"
+                                className="animate-pulse"
+                              />
+                            )}
+                            <circle
+                              cx={cx}
+                              cy={cy}
+                              r={isSelected ? 7.5 : 5}
+                              fill={fill}
+                              stroke="#ffffff"
+                              strokeWidth={2}
+                              className="transition-all hover:scale-125"
+                            />
+                          </g>
                         );
                       }}
-                      activeDot={{ r: 7, fill: '#f59e0b', stroke: '#ffffff', strokeWidth: 2 }}
+                      activeDot={{ r: 8, fill: '#f59e0b', stroke: '#ffffff', strokeWidth: 2 }}
                     />
 
                     {/* Custom Radar Tooltip */}
@@ -1225,7 +1388,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                         if (active && payload && payload.length) {
                           const item: RadarSubjectItem = payload[0].payload;
                           return (
-                            <div className="bg-stone-950 text-stone-100 p-3.5 rounded-xl text-xs shadow-2xl border border-stone-800 space-y-2 min-w-[230px] max-w-[270px]">
+                            <div className="bg-stone-950 text-stone-100 p-3.5 rounded-xl text-xs shadow-2xl border border-stone-800 space-y-2 min-w-[240px] max-w-[280px]">
                               <div className="border-b border-stone-800 pb-1.5 flex items-center justify-between gap-2">
                                 <span className="font-extrabold text-amber-400 text-sm">
                                   {item.fullName}
@@ -1255,9 +1418,15 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                                   </span>
                                 </div>
                                 <div className="flex items-center justify-between text-stone-400 text-[11px]">
-                                  <span>{isMr ? 'कट-ऑफ उद्दिष्ट:' : 'Target Benchmark:'}</span>
+                                  <span>{isMr ? 'कट-ऑफ उद्दिष्ट:' : 'Cutoff Target:'}</span>
                                   <span className="font-mono text-stone-200">
                                     {item.benchmark}% ({item.gap >= 0 ? `+${item.gap}%` : `${item.gap}%`})
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between text-stone-400 text-[11px]">
+                                  <span>{isMr ? 'टॉपर उद्दिष्ट:' : 'Topper Target:'}</span>
+                                  <span className="font-mono text-sky-300">
+                                    {item.topperTarget}% ({item.proficiency - item.topperTarget >= 0 ? `+${item.proficiency - item.topperTarget}%` : `${item.proficiency - item.topperTarget}%`})
                                   </span>
                                 </div>
                                 <div className="flex items-center justify-between text-stone-400 text-[11px]">
@@ -1299,19 +1468,25 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
               {showRadarBenchmark && (
                 <span className="flex items-center gap-1.5 text-stone-700">
                   <span className="w-3 h-3 rounded-full bg-emerald-500 border border-emerald-600 border-dashed"></span>
-                  <span>{isMr ? '६५% कट-ऑफ लक्ष्य (Target)' : '65% Cutoff Target'}</span>
+                  <span>{isMr ? '६५% कट-ऑफ लक्ष्य' : '65% Cutoff'}</span>
+                </span>
+              )}
+              {showTopperBenchmark && (
+                <span className="flex items-center gap-1.5 text-stone-700">
+                  <span className="w-3 h-3 rounded-full bg-sky-500 border border-sky-600 border-dashed"></span>
+                  <span>{isMr ? '८०% टॉपर उद्दिष्ट' : '80% Topper'}</span>
                 </span>
               )}
               <span className="text-stone-400 text-[11px]">
-                {isMr ? '💡 आलेख बिंदूवर क्लिक करून विषय निवडा' : '💡 Click on vertex to focus subject'}
+                {isMr ? '💡 आलेख बिंदूवर क्लिक करून विषय निवडा' : '💡 Click vertex to focus subject'}
               </span>
             </div>
           </div>
 
           {/* Column 2: STRENGTHS & WEAKNESSES IDENTIFICATION MATRIX */}
           <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-stone-100">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-stone-100">
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-600" />
                   <h3 className="text-sm font-bold text-stone-900">
@@ -1323,48 +1498,109 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                 </span>
               </div>
 
-              {/* Matrix 3 Categories */}
-              <div className="space-y-3.5">
-                {/* 1. STRENGTHS (>= 70%) */}
-                <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200/90 space-y-2">
+              {/* 🚨 Priority Weak Area Rapid Recovery Card */}
+              {criticalWeakestSubject && (
+                <div className="p-4 rounded-xl bg-gradient-to-br from-rose-50/90 via-white to-amber-50/50 border-2 border-rose-300/80 shadow-xs space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                      <span className="text-xs font-bold text-emerald-950">
-                        {isMr ? 'प्रबळ सामर्थ्य (Strengths ≥ ७०%)' : 'Strengths (≥ 70%)'}
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-600"></span>
+                      </span>
+                      <span className="text-xs font-black text-rose-950 uppercase tracking-wider">
+                        {isMr ? '🚨 सर्वात कमजोर विषय — तातडीने सुधारणा आवश्यक' : '🚨 Primary Weak Area — Priority Action'}
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
-                      {strengthsList.length} {isMr ? 'विषय' : 'subjects'}
+                    <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-rose-600 text-white">
+                      {criticalWeakestSubject.proficiency}% ({criticalWeakestSubject.gap}% {isMr ? 'तूट' : 'deficit'})
                     </span>
                   </div>
 
-                  {strengthsList.length > 0 ? (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {strengthsList.map((s) => (
-                        <button
+                  <div>
+                    <h4 className="text-sm font-bold text-stone-900 flex items-center justify-between">
+                      <span>{criticalWeakestSubject.fullName}</span>
+                      <span className="text-xs text-rose-700 font-normal">
+                        {criticalWeakestSubject.incorrect} {isMr ? 'चुका' : 'mistakes'} / {criticalWeakestSubject.attempts} {isMr ? 'एकूण' : 'total'}
+                      </span>
+                    </h4>
+                    <p className="text-xs text-stone-600 mt-1 leading-relaxed">
+                      💡 {criticalWeakestSubject.advice}
+                    </p>
+                  </div>
+
+                  {onStartSubjectPractice && (
+                    <button
+                      type="button"
+                      onClick={() => onStartSubjectPractice(criticalWeakestSubject.id)}
+                      className="w-full py-2.5 px-3 rounded-lg bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer hover:scale-[1.01]"
+                    >
+                      <Play className="w-3.5 h-3.5 fill-current" />
+                      <span>
+                        {isMr 
+                          ? `⚡ या कमजोर विषयाची सराव चाचणी सुरू करा (${criticalWeakestSubject.subject})` 
+                          : `⚡ Start Targeted Practice Test for ${criticalWeakestSubject.subject}`}
+                      </span>
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* Matrix 3 Categories */}
+              <div className="space-y-3.5">
+                {/* 1. CRITICAL WEAKNESSES (< 50% or below cutoff 65%) */}
+                <div className="p-3.5 rounded-xl bg-rose-50/80 border border-rose-200/90 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4 text-rose-600" />
+                      <span className="text-xs font-bold text-rose-950">
+                        {isMr ? 'कच्चे विषय / कमकुवत दुवे (< ६५% कट-ऑफ)' : 'Weak / Below Benchmark Areas (< 65%)'}
+                      </span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                      {weakList.length} {isMr ? 'विषय' : 'subjects'}
+                    </span>
+                  </div>
+
+                  {weakList.length > 0 ? (
+                    <div className="space-y-2 pt-1">
+                      {weakList.map((s) => (
+                        <div
                           key={s.id}
-                          type="button"
-                          onClick={() => setFocusedRadarSubject(focusedRadarSubject === s.id ? null : s.id)}
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
-                            focusedRadarSubject === s.id
-                              ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
-                              : 'bg-white text-emerald-900 border-emerald-200 hover:border-emerald-300 hover:bg-emerald-50/50'
-                          }`}
+                          className="flex items-center justify-between p-2.5 rounded-lg bg-white border border-rose-200 shadow-2xs gap-2"
                         >
-                          <span>{s.subject}</span>
-                          <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${
-                            focusedRadarSubject === s.id ? 'bg-emerald-800 text-emerald-100' : 'bg-emerald-100 text-emerald-800'
-                          }`}>
-                            {s.proficiency}%
-                          </span>
-                        </button>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-xs text-stone-900 truncate">
+                                {s.fullName}
+                              </span>
+                              <span className="text-[10px] font-mono font-bold text-rose-600 shrink-0">
+                                {s.proficiency}% ({s.gap}% {isMr ? 'तूट' : 'deficit'})
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-stone-500 truncate mt-0.5">
+                              {s.advice}
+                            </p>
+                          </div>
+
+                          {onStartSubjectPractice && (
+                            <button
+                              type="button"
+                              onClick={() => onStartSubjectPractice(s.id)}
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shrink-0 cursor-pointer shadow-xs transition-colors"
+                              title={isMr ? `${s.fullName} चा सराव सुरू करा` : `Practice ${s.fullName}`}
+                            >
+                              <Play className="w-3 h-3 fill-current" />
+                              <span>{isMr ? 'सराव' : 'Practice'}</span>
+                            </button>
+                          )}
+                        </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-xs text-stone-500 italic">
-                      {isMr ? 'अद्याप ७०% पेक्षा जास्त अचूकतेचा विषय नाही.' : 'No subjects at or above 70% yet.'}
-                    </p>
+                    <div className="flex items-center gap-2 text-xs text-emerald-800 font-semibold bg-emerald-100/60 p-2 rounded-lg">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>{isMr ? 'उत्कृष्ट! सर्व विषय ६५% कट-ऑफ पेक्षा जास्त अचूकतेवर आहेत.' : 'Great job! All subjects at or above safe level.'}</span>
+                    </div>
                   )}
                 </div>
 
@@ -1411,59 +1647,46 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                   )}
                 </div>
 
-                {/* 3. CRITICAL WEAKNESSES (< 50%) */}
-                <div className="p-3.5 rounded-xl bg-rose-50/80 border border-rose-200/90 space-y-2">
+                {/* 3. STRENGTHS (>= 70%) */}
+                <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200/90 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4 text-rose-600" />
-                      <span className="text-xs font-bold text-rose-950">
-                        {isMr ? 'कच्चे विषय / कमकुवत दुवे (< ५०%)' : 'Critical Focus Areas (< 50%)'}
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                      <span className="text-xs font-bold text-emerald-950">
+                        {isMr ? 'प्रबळ सामर्थ्य (Strengths ≥ ७०%)' : 'Strengths (≥ 70%)'}
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">
-                      {weakList.length} {isMr ? 'विषय' : 'subjects'}
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                      {strengthsList.length} {isMr ? 'विषय' : 'subjects'}
                     </span>
                   </div>
 
-                  {weakList.length > 0 ? (
-                    <div className="space-y-2 pt-1">
-                      {weakList.map((s) => (
-                        <div
+                  {strengthsList.length > 0 ? (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {strengthsList.map((s) => (
+                        <button
                           key={s.id}
-                          className="flex items-center justify-between p-2.5 rounded-lg bg-white border border-rose-200 shadow-2xs gap-2"
+                          type="button"
+                          onClick={() => setFocusedRadarSubject(focusedRadarSubject === s.id ? null : s.id)}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+                            focusedRadarSubject === s.id
+                              ? 'bg-emerald-600 text-white border-emerald-700 shadow-xs'
+                              : 'bg-white text-emerald-900 border-emerald-200 hover:border-emerald-300 hover:bg-emerald-50/50'
+                          }`}
                         >
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-xs text-stone-900 truncate">
-                                {s.fullName}
-                              </span>
-                              <span className="text-[10px] font-mono font-bold text-rose-600 shrink-0">
-                                {s.proficiency}% ({s.gap}% {isMr ? 'तूट' : 'deficit'})
-                              </span>
-                            </div>
-                            <p className="text-[11px] text-stone-500 truncate mt-0.5">
-                              {s.advice}
-                            </p>
-                          </div>
-
-                          {onStartSubjectPractice && (
-                            <button
-                              type="button"
-                              onClick={() => onStartSubjectPractice(s.id)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shrink-0 cursor-pointer shadow-xs transition-colors"
-                            >
-                              <Play className="w-3 h-3 fill-current" />
-                              <span>{isMr ? 'सराव' : 'Practice'}</span>
-                            </button>
-                          )}
-                        </div>
+                          <span>{s.subject}</span>
+                          <span className={`px-1.5 py-0.2 rounded text-[10px] font-mono ${
+                            focusedRadarSubject === s.id ? 'bg-emerald-800 text-emerald-100' : 'bg-emerald-100 text-emerald-800'
+                          }`}>
+                            {s.proficiency}%
+                          </span>
+                        </button>
                       ))}
                     </div>
                   ) : (
-                    <div className="flex items-center gap-2 text-xs text-emerald-800 font-semibold bg-emerald-100/60 p-2 rounded-lg">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>{isMr ? 'उत्कृष्ट! सर्व विषय ५०% किंवा त्याहून जास्त अचूकतेवर आहेत.' : 'Great job! All subjects at or above safe level.'}</span>
-                    </div>
+                    <p className="text-xs text-stone-500 italic">
+                      {isMr ? 'अद्याप ७०% पेक्षा जास्त अचूकतेचा विषय नाही.' : 'No subjects at or above 70% yet.'}
+                    </p>
                   )}
                 </div>
               </div>
