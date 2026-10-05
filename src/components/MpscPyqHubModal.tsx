@@ -35,6 +35,7 @@ import { MPSC_RAJYASEVA_PRE_2025 } from '../data/mpscRajyasevaPre2025';
 import { MPSC_COMBINE_PRE_2025 } from '../data/mpscCombinePre2025';
 import { MPSC_RAJYASEVA_PRE_2021 } from '../data/mpscRajyasevaPre2021';
 import { MPSC_RAJYASEVA_PRE_2020 } from '../data/mpscRajyasevaPre2020';
+import { ENGLISH_VOCAB_QUESTIONS } from '../data/englishVocabQuestions';
 
 interface MpscPyqHubModalProps {
   isOpen: boolean;
@@ -385,6 +386,26 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['गट-क PYQ', 'कर सहाय्यक', 'लिपिक-टंकलेखक', 'सविस्तर संदर्भ'],
     tagsEn: ['Group C PYQ', 'Tax Assistant', 'Clerk-Typist', 'Detailed Solutions'],
     questions: MPSC_GROUP_C_PYQ
+  },
+  {
+    id: 'mpsc_english_vocab_pyq_master',
+    patternId: 'mpsc_combine_mains_pyq',
+    titleMr: 'MPSC अधिकृत इंग्रजी शब्दसंग्रह (PYQ English Vocabulary Master)',
+    titleEn: 'MPSC Official English Vocabulary PYQ Master (Synonyms, Antonyms, Idioms, One-Word)',
+    examDate: '२०११ - २०२४ अधिकृत',
+    category: 'combine',
+    categoryLabelMr: 'इंग्रजी शब्दसंग्रह PYQ',
+    categoryLabelEn: 'English Vocab PYQ',
+    bookletCode: 'VOCAB-PYQ',
+    totalQuestions: ENGLISH_VOCAB_QUESTIONS.length,
+    totalMarks: ENGLISH_VOCAB_QUESTIONS.length * 2,
+    durationMinutes: 90,
+    negativeMarking: '१/४ (०.५० गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोगाच्या राज्यसेवा मुख्य, संयुक्त गट-ब व गट-क मुख्य (PSI, STI, ASO, कर सहाय्यक, लिपिक-टंकलेखक, उत्पादन शुल्क) परीक्षांमध्ये २०११ ते २०२४ दरम्यान विचारलेले १००% अधिकृत इंग्रजी शब्दसंग्रह (Vocabulary) प्रश्न. समानार्थी, विरुद्धार्थी, One-Word Substitutions आणि वाक्प्रचार (Idioms & Phrases) चे सविस्तर मराठी स्पष्टीकरण व संदर्भ.',
+    descriptionEn: '100% verified authentic Previous Year Questions (PYQs) from MPSC Rajyaseva Mains, Combine Group B & Group C Mains (PSI, STI, ASO, Tax Asst, Clerk-Typist) covering Synonyms, Antonyms, One-Word Substitutions, Idioms & Phrases with detailed bilingual explanations and official answer keys.',
+    tagsMr: ['अधिकृत PYQ', 'समानार्थी शब्द', 'विरुद्धार्थी शब्द', 'One-Word Substitution', 'वाक्प्रचार (Idioms)', 'सविस्तर स्पष्टीकरण'],
+    tagsEn: ['Official PYQ', 'Synonyms', 'Antonyms', 'One-Word', 'Idioms & Phrases', 'Detailed Explanations'],
+    questions: ENGLISH_VOCAB_QUESTIONS
   }
 ];
 

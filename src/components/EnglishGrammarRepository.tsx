@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { GrammarRule } from '../types';
 import { GRAMMAR_RULES } from '../data/grammarRules';
+import { ENGLISH_VOCAB_QUESTIONS } from '../data/englishVocabQuestions';
 
 export interface EnglishGrammarRepositoryProps {
   initialModuleId?: string;
@@ -402,15 +403,23 @@ export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> =
   const handleLaunchModuleQuiz = () => {
     if (!onStartPracticeWithQuestions) return;
     const allQuestionIds: string[] = [];
-    filteredRules.forEach((r) => {
-      if (r.practiceQuestionIds && r.practiceQuestionIds.length > 0) {
-        r.practiceQuestionIds.forEach((qid) => {
-          if (!allQuestionIds.includes(qid)) {
-            allQuestionIds.push(qid);
-          }
-        });
-      }
-    });
+
+    if (activeModuleId === 'english_vocabulary_and_idioms') {
+      // Prioritize authentic verified official MPSC PYQ English Vocabulary questions
+      const pyqIds = ENGLISH_VOCAB_QUESTIONS.filter((q) => q.id.startsWith('en_vocab_pyq_')).map((q) => q.id);
+      const generalIds = ENGLISH_VOCAB_QUESTIONS.filter((q) => !q.id.startsWith('en_vocab_pyq_')).map((q) => q.id);
+      allQuestionIds.push(...pyqIds, ...generalIds);
+    } else {
+      filteredRules.forEach((r) => {
+        if (r.practiceQuestionIds && r.practiceQuestionIds.length > 0) {
+          r.practiceQuestionIds.forEach((qid) => {
+            if (!allQuestionIds.includes(qid)) {
+              allQuestionIds.push(qid);
+            }
+          });
+        }
+      });
+    }
 
     if (allQuestionIds.length === 0) {
       // Default to general grammar questions
@@ -419,7 +428,9 @@ export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> =
 
     onStartPracticeWithQuestions(
       allQuestionIds,
-      `${currentModule.titleEn} (${currentModule.titleMr}) Practice Test`
+      activeModuleId === 'english_vocabulary_and_idioms'
+        ? 'MPSC अधिकृत इंग्रजी शब्दसंग्रह (PYQ English Vocabulary Test)'
+        : `${currentModule.titleEn} (${currentModule.titleMr}) Practice Test`
     );
   };
 

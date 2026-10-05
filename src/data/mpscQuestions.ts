@@ -1,5 +1,4 @@
 import { Question } from '../types';
-import { VOCAB_QUESTIONS_100 } from './vocabQuestions';
 import { EXTRA_QUESTIONS_100 } from './extraQuestions100';
 import { CURRENT_AFFAIRS_2026_27 } from './currentAffairs2026_27';
 import { CURRENT_AFFAIRS_2000 } from './currentAffairs2000';
@@ -970,7 +969,6 @@ export const MPSC_QUESTIONS: Question[] = [
   ...CORE_MPSC_QUESTIONS,
   ...NEW_FIREBASE_MCQS,
   ...FIREBASE_MCQS_BATCH_2,
-  ...VOCAB_QUESTIONS_100,
   // 100 Additional High-Yield MPSC MCQs (Grammar & GS)
   ...EXTRA_QUESTIONS_100,
   // MPSC 2026/27 High-Yield Current Affairs (चालू घडामोडी विशेष संच)
