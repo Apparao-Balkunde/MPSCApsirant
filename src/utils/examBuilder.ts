@@ -123,6 +123,8 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2022_'));
   } else if (options.patternId === 'mpsc_combine_mains_pyq') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_mains_'));
+  } else if (options.patternId === 'mpsc_group_c_pre') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_group_c_'));
   } else {
     eligibleQuestions = [...pool];
   }

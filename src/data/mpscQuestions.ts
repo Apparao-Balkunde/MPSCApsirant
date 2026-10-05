@@ -48,6 +48,7 @@ import { MPSC_COMBINE_PRE_2022_FULL_100 } from './mpscCombinePre2022';
 import { MPSC_COMBINE_PRE_2021 } from './mpscCombinePre2021';
 import { MPSC_COMBINE_PRE_2020 } from './mpscCombinePre2020';
 import { MPSC_COMBINE_MAINS_PYQ } from './mpscCombineMainsPyq';
+import { MPSC_GROUP_C_PYQ } from './mpscGroupCPyq';
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -1032,4 +1033,6 @@ export const MPSC_QUESTIONS: Question[] = [
   ...MPSC_COMBINE_PRE_2020,
   // MPSC Group B Combined Mains Official Papers (मराठी, इंग्रजी, GS व कायदे)
   ...MPSC_COMBINE_MAINS_PYQ,
+  // MPSC Group C Combined Examination Official PYQs (उद्योग निरीक्षक, कर सहाय्यक, लिपिक-टंकलेखक)
+  ...MPSC_GROUP_C_PYQ,
 ];

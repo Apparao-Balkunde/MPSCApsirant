@@ -30,6 +30,7 @@ import { MPSC_COMBINE_PRE_2021 } from '../data/mpscCombinePre2021';
 import { MPSC_COMBINE_PRE_2020 } from '../data/mpscCombinePre2020';
 import { MPSC_PYQ_2022 } from '../data/mpscPyq2022';
 import { MPSC_COMBINE_MAINS_PYQ } from '../data/mpscCombineMainsPyq';
+import { MPSC_GROUP_C_PYQ } from '../data/mpscGroupCPyq';
 
 interface MpscPyqHubModalProps {
   isOpen: boolean;
@@ -280,6 +281,26 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['भा.दं.वि. (IPC)', 'फौ.प्र.सं. (CrPC)', 'पुरावा कायदा', 'पोलीस अधिनियम'],
     tagsEn: ['IPC 1860', 'CrPC 1973', 'Evidence Act', 'Police Act'],
     questions: MPSC_COMBINE_MAINS_PYQ
+  },
+  {
+    id: 'mpsc_group_c_prelims_official',
+    patternId: 'mpsc_group_c_pre',
+    titleMr: 'MPSC गट-क (अराजपत्रित) सेवा संयुक्त पूर्व परीक्षा (उद्योग, कर सहाय्यक, लिपिक)',
+    titleEn: 'MPSC Non-Gazetted Group C Services Combined Prelims Exam (Tax Asst, Clerk-Typist)',
+    examDate: 'अधिकृत प्रश्नसंच',
+    category: 'combine',
+    categoryLabelMr: 'गट-क संयुक्त पूर्व',
+    categoryLabelEn: 'Group C Combined Prelims',
+    bookletCode: 'C10 (संच A)',
+    totalQuestions: MPSC_GROUP_C_PYQ.length,
+    totalMarks: MPSC_GROUP_C_PYQ.length,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोगाची गट-क संयुक्त पूर्व परीक्षा (उद्योग निरीक्षक, दुय्यम निरीक्षक उत्पादन शुल्क, कर सहाय्यक, तांत्रिक सहाय्यक व लिपिक-टंकलेखक). अधिकृत उत्तरतालिका आणि प्रत्येक प्रश्नाचे सविस्तर संदर्भ स्पष्टीकरण.',
+    descriptionEn: 'Official MPSC Group C Combined Preliminary Exam (Industry Inspector, Sub-Inspector Excise, Tax Assistant, Clerk-Typist) with official key and comprehensive solutions.',
+    tagsMr: ['गट-क PYQ', 'कर सहाय्यक', 'लिपिक-टंकलेखक', 'सविस्तर संदर्भ'],
+    tagsEn: ['Group C PYQ', 'Tax Assistant', 'Clerk-Typist', 'Detailed Solutions'],
+    questions: MPSC_GROUP_C_PYQ
   }
 ];
 

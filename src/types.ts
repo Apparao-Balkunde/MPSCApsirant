@@ -37,6 +37,7 @@ export type ExamPatternId =
   | 'mpsc_combine_pre_2020'
   | 'mpsc_pyq_2022'
   | 'mpsc_combine_mains_pyq'
+  | 'mpsc_group_c_pre'
   | 'custom';
 
 export interface Question {
