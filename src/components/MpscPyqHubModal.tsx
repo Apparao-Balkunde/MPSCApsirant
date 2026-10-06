@@ -36,6 +36,7 @@ import { MPSC_COMBINE_PRE_2025 } from '../data/mpscCombinePre2025';
 import { MPSC_RAJYASEVA_PRE_2021 } from '../data/mpscRajyasevaPre2021';
 import { MPSC_RAJYASEVA_PRE_2020 } from '../data/mpscRajyasevaPre2020';
 import { ENGLISH_VOCAB_QUESTIONS } from '../data/englishVocabQuestions';
+import { MARATHI_VOCAB_QUESTIONS } from '../data/marathiVocabQuestions';
 
 interface MpscPyqHubModalProps {
   isOpen: boolean;
@@ -406,6 +407,26 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     tagsMr: ['अधिकृत PYQ', 'समानार्थी शब्द', 'विरुद्धार्थी शब्द', 'One-Word Substitution', 'वाक्प्रचार (Idioms)', 'सविस्तर स्पष्टीकरण'],
     tagsEn: ['Official PYQ', 'Synonyms', 'Antonyms', 'One-Word', 'Idioms & Phrases', 'Detailed Explanations'],
     questions: ENGLISH_VOCAB_QUESTIONS
+  },
+  {
+    id: 'mpsc_marathi_vocab_pyq_master',
+    patternId: 'mpsc_combine_mains_pyq',
+    titleMr: 'MPSC अधिकृत मराठी शब्दसंग्रह (PYQ Marathi Vocabulary Master)',
+    titleEn: 'MPSC Official Marathi Vocabulary PYQ Master (Synonyms, Antonyms, Idioms, One-Word)',
+    examDate: '२०१५ - २०२४ अधिकृत',
+    category: 'combine',
+    categoryLabelMr: 'मराठी शब्दसंग्रह PYQ',
+    categoryLabelEn: 'Marathi Vocab PYQ',
+    bookletCode: 'MR-VOCAB',
+    totalQuestions: MARATHI_VOCAB_QUESTIONS.length,
+    totalMarks: MARATHI_VOCAB_QUESTIONS.length * 2,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.५० गुण वजा)',
+    descriptionMr: 'राज्यसेवा मुख्य, संयुक्त गट-ब व गट-क मुख्य (PSI, STI, ASO, कर सहाय्यक, लिपिक-टंकलेखक) परीक्षांमध्ये २०१५ ते २०२४ दरम्यान विचारलेले १००% अधिकृत मराठी शब्दसंग्रह प्रश्न. म्हणी, वाक्प्रचार, अलंकारिक शब्द, समानार्थी व विरुद्धार्थी शब्द, आणि शब्दसमूहाबद्दल एक शब्द चे सविस्तर संदर्भ स्पष्टीकरण व अधिकृत उत्तरतालिका.',
+    descriptionEn: '100% verified authentic Previous Year Questions (PYQs) from MPSC Rajyaseva Mains and Combine Group B & Group C Mains covering Marathi proverbs (म्हणी), idioms (वाक्प्रचार), figurative expressions (अलंकारिक शब्द), synonyms, antonyms, and one-word substitutions with detailed explanations.',
+    tagsMr: ['अधिकृत PYQ', 'म्हणी व वाक्प्रचार', 'अलंकारिक शब्द', 'समानार्थी शब्द', 'शब्दसमूहाबद्दल एक शब्द', 'सविस्तर स्पष्टीकरण'],
+    tagsEn: ['Official PYQ', 'Proverbs & Idioms', 'Figurative Words', 'Synonyms', 'One-Word', 'Detailed Solutions'],
+    questions: MARATHI_VOCAB_QUESTIONS
   }
 ];
 
