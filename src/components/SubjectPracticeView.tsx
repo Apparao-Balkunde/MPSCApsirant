@@ -8,7 +8,8 @@ import {
   Filter,
   FileText,
   Flame,
-  Sparkles
+  Sparkles,
+  SpellCheck
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -18,6 +19,7 @@ interface SubjectPracticeViewProps {
   language: 'mr' | 'en';
   onStartSubjectExam: (subjectId: SubjectId, title: string) => void;
   onOpenGrammarRules?: (language?: 'all' | 'marathi' | 'english', moduleId?: string) => void;
+  onOpenVocabulary?: () => void;
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
   onOpenAddQuestion?: (subjectId?: SubjectId) => void;
   questionsPool?: Question[];
@@ -27,6 +29,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   language,
   onStartSubjectExam,
   onOpenGrammarRules,
+  onOpenVocabulary,
   onOpenHardQuestionsHub,
   onOpenAddQuestion,
   questionsPool,
@@ -139,6 +142,20 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                         : isMr
                         ? '📖 मराठी व्याकरण नियम व सूत्रे पहा'
                         : '📖 View Marathi Grammar Rules'}
+                    </span>
+                  </button>
+                )}
+
+                {sub.id === 'english_grammar' && onOpenVocabulary && (
+                  <button
+                    onClick={onOpenVocabulary}
+                    className="w-full py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                  >
+                    <SpellCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>
+                      {isMr
+                        ? '🎯 इंग्रजी-मराठी शब्दसंग्रह जोड्या (Word Match)'
+                        : '🎯 English-to-Marathi Vocab Match'}
                     </span>
                   </button>
                 )}

@@ -27,7 +27,8 @@ import {
   Monitor,
   Smartphone,
   Tablet,
-  Laptop
+  Laptop,
+  SpellCheck
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -35,7 +36,7 @@ import { type User } from 'firebase/auth';
 import { useDeviceScreen } from '../utils/screenUtils';
 import { useIsMobile, useIsCompactLandscape, useIsTouchDevice } from '../hooks/useMediaQuery';
 
-export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq';
+export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq';
 
 export interface HeaderProps {
   currentTab: NavigationTab;
@@ -261,6 +262,22 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{isMr ? 'व्याकरण' : 'Grammar'}</span>
                 <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400 text-stone-950 font-black uppercase hidden xl:inline">
                   {isMr ? '१५५ नियम 🏆' : '155 Rules 🏆'}
+                </span>
+              </button>
+
+              <button
+                id="nav-vocabulary"
+                onClick={() => onSelectTab('vocabulary')}
+                className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  currentTab === 'vocabulary'
+                    ? 'bg-amber-500 text-stone-950 shadow-sm font-bold'
+                    : 'text-stone-300 hover:text-white hover:bg-stone-800'
+                }`}
+              >
+                <SpellCheck className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-amber-400" />
+                <span>{isMr ? 'शब्दसंग्रह' : 'Vocabulary'}</span>
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500 text-stone-950 font-black uppercase hidden xl:inline">
+                  {isMr ? 'जोड्या 🎯' : 'Match 🎯'}
                 </span>
               </button>
 
@@ -597,6 +614,18 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <FileText className="w-3.5 h-3.5" />
             <span>{isMr ? 'व्याकरण' : 'Grammar'}</span>
+          </button>
+
+          <button
+            onClick={() => onSelectTab('vocabulary')}
+            className={`px-2.5 py-1.5 rounded-lg font-bold shrink-0 cursor-pointer transition-all flex items-center gap-1 ${
+              currentTab === 'vocabulary'
+                ? 'bg-amber-500 text-stone-950 shadow-xs'
+                : 'text-stone-400 hover:text-stone-200'
+            }`}
+          >
+            <SpellCheck className="w-3.5 h-3.5 text-amber-400" />
+            <span>{isMr ? 'शब्दसंग्रह' : 'Vocab'}</span>
           </button>
 
           <button

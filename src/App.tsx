@@ -25,6 +25,7 @@ import { AnalyticsView } from './components/AnalyticsView';
 import { BookmarksView } from './components/BookmarksView';
 import { SubjectPracticeView } from './components/SubjectPracticeView';
 import { GrammarRulesView } from './components/GrammarRulesView';
+import { VocabularyView } from './components/VocabularyView';
 import { AddMcqView } from './components/AddMcqView';
 import { AiMentorModal } from './components/AiMentorModal';
 import { CloudSyncModal } from './components/CloudSyncModal';
@@ -66,7 +67,7 @@ interface SyncToastState {
 export default function App() {
   const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
   const [questions, setQuestions] = useState<Question[]>(MPSC_QUESTIONS);
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq'>('dashboard');
+  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq'>('dashboard');
   const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
   const [activeResult, setActiveResult] = useState<ExamResult | null>(null);
 
@@ -871,6 +872,7 @@ export default function App() {
                 onOpenAnalytics={() => setCurrentTab('analytics')}
                 onReviewExamResult={handleReviewPastTest}
                 onOpenGrammarRules={() => setCurrentTab('grammar')}
+                onOpenVocabulary={() => setCurrentTab('vocabulary')}
                 onUpdateWeeklyGoals={handleUpdateWeeklyGoals}
                 onLogStudySession={handleLogStudySession}
                 onOpenCloudSync={() => {
@@ -904,6 +906,7 @@ export default function App() {
                 language={userProgress.preferredLanguage}
                 onStartSubjectExam={(subId, title) => handleStartExam('custom', subId, title)}
                 onOpenGrammarRules={(lang, modId) => handleOpenGrammarRules(lang, modId)}
+                onOpenVocabulary={() => setCurrentTab('vocabulary')}
                 onOpenHardQuestionsHub={(subId) => setIsHardQuestionsHubOpen(true)}
                 onOpenAddQuestion={(subjectId?: SubjectId) => {
                   setAddQuestionSubject(subjectId);
@@ -921,6 +924,17 @@ export default function App() {
                   initialModuleId={grammarInitialModuleId}
                   savedRuleIds={userProgress.bookmarkedRuleIds || []}
                   onToggleBookmark={handleToggleRuleBookmark}
+                  onStartPracticeWithQuestions={(qIds, title) => {
+                    handleStartExam('custom', undefined, title, qIds);
+                  }}
+                />
+              </main>
+            )}
+
+            {currentTab === 'vocabulary' && (
+              <main className="flex-1 pb-10">
+                <VocabularyView
+                  language={userProgress.preferredLanguage}
                   onStartPracticeWithQuestions={(qIds, title) => {
                     handleStartExam('custom', undefined, title, qIds);
                   }}

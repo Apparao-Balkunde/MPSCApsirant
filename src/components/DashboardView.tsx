@@ -27,7 +27,8 @@ import {
   AlertCircle,
   Timer,
   FileJson,
-  Scale
+  Scale,
+  SpellCheck
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -67,6 +68,7 @@ interface DashboardViewProps {
   onOpenAnalytics: () => void;
   onReviewExamResult?: (result: ExamResult) => void;
   onOpenGrammarRules?: () => void;
+  onOpenVocabulary?: () => void;
   onOpenLogin?: () => void;
   onUpdateWeeklyGoals: (hours: number, questions: number) => void;
   onLogStudySession: (title: string, durationMinutes: number, questionsSolved: number, notes?: string) => void;
@@ -95,6 +97,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenAnalytics,
   onReviewExamResult,
   onOpenGrammarRules,
+  onOpenVocabulary,
   onOpenLogin,
   onUpdateWeeklyGoals,
   onLogStudySession,
@@ -333,7 +336,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <FileText className="w-4 h-4 text-indigo-400" />
                   <span>{isMr ? 'मराठी व इंग्रजी व्याकरण नियम' : 'Grammar Rules & Shortcuts'}</span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
-                    {isMr ? '१३६ नियम 🏆' : '136 Rules'}
+                    {isMr ? '१५५ नियम 🏆' : '155 Rules'}
+                  </span>
+                </button>
+              )}
+
+              {onOpenVocabulary && (
+                <button
+                  id="btn-hero-vocabulary"
+                  onClick={onOpenVocabulary}
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-950/80 to-stone-900 hover:from-emerald-900/80 hover:to-stone-850 text-emerald-200 border border-emerald-500/40 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                  title={isMr ? "इंग्रजी-मराठी शब्दसंग्रह व जोड्या जुळवा केंद्र" : "English-to-Marathi Vocabulary & Word Matching"}
+                >
+                  <SpellCheck className="w-4 h-4 text-emerald-400" />
+                  <span>{isMr ? '🎯 इंग्रजी शब्दसंग्रह जोड्या' : '🎯 Vocab Matching'}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-400 text-stone-950 font-black uppercase">
+                    {isMr ? 'नवीन 🏆' : 'NEW 🏆'}
                   </span>
                 </button>
               )}

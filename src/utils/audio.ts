@@ -249,6 +249,43 @@ class SoundController {
       // ignore audio failure gracefully
     }
   }
+
+  /**
+   * Gentle buzz tone for incorrect match or error
+   */
+  playWrongSound(): void {
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.linearRampToValueAtTime(160, now + 0.18);
+
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.09, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.22);
+    } catch {
+      // ignore
+    }
+  }
+
+  /**
+   * Alias for playExamSubmissionSound
+   */
+  playExamSubmitSound(): void {
+    this.playExamSubmissionSound();
+  }
 }
 
 export const soundFx = new SoundController();
