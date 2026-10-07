@@ -32,6 +32,66 @@ export interface MpscExamItem {
 
 export const MPSC_EXAM_SCHEDULE: MpscExamItem[] = [
   {
+    id: 'mpsc_group_c_talathi_3jan_2027',
+    titleMr: 'MPSC गट-क (Group C) व तलाठी भरती पूर्व महापरीक्षा (३ जानेवारी २०२७)',
+    titleEn: 'MPSC Group C & Talathi Recruitment Prelims Mega Exam (3 Jan 2027)',
+    shortNameMr: 'गट-क / तलाठी (३ जाने २०२७)',
+    shortNameEn: 'Group C / Talathi 3 Jan 2027',
+    stage: 'prelims',
+    stageLabelMr: 'पूर्व परीक्षा (वस्तुनिष्ठ १०० प्रश्न)',
+    stageLabelEn: 'Prelims (Objective 100 Qs)',
+    targetDate: '2027-01-03T11:00:00',
+    examPatternId: 'mpsc_group_c_talathi_set_1',
+    targetPostsMr: [
+      'लिपिक-टंकलेखक (Clerk Typist)',
+      'तलाठी (Talathi Bharti)',
+      'कर सहाय्यक (Tax Assistant)',
+      'दुय्यम निरीक्षक उत्पादन शुल्क (Sub-Inspector Excise)',
+      'उद्योग निरीक्षक (Industry Inspector)',
+      'तांत्रिक सहाय्यक (Technical Assistant)'
+    ],
+    targetPostsEn: [
+      'Clerk-Typist',
+      'Talathi (Revenue Dept)',
+      'Tax Assistant',
+      'Excise Sub-Inspector',
+      'Industry Inspector',
+      'Technical Assistant'
+    ],
+    departmentMr: 'महसूल, गृह, वित्त व सामान्य प्रशासन विभाग',
+    departmentEn: 'Revenue, Home, Finance & GAD Depts.',
+    patternSummaryMr: '१०० प्रश्न, १०० गुण, ६० मिनिटे, १/४ (०.२५) नकारात्मक गुण - सामान्य क्षमता चाचणी (चालू घडामोडी १५ + नागरिकशास्त्र १५ + इतिहास १० + भूगोल १५ + अर्थव्यवस्था १५ + सामान्य विज्ञान १५ + बुद्धिमत्ता ८ + अंकगणित ७)',
+    patternSummaryEn: '100 MCQs, 100 Marks, 60 Minutes, 1/4th (0.25) Penalty - General Ability Test (Current Affairs 15 + Civics 15 + History 10 + Geography 15 + Economy 15 + General Science 15 + Reasoning 8 + Arithmetic 7)',
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    syllabusHighlightsMr: [
+      '१) चालू घडामोडी - जागतिक तसेच भारतातील (महाराष्ट्रासह विशेष घडामोडी) (१५ प्रश्न)',
+      '२) नागरिकशास्त्र - भारताच्या घटनेचा प्राथमिक अभ्यास, राज्य व्यवस्थापन (प्रशासन), ग्राम व्यवस्थापन (प्रशासन) (१५ प्रश्न)',
+      '३) इतिहास - आधुनिक भारताचा विशेषतः महाराष्ट्राचा इतिहास (१० प्रश्न)',
+      '४) भूगोल - महाराष्ट्राच्या भूगोलाच्या विशेष संदर्भासह: पृथ्वी, जगातील विभाग, हवामान, अक्षांश-रेखांश, जमिनीचे प्रकार, पर्जन्यमान, प्रमुख पिके, शहरे, नद्या, उद्योगधंदे (१५ प्रश्न)',
+      '५) अर्थव्यवस्था - भारतीय अर्थव्यवस्था (राष्ट्रीय उत्पन्न, शेती, उद्योग, बँकिंग, दारिद्र्य) व शासकीय अर्थव्यवस्था (अर्थसंकल्प, लेखापरीक्षण) (१५ प्रश्न)',
+      '६) सामान्य विज्ञान - भौतिकशास्त्र (Physics), रसायनशास्त्र (Chemistry), प्राणिशास्त्र (Zoology), वनस्पतीशास्त्र (Botany), आरोग्यशास्त्र (Hygiene) (१५ प्रश्न)',
+      '७) बुद्धिमापन चाचणी - उमेदवार किती लवकर व अचूकपणे विचार करू शकतो हे आजमावण्यासाठी प्रश्न (८ प्रश्न)',
+      '८) अंकगणित - बेरीज, वजाबाकी, गुणाकार, भागाकार, दशांश अपूर्णांक व टक्केवारी (७ प्रश्न)'
+    ],
+    syllabusHighlightsEn: [
+      '1) Current Affairs - Global, National, and Maharashtra Current Affairs (15 Qs)',
+      '2) Civics & Polity - Indian Constitution, State Administration, Rural Administration / Panchayati Raj (15 Qs)',
+      '3) History - Modern India, especially Maharashtra History (10 Qs)',
+      '4) Geography - Maharashtra Geography, Climate, Soil types, Rivers, Crops, Industries (15 Qs)',
+      '5) Economy - Indian Economy & Public Finance, Budget, Banking (15 Qs)',
+      '6) General Science - Physics, Chemistry, Zoology, Botany, Hygiene (15 Qs)',
+      '7) Reasoning - Logical thinking speed and problem solving (8 Qs)',
+      '8) Arithmetic - Basic operations, Decimals, Fractions, Percentages (7 Qs)'
+    ],
+    strategyTipMr: 'अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार १०० गुणांची "सामान्य क्षमता चाचणी" असते. ८ घटकांचे अचूक विभाजन असलेल्या १० महा सराव संचांचा सराव करा. वेळेचे अचूक नियोजन करून नकारात्मक गुण टाळा.',
+    strategyTipEn: 'Official Prelims follows 100-mark General Ability Test across 8 subjects. Master all 10 mock sets with exact subject quotas to optimize speed and eliminate negative marking.',
+    officialNoticeUrl: 'https://mpsc.gov.in',
+    isFeatured: true,
+    accentColor: 'amber',
+  },
+  {
     id: 'mpsc_combine_prelims_2026',
     titleMr: 'MPSC महाराष्ट्र अराजपत्रित गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२६',
     titleEn: 'MPSC Non-Gazetted Group B & Group C Combined Prelims 2026',
@@ -499,11 +559,12 @@ export function deleteCustomExamTarget(id: string): MpscExamItem[] {
 export function getPrimaryTargetExamId(): string {
   try {
     const saved = localStorage.getItem(PRIMARY_EXAM_STORAGE_KEY);
+    if (saved === 'mpsc_group_c_talathi_3jan_2026') return 'mpsc_group_c_talathi_3jan_2027';
     if (saved) return saved;
   } catch (e) {
     // ignore
   }
-  return 'mpsc_combine_prelims_2026';
+  return 'mpsc_group_c_talathi_3jan_2027';
 }
 
 export function setPrimaryTargetExamId(id: string): void {

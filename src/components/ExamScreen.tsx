@@ -248,6 +248,25 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   const totalDuration = session.durationSeconds || 900;
   const timePercent = Math.max(0, Math.min(100, (session.remainingSeconds / totalDuration) * 100));
 
+  // Section layout for standard CBT exams
+  const isGroupCSet = session.patternId.startsWith('mpsc_group_c_talathi_set_');
+  const is100QPaper = questions.length === 100;
+  const examSections = isGroupCSet && is100QPaper ? [
+    { id: 'sec_hist', nameMr: '१. इतिहास', nameEn: '1. History', start: 0, end: 9, icon: '📜' },
+    { id: 'sec_geo', nameMr: '२. भूगोल', nameEn: '2. Geography', start: 10, end: 24, icon: '🌍' },
+    { id: 'sec_eco', nameMr: '३. अर्थव्यवस्था', nameEn: '3. Economy', start: 25, end: 39, icon: '💰' },
+    { id: 'sec_ca', nameMr: '४. चालू घडामोडी', nameEn: '4. Current Affairs', start: 40, end: 54, icon: '📰' },
+    { id: 'sec_pol', nameMr: '५. राज्यशास्त्र', nameEn: '5. Polity', start: 55, end: 69, icon: '⚖️' },
+    { id: 'sec_sci', nameMr: '६. सामान्य विज्ञान', nameEn: '6. Science', start: 70, end: 84, icon: '🔬' },
+    { id: 'sec_arith', nameMr: '७. अंकगणित', nameEn: '7. Arithmetic', start: 85, end: 92, icon: '🔢' },
+    { id: 'sec_reas', nameMr: '८. बुद्धिमत्ता चाचणी', nameEn: '8. Reasoning', start: 93, end: 99, icon: '🧠' },
+  ] : is100QPaper ? [
+    { id: 'sec_1', nameMr: 'विभाग १: मराठी भाषा', nameEn: 'Sec 1: Marathi', start: 0, end: 24, icon: '🚩' },
+    { id: 'sec_2', nameMr: 'विभाग २: इंग्रजी भाषा', nameEn: 'Sec 2: English', start: 25, end: 49, icon: '🔤' },
+    { id: 'sec_3', nameMr: 'विभाग ३: सामान्य ज्ञान (GS)', nameEn: 'Sec 3: General GK', start: 50, end: 74, icon: '🏛️' },
+    { id: 'sec_4', nameMr: 'विभाग ४: बुद्धिमत्ता व गणित', nameEn: 'Sec 4: Aptitude & Math', start: 75, end: 99, icon: '🧮' },
+  ] : null;
+
   const handleToggleSound = () => {
     const nextState = !soundEffectsEnabled;
     if (onToggleSoundEffects) {
@@ -436,6 +455,63 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
           />
         </div>
       </header>
+
+      {/* Official CBT Candidate Hall Ticket Bar */}
+      {(session.candidateRollNo || session.examDateTag || session.patternId.startsWith('mpsc_group_c_talathi_set_')) && (
+        <div className="bg-stone-900 border-b border-stone-800 text-stone-300 px-4 py-1.5 text-xs flex items-center justify-between flex-wrap gap-2 shadow-inner">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <span className="font-mono bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-bold">
+              {session.candidateRollNo ? `बैठक क्र: ${session.candidateRollNo}` : 'बैठक क्र: GC27-301984'}
+            </span>
+            <span className="text-stone-200 font-extrabold flex items-center gap-1">
+              <span>🎯</span>
+              <span>{session.examDateTag || '३ जानेवारी २०२७ MPSC गट-क / तलाठी पूर्व महापरीक्षा'}</span>
+            </span>
+          </div>
+
+          <div className="text-[11px] text-stone-400 font-medium hidden sm:flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>MPSC अधिकृत ऑनलाईन CBT परीक्षा कक्ष प्रणाली</span>
+          </div>
+        </div>
+      )}
+
+      {/* CBT 4-Section Switcher Tabs (मराठी २५ | इंग्रजी २५ | GS २५ | CSAT २५) */}
+      {examSections && (
+        <div className="bg-white border-b border-stone-200 px-3 sm:px-6 py-2 flex items-center gap-2 overflow-x-auto shadow-2xs">
+          <span className="text-[11px] font-extrabold text-stone-500 uppercase shrink-0 hidden md:inline">
+            {questionLang === 'mr' ? 'विभाग निवडा:' : 'Sections:'}
+          </span>
+          {examSections.map((sec) => {
+            const isActive = currentQuestionIndex >= sec.start && currentQuestionIndex <= sec.end;
+            const secAnsweredCount = questions
+              .slice(sec.start, sec.end + 1)
+              .filter((q) => session.answers[q.id] !== undefined).length;
+            return (
+              <button
+                key={sec.id}
+                onClick={() => {
+                  soundFx.playClickSound();
+                  setCurrentQuestionIndex(sec.start);
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer ${
+                  isActive
+                    ? 'bg-amber-500 text-stone-950 font-black shadow-xs ring-1 ring-amber-400'
+                    : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
+                }`}
+              >
+                <span>{sec.icon}</span>
+                <span>{questionLang === 'mr' ? sec.nameMr : sec.nameEn}</span>
+                <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                  isActive ? 'bg-stone-950/20 text-stone-950' : 'bg-stone-200 text-stone-600'
+                }`}>
+                  {secAnsweredCount}/25
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Paused Overlay */}
       {isPaused && (

@@ -37,6 +37,8 @@ import { HardQuestionsHubModal } from './components/HardQuestionsHubModal';
 import { MpscPyqHubModal } from './components/MpscPyqHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
+import { GroupCTalathiTestSeriesModal } from './components/GroupCTalathiTestSeriesModal';
+import { calculateRealTimeStateRank } from './utils/rankPredictor';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -96,6 +98,10 @@ export default function App() {
 
   // MPSC Exam & Legal Information Hub modal state
   const [isInformationHubOpen, setIsInformationHubOpen] = useState<boolean>(false);
+
+  // MPSC Group C & Talathi Mega Test Series modal state (3 Jan 2027 Special)
+  const [isGroupCTalathiModalOpen, setIsGroupCTalathiModalOpen] = useState<boolean>(false);
+  const [groupCTalathiModalInitialView, setGroupCTalathiModalInitialView] = useState<'sets' | 'syllabus'>('sets');
 
   // Grammar rules navigation state
   const [grammarInitialLanguage, setGrammarInitialLanguage] = useState<'all' | 'marathi' | 'english'>('all');
@@ -619,6 +625,16 @@ export default function App() {
       { day: 'numeric', month: 'short', year: 'numeric' }
     );
 
+    const rankCalc = calculateRealTimeStateRank(
+      finalScore,
+      maxScore,
+      accuracyPercentage,
+      attemptedCount,
+      correctCount,
+      incorrectCount,
+      unattemptedCount
+    );
+
     const result: ExamResult = {
       sessionId: session.id,
       title: session.title,
@@ -637,6 +653,13 @@ export default function App() {
       subjectPerformance,
       date: dateStr,
       answers: session.answers,
+      stateRank: rankCalc.stateRank,
+      totalCandidates: rankCalc.totalAspirants,
+      percentile: rankCalc.percentile,
+      cutOffStatus: rankCalc.qualificationStatus.toLowerCase() as any,
+      targetExamTag: session.examDateTag || (session.patternId.startsWith('mpsc_group_c_talathi_set_') ? '३ जानेवारी २०२७ MPSC गट-क / तलाठी पूर्व परीक्षा' : undefined),
+      candidateRollNo: session.candidateRollNo,
+      candidateName: currentUser?.displayName || currentUser?.email || 'MPSC Aspirant',
     };
 
     if (userProgress.soundEffectsEnabled ?? true) {
@@ -825,6 +848,8 @@ export default function App() {
               onToggleBookmark={handleToggleBookmark}
               onOpenAiMentor={(q, ans) => handleOpenAiMentor(q, ans)}
               questionsPool={questions}
+              currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
+              currentUserId={currentUser?.uid}
             />
           </main>
         </div>
@@ -887,6 +912,10 @@ export default function App() {
                 }}
                 onOpenHardQuestionsHub={() => setIsHardQuestionsHubOpen(true)}
                 onOpenPyqHub={() => setIsPyqHubOpen(true)}
+                onOpenGroupCTalathiTestSeries={(initialView = 'sets') => {
+                  setGroupCTalathiModalInitialView(initialView);
+                  setIsGroupCTalathiModalOpen(true);
+                }}
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
                 onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
                 onOpenInformationHub={() => setIsInformationHubOpen(true)}
@@ -1146,6 +1175,20 @@ export default function App() {
           setIsInformationHubOpen(false);
           handleStartExam('custom', subjectId, customTitle);
         }}
+      />
+
+      {/* MPSC Group C & Talathi Mega Test Series Modal (3 Jan 2027 Special) */}
+      <GroupCTalathiTestSeriesModal
+        isOpen={isGroupCTalathiModalOpen}
+        onClose={() => setIsGroupCTalathiModalOpen(false)}
+        language={userProgress.preferredLanguage}
+        onStartExam={(patternId, subId, title) => {
+          setIsGroupCTalathiModalOpen(false);
+          handleStartExam(patternId, subId, title);
+        }}
+        userProgress={userProgress}
+        currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
+        initialView={groupCTalathiModalInitialView}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

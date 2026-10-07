@@ -42,6 +42,16 @@ export type ExamPatternId =
   | 'mpsc_combine_pre_2025'
   | 'mpsc_rajyaseva_pre_2021'
   | 'mpsc_rajyaseva_pre_2020'
+  | 'mpsc_group_c_talathi_set_1'
+  | 'mpsc_group_c_talathi_set_2'
+  | 'mpsc_group_c_talathi_set_3'
+  | 'mpsc_group_c_talathi_set_4'
+  | 'mpsc_group_c_talathi_set_5'
+  | 'mpsc_group_c_talathi_set_6'
+  | 'mpsc_group_c_talathi_set_7'
+  | 'mpsc_group_c_talathi_set_8'
+  | 'mpsc_group_c_talathi_set_9'
+  | 'mpsc_group_c_talathi_set_10'
   | 'custom';
 
 export interface Question {
@@ -79,6 +89,9 @@ export interface ExamSession {
   isCompleted: boolean;
   startedAt: number;
   completedAt?: number;
+  candidateRollNo?: string;
+  candidateName?: string;
+  examDateTag?: string;
 }
 
 export interface SubjectScoreBreakdown {
@@ -109,6 +122,13 @@ export interface ExamResult {
   date: string;
   timestamp?: number;
   answers: Record<string, number>;
+  stateRank?: number;
+  totalCandidates?: number;
+  percentile?: number;
+  cutOffStatus?: 'qualified' | 'borderline' | 'needs_practice';
+  targetExamTag?: string;
+  candidateRollNo?: string;
+  candidateName?: string;
 }
 
 export interface StudySessionLog {

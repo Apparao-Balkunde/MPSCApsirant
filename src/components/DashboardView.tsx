@@ -28,7 +28,9 @@ import {
   Timer,
   FileJson,
   Scale,
-  SpellCheck
+  SpellCheck,
+  Trophy,
+  Users
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -79,6 +81,7 @@ interface DashboardViewProps {
   onOpenBackupModal?: () => void;
   onOpenExamCountdown?: () => void;
   onOpenInformationHub?: () => void;
+  onOpenGroupCTalathiTestSeries?: (initialView?: 'sets' | 'syllabus') => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -108,6 +111,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenExamCountdown,
   onOpenInformationHub,
   onOpenPyqHub,
+  onOpenGroupCTalathiTestSeries,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1025,6 +1029,80 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <p className="text-xs text-stone-500">
               {isMr ? 'परीक्षेच्या प्रत्यक्ष स्वरूपानुसार नकारात्मक गुणांकनासह सराव करा.' : 'Practice in authentic MPSC time-bound formats with negative markings.'}
             </p>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* FEATURED: 3 JAN 2026 MPSC GROUP C & TALATHI MEGA TEST SERIES (10 SETS) */}
+        {/* ========================================================================= */}
+        <div className="bg-gradient-to-r from-stone-950 via-amber-950 to-stone-900 rounded-2xl border-2 border-amber-500/70 p-6 sm:p-7 shadow-xl text-white mb-6 relative overflow-hidden">
+          <div className="absolute -right-8 -bottom-8 opacity-15 pointer-events-none">
+            <Trophy className="w-56 h-56 text-amber-400" />
+          </div>
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div className="space-y-2 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-3 py-1 rounded-full bg-red-600 text-white text-xs font-black uppercase tracking-wider shadow-xs flex items-center gap-1.5 animate-pulse">
+                  <Flame className="w-3.5 h-3.5 fill-white" />
+                  {isMr ? '🎯 लक्ष्य: ३ जानेवारी २०२७ पूर्व परीक्षा' : '🎯 Target: 3 Jan 2027 Prelims'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                  {isMr ? '१० महा सराव संच उपलब्ध' : '10 Full Exam Sets Available'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
+                  {isMr ? '१०० प्रश्न • ६० मिनिटे • १०० गुण' : '100 Qs • 60 Mins • 100 Marks'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-bold">
+                  {isMr ? '🔴 थेट रिअल-टाइम राज्य रँक' : '🔴 Real-Time State Rank'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-white">
+                {isMr
+                  ? 'MPSC गट-क व तलाठी भरती पूर्व महा सराव टेस्ट सिरीज २०२७ (१० संच)'
+                  : 'MPSC Group C & Talathi Prelims Mega Test Series 2027 (10 Sets)'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क दुय्यम निरीक्षक व तलाठी पदांसाठी आयोगाच्या अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार (सामान्य क्षमता चाचणी) तयार केलेले १० महा सराव संच (३ जानेवारी २०२७ लक्ष्य). चालू घडामोडी (१५), नागरिकशास्त्र (१५), इतिहास (१०), भूगोल (१५), अर्थव्यवस्था (१५), सामान्य विज्ञान (१५), बुद्धिमापन (८) व अंकगणित (७) असे परिपूर्ण १०० प्रश्न. थेट महाराष्ट्र राज्य गुणवत्ता रँक व कट-ऑफ निकाल!'
+                  : '10 Full-length Mock Sets for 3 January 2027 Group C & Talathi Prelims. Strictly aligned with the official 8-subject General Ability Test syllabus (Current Affairs 15, Civics 15, History 10, Geography 15, Economy 15, Science 15, Reasoning 8, Arithmetic 7) with instant live Maharashtra State Rank, Percentile, and Qualifying Scorecard.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <span>⏱️ {isMr ? 'वेळ: ६० मिनिटे (३६०० सेकंद)' : 'Duration: 60 Mins'}</span>
+                <span>•</span>
+                <span>⚖️ {isMr ? 'नकारात्मक: १/४ (-०.२५ गुण)' : 'Negative: 1/4th (-0.25)'}</span>
+                <span>•</span>
+                <span>🎯 {isMr ? 'अपेक्षित कट-ऑफ: ५८.५+ (Open)' : 'Target Cutoff: 58.5+'}</span>
+                <span>•</span>
+                <span>🏛️ {isMr ? 'Real CBT Exam Hall Feeling' : 'Real CBT Simulation'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                onClick={() => onOpenGroupCTalathiTestSeries?.('sets')}
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Trophy className="w-4 h-4 text-stone-950" />
+                <span>{isMr ? '१० महा सराव संच पहा (Sets 1-10)' : 'View All 10 Sets'}</span>
+              </button>
+              <button
+                onClick={() => onOpenGroupCTalathiTestSeries?.('syllabus')}
+                className="px-4 py-3.5 bg-stone-800 hover:bg-stone-700 text-amber-300 hover:text-white border border-amber-500/40 font-bold text-sm rounded-xl transition-all shadow-xs flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <BookOpen className="w-4 h-4 text-amber-400" />
+                <span>{isMr ? '📋 अधिकृत अभ्यासक्रम' : '📋 Official Syllabus'}</span>
+              </button>
+              <button
+                onClick={() => onStartExam('mpsc_group_c_talathi_set_1', undefined, isMr ? 'MPSC गट-क / तलाठी महा सराव संच १ (३ जाने २०२७ विशेष)' : 'MPSC Group C / Talathi Mega Mock Set 1 (3 Jan 2027 Special)')}
+                className="px-5 py-3.5 bg-stone-900/90 hover:bg-stone-800 text-amber-300 hover:text-white border border-amber-500/50 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Play className="w-4 h-4 fill-current text-amber-400" />
+                <span>{isMr ? 'संच १ थेट सोडवा ➜' : 'Start Set 1 ➜'}</span>
+              </button>
+            </div>
           </div>
         </div>
 
