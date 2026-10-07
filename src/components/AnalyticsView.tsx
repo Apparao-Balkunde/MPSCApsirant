@@ -145,121 +145,257 @@ const SUBJECT_COLORS: Record<string, string> = {
   english_grammar: '#4f46e5', // Indigo
 };
 
-// Realistic mock test sample trend for demonstration when test history is starting
-const SAMPLE_MPSC_TREND = [
+// Realistic 10-attempt MPSC test trend showing accuracy improvement over last 10 attempts
+const SAMPLE_MPSC_TREND: Record<string, any>[] = [
   {
     testIndex: 1,
     testLabel: 'T1',
     date: '10 फेब्रु',
-    title: 'MPSC संयुक्त पूर्व परीक्षा मॉक १',
+    title: 'MPSC संयुक्त पूर्व परीक्षा सराव १',
     overallScore: 38.5,
     maxScore: 100,
-    overallAccuracy: 46,
-    polity_score: 8.5,
-    polity_accuracy: 52,
-    maharashtra_history_score: 6.0,
-    maharashtra_history_accuracy: 42,
-    maharashtra_geography_score: 7.5,
-    maharashtra_geography_accuracy: 48,
-    economy_score: 5.5,
-    economy_accuracy: 39,
-    general_science_score: 6.5,
-    general_science_accuracy: 44,
+    overallAccuracy: 44,
+    polity_score: 7.5,
+    polity_accuracy: 48,
+    maharashtra_history_score: 4.5,
+    maharashtra_history_accuracy: 40,
+    maharashtra_geography_score: 6.5,
+    maharashtra_geography_accuracy: 45,
+    economy_score: 5.0,
+    economy_accuracy: 38,
+    general_science_score: 6.0,
+    general_science_accuracy: 42,
+    current_affairs_score: 7.0,
+    current_affairs_accuracy: 50,
+    csat_score: 6.5,
+    csat_accuracy: 44,
+    environment_score: 6.0,
+    environment_accuracy: 46,
   },
   {
     testIndex: 2,
     testLabel: 'T2',
-    date: '17 फेब्रु',
+    date: '14 फेब्रु',
     title: 'MPSC राज्यसेवा सामान्य अध्ययन सराव २',
-    overallScore: 48.0,
+    overallScore: 46.0,
     maxScore: 100,
-    overallAccuracy: 54,
-    polity_score: 11.0,
-    polity_accuracy: 60,
-    maharashtra_history_score: 8.5,
-    maharashtra_history_accuracy: 50,
-    maharashtra_geography_score: 9.0,
-    maharashtra_geography_accuracy: 55,
-    economy_score: 8.0,
-    economy_accuracy: 49,
-    general_science_score: 8.5,
-    general_science_accuracy: 52,
+    overallAccuracy: 51,
+    polity_score: 9.0,
+    polity_accuracy: 54,
+    maharashtra_history_score: 5.5,
+    maharashtra_history_accuracy: 46,
+    maharashtra_geography_score: 8.0,
+    maharashtra_geography_accuracy: 52,
+    economy_score: 6.5,
+    economy_accuracy: 44,
+    general_science_score: 7.5,
+    general_science_accuracy: 48,
+    current_affairs_score: 8.5,
+    current_affairs_accuracy: 55,
+    csat_score: 8.0,
+    csat_accuracy: 52,
+    environment_score: 7.5,
+    environment_accuracy: 52,
   },
   {
     testIndex: 3,
     testLabel: 'T3',
-    date: '25 फेब्रु',
+    date: '18 फेब्रु',
     title: 'MPSC संयुक्त गट ब/क सराव ३',
-    overallScore: 56.5,
+    overallScore: 54.0,
     maxScore: 100,
-    overallAccuracy: 62,
-    polity_score: 13.5,
-    polity_accuracy: 68,
-    maharashtra_history_score: 10.0,
-    maharashtra_history_accuracy: 58,
-    maharashtra_geography_score: 11.5,
-    maharashtra_geography_accuracy: 64,
-    economy_score: 9.5,
-    economy_accuracy: 57,
-    general_science_score: 10.5,
-    general_science_accuracy: 61,
+    overallAccuracy: 58,
+    polity_score: 11.5,
+    polity_accuracy: 62,
+    maharashtra_history_score: 7.0,
+    maharashtra_history_accuracy: 52,
+    maharashtra_geography_score: 9.5,
+    maharashtra_geography_accuracy: 58,
+    economy_score: 8.0,
+    economy_accuracy: 50,
+    general_science_score: 9.0,
+    general_science_accuracy: 55,
+    current_affairs_score: 10.0,
+    current_affairs_accuracy: 62,
+    csat_score: 9.5,
+    csat_accuracy: 60,
+    environment_score: 9.0,
+    environment_accuracy: 58,
   },
   {
     testIndex: 4,
     testLabel: 'T4',
-    date: '04 मार्च',
+    date: '23 फेब्रु',
     title: 'MPSC राज्यसेवा जीएस फुल टेस्ट ४',
-    overallScore: 64.0,
+    overallScore: 61.5,
     maxScore: 100,
-    overallAccuracy: 69,
-    polity_score: 15.0,
-    polity_accuracy: 74,
-    maharashtra_history_score: 12.0,
-    maharashtra_history_accuracy: 67,
-    maharashtra_geography_score: 13.5,
-    maharashtra_geography_accuracy: 72,
-    economy_score: 11.0,
-    economy_accuracy: 65,
-    general_science_score: 12.0,
-    general_science_accuracy: 68,
+    overallAccuracy: 65,
+    polity_score: 13.0,
+    polity_accuracy: 68,
+    maharashtra_history_score: 8.5,
+    maharashtra_history_accuracy: 58,
+    maharashtra_geography_score: 11.0,
+    maharashtra_geography_accuracy: 65,
+    economy_score: 9.5,
+    economy_accuracy: 58,
+    general_science_score: 10.5,
+    general_science_accuracy: 62,
+    current_affairs_score: 11.5,
+    current_affairs_accuracy: 68,
+    csat_score: 11.0,
+    csat_accuracy: 66,
+    environment_score: 10.5,
+    environment_accuracy: 64,
   },
   {
     testIndex: 5,
     testLabel: 'T5',
-    date: '12 मार्च',
-    title: 'MPSC संयुक्त प्रिलिम्स अंतिम सराव ५',
-    overallScore: 71.5,
+    date: '28 फेब्रु',
+    title: 'MPSC संयुक्त प्रिलिम्स महासराव ५',
+    overallScore: 68.0,
     maxScore: 100,
-    overallAccuracy: 76,
-    polity_score: 16.5,
-    polity_accuracy: 81,
-    maharashtra_history_score: 13.5,
-    maharashtra_history_accuracy: 73,
-    maharashtra_geography_score: 15.0,
-    maharashtra_geography_accuracy: 79,
-    economy_score: 13.0,
-    economy_accuracy: 74,
-    general_science_score: 13.5,
-    general_science_accuracy: 75,
+    overallAccuracy: 71,
+    polity_score: 14.5,
+    polity_accuracy: 74,
+    maharashtra_history_score: 10.0,
+    maharashtra_history_accuracy: 65,
+    maharashtra_geography_score: 12.5,
+    maharashtra_geography_accuracy: 72,
+    economy_score: 11.0,
+    economy_accuracy: 64,
+    general_science_score: 11.5,
+    general_science_accuracy: 68,
+    current_affairs_score: 12.5,
+    current_affairs_accuracy: 72,
+    csat_score: 12.5,
+    csat_accuracy: 72,
+    environment_score: 11.5,
+    environment_accuracy: 70,
   },
   {
     testIndex: 6,
     testLabel: 'T6',
-    date: '20 मार्च',
-    title: 'MPSC राज्यसेवा हाय-स्पीड स्पीड टेस्ट ६',
-    overallScore: 78.0,
+    date: '05 मार्च',
+    title: 'MPSC राज्यसेवा स्पीड मॉक ६',
+    overallScore: 73.5,
     maxScore: 100,
-    overallAccuracy: 82,
+    overallAccuracy: 76,
+    polity_score: 16.0,
+    polity_accuracy: 78,
+    maharashtra_history_score: 11.5,
+    maharashtra_history_accuracy: 70,
+    maharashtra_geography_score: 13.5,
+    maharashtra_geography_accuracy: 76,
+    economy_score: 12.5,
+    economy_accuracy: 70,
+    general_science_score: 13.0,
+    general_science_accuracy: 74,
+    current_affairs_score: 13.5,
+    current_affairs_accuracy: 78,
+    csat_score: 13.5,
+    csat_accuracy: 78,
+    environment_score: 12.5,
+    environment_accuracy: 74,
+  },
+  {
+    testIndex: 7,
+    testLabel: 'T7',
+    date: '10 मार्च',
+    title: 'MPSC संयुक्त गट क मेगा सराव ७',
+    overallScore: 78.5,
+    maxScore: 100,
+    overallAccuracy: 80,
+    polity_score: 17.0,
+    polity_accuracy: 82,
+    maharashtra_history_score: 12.5,
+    maharashtra_history_accuracy: 75,
+    maharashtra_geography_score: 14.5,
+    maharashtra_geography_accuracy: 80,
+    economy_score: 13.5,
+    economy_accuracy: 74,
+    general_science_score: 14.0,
+    general_science_accuracy: 78,
+    current_affairs_score: 14.5,
+    current_affairs_accuracy: 82,
+    csat_score: 14.5,
+    csat_accuracy: 82,
+    environment_score: 13.5,
+    environment_accuracy: 78,
+  },
+  {
+    testIndex: 8,
+    testLabel: 'T8',
+    date: '15 मार्च',
+    title: 'MPSC राज्यसेवा हाय-स्पीड टेस्ट ८',
+    overallScore: 82.5,
+    maxScore: 100,
+    overallAccuracy: 84,
     polity_score: 18.0,
     polity_accuracy: 86,
-    maharashtra_history_score: 15.0,
-    maharashtra_history_accuracy: 79,
-    maharashtra_geography_score: 16.5,
+    maharashtra_history_score: 13.5,
+    maharashtra_history_accuracy: 78,
+    maharashtra_geography_score: 15.5,
     maharashtra_geography_accuracy: 84,
     economy_score: 14.5,
-    economy_accuracy: 80,
-    general_science_score: 15.0,
+    economy_accuracy: 78,
+    general_science_score: 14.5,
     general_science_accuracy: 82,
+    current_affairs_score: 15.0,
+    current_affairs_accuracy: 85,
+    csat_score: 15.0,
+    csat_accuracy: 86,
+    environment_score: 14.0,
+    environment_accuracy: 82,
+  },
+  {
+    testIndex: 9,
+    testLabel: 'T9',
+    date: '20 मार्च',
+    title: 'MPSC संयुक्त पूर्व अंतिम सराव ९',
+    overallScore: 86.0,
+    maxScore: 100,
+    overallAccuracy: 87,
+    polity_score: 18.5,
+    polity_accuracy: 89,
+    maharashtra_history_score: 14.0,
+    maharashtra_history_accuracy: 82,
+    maharashtra_geography_score: 16.0,
+    maharashtra_geography_accuracy: 87,
+    economy_score: 15.0,
+    economy_accuracy: 82,
+    general_science_score: 15.5,
+    general_science_accuracy: 85,
+    current_affairs_score: 15.5,
+    current_affairs_accuracy: 88,
+    csat_score: 15.5,
+    csat_accuracy: 89,
+    environment_score: 14.5,
+    environment_accuracy: 85,
+  },
+  {
+    testIndex: 10,
+    testLabel: 'T10',
+    date: '25 मार्च',
+    title: 'MPSC संपूर्ण अंतिम रंगीत तालीम १० (Grand Mock)',
+    overallScore: 89.5,
+    maxScore: 100,
+    overallAccuracy: 90,
+    polity_score: 19.0,
+    polity_accuracy: 92,
+    maharashtra_history_score: 15.0,
+    maharashtra_history_accuracy: 85,
+    maharashtra_geography_score: 16.5,
+    maharashtra_geography_accuracy: 90,
+    economy_score: 15.5,
+    economy_accuracy: 85,
+    general_science_score: 16.0,
+    general_science_accuracy: 88,
+    current_affairs_score: 16.0,
+    current_affairs_accuracy: 90,
+    csat_score: 16.0,
+    csat_accuracy: 92,
+    environment_score: 15.0,
+    environment_accuracy: 88,
   },
 ];
 
@@ -302,16 +438,16 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   const [showTopperBenchmark, setShowTopperBenchmark] = useState<boolean>(false);
   const [focusedRadarSubject, setFocusedRadarSubject] = useState<SubjectId | null>(null);
 
-  // Active subjects for multi_compare mode
+  // Active subjects for multi_compare mode (default: core MPSC subjects active)
   const [visibleSubjects, setVisibleSubjects] = useState<Record<string, boolean>>({
     polity: true,
     maharashtra_history: true,
     maharashtra_geography: true,
     general_science: true,
-    economy: false,
-    environment: false,
-    csat: false,
-    current_affairs: false,
+    economy: true,
+    csat: true,
+    current_affairs: true,
+    environment: true,
   });
 
   const toggleSubjectVisibility = (subId: string) => {
@@ -319,6 +455,38 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       ...prev,
       [subId]: !prev[subId],
     }));
+  };
+
+  const selectAllSubjects = () => {
+    const updated: Record<string, boolean> = {};
+    SUBJECTS.forEach((s) => { updated[s.id] = true; });
+    setVisibleSubjects(updated);
+  };
+
+  const selectCoreGSSubjects = () => {
+    setVisibleSubjects({
+      polity: true,
+      maharashtra_history: true,
+      maharashtra_geography: true,
+      general_science: true,
+      economy: true,
+      environment: true,
+      csat: false,
+      current_affairs: false,
+    });
+  };
+
+  const selectCsatAndCa = () => {
+    setVisibleSubjects({
+      polity: false,
+      maharashtra_history: false,
+      maharashtra_geography: false,
+      general_science: false,
+      economy: false,
+      environment: false,
+      csat: true,
+      current_affairs: true,
+    });
   };
 
   // Aggregate subject stats across all tests
@@ -363,7 +531,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   }, [history, windowLimit]);
 
   // Build the time-series Recharts dataset
-  const timeSeriesData = useMemo(() => {
+  const timeSeriesData = useMemo<Record<string, any>[]>(() => {
     if (useSampleData && history.length < 2) {
       return SAMPLE_MPSC_TREND;
     }
@@ -418,6 +586,56 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       overallGrowth,
     };
   }, [subjectChartData, timeSeriesData, metricType]);
+
+  // Subject-wise accuracy improvement over the evaluated attempts window
+  const subjectImprovementTrends = useMemo(() => {
+    return SUBJECTS.map((sub) => {
+      const validPoints = timeSeriesData
+        .filter((d) => d[`${sub.id}_accuracy`] !== undefined)
+        .map((d) => ({
+          testIndex: d.testIndex,
+          testLabel: d.testLabel,
+          title: d.title,
+          date: d.date,
+          accuracy: Number(d[`${sub.id}_accuracy`]),
+          score: d[`${sub.id}_score`] !== undefined ? Number(d[`${sub.id}_score`]) : undefined,
+        }));
+
+      if (validPoints.length === 0) {
+        return null;
+      }
+
+      const firstPoint = validPoints[0];
+      const latestPoint = validPoints[validPoints.length - 1];
+      const startAccuracy = firstPoint.accuracy;
+      const endAccuracy = latestPoint.accuracy;
+      const improvement = endAccuracy - startAccuracy;
+      const maxAccuracy = Math.max(...validPoints.map((p) => p.accuracy));
+      const minAccuracy = Math.min(...validPoints.map((p) => p.accuracy));
+
+      return {
+        subject: sub,
+        startAccuracy,
+        endAccuracy,
+        improvement,
+        maxAccuracy,
+        minAccuracy,
+        attemptsCount: validPoints.length,
+        points: validPoints,
+        color: SUBJECT_COLORS[sub.id] || '#d97706',
+      };
+    }).filter(Boolean) as {
+      subject: (typeof SUBJECTS)[number];
+      startAccuracy: number;
+      endAccuracy: number;
+      improvement: number;
+      maxAccuracy: number;
+      minAccuracy: number;
+      attemptsCount: number;
+      points: { testIndex: number; testLabel: string; title: string; date: string; accuracy: number; score?: number }[];
+      color: string;
+    }[];
+  }, [timeSeriesData]);
 
   const totalAttempted = history.reduce((acc, h) => acc + h.attemptedCount, 0);
   const totalCorrect = history.reduce((acc, h) => acc + h.correctCount, 0);
@@ -688,25 +906,30 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* PRIMARY FEATURE: RECHARTS LINE CHART - MPSC TEST SCORE & SUBJECT TRENDS   */}
+      {/* PRIMARY FEATURE: RECHARTS LINE CHART - SUBJECT-WISE PERFORMANCE TREND     */}
       {/* ========================================================================= */}
       <div className="bg-white rounded-2xl border border-stone-200 shadow-xs p-5 sm:p-7 space-y-6">
         {/* Chart Header & Interactive Controls */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-stone-100">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
               <h2 className="text-lg sm:text-xl font-bold text-stone-900 flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-amber-600" />
                 <span>
-                  {isMr ? 'चाचणी गुण व विषयनिहाय प्रगती आलेख' : 'Test Scores & Subject Progress Trend'}
+                  {isMr ? 'विषयनिहाय कामगिरी कल (Subject-wise Performance Trend)' : 'Subject-wise Performance Trend'}
                 </span>
               </h2>
+              <span className="text-[11px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-0.5 rounded-full">
+                {useSampleData && history.length < 2
+                  ? (isMr ? '📊 १० चाचण्यांचा नमुना कल' : '📊 10-Attempt Benchmark Trend')
+                  : (isMr ? `🎯 मागील ${timeSeriesData.length} चाचण्या` : `🎯 Last ${timeSeriesData.length} Attempts`)}
+              </span>
             </div>
             <p className="text-xs text-stone-500 mt-1">
               {isMr 
-                ? 'वेळेनुसार विविध विषयांमध्ये मिळालेले गुण आणि अचूकतेमधील सुधारणा तपासा.'
-                : 'Visualize your performance trajectory over time across different MPSC subjects using Recharts.'}
+                ? 'प्रत्येक MPSC विषयातील मागील १० चाचण्यांमधील अचूकतेमधील सातत्यपूर्ण सुधारणा (Accuracy Improvement Over Last 10 Attempts).'
+                : "Tracking your accuracy improvement across each MPSC subject over your last 10 attempts using Recharts."}
             </p>
           </div>
 
@@ -833,38 +1056,66 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
         )}
 
         {chartMode === 'multi_compare' && (
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-bold text-stone-600 shrink-0 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-stone-500" />
-              <span>{isMr ? 'आलेखामध्ये दर्शवायचे विषय:' : 'Active Subject Lines:'}</span>
-            </span>
-            {activeSubjectMetas.map((s) => {
-              const isChecked = visibleSubjects[s.id] ?? false;
-              const color = SUBJECT_COLORS[s.id] || '#78716c';
-              return (
+          <div className="space-y-2 pt-1">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <span className="font-bold text-stone-700 shrink-0 flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-stone-500" />
+                <span>{isMr ? 'आलेखामध्ये दर्शवायचे विषय:' : 'Active Subject Lines:'}</span>
+              </span>
+              <div className="flex items-center gap-1.5 text-[11px]">
                 <button
-                  key={s.id}
                   type="button"
-                  onClick={() => toggleSubjectVisibility(s.id)}
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
-                    isChecked
-                      ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
-                      : 'bg-stone-50 text-stone-400 border-stone-200 line-through opacity-70'
-                  }`}
+                  onClick={selectAllSubjects}
+                  className="px-2.5 py-1 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold transition-all cursor-pointer"
                 >
-                  <span
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: color }}
-                  />
-                  <span>{isMr ? s.nameMr.split(' ')[0] : s.nameEn.split(' ')[0]}</span>
+                  {isMr ? 'सर्व विषय' : 'Select All'}
                 </button>
-              );
-            })}
+                <button
+                  type="button"
+                  onClick={selectCoreGSSubjects}
+                  className="px-2.5 py-1 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold transition-all cursor-pointer"
+                >
+                  {isMr ? 'प्रमुख GS' : 'Core GS'}
+                </button>
+                <button
+                  type="button"
+                  onClick={selectCsatAndCa}
+                  className="px-2.5 py-1 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold transition-all cursor-pointer"
+                >
+                  {isMr ? 'CSAT व घडामोडी' : 'CSAT & CA'}
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1.5 text-xs">
+              {activeSubjectMetas.map((s) => {
+                const isChecked = visibleSubjects[s.id] ?? false;
+                const color = SUBJECT_COLORS[s.id] || '#78716c';
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => toggleSubjectVisibility(s.id)}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
+                      isChecked
+                        ? 'bg-stone-900 text-white border-stone-900 shadow-xs'
+                        : 'bg-stone-50 text-stone-400 border-stone-200 line-through opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <span
+                      className="w-2.5 h-2.5 rounded-full"
+                      style={{ backgroundColor: color }}
+                    />
+                    <span>{isMr ? s.nameMr.split(' ')[0] : s.nameEn.split(' ')[0]}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
 
         {/* The Recharts LineChart Canvas */}
-        <div className="h-80 w-full pt-2">
+        <div className="h-80 sm:h-96 w-full pt-2">
           {timeSeriesData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -872,6 +1123,11 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                 margin={{ top: 15, right: 25, left: -10, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <Legend
+                  verticalAlign="top"
+                  height={34}
+                  wrapperStyle={{ fontSize: '11px', paddingBottom: '10px' }}
+                />
                 
                 <XAxis 
                   dataKey="testLabel" 
@@ -1110,6 +1366,112 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                 {insights.weakestSubject ? `${insights.weakestSubject.fullName} (${insights.weakestSubject.accuracy}%)` : (isMr ? 'सामान्य विज्ञान व तंत्रज्ञान' : 'General Science')}
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Dedicated Subject-wise Accuracy Improvement Over Last 10 Attempts Grid */}
+        <div className="pt-5 border-t border-stone-100 space-y-3.5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 className="text-sm sm:text-base font-bold text-stone-900 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-600" />
+                <span>
+                  {isMr
+                    ? 'मागील १० चाचण्यांमधील प्रत्येक विषयाची अचूकता सुधारणा (Subject Accuracy Improvement)'
+                    : 'Accuracy Improvement Over Last 10 Attempts for Each MPSC Subject'}
+                </span>
+              </h3>
+              <p className="text-xs text-stone-500 mt-0.5">
+                {isMr
+                  ? 'सुरुवातीची चाचणी विरुद्ध ताजी चाचणी अचूकता (Start vs Latest Attempt Accuracy & Net Gain %)'
+                  : 'Start attempt vs latest attempt accuracy comparison showing net % gain for each MPSC subject.'}
+              </p>
+            </div>
+            <span className="text-[11px] font-mono font-bold bg-amber-50 text-amber-900 border border-amber-200/80 px-2.5 py-1 rounded-lg self-start sm:self-auto flex items-center gap-1.5 shadow-2xs">
+              <BarChart3 className="w-3.5 h-3.5 text-amber-600" />
+              <span>{isMr ? `${subjectImprovementTrends.length} विषय विश्लेषित` : `${subjectImprovementTrends.length} Subjects Evaluated`}</span>
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {subjectImprovementTrends.map((item) => {
+              const isPositive = item.improvement > 0;
+              const isSteady = item.improvement === 0;
+              const isSelected = chartMode === 'by_subject' && selectedSubject === item.subject.id;
+
+              return (
+                <div
+                  key={item.subject.id}
+                  onClick={() => {
+                    setSelectedSubject(item.subject.id as SubjectId);
+                    setChartMode('by_subject');
+                  }}
+                  className={`p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between group ${
+                    isSelected
+                      ? 'border-amber-500 bg-amber-50/60 ring-2 ring-amber-400/40 shadow-xs'
+                      : 'border-stone-200 bg-stone-50/70 hover:bg-white hover:border-amber-300 hover:shadow-xs'
+                  }`}
+                  title={isMr ? `${item.subject.nameMr} आलेखामध्ये पाहण्यासाठी क्लिक करा` : `Click to isolate ${item.subject.nameEn} line`}
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-1.5 mb-2.5">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span
+                          className="w-3 h-3 rounded-full shrink-0 shadow-2xs"
+                          style={{ backgroundColor: item.color }}
+                        />
+                        <span className="font-bold text-xs text-stone-900 truncate">
+                          {isMr ? item.subject.nameMr : item.subject.nameEn}
+                        </span>
+                      </div>
+
+                      <span
+                        className={`text-[11px] font-black px-2 py-0.5 rounded-md font-mono shrink-0 flex items-center gap-0.5 ${
+                          isPositive
+                            ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                            : isSteady
+                            ? 'bg-stone-200 text-stone-700'
+                            : 'bg-rose-100 text-rose-800 border border-rose-300'
+                        }`}
+                      >
+                        {isPositive && <TrendingUp className="w-3 h-3" />}
+                        {isPositive ? `+${item.improvement}%` : `${item.improvement}%`}
+                      </span>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-xs text-stone-600">
+                        <span>{isMr ? 'सुरुवात ➔ ताजी:' : 'Start ➔ Latest:'}</span>
+                        <span className="font-mono font-bold text-stone-900">
+                          {item.startAccuracy}% ➔ <span className={isPositive ? 'text-emerald-700 font-black' : ''}>{item.endAccuracy}%</span>
+                        </span>
+                      </div>
+
+                      {/* Progress bar visualizing latest accuracy with subject color */}
+                      <div className="h-2 w-full bg-stone-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${Math.min(100, Math.max(0, item.endAccuracy))}%`,
+                            backgroundColor: item.color,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between text-[11px] text-stone-500 pt-3 mt-2 border-t border-stone-200/60">
+                    <span className="font-medium">
+                      {isMr ? `सर्वोच्च: ${item.maxAccuracy}%` : `Peak: ${item.maxAccuracy}%`}
+                    </span>
+                    <span className="text-amber-700 font-bold group-hover:underline flex items-center gap-0.5 text-[11px]">
+                      <span>{isMr ? 'आलेख पहा' : 'View line'}</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
