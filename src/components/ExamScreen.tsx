@@ -29,6 +29,33 @@ import { SUBJECTS } from '../data/subjects';
 import { soundFx } from '../utils/audio';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { useDeviceScreen } from '../utils/screenUtils';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
+
+const questionCardVariants: Variants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? 32 : -32,
+    opacity: 0,
+    filter: 'blur(3px)',
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.22,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? -28 : 28,
+    opacity: 0,
+    filter: 'blur(3px)',
+    transition: {
+      duration: 0.16,
+      ease: [0.4, 0, 1, 1] as const,
+    },
+  }),
+};
 
 interface ExamScreenProps {
   session: ExamSession;
@@ -61,6 +88,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   const [showSubmitModal, setShowSubmitModal] = useState<boolean>(false);
   const [showPaletteMobile, setShowPaletteMobile] = useState<boolean>(false);
   const [soundFeedbackText, setSoundFeedbackText] = useState<string | null>(null);
+  const [direction, setDirection] = useState<number>(1);
 
   // Hook for live device detection, fullscreen, and text scaling
   const { isFullscreen, toggleFullscreen, deviceType, textScale } = useDeviceScreen();
@@ -194,12 +222,18 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
     }
   };
 
+  const navigateToQuestion = (targetIndex: number) => {
+    if (targetIndex === currentQuestionIndex || targetIndex < 0 || targetIndex >= questions.length) return;
+    setDirection(targetIndex > currentQuestionIndex ? 1 : -1);
+    setCurrentQuestionIndex(targetIndex);
+  };
+
   const handleJumpToNextMarked = () => {
     if (!questions.length) return;
     for (let i = 1; i <= questions.length; i++) {
       const idx = (currentQuestionIndex + i) % questions.length;
       if (session.markedForReview[questions[idx].id]) {
-        setCurrentQuestionIndex(idx);
+        navigateToQuestion(idx);
         return;
       }
     }
@@ -207,12 +241,14 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
 
   const handleSaveAndNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
+      setDirection(1);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
   const handlePrev = () => {
     if (currentQuestionIndex > 0) {
+      setDirection(-1);
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
   };
@@ -492,7 +528,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                 key={sec.id}
                 onClick={() => {
                   soundFx.playClickSound();
-                  setCurrentQuestionIndex(sec.start);
+                  navigateToQuestion(sec.start);
                 }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer ${
                   isActive
@@ -532,9 +568,15 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
           {/* Question Title Bar */}
           <div className="bg-stone-50 border-b border-stone-200 px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="bg-stone-900 text-white font-bold text-xs px-2.5 py-1 rounded-md">
+              <motion.span
+                key={`q-badge-${currentQuestionIndex}`}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.16 }}
+                className="bg-stone-900 text-white font-bold text-xs px-2.5 py-1 rounded-md inline-block"
+              >
                 {questionLang === 'mr' ? 'प्रश्न क्र.' : 'Question'} {currentQuestionIndex + 1}
-              </span>
+              </motion.span>
               {currentSubjectMeta && (
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 text-stone-700">
                   {questionLang === 'mr' ? currentSubjectMeta.nameMr : currentSubjectMeta.nameEn}
@@ -572,85 +614,100 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             </div>
           </div>
 
-          {/* Question Text Area */}
-          <div className="flex-1 p-4 sm:p-6 overflow-y-auto">
+          {/* Question Text Area with Fluid Entry & Exit Transitions */}
+          <div className="flex-1 p-4 sm:p-6 overflow-y-auto overflow-x-hidden relative">
             {currentQuestion ? (
-              <div className="space-y-5">
-                {/* Text Content */}
-                <div className={`${textScale === 'large' ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg lg:text-xl'} font-medium text-stone-900 leading-relaxed whitespace-pre-line`}>
-                  {questionLang === 'mr' ? currentQuestion.questionMr : currentQuestion.questionEn}
-                </div>
-
-                {/* Multiple Options (1, 2, 3, 4) */}
-                <div className="space-y-3 pt-2">
-                  {(questionLang === 'mr' ? currentQuestion.optionsMr : currentQuestion.optionsEn).map(
-                    (optionText, idx) => {
-                      const isSelected = session.answers[currentQuestion.id] === idx;
-                      return (
-                        <label
-                          key={idx}
-                          onClick={() => handleSelectOption(idx)}
-                          className={`flex items-start gap-3 p-3 sm:p-4 rounded-xl border-2 transition-all cursor-pointer ${
-                            isSelected
-                              ? 'border-amber-500 bg-amber-50/60 shadow-xs ring-1 ring-amber-400/50'
-                              : 'border-stone-200 hover:border-stone-300 bg-white hover:bg-stone-50/50'
-                          }`}
-                        >
-                          <div
-                            className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 transition-colors ${
-                              isSelected
-                                ? 'bg-amber-600 text-white shadow-xs'
-                                : 'border-2 border-stone-300 text-stone-600'
-                            }`}
-                          >
-                            {idx + 1}
-                          </div>
-                          <span className={`${textScale === 'large' ? 'text-base sm:text-lg' : 'text-sm sm:text-base'} text-stone-800 font-medium leading-normal flex-1`}>
-                            {optionText}
-                          </span>
-                        </label>
-                      );
-                    }
-                  )}
-                </div>
-
-                {/* THREE EXAM ACTION BUTTONS: PREVIOUS, NEXT, AND SUBMIT EXAM (Directly Under Options) */}
-                <div className="pt-5 mt-6 border-t border-stone-200/90 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
-                  <div className="flex items-center gap-2.5 w-full sm:w-auto">
-                    {/* 1. Previous Question Button */}
-                    <button
-                      id="btn-inline-prev"
-                      onClick={handlePrev}
-                      disabled={currentQuestionIndex === 0}
-                      className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm border border-stone-300 bg-white hover:bg-stone-100 text-stone-800 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                      <span>{questionLang === 'mr' ? 'मागील (Previous)' : 'Previous'}</span>
-                    </button>
-
-                    {/* 2. Next Question Button */}
-                    <button
-                      id="btn-inline-next"
-                      onClick={handleSaveAndNext}
-                      disabled={currentQuestionIndex === questions.length - 1}
-                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-500 hover:bg-amber-600 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                    >
-                      <span>{questionLang === 'mr' ? 'पुढील (Next)' : 'Next'}</span>
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
+                <motion.div
+                  key={currentQuestion.id}
+                  custom={direction}
+                  variants={questionCardVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="space-y-5"
+                >
+                  {/* Text Content */}
+                  <div className={`${textScale === 'large' ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg lg:text-xl'} font-medium text-stone-900 leading-relaxed whitespace-pre-line`}>
+                    {questionLang === 'mr' ? currentQuestion.questionMr : currentQuestion.questionEn}
                   </div>
 
-                  {/* 3. Submit Exam Button */}
-                  <button
-                    id="btn-inline-submit-exam"
-                    onClick={() => setShowSubmitModal(true)}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <Send className="w-4 h-4" />
-                    <span>{questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}</span>
-                  </button>
-                </div>
-              </div>
+                  {/* Multiple Options (1, 2, 3, 4) with tactile animation */}
+                  <div className="space-y-3 pt-2">
+                    {(questionLang === 'mr' ? currentQuestion.optionsMr : currentQuestion.optionsEn).map(
+                      (optionText, idx) => {
+                        const isSelected = session.answers[currentQuestion.id] === idx;
+                        return (
+                          <motion.label
+                            key={idx}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.18, delay: idx * 0.035 }}
+                            whileHover={{ scale: 1.006, x: 2 }}
+                            whileTap={{ scale: 0.992 }}
+                            onClick={() => handleSelectOption(idx)}
+                            className={`flex items-start gap-3 p-3 sm:p-4 rounded-xl border-2 transition-colors cursor-pointer ${
+                              isSelected
+                                ? 'border-amber-500 bg-amber-50/70 shadow-xs ring-1 ring-amber-400/50'
+                                : 'border-stone-200 hover:border-stone-300 bg-white hover:bg-stone-50/60'
+                            }`}
+                          >
+                            <div
+                              className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 transition-colors ${
+                                isSelected
+                                  ? 'bg-amber-600 text-white shadow-xs'
+                                  : 'border-2 border-stone-300 text-stone-600'
+                              }`}
+                            >
+                              {idx + 1}
+                            </div>
+                            <span className={`${textScale === 'large' ? 'text-base sm:text-lg' : 'text-sm sm:text-base'} text-stone-800 font-medium leading-normal flex-1`}>
+                              {optionText}
+                            </span>
+                          </motion.label>
+                        );
+                      }
+                    )}
+                  </div>
+
+                  {/* THREE EXAM ACTION BUTTONS: PREVIOUS, NEXT, AND SUBMIT EXAM (Directly Under Options) */}
+                  <div className="pt-5 mt-6 border-t border-stone-200/90 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                      {/* 1. Previous Question Button */}
+                      <button
+                        id="btn-inline-prev"
+                        onClick={handlePrev}
+                        disabled={currentQuestionIndex === 0}
+                        className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm border border-stone-300 bg-white hover:bg-stone-100 text-stone-800 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        <span>{questionLang === 'mr' ? 'मागील (Previous)' : 'Previous'}</span>
+                      </button>
+
+                      {/* 2. Next Question Button */}
+                      <button
+                        id="btn-inline-next"
+                        onClick={handleSaveAndNext}
+                        disabled={currentQuestionIndex === questions.length - 1}
+                        className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-500 hover:bg-amber-600 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <span>{questionLang === 'mr' ? 'पुढील (Next)' : 'Next'}</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {/* 3. Submit Exam Button */}
+                    <button
+                      id="btn-inline-submit-exam"
+                      onClick={() => setShowSubmitModal(true)}
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>{questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}</span>
+                    </button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             ) : (
               <div className="p-8 text-center text-stone-500">
                 {questionLang === 'mr' ? 'प्रश्न उपलब्ध नाही' : 'Question not found.'}
@@ -803,7 +860,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                     key={`${q.id}-${idx}`}
                     id={`palette-btn-${idx + 1}`}
                     onClick={() => {
-                      setCurrentQuestionIndex(idx);
+                      navigateToQuestion(idx);
                       setShowPaletteMobile(false);
                     }}
                     className={`h-10 rounded-lg font-bold text-xs border flex items-center justify-center transition-all cursor-pointer ${badgeColor} ${
