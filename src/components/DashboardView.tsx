@@ -1047,7 +1047,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   {isMr ? '🎯 लक्ष्य: ३ जानेवारी २०२७ पूर्व परीक्षा' : '🎯 Target: 3 Jan 2027 Prelims'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
-                  {isMr ? '१० महा सराव संच उपलब्ध' : '10 Full Exam Sets Available'}
+                  {isMr ? '२० महा सराव संच उपलब्ध' : '20 Full Exam Sets Available'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
                   {isMr ? '१०० प्रश्न • ६० मिनिटे • १०० गुण' : '100 Qs • 60 Mins • 100 Marks'}
@@ -1059,14 +1059,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
               <h2 className="text-xl sm:text-2xl font-black text-white">
                 {isMr
-                  ? 'MPSC गट-क व तलाठी भरती पूर्व महा सराव टेस्ट सिरीज २०२७ (१० संच)'
-                  : 'MPSC Group C & Talathi Prelims Mega Test Series 2027 (10 Sets)'}
+                  ? 'MPSC गट-क व तलाठी भरती पूर्व महा सराव टेस्ट सिरीज २०२७ (२० संच)'
+                  : 'MPSC Group C & Talathi Prelims Mega Test Series 2027 (20 Sets)'}
               </h2>
 
               <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
                 {isMr
-                  ? 'लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क दुय्यम निरीक्षक व तलाठी पदांसाठी आयोगाच्या अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार (सामान्य क्षमता चाचणी) तयार केलेले १० महा सराव संच (३ जानेवारी २०२७ लक्ष्य). चालू घडामोडी (१५), नागरिकशास्त्र (१५), इतिहास (१०), भूगोल (१५), अर्थव्यवस्था (१५), सामान्य विज्ञान (१५), बुद्धिमापन (८) व अंकगणित (७) असे परिपूर्ण १०० प्रश्न. थेट महाराष्ट्र राज्य गुणवत्ता रँक व कट-ऑफ निकाल!'
-                  : '10 Full-length Mock Sets for 3 January 2027 Group C & Talathi Prelims. Strictly aligned with the official 8-subject General Ability Test syllabus (Current Affairs 15, Civics 15, History 10, Geography 15, Economy 15, Science 15, Reasoning 8, Arithmetic 7) with instant live Maharashtra State Rank, Percentile, and Qualifying Scorecard.'}
+                  ? 'लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क दुय्यम निरीक्षक व तलाठी पदांसाठी आयोगाच्या अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार (सामान्य क्षमता चाचणी) तयार केलेले २० महा सराव संच (३ जानेवारी २०२७ लक्ष्य). चालू घडामोडी (१५), नागरिकशास्त्र (१५), इतिहास (१०), भूगोल (१५), अर्थव्यवस्था (१५), सामान्य विज्ञान (१५), बुद्धिमापन (८) व अंकगणित (७) असे परिपूर्ण १०० प्रश्न. थेट महाराष्ट्र राज्य गुणवत्ता रँक व कट-ऑफ निकाल!'
+                  : '20 Full-length Mock Sets for 3 January 2027 Group C & Talathi Prelims. Strictly aligned with the official 8-subject General Ability Test syllabus (Current Affairs 15, Civics 15, History 10, Geography 15, Economy 15, Science 15, Reasoning 8, Arithmetic 7) with instant live Maharashtra State Rank, Percentile, and Qualifying Scorecard.'}
               </p>
 
               <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
@@ -1086,7 +1086,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 className="px-5 py-3.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
               >
                 <Trophy className="w-4 h-4 text-stone-950" />
-                <span>{isMr ? '१० महा सराव संच पहा (Sets 1-10)' : 'View All 10 Sets'}</span>
+                <span>{isMr ? '२० महा सराव संच पहा (Sets 1-20)' : 'View All 20 Sets'}</span>
               </button>
               <button
                 onClick={() => onOpenGroupCTalathiTestSeries?.('syllabus')}

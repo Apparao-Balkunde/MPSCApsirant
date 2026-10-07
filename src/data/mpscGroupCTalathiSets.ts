@@ -424,6 +424,216 @@ export const MPSC_GROUP_C_TALATHI_SETS_CATALOG: GroupCTalathiSetMeta[] = [
     expectedCutoff: { open: 58.5, obc: 55.0, sc: 49.0, st: 43.5 },
     sections: TALATHI_SECTIONS_STANDARD,
   },
+  {
+    id: 'mpsc_group_c_talathi_set_11',
+    patternId: 'mpsc_group_c_talathi_set_11',
+    setNumber: 11,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच ११ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 11 (2027 Prelims Special)',
+    subtitleMr: 'महाराष्ट्राचा इतिहास, समाजसुधारक व १८५७ चा उठाव विशेष • १०० प्रश्न',
+    subtitleEn: 'Maharashtra History, Social Reformers & 1857 Special • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Exam-Standard',
+    descriptionMr: 'MPSC गट-क पूर्व परीक्षेसाठी आधुनिक भारताचा विशेषतः महाराष्ट्राचा इतिहास (१० प्रश्न) आणि सर्व ८ विषयांचा अचूक समन्वय साधणारा संच ११. समाजसुधारक, सत्यशोधक समाज, वृत्तपत्रे व स्वातंत्र्यलढा यांचे सखोल प्रश्न.',
+    descriptionEn: 'Comprehensive 100-question simulation with focused depth on Maharashtra history and reformers alongside all 8 syllabus subjects for 2027 prelims.',
+    focusAreasMr: ['महात्मा फुले, शाहू महाराज, डॉ. आंबेडकर', '१८५७ चे स्वातंत्र्यसमर व महाराष्ट्र', 'ग्राम प्रशासन व पंचायतराज', 'दशांश अपूर्णांक व बुद्धिमत्ता'],
+    focusAreasEn: ['Phule, Shahu Maharaj, Dr. Ambedkar', '1857 War & Maharashtra', 'Rural Governance & Panchayats', 'Decimals & Mental Ability'],
+    expectedCutoff: { open: 59.0, obc: 56.0, sc: 50.0, st: 44.0 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_12',
+    patternId: 'mpsc_group_c_talathi_set_12',
+    setNumber: 12,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १२ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 12 (2027 Prelims Special)',
+    subtitleMr: 'महाराष्ट्र भूगोल, जलप्रणाली, मृदा प्रकार व पिके मॉडेल पेपर • १०० प्रश्न',
+    subtitleEn: 'MH Geography, River Basins, Soils & Agriculture Model • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Moderate',
+    descriptionMr: 'महाराष्ट्राच्या भूगोलावरील १५ गुण पक्के करण्यासाठी सह्याद्री, पठार, नद्या, जलसिंचन, काळी रेगूर व जांभी मृदा आणि हवामानावर आधारित परिपूर्ण १०० प्रश्न.',
+    descriptionEn: 'High-yield test emphasizing Maharashtra physical geography, climate zones, river systems, and cropping patterns according to official syllabus.',
+    focusAreasMr: ['गोदावरी, भीमा, कृष्णा खोरी', 'सह्याद्रीतील घाट व शिखरे', 'स्थानिक स्वराज्य व घटनादुरुस्ती', 'नफा-तोटा व काळ-काम-वेग'],
+    focusAreasEn: ['River Basins of Maharashtra', 'Sahyadri Ghats & Peaks', 'Local Self-Govt & Polity', 'Profit-Loss & Time-Work'],
+    expectedCutoff: { open: 60.5, obc: 57.5, sc: 51.0, st: 45.0 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_13',
+    patternId: 'mpsc_group_c_talathi_set_13',
+    setNumber: 13,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १३ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 13 (2027 Prelims Special)',
+    subtitleMr: 'भारतीय अर्थव्यवस्था, बँकिंग, दारिद्र्य व शासकीय वित्त बूस्टर • १०० प्रश्न',
+    subtitleEn: 'Indian Economy, Banking, Poverty & Fiscal Budget Booster • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Hard',
+    descriptionMr: 'अर्थव्यवस्था (१५ प्रश्न) व इतर सर्व ७ विषयांचा सखोल सराव. राष्ट्रीय उत्पन्न, रिझर्व्ह बँक पतधोरण, जीएसटी, अर्थसंकल्प, दारिद्र्य निर्मूलन योजना व शासकीय वित्तीय प्रणाली.',
+    descriptionEn: 'Focused on Indian Economy and Public Finance (15 Qs) along with History, Geography, Polity, Science, CA, and CSAT for the 2027 prelims.',
+    focusAreasMr: ['GDP/GNP व राष्ट्रीय उत्पन्न', 'RBI पतधोरण व रेपो दर', 'महाराष्ट्राचे आर्थिक सर्वेक्षण', 'वयवारी, सरासरी व तर्कशुद्धता'],
+    focusAreasEn: ['National Income & Aggregates', 'RBI Monetary Policy & Repo', 'Maharashtra Economic Survey', 'Ages, Averages & Logic'],
+    expectedCutoff: { open: 56.5, obc: 53.5, sc: 48.0, st: 42.0 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_14',
+    patternId: 'mpsc_group_c_talathi_set_14',
+    setNumber: 14,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १४ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 14 (2027 Prelims Special)',
+    subtitleMr: 'नागरिकशास्त्र, राज्यघटना, संसद व ग्रामप्रशासन सराव संच • १०० प्रश्न',
+    subtitleEn: 'Civics, Constitution, Parliament & Rural Governance • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Exam-Standard',
+    descriptionMr: 'नागरिकशास्त्र (१५ प्रश्न): भारतीय घटनेची वैशिष्ट्ये, मूलभूत अधिकार, राज्य व्यवस्थापन (राज्यपाल, मुख्यमंत्री) व ग्राम व्यवस्थापन (तलाठी, ग्रामसेवक, सरपंच). सर्व ८ विषयांचा समतोल.',
+    descriptionEn: 'Official standard test covering Civics, Constitution, State Legislature, and District/Village Administration alongside all 8 subjects.',
+    focusAreasMr: ['मूलभूत हक्क व मार्गदर्शक तत्त्वे', 'महाराष्ट्र जमीन महसूल संहिता', 'ग्रामसभा व ७३ वी घटनादुरुस्ती', 'संख्या मालिका व नातेसंबंध'],
+    focusAreasEn: ['Fundamental Rights & DPSP', 'MLRC 1966 & Land Records', 'Gram Sabha & 73rd Amendment', 'Number Series & Relations'],
+    expectedCutoff: { open: 58.0, obc: 55.0, sc: 49.5, st: 43.0 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_15',
+    patternId: 'mpsc_group_c_talathi_set_15',
+    setNumber: 15,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १५ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 15 (2027 Prelims Special)',
+    subtitleMr: 'सामान्य विज्ञान (भौतिक, रसायन, जीव व आरोग्यशास्त्र) विशेष • १०० प्रश्न',
+    subtitleEn: 'General Science (Phy, Chem, Bio & Hygiene) Special • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Hard',
+    descriptionMr: 'सामान्य विज्ञानातील १५ पैकी १५ अचूक उत्तरे मिळवण्यासाठी तयार केलेला संच. प्रकाश, ध्वनी, मूलद्रव्ये, मानवी पचनसंस्था, जीवनसत्त्वे व रोगप्रतिकारशास्त्र यावर भर.',
+    descriptionEn: 'Rigorous science-oriented paper testing Physics, Chemistry, Botany, Zoology, and Human Hygiene plus full coverage of all remaining subjects.',
+    focusAreasMr: ['जीवनसत्त्वे व मानवी आजार', 'प्रकाश परावर्तन व भिंग', 'रासायनिक अभिक्रिया व आम्ल-आम्लारी', 'दिशा व अंतर, घड्याळ गणित'],
+    focusAreasEn: ['Vitamins & Diseases', 'Optics & Lenses', 'Chemical Reactions & Acids', 'Direction Sense & Clocks'],
+    expectedCutoff: { open: 55.0, obc: 52.0, sc: 46.5, st: 41.0 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_16',
+    patternId: 'mpsc_group_c_talathi_set_16',
+    setNumber: 16,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १६ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 16 (2027 Prelims Special)',
+    subtitleMr: 'चालू घडामोडी २०२६-२७, क्रीडा, पुरस्कार व योजना मास्टर टेस्ट • १०० प्रश्न',
+    subtitleEn: 'Current Affairs 2026-27, Sports, Awards & Schemes • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Moderate',
+    descriptionMr: 'अद्ययावत चालू घडामोडींवर (१५ प्रश्न) आधारित परिपूर्ण टेस्ट. महाराष्ट्र शासनाच्या नव्या योजना, क्रीडा स्पर्धा, पुरस्कार, वैज्ञानिक घडामोडी व राष्ट्रीय-आंतरराष्ट्रीय घडामोडी.',
+    descriptionEn: 'Comprehensive current affairs booster featuring latest 2026-2027 appointments, awards, government schemes, and sports across the 8-subject pattern.',
+    focusAreasMr: ['महाराष्ट्र चालू घडामोडी २०२६-२७', 'शासकीय कल्याणकारी योजना', 'राष्ट्रीय व आंतरराष्ट्रीय पुरस्कार', 'शेकडेवारी व गुणोत्तर-प्रमाण'],
+    focusAreasEn: ['Maharashtra CA 2026-27', 'State Welfare Initiatives', 'National & Global Awards', 'Percentages & Ratios'],
+    expectedCutoff: { open: 59.5, obc: 56.5, sc: 50.5, st: 44.5 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_17',
+    patternId: 'mpsc_group_c_talathi_set_17',
+    setNumber: 17,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १७ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 17 (2027 Prelims Special)',
+    subtitleMr: 'बुद्धिमापन चाचणी व विचारवेग स्ट्रेस-टेस्ट (CSAT विशेष) • १०० प्रश्न',
+    subtitleEn: 'Logical Reasoning & Speed Stress-Test (CSAT Focus) • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Exam-Standard',
+    descriptionMr: 'उमेदवाराचा विचारवेग व अचूकता तपासण्यासाठी बुद्धिमापन (८ प्रश्न) आणि अंकगणित (७ प्रश्न) सह सर्व ८ विषयांचे १०० प्रश्न. वेळेचे परिपूर्ण व्यवस्थापन शिकवणारा सराव संच.',
+    descriptionEn: 'Specially calibrated for logical reasoning and quick decision making under strict 60-minute CBT time pressure with 1/4th negative marking.',
+    focusAreasMr: ['वेन आकृत्या व सांकेतिक तुलना', 'बैठक व्यवस्था व कोडिंग', 'घड्याळ, दिनदर्शिका व संभाव्यता', 'आधुनिक भारत व महाराष्ट्र इतिहास'],
+    focusAreasEn: ['Venn Diagrams & Syllogism', 'Seating & Coding-Decoding', 'Clocks, Calendars & Logic', 'Modern India & MH History'],
+    expectedCutoff: { open: 58.5, obc: 55.5, sc: 49.0, st: 43.5 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_18',
+    patternId: 'mpsc_group_c_talathi_set_18',
+    setNumber: 18,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १८ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 18 (2027 Prelims Special)',
+    subtitleMr: 'अंकगणित अचूकता, लसावि-मसावि, अपूर्णांक व सरासरी • १०० प्रश्न',
+    subtitleEn: 'Arithmetic Mastery, Decimals, Fractions & Averages • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Exam-Standard',
+    descriptionMr: 'अभ्यासक्रमातील घटक क्र. ८ (अंकगणित - बेरीज, वजाबाकी, गुणाकार, भागाकार, दशांश अपूर्णांक व टक्केवारी) वर अचूक नियंत्रण मिळवण्यासाठी तयार केलेला मॉडेल पेपर.',
+    descriptionEn: 'Special emphasis on high-scoring arithmetic operations (decimals, percentages, fractions, averages) combined with the remaining 7 GS subjects.',
+    focusAreasMr: ['दशांश अपूर्णांक व पदावली', 'शेकडेवारी व नफा-तोटा', 'लसावि, मसावि व सरळव्याज', 'महाराष्ट्र खनिजे व उद्योग'],
+    focusAreasEn: ['Decimals & BODMAS', 'Percentages & Profit-Loss', 'LCM-HCF & Simple Interest', 'MH Minerals & Industries'],
+    expectedCutoff: { open: 60.0, obc: 57.0, sc: 51.0, st: 45.0 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_19',
+    patternId: 'mpsc_group_c_talathi_set_19',
+    setNumber: 19,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच १९ (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 19 (2027 Prelims Special)',
+    subtitleMr: 'ऑल-महाराष्ट्र सुपर रिव्हिजन महा सराव पेपर (८ विषय) • १०० प्रश्न',
+    subtitleEn: 'All-Maharashtra Super Revision Mega Mock Paper • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Hard',
+    descriptionMr: 'परीक्षेपूर्वीची सर्वसमावेशक महा उजळणी! चालू घडामोडी, नागरिकशास्त्र, इतिहास, भूगोल, अर्थशास्त्र, सामान्य विज्ञान, बुद्धिमत्ता व अंकगणित या ८ विषयांची कसून परीक्षा.',
+    descriptionEn: 'Penultimate all-Maharashtra full syllabus test simulating the exact real exam atmosphere with detailed topic-by-topic analytics.',
+    focusAreasMr: ['सर्व ८ विषयांचे महत्त्वाचे घटक', 'नकारात्मक गुण नियंत्रण धोरण', 'कठीण प्रश्नांमध्ये एलिमिनेशन पद्धत', '६० मिनिटांचे अचूक नियोजन'],
+    focusAreasEn: ['All 8 Core Syllabus Topics', 'Negative Marking Control', 'Option Elimination Technique', 'Exact 60-Minute Hall Simulation'],
+    expectedCutoff: { open: 57.5, obc: 54.5, sc: 48.5, st: 42.5 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
+  {
+    id: 'mpsc_group_c_talathi_set_20',
+    patternId: 'mpsc_group_c_talathi_set_20',
+    setNumber: 20,
+    titleMr: 'MPSC गट-क / तलाठी महा सराव संच २० (२०२७ पूर्व परीक्षा विशेष)',
+    titleEn: 'MPSC Group C / Talathi Mega Mock Set 20 (2027 Prelims Special)',
+    subtitleMr: 'अंतिम महा ऑल महाराष्ट्र टॉपर रँकर परीक्षा (Final Mock Rehearsal) • १०० प्रश्न',
+    subtitleEn: 'Ultimate Grand All-Maharashtra Ranker Exam (Final CBT) • 100 Qs',
+    targetExamDate: '३ जानेवारी २०२७',
+    totalQuestions: 100,
+    totalMarks: 100,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    difficulty: 'Exam-Standard',
+    descriptionMr: '२०२७ च्या पूर्व परीक्षेपूर्वीचा २० वा अंतिम महा सराव संच! संपूर्ण महाराष्ट्रातील उमेदवारांसोबत थेट रँक, पर्सेन्टाइल, विषयनिहाय अचूकता आणि कट-ऑफ पडताळून बघा.',
+    descriptionEn: 'The grand finale Set 20 of the 2027 prelims test series. Benchmark your final state rank, qualifying percentile, and time-management under official CBT standards.',
+    focusAreasMr: ['चालू घडामोडी (१५ प्रश्न)', 'नागरिकशास्त्र व इतिहास (२५ प्रश्न)', 'भूगोल व अर्थव्यवस्था (३० प्रश्न)', 'विज्ञान व CSAT (३० प्रश्न)'],
+    focusAreasEn: ['Current Affairs (15 Qs)', 'Civics & History (25 Qs)', 'Geography & Economy (30 Qs)', 'Science & CSAT (30 Qs)'],
+    expectedCutoff: { open: 59.0, obc: 56.0, sc: 50.0, st: 44.0 },
+    sections: TALATHI_SECTIONS_STANDARD,
+  },
 ];
 
 /**
@@ -798,10 +1008,148 @@ export const TALATHI_GROUP_C_SPECIAL_QUESTIONS: Question[] = [
     explanationEn: 'Explanation: Satyashodhak Samaj was founded on 24 Sept 1873 by Mahatma Jyotirao Phule in Pune to emancipate lower castes from social and religious oppression.',
     reference: 'महाराष्ट्राचा इतिहास - समाजसुधारक (MPSC Prelims Syllabus Item 1)',
   },
+  {
+    id: 'talathi_2027_ca_01',
+    subjectId: 'current_affairs',
+    topic: 'महाराष्ट्र शासकीय योजना २०२६-२७',
+    subtopic: 'मुख्यमंत्री माझी लाडकी बहीण योजना',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "महाराष्ट्र शासनाने महिलांच्या आर्थिक स्वातंत्र्यासाठी सुरू केलेल्या 'मुख्यमंत्री माझी लाडकी बहीण योजने'अंतर्गत पात्र महिलांना दरमहा किती रुपयांची थेट आर्थिक मदत बँक खात्यात दिली जाते?\n(१) ₹ १,०००\n(२) ₹ १,५००\n(३) ₹ २,०००\n(४) ₹ २,५००",
+    questionEn: "Under the Maharashtra Government's flagship 'Mukhyamantri Majhi Ladki Bahin Yojana', what is the direct monthly financial assistance provided to eligible women?\n(1) ₹ 1,000\n(2) ₹ 1,500\n(3) ₹ 2,000\n(4) ₹ 2,500",
+    optionsMr: ['₹ १,०००', '₹ १,५००', '₹ २,०००', '₹ २,५००'],
+    optionsEn: ['₹ 1,000', '₹ 1,500', '₹ 2,000', '₹ 2,500'],
+    correctAnswerIndex: 1,
+    explanationMr: 'स्पष्टीकरण:\n• महाराष्ट्र शासनाच्या अर्थसंकल्पामध्ये जाहीर झालेल्या ‘मुख्यमंत्री माझी लाडकी बहीण योजने’द्वारे २१ ते ६५ वयोगटातील पात्र महिलांना दरमहा ₹ १,५००/- थेट डीबीटीद्वारे खात्यात जमा केले जातात.\n• महिलांचे पोषण सुधारणे व आर्थिक सक्षमीकरण करणे हा या योजनेचा मुख्य उद्देश आहे.',
+    explanationEn: 'Explanation: Mukhyamantri Majhi Ladki Bahin Yojana provides ₹ 1,500 per month directly via DBT to eligible women aged 21-65 years in Maharashtra.',
+    reference: 'महाराष्ट्र चालू घडामोडी २०२६-२७ / शासन निर्णय',
+  },
+  {
+    id: 'talathi_2027_polity_01',
+    subjectId: 'polity',
+    topic: 'प्रशासकीय सुधारणा व कायदे',
+    subtopic: 'महाराष्ट्र लोकायुक्त अधिनियम २०२२',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "मुख्यमंत्र्यांना (Chief Minister) लोकायुक्तांच्या चौकशीच्या कक्षेत आणणारा नवीन 'महाराष्ट्र लोकायुक्त कायदा, २०२२' संमत करणारे भारतातील पहिले राज्य कोणते ठरले आहे?\n(१) केरळ\n(२) कर्नाटक\n(३) महाराष्ट्र\n(४) राजस्थान",
+    questionEn: "Which state became the first in India to enact the Lokayukta Act bringing the Chief Minister under the purview of Lokayukta investigation?\n(1) Kerala\n(2) Karnataka\n(3) Maharashtra\n(4) Rajasthan",
+    optionsMr: ['केरळ', 'कर्नाटक', 'महाराष्ट्र', 'राजस्थान'],
+    optionsEn: ['Kerala', 'Karnataka', 'Maharashtra', 'Rajasthan'],
+    correctAnswerIndex: 2,
+    explanationMr: 'स्पष्टीकरण:\n• महाराष्ट्राने डिसेंबर २०२२ मध्ये नवीन ‘महाराष्ट्र लोकायुक्त विधेयक’ मंजूर केले, ज्याद्वारे मुख्यमंत्र्यांनाही भ्रष्टाचार प्रतिबंधक चौकशीच्या कक्षेत आणण्यात आले.\n• असे पाऊल उचलणारे महाराष्ट्र हे देशातील पहिले राज्य ठरले आहे.',
+    explanationEn: 'Explanation: Maharashtra became the first state in India to pass the Lokayukta Bill bringing the Chief Minister under the ambit of anti-corruption investigation.',
+    reference: 'महाराष्ट्र राज्य प्रशासन व कायदे / एम. लक्ष्मीकांत',
+  },
+  {
+    id: 'talathi_2027_geo_01',
+    subjectId: 'maharashtra_geography',
+    topic: 'महाराष्ट्रातील वने व राष्ट्रीय उद्याने',
+    subtopic: 'राष्ट्रीय उद्याने व जिल्हे जोड्या',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "महाराष्ट्रातील 'चांदोली राष्ट्रीय उद्यान' (Chandoli National Park) खालीलपैकी कोणत्या चार जिल्ह्यांच्या सीमेवर पसरलेले आहे?\n(१) सांगली, सातारा, कोल्हापूर व रत्नागिरी\n(२) पुणे, सातारा, रायगड व ठाणे\n(३) नागपूर, भंडारा, गोंदिया व गडचिरोली\n(४) नाशिक, धुळे, जळगाव व नंदुरबार",
+    questionEn: "Chandoli National Park in Maharashtra is spread across the borders of which four districts?\n(1) Sangli, Satara, Kolhapur, and Ratnagiri\n(2) Pune, Satara, Raigad, and Thane\n(3) Nagpur, Bhandara, Gondia, and Gadchiroli\n(4) Nashik, Dhule, Jalgaon, and Nandurbar",
+    optionsMr: [
+      'सांगली, सातारा, कोल्हापूर व रत्नागिरी',
+      'पुणे, सातारा, रायगड व ठाणे',
+      'नागपूर, भंडारा, गोंदिया व गडचिरोली',
+      'नाशिक, धुळे, जळगाव व नंदुरबार'
+    ],
+    optionsEn: [
+      'Sangli, Satara, Kolhapur, and Ratnagiri',
+      'Pune, Satara, Raigad, and Thane',
+      'Nagpur, Bhandara, Gondia, and Gadchiroli',
+      'Nashik, Dhule, Jalgaon, and Nandurbar'
+    ],
+    correctAnswerIndex: 0,
+    explanationMr: 'स्पष्टीकरण:\n• चांदोली राष्ट्रीय उद्यान (स्थापना २००४) हे सांगली, सातारा, कोल्हापूर आणि रत्नागिरी या ४ जिल्ह्यांच्या सरहद्दीवर सह्याद्री पर्वतरांगेत पसरले आहे.\n• हे उद्यान युनेस्कोच्या जागतिक वारसा स्थळांमध्ये (सह्याद्री व्याघ्र प्रकल्प) समाविष्ट आहे.',
+    explanationEn: 'Explanation: Chandoli National Park spans across Sangli, Satara, Kolhapur, and Ratnagiri districts in the Western Ghats (Sahyadri Tiger Reserve).',
+    reference: 'सौदी - महाराष्ट्राचा भूगोल / राष्ट्रीय उद्याने',
+  },
+  {
+    id: 'talathi_2027_eco_01',
+    subjectId: 'economy',
+    topic: 'वित्तीय संघराज्य व वित्त आयोग',
+    subtopic: '१६ वा वित्त आयोग व अध्यक्ष',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "भारत सरकारने स्थापन केलेल्या '१६ व्या वित्त आयोगाचे' (16th Finance Commission) अध्यक्ष म्हणून कोणाची नियुक्ती करण्यात आली आहे?\n(१) डॉ. एन. के. सिंग\n(२) डॉ. अरविंद पनगरिया\n(३) डॉ. रघुराम राजन\n(४) डॉ. उर्जित पटेल",
+    questionEn: "Who has been appointed as the Chairman of the 16th Finance Commission constituted by the Government of India?\n(1) Dr. N. K. Singh\n(2) Dr. Arvind Panagariya\n(3) Dr. Raghuram Rajan\n(4) Dr. Urjit Patel",
+    optionsMr: ['डॉ. एन. के. सिंग', 'डॉ. अरविंद पनगरिया', 'डॉ. रघुराम राजन', 'डॉ. उर्जित पटेल'],
+    optionsEn: ['Dr. N. K. Singh', 'Dr. Arvind Panagariya', 'Dr. Raghuram Rajan', 'Dr. Urjit Patel'],
+    correctAnswerIndex: 1,
+    explanationMr: 'स्पष्टीकरण:\n• भारतीय संविधानाच्या कलम २८० अन्वये ३१ डिसेंबर २०२३ रोजी १६ व्या वित्त आयोगाची स्थापना करण्यात आली.\n• नीती आयोगाचे माजी उपाध्यक्ष डॉ. अरविंद पनगरिया यांची अध्यक्षपदी नियुक्ती करण्यात आली आहे. या आयोगाच्या शिफारशी २०२६ ते २०३१ या ५ वर्षांच्या कालावधीसाठी लागू असतील.',
+    explanationEn: 'Explanation: Dr. Arvind Panagariya (former Vice Chairman of NITI Aayog) was appointed as the Chairman of the 16th Finance Commission under Article 280.',
+    reference: 'भारतीय अर्थव्यवस्था / केंद्रीय वित्त मंत्रालय',
+  },
+  {
+    id: 'talathi_2027_sci_01',
+    subjectId: 'general_science',
+    topic: 'आरोग्यशास्त्र व अनुवंशिकता',
+    subtopic: 'सिकलसेल ॲनिमिया व राष्ट्रीय मोहीम',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "भारतात आदिवासी व ग्रामीण भागात प्रामुख्याने आढळणारा 'सिकलसेल ॲनिमिया' (Sickle Cell Anemia) हा आजार कोणत्या पेशींच्या असामान्य आकारामुळे होतो?\n(१) पांढऱ्या रक्तपेशी (WBC)\n(२) तांबड्या रक्तपेशी (RBC)\n(३) रक्तपट्टीका (Platelets)\n(४) मज्जापेशी (Neurons)",
+    questionEn: "'Sickle Cell Anemia', predominantly prevalent in tribal and rural belts of Maharashtra and India, affects which cells by altering their shape?\n(1) White Blood Cells (WBC)\n(2) Red Blood Cells (RBC)\n(3) Blood Platelets\n(4) Neurons",
+    optionsMr: ['पांढऱ्या रक्तपेशी (WBC)', 'तांबड्या रक्तपेशी (RBC)', 'रक्तपट्टीका (Platelets)', 'मज्जापेशी (Neurons)'],
+    optionsEn: ['White Blood Cells (WBC)', 'Red Blood Cells (RBC)', 'Blood Platelets', 'Neurons'],
+    correctAnswerIndex: 1,
+    explanationMr: 'स्पष्टीकरण:\n• सिकलसेल ॲनिमिया हा अनुवांशिक विकार असून यात तांबड्या रक्तपेशींमधील (RBC) हिमोग्लोबिनच्या दोषाने पेशी विळ्याच्या आकाराच्या (Crescent/Sickle shape) बनतात.\n• यामुळे ऑक्सिजन वाहून नेण्याची क्षमता घटते. भारताने २०४७ पर्यंत सिकलसेल निर्मूलनाचे राष्ट्रीय उद्दिष्ट ठेवले आहे.',
+    explanationEn: 'Explanation: Sickle Cell Anemia is a genetic disorder where red blood cells (RBCs) become rigid and sickle-shaped due to abnormal hemoglobin HbS.',
+    reference: 'सामान्य विज्ञान - आरोग्यशास्त्र / स्टेट बोर्ड जीवशास्त्र',
+  },
+  {
+    id: 'talathi_2027_hist_01',
+    subjectId: 'maharashtra_history',
+    topic: 'महाराष्ट्रातील समाजसुधारक',
+    subtopic: 'राजर्षी छत्रपती शाहू महाराज - आरक्षण जाहीरनामा',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "राजर्षी छत्रपती शाहू महाराजांनी कोल्हापूर संस्थानात बहुजन समाजासाठी ५०% आरक्षणाची ऐतिहासिक घोषणा कोणत्या वर्षी केली?\n(१) २६ जुलै १९०२\n(२) १ मे १९०६\n(३) १५ ऑगस्ट १९११\n(४) २६ जानेवारी १९१८",
+    questionEn: "In which year did Rajarshi Chhatrapati Shahu Maharaj make the historic declaration of 50% reservation for backward classes in Kolhapur Princely State?\n(1) 26 July 1902\n(2) 1 May 1906\n(3) 15 August 1911\n(4) 26 January 1918",
+    optionsMr: ['२६ जुलै १९०२', '१ मे १९०६', '१५ ऑगस्ट १९११', '२६ जानेवारी १९१८'],
+    optionsEn: ['26 July 1902', '1 May 1906', '15 August 1911', '26 January 1918'],
+    correctAnswerIndex: 0,
+    explanationMr: 'स्पष्टीकरण:\n• २६ जुलै १९०२ रोजी शाहू महाराजांनी करवीर संस्थानातील प्रशासकीय सेवांमध्ये मागासवर्गीय समाजाला ५०% आरक्षण देण्याचा क्रांतिकारक हुकूम काढला.\n• म्हणून २६ जुलै हा दिवस महाराष्ट्रात ‘सामाजिक न्याय दिन’ म्हणून साजरा केला जातो.',
+    explanationEn: 'Explanation: On 26 July 1902, Rajarshi Chhatrapati Shahu Maharaj issued the historic decree providing 50% reservation for backward classes in state administration.',
+    reference: 'महाराष्ट्राचा इतिहास - ११ वी स्टेट बोर्ड / समाजसुधारक',
+  },
+  {
+    id: 'talathi_2027_csat_01',
+    subjectId: 'csat',
+    topic: 'अंकगणित - सरासरी (Averages)',
+    subtopic: 'वयवारी व सरासरी संबंध',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "पाच मित्रांचे सरासरी वय २४ वर्षे आहे. त्यांच्यात एका नवीन मित्राचा समावेश केल्यास सरासरी वय २५ वर्षे होते, तर त्या नवीन मित्राचे वय किती वर्षे असेल?\n(१) २८ वर्षे\n(२) ३० वर्षे\n(३) ३२ वर्षे\n(४) २४ वर्षे",
+    questionEn: "The average age of 5 friends is 24 years. When a new friend joins them, the average age becomes 25 years. What is the age of the new friend?\n(1) 28 years\n(2) 30 years\n(3) 32 years\n(4) 24 years",
+    optionsMr: ['२८ वर्षे', '३० वर्षे', '३२ वर्षे', '२४ वर्षे'],
+    optionsEn: ['28 years', '30 years', '32 years', '24 years'],
+    correctAnswerIndex: 1,
+    explanationMr: 'स्पष्टीकरण:\n५ मित्रांच्या वयांची बेरीज = ५ × २४ = १२० वर्षे.\n६ मित्रांच्या वयांची बेरीज = ६ × २५ = १५० वर्षे.\nनवीन मित्राचे वय = १५० - १२० = ३० वर्षे.\nअचूक उत्तर पर्याय (२) ३० वर्षे.',
+    explanationEn: 'Explanation: Sum of 5 friends = 5 × 24 = 120. Sum of 6 friends = 6 × 25 = 150. New friend age = 150 - 120 = 30 years.',
+    reference: 'MPSC अंकगणित - सरासरी',
+  },
+  {
+    id: 'talathi_2027_csat_02',
+    subjectId: 'csat',
+    topic: 'बुद्धिमापन चाचणी - सांकेतिक भाषा (Coding)',
+    subtopic: 'अक्षरांचे अंक संकेत',
+    exam: 'Combine',
+    difficulty: 'Moderate',
+    questionMr: "एका सांकेतिक भाषेत 'MPSC' हा शब्द '13-16-19-3' असा लिहिला जातो, तर त्याच भाषेत 'TALATHI' हा शब्द कसा लिहिला जाईल?\n(१) 20-1-12-1-20-8-9\n(२) 20-1-12-1-19-8-9\n(३) 19-1-12-1-20-8-9\n(४) 20-2-12-1-20-8-9",
+    questionEn: "In a code language, if 'MPSC' is coded as '13-16-19-3', how will 'TALATHI' be coded in the same language?\n(1) 20-1-12-1-20-8-9\n(2) 20-1-12-1-19-8-9\n(3) 19-1-12-1-20-8-9\n(4) 20-2-12-1-20-8-9",
+    optionsMr: ['20-1-12-1-20-8-9', '20-1-12-1-19-8-9', '19-1-12-1-20-8-9', '20-2-12-1-20-8-9'],
+    optionsEn: ['20-1-12-1-20-8-9', '20-1-12-1-19-8-9', '19-1-12-1-20-8-9', '20-2-12-1-20-8-9'],
+    correctAnswerIndex: 0,
+    explanationMr: 'स्पष्टीकरण:\nप्रत्येक इंग्रजी मुळाक्षराचा अनुक्रमांक घेतला आहे:\nT = 20, A = 1, L = 12, A = 1, T = 20, H = 8, I = 9.\nम्हणून TALATHI = 20-1-12-1-20-8-9.',
+    explanationEn: 'Explanation: Each letter is represented by its standard alphabetical position index. TALATHI = 20-1-12-1-20-8-9.',
+    reference: 'MPSC बुद्धिमत्ता चाचणी - कोडिंग',
+  },
 ];
 
 /**
- * Deterministically constructs exactly 100 questions for a given Group C Prelims mock set (1 to 10)
+ * Deterministically constructs exactly 100 questions for a given Group C Prelims mock set (1 to 20)
  * Strictly following the Official 8-Subject General Ability Test (सामान्य क्षमता चाचणी) Syllabus:
  * 1. History: 10 Qs
  * 2. Geography: 15 Qs
@@ -817,7 +1165,7 @@ export function getGroupCTalathiSetQuestions(
   setNumber: number,
   basePool: Question[] = MPSC_QUESTIONS
 ): Question[] {
-  const safeSetIndex = Math.max(0, Math.min(9, setNumber - 1));
+  const safeSetIndex = Math.max(0, Math.min(19, setNumber - 1));
 
   // Merge special questions uniquely into pool
   const poolMap = new Map<string, Question>();
@@ -836,58 +1184,58 @@ export function getGroupCTalathiSetQuestions(
   );
   const csatPool = fullPool.filter((q) => q.subjectId === 'csat');
 
-  // 1. Select 10 History questions (Q 1 to 10)
-  const selectedHistory: Question[] = [];
-  const histOffset = (safeSetIndex * 15) % historyPool.length;
-  for (let i = 0; i < 10; i++) {
-    selectedHistory.push(historyPool[(histOffset + i) % historyPool.length]);
-  }
-
-  // 2. Select 15 Geography questions (Q 11 to 25)
-  const selectedGeography: Question[] = [];
-  const geoOffset = (safeSetIndex * 14) % geographyPool.length;
-  for (let i = 0; i < 15; i++) {
-    selectedGeography.push(geographyPool[(geoOffset + i) % geographyPool.length]);
-  }
-
-  // 3. Select 15 Economy questions (Q 26 to 40)
-  const selectedEconomy: Question[] = [];
-  const ecoOffset = (safeSetIndex * 11) % economyPool.length;
-  for (let i = 0; i < 15; i++) {
-    selectedEconomy.push(economyPool[(ecoOffset + i) % economyPool.length]);
-  }
-
-  // 4. Select 15 Current Affairs questions (Q 41 to 55)
+  // 1. Select 15 Current Affairs questions (Q 1 to 15)
   const selectedCA: Question[] = [];
-  const caOffset = (safeSetIndex * 18) % currentAffairsPool.length;
+  const caOffset = (safeSetIndex * 15 + Math.floor(safeSetIndex / 3) * 13) % currentAffairsPool.length;
   for (let i = 0; i < 15; i++) {
     selectedCA.push(currentAffairsPool[(caOffset + i) % currentAffairsPool.length]);
   }
 
-  // 5. Select 15 Polity questions (Q 56 to 70)
+  // 2. Select 15 Polity questions (Q 16 to 30)
   const selectedPolity: Question[] = [];
-  const polOffset = (safeSetIndex * 17) % polityPool.length;
+  const polOffset = (safeSetIndex * 15 + Math.floor(safeSetIndex / 5) * 7) % polityPool.length;
   for (let i = 0; i < 15; i++) {
     selectedPolity.push(polityPool[(polOffset + i) % polityPool.length]);
   }
 
+  // 3. Select 10 History questions (Q 31 to 40)
+  const selectedHistory: Question[] = [];
+  const histOffset = (safeSetIndex * 10 + Math.floor(safeSetIndex / 3) * 7) % historyPool.length;
+  for (let i = 0; i < 10; i++) {
+    selectedHistory.push(historyPool[(histOffset + i) % historyPool.length]);
+  }
+
+  // 4. Select 15 Geography questions (Q 41 to 55)
+  const selectedGeography: Question[] = [];
+  const geoOffset = (safeSetIndex * 15 + Math.floor(safeSetIndex / 2) * 5) % geographyPool.length;
+  for (let i = 0; i < 15; i++) {
+    selectedGeography.push(geographyPool[(geoOffset + i) % geographyPool.length]);
+  }
+
+  // 5. Select 15 Economy questions (Q 56 to 70)
+  const selectedEconomy: Question[] = [];
+  const ecoOffset = (safeSetIndex * 15 + Math.floor(safeSetIndex / 4) * 11) % economyPool.length;
+  for (let i = 0; i < 15; i++) {
+    selectedEconomy.push(economyPool[(ecoOffset + i) % economyPool.length]);
+  }
+
   // 6. Select 15 General Science questions (Q 71 to 85)
   const selectedScience: Question[] = [];
-  const sciOffset = (safeSetIndex * 21) % sciencePool.length;
+  const sciOffset = (safeSetIndex * 15 + Math.floor(safeSetIndex / 2) * 9) % sciencePool.length;
   for (let i = 0; i < 15; i++) {
     selectedScience.push(sciencePool[(sciOffset + i) % sciencePool.length]);
   }
 
   // 7. Select 8 Reasoning questions (Q 86 to 93)
   const selectedReasoning: Question[] = [];
-  const reasOffset = (safeSetIndex * 9) % csatPool.length;
+  const reasOffset = (safeSetIndex * 8 + Math.floor(safeSetIndex / 2) * 5) % csatPool.length;
   for (let i = 0; i < 8; i++) {
     selectedReasoning.push(csatPool[(reasOffset + i) % csatPool.length]);
   }
 
   // 8. Select 7 Arithmetic questions (Q 94 to 100)
   const selectedArithmetic: Question[] = [];
-  const arithOffset = (safeSetIndex * 9 + 8) % csatPool.length;
+  const arithOffset = (safeSetIndex * 7 + 43 + Math.floor(safeSetIndex / 3) * 7) % csatPool.length;
   for (let i = 0; i < 7; i++) {
     selectedArithmetic.push(csatPool[(arithOffset + i) % csatPool.length]);
   }

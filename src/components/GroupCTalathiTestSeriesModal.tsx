@@ -110,7 +110,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                   {isMr ? 'लक्ष्य: ३ जानेवारी २०२७' : 'Target: 3 Jan 2027'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
-                  {isMr ? '१० महा सराव संच • Real CBT Simulator' : '10 Full Exam Sets • Real CBT'}
+                  {isMr ? '२० महा सराव संच • Real CBT Simulator' : '20 Full Exam Sets • Real CBT'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-mono font-bold">
                   {isMr ? '१०० प्रश्न • ६० मिनिटे • १०० गुण' : '100 Qs • 60 Mins • 100 Marks'}
@@ -123,8 +123,8 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
 
               <p className="text-xs sm:text-sm text-stone-300 max-w-3xl leading-relaxed">
                 {isMr
-                  ? '३ जानेवारी २०२७ रोजी होणाऱ्या MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी १० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर थेट रिअल-टाइम महाराष्ट्र राज्य रँक, पर्सेन्टाईल आणि कट-ऑफ निकाल!'
-                  : '10 Full-length CBT Mock Exam Sets for 3 January 2027 Group C & Talathi exams with instant real-time Maharashtra state ranking and cutoff evaluation.'}
+                  ? '३ जानेवारी २०२७ रोजी होणाऱ्या MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी २० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर थेट रिअल-टाइम महाराष्ट्र राज्य रँक, पर्सेन्टाईल आणि कट-ऑफ निकाल!'
+                  : '20 Full-length CBT Mock Exam Sets for 3 January 2027 Group C & Talathi exams with instant real-time Maharashtra state ranking and cutoff evaluation.'}
               </p>
             </div>
 
@@ -283,7 +283,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
 
               <div className="flex items-center justify-between p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs sm:text-sm flex-wrap gap-2">
                 <span className="font-semibold">
-                  📌 {isMr ? 'टीप: खालील सर्व १० महा सराव संच या अधिकृत अभ्यासक्रमानुसारच तयार केलेले आहेत.' : 'Note: All 10 Mock Sets are strictly mapped to this official syllabus.'}
+                  📌 {isMr ? 'टीप: खालील सर्व २० महा सराव संच या अधिकृत अभ्यासक्रमानुसारच तयार केलेले आहेत.' : 'Note: All 20 Mock Sets are strictly mapped to this official syllabus.'}
                 </span>
                 <button
                   onClick={() => setShowSyllabusView(false)}
@@ -299,7 +299,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-600" />
                   <span className="text-sm font-black text-stone-900">
-                    {isMr ? 'सर्व १० महा सराव संच निवडा (Exam Set 1 to 10):' : 'Select Exam Set (Sets 1 to 10):'}
+                    {isMr ? 'सर्व २० महा सराव संच निवडा (Exam Set 1 to 20):' : 'Select Exam Set (Sets 1 to 20):'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -498,7 +498,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                 <ul className="space-y-2 pl-1 list-none">
                   <li className="flex items-start gap-2">
                     <span className="w-4 h-4 rounded-full bg-stone-900 text-white font-mono text-[10px] flex items-center justify-center shrink-0 mt-0.5">१</span>
-                    <span>{isMr ? 'या प्रश्नपत्रिकेत एकूण १०० वस्तुनिष्ठ बहुपर्यायी (MCQ) प्रश्न आहेत (मराठी २५, इंग्रजी २५, GS २५, CSAT २५).' : 'This question paper contains 100 MCQs divided into 4 sections (Marathi 25, English 25, GS 25, CSAT 25).'}</span>
+                    <span>{isMr ? 'या प्रश्नपत्रिकेत सामान्य क्षमता चाचणीचे एकूण १०० वस्तुनिष्ठ बहुपर्यायी (MCQ) प्रश्न ८ अधिकृत विषयांनुसार विभागलेले आहेत.' : 'This question paper contains 100 MCQs strictly categorized into 8 official syllabus subjects of the General Ability Test.'}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-4 h-4 rounded-full bg-stone-900 text-white font-mono text-[10px] flex items-center justify-center shrink-0 mt-0.5">२</span>
