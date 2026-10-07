@@ -33,23 +33,26 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 const questionCardVariants: Variants = {
   enter: (dir: number) => ({
-    x: dir > 0 ? 32 : -32,
+    x: dir > 0 ? 36 : -36,
     opacity: 0,
     filter: 'blur(3px)',
+    scale: 0.985,
   }),
   center: {
     x: 0,
     opacity: 1,
     filter: 'blur(0px)',
+    scale: 1,
     transition: {
       duration: 0.22,
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
   exit: (dir: number) => ({
-    x: dir > 0 ? -28 : 28,
+    x: dir > 0 ? -32 : 32,
     opacity: 0,
     filter: 'blur(3px)',
+    scale: 0.985,
     transition: {
       duration: 0.16,
       ease: [0.4, 0, 1, 1] as const,
@@ -89,12 +92,18 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   const [showPaletteMobile, setShowPaletteMobile] = useState<boolean>(false);
   const [soundFeedbackText, setSoundFeedbackText] = useState<string | null>(null);
   const [direction, setDirection] = useState<number>(1);
+  const [timeAlertNotice, setTimeAlertNotice] = useState<{
+    type: '5min' | '1min';
+    textMr: string;
+    textEn: string;
+  } | null>(null);
 
   // Hook for live device detection, fullscreen, and text scaling
   const { isFullscreen, toggleFullscreen, deviceType, textScale } = useDeviceScreen();
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const hasPlayed5MinWarning = useRef<boolean>(false);
+  const hasPlayed5MinWarning = useRef<boolean>(session.remainingSeconds < 300);
+  const hasPlayed1MinWarning = useRef<boolean>(session.remainingSeconds < 60);
 
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
   const uniqueQuestionIds = Array.from(new Set(session.questionIds));
@@ -128,7 +137,17 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
     }
   }, [currentQuestionIndex]);
 
-  // Countdown timer
+  // Auto-dismiss time alert notices
+  useEffect(() => {
+    if (timeAlertNotice) {
+      const dismissTimer = setTimeout(() => {
+        setTimeAlertNotice(null);
+      }, 5000);
+      return () => clearTimeout(dismissTimer);
+    }
+  }, [timeAlertNotice]);
+
+  // Countdown timer with 5-minute and 1-minute audio alerts
   useEffect(() => {
     if (session.isCompleted || isPaused) {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -151,12 +170,32 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
           return { ...prev, remainingSeconds: 0, isCompleted: true };
         }
 
-        // 5-minute remaining subtle audio warning
-        if (prev.remainingSeconds === 300 && !hasPlayed5MinWarning.current) {
+        const currentSec = prev.remainingSeconds;
+
+        // 5-minute remaining audio alert (triggers at exactly 300 seconds)
+        if (currentSec === 300 && !hasPlayed5MinWarning.current) {
           hasPlayed5MinWarning.current = true;
           if (soundEffectsEnabled) {
             soundFx.playLowTimeWarningSound();
           }
+          setTimeAlertNotice({
+            type: '5min',
+            textMr: '⏰ परीक्षेची ५ मिनिटे शिल्लक आहेत!',
+            textEn: '⏰ 5 minutes remaining in the exam!',
+          });
+        }
+
+        // 1-minute remaining audio alert (triggers at exactly 60 seconds)
+        if (currentSec === 60 && !hasPlayed1MinWarning.current) {
+          hasPlayed1MinWarning.current = true;
+          if (soundEffectsEnabled) {
+            soundFx.playOneMinuteWarningSound();
+          }
+          setTimeAlertNotice({
+            type: '1min',
+            textMr: '⚠️ अंतिम १ मिनिट शिल्लक आहे! कृपया उत्तरे तपासा.',
+            textEn: '⚠️ Final 1 minute remaining! Review your answers.',
+          });
         }
 
         // Track time spent on current question
@@ -288,14 +327,14 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
   const isGroupCSet = session.patternId.startsWith('mpsc_group_c_talathi_set_');
   const is100QPaper = questions.length === 100;
   const examSections = isGroupCSet && is100QPaper ? [
-    { id: 'sec_hist', nameMr: '१. इतिहास', nameEn: '1. History', start: 0, end: 9, icon: '📜' },
-    { id: 'sec_geo', nameMr: '२. भूगोल', nameEn: '2. Geography', start: 10, end: 24, icon: '🌍' },
-    { id: 'sec_eco', nameMr: '३. अर्थव्यवस्था', nameEn: '3. Economy', start: 25, end: 39, icon: '💰' },
-    { id: 'sec_ca', nameMr: '४. चालू घडामोडी', nameEn: '4. Current Affairs', start: 40, end: 54, icon: '📰' },
-    { id: 'sec_pol', nameMr: '५. राज्यशास्त्र', nameEn: '5. Polity', start: 55, end: 69, icon: '⚖️' },
+    { id: 'sec_ca', nameMr: '१. चालू घडामोडी', nameEn: '1. Current Affairs', start: 0, end: 14, icon: '📰' },
+    { id: 'sec_pol', nameMr: '२. नागरिकशास्त्र', nameEn: '2. Civics & Polity', start: 15, end: 29, icon: '⚖️' },
+    { id: 'sec_hist', nameMr: '३. इतिहास', nameEn: '3. History', start: 30, end: 39, icon: '📜' },
+    { id: 'sec_geo', nameMr: '४. भूगोल', nameEn: '4. Geography', start: 40, end: 54, icon: '🌍' },
+    { id: 'sec_eco', nameMr: '५. अर्थव्यवस्था', nameEn: '5. Economy', start: 55, end: 69, icon: '💰' },
     { id: 'sec_sci', nameMr: '६. सामान्य विज्ञान', nameEn: '6. Science', start: 70, end: 84, icon: '🔬' },
-    { id: 'sec_arith', nameMr: '७. अंकगणित', nameEn: '7. Arithmetic', start: 85, end: 92, icon: '🔢' },
-    { id: 'sec_reas', nameMr: '८. बुद्धिमत्ता चाचणी', nameEn: '8. Reasoning', start: 93, end: 99, icon: '🧠' },
+    { id: 'sec_reas', nameMr: '७. बुद्धिमत्ता चाचणी', nameEn: '7. Reasoning', start: 85, end: 92, icon: '🧠' },
+    { id: 'sec_arith', nameMr: '८. अंकगणित', nameEn: '8. Arithmetic', start: 93, end: 99, icon: '🔢' },
   ] : is100QPaper ? [
     { id: 'sec_1', nameMr: 'विभाग १: मराठी भाषा', nameEn: 'Sec 1: Marathi', start: 0, end: 24, icon: '🚩' },
     { id: 'sec_2', nameMr: 'विभाग २: इंग्रजी भाषा', nameEn: 'Sec 2: English', start: 25, end: 49, icon: '🔤' },
@@ -492,6 +531,36 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
         </div>
       </header>
 
+      {/* Floating 5-Minute and 1-Minute Audio & Visual Alert Banner */}
+      <AnimatePresence>
+        {timeAlertNotice && (
+          <motion.aside
+            key={`time-alert-banner-${timeAlertNotice.type}`}
+            initial={{ opacity: 0, y: -20, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -16, scale: 0.96 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className={`fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl shadow-2xl border flex items-center gap-2.5 text-xs sm:text-sm font-bold backdrop-blur-md max-w-[92vw] sm:max-w-md ${
+              timeAlertNotice.type === '1min'
+                ? 'bg-rose-950/95 border-rose-500 text-rose-100 ring-2 ring-rose-400/40 shadow-rose-950/50 animate-pulse'
+                : 'bg-amber-950/95 border-amber-500 text-amber-100 ring-2 ring-amber-400/40 shadow-amber-950/50'
+            }`}
+          >
+            <AlertTriangle className={`w-4 h-4 shrink-0 ${timeAlertNotice.type === '1min' ? 'text-rose-400' : 'text-amber-400'}`} />
+            <span className="flex-1 leading-snug">
+              {questionLang === 'mr' ? timeAlertNotice.textMr : timeAlertNotice.textEn}
+            </span>
+            <button
+              onClick={() => setTimeAlertNotice(null)}
+              className="text-stone-300 hover:text-white p-1 rounded-md hover:bg-white/10 transition-colors cursor-pointer"
+              title="Close alert"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+
       {/* Official CBT Candidate Hall Ticket Bar */}
       {(session.candidateRollNo || session.examDateTag || session.patternId.startsWith('mpsc_group_c_talathi_set_')) && (
         <div className="bg-stone-900 border-b border-stone-800 text-stone-300 px-4 py-1.5 text-xs flex items-center justify-between flex-wrap gap-2 shadow-inner">
@@ -541,7 +610,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                 <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
                   isActive ? 'bg-stone-950/20 text-stone-950' : 'bg-stone-200 text-stone-600'
                 }`}>
-                  {secAnsweredCount}/25
+                  {secAnsweredCount}/{sec.end - sec.start + 1}
                 </span>
               </button>
             );

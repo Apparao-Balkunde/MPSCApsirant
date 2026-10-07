@@ -104,6 +104,7 @@ class SoundController {
 
     try {
       const now = ctx.currentTime;
+      // Gentle chime: E5 (659.25Hz) with soft decay
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
@@ -111,16 +112,64 @@ class SoundController {
       osc.frequency.setValueAtTime(659.25, now); // E5
 
       gain.gain.setValueAtTime(0, now);
-      gain.gain.linearRampToValueAtTime(0.1, now + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+      gain.gain.linearRampToValueAtTime(0.12, now + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
       osc.start(now);
-      osc.stop(now + 0.35);
+      osc.stop(now + 0.4);
     } catch (e) {
       console.warn('Audio play low time error:', e);
+    }
+  }
+
+  /**
+   * Urgent dual alert pulse when exam enters the final 1 minute (60 seconds)
+   */
+  playOneMinuteWarningSound(): void {
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      // Distinct double alert beep: A5 (880Hz) followed by A5 (880Hz)
+      const pulses = [
+        { freq: 880, start: 0, dur: 0.14 },
+        { freq: 880, start: 0.18, dur: 0.16 },
+      ];
+
+      pulses.forEach(({ freq, start, dur }) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + start);
+
+        gain.gain.setValueAtTime(0, now + start);
+        gain.gain.linearRampToValueAtTime(0.16, now + start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + start + dur);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + start);
+        osc.stop(now + start + dur + 0.03);
+      });
+    } catch (e) {
+      console.warn('Audio play 1-minute warning error:', e);
+    }
+  }
+
+  /**
+   * Universal time alert method for 5-minute and 1-minute warnings
+   */
+  playTimeAlertSound(minutesRemaining: 5 | 1): void {
+    if (minutesRemaining === 5) {
+      this.playLowTimeWarningSound();
+    } else {
+      this.playOneMinuteWarningSound();
     }
   }
 
