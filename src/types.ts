@@ -62,6 +62,16 @@ export type ExamPatternId =
   | 'mpsc_group_c_talathi_set_18'
   | 'mpsc_group_c_talathi_set_19'
   | 'mpsc_group_c_talathi_set_20'
+  | 'mpsc_group_c_talathi_set_21'
+  | 'mpsc_group_c_talathi_set_22'
+  | 'mpsc_group_c_talathi_set_23'
+  | 'mpsc_group_c_talathi_set_24'
+  | 'mpsc_group_c_talathi_set_25'
+  | 'mpsc_group_c_talathi_set_26'
+  | 'mpsc_group_c_talathi_set_27'
+  | 'mpsc_group_c_talathi_set_28'
+  | 'mpsc_group_c_talathi_set_29'
+  | 'mpsc_group_c_talathi_set_30'
   | 'custom';
 
 export interface Question {
