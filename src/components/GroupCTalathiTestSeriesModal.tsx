@@ -18,7 +18,8 @@ import {
   Calendar,
   Check,
   BookOpen,
-  ListFilter
+  ListFilter,
+  Search,
 } from 'lucide-react';
 import { ExamPatternId, UserProgress } from '../types';
 import {
@@ -53,6 +54,8 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
   const [instructionsAccepted, setInstructionsAccepted] = useState<boolean>(false);
   const [candidateDistrict, setCandidateDistrict] = useState<string>('पुणे (Pune)');
   const [showSyllabusView, setShowSyllabusView] = useState<boolean>(initialView === 'syllabus');
+  const [activeRangeTab, setActiveRangeTab] = useState<'all' | '1-10' | '11-20' | '21-30' | '31-40' | '41-50' | 'hard' | 'attempted'>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   // Sync initialView when modal opens
   useEffect(() => {
@@ -97,6 +100,29 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
     );
   };
 
+  // Filter sets according to active tab range and search query
+  const filteredSets: GroupCTalathiSetMeta[] = MPSC_GROUP_C_TALATHI_SETS_CATALOG.filter((set: GroupCTalathiSetMeta) => {
+    if (activeRangeTab === '1-10' && (set.setNumber < 1 || set.setNumber > 10)) return false;
+    if (activeRangeTab === '11-20' && (set.setNumber < 11 || set.setNumber > 20)) return false;
+    if (activeRangeTab === '21-30' && (set.setNumber < 21 || set.setNumber > 30)) return false;
+    if (activeRangeTab === '31-40' && (set.setNumber < 31 || set.setNumber > 40)) return false;
+    if (activeRangeTab === '41-50' && (set.setNumber < 41 || set.setNumber > 50)) return false;
+    if (activeRangeTab === 'hard' && set.difficulty !== 'Hard') return false;
+    if (activeRangeTab === 'attempted' && !getSetAttemptHistory(set.patternId)) return false;
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      const matchNum = set.setNumber.toString() === q || `संच ${set.setNumber}`.includes(q) || `set ${set.setNumber}`.includes(q);
+      const matchTitle = set.titleMr.toLowerCase().includes(q) || set.titleEn.toLowerCase().includes(q);
+      const matchSubtitle = set.subtitleMr.toLowerCase().includes(q) || set.subtitleEn.toLowerCase().includes(q);
+      const matchDesc = set.descriptionMr.toLowerCase().includes(q) || set.descriptionEn.toLowerCase().includes(q);
+      const matchFocus = set.focusAreasMr.some((f: string) => f.toLowerCase().includes(q)) || set.focusAreasEn.some((f: string) => f.toLowerCase().includes(q));
+      return matchNum || matchTitle || matchSubtitle || matchDesc || matchFocus;
+    }
+
+    return true;
+  });
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-stone-950/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
       <div className="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[92vh] flex flex-col">
@@ -110,7 +136,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                   {isMr ? 'लक्ष्य: ३ जानेवारी २०२७' : 'Target: 3 Jan 2027'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
-                  {isMr ? '४० महा सराव संच • Real CBT Simulator' : '40 Full Exam Sets • Real CBT'}
+                  {isMr ? '५० महा सराव संच • Real CBT Simulator' : '50 Full Exam Sets • Real CBT'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-mono font-bold">
                   {isMr ? '१०० प्रश्न • ६० मिनिटे • १०० गुण' : '100 Qs • 60 Mins • 100 Marks'}
@@ -123,8 +149,8 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
 
               <p className="text-xs sm:text-sm text-stone-300 max-w-3xl leading-relaxed">
                 {isMr
-                  ? '३ जानेवारी २०२७ रोजी होणाऱ्या MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी ४० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर थेट रिअल-टाइम महाराष्ट्र राज्य रँक, पर्सेन्टाईल आणि कट-ऑफ निकाल!'
-                  : '40 Full-length CBT Mock Exam Sets for 3 January 2027 Group C & Talathi exams with instant real-time Maharashtra state ranking and cutoff evaluation.'}
+                  ? '३ जानेवारी २०२७ रोजी होणाऱ्या MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी ५० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर थेट रिअल-टाइम महाराष्ट्र राज्य रँक, पर्सेन्टाईल आणि कट-ऑफ निकाल!'
+                  : '50 Full-length CBT Mock Exam Sets for 3 January 2027 Group C & Talathi exams with instant real-time Maharashtra state ranking and cutoff evaluation.'}
               </p>
             </div>
 
@@ -283,7 +309,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
 
               <div className="flex items-center justify-between p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs sm:text-sm flex-wrap gap-2">
                 <span className="font-semibold">
-                  📌 {isMr ? 'टीप: खालील सर्व ४० महा सराव संच या अधिकृत अभ्यासक्रमानुसारच तयार केलेले आहेत.' : 'Note: All 40 Mock Sets are strictly mapped to this official syllabus.'}
+                  📌 {isMr ? 'टीप: खालील सर्व ५० महा सराव संच या अधिकृत अभ्यासक्रमानुसारच तयार केलेले आहेत.' : 'Note: All 50 Mock Sets are strictly mapped to this official syllabus.'}
                 </span>
                 <button
                   onClick={() => setShowSyllabusView(false)}
@@ -295,30 +321,193 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
             </div>
           ) : (
             <>
-              <div className="flex items-center justify-between gap-3 flex-wrap">
-                <div className="flex items-center gap-2">
+              {/* Toolbar: Title, Search, and Stats */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
+                <div className="flex items-center gap-2 flex-wrap">
                   <Sparkles className="w-4 h-4 text-amber-600" />
                   <span className="text-sm font-black text-stone-900">
-                    {isMr ? 'सर्व ४० महा सराव संच निवडा (Exam Set 1 to 40):' : 'Select Exam Set (Sets 1 to 40):'}
+                    {isMr ? 'सर्व ५० महा सराव संच (Exam Sets 1 to 50):' : 'All 50 Mega Exam Sets (Sets 1 to 50):'}
+                  </span>
+                  <span className="text-xs bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full font-mono font-bold">
+                    {filteredSets.length} / 50 {isMr ? 'संच' : 'Sets'}
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  {/* Search Input */}
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder={isMr ? "संच क्र., विषय शोधा..." : "Search set, topic..."}
+                      className="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-stone-300 focus:outline-none focus:border-amber-500 bg-white w-44 sm:w-56"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery('')}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 text-xs font-bold"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </div>
+
                   <button
                     onClick={() => setShowSyllabusView(true)}
                     className="text-xs text-amber-700 hover:text-amber-900 font-bold underline cursor-pointer flex items-center gap-1"
                   >
                     <BookOpen className="w-3.5 h-3.5" />
-                    <span>{isMr ? 'अभ्यासक्रम तपासा' : 'Check Syllabus'}</span>
+                    <span>{isMr ? 'अभ्यासक्रम' : 'Syllabus'}</span>
                   </button>
-                  <span className="text-xs text-stone-400">•</span>
-                  <span className="text-xs text-stone-500 font-medium">
-                    ⚖️ {isMr ? '१/४ (०.२५) नकारात्मक गुण • Real CBT' : '1/4th (0.25) Penalty'}
-                  </span>
                 </div>
               </div>
 
+              {/* Quick Filter Tabs for 50 Question Papers */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('all');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all shrink-0 cursor-pointer ${
+                    activeRangeTab === 'all'
+                      ? 'bg-stone-900 text-white shadow-xs'
+                      : 'bg-stone-200/80 hover:bg-stone-300 text-stone-700'
+                  }`}
+                >
+                  {isMr ? 'सर्व ५० संच' : 'All 50 Sets'} (50)
+                </button>
+
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('1-10');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all shrink-0 cursor-pointer ${
+                    activeRangeTab === '1-10'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-stone-200/80 hover:bg-stone-300 text-stone-700'
+                  }`}
+                >
+                  {isMr ? 'संच १ ते १०' : 'Sets 1-10'}
+                </button>
+
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('11-20');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all shrink-0 cursor-pointer ${
+                    activeRangeTab === '11-20'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-stone-200/80 hover:bg-stone-300 text-stone-700'
+                  }`}
+                >
+                  {isMr ? 'संच ११ ते २०' : 'Sets 11-20'}
+                </button>
+
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('21-30');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all shrink-0 cursor-pointer ${
+                    activeRangeTab === '21-30'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-stone-200/80 hover:bg-stone-300 text-stone-700'
+                  }`}
+                >
+                  {isMr ? 'संच २१ ते ३०' : 'Sets 21-30'}
+                </button>
+
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('31-40');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all shrink-0 cursor-pointer ${
+                    activeRangeTab === '31-40'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : 'bg-stone-200/80 hover:bg-stone-300 text-stone-700'
+                  }`}
+                >
+                  {isMr ? 'संच ३१ ते ४०' : 'Sets 31-40'}
+                </button>
+
+                {/* 41-50 Tab with eye-catching NEW / नवीन indicator */}
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('41-50');
+                  }}
+                  className={`px-3.5 py-1.5 rounded-lg font-black transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
+                    activeRangeTab === '41-50'
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-sm ring-2 ring-emerald-400/50'
+                      : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border border-emerald-300'
+                  }`}
+                >
+                  <Sparkles className="w-3 h-3 text-amber-300 fill-amber-300" />
+                  <span>{isMr ? 'संच ४१ ते ५० (नवीन)' : 'Sets 41-50 (New)'}</span>
+                  <span className="px-1.5 py-0.2 rounded bg-emerald-700 text-emerald-100 text-[10px] font-mono">10</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('hard');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all shrink-0 cursor-pointer ${
+                    activeRangeTab === 'hard'
+                      ? 'bg-red-700 text-white shadow-xs'
+                      : 'bg-stone-200/80 hover:bg-stone-300 text-stone-700'
+                  }`}
+                >
+                  {isMr ? '🔥 कठीण स्तर' : '🔥 Hard Tier'}
+                </button>
+
+                <button
+                  onClick={() => {
+                    soundFx.playClickSound();
+                    setActiveRangeTab('attempted');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg font-bold transition-all shrink-0 cursor-pointer ${
+                    activeRangeTab === 'attempted'
+                      ? 'bg-blue-700 text-white shadow-xs'
+                      : 'bg-stone-200/80 hover:bg-stone-300 text-stone-700'
+                  }`}
+                >
+                  {isMr ? '✓ सोडवलेले संच' : '✓ Attempted'}
+                </button>
+              </div>
+
+          {filteredSets.length === 0 ? (
+            <div className="bg-white rounded-2xl border-2 border-stone-200 p-8 text-center space-y-3">
+              <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-700 mx-auto flex items-center justify-center font-bold text-xl">
+                🔍
+              </div>
+              <h4 className="text-base font-bold text-stone-900">
+                {isMr ? 'कोणताही सराव संच सापडला नाही' : 'No mock exam sets found'}
+              </h4>
+              <p className="text-xs text-stone-500 max-w-md mx-auto">
+                {isMr
+                  ? 'कृपया शोध संज्ञा किंवा फिल्टर तपासा. सर्व ५० संच पाहण्यासाठी फिल्टर रीसेट करा.'
+                  : 'Please check your search keyword or reset the filter tab to view all 50 sets.'}
+              </p>
+              <button
+                onClick={() => {
+                  setActiveRangeTab('all');
+                  setSearchQuery('');
+                }}
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg cursor-pointer transition-colors"
+              >
+                {isMr ? 'सर्व ५० संच पहा (रीसेट)' : 'Reset & Show All 50 Sets'}
+              </button>
+            </div>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {MPSC_GROUP_C_TALATHI_SETS_CATALOG.map((set) => {
+            {filteredSets.map((set) => {
               const attempt = getSetAttemptHistory(set.patternId);
               return (
                 <div
@@ -405,6 +594,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
               );
             })}
           </div>
+          )}
           </>
           )}
         </div>
