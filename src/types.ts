@@ -93,6 +93,10 @@ export type ExamPatternId =
   | 'mpsc_group_c_talathi_set_48'
   | 'mpsc_group_c_talathi_set_49'
   | 'mpsc_group_c_talathi_set_50'
+  | 'marathon_geo_forest_100'
+  | 'marathon_science_100'
+  | 'marathon_current_affairs_100'
+  | 'marathon_polity_100'
   | 'custom';
 
 export interface Question {
