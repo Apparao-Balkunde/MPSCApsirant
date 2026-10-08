@@ -23,6 +23,8 @@ import {
   Hash,
   Scale,
   Compass,
+  FileDown,
+  Printer,
 } from 'lucide-react';
 import { GrammarRule } from '../types';
 import { GRAMMAR_RULES } from '../data/grammarRules';
@@ -36,6 +38,7 @@ import {
   EnglishGrammarRepository,
   ENGLISH_STUDY_MODULES,
 } from './EnglishGrammarRepository';
+import { exportToPdf } from '../utils/pdfExport';
 
 export interface GrammarRulesViewProps {
   onStartPracticeWithQuestions?: (questionIds: string[], title: string) => void;
@@ -231,10 +234,65 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
     onStartPracticeWithQuestions(allQuestionIds, titles[activeSidebarNav] || 'Grammar Test');
   };
 
+  // Export current filtered or saved grammar rules as a PDF document
+  const handleExportGrammarPDF = (onlySaved: boolean = false) => {
+    const exportTitle = onlySaved || activeSidebarNav === 'saved'
+      ? 'MPSC जतन केलेले व्याकरण नियम व क्लृप्त्या (Saved Grammar Rules)'
+      : `MPSC व्याकरण ज्ञानकोश - ${
+          activeSidebarNav === 'tenses'
+            ? 'Tenses & Sequences'
+            : activeSidebarNav === 'articles'
+            ? 'Articles & Determiners'
+            : activeSidebarNav === 'subject_verb_agreement'
+            ? 'Subject-Verb Agreement'
+            : activeSidebarNav === 'marathi'
+            ? 'मराठी व्याकरण'
+            : 'सर्व व्याकरण नियम'
+        }`;
+
+    // If exporting saved rules specifically and currently not on saved nav, switch or export
+    if (onlySaved && activeSidebarNav !== 'saved') {
+      setActiveSidebarNav('saved');
+      setSearchQuery('');
+    }
+
+    exportToPdf({
+      title: exportTitle,
+    });
+  };
+
   return (
     <div className="w-full max-w-7xl 2xl:max-w-[1536px] mx-auto space-y-6 pb-36 animate-fadeIn">
+      {/* Print-Only Official Grammar Reference Sheet Header */}
+      <div className="hidden print-only mb-6 pb-4 border-b-2 border-indigo-900 text-slate-900">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-xl font-black uppercase tracking-wider text-indigo-900">
+              MPSC Aspirant Prep • व्याकरण नियम व सुवर्ण सूत्र ज्ञानकोश
+            </div>
+            <div className="text-sm font-bold text-slate-700 mt-1">
+              {activeSidebarNav === 'saved'
+                ? '🔖 जतन केलेले महत्त्वाचे व्याकरण नियम (Saved Rules Offline Study Sheet)'
+                : activeSidebarNav === 'marathi'
+                ? '🚩 मराठी व्याकरण: संधी, समास, प्रयोग व सुवर्ण नियम'
+                : activeSidebarNav === 'tenses'
+                ? '⏳ English Grammar: Tenses & Sequence of Tenses Master Sheet'
+                : activeSidebarNav === 'articles'
+                ? '🏷️ English Grammar: Articles & Determiners Master Sheet'
+                : activeSidebarNav === 'subject_verb_agreement'
+                ? '⚖️ English Grammar: Subject-Verb Agreement (Concord) Master Sheet'
+                : '📚 मराठी व इंग्रजी व्याकरण संपूर्ण उजळणी संदर्भ संच'}
+            </div>
+          </div>
+          <div className="text-right text-xs text-slate-600">
+            <div><strong>एकूण नियम:</strong> {filteredRules.length}</div>
+            <div><strong>तारीख:</strong> {new Date().toLocaleDateString('mr-IN')}</div>
+          </div>
+        </div>
+      </div>
+
       {/* Top Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 p-6 md:p-8 text-white border border-indigo-500/30 shadow-2xl">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 p-6 md:p-8 text-white border border-indigo-500/30 shadow-2xl print-avoid-break">
         <div className="absolute -right-12 -top-12 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -left-12 -bottom-12 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
 
@@ -263,10 +321,20 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
 
           {/* Actions on Top Banner */}
           <div className="flex flex-wrap items-center gap-2.5 self-start md:self-center">
+            {/* PDF Export Button */}
+            <button
+              onClick={() => handleExportGrammarPDF(false)}
+              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 flex items-center gap-1.5 shadow-md transition-all cursor-pointer no-print active:scale-95"
+              title="नियम PDF मध्ये डाऊनलोड करा (ऑफलाईन अभ्यासासाठी)"
+            >
+              <FileDown className="w-3.5 h-3.5 text-slate-950" />
+              <span>📄 नियम PDF डाऊनलोड</span>
+            </button>
+
             {/* Mobile Sidebar Toggle Button */}
             <button
               onClick={() => setIsMobileSidebarOpen(true)}
-              className="lg:hidden px-3.5 py-2 rounded-xl text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white flex items-center gap-1.5 shadow-md"
+              className="lg:hidden px-3.5 py-2 rounded-xl text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white flex items-center gap-1.5 shadow-md no-print"
             >
               <Menu className="w-4 h-4" />
               मॉड्यूल्स मेनू
@@ -274,9 +342,9 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
 
             <button
               onClick={() => setViewMode(viewMode === 'cards' ? 'cheatsheet' : 'cards')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-md ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-md no-print ${
                 viewMode === 'cheatsheet'
-                  ? 'bg-amber-400 text-slate-950 hover:bg-amber-300'
+                  ? 'bg-indigo-600 text-white hover:bg-indigo-500 border border-indigo-400'
                   : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
               }`}
             >
@@ -286,7 +354,7 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
 
             <button
               onClick={handleLaunchPracticeTest}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:brightness-110 shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:brightness-110 shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-1.5 no-print"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
               सराव टेस्ट सोडवा ({filteredRules.length})
@@ -874,7 +942,7 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
                 return (
                   <div
                     key={rule.id}
-                    className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                    className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 grammar-rule-card print-avoid-break"
                   >
                     {/* Card Header */}
                     <div className="p-5 sm:p-6 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90 dark:from-slate-900 dark:via-slate-850 dark:to-slate-900 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
@@ -906,7 +974,7 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
                       </div>
 
                       {/* Header Actions: Clean, Polished Action Buttons (NO "कमी करा ▴") */}
-                      <div className="flex items-center gap-2 self-start shrink-0">
+                      <div className="flex items-center gap-2 self-start shrink-0 no-print">
                         <button
                           onClick={() => copyRuleFormula(rule)}
                           className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs ${
@@ -1124,7 +1192,7 @@ export const GrammarRulesView: React.FC<GrammarRulesViewProps> = ({
                                 `${rule.title} - सराव प्रश्न`
                               )
                             }
-                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-md cursor-pointer hover:shadow-indigo-500/25"
+                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-md cursor-pointer hover:shadow-indigo-500/25 no-print"
                           >
                             <Play className="w-3.5 h-3.5 fill-current" />
                             या नियमावर आधारित MCQs सोडवा

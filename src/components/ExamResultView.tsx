@@ -18,7 +18,9 @@ import {
   Sparkles,
   Users,
   Check,
-  AlertCircle
+  AlertCircle,
+  FileDown,
+  Printer
 } from 'lucide-react';
 import { ExamResult, ExamSession, Question } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
@@ -26,6 +28,7 @@ import { SUBJECTS } from '../data/subjects';
 import { AdBanner } from './AdBanner';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { calculateRealTimeStateRank } from '../utils/rankPredictor';
+import { exportToPdf } from '../utils/pdfExport';
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -120,10 +123,41 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
     result.timeSpentSeconds / (result.attemptedCount || 1)
   );
 
+  const handleExportPDF = () => {
+    exportToPdf({
+      title: `${result.title} - Scorecard & Solutions`,
+    });
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8 space-y-6">
+      {/* Print-Only Official Exam Result Sheet Header */}
+      <div className="hidden print-only mb-6 pb-4 border-b-2 border-stone-800 text-stone-900">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-xl font-black uppercase tracking-wider text-amber-800">
+              MPSC Aspirant Prep • अधिकृत सराव परीक्षा निकाल व उत्तरपत्रिका
+            </div>
+            <div className="text-sm font-bold text-stone-700 mt-1">
+              {result.title}
+            </div>
+          </div>
+          <div className="text-right text-xs text-stone-600 space-y-0.5">
+            <div><strong>दिनांक:</strong> {result.date}</div>
+            <div><strong>उमेदवार:</strong> {currentUserName}</div>
+            {session.candidateRollNo && <div><strong>बैठक क्रमांक:</strong> {session.candidateRollNo}</div>}
+          </div>
+        </div>
+        <div className="mt-3 grid grid-cols-4 gap-2 p-3 bg-stone-100 rounded-lg text-xs font-semibold border border-stone-300">
+          <div>अंतिम गुण: <span className="font-bold text-amber-900">{result.finalScore.toFixed(2)} / {result.maxScore}</span></div>
+          <div>अचूकता (Accuracy): <span className="font-bold text-emerald-800">{result.accuracyPercentage}%</span></div>
+          <div>सोडवलेले: <span className="font-bold">{result.attemptedCount} (✓{result.correctCount} / ✗{result.incorrectCount})</span></div>
+          <div>राज्य रँक: <span className="font-bold text-amber-800">#{rankData.stateRank} ({rankData.percentile}%)</span></div>
+        </div>
+      </div>
+
       {/* Top Completion Banner & Score Card */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8 print-avoid-break">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-stone-200">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -144,17 +178,26 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            {/* Export as PDF button */}
+            <button
+              onClick={handleExportPDF}
+              className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-xs transition-all cursor-pointer hover:shadow-md active:scale-95 no-print"
+              title={isMr ? 'गुणपत्रिका व उत्तरे PDF मध्ये डाऊनलोड करा' : 'Export Result & Answer Key as PDF'}
+            >
+              <FileDown className="w-4 h-4 text-stone-950" />
+              <span>{isMr ? '📄 PDF डाऊनलोड / प्रिंट' : '📄 Export as PDF'}</span>
+            </button>
             <button
               onClick={onRetakeExam}
-              className="px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-50 font-bold text-xs sm:text-sm text-stone-700 flex items-center gap-2 transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-50 font-bold text-xs sm:text-sm text-stone-700 flex items-center gap-2 transition-colors cursor-pointer no-print"
             >
               <RotateCcw className="w-4 h-4" />
               <span>{isMr ? 'पुन्हा सराव करा' : 'Retake'}</span>
             </button>
             <button
               onClick={onGoHome}
-              className="px-4 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 font-bold text-xs sm:text-sm text-white flex items-center gap-2 shadow-sm transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 font-bold text-xs sm:text-sm text-white flex items-center gap-2 shadow-sm transition-colors cursor-pointer no-print"
             >
               <Home className="w-4 h-4" />
               <span>{isMr ? 'डॅशबोर्डकडे' : 'Dashboard'}</span>
@@ -506,7 +549,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
             const isBookmarked = bookmarkedIds.includes(q.id);
 
             return (
-              <div key={`${q.id}-${idx}`} className="py-5 space-y-3">
+              <div key={`${q.id}-${idx}`} className="py-5 space-y-3 exam-question-card print-avoid-break">
                 {/* Question Header */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -536,7 +579,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 no-print">
                     {/* Bookmark Toggle */}
                     <button
                       onClick={() => onToggleBookmark(q.id)}

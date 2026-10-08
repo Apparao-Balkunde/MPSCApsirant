@@ -42,7 +42,8 @@ import {
   Download,
   HardDrive,
   FileJson,
-  Bookmark
+  Bookmark,
+  FileDown
 } from 'lucide-react';
 import { ExamResult, SubjectId, UserProgress } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -2211,12 +2212,14 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                       {Math.floor(h.timeSpentSeconds / 60)}m {h.timeSpentSeconds % 60}s
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button
-                        onClick={() => onReviewPastTest(h)}
-                        className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-900 hover:text-white font-bold text-xs text-stone-700 transition-colors cursor-pointer"
-                      >
-                        {isMr ? 'पुनरावलोकन' : 'Review Test'}
-                      </button>
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => onReviewPastTest(h)}
+                          className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-900 hover:text-white font-bold text-xs text-stone-700 transition-colors cursor-pointer"
+                        >
+                          {isMr ? 'पुनरावलोकन' : 'Review Test'}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}

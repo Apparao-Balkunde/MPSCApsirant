@@ -20,10 +20,12 @@ import {
   ArrowRight,
   ShieldCheck,
   SlidersHorizontal,
+  FileDown,
 } from 'lucide-react';
 import { GrammarRule } from '../types';
 import { GRAMMAR_RULES } from '../data/grammarRules';
 import { ENGLISH_VOCAB_QUESTIONS } from '../data/englishVocabQuestions';
+import { exportToPdf } from '../utils/pdfExport';
 
 export interface EnglishGrammarRepositoryProps {
   initialModuleId?: string;
@@ -466,10 +468,24 @@ export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> =
 
           {/* Quick Actions */}
           <div className="flex flex-wrap items-center gap-3 self-start lg:self-center">
+            {/* Export PDF Button */}
+            <button
+              onClick={() => {
+                exportToPdf({
+                  title: `MPSC English Grammar - ${currentModule.titleEn} (${currentModule.titleMr})`,
+                });
+              }}
+              className="px-3.5 py-2.5 rounded-xl font-bold text-xs md:text-sm bg-amber-400 hover:bg-amber-300 text-slate-950 flex items-center gap-1.5 shadow-md transition-all cursor-pointer no-print active:scale-95"
+              title="इंग्रजी व्याकरण नियम PDF मध्ये डाऊनलोड करा"
+            >
+              <FileDown className="w-4 h-4 text-slate-950" />
+              <span>📄 PDF डाऊनलोड</span>
+            </button>
+
             {onBackToOverview && (
               <button
                 onClick={onBackToOverview}
-                className="px-3.5 py-2 rounded-xl text-xs md:text-sm font-medium bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 transition-all flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl text-xs md:text-sm font-medium bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 transition-all flex items-center gap-1.5 no-print"
               >
                 ← सर्व नियम डॅशबोर्ड
               </button>
@@ -477,7 +493,7 @@ export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> =
 
             <button
               onClick={() => setViewMode(viewMode === 'cards' ? 'matrix' : 'cards')}
-              className={`px-4 py-2.5 rounded-xl font-medium text-xs md:text-sm flex items-center gap-2 transition-all shadow-md ${
+              className={`px-4 py-2.5 rounded-xl font-medium text-xs md:text-sm flex items-center gap-2 transition-all shadow-md no-print ${
                 viewMode === 'matrix'
                   ? 'bg-amber-400 text-slate-950 font-bold hover:bg-amber-300'
                   : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
@@ -489,7 +505,7 @@ export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> =
 
             <button
               onClick={handleLaunchModuleQuiz}
-              className="px-4 py-2.5 rounded-xl font-semibold text-xs md:text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:brightness-110 shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2"
+              className="px-4 py-2.5 rounded-xl font-semibold text-xs md:text-sm bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:brightness-110 shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 no-print"
             >
               <Play className="w-4 h-4 fill-current" />
               मॉड्यूल सराव परीक्षा सुरू करा
@@ -824,7 +840,7 @@ export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> =
             return (
               <div
                 key={rule.id}
-                className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all overflow-hidden grammar-rule-card print-avoid-break"
               >
                 {/* Card Header */}
                 <div className="p-5 md:p-6 bg-gradient-to-r from-slate-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-850 dark:to-slate-900 border-b border-slate-200/80 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -853,7 +869,7 @@ export const EnglishGrammarRepository: React.FC<EnglishGrammarRepositoryProps> =
                   </div>
 
                   {/* Actions on Card Header */}
-                  <div className="flex items-center gap-2 self-start md:self-center">
+                  <div className="flex items-center gap-2 self-start md:self-center no-print">
                     <button
                       onClick={() => copyRuleFormula(rule)}
                       className="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5"

@@ -8,12 +8,14 @@ import {
   Search, 
   Filter,
   FileText,
-  CheckCircle2
+  CheckCircle2,
+  FileDown
 } from 'lucide-react';
 import { Question, UserProgress } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
+import { exportToPdf } from '../utils/pdfExport';
 
 interface BookmarksViewProps {
   userProgress: UserProgress;
@@ -88,16 +90,31 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
         </div>
 
         {savedQuestions.length > 0 && (
-          <button
-            onClick={() => onStartCustomExam(
-              filtered.map((q) => q.id),
-              isMr ? 'जतन केलेल्या प्रश्नांची उजळणी परीक्षा' : 'Bookmarked Questions Revision Test'
-            )}
-            className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-sm flex items-center gap-2 transition-colors cursor-pointer"
-          >
-            <Play className="w-4 h-4 fill-current" />
-            <span>{isMr ? 'या प्रश्नांची चाचणी द्या' : 'Practice These Questions'}</span>
-          </button>
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            <button
+              onClick={() => {
+                exportToPdf({
+                  title: isMr ? 'MPSC जतन केलेले प्रश्न व उजळणी पुस्तिका' : 'MPSC Saved Questions & Study Notes',
+                });
+              }}
+              className="px-3.5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs flex items-center gap-2 transition-colors cursor-pointer no-print active:scale-95"
+              title={isMr ? 'जतन केलेले प्रश्न PDF मध्ये डाऊनलोड करा' : 'Export saved questions as PDF'}
+            >
+              <FileDown className="w-4 h-4 text-amber-400" />
+              <span>{isMr ? '📄 PDF डाऊनलोड' : '📄 Export PDF'}</span>
+            </button>
+
+            <button
+              onClick={() => onStartCustomExam(
+                filtered.map((q) => q.id),
+                isMr ? 'जतन केलेल्या प्रश्नांची उजळणी परीक्षा' : 'Bookmarked Questions Revision Test'
+              )}
+              className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-sm flex items-center gap-2 transition-colors cursor-pointer no-print"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>{isMr ? 'या प्रश्नांची चाचणी द्या' : 'Practice These Questions'}</span>
+            </button>
+          </div>
         )}
       </div>
 
@@ -146,7 +163,7 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
             return (
               <div
                 key={`${q.id}-${idx}`}
-                className="bg-white rounded-2xl border border-stone-200 shadow-xs p-5 sm:p-6 space-y-4"
+                className="bg-white rounded-2xl border border-stone-200 shadow-xs p-5 sm:p-6 space-y-4 exam-question-card print-avoid-break"
               >
                 {/* Question Meta Header */}
                 <div className="flex items-center justify-between gap-2 flex-wrap pb-3 border-b border-stone-100">
@@ -162,7 +179,7 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
                     <span className="text-xs text-stone-500">• {q.topic}</span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 no-print">
                     <button
                       onClick={() => onOpenAiMentor(q)}
                       className="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 transition-colors flex items-center gap-1 cursor-pointer"
@@ -275,7 +292,7 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
                       </div>
                       <button
                         onClick={() => handleStartEditingNote(q.id)}
-                        className="text-xs font-bold text-amber-800 hover:underline shrink-0 cursor-pointer"
+                        className="text-xs font-bold text-amber-800 hover:underline shrink-0 cursor-pointer no-print"
                       >
                         {userNote ? (isMr ? 'संपादित करा' : 'Edit') : (isMr ? '+ टीप जोडा' : '+ Add Note')}
                       </button>

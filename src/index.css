@@ -134,38 +134,73 @@ html[data-text-scale="large"] {
   }
 }
 
-/* 7. Print Media Query (Printing MPSC Question Sets, Revision Notes & Grammar Rules) */
+/* 7. Print Media Query (Printing MPSC Question Sets, Exam Results & Grammar Rules as PDF) */
 @media print {
+  /* Set clean page margins and background colors */
+  @page {
+    margin: 12mm 15mm 15mm 15mm;
+    size: auto;
+  }
+
   /* Hide non-printable UI elements */
   header,
   nav,
+  aside,
+  footer,
   #btn-header-fullscreen-toggle,
   #floating-screen-controls,
   .no-print,
   button:not(.print-keep),
   .ad-banner,
-  #firebase-sync-toast {
+  #firebase-sync-toast,
+  .print-hidden {
     display: none !important;
+  }
+
+  /* Show print-only banners and watermarks */
+  .print-only {
+    display: block !important;
   }
 
   body {
     background: #ffffff !important;
     color: #1c1917 !important;
-    font-size: 12pt;
-    line-height: 1.4;
+    font-size: 11pt;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Ensure card contents break gracefully without slicing text in half */
+  /* Container width unconstrained for full page layout */
+  .max-w-6xl,
+  .max-w-7xl,
+  .max-w-5xl,
+  .container {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure card contents break gracefully without slicing text or options in half */
   .exam-question-card,
   .grammar-rule-card,
+  .print-avoid-break,
   article,
   section {
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
     box-shadow: none !important;
-    border: 1px solid #d6d3d1 !important;
-    margin-bottom: 1.5rem !important;
+    border: 1px solid #e7e5e4 !important;
+    margin-bottom: 1.25rem !important;
     background: #ffffff !important;
+  }
+
+  /* Keep formula callouts crisp on white paper */
+  .bg-gradient-to-br,
+  .bg-gradient-to-r {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   a[href]:after {
