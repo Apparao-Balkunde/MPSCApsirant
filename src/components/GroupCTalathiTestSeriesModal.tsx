@@ -110,7 +110,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                   {isMr ? 'लक्ष्य: ३ जानेवारी २०२७' : 'Target: 3 Jan 2027'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
-                  {isMr ? '३० महा सराव संच • Real CBT Simulator' : '30 Full Exam Sets • Real CBT'}
+                  {isMr ? '४० महा सराव संच • Real CBT Simulator' : '40 Full Exam Sets • Real CBT'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-mono font-bold">
                   {isMr ? '१०० प्रश्न • ६० मिनिटे • १०० गुण' : '100 Qs • 60 Mins • 100 Marks'}
@@ -123,8 +123,8 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
 
               <p className="text-xs sm:text-sm text-stone-300 max-w-3xl leading-relaxed">
                 {isMr
-                  ? '३ जानेवारी २०२७ रोजी होणाऱ्या MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी ३० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर थेट रिअल-टाइम महाराष्ट्र राज्य रँक, पर्सेन्टाईल आणि कट-ऑफ निकाल!'
-                  : '30 Full-length CBT Mock Exam Sets for 3 January 2027 Group C & Talathi exams with instant real-time Maharashtra state ranking and cutoff evaluation.'}
+                  ? '३ जानेवारी २०२७ रोजी होणाऱ्या MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी ४० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर थेट रिअल-टाइम महाराष्ट्र राज्य रँक, पर्सेन्टाईल आणि कट-ऑफ निकाल!'
+                  : '40 Full-length CBT Mock Exam Sets for 3 January 2027 Group C & Talathi exams with instant real-time Maharashtra state ranking and cutoff evaluation.'}
               </p>
             </div>
 
@@ -283,7 +283,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
 
               <div className="flex items-center justify-between p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs sm:text-sm flex-wrap gap-2">
                 <span className="font-semibold">
-                  📌 {isMr ? 'टीप: खालील सर्व ३० महा सराव संच या अधिकृत अभ्यासक्रमानुसारच तयार केलेले आहेत.' : 'Note: All 30 Mock Sets are strictly mapped to this official syllabus.'}
+                  📌 {isMr ? 'टीप: खालील सर्व ४० महा सराव संच या अधिकृत अभ्यासक्रमानुसारच तयार केलेले आहेत.' : 'Note: All 40 Mock Sets are strictly mapped to this official syllabus.'}
                 </span>
                 <button
                   onClick={() => setShowSyllabusView(false)}
@@ -299,7 +299,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-amber-600" />
                   <span className="text-sm font-black text-stone-900">
-                    {isMr ? 'सर्व ३० महा सराव संच निवडा (Exam Set 1 to 30):' : 'Select Exam Set (Sets 1 to 30):'}
+                    {isMr ? 'सर्व ४० महा सराव संच निवडा (Exam Set 1 to 40):' : 'Select Exam Set (Sets 1 to 40):'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">

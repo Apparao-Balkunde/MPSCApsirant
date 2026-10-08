@@ -85,8 +85,8 @@ export const MPSC_EXAM_SCHEDULE: MpscExamItem[] = [
       '7) Reasoning - Logical thinking speed and problem solving (8 Qs)',
       '8) Arithmetic - Basic operations, Decimals, Fractions, Percentages (7 Qs)'
     ],
-    strategyTipMr: 'अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार १०० गुणांची "सामान्य क्षमता चाचणी" असते. ८ घटकांचे अचूक विभाजन असलेल्या ३० महा सराव संचांचा सराव करा. वेळेचे अचूक नियोजन करून नकारात्मक गुण टाळा.',
-    strategyTipEn: 'Official Prelims follows 100-mark General Ability Test across 8 subjects. Master all 30 mock sets with exact subject quotas to optimize speed and eliminate negative marking.',
+    strategyTipMr: 'अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार १०० गुणांची "सामान्य क्षमता चाचणी" असते. ८ घटकांचे अचूक विभाजन असलेल्या ४० महा सराव संचांचा सराव करा. वेळेचे अचूक नियोजन करून नकारात्मक गुण टाळा.',
+    strategyTipEn: 'Official Prelims follows 100-mark General Ability Test across 8 subjects. Master all 40 mock sets with exact subject quotas to optimize speed and eliminate negative marking.',
     officialNoticeUrl: 'https://mpsc.gov.in',
     isFeatured: true,
     accentColor: 'amber',
