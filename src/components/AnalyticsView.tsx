@@ -55,6 +55,7 @@ interface AnalyticsViewProps {
   onReviewPastTest: (result: ExamResult) => void;
   onStartSubjectPractice?: (subjectId: SubjectId) => void;
   onOpenBackupModal?: () => void;
+  onOpenWeakAreaBooster?: () => void;
 }
 
 interface RadarSubjectItem {
@@ -406,6 +407,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   onReviewPastTest,
   onStartSubjectPractice,
   onOpenBackupModal,
+  onOpenWeakAreaBooster,
 }) => {
   const isMr = language === 'mr';
   const history = userProgress.history;
@@ -1923,6 +1925,17 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
                       {weakList.length} {isMr ? 'विषय' : 'subjects'}
                     </span>
                   </div>
+
+                  {onOpenWeakAreaBooster && (
+                    <button
+                      type="button"
+                      onClick={onOpenWeakAreaBooster}
+                      className="w-full py-2 px-3 bg-gradient-to-r from-rose-700 to-rose-600 hover:from-rose-600 hover:to-rose-500 text-white font-bold text-xs rounded-lg shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer hover:shadow-sm"
+                    >
+                      <Target className="w-3.5 h-3.5" />
+                      <span>{isMr ? '🎯 AI कमकुवत घटक सुधारणा चाचणी (Smart Remedial Booster)' : '🎯 Launch AI Smart Remedial Booster'}</span>
+                    </button>
+                  )}
 
                   {weakList.length > 0 ? (
                     <div className="space-y-2 pt-1">

@@ -46,6 +46,7 @@ import { MpscBookShelf } from './MpscBookShelf';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 import { DailyChallengeModal } from './DailyChallengeModal';
+import { analyzeUserWeakAreas } from '../utils/weakAreaRemedialEngine';
 
 const SUBJECT_BOOK_COVERS: Record<string, string> = {
   marathi_grammar: '/open_reference_book.jpg',
@@ -82,6 +83,7 @@ interface DashboardViewProps {
   onOpenExamCountdown?: () => void;
   onOpenInformationHub?: () => void;
   onOpenGroupCTalathiTestSeries?: (initialView?: 'sets' | 'syllabus') => void;
+  onOpenWeakAreaBooster?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -112,6 +114,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenInformationHub,
   onOpenPyqHub,
   onOpenGroupCTalathiTestSeries,
+  onOpenWeakAreaBooster,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -121,6 +124,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 }) => {
   const isMr = language === 'mr';
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
+
+  // Real-time AI Weak-Area Diagnostics
+  const weakAreaAnalysis = useMemo(() => {
+    return analyzeUserWeakAreas(userProgress, pool);
+  }, [userProgress, pool]);
 
   // Calculate high-level stats
   const totalTests = userProgress.history.length;
@@ -1160,6 +1168,65 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <Play className="w-4 h-4 fill-current text-amber-400" />
                 <span>{isMr ? '२०२६ परीक्षा सोडवा (H25)' : 'Take 2026 Exam (H25)'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* FEATURED: AI WEAK AREA REMEDIAL & BOOSTER ENGINE */}
+        {/* ========================================================================= */}
+        <div className="bg-gradient-to-r from-stone-950 via-rose-950 to-stone-900 rounded-2xl border-2 border-rose-500/70 p-6 sm:p-7 shadow-xl text-white mb-6 relative overflow-hidden">
+          <div className="absolute -right-8 -bottom-8 opacity-15 pointer-events-none">
+            <Target className="w-56 h-56 text-rose-400" />
+          </div>
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div className="space-y-2 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-xs flex items-center gap-1.5">
+                  <Target className="w-3.5 h-3.5 fill-white" />
+                  {isMr ? '🎯 AI कमकुवत विषय शोधक व सुधारणा इंजिन' : '🎯 AI Weak Area Remedial & Booster Engine'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-bold">
+                  {isMr 
+                    ? (weakAreaAnalysis.pastMistakes.length > 0 ? `${weakAreaAnalysis.pastMistakes.length} नोंदवलेल्या चुका विश्लेषण` : 'वैयक्तिक सराव विश्लेषण सज्ज') 
+                    : (weakAreaAnalysis.pastMistakes.length > 0 ? `${weakAreaAnalysis.pastMistakes.length} Logged Mistakes Analyzed` : 'Smart Diagnostic Ready')}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
+                  {weakAreaAnalysis.weakestSubject 
+                    ? (isMr ? `कच्चा घटक: ${weakAreaAnalysis.weakestSubject.subjectNameMr} (${weakAreaAnalysis.weakestSubject.accuracy}%)` : `Weakest: ${weakAreaAnalysis.weakestSubject.subjectNameEn} (${weakAreaAnalysis.weakestSubject.accuracy}%)`)
+                    : (isMr ? 'सर्व ८ विषयांचे रिमेडियल पृथक्करण' : 'All 8 Subjects Covered')}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-white">
+                {isMr
+                  ? 'उमेदवारांच्या चुकलेल्या प्रश्नांचे व सर्वात कमी अचूकता असणाऱ्या विषयांचे पृथक्करण'
+                  : 'Diagnostic Analysis of Exam Mistakes & Low-Accuracy Vulnerabilities'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'परीक्षेत निगेटिव्ह मार्किंगमुळे होणारे नुकसान टाळण्यासाठी विशेष डिझाइन केलेले इंजिन. तुम्ही चुकवलेले प्रश्न, सर्वात कमी अचूकतेचे विषय आणि अधिकृत अभ्यासक्रमानुसार २५ प्रश्नांचा विशेष सराव संच एका क्लिकवर सोडवा.'
+                  : 'Designed to eliminate negative-mark leakage. Auto-extracts your past wrong answers, identifies subjects falling below the 65% safe cutoff, and generates a laser-targeted 25-question remedial sprint.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-rose-200/90 font-medium pt-1 flex-wrap">
+                <span>🎯 {isMr ? 'अचूकता सुधारणा टार्गेट: ७५%+' : 'Target Accuracy: 75%+'}</span>
+                <span>•</span>
+                <span>⏱️ {isMr ? '१५-२५ प्रश्न द्रुत सराव' : '15-25 Question Sprints'}</span>
+                <span>•</span>
+                <span>🛡️ {isMr ? 'नकारात्मक गुणांची भरपाई' : 'Recover Negative Penalties'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                onClick={() => onOpenWeakAreaBooster?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white font-black text-sm rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Target className="w-4 h-4 text-white" />
+                <span>{isMr ? '🎯 रिमेडियल इंजिन उघडा (Open Booster)' : '🎯 Open Remedial Booster'}</span>
               </button>
             </div>
           </div>

@@ -38,6 +38,7 @@ import { MpscPyqHubModal } from './components/MpscPyqHubModal';
 import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
 import { GroupCTalathiTestSeriesModal } from './components/GroupCTalathiTestSeriesModal';
+import { WeakAreaRemedialModal } from './components/WeakAreaRemedialModal';
 import { calculateRealTimeStateRank } from './utils/rankPredictor';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -102,6 +103,9 @@ export default function App() {
   // MPSC Group C & Talathi Mega Test Series modal state (3 Jan 2027 Special)
   const [isGroupCTalathiModalOpen, setIsGroupCTalathiModalOpen] = useState<boolean>(false);
   const [groupCTalathiModalInitialView, setGroupCTalathiModalInitialView] = useState<'sets' | 'syllabus'>('sets');
+
+  // AI Weak Area Remedial & Booster modal state
+  const [isWeakAreaRemedialOpen, setIsWeakAreaRemedialOpen] = useState<boolean>(false);
 
   // Grammar rules navigation state
   const [grammarInitialLanguage, setGrammarInitialLanguage] = useState<'all' | 'marathi' | 'english'>('all');
@@ -558,6 +562,16 @@ export default function App() {
     setActiveSession(session);
   };
 
+  // AI Weak Area Remedial & Booster Exam Handler
+  const handleStartRemedialExam = (
+    customQuestionIds: string[],
+    title: string,
+    subjectId?: SubjectId
+  ) => {
+    setIsWeakAreaRemedialOpen(false);
+    handleStartExam('weak_area_remedial', subjectId, title, customQuestionIds);
+  };
+
   // Exam submission & grading handler
   const handleSubmitExam = (session: ExamSession) => {
     const currentPool = questions;
@@ -832,6 +846,7 @@ export default function App() {
             onOpenCloudSync={() => setIsCloudSyncOpen(true)}
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
+            onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
           />
           <main className="flex-1">
             <ExamResultView
@@ -885,6 +900,7 @@ export default function App() {
             onOpenPyqHub={() => setIsPyqHubOpen(true)}
             onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
             onOpenInformationHub={() => setIsInformationHubOpen(true)}
+            onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -919,6 +935,7 @@ export default function App() {
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
                 onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
                 onOpenInformationHub={() => setIsInformationHubOpen(true)}
+                onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -978,6 +995,7 @@ export default function App() {
                 onReviewPastTest={handleReviewPastTest}
                 onStartSubjectPractice={(subId) => handleStartExam('custom', subId)}
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
+                onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
               />
             )}
 
@@ -1189,6 +1207,16 @@ export default function App() {
         userProgress={userProgress}
         currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
         initialView={groupCTalathiModalInitialView}
+      />
+
+      {/* AI Weak Area Remedial & Booster Engine Modal */}
+      <WeakAreaRemedialModal
+        isOpen={isWeakAreaRemedialOpen}
+        onClose={() => setIsWeakAreaRemedialOpen(false)}
+        language={userProgress.preferredLanguage}
+        userProgress={userProgress}
+        questionsPool={questions}
+        onStartCustomExam={handleStartRemedialExam}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

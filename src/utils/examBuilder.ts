@@ -291,6 +291,11 @@ export function createExamSession(options: {
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || Math.max(15, Math.round(selected.length * 1.5));
+  } else if (options.patternId === 'weak_area_remedial') {
+    defaultTitle = options.title || 'MPSC कमकुवत घटक सुधारणा सराव (Weak Area Booster Drill)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || Math.max(10, Math.round(selected.length * 1.5));
   } else if (options.patternId === 'rajyaseva_gs') {
     defaultTitle = 'MPSC Rajyaseva GS Prelims Mock';
     marksPerQuestion = 2;

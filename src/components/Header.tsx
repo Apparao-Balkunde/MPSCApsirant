@@ -56,6 +56,7 @@ export interface HeaderProps {
   onOpenExamCountdown?: () => void;
   onOpenInformationHub?: () => void;
   onOpenCustomImageManager?: () => void;
+  onOpenWeakAreaBooster?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -75,6 +76,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenPyqHub,
   onOpenExamCountdown,
   onOpenInformationHub,
+  onOpenWeakAreaBooster,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -359,6 +361,18 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                   <span>{isMr ? 'मागील प्रश्नपत्रिका' : 'PYQ Papers'}</span>
+                </button>
+              )}
+
+              {onOpenWeakAreaBooster && (
+                <button
+                  id="nav-weak-area-booster"
+                  onClick={onOpenWeakAreaBooster}
+                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-rose-500/20 to-red-600/20 hover:from-rose-500/30 hover:to-red-600/30 text-rose-300 border border-rose-500/40 cursor-pointer shadow-xs hover:scale-105"
+                  title={isMr ? "कमकुवत घटक विशेष सराव (Smart Remedial Booster)" : "Weak Area Remedial Booster"}
+                >
+                  <Target className="w-3.5 h-3.5 text-rose-400" />
+                  <span>{isMr ? 'कमकुवत घटक' : 'Weak Areas'}</span>
                 </button>
               )}
             </nav>
@@ -686,6 +700,17 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <BookOpen className="w-3.5 h-3.5 text-amber-400" />
               <span>{isMr ? 'PYQ' : 'PYQ'}</span>
+            </button>
+          )}
+
+          {onOpenWeakAreaBooster && (
+            <button
+              onClick={onOpenWeakAreaBooster}
+              className="px-2 py-1 rounded-lg font-bold text-rose-300 flex items-center gap-1 shrink-0 cursor-pointer bg-rose-500/20 border border-rose-500/40"
+              title={isMr ? "कमकुवत घटक सराव" : "Weak Areas Drill"}
+            >
+              <Target className="w-3.5 h-3.5 text-rose-400" />
+              <span>{isMr ? 'कमकुवत' : 'Drill'}</span>
             </button>
           )}
 
