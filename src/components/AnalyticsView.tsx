@@ -57,6 +57,7 @@ interface AnalyticsViewProps {
   onOpenBackupModal?: () => void;
   onOpenWeakAreaBooster?: () => void;
   onOpenCutoffTrends?: () => void;
+  onOpenRapidFlashcards?: () => void;
 }
 
 interface RadarSubjectItem {
@@ -410,6 +411,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   onOpenBackupModal,
   onOpenWeakAreaBooster,
   onOpenCutoffTrends,
+  onOpenRapidFlashcards,
 }) => {
   const isMr = language === 'mr';
   const history = userProgress.history;
@@ -1570,6 +1572,18 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
               >
                 <TrendingUp className="w-3.5 h-3.5" />
                 <span>{isMr ? '📊 अधिकृत कट-ऑफ ट्रेंड्स (२०२०-२५)' : '📊 Cut-off Trends'}</span>
+              </button>
+            )}
+
+            {onOpenRapidFlashcards && (
+              <button
+                type="button"
+                onClick={onOpenRapidFlashcards}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 border border-amber-300 transition-all cursor-pointer shadow-xs"
+                title={isMr ? '१-मिनिट रॅपिड फ्लॅशकार्ड्स उघडा' : 'Launch 1-Minute Flashcards'}
+              >
+                <Zap className="w-3.5 h-3.5 fill-amber-500 text-amber-600" />
+                <span>{isMr ? '⚡ रॅपिड फ्लॅशकार्ड्स' : '⚡ Rapid Flashcards'}</span>
               </button>
             )}
 

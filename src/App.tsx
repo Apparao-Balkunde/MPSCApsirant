@@ -40,6 +40,7 @@ import { InformationHubModal } from './components/InformationHubModal';
 import { GroupCTalathiTestSeriesModal } from './components/GroupCTalathiTestSeriesModal';
 import { WeakAreaRemedialModal } from './components/WeakAreaRemedialModal';
 import { CutoffTrendsDashboardModal } from './components/CutoffTrendsDashboardModal';
+import { RapidMemoryFlashcardsModal } from './components/RapidMemoryFlashcardsModal';
 import { calculateRealTimeStateRank } from './utils/rankPredictor';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -110,6 +111,9 @@ export default function App() {
 
   // MPSC Official Cut-off & Merit Trends Dashboard modal state (2020-2025)
   const [isCutoffTrendsOpen, setIsCutoffTrendsOpen] = useState<boolean>(false);
+
+  // 1-Minute Rapid Memory Flashcards modal state
+  const [isRapidFlashcardsOpen, setIsRapidFlashcardsOpen] = useState<boolean>(false);
 
   // Grammar rules navigation state
   const [grammarInitialLanguage, setGrammarInitialLanguage] = useState<'all' | 'marathi' | 'english'>('all');
@@ -852,6 +856,7 @@ export default function App() {
             onToggleSoundEffects={handleToggleSoundEffects}
             onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
             onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
+            onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
           />
           <main className="flex-1">
             <ExamResultView
@@ -907,6 +912,7 @@ export default function App() {
             onOpenInformationHub={() => setIsInformationHubOpen(true)}
             onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
             onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
+            onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -943,6 +949,7 @@ export default function App() {
                 onOpenInformationHub={() => setIsInformationHubOpen(true)}
                 onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
                 onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
+                onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1004,6 +1011,7 @@ export default function App() {
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
                 onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
                 onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
+                onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
               />
             )}
 
@@ -1231,6 +1239,13 @@ export default function App() {
       <CutoffTrendsDashboardModal
         isOpen={isCutoffTrendsOpen}
         onClose={() => setIsCutoffTrendsOpen(false)}
+        language={userProgress.preferredLanguage}
+      />
+
+      {/* 1-Minute Rapid Memory Flashcards Modal */}
+      <RapidMemoryFlashcardsModal
+        isOpen={isRapidFlashcardsOpen}
+        onClose={() => setIsRapidFlashcardsOpen(false)}
         language={userProgress.preferredLanguage}
       />
 

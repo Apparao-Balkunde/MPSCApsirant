@@ -85,6 +85,7 @@ interface DashboardViewProps {
   onOpenGroupCTalathiTestSeries?: (initialView?: 'sets' | 'syllabus') => void;
   onOpenWeakAreaBooster?: () => void;
   onOpenCutoffTrends?: () => void;
+  onOpenRapidFlashcards?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -117,6 +118,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenGroupCTalathiTestSeries,
   onOpenWeakAreaBooster,
   onOpenCutoffTrends,
+  onOpenRapidFlashcards,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1281,6 +1283,58 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <TrendingUp className="w-4 h-4 text-stone-950" />
                 <span>{isMr ? '📊 कट-ऑफ डॅशबोर्ड उघडा' : '📊 Explore Cut-off Dashboard'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ⚡ 1-Minute Rapid Memory Flashcards Banner (Last-Mile Revision) */}
+        <div className="bg-gradient-to-br from-amber-950/95 via-stone-900 to-yellow-950/90 rounded-2xl border-2 border-amber-400/80 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-44 h-44 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-3 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-300 border border-amber-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Zap className="w-3.5 h-3.5 text-amber-300 fill-amber-300/40 animate-pulse" />
+                  <span>{isMr ? '१-मिनिट रॅपिड रिव्हिजन' : '1-Min Rapid Revision'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 text-xs font-bold">
+                  {isMr ? '🏛️ समाजसुधारक • 📜 कलमे • 🏞️ नद्या • 🏆 चालू घडामोडी' : 'Reformers • Articles • Rivers • Current Affairs'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? '६० सेकंद मेमरी स्प्रिंट' : '60-Sec Memory Sprint'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-200">
+                {isMr
+                  ? '⚡ १-मिनिट रॅपिड रिव्हिजन फ्लॅशकार्ड्स (Rapid Memory Flashcards)'
+                  : '⚡ 1-Minute Rapid Memory Flashcards (Last-Mile Exam Booster)'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'परीक्षेच्या शेवटच्या दिवसांमध्ये महत्त्वाच्या तथ्यांची विजेच्या वेगाने उजळणी करा! फुले-आंबेडकर-शाहू-आगरकर व त्यांची वृत्तपत्रे, राज्यघटनेतील महत्त्वाची कलमे व दुरुस्त्या (४२वी, ४४वी, १०६वी), महाराष्ट्रातील नद्या व धरणे आणि २०२६-२७ चे चालू घडामोडी पुरस्कार/पदे एका क्लिकवर ३D फ्लिप कार्ड्स व ६०-सेकंद स्प्रिंट मोडमध्ये अभ्यासा.'
+                  : 'High-frequency exam topics packaged into rapid-fire memory flashcards with 60-second timer sprints, 3D flip recall, audio read-aloud, and active verification quizzes.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <span>⏱️ {isMr ? '६०-सेकंद टाईम स्प्रिंट' : '60-Sec Timed Sprint'}</span>
+                <span>•</span>
+                <span>🎧 {isMr ? 'ऑडिओ ऐकण्याची सोय' : 'Audio Read-Aloud'}</span>
+                <span>•</span>
+                <span>⭐ {isMr ? 'कठीण प्रश्न सेव्ह करण्याची सुविधा' : 'Bookmark Tough Cards'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                onClick={() => onOpenRapidFlashcards?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Zap className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '⚡ रॅपिड फ्लॅशकार्ड्स सुरू करा' : '⚡ Launch Flashcards'}</span>
               </button>
             </div>
           </div>
