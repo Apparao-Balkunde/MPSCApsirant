@@ -56,6 +56,7 @@ interface AnalyticsViewProps {
   onStartSubjectPractice?: (subjectId: SubjectId) => void;
   onOpenBackupModal?: () => void;
   onOpenWeakAreaBooster?: () => void;
+  onOpenCutoffTrends?: () => void;
 }
 
 interface RadarSubjectItem {
@@ -408,6 +409,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   onStartSubjectPractice,
   onOpenBackupModal,
   onOpenWeakAreaBooster,
+  onOpenCutoffTrends,
 }) => {
   const isMr = language === 'mr';
   const history = userProgress.history;
@@ -1558,6 +1560,18 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
               <span className={`w-2 h-2 rounded-full ${showTopperBenchmark ? 'bg-sky-600 animate-pulse' : 'bg-stone-400'}`}></span>
               <span>{isMr ? '८०% टॉपर उद्दिष्ट' : '80% Topper'}</span>
             </button>
+
+            {onOpenCutoffTrends && (
+              <button
+                type="button"
+                onClick={onOpenCutoffTrends}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-stone-950 transition-all cursor-pointer shadow-xs"
+                title={isMr ? 'मागील वर्षांचे अधिकृत कट-ऑफ (२०२०-२०२५) व ट्रेंड्स तपासा' : 'Check Official Cutoff Trends (2020-2025)'}
+              >
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>{isMr ? '📊 अधिकृत कट-ऑफ ट्रेंड्स (२०२०-२५)' : '📊 Cut-off Trends'}</span>
+              </button>
+            )}
 
             {/* Sample vs Real Data Indicator if limited tests */}
             {history.length < 2 && (

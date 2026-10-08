@@ -28,7 +28,8 @@ import {
   Smartphone,
   Tablet,
   Laptop,
-  SpellCheck
+  SpellCheck,
+  TrendingUp
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -57,6 +58,7 @@ export interface HeaderProps {
   onOpenInformationHub?: () => void;
   onOpenCustomImageManager?: () => void;
   onOpenWeakAreaBooster?: () => void;
+  onOpenCutoffTrends?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -77,6 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenExamCountdown,
   onOpenInformationHub,
   onOpenWeakAreaBooster,
+  onOpenCutoffTrends,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -175,8 +178,21 @@ export const Header: React.FC<HeaderProps> = ({
                 className="inline-flex items-center gap-1 bg-stone-900 hover:bg-stone-800 border border-amber-500/40 hover:border-amber-400 px-2 py-0.5 rounded text-[11px] font-bold text-amber-300 transition-all cursor-pointer shadow-xs active:scale-95"
                 title={isMr ? "MPSC परीक्षा व कायदे माहिती केंद्र (RTI / IT Act)" : "Open Exam & Legal Info Hub"}
               >
-                <Scale className="w-3 h-3 text-amber-400 shrink-0" />
+                <Scale className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span className="hidden sm:inline">{isMr ? 'माहिती केंद्र' : 'Info Hub'}</span>
+              </button>
+            )}
+
+            {onOpenCutoffTrends && (
+              <button
+                type="button"
+                id="btn-header-cutoff-trends"
+                onClick={onOpenCutoffTrends}
+                className="inline-flex items-center gap-1 bg-amber-950/80 hover:bg-amber-900 border border-amber-500/50 hover:border-amber-400 px-2 py-0.5 rounded text-[11px] font-black text-amber-300 transition-all cursor-pointer shadow-xs active:scale-95"
+                title={isMr ? "मागील वर्षांचे अधिकृत कट-ऑफ व मेरिट ॲनालिसीस (२०२०-२०२५)" : "Official Cut-off & Merit Trends (2020-2025)"}
+              >
+                <TrendingUp className="w-3 h-3 text-amber-400 shrink-0" />
+                <span>{isMr ? 'कट-ऑफ' : 'Cut-off'}</span>
               </button>
             )}
 
@@ -373,6 +389,18 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <Target className="w-3.5 h-3.5 text-rose-400" />
                   <span>{isMr ? 'कमकुवत घटक' : 'Weak Areas'}</span>
+                </button>
+              )}
+
+              {onOpenCutoffTrends && (
+                <button
+                  id="nav-cutoff-trends"
+                  onClick={onOpenCutoffTrends}
+                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-yellow-600/20 hover:from-amber-500/30 hover:to-yellow-600/30 text-amber-300 border border-amber-500/40 cursor-pointer shadow-xs hover:scale-105"
+                  title={isMr ? "मागील वर्षांचे कट-ऑफ व मेरिट ॲनालिसीस (२०२०-२०२५)" : "Official Cut-off & Merit Analysis (2020-2025)"}
+                >
+                  <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{isMr ? 'कट-ऑफ ट्रेंड्स' : 'Cut-off'}</span>
                 </button>
               )}
             </nav>
@@ -711,6 +739,17 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Target className="w-3.5 h-3.5 text-rose-400" />
               <span>{isMr ? 'कमकुवत' : 'Drill'}</span>
+            </button>
+          )}
+
+          {onOpenCutoffTrends && (
+            <button
+              onClick={onOpenCutoffTrends}
+              className="px-2 py-1 rounded-lg font-bold text-amber-300 flex items-center gap-1 shrink-0 cursor-pointer bg-amber-500/20 border border-amber-500/40"
+              title={isMr ? "कट-ऑफ विश्लेषण" : "Cutoff Trends"}
+            >
+              <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
+              <span>{isMr ? 'कट-ऑफ' : 'Cutoff'}</span>
             </button>
           )}
 

@@ -39,6 +39,7 @@ import { ExamCountdownModal } from './components/ExamCountdownModal';
 import { InformationHubModal } from './components/InformationHubModal';
 import { GroupCTalathiTestSeriesModal } from './components/GroupCTalathiTestSeriesModal';
 import { WeakAreaRemedialModal } from './components/WeakAreaRemedialModal';
+import { CutoffTrendsDashboardModal } from './components/CutoffTrendsDashboardModal';
 import { calculateRealTimeStateRank } from './utils/rankPredictor';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -106,6 +107,9 @@ export default function App() {
 
   // AI Weak Area Remedial & Booster modal state
   const [isWeakAreaRemedialOpen, setIsWeakAreaRemedialOpen] = useState<boolean>(false);
+
+  // MPSC Official Cut-off & Merit Trends Dashboard modal state (2020-2025)
+  const [isCutoffTrendsOpen, setIsCutoffTrendsOpen] = useState<boolean>(false);
 
   // Grammar rules navigation state
   const [grammarInitialLanguage, setGrammarInitialLanguage] = useState<'all' | 'marathi' | 'english'>('all');
@@ -847,6 +851,7 @@ export default function App() {
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
             onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
+            onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
           />
           <main className="flex-1">
             <ExamResultView
@@ -901,6 +906,7 @@ export default function App() {
             onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
             onOpenInformationHub={() => setIsInformationHubOpen(true)}
             onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
+            onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -936,6 +942,7 @@ export default function App() {
                 onOpenExamCountdown={() => setIsExamCountdownOpen(true)}
                 onOpenInformationHub={() => setIsInformationHubOpen(true)}
                 onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
+                onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -996,6 +1003,7 @@ export default function App() {
                 onStartSubjectPractice={(subId) => handleStartExam('custom', subId)}
                 onOpenBackupModal={() => setIsBackupModalOpen(true)}
                 onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
+                onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
               />
             )}
 
@@ -1217,6 +1225,13 @@ export default function App() {
         userProgress={userProgress}
         questionsPool={questions}
         onStartCustomExam={handleStartRemedialExam}
+      />
+
+      {/* MPSC Official Cut-off & Merit Trends Dashboard Modal (2020 - 2025) */}
+      <CutoffTrendsDashboardModal
+        isOpen={isCutoffTrendsOpen}
+        onClose={() => setIsCutoffTrendsOpen(false)}
+        language={userProgress.preferredLanguage}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

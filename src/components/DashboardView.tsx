@@ -84,6 +84,7 @@ interface DashboardViewProps {
   onOpenInformationHub?: () => void;
   onOpenGroupCTalathiTestSeries?: (initialView?: 'sets' | 'syllabus') => void;
   onOpenWeakAreaBooster?: () => void;
+  onOpenCutoffTrends?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -115,6 +116,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenPyqHub,
   onOpenGroupCTalathiTestSeries,
   onOpenWeakAreaBooster,
+  onOpenCutoffTrends,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1227,6 +1229,58 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <Target className="w-4 h-4 text-white" />
                 <span>{isMr ? '🎯 रिमेडियल इंजिन उघडा (Open Booster)' : '🎯 Open Remedial Booster'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 📊 Official Cut-off & Merit Trends Dashboard Banner (2020 - 2025) */}
+        <div className="bg-gradient-to-br from-amber-950/90 via-stone-900 to-amber-900/90 rounded-2xl border-2 border-amber-500/60 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-12 -top-12 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-3 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <TrendingUp className="w-3.5 h-3.5" />
+                  <span>{isMr ? '२०२० ते २०२५ अधिकृत कट-ऑफ' : '2020-2025 Official Cutoffs'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                  {isMr ? 'गट-क • तलाठी • गट-ब (PSI/STI/ASO)' : 'Group C • Talathi • Group B'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold">
+                  {isMr ? 'Open, OBC, SC, ST, EWS, महिला, दिव्यांग' : 'All Categories Matrix'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-200">
+                {isMr
+                  ? '📊 मागील वर्षांचे अधिकृत कट-ऑफ व मेरिट ॲनालिसीस (Cut-off Trends Dashboard)'
+                  : '📊 Official Multi-Year Cut-off Trends & Merit Analysis Dashboard'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'लिपिक (१९ ते ५६ गुण), कर सहायक (५४ ते ६०), उत्पादन शुल्क (६२ ते ६७), तलाठी (१७२ ते १७८ गुण) आणि गट-ब (PSI/STI/ASO) च्या अधिकृत आकडेवारीचे सखोल विश्लेषण. ग्राफिकल ट्रेंड्स आलेख, १/४ निगेटिव्ह मार्किंगचा प्रभाव आणि तुमचा स्कोर टाकून सुरक्षितता तपासणारा थेट कॅल्क्युलेटर!'
+                  : 'Comprehensive official cutoff statistics across Group C, Talathi, and Group B exams from 2020 to 2025. Explore interactive graphical charts, category score gaps, and an instant cutoff safety evaluation calculator.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <span>📈 {isMr ? 'वर्षनिहाय तुलना आलेख' : 'Year-over-Year Progression'}</span>
+                <span>•</span>
+                <span>🎯 {isMr ? 'माझा कट-ऑफ सुरक्षितता कॅल्क्युलेटर' : 'Safety Score Calculator'}</span>
+                <span>•</span>
+                <span>🛡️ {isMr ? '२०२६-२७ सुरक्षित टार्गेट स्कोअर' : 'Safe 2026-27 Benchmarks'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                onClick={() => onOpenCutoffTrends?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <TrendingUp className="w-4 h-4 text-stone-950" />
+                <span>{isMr ? '📊 कट-ऑफ डॅशबोर्ड उघडा' : '📊 Explore Cut-off Dashboard'}</span>
               </button>
             </div>
           </div>
