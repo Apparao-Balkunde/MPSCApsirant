@@ -9,7 +9,8 @@ import {
   FileText,
   Flame,
   Sparkles,
-  SpellCheck
+  SpellCheck,
+  Trophy
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -22,6 +23,7 @@ interface SubjectPracticeViewProps {
   onOpenVocabulary?: () => void;
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
   onOpenAddQuestion?: (subjectId?: SubjectId) => void;
+  onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
   questionsPool?: Question[];
 }
 
@@ -32,6 +34,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   onOpenVocabulary,
   onOpenHardQuestionsHub,
   onOpenAddQuestion,
+  onOpenSubjectMarathon,
   questionsPool,
 }) => {
   const isMr = language === 'mr';
@@ -53,6 +56,17 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
+          {onOpenSubjectMarathon && (
+            <button
+              onClick={() => onOpenSubjectMarathon()}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+              title={isMr ? "विषयनिहाय १०० प्रश्न मॅरेथॉन पेपर्स" : "Subject-Wise 100 Qs Marathon Sets"}
+            >
+              <Trophy className="w-4 h-4 fill-stone-950 text-stone-950" />
+              <span>{isMr ? '🏆 १०० Qs मॅरेथॉन पेपर्स' : '🏆 100 Qs Marathon Sets'}</span>
+            </button>
+          )}
+
           {onOpenAddQuestion && (
             <button
               onClick={() => onOpenAddQuestion()}
@@ -159,6 +173,30 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                     </span>
                   </button>
                 )}
+
+                {(sub.id === 'maharashtra_geography' ||
+                  sub.id === 'general_science' ||
+                  sub.id === 'current_affairs' ||
+                  sub.id === 'polity') &&
+                  onOpenSubjectMarathon && (
+                    <button
+                      onClick={() => {
+                        const mId =
+                          sub.id === 'maharashtra_geography'
+                            ? 'marathon_geo_forest'
+                            : sub.id === 'general_science'
+                            ? 'marathon_science'
+                            : sub.id === 'current_affairs'
+                            ? 'marathon_current_affairs'
+                            : 'marathon_polity';
+                        onOpenSubjectMarathon(mId);
+                      }}
+                      className="w-full py-2 bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-amber-500/15 hover:from-amber-500/25 hover:to-orange-500/25 text-amber-900 border border-amber-400/50 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                    >
+                      <Trophy className="w-3.5 h-3.5 text-amber-600 fill-amber-500/40" />
+                      <span>{isMr ? '🏆 या विषयाचा १०० प्रश्न मॅरेथॉन पेपर' : '🏆 100 Qs Subject Marathon Paper'}</span>
+                    </button>
+                  )}
 
                 <div className="grid grid-cols-2 gap-2">
                   <button

@@ -2,6 +2,7 @@ import { ExamPatternId, ExamSession, Question, SubjectId } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { getHardQuestionsPool, findQuestionById } from './hardQuestionsEngine';
 import { getGroupCTalathiSetQuestions, MPSC_GROUP_C_TALATHI_SETS_CATALOG } from '../data/mpscGroupCTalathiSets';
+import { getSubjectMarathonQuestions, getSubjectMarathonMeta } from '../data/subjectMarathonSetsData';
 
 export function createExamSession(options: {
   patternId: ExamPatternId;
@@ -137,6 +138,13 @@ export function createExamSession(options: {
   } else if (options.patternId.startsWith('mpsc_group_c_talathi_set_')) {
     const setNum = parseInt(options.patternId.replace('mpsc_group_c_talathi_set_', ''), 10) || 1;
     eligibleQuestions = getGroupCTalathiSetQuestions(setNum, pool);
+  } else if (
+    options.patternId === 'marathon_geo_forest_100' ||
+    options.patternId === 'marathon_science_100' ||
+    options.patternId === 'marathon_current_affairs_100' ||
+    options.patternId === 'marathon_polity_100'
+  ) {
+    eligibleQuestions = getSubjectMarathonQuestions(options.patternId, pool);
   } else {
     eligibleQuestions = [...pool];
   }
@@ -179,7 +187,8 @@ export function createExamSession(options: {
        options.patternId === 'mpsc_pyq_2022' || 
        options.patternId === 'mpsc_group_c_pre' ||
        options.patternId === 'mpsc_combine_mains_pyq' ||
-       options.patternId.startsWith('mpsc_group_c_talathi_set_'))
+       options.patternId.startsWith('mpsc_group_c_talathi_set_') ||
+       options.patternId.startsWith('marathon_'))
     ? undefined
     : (options.subjectId === 'current_affairs' ? 25 : undefined);
   const limit = options.limit || defaultLimit;
@@ -197,7 +206,8 @@ export function createExamSession(options: {
     options.patternId === 'mpsc_pyq_2022' || 
     options.patternId === 'mpsc_group_c_pre' ||
     options.patternId === 'mpsc_combine_mains_pyq' ||
-    options.patternId.startsWith('mpsc_group_c_talathi_set_');
+    options.patternId.startsWith('mpsc_group_c_talathi_set_') ||
+    options.patternId.startsWith('marathon_');
   const shuffled = isOfficialSequential
     ? [...uniqueEligible] 
     : [...uniqueEligible].sort(() => 0.5 - Math.random());
@@ -263,6 +273,12 @@ export function createExamSession(options: {
     const setNum = parseInt(options.patternId.replace('mpsc_group_c_talathi_set_', ''), 10) || 1;
     const meta = MPSC_GROUP_C_TALATHI_SETS_CATALOG.find((s) => s.setNumber === setNum);
     defaultTitle = options.title || meta?.titleMr || `MPSC गट-क / तलाठी महा सराव संच ${setNum} (३ जाने २०२७ विशेष)`;
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId.startsWith('marathon_')) {
+    const marathonMeta = getSubjectMarathonMeta(options.patternId);
+    defaultTitle = options.title || marathonMeta?.titleMr || 'MPSC विषयनिहाय १०० प्रश्न मॅरेथॉन पेपर';
     marksPerQuestion = 1;
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || 60;

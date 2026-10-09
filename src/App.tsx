@@ -41,6 +41,8 @@ import { GroupCTalathiTestSeriesModal } from './components/GroupCTalathiTestSeri
 import { WeakAreaRemedialModal } from './components/WeakAreaRemedialModal';
 import { CutoffTrendsDashboardModal } from './components/CutoffTrendsDashboardModal';
 import { RapidMemoryFlashcardsModal } from './components/RapidMemoryFlashcardsModal';
+import { SubjectMarathonModal } from './components/SubjectMarathonModal';
+import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { calculateRealTimeStateRank } from './utils/rankPredictor';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -114,6 +116,17 @@ export default function App() {
 
   // 1-Minute Rapid Memory Flashcards modal state
   const [isRapidFlashcardsOpen, setIsRapidFlashcardsOpen] = useState<boolean>(false);
+
+  // Subject-Wise 100 Qs Marathon Sets modal state
+  const [isSubjectMarathonOpen, setIsSubjectMarathonOpen] = useState<boolean>(false);
+  const [selectedMarathonInitialId, setSelectedMarathonInitialId] = useState<SubjectMarathonId>('marathon_geo_forest');
+
+  const handleOpenSubjectMarathon = (initialId?: SubjectMarathonId) => {
+    if (initialId) {
+      setSelectedMarathonInitialId(initialId);
+    }
+    setIsSubjectMarathonOpen(true);
+  };
 
   // Grammar rules navigation state
   const [grammarInitialLanguage, setGrammarInitialLanguage] = useState<'all' | 'marathi' | 'english'>('all');
@@ -857,6 +870,7 @@ export default function App() {
             onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
             onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
             onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
+            onOpenSubjectMarathon={handleOpenSubjectMarathon}
           />
           <main className="flex-1">
             <ExamResultView
@@ -913,6 +927,7 @@ export default function App() {
             onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
             onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
             onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
+            onOpenSubjectMarathon={handleOpenSubjectMarathon}
           />
 
           <main className="flex-1 pb-12">
@@ -950,6 +965,7 @@ export default function App() {
                 onOpenWeakAreaBooster={() => setIsWeakAreaRemedialOpen(true)}
                 onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
                 onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
+                onOpenSubjectMarathon={handleOpenSubjectMarathon}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -973,6 +989,7 @@ export default function App() {
                   setInitialShowAddQuestion(true);
                   setIsCloudSyncOpen(true);
                 }}
+                onOpenSubjectMarathon={handleOpenSubjectMarathon}
                 questionsPool={questions}
               />
             )}
@@ -1247,6 +1264,20 @@ export default function App() {
         isOpen={isRapidFlashcardsOpen}
         onClose={() => setIsRapidFlashcardsOpen(false)}
         language={userProgress.preferredLanguage}
+      />
+
+      {/* Subject-Wise 100 Qs Marathon Sets Modal */}
+      <SubjectMarathonModal
+        isOpen={isSubjectMarathonOpen}
+        onClose={() => setIsSubjectMarathonOpen(false)}
+        language={userProgress.preferredLanguage}
+        onStartExam={(patternId, subId, title) => {
+          setIsSubjectMarathonOpen(false);
+          handleStartExam(patternId, subId, title);
+        }}
+        userProgress={userProgress}
+        initialMarathonId={selectedMarathonInitialId}
+        questionPool={questions}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

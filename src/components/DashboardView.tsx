@@ -30,7 +30,10 @@ import {
   Scale,
   SpellCheck,
   Trophy,
-  Users
+  Users,
+  Trees,
+  FlaskConical,
+  Landmark
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -86,6 +89,7 @@ interface DashboardViewProps {
   onOpenWeakAreaBooster?: () => void;
   onOpenCutoffTrends?: () => void;
   onOpenRapidFlashcards?: () => void;
+  onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -119,6 +123,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenWeakAreaBooster,
   onOpenCutoffTrends,
   onOpenRapidFlashcards,
+  onOpenSubjectMarathon,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1336,6 +1341,221 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <Zap className="w-4 h-4 fill-stone-950 text-stone-950" />
                 <span>{isMr ? '⚡ रॅपिड फ्लॅशकार्ड्स सुरू करा' : '⚡ Launch Flashcards'}</span>
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 🏆 विषयनिहाय १०० प्रश्नांचे 'मॅरेथॉन पेपर्स' (Subject-Wise 100 Qs Marathon Sets) */}
+        <div className="bg-gradient-to-br from-slate-950 via-stone-900 to-amber-950/80 rounded-2xl border-2 border-amber-500/80 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-12 -top-12 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10 mb-6 border-b border-stone-800 pb-5">
+            <div className="space-y-2.5 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-300 border border-amber-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Trophy className="w-3.5 h-3.5 text-amber-300 fill-amber-300/40" />
+                  <span>{isMr ? '१०० प्रश्न विषयनिहाय महासंग्राम' : '100 Qs Subject Marathon'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                  {isMr ? '🎯 प्रत्येकी १०० प्रश्न • ६० मिनिटे • १/४ निगेटिव्ह' : '100 Qs • 60 Mins • 1/4th Neg'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 text-xs font-bold font-mono">
+                  {isMr ? 'MPSC आयोग प्रमाणबद्ध' : 'MPSC Exam Standard'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-200">
+                {isMr
+                  ? '🏆 विषयनिहाय १०० प्रश्नांचे \'मॅरेथॉन पेपर्स\' (Subject-Wise 100 Qs Marathon Sets)'
+                  : '🏆 Subject-Wise 100 Qs Marathon Sets (Comprehensive Drill Papers)'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'आयोगाच्या पॅटर्ननुसार विषयाची परिपूर्ण पकड मिळवण्यासाठी १०० प्रश्नांचे विशेष सराव पेपर्स. प्रत्येक पेपरमध्ये संपूर्ण अभ्यासक्रमाचे अचूक प्रमाणबद्ध वर्गीकरण, ६० मिनिटांचे प्रत्यक्ष परीक्षा घड्याळ आणि सविस्तर द्विभाषिक स्पष्टीकरणे.'
+                  : 'Master core subjects with dedicated 100-question marathon papers. Timed CBT simulation, negative marking, official references, and topic-wise breakdown.'}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                onClick={() => onOpenSubjectMarathon?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Trophy className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '🏆 सर्व ४ मॅरेथॉन पेपर्स उघडा' : '🏆 Open All Marathon Sets'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* 4 Subject Marathon Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+            {/* Card 1: Maharashtra Geography & Forests */}
+            <div className="bg-stone-950/80 rounded-xl border border-emerald-500/40 p-4 flex flex-col justify-between hover:border-emerald-400 transition-all hover:shadow-lg hover:shadow-emerald-950/40 group">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <Trees className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                    १०० प्रश्न
+                  </span>
+                </div>
+                <h3 className="font-black text-sm sm:text-base text-white group-hover:text-emerald-300 transition-colors">
+                  {isMr ? '१. महाराष्ट्र भूगोल व वने' : '1. MH Geography & Forests'}
+                </h3>
+                <p className="text-xs text-stone-400 mt-1 line-clamp-2">
+                  {isMr
+                    ? 'सह्याद्री, नद्या, धरणे, वने (ISFR), ६ राष्ट्रीय उद्याने, व्याघ्र प्रकल्प व रामसर स्थळे.'
+                    : 'Relief, rivers, dams, ISFR forest report, national parks, and Ramsar sites.'}
+                </p>
+                <div className="mt-2.5 flex items-center gap-2 text-[11px] text-emerald-300 font-semibold">
+                  <span>🎯 {isMr ? 'कट-ऑफ: ७२+ गुण' : 'Cutoff: 72+ Marks'}</span>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-stone-800 flex items-center gap-2">
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_geo_forest')}
+                  className="flex-1 py-2 px-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black text-xs text-center transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Play className="w-3.5 h-3.5 fill-stone-950" />
+                  <span>{isMr ? 'सोडवा' : 'Solve'}</span>
+                </button>
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_geo_forest')}
+                  className="py-2 px-2.5 rounded-lg bg-stone-900 hover:bg-stone-850 text-stone-300 hover:text-white border border-stone-800 text-xs font-bold transition-colors cursor-pointer"
+                  title={isMr ? 'तपशील व अभ्यासक्रम' : 'View Details'}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Card 2: General Science */}
+            <div className="bg-stone-950/80 rounded-xl border border-purple-500/40 p-4 flex flex-col justify-between hover:border-purple-400 transition-all hover:shadow-lg hover:shadow-purple-950/40 group">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                    <FlaskConical className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                    १०० प्रश्न
+                  </span>
+                </div>
+                <h3 className="font-black text-sm sm:text-base text-white group-hover:text-purple-300 transition-colors">
+                  {isMr ? '२. सामान्य विज्ञान' : '2. General Science'}
+                </h3>
+                <p className="text-xs text-stone-400 mt-1 line-clamp-2">
+                  {isMr
+                    ? 'भौतिकशास्त्र, रसायनशास्त्र, जीवशास्त्र (मानवी आरोग्य, रोग व जीवनसत्त्वे), इस्रो/DRDO.'
+                    : 'Physics, chemistry, biology, human physiology, diseases, and space/defence tech.'}
+                </p>
+                <div className="mt-2.5 flex items-center gap-2 text-[11px] text-purple-300 font-semibold">
+                  <span>🎯 {isMr ? 'कट-ऑफ: ६६+ गुण' : 'Cutoff: 66+ Marks'}</span>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-stone-800 flex items-center gap-2">
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_science')}
+                  className="flex-1 py-2 px-2.5 rounded-lg bg-purple-500 hover:bg-purple-400 text-stone-950 font-black text-xs text-center transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Play className="w-3.5 h-3.5 fill-stone-950" />
+                  <span>{isMr ? 'सोडवा' : 'Solve'}</span>
+                </button>
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_science')}
+                  className="py-2 px-2.5 rounded-lg bg-stone-900 hover:bg-stone-850 text-stone-300 hover:text-white border border-stone-800 text-xs font-bold transition-colors cursor-pointer"
+                  title={isMr ? 'तपशील व अभ्यासक्रम' : 'View Details'}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Card 3: Current Affairs 2026-27 */}
+            <div className="bg-stone-950/80 rounded-xl border border-amber-500/40 p-4 flex flex-col justify-between hover:border-amber-400 transition-all hover:shadow-lg hover:shadow-amber-950/40 group">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <div className="p-2 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                    १०० प्रश्न
+                  </span>
+                </div>
+                <h3 className="font-black text-sm sm:text-base text-white group-hover:text-amber-300 transition-colors">
+                  {isMr ? '३. चालू घडामोडी २०२६-२७' : '3. Current Affairs 2026-27'}
+                </h3>
+                <p className="text-xs text-stone-400 mt-1 line-clamp-2">
+                  {isMr
+                    ? 'लाडकी बहीण योजना, अटल सेतू, ऑलिम्पिक/राष्ट्रीय खेळ, नवीन कायदे (BNS) व नियुक्त्या.'
+                    : 'Maharashtra schemes, Paris games, national laws, awards, budget, and appointments.'}
+                </p>
+                <div className="mt-2.5 flex items-center gap-2 text-[11px] text-amber-300 font-semibold">
+                  <span>🎯 {isMr ? 'कट-ऑफ: ७४+ गुण' : 'Cutoff: 74+ Marks'}</span>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-stone-800 flex items-center gap-2">
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_current_affairs')}
+                  className="flex-1 py-2 px-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs text-center transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Play className="w-3.5 h-3.5 fill-stone-950" />
+                  <span>{isMr ? 'सोडवा' : 'Solve'}</span>
+                </button>
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_current_affairs')}
+                  className="py-2 px-2.5 rounded-lg bg-stone-900 hover:bg-stone-850 text-stone-300 hover:text-white border border-stone-800 text-xs font-bold transition-colors cursor-pointer"
+                  title={isMr ? 'तपशील व अभ्यासक्रम' : 'View Details'}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Card 4: Indian Polity & Governance */}
+            <div className="bg-stone-950/80 rounded-xl border border-blue-500/40 p-4 flex flex-col justify-between hover:border-blue-400 transition-all hover:shadow-lg hover:shadow-blue-950/40 group">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                    <Landmark className="w-5 h-5" />
+                  </div>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                    १०० प्रश्न
+                  </span>
+                </div>
+                <h3 className="font-black text-sm sm:text-base text-white group-hover:text-blue-300 transition-colors">
+                  {isMr ? '४. भारतीय राज्यव्यवस्था' : '4. Indian Polity & Governance'}
+                </h3>
+                <p className="text-xs text-stone-400 mt-1 line-clamp-2">
+                  {isMr
+                    ? 'मूलभूत हक्क (१२-३५), संसद, सर्वोच्च न्यायालय, ७३-७४ वी घटनादुरुस्ती (पंचायतराज), कलमे.'
+                    : 'Fundamental rights, Parliament, Supreme Court, 73rd-74th CAA, and major articles.'}
+                </p>
+                <div className="mt-2.5 flex items-center gap-2 text-[11px] text-blue-300 font-semibold">
+                  <span>🎯 {isMr ? 'कट-ऑफ: ७६+ गुण' : 'Cutoff: 76+ Marks'}</span>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-stone-800 flex items-center gap-2">
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_polity')}
+                  className="flex-1 py-2 px-2.5 rounded-lg bg-blue-500 hover:bg-blue-400 text-stone-950 font-black text-xs text-center transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Play className="w-3.5 h-3.5 fill-stone-950" />
+                  <span>{isMr ? 'सोडवा' : 'Solve'}</span>
+                </button>
+                <button
+                  onClick={() => onOpenSubjectMarathon?.('marathon_polity')}
+                  className="py-2 px-2.5 rounded-lg bg-stone-900 hover:bg-stone-850 text-stone-300 hover:text-white border border-stone-800 text-xs font-bold transition-colors cursor-pointer"
+                  title={isMr ? 'तपशील व अभ्यासक्रम' : 'View Details'}
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
