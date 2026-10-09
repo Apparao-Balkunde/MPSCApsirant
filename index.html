@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>MPSC Aspirant Prep</title>
     <meta name="description" content="Comprehensive MPSC preparation platform for Rajyaseva and Combine exams featuring 100,000+ hard-level questions engine, timed bilingual mock tests, grammar rules, CBT palette, and analytics." />
     <meta property="og:title" content="MPSC Aspirant Prep" />
@@ -12,6 +15,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Unregister legacy service workers and clear cache storage if any existed -->
+    <script>
+      try {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (var i = 0; i < registrations.length; i++) {
+              registrations[i].unregister();
+            }
+          });
+        }
+      } catch (e) {}
+    </script>
     <!-- Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-8635186039357683" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8635186039357683" crossorigin="anonymous"></script>

@@ -17,7 +17,8 @@ import {
   Tablet,
   Laptop,
   Monitor,
-  Type
+  Type,
+  RefreshCw
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 import { UserProgress } from '../types';
@@ -395,6 +396,70 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>{isMr ? '💾 JSON बॅकअप डाऊनलोड करा' : '💾 Export JSON Backup'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Cache Flushing & Hard Refresh (Oracle Cloud / Production Updates) */}
+          <div className="p-4 rounded-xl border border-amber-300/60 bg-amber-50/50 flex flex-col gap-3">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-800 border border-amber-500/40 flex items-center justify-center shrink-0">
+                  <RefreshCw className="w-5 h-5 text-amber-700" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-stone-900">
+                      {isMr ? 'कॅशे क्लिअर करा व नवीन कोड लोड करा' : 'Flush Cache & Force Reload'}
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-amber-200 text-amber-900 border border-amber-300">
+                      Update Fix
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-600 mt-1 leading-relaxed">
+                    {isMr
+                      ? 'क्लाउड डिप्लॉयमेंटनंतर (उदा. Oracle Cloud / Nginx) ब्राऊझर किंवा सर्व्हिस वर्करमध्ये जुना कोड अडकला असल्यास, एका क्लिकवर सर्व कॅशे स्टोरेज साफ करून ताजी आवृत्ती त्वरित लोड करा.'
+                      : 'Clear browser CacheStorage, unregister legacy Service Workers, and force reload with a fresh cache-busting timestamp.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-amber-200/80 flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                onClick={async () => {
+                  setFeedbackMessage(isMr ? '🔄 कॅशे साफ करत आहे व रीलोड होत आहे...' : '🔄 Clearing cache and reloading...');
+                  try {
+                    // 1. Unregister all service workers
+                    if ('serviceWorker' in navigator) {
+                      const registrations = await navigator.serviceWorker.getRegistrations();
+                      for (const reg of registrations) {
+                        await reg.unregister();
+                      }
+                    }
+                    // 2. Clear all CacheStorage
+                    if ('caches' in window) {
+                      const keys = await caches.keys();
+                      for (const key of keys) {
+                        await caches.delete(key);
+                      }
+                    }
+                    // 3. Clear sessionStorage
+                    try {
+                      sessionStorage.clear();
+                    } catch {}
+                  } catch (e) {
+                    console.warn('Cache clearing error:', e);
+                  }
+                  // 4. Force reload bypassing cache with timestamp query
+                  const freshUrl = window.location.origin + window.location.pathname + '?nocache=' + Date.now();
+                  window.location.replace(freshUrl);
+                }}
+                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>{isMr ? '⚡ कॅशे क्लिअर करा व हार्ड रीलोड करा' : '⚡ Hard Flush Cache & Reload'}</span>
               </button>
             </div>
           </div>

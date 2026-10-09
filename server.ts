@@ -454,8 +454,29 @@ Return ONLY valid JSON strictly adhering to this structure:
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
+
+    // Hashed static assets in /assets (cache for 1 year, immutable)
+    app.use("/assets", express.static(path.join(distPath, "assets"), {
+      maxAge: "1y",
+      immutable: true,
+    }));
+
+    // Other static files (never cache html files)
+    app.use(express.static(distPath, {
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith(".html")) {
+          res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
+          res.setHeader("Pragma", "no-cache");
+          res.setHeader("Expires", "0");
+        }
+      },
+    }));
+
+    // SPA fallback: NEVER cache index.html so deployments are instantaneous
     app.get("*", (_req, res) => {
+      res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
       res.sendFile(path.join(distPath, "index.html"));
     });
   }
