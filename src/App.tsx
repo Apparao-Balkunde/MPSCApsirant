@@ -41,6 +41,7 @@ import { WeakAreaRemedialModal } from './components/WeakAreaRemedialModal';
 import { CutoffTrendsDashboardModal } from './components/CutoffTrendsDashboardModal';
 import { RapidMemoryFlashcardsModal } from './components/RapidMemoryFlashcardsModal';
 import { SubjectMarathonModal } from './components/SubjectMarathonModal';
+import { InteractiveMapQuizModal } from './components/InteractiveMapQuizModal';
 import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -113,6 +114,9 @@ export default function App() {
   // Subject-Wise 100 Qs Marathon Sets modal state
   const [isSubjectMarathonOpen, setIsSubjectMarathonOpen] = useState<boolean>(false);
   const [selectedMarathonInitialId, setSelectedMarathonInitialId] = useState<SubjectMarathonId>('marathon_geo_forest');
+
+  // Interactive Map-Based Visual Quiz modal state
+  const [isMapQuizOpen, setIsMapQuizOpen] = useState<boolean>(false);
 
   const handleOpenSubjectMarathon = (initialId?: SubjectMarathonId) => {
     if (initialId) {
@@ -840,6 +844,7 @@ export default function App() {
             onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
             onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
             onOpenSubjectMarathon={handleOpenSubjectMarathon}
+            onOpenMapQuiz={() => setIsMapQuizOpen(true)}
           />
           <main className="flex-1 w-full max-w-full overflow-x-hidden">
             <ExamResultView
@@ -891,6 +896,7 @@ export default function App() {
             onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
             onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
             onOpenSubjectMarathon={handleOpenSubjectMarathon}
+            onOpenMapQuiz={() => setIsMapQuizOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -929,6 +935,7 @@ export default function App() {
                 onOpenCutoffTrends={() => setIsCutoffTrendsOpen(true)}
                 onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
                 onOpenSubjectMarathon={handleOpenSubjectMarathon}
+                onOpenMapQuiz={() => setIsMapQuizOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -953,6 +960,7 @@ export default function App() {
                   setIsCloudSyncOpen(true);
                 }}
                 onOpenSubjectMarathon={handleOpenSubjectMarathon}
+                onOpenMapQuiz={() => setIsMapQuizOpen(true)}
                 questionsPool={questions}
               />
             )}
@@ -1226,6 +1234,14 @@ export default function App() {
         userProgress={userProgress}
         initialMarathonId={selectedMarathonInitialId}
         questionPool={questions}
+      />
+
+      {/* Interactive Map-Based Visual Quiz Modal */}
+      <InteractiveMapQuizModal
+        isOpen={isMapQuizOpen}
+        onClose={() => setIsMapQuizOpen(false)}
+        language={userProgress.preferredLanguage}
+        soundEnabled={userProgress.soundEffectsEnabled ?? true}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

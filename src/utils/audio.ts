@@ -335,6 +335,21 @@ class SoundController {
   playExamSubmitSound(): void {
     this.playExamSubmissionSound();
   }
+
+  /**
+   * Convenience aliases for rapid calls
+   */
+  correct(): void {
+    this.playCorrectSound();
+  }
+
+  incorrect(): void {
+    this.playWrongSound();
+  }
+
+  click(): void {
+    this.playClickSound();
+  }
 }
 
 export const soundFx = new SoundController();

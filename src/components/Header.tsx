@@ -32,7 +32,9 @@ import {
   TrendingUp,
   Zap,
   Trophy,
-  ChevronDown
+  ChevronDown,
+  Compass,
+  MapPin
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -63,6 +65,7 @@ export interface HeaderProps {
   onOpenCutoffTrends?: () => void;
   onOpenRapidFlashcards?: () => void;
   onOpenSubjectMarathon?: (initialSubjectId?: any) => void;
+  onOpenMapQuiz?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -85,6 +88,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCutoffTrends,
   onOpenRapidFlashcards,
   onOpenSubjectMarathon,
+  onOpenMapQuiz,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -240,6 +244,19 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             )}
 
+            {onOpenMapQuiz && (
+              <button
+                type="button"
+                id="btn-header-map-quiz"
+                onClick={onOpenMapQuiz}
+                className="inline-flex items-center gap-1 bg-gradient-to-r from-emerald-600/30 to-teal-600/30 hover:from-emerald-600/45 hover:to-teal-600/45 border border-emerald-400/60 hover:border-emerald-300 px-2 py-0.5 rounded text-[11px] font-black text-emerald-200 transition-all cursor-pointer shadow-xs active:scale-95"
+                title={isMr ? "नकाशावर आधारित इंटरअॅक्टिव्ह प्रश्न (घाट, नद्या, शिखरे, धरणे)" : "Interactive Map Quiz (Passes, Rivers, Peaks)"}
+              >
+                <Compass className="w-3 h-3 text-emerald-300 shrink-0" />
+                <span>{isMr ? '🗺️ नकाशा क्विझ' : 'Map Quiz'}</span>
+              </button>
+            )}
+
             <a
               id="banner-classic-portal-link"
               href="https://mpscsarathi.online"
@@ -382,6 +399,29 @@ export const Header: React.FC<HeaderProps> = ({
                       <span>{isMr ? '🏆 विशेष सराव साधने व हब्स' : '🏆 Special Practice Hubs'}</span>
                       <span className="text-[10px] text-stone-400 font-normal">MPSC 2026</span>
                     </div>
+
+                    {onOpenMapQuiz && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenMapQuiz();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-950/40 to-teal-950/40 hover:from-emerald-900/50 hover:to-teal-900/50 border border-emerald-500/40 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0 text-emerald-400 group-hover:scale-105">
+                          <Compass className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-emerald-300 group-hover:text-emerald-200 flex items-center justify-between">
+                            <span>{isMr ? '🗺️ नकाशावर आधारित प्रश्न' : 'Interactive Map Quiz'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">नवीन</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'नकाशातील पॉईंटर पाहून घाट, नद्या, शिखरे ओळखा' : 'Identify passes, rivers, peaks on SVG map'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
 
                     {onOpenSubjectMarathon && (
                       <button

@@ -10,7 +10,8 @@ import {
   Flame,
   Sparkles,
   SpellCheck,
-  Trophy
+  Trophy,
+  Compass
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -24,6 +25,7 @@ interface SubjectPracticeViewProps {
   onOpenHardQuestionsHub?: (subjectId?: SubjectId) => void;
   onOpenAddQuestion?: (subjectId?: SubjectId) => void;
   onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
+  onOpenMapQuiz?: () => void;
   questionsPool?: Question[];
 }
 
@@ -35,6 +37,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   onOpenHardQuestionsHub,
   onOpenAddQuestion,
   onOpenSubjectMarathon,
+  onOpenMapQuiz,
   questionsPool,
 }) => {
   const isMr = language === 'mr';
@@ -56,6 +59,18 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
+          {onOpenMapQuiz && (
+            <button
+              onClick={() => onOpenMapQuiz()}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+              title={isMr ? "नकाशावर आधारित इंटरअॅक्टिव्ह प्रश्न सोडवा" : "Solve Map-Based Geography Questions"}
+            >
+              <Compass className="w-4 h-4 text-emerald-200" />
+              <span>{isMr ? '🗺️ नकाशा क्विझ' : 'Map Quiz'}</span>
+              <span className="text-[10px] bg-emerald-400 text-stone-950 px-1.5 py-0.2 rounded-full font-bold">नवीन</span>
+            </button>
+          )}
+
           {onOpenSubjectMarathon && (
             <button
               onClick={() => onOpenSubjectMarathon()}
@@ -171,6 +186,16 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                         ? '🎯 इंग्रजी-मराठी शब्दसंग्रह जोड्या (Word Match)'
                         : '🎯 English-to-Marathi Vocab Match'}
                     </span>
+                  </button>
+                )}
+
+                {sub.id === 'maharashtra_geography' && onOpenMapQuiz && (
+                  <button
+                    onClick={onOpenMapQuiz}
+                    className="w-full py-2 bg-gradient-to-r from-emerald-500/15 via-teal-500/15 to-emerald-500/15 hover:from-emerald-500/25 hover:to-teal-500/25 text-emerald-950 border border-emerald-400/60 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                  >
+                    <Compass className="w-3.5 h-3.5 text-emerald-700" />
+                    <span>{isMr ? '🗺️ नकाशावर आधारित इंटरअॅक्टिव्ह प्रश्न' : '🗺️ Interactive Map Quiz'}</span>
                   </button>
                 )}
 

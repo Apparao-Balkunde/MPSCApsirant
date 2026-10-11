@@ -33,7 +33,9 @@ import {
   Users,
   Trees,
   FlaskConical,
-  Landmark
+  Landmark,
+  Compass,
+  MapPin
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -90,6 +92,7 @@ interface DashboardViewProps {
   onOpenCutoffTrends?: () => void;
   onOpenRapidFlashcards?: () => void;
   onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
+  onOpenMapQuiz?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -124,6 +127,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenCutoffTrends,
   onOpenRapidFlashcards,
   onOpenSubjectMarathon,
+  onOpenMapQuiz,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1338,6 +1342,62 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <Zap className="w-4 h-4 fill-stone-950 text-stone-950" />
                 <span>{isMr ? '⚡ रॅपिड फ्लॅशकार्ड्स सुरू करा' : '⚡ Launch Flashcards'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 🗺️ नकाशावर आधारित इंटरअॅक्टिव्ह प्रश्न (Interactive Map Quiz) */}
+        <div className="bg-gradient-to-br from-emerald-950/90 via-stone-900 to-amber-950/80 rounded-2xl border-2 border-emerald-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-52 h-52 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-2.5 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/25 text-emerald-300 border border-emerald-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Compass className="w-3.5 h-3.5 text-emerald-300" />
+                  <span>{isMr ? 'नवीन विशेष सराव • MPSC भूगोल' : 'New Interactive Feature • Geography'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold">
+                  {isMr ? '🎯 महाराष्ट्र व भारताचे नकाशे' : 'Maharashtra & India Maps'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 text-xs font-bold font-mono">
+                  {isMr ? '१००% अचूक स्थान सराव' : 'Visual Map Recall'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-emerald-200">
+                {isMr
+                  ? '🗺️ नकाशावर आधारित इंटरअॅक्टिव्ह प्रश्न (Interactive Map Quiz)'
+                  : '🗺️ Interactive Map-Based Visual Quiz'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'विद्यार्थ्यांसमोर महाराष्ट्राचा व भारताचा शैक्षणिक नकाशा येईल आणि त्यावर विशिष्ट ठिकाणी बाण/पॉईंटर असेल (उदा. "नकाशात दर्शवलेला घाट किंवा नदीचे खोरे ओळखा"). MPSC भूगोलमध्ये नकाशे पाहून प्रश्न सोडवण्याची तयारी १००% अचूक होईल!'
+                  : 'Practice identifying key mountain passes, river basins, peaks, and dams from active animated pointers on Maharashtra and India SVG maps.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-emerald-200/90 font-medium pt-1 flex-wrap">
+                <span>⛰️ {isMr ? 'सह्याद्रीतील सर्व घाट (थळ, भोर, कुंभारली, आंबोली)' : 'Western Ghats Passes'}</span>
+                <span>•</span>
+                <span>🌊 {isMr ? 'गोदावरी, भीमा, कृष्णा व तापी खोरी' : 'Major River Basins'}</span>
+                <span>•</span>
+                <span>🏔️ {isMr ? 'कळसूबाई, साल्हेर व अस्तंभा शिखरे' : 'Peaks & Ranges'}</span>
+                <span>•</span>
+                <span>📍 {isMr ? 'झूम, पॅन व स्वयं-अध्ययन एक्सप्लोर मोड' : 'Interactive Zoom & Explore'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                type="button"
+                id="btn-dashboard-map-quiz"
+                onClick={() => onOpenMapQuiz?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Compass className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '🗺️ नकाशा प्रश्न सराव सुरू करा' : 'Start Map Quiz'}</span>
               </button>
             </div>
           </div>
