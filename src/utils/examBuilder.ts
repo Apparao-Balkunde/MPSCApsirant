@@ -135,6 +135,14 @@ export function createExamSession(options: {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2021_gs_'));
   } else if (options.patternId === 'mpsc_rajyaseva_pre_2020') {
     eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_2020_gs_'));
+  } else if (options.patternId === 'mpsc_combine_pre_2019') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_comb_19_'));
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2019') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_raj_19_'));
+  } else if (options.patternId === 'mpsc_combine_pre_2018') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_comb_18_'));
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2018') {
+    eligibleQuestions = pool.filter((q) => q.id.startsWith('pyq_raj_18_'));
   } else if (options.patternId.startsWith('mpsc_group_c_talathi_set_')) {
     const setNum = parseInt(options.patternId.replace('mpsc_group_c_talathi_set_', ''), 10) || 1;
     eligibleQuestions = getGroupCTalathiSetQuestions(setNum, pool);
@@ -299,6 +307,26 @@ export function createExamSession(options: {
     durationMinutes = options.durationMinutes || 120;
   } else if (options.patternId === 'mpsc_rajyaseva_pre_2020') {
     defaultTitle = options.title || 'MPSC राज्यसेवा पूर्व परीक्षा २०२० (२१ मार्च २०२१, Paper 1 - GS)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 120;
+  } else if (options.patternId === 'mpsc_combine_pre_2019') {
+    defaultTitle = options.title || 'MPSC दुय्यम सेवा गट-ब संयुक्त पूर्व परीक्षा २०१९ (२४ मार्च २०१९)';
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2019') {
+    defaultTitle = options.title || 'MPSC राज्यसेवा पूर्व परीक्षा २०१९ (१७ फेब्रुवारी २०१९, Paper 1 - GS)';
+    marksPerQuestion = 2;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 120;
+  } else if (options.patternId === 'mpsc_combine_pre_2018') {
+    defaultTitle = options.title || 'MPSC दुय्यम सेवा गट-ब संयुक्त पूर्व परीक्षा २०१८ (१३ मे २०१८)';
+    marksPerQuestion = 1;
+    negativeMarkRate = 0.25;
+    durationMinutes = options.durationMinutes || 60;
+  } else if (options.patternId === 'mpsc_rajyaseva_pre_2018') {
+    defaultTitle = options.title || 'MPSC राज्यसेवा पूर्व परीक्षा २०१८ (०८ एप्रिल २०१८, Paper 1 - GS)';
     marksPerQuestion = 2;
     negativeMarkRate = 0.25;
     durationMinutes = options.durationMinutes || 120;

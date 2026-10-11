@@ -36,6 +36,8 @@ import { MPSC_RAJYASEVA_PRE_2025 } from '../data/mpscRajyasevaPre2025';
 import { MPSC_COMBINE_PRE_2025 } from '../data/mpscCombinePre2025';
 import { MPSC_RAJYASEVA_PRE_2021 } from '../data/mpscRajyasevaPre2021';
 import { MPSC_RAJYASEVA_PRE_2020 } from '../data/mpscRajyasevaPre2020';
+import { MPSC_COMBINE_PRE_2019, MPSC_RAJYASEVA_PRE_2019 } from '../data/mpscPyq2019';
+import { MPSC_COMBINE_PRE_2018, MPSC_RAJYASEVA_PRE_2018 } from '../data/mpscPyq2018';
 import { ENGLISH_VOCAB_QUESTIONS } from '../data/englishVocabQuestions';
 import { MARATHI_VOCAB_QUESTIONS } from '../data/marathiVocabQuestions';
 
@@ -45,11 +47,13 @@ interface MpscPyqHubModalProps {
   language: 'mr' | 'en';
   onStartExam: (patternId: ExamPatternId, subjectId?: any, title?: string) => void;
   questionsPool?: Question[];
+  initialYear?: number | 'all';
 }
 
 export interface OfficialPaperMeta {
   id: string;
   patternId: ExamPatternId;
+  year?: number;
   titleMr: string;
   titleEn: string;
   examDate: string;
