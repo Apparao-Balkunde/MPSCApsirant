@@ -29,6 +29,7 @@ import { AdBanner } from './AdBanner';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { exportToPdf } from '../utils/pdfExport';
 import { VisualMemoryAid } from './VisualMemoryAid';
+import { SVGMapContainer } from './SVGMapContainer';
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -507,6 +508,19 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
                     <div className="mt-3 pt-2 text-xs text-stone-500 font-medium border-t border-orange-200/60 flex items-center gap-1.5">
                       <span className="font-semibold text-stone-600">{isMr ? 'संदर्भ ग्रंथ:' : 'Reference:'}</span>
                       <span className="text-stone-700">{q.reference}</span>
+                    </div>
+                  )}
+
+                  {/* Dedicated SVG Map Container for Geography Answers */}
+                  {(q.subjectId === 'maharashtra_geography' || q.subjectId === 'environment' || q.mapType || q.topic.toLowerCase().includes('भूगोल') || q.topic.toLowerCase().includes('geography') || q.subtopic.toLowerCase().includes('नकाशा')) && (
+                    <div className="mt-3">
+                      <SVGMapContainer
+                        mapType={q.mapType || (q.subjectId === 'environment' ? 'world' : 'auto')}
+                        highlightTopic={q.topic}
+                        subtopic={q.subtopic}
+                        questionText={isMr ? q.questionMr : q.questionEn}
+                        language={language}
+                      />
                     </div>
                   )}
 
