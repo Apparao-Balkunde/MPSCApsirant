@@ -27,7 +27,6 @@ import { SubjectPracticeView } from './components/SubjectPracticeView';
 import { GrammarRulesView } from './components/GrammarRulesView';
 import { VocabularyView } from './components/VocabularyView';
 import { AddMcqView } from './components/AddMcqView';
-import { AiMentorModal } from './components/AiMentorModal';
 import { CloudSyncModal } from './components/CloudSyncModal';
 import { LoginModal } from './components/LoginModal';
 import { SettingsModal } from './components/SettingsModal';
@@ -43,7 +42,6 @@ import { CutoffTrendsDashboardModal } from './components/CutoffTrendsDashboardMo
 import { RapidMemoryFlashcardsModal } from './components/RapidMemoryFlashcardsModal';
 import { SubjectMarathonModal } from './components/SubjectMarathonModal';
 import { SubjectMarathonId } from './data/subjectMarathonSetsData';
-import { calculateRealTimeStateRank } from './utils/rankPredictor';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -74,14 +72,9 @@ interface SyncToastState {
 export default function App() {
   const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
   const [questions, setQuestions] = useState<Question[]>(MPSC_QUESTIONS);
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq'>('dashboard');
+  const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq'>('dashboard');
   const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
   const [activeResult, setActiveResult] = useState<ExamResult | null>(null);
-
-  // AI Mentor modal state
-  const [isAiMentorOpen, setIsAiMentorOpen] = useState<boolean>(false);
-  const [mentorQuestion, setMentorQuestion] = useState<Question | null>(null);
-  const [mentorStudentAnswer, setMentorStudentAnswer] = useState<string | undefined>();
 
   // Settings modal state
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
@@ -660,16 +653,6 @@ export default function App() {
       { day: 'numeric', month: 'short', year: 'numeric' }
     );
 
-    const rankCalc = calculateRealTimeStateRank(
-      finalScore,
-      maxScore,
-      accuracyPercentage,
-      attemptedCount,
-      correctCount,
-      incorrectCount,
-      unattemptedCount
-    );
-
     const result: ExamResult = {
       sessionId: session.id,
       title: session.title,
@@ -688,12 +671,6 @@ export default function App() {
       subjectPerformance,
       date: dateStr,
       answers: session.answers,
-      stateRank: rankCalc.stateRank,
-      totalCandidates: rankCalc.totalAspirants,
-      percentile: rankCalc.percentile,
-      cutOffStatus: rankCalc.qualificationStatus.toLowerCase() as any,
-      targetExamTag: session.examDateTag || (session.patternId.startsWith('mpsc_group_c_talathi_set_') ? '३ जानेवारी २०२७ MPSC गट-क / तलाठी पूर्व परीक्षा' : undefined),
-      candidateRollNo: session.candidateRollNo,
       candidateName: currentUser?.displayName || currentUser?.email || 'MPSC Aspirant',
     };
 
@@ -772,13 +749,6 @@ export default function App() {
     }));
   };
 
-  // Open AI Mentor
-  const handleOpenAiMentor = (question?: Question, studentAnswer?: string) => {
-    setMentorQuestion(question || null);
-    setMentorStudentAnswer(studentAnswer);
-    setIsAiMentorOpen(true);
-  };
-
   // Update weekly goals
   const handleUpdateWeeklyGoals = (hours: number, questionsCount: number) => {
     setUserProgress((prev) => updateWeeklyGoals(prev, hours, questionsCount));
@@ -829,7 +799,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-100/90 text-stone-900 flex flex-col antialiased relative">
+    <div className="min-h-screen bg-stone-100/90 text-stone-900 flex flex-col antialiased relative w-full max-w-full overflow-x-hidden">
       {/* If taking an active exam, show ExamScreen */}
       {activeSession && !activeResult ? (
         <ExamScreen
@@ -850,7 +820,7 @@ export default function App() {
         />
       ) : activeResult && activeSession ? (
         /* Exam Result & Review View */
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">
           <Header
             currentTab={currentTab}
             onSelectTab={(tab) => {
@@ -863,7 +833,6 @@ export default function App() {
             userProgress={userProgress}
             currentUser={currentUser}
             onOpenLogin={() => setIsLoginModalOpen(true)}
-            onOpenQuickMentor={() => handleOpenAiMentor()}
             onOpenCloudSync={() => setIsCloudSyncOpen(true)}
             onOpenSettings={() => setIsSettingsOpen(true)}
             onToggleSoundEffects={handleToggleSoundEffects}
@@ -872,7 +841,7 @@ export default function App() {
             onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
             onOpenSubjectMarathon={handleOpenSubjectMarathon}
           />
-          <main className="flex-1">
+          <main className="flex-1 w-full max-w-full overflow-x-hidden">
             <ExamResultView
               result={activeResult}
               session={activeSession}
@@ -885,7 +854,6 @@ export default function App() {
               language={userProgress.preferredLanguage}
               bookmarkedIds={userProgress.bookmarkedQuestionIds}
               onToggleBookmark={handleToggleBookmark}
-              onOpenAiMentor={(q, ans) => handleOpenAiMentor(q, ans)}
               questionsPool={questions}
               currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
               currentUserId={currentUser?.uid}
@@ -894,22 +862,17 @@ export default function App() {
         </div>
       ) : (
         /* Regular App Shell */
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col w-full max-w-full overflow-x-hidden">
           <Header
             currentTab={currentTab}
             onSelectTab={(tab) => {
-              if (tab === 'mentor') {
-                handleOpenAiMentor();
-              } else {
-                setCurrentTab(tab);
-              }
+              setCurrentTab(tab);
             }}
             language={userProgress.preferredLanguage}
             onToggleLanguage={handleToggleLanguage}
             userProgress={userProgress}
             currentUser={currentUser}
             onOpenLogin={() => setIsLoginModalOpen(true)}
-            onOpenQuickMentor={() => handleOpenAiMentor()}
             onOpenCloudSync={() => {
               setInitialShowAddQuestion(false);
               setAddQuestionSubject(undefined);
@@ -1038,7 +1001,6 @@ export default function App() {
                 language={userProgress.preferredLanguage}
                 onToggleBookmark={handleToggleBookmark}
                 onStartCustomExam={(qIds, title) => handleStartExam('custom', undefined, title, qIds)}
-                onOpenAiMentor={(q) => handleOpenAiMentor(q)}
                 onSaveNote={handleSaveNote}
                 questionsPool={questions}
               />
@@ -1114,20 +1076,6 @@ export default function App() {
         type={legalModalType}
         onClose={() => setLegalModalType(null)}
       />
-
-      {/* AI Mentor Doubt Solver Modal */}
-      {isAiMentorOpen && (
-        <AiMentorModal
-          question={mentorQuestion}
-          studentAnswer={mentorStudentAnswer}
-          language={userProgress.preferredLanguage}
-          onClose={() => {
-            setIsAiMentorOpen(false);
-            setMentorQuestion(null);
-            setMentorStudentAnswer(undefined);
-          }}
-        />
-      )}
 
       {/* Firebase Cloud Sync Modal */}
       <CloudSyncModal

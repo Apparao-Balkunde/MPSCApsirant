@@ -561,26 +561,6 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
         )}
       </AnimatePresence>
 
-      {/* Official CBT Candidate Hall Ticket Bar */}
-      {(session.candidateRollNo || session.examDateTag || session.patternId.startsWith('mpsc_group_c_talathi_set_')) && (
-        <div className="bg-stone-900 border-b border-stone-800 text-stone-300 px-4 py-1.5 text-xs flex items-center justify-between flex-wrap gap-2 shadow-inner">
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="font-mono bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-bold">
-              {session.candidateRollNo ? `बैठक क्र: ${session.candidateRollNo}` : 'बैठक क्र: GC27-301984'}
-            </span>
-            <span className="text-stone-200 font-extrabold flex items-center gap-1">
-              <span>🎯</span>
-              <span>{session.examDateTag || '३ जानेवारी २०२७ MPSC गट-क / तलाठी पूर्व महापरीक्षा'}</span>
-            </span>
-          </div>
-
-          <div className="text-[11px] text-stone-400 font-medium hidden sm:flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>MPSC अधिकृत ऑनलाईन CBT परीक्षा कक्ष प्रणाली</span>
-          </div>
-        </div>
-      )}
-
       {/* CBT 4-Section Switcher Tabs (मराठी २५ | इंग्रजी २५ | GS २५ | CSAT २५) */}
       {examSections && (
         <div className="bg-white border-b border-stone-200 px-3 sm:px-6 py-2 flex items-center gap-2 overflow-x-auto shadow-2xs">

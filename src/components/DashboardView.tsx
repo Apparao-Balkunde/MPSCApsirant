@@ -1070,7 +1070,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   {isMr ? '१०० प्रश्न • ६० मिनिटे • १०० गुण' : '100 Qs • 60 Mins • 100 Marks'}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-bold">
-                  {isMr ? '🔴 थेट रिअल-टाइम राज्य रँक' : '🔴 Real-Time State Rank'}
+                  {isMr ? 'CBT ऑनलाईन टेस्ट पॅटर्न' : 'CBT Online Pattern'}
                 </span>
               </div>
 
@@ -1082,8 +1082,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
               <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
                 {isMr
-                  ? 'लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क दुय्यम निरीक्षक व तलाठी पदांसाठी आयोगाच्या अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार (सामान्य क्षमता चाचणी) तयार केलेले ५० महा सराव संच (३ जानेवारी २०२७ लक्ष्य). चालू घडामोडी (१५), नागरिकशास्त्र (१५), इतिहास (१०), भूगोल (१५), अर्थव्यवस्था (१५), सामान्य विज्ञान (१५), बुद्धिमापन (८) व अंकगणित (७) असे परिपूर्ण १०० प्रश्न. थेट महाराष्ट्र राज्य गुणवत्ता रँक व कट-ऑफ निकाल!'
-                  : '50 Full-length Mock Sets for 3 January 2027 Group C & Talathi Prelims. Strictly aligned with the official 8-subject General Ability Test syllabus (Current Affairs 15, Civics 15, History 10, Geography 15, Economy 15, Science 15, Reasoning 8, Arithmetic 7) with instant live Maharashtra State Rank, Percentile, and Qualifying Scorecard.'}
+                  ? 'लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क दुय्यम निरीक्षक व तलाठी पदांसाठी आयोगाच्या अधिकृत पूर्व परीक्षा अभ्यासक्रमानुसार (सामान्य क्षमता चाचणी) तयार केलेले ५० महा सराव संच. चालू घडामोडी (१५), नागरिकशास्त्र (१५), इतिहास (१०), भूगोल (१५), अर्थव्यवस्था (१५), सामान्य विज्ञान (१५), बुद्धिमापन (८) व अंकगणित (७) असे परिपूर्ण १०० प्रश्न. सविस्तर निकाल व प्रत्येक प्रश्नाचे स्पष्टीकरण!'
+                  : '50 Full-length Mock Sets for Group C & Talathi Prelims. Strictly aligned with the official 8-subject General Ability Test syllabus (Current Affairs 15, Civics 15, History 10, Geography 15, Economy 15, Science 15, Reasoning 8, Arithmetic 7) with instant detailed score and solutions.'}
               </p>
 
               <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
@@ -1091,9 +1091,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span>•</span>
                 <span>⚖️ {isMr ? 'नकारात्मक: १/४ (-०.२५ गुण)' : 'Negative: 1/4th (-0.25)'}</span>
                 <span>•</span>
-                <span>🎯 {isMr ? 'अपेक्षित कट-ऑफ: ५८.५+ (Open)' : 'Target Cutoff: 58.5+'}</span>
-                <span>•</span>
-                <span>🏛️ {isMr ? 'Real CBT Exam Hall Feeling' : 'Real CBT Simulation'}</span>
+                <span>🏛️ {isMr ? 'Real CBT Exam Simulation' : 'Real CBT Simulation'}</span>
               </div>
             </div>
 

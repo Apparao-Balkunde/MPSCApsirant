@@ -27,7 +27,6 @@ import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
 import { AdBanner } from './AdBanner';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
-import { calculateRealTimeStateRank } from '../utils/rankPredictor';
 import { exportToPdf } from '../utils/pdfExport';
 
 interface ExamResultViewProps {
@@ -38,7 +37,7 @@ interface ExamResultViewProps {
   language: 'mr' | 'en';
   bookmarkedIds: string[];
   onToggleBookmark: (qId: string) => void;
-  onOpenAiMentor: (question: Question, studentAnswer?: string) => void;
+  onOpenAiMentor?: (question: Question, studentAnswer?: string) => void;
   questionsPool?: Question[];
   currentUserName?: string;
   currentUserId?: string;
@@ -59,16 +58,6 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
 }) => {
   const isMr = language === 'mr';
   const [filter, setFilter] = useState<'all' | 'wrong' | 'correct' | 'unattempted' | 'saved'>('all');
-
-  const rankData = calculateRealTimeStateRank(
-    result.finalScore,
-    result.maxScore,
-    result.accuracyPercentage,
-    result.attemptedCount,
-    result.correctCount,
-    result.incorrectCount,
-    result.unattemptedCount
-  );
 
   // Trigger confetti if accuracy >= 60%
   useEffect(() => {
@@ -130,7 +119,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8 space-y-6">
+    <div className="w-full max-w-6xl mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-6 overflow-x-hidden">
       {/* Print-Only Official Exam Result Sheet Header */}
       <div className="hidden print-only mb-6 pb-4 border-b-2 border-stone-800 text-stone-900">
         <div className="flex items-center justify-between">
@@ -152,7 +141,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
           <div>अंतिम गुण: <span className="font-bold text-amber-900">{result.finalScore.toFixed(2)} / {result.maxScore}</span></div>
           <div>अचूकता (Accuracy): <span className="font-bold text-emerald-800">{result.accuracyPercentage}%</span></div>
           <div>सोडवलेले: <span className="font-bold">{result.attemptedCount} (✓{result.correctCount} / ✗{result.incorrectCount})</span></div>
-          <div>राज्य रँक: <span className="font-bold text-amber-800">#{rankData.stateRank} ({rankData.percentile}%)</span></div>
+          <div>घेतलेला वेळ: <span className="font-bold text-stone-800">{formatSeconds(result.timeSpentSeconds)}</span></div>
         </div>
       </div>
 
@@ -269,147 +258,6 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
             </div>
             <div className="text-[11px] text-stone-500 mt-2">
               {isMr ? 'एकूण प्रश्न:' : 'Total Questions:'} {result.totalQuestions}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* REAL-TIME MAHARASHTRA STATE RANK & CUT-OFF EVALUATION CARD */}
-      {/* ========================================================================= */}
-      <div className="bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950 rounded-2xl border-2 border-amber-500/60 p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-        {/* Subtle decorative glow */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 space-y-6">
-          {/* Top Real-time Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-800 pb-4">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="px-3 py-1 rounded-full bg-red-600 text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 animate-pulse">
-                <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-                {isMr ? '🔴 थेट रिअल-टाइम निकाल (LIVE)' : '🔴 LIVE REAL-TIME RANKING'}
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold">
-                {isMr ? '३ जानेवारी २०२७ पूर्व परीक्षा विश्लेषण' : '3 Jan 2027 Prelims Evaluation'}
-              </span>
-              {session.candidateRollNo && (
-                <span className="px-2.5 py-0.5 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-mono">
-                  {isMr ? 'बैठक क्र:' : 'Roll:'} {session.candidateRollNo}
-                </span>
-              )}
-            </div>
-
-            <div className="text-xs text-stone-400 font-medium flex items-center gap-1">
-              <Users className="w-4 h-4 text-amber-400" />
-              <span>{isMr ? `राज्यभरातील ${rankData.totalAspirants.toLocaleString()} उमेदवारांशी तुलना` : `Compared with ${rankData.totalAspirants.toLocaleString()} State Aspirants`}</span>
-            </div>
-          </div>
-
-          {/* Main 2-Column Grid: Left Rank & Percentile, Right Cutoff Predictor */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* Left: Giant Rank & Percentile Showcase */}
-            <div className="lg:col-span-7 space-y-4 bg-stone-900/60 p-5 sm:p-6 rounded-xl border border-stone-800/80 flex flex-col justify-between">
-              <div>
-                <div className="text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1.5 mb-1.5">
-                  <Trophy className="w-4 h-4 text-amber-400" />
-                  <span>{isMr ? 'महाराष्ट्र राज्य गुणवत्ता रँक (State Rank)' : 'Maharashtra State Rank'}</span>
-                </div>
-
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <div className="text-4xl sm:text-5xl font-black text-amber-300 font-mono tracking-tight drop-shadow-md">
-                    #{rankData.stateRank}
-                  </div>
-                  <div className="text-sm sm:text-base text-stone-400 font-medium">
-                    / {rankData.totalAspirants.toLocaleString()} {isMr ? 'परीक्षार्थी' : 'Aspirants'}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 mt-3 flex-wrap">
-                  <span className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-extrabold text-xs">
-                    {rankData.percentile}% {isMr ? 'पर्सेन्टाईल' : 'Percentile'}
-                  </span>
-                  <span className="text-xs text-stone-300 font-semibold">
-                    ({rankData.topPercentileLabel})
-                  </span>
-                </div>
-              </div>
-
-              {/* Qualification Status Callout */}
-              <div className={`p-4 rounded-xl border mt-3 ${
-                rankData.qualificationStatus === 'QUALIFIED'
-                  ? 'bg-emerald-950/70 border-emerald-500/50 text-emerald-200'
-                  : rankData.qualificationStatus === 'BORDERLINE'
-                  ? 'bg-amber-950/70 border-amber-500/50 text-amber-200'
-                  : 'bg-rose-950/70 border-rose-500/50 text-rose-200'
-              }`}>
-                <div className="flex items-center gap-2 mb-1">
-                  {rankData.qualificationStatus === 'QUALIFIED' ? (
-                    <Award className="w-5 h-5 text-emerald-400" />
-                  ) : rankData.qualificationStatus === 'BORDERLINE' ? (
-                    <AlertCircle className="w-5 h-5 text-amber-400" />
-                  ) : (
-                    <AlertCircle className="w-5 h-5 text-rose-400" />
-                  )}
-                  <h4 className="font-extrabold text-sm sm:text-base">
-                    {isMr ? rankData.qualificationTitleMr : rankData.qualificationTitleEn}
-                  </h4>
-                </div>
-                <p className="text-xs text-stone-300 leading-relaxed pl-7">
-                  {isMr ? rankData.qualificationMessageMr : rankData.qualificationMessageEn}
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Projected Category Cutoffs Table */}
-            <div className="lg:col-span-5 bg-stone-900/60 p-5 sm:p-6 rounded-xl border border-stone-800/80 flex flex-col justify-between space-y-3">
-              <div>
-                <div className="flex items-center justify-between border-b border-stone-800 pb-2 mb-3">
-                  <h4 className="font-extrabold text-sm text-stone-200 flex items-center gap-1.5">
-                    <Shield className="w-4 h-4 text-amber-400" />
-                    <span>{isMr ? '३ जाने २०२७ अपेक्षित कट-ऑफ अंदाज' : '3 Jan 2027 Expected Cutoffs'}</span>
-                  </h4>
-                  <span className="text-[11px] font-mono text-amber-300 font-bold">
-                    {isMr ? 'तुमचे गुण:' : 'Score:'} {result.finalScore.toFixed(2)}
-                  </span>
-                </div>
-
-                <div className="space-y-2 text-xs">
-                  {rankData.categoryCutoffs.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between p-2 rounded-lg bg-stone-950/50 border border-stone-800/90"
-                    >
-                      <div className="min-w-0 pr-2">
-                        <span className="font-semibold text-stone-300 block truncate">
-                          {isMr ? item.categoryMr : item.category}
-                        </span>
-                        <span className="text-[10px] text-stone-500 font-mono">
-                          कट-ऑफ: {item.cutoff} गुण
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <span className={`font-mono font-bold text-xs ${
-                          item.isQualified ? 'text-emerald-400' : 'text-rose-400'
-                        }`}>
-                          {item.difference >= 0 ? `+${item.difference.toFixed(1)}` : item.difference.toFixed(1)}
-                        </span>
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
-                          item.isQualified
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                            : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                        }`}>
-                          {item.isQualified ? (isMr ? 'पात्र ✓' : 'PASS') : (isMr ? 'अपात्र ✗' : 'FAIL')}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="text-[11px] text-stone-400 italic pt-2 border-t border-stone-800/80">
-                💡 {isMr ? 'टीप: मागील वर्षांचे मेरिट व निगेटिव्ह मार्किंग पॅटर्ननुसार हा रिअल-टाइम अंदाज आहे.' : 'Note: Real-time statistical projection based on past cutoff trends & 1/4th negative marking.'}
-              </div>
             </div>
           </div>
         </div>

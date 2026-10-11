@@ -171,7 +171,6 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
   const [explanationEn, setExplanationEn] = useState('');
   const [reference, setReference] = useState('');
 
-  const [isAiGenerating, setIsAiGenerating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isBulkSyncing, setIsBulkSyncing] = useState(false);
   const [notification, setNotification] = useState<{ type: 'success' | 'error' | 'info'; message: string } | null>(null);
@@ -213,62 +212,6 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
       type: 'info',
       message: isMr ? `नमुना प्रश्न लोड केला: ${preset.label}` : `Loaded template: ${preset.label}`
     });
-  };
-
-  const handleAiGenerate = async () => {
-    setIsAiGenerating(true);
-    setNotification(null);
-    try {
-      const response = await fetch('/api/generate-mcq', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          subjectId,
-          topic: topic || undefined,
-          difficulty,
-          exam,
-          language: 'mr'
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('AI Server responded with error ' + response.status);
-      }
-
-      const data = await response.json();
-      if (data && data.questionMr) {
-        setQuestionMr(data.questionMr);
-        setQuestionEn(data.questionEn || data.questionMr);
-        if (Array.isArray(data.optionsMr) && data.optionsMr.length === 4) {
-          setOptionsMr(data.optionsMr);
-        }
-        if (Array.isArray(data.optionsEn) && data.optionsEn.length === 4) {
-          setOptionsEn(data.optionsEn);
-        } else {
-          setOptionsEn(data.optionsMr || ['', '', '', '']);
-        }
-        setCorrectAnswerIndex(typeof data.correctAnswerIndex === 'number' ? data.correctAnswerIndex : 0);
-        setExplanationMr(data.explanationMr || '');
-        setExplanationEn(data.explanationEn || data.explanationMr || '');
-        setReference(data.reference || 'MPSC Standard References');
-        if (data.topic) setTopic(data.topic);
-        if (data.subtopic) setSubtopic(data.subtopic);
-
-        setNotification({
-          type: 'success',
-          message: isMr ? '✨ AI ने नवीन MPSC प्रश्न यशस्वीरीत्या तयार केला!' : '✨ AI generated an authentic MPSC question!'
-        });
-      }
-    } catch (err: any) {
-      setNotification({
-        type: 'error',
-        message: isMr 
-          ? 'AI प्रश्न निर्मिती दरम्यान त्रुटी आली. कृपया खालील नमुना निवडा किंवा मॅन्युअली भरा.' 
-          : 'AI generation error. Please try a preset or enter manually.'
-      });
-    } finally {
-      setIsAiGenerating(false);
-    }
   };
 
   const handleSaveQuestion = async (e: React.FormEvent) => {
@@ -448,29 +391,13 @@ export const AddMcqView: React.FC<AddMcqViewProps> = ({
         </div>
       )}
 
-      {/* Presets & AI Generation Bar */}
+      {/* Presets Bar */}
       <div className="bg-stone-900/90 border border-stone-800 rounded-2xl p-5 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-800">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span className="text-sm font-bold text-stone-200">
-              {isMr ? 'द्रुत कृती (Quick Presets & AI)' : 'Quick Actions & AI'}
-            </span>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleAiGenerate}
-            disabled={isAiGenerating}
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs rounded-xl transition-all shadow flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            <Sparkles className={`w-3.5 h-3.5 ${isAiGenerating ? 'animate-spin' : ''}`} />
-            <span>
-              {isAiGenerating 
-                ? (isMr ? 'AI प्रश्न तयार करत आहे...' : 'AI Generating...') 
-                : (isMr ? '✨ AI द्वारे या विषयाचा प्रश्न तयार करा' : '✨ AI Generate MCQ for Subject')}
-            </span>
-          </button>
+        <div className="flex items-center gap-2 pb-3 border-b border-stone-800">
+          <Sparkles className="w-4 h-4 text-amber-400" />
+          <span className="text-sm font-bold text-stone-200">
+            {isMr ? 'द्रुत नमुने (Quick Presets)' : 'Quick Question Presets'}
+          </span>
         </div>
 
         {/* Preset Cards */}

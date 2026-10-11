@@ -373,9 +373,5 @@ export function createExamSession(options: {
     timeSpent: {},
     isCompleted: false,
     startedAt: Date.now(),
-    candidateRollNo: options.patternId.startsWith('mpsc_group_c_talathi_set_')
-      ? `GC27-${Math.floor(100000 + Math.random() * 900000)}`
-      : undefined,
-    examDateTag: options.patternId.startsWith('mpsc_group_c_talathi_set_') ? '३ जानेवारी २०२७' : undefined,
   };
 }

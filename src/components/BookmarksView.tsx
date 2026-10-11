@@ -22,7 +22,7 @@ interface BookmarksViewProps {
   language: 'mr' | 'en';
   onToggleBookmark: (qId: string) => void;
   onStartCustomExam: (qIds: string[], title: string) => void;
-  onOpenAiMentor: (q: Question) => void;
+  onOpenAiMentor?: (q: Question) => void;
   onSaveNote: (qId: string, note: string) => void;
   questionsPool?: Question[];
 }
@@ -180,13 +180,15 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2 no-print">
-                    <button
-                      onClick={() => onOpenAiMentor(q)}
-                      className="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 transition-colors flex items-center gap-1 cursor-pointer"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                      <span>{isMr ? 'मार्गदर्शक AI' : 'Ask Mentor'}</span>
-                    </button>
+                    {onOpenAiMentor && (
+                      <button
+                        onClick={() => onOpenAiMentor(q)}
+                        className="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 transition-colors flex items-center gap-1 cursor-pointer"
+                      >
+                        <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                        <span>{isMr ? 'मार्गदर्शक AI' : 'Ask Mentor'}</span>
+                      </button>
+                    )}
 
                     <button
                       onClick={() => onToggleBookmark(q.id)}

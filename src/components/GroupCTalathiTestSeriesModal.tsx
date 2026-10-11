@@ -149,8 +149,8 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
 
               <p className="text-xs sm:text-sm text-stone-300 max-w-3xl leading-relaxed">
                 {isMr
-                  ? '३ जानेवारी २०२७ रोजी होणाऱ्या MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी ५० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर थेट रिअल-टाइम महाराष्ट्र राज्य रँक, पर्सेन्टाईल आणि कट-ऑफ निकाल!'
-                  : '50 Full-length CBT Mock Exam Sets for 3 January 2027 Group C & Talathi exams with instant real-time Maharashtra state ranking and cutoff evaluation.'}
+                  ? 'MPSC गट-क पूर्व (लिपिक-टंकलेखक, कर सहायक, उत्पादन शुल्क) व तलाठी परीक्षेसाठी ५० संपूर्ण नमुना प्रश्नपत्रिका. परीक्षा दिल्यानंतर सविस्तर निकाल व प्रत्येक प्रश्नाचे स्पष्टीकरण!'
+                  : '50 Full-length CBT Mock Exam Sets for Group C & Talathi exams with instant score and detailed solutions.'}
               </p>
             </div>
 
@@ -579,7 +579,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                   {/* Action Button */}
                   <div className="pt-4 mt-3 border-t border-stone-100 flex items-center justify-between gap-3">
                     <div className="text-[11px] text-stone-500 font-medium">
-                      🎯 {isMr ? 'अपेक्षित कट-ऑफ:' : 'Target Cutoff:'} <strong className="text-stone-800 font-mono">{set.expectedCutoff.open}+</strong>
+                      🎯 {isMr ? 'काठिण्य पातळी:' : 'Level:'} <strong className="text-stone-800">{isMr ? (set.difficulty === 'Hard' ? 'कठीण' : set.difficulty === 'Moderate' ? 'मध्यम' : 'परीक्षेचा दर्जा') : set.difficulty}</strong>
                     </div>
 
                     <button
@@ -648,12 +648,12 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                     <strong className="text-stone-900 text-sm font-black">{currentUserName}</strong>
                   </div>
                   <div>
-                    <span className="text-stone-400 block text-[11px]">{isMr ? 'बैठक क्रमांक (Roll Number):' : 'Roll Number:'}</span>
-                    <strong className="text-amber-700 font-mono text-sm font-black">GC27-301984</strong>
+                    <span className="text-stone-400 block text-[11px]">{isMr ? 'चाचणी प्रकार:' : 'Exam Pattern:'}</span>
+                    <strong className="text-amber-700 font-bold text-xs">{selectedSet.titleMr}</strong>
                   </div>
                   <div>
-                    <span className="text-stone-400 block text-[11px]">{isMr ? 'परीक्षेची तारीख:' : 'Exam Date:'}</span>
-                    <strong className="text-stone-800 font-bold">३ जानेवारी २०२७ (सकाळी ११:०० ते १२:००)</strong>
+                    <span className="text-stone-400 block text-[11px]">{isMr ? 'एकूण प्रश्न व गुण:' : 'Questions & Marks:'}</span>
+                    <strong className="text-stone-800 font-bold">१०० प्रश्न • १०० गुण (६० मिनिटे)</strong>
                   </div>
                   <div>
                     <span className="text-stone-400 block text-[11px]">{isMr ? 'परीक्षा केंद्र (जिल्हा):' : 'Exam Center (District):'}</span>
@@ -700,7 +700,7 @@ export const GroupCTalathiTestSeriesModal: React.FC<GroupCTalathiTestSeriesModal
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="w-4 h-4 rounded-full bg-stone-900 text-white font-mono text-[10px] flex items-center justify-center shrink-0 mt-0.5">४</span>
-                    <span>{isMr ? 'चाचणी सबमिट केल्यानंतर लगेचच तुमचा **Real-Time State Rank, Percentile, अचूकता आणि कट-ऑफ स्थिती** स्क्रीनवर दिसेल.' : 'Upon submission, your Real-Time State Rank, Percentile, Accuracy, and Cut-off evaluation will be calculated instantly.'}</span>
+                    <span>{isMr ? 'चाचणी सबमिट केल्यानंतर लगेचच तुमचे **अंतिम निव्वळ गुण, अचूकता आणि प्रश्नांचे सविस्तर स्पष्टीकरण** स्क्रीनवर दिसेल.' : 'Upon submission, your Net Marks, Accuracy, and Detailed Explanations will be displayed immediately.'}</span>
                   </li>
                 </ul>
 

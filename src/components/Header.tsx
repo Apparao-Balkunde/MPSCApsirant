@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Flame, 
   Languages, 
@@ -31,7 +31,8 @@ import {
   SpellCheck,
   TrendingUp,
   Zap,
-  Trophy
+  Trophy,
+  ChevronDown
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -39,7 +40,7 @@ import { type User } from 'firebase/auth';
 import { useDeviceScreen } from '../utils/screenUtils';
 import { useIsMobile, useIsCompactLandscape, useIsTouchDevice } from '../hooks/useMediaQuery';
 
-export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'mentor' | 'add_mcq';
+export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq';
 
 export interface HeaderProps {
   currentTab: NavigationTab;
@@ -49,7 +50,6 @@ export interface HeaderProps {
   userProgress: UserProgress;
   currentUser?: User | null;
   onOpenLogin?: () => void;
-  onOpenQuickMentor?: () => void;
   onOpenCloudSync?: () => void;
   onOpenAddQuestion?: () => void;
   onOpenSettings?: () => void;
@@ -73,7 +73,6 @@ export const Header: React.FC<HeaderProps> = ({
   userProgress,
   currentUser,
   onOpenLogin,
-  onOpenQuickMentor,
   onOpenCloudSync,
   onOpenAddQuestion,
   onOpenSettings,
@@ -92,7 +91,20 @@ export const Header: React.FC<HeaderProps> = ({
   const [soundFeedback, setSoundFeedback] = useState<string | null>(null);
   const [fullscreenFeedback, setFullscreenFeedback] = useState<string | null>(null);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showSpecialTools, setShowSpecialTools] = useState(false);
+  const toolsMenuRef = useRef<HTMLDivElement>(null);
   const [daysLeft, setDaysLeft] = useState<number>(0);
+
+  // Close special tools dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target as Node)) {
+        setShowSpecialTools(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Live Screen & Device Detector Hook
   const { isFullscreen, toggleFullscreen, deviceType, width, isSupported: isFsSupported } = useDeviceScreen();
@@ -242,9 +254,9 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
       )}
 
-      <header className="sticky top-0 z-40 bg-stone-900/98 backdrop-blur-md border-b border-stone-800 text-stone-100 shadow-md">
-        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-15 sm:h-16 gap-2">
+      <header className="sticky top-0 z-40 bg-stone-900/98 backdrop-blur-md border-b border-stone-800 text-stone-100 shadow-md w-full max-w-full overflow-x-clip">
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 w-full">
+          <div className="flex items-center justify-between h-15 sm:h-16 gap-2 w-full">
             
             {/* Left: Brand & Logo */}
             <div 
@@ -271,8 +283,8 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             </div>
 
-            {/* Middle: Desktop & Laptop Navigation Items */}
-            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+            {/* Middle: Desktop & Laptop Clean Navigation Items */}
+            <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 shrink-0">
               <button
                 id="nav-dashboard"
                 onClick={() => onSelectTab('dashboard')}
@@ -310,24 +322,8 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <FileText className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
                 <span>{isMr ? 'व्याकरण' : 'Grammar'}</span>
-                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400 text-stone-950 font-black uppercase hidden xl:inline">
-                  {isMr ? '१५५ नियम 🏆' : '155 Rules 🏆'}
-                </span>
-              </button>
-
-              <button
-                id="nav-vocabulary"
-                onClick={() => onSelectTab('vocabulary')}
-                className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
-                  currentTab === 'vocabulary'
-                    ? 'bg-amber-500 text-stone-950 shadow-sm font-bold'
-                    : 'text-stone-300 hover:text-white hover:bg-stone-800'
-                }`}
-              >
-                <SpellCheck className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-amber-400" />
-                <span>{isMr ? 'शब्दसंग्रह' : 'Vocabulary'}</span>
-                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500 text-stone-950 font-black uppercase hidden xl:inline">
-                  {isMr ? 'जोड्या 🎯' : 'Match 🎯'}
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400 text-stone-950 font-black uppercase hidden 2xl:inline">
+                  {isMr ? '१५५' : '155'}
                 </span>
               </button>
 
@@ -362,103 +358,191 @@ export const Header: React.FC<HeaderProps> = ({
                 )}
               </button>
 
-              <button
-                id="nav-mentor"
-                onClick={() => onSelectTab('mentor')}
-                className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
-                  currentTab === 'mentor'
-                    ? 'bg-amber-500 text-stone-950 shadow-sm font-bold'
-                    : 'text-amber-300 hover:text-white hover:bg-stone-800'
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-amber-400" />
-                <span>{isMr ? 'AI मार्गदर्शक' : 'AI Mentor'}</span>
-              </button>
-
-              <button
-                id="nav-add-mcq"
-                onClick={() => onSelectTab('add_mcq')}
-                className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
-                  currentTab === 'add_mcq'
-                    ? 'bg-amber-500 text-stone-950 shadow-sm font-bold'
-                    : 'text-stone-300 hover:text-white hover:bg-stone-800'
-                }`}
-              >
-                <PlusCircle className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-amber-400" />
-                <span>{isMr ? '+ MCQ' : '+ MCQ'}</span>
-              </button>
-
-              {onOpenHardQuestionsHub && (
+              {/* Special Tools Dropdown Menu (Consolidates side tabs to eliminate page overflow) */}
+              <div className="relative" ref={toolsMenuRef}>
                 <button
-                  id="nav-hard-100k"
-                  onClick={onOpenHardQuestionsHub}
-                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1 text-amber-300 hover:text-white hover:bg-amber-500/20 border border-amber-500/30 cursor-pointer shadow-xs"
-                  title={isMr ? "१,००,०००+ कठीण प्रश्न सराव केंद्र उघडा" : "Open 100,000+ Hard Questions Engine"}
+                  type="button"
+                  id="nav-special-tools-btn"
+                  onClick={() => setShowSpecialTools(!showSpecialTools)}
+                  className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs ${
+                    showSpecialTools
+                      ? 'bg-amber-500 text-stone-950 shadow-md ring-2 ring-amber-400/40'
+                      : 'bg-stone-850 hover:bg-stone-750 text-amber-300 hover:text-amber-200 border border-amber-500/40 hover:border-amber-400'
+                  }`}
+                  title={isMr ? "विशेष सराव केंद्र व हब्स उघडा" : "Open Special Prep Tools & Hubs"}
                 >
-                  <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400/40 animate-pulse" />
-                  <span>{isMr ? '१ लाख प्रश्न' : '100k Qs'}</span>
+                  <Trophy className="w-3.5 h-3.5 text-amber-400 fill-amber-400/30" />
+                  <span>{isMr ? 'विशेष सराव' : 'Special Hubs'}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showSpecialTools ? 'rotate-180 text-stone-950' : 'text-amber-400'}`} />
                 </button>
-              )}
 
-              {onOpenPyqHub && (
-                <button
-                  id="nav-pyq-hub-btn"
-                  onClick={onOpenPyqHub}
-                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 text-amber-300 border border-amber-400/50 cursor-pointer shadow-xs hover:scale-105"
-                  title={isMr ? "मागील वर्षाच्या अधिकृत प्रश्नपत्रिका व स्पष्टीकरणे (PYQs)" : "Official Previous Year Question Papers & Solutions"}
-                >
-                  <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{isMr ? 'मागील प्रश्नपत्रिका' : 'PYQ Papers'}</span>
-                </button>
-              )}
+                {showSpecialTools && (
+                  <div className="absolute left-0 xl:right-0 xl:left-auto top-11 w-72 sm:w-80 bg-stone-900/98 backdrop-blur-xl border border-stone-700/90 text-stone-100 rounded-2xl shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150 space-y-1">
+                    <div className="px-3 py-2 border-b border-stone-800 text-[11px] font-extrabold uppercase tracking-wider text-amber-400 flex items-center justify-between">
+                      <span>{isMr ? '🏆 विशेष सराव साधने व हब्स' : '🏆 Special Practice Hubs'}</span>
+                      <span className="text-[10px] text-stone-400 font-normal">MPSC 2026</span>
+                    </div>
 
-              {onOpenWeakAreaBooster && (
-                <button
-                  id="nav-weak-area-booster"
-                  onClick={onOpenWeakAreaBooster}
-                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-rose-500/20 to-red-600/20 hover:from-rose-500/30 hover:to-red-600/30 text-rose-300 border border-rose-500/40 cursor-pointer shadow-xs hover:scale-105"
-                  title={isMr ? "कमकुवत घटक विशेष सराव (Smart Remedial Booster)" : "Weak Area Remedial Booster"}
-                >
-                  <Target className="w-3.5 h-3.5 text-rose-400" />
-                  <span>{isMr ? 'कमकुवत घटक' : 'Weak Areas'}</span>
-                </button>
-              )}
+                    {onOpenSubjectMarathon && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenSubjectMarathon();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-800/80 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center shrink-0 text-amber-400 group-hover:scale-105">
+                          <Trophy className="w-4 h-4 fill-amber-400/30" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+                            <span>{isMr ? '१०० प्रश्न मॅरेथॉन पेपर्स' : '100 Qs Marathon Sets'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono">४ विषय</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'भूगोल, विज्ञान, चालू घडामोडी व राज्यव्यवस्था' : 'Geo, Science, Current Affairs & Polity'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
 
-              {onOpenCutoffTrends && (
-                <button
-                  id="nav-cutoff-trends"
-                  onClick={onOpenCutoffTrends}
-                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-yellow-600/20 hover:from-amber-500/30 hover:to-yellow-600/30 text-amber-300 border border-amber-500/40 cursor-pointer shadow-xs hover:scale-105"
-                  title={isMr ? "मागील वर्षांचे कट-ऑफ व मेरिट ॲनालिसीस (२०२०-२०२५)" : "Official Cut-off & Merit Analysis (2020-2025)"}
-                >
-                  <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{isMr ? 'कट-ऑफ ट्रेंड्स' : 'Cut-off'}</span>
-                </button>
-              )}
+                    {onOpenRapidFlashcards && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenRapidFlashcards();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-800/80 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-yellow-500/15 border border-yellow-500/30 flex items-center justify-center shrink-0 text-yellow-400 group-hover:scale-105">
+                          <Zap className="w-4 h-4 fill-yellow-400/30" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-stone-200 group-hover:text-white flex items-center justify-between">
+                            <span>{isMr ? '१-मिनिट रॅपिड फ्लॅशकार्ड्स' : 'Rapid Memory Flashcards'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-yellow-500/20 text-yellow-300">जलद</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'परीक्षेसाठी अति-महत्त्वाच्या ५०+ की-फॅक्ट्स' : 'Instant high-yield key facts recall'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
 
-              {onOpenRapidFlashcards && (
-                <button
-                  id="nav-rapid-flashcards"
-                  onClick={onOpenRapidFlashcards}
-                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/35 hover:to-yellow-500/35 text-amber-300 border border-amber-400/50 cursor-pointer shadow-xs hover:scale-105"
-                  title={isMr ? "१-मिनिट रॅपिड मेमरी फ्लॅशकार्ड्स" : "1-Minute Rapid Memory Flashcards"}
-                >
-                  <Zap className="w-3.5 h-3.5 text-amber-300 fill-amber-300/40 animate-pulse" />
-                  <span>{isMr ? 'रॅपिड फ्लॅशकार्ड्स' : 'Flashcards'}</span>
-                </button>
-              )}
+                    {onOpenCutoffTrends && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenCutoffTrends();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-800/80 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center shrink-0 text-emerald-400 group-hover:scale-105">
+                          <TrendingUp className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-stone-200 group-hover:text-white">
+                            {isMr ? 'कट-ऑफ व मेरिट ट्रेंड्स' : 'Cut-off & Merit Analysis'}
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? '२०२० ते २०२५ अधिकृत निकाल व श्रेणी' : '2020-2025 official cut-off benchmarks'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
 
-              {onOpenSubjectMarathon && (
-                <button
-                  id="nav-subject-marathon"
-                  onClick={() => onOpenSubjectMarathon()}
-                  className="px-2 xl:px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500/25 to-orange-500/25 hover:from-amber-500/40 hover:to-orange-500/40 text-amber-200 border border-amber-400/60 cursor-pointer shadow-xs hover:scale-105"
-                  title={isMr ? "विषयनिहाय १०० प्रश्नांचे मॅरेथॉन पेपर्स" : "Subject-Wise 100 Qs Marathon Sets"}
-                >
-                  <Trophy className="w-3.5 h-3.5 text-amber-300 fill-amber-300/40" />
-                  <span>{isMr ? '१०० प्रश्न मॅरेथॉन' : '100 Qs Marathon'}</span>
-                </button>
-              )}
+                    {onOpenWeakAreaBooster && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenWeakAreaBooster();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-800/80 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-rose-500/15 border border-rose-500/30 flex items-center justify-center shrink-0 text-rose-400 group-hover:scale-105">
+                          <Target className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-stone-200 group-hover:text-white">
+                            {isMr ? 'कमकुवत घटक सराव (Booster)' : 'Weak Area Remedial Drill'}
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'चूक झालेल्या प्रश्नांवर आधारित सराव' : 'Targeted tests based on past mistakes'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenHardQuestionsHub && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenHardQuestionsHub();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-800/80 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-red-500/15 border border-red-500/30 flex items-center justify-center shrink-0 text-red-400 group-hover:scale-105">
+                          <Flame className="w-4 h-4 fill-red-400/30" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-stone-200 group-hover:text-white">
+                            {isMr ? '१,००,०००+ कठीण प्रश्न केंद्र' : '100k Hard Questions Hub'}
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'कठीण पातळीचे प्रश्न व सविस्तर उत्तरे' : 'High difficulty concept mastery'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenPyqHub && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenPyqHub();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-800/80 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-blue-500/15 border border-blue-500/30 flex items-center justify-center shrink-0 text-blue-400 group-hover:scale-105">
+                          <BookOpen className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-stone-200 group-hover:text-white">
+                            {isMr ? 'मागील वर्षांच्या प्रश्नपत्रिका (PYQs)' : 'Official PYQ Papers'}
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'राज्यसेवा व संयुक्त अधिकृत पेपर्स' : 'Previous year papers with explanations'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    <div className="pt-1 mt-1 border-t border-stone-800 flex items-center gap-1">
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onSelectTab('vocabulary');
+                        }}
+                        className="flex-1 px-2.5 py-1.5 rounded-lg bg-stone-800/60 hover:bg-stone-800 text-stone-300 hover:text-white text-[11px] font-bold flex items-center justify-center gap-1 cursor-pointer"
+                      >
+                        <SpellCheck className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{isMr ? 'शब्दसंग्रह जोड्या' : 'Vocab Match'}</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onSelectTab('add_mcq');
+                        }}
+                        className="flex-1 px-2.5 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 text-[11px] font-bold flex items-center justify-center gap-1 cursor-pointer border border-amber-500/30"
+                      >
+                        <PlusCircle className="w-3.5 h-3.5 text-amber-400" />
+                        <span>{isMr ? '+ MCQ जोडा' : '+ Add MCQ'}</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </nav>
 
             {/* Right: Action Controls, Device Indicator & Fullscreen Button */}
@@ -753,18 +837,6 @@ export const Header: React.FC<HeaderProps> = ({
                 {userProgress.bookmarkedQuestionIds.length}
               </span>
             )}
-          </button>
-
-          <button
-            onClick={() => onSelectTab('mentor')}
-            className={`px-2.5 py-1.5 rounded-lg font-bold shrink-0 cursor-pointer transition-all flex items-center gap-1 ${
-              currentTab === 'mentor'
-                ? 'bg-amber-500 text-stone-950 shadow-xs'
-                : 'text-amber-400 hover:text-amber-300'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{isMr ? 'मार्गदर्शक' : 'Mentor'}</span>
           </button>
 
           {onOpenHardQuestionsHub && (
