@@ -16,6 +16,7 @@ import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { SUBJECTS } from '../data/subjects';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { exportToPdf } from '../utils/pdfExport';
+import { VisualMemoryAid } from './VisualMemoryAid';
 
 interface BookmarksViewProps {
   userProgress: UserProgress;
@@ -251,6 +252,18 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
                       <span className="text-stone-700">{q.reference}</span>
                     </div>
                   )}
+
+                  {/* Visual Memory Aid with India, World & Maharashtra Maps for Recall */}
+                  <VisualMemoryAid
+                    subjectId={q.subjectId}
+                    topic={q.topic}
+                    subtopic={q.subtopic}
+                    language={language}
+                    defaultMapType={q.mapType}
+                    customImageUrl={q.imageUrl}
+                    memoryTrickMr={q.memoryTrickMr}
+                    memoryTrickEn={q.memoryTrickEn}
+                  />
                 </div>
 
                 {/* Aspirant Personal Revision Note */}

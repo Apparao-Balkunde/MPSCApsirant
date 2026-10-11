@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { ExamPatternId, Question } from '../types';
 import { soundFx } from '../utils/audio';
+import { VisualMemoryAid } from './VisualMemoryAid';
 import { MPSC_COMBINE_PRE_2026_FULL_100 } from '../data/mpscCombinePre2026';
 import { MPSC_PYQ_2024_FULL_100 } from '../data/mpscPyq2024';
 import { MPSC_PYQ_2023_GS } from '../data/mpscPyq2023';
@@ -718,6 +719,18 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
                           <span>{q.reference}</span>
                         </div>
                       )}
+
+                      {/* Visual Memory Aid & Maps */}
+                      <VisualMemoryAid
+                        subjectId={q.subjectId}
+                        topic={q.topic}
+                        subtopic={q.subtopic}
+                        language={language}
+                        defaultMapType={q.mapType}
+                        customImageUrl={q.imageUrl}
+                        memoryTrickMr={q.memoryTrickMr}
+                        memoryTrickEn={q.memoryTrickEn}
+                      />
                     </div>
                   </div>
                 );

@@ -17,6 +17,7 @@ import {
   Award,
 } from 'lucide-react';
 import { Question, SubjectId, UserProgress } from '../types';
+import { VisualMemoryAid } from './VisualMemoryAid';
 import {
   analyzeUserWeakAreas,
   generateRemedialQuestionSet,
@@ -563,6 +564,18 @@ export const WeakAreaRemedialModal: React.FC<WeakAreaRemedialModalProps> = ({
                               📚 {q.reference}
                             </div>
                           )}
+
+                          {/* Visual Memory Aid with India, World & Maharashtra Maps for Recall */}
+                          <VisualMemoryAid
+                            subjectId={q.subjectId}
+                            topic={q.topic}
+                            subtopic={q.subtopic}
+                            language={language}
+                            defaultMapType={q.mapType}
+                            customImageUrl={q.imageUrl}
+                            memoryTrickMr={q.memoryTrickMr}
+                            memoryTrickEn={q.memoryTrickEn}
+                          />
                         </div>
                       </div>
                     );

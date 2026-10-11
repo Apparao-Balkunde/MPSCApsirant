@@ -28,6 +28,7 @@ import { SUBJECTS } from '../data/subjects';
 import { AdBanner } from './AdBanner';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { exportToPdf } from '../utils/pdfExport';
+import { VisualMemoryAid } from './VisualMemoryAid';
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -508,6 +509,18 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
                       <span className="text-stone-700">{q.reference}</span>
                     </div>
                   )}
+
+                  {/* Visual Memory Aid with India, World & Maharashtra Maps for Recall */}
+                  <VisualMemoryAid
+                    subjectId={q.subjectId}
+                    topic={q.topic}
+                    subtopic={q.subtopic}
+                    language={language}
+                    defaultMapType={q.mapType}
+                    customImageUrl={q.imageUrl}
+                    memoryTrickMr={q.memoryTrickMr}
+                    memoryTrickEn={q.memoryTrickEn}
+                  />
                 </div>
               </div>
             );

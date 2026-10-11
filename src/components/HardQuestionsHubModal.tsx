@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
+import { VisualMemoryAid } from './VisualMemoryAid';
 import { HARD_QUESTIONS_BANK } from '../data/hardQuestionsBank';
 import { 
   getHardQuestionsPool, 
@@ -559,6 +560,20 @@ export const HardQuestionsHubModal: React.FC<HardQuestionsHubModalProps> = ({
                         <p className="leading-relaxed text-stone-300">
                           {isMr ? q.explanationMr : q.explanationEn}
                         </p>
+
+                        {/* Visual Memory Aid & Maps */}
+                        <div className="pt-2 text-stone-900">
+                          <VisualMemoryAid
+                            subjectId={q.subjectId}
+                            topic={q.topic}
+                            subtopic={q.subtopic}
+                            language={isMr ? 'mr' : 'en'}
+                            defaultMapType={q.mapType}
+                            customImageUrl={q.imageUrl}
+                            memoryTrickMr={q.memoryTrickMr}
+                            memoryTrickEn={q.memoryTrickEn}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>

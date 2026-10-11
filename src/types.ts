@@ -115,6 +115,10 @@ export interface Question {
   explanationMr: string;
   reference: string;
   yearTag?: string;
+  imageUrl?: string;
+  mapType?: 'india' | 'world' | 'maharashtra';
+  memoryTrickMr?: string;
+  memoryTrickEn?: string;
 }
 
 export interface ExamSession {
