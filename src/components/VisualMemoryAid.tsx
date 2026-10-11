@@ -20,6 +20,8 @@ interface VisualMemoryAidProps {
   subjectId: SubjectId;
   topic?: string;
   subtopic?: string;
+  questionText?: string;
+  explanationText?: string;
   language: 'mr' | 'en';
   defaultMapType?: 'india' | 'world' | 'maharashtra';
   customImageUrl?: string;
@@ -31,6 +33,8 @@ export const VisualMemoryAid: React.FC<VisualMemoryAidProps> = ({
   subjectId,
   topic = '',
   subtopic = '',
+  questionText = '',
+  explanationText = '',
   language,
   defaultMapType,
   customImageUrl,
@@ -38,8 +42,61 @@ export const VisualMemoryAid: React.FC<VisualMemoryAidProps> = ({
   memoryTrickEn,
 }) => {
   const isMr = language === 'mr';
+
+  // Dynamically detect map scope based on topic, subtopic and question text
+  const detectInitialMap = (): 'india' | 'world' | 'maharashtra' | 'trick' => {
+    if (defaultMapType) return defaultMapType;
+    const combined = `${topic} ${subtopic} ${questionText} ${explanationText} ${subjectId}`.toLowerCase();
+
+    // Check World Geography markers
+    if (
+      combined.includes('world') ||
+      combined.includes('continent') ||
+      combined.includes('ocean') ||
+      combined.includes('equator') ||
+      combined.includes('tropic') ||
+      combined.includes('pacific') ||
+      combined.includes('atlantic') ||
+      combined.includes('jag') ||
+      combined.includes('जग') ||
+      combined.includes('जागतिक') ||
+      combined.includes('खंड') ||
+      combined.includes('महासागर') ||
+      combined.includes('विषुववृत्त') ||
+      combined.includes('अक्षवृत्त') ||
+      combined.includes('रेखावृत्त') ||
+      combined.includes('सुएझ') ||
+      combined.includes('पनामा') ||
+      combined.includes('सहारा') ||
+      subjectId === 'environment'
+    ) {
+      return 'world';
+    }
+
+    // Check Maharashtra Geography markers
+    if (
+      combined.includes('महाराष्ट्र') ||
+      combined.includes('सह्याद्री') ||
+      combined.includes('कोकण') ||
+      combined.includes('गोदावरी') ||
+      combined.includes('भीमा') ||
+      combined.includes('कृष्णा नदी') ||
+      combined.includes('कळसुबाई') ||
+      combined.includes('घाट') ||
+      combined.includes('विदर्भ') ||
+      combined.includes('मराठवाडा') ||
+      combined.includes('जिल्हा') ||
+      subjectId === 'maharashtra_geography'
+    ) {
+      return 'maharashtra';
+    }
+
+    // Default to India Map for general geography, polity, history, and all other questions
+    return 'india';
+  };
+
   const [activeTab, setActiveTab] = useState<'india' | 'world' | 'maharashtra' | 'diagram' | 'trick'>(
-    defaultMapType || (subjectId === 'maharashtra_geography' ? 'maharashtra' : subjectId === 'environment' || subjectId === 'current_affairs' ? 'world' : 'india')
+    detectInitialMap()
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
