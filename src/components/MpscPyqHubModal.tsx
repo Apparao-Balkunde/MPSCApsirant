@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   FileText, 
@@ -8,16 +8,17 @@ import {
   Calendar, 
   BookOpen, 
   ChevronRight, 
-  Search,
-  Filter,
-  Flame,
-  Check,
-  ArrowLeft,
-  Eye,
-  CheckCircle,
-  HelpCircle,
-  BookMarked,
-  Sparkles
+  Search, 
+  Filter, 
+  Flame, 
+  Check, 
+  ArrowLeft, 
+  Eye, 
+  CheckCircle, 
+  HelpCircle, 
+  BookMarked, 
+  Sparkles,
+  RotateCcw
 } from 'lucide-react';
 import { ExamPatternId, Question } from '../types';
 import { soundFx } from '../utils/audio';
@@ -76,6 +77,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_prelims_2026_official',
     patternId: 'mpsc_combine_pre_2026',
+    year: 2026,
     titleMr: 'MPSC गट-ब (अराजपत्रित) सेवा संयुक्त पूर्व परीक्षा २०२६ (१४ जून २०२६)',
     titleEn: 'MPSC Non-Gazetted Group B Combined Prelims Exam 2026 (14 June 2026)',
     examDate: '१४ जून २०२६',
@@ -96,6 +98,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_rajyaseva_prelims_2025_p1',
     patternId: 'mpsc_rajyaseva_pre_2025',
+    year: 2025,
     titleMr: 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२५ (पेपर १ - GS)',
     titleEn: 'MPSC Gazetted Civil Services Combined Prelims 2025 (Paper 1 - GS)',
     examDate: '२०२५ अधिकृत',
@@ -116,6 +119,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_prelims_2025_official',
     patternId: 'mpsc_combine_pre_2025',
+    year: 2025,
     titleMr: 'MPSC अराजपत्रित गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२५ (PSI, STI, ASO व कर सहाय्यक)',
     titleEn: 'MPSC Non-Gazetted Group B & C Combined Prelims Exam 2025 (PSI, STI, ASO)',
     examDate: '२०२५ अधिकृत',
@@ -136,12 +140,13 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_rajyaseva_prelims_2024_p1',
     patternId: 'mpsc_pyq_2024',
+    year: 2024,
     titleMr: 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२४ (पेपर १ - GS)',
     titleEn: 'MPSC Gazetted Civil Services Combined Prelims 2024 (Paper 1 - GS)',
     examDate: '०१ डिसेंबर २०२४',
     category: 'rajyaseva',
-    categoryLabelMr: 'राज्यसेवा पूर्व',
-    categoryLabelEn: 'Rajyaseva Prelims',
+    categoryLabelMr: 'राज्यसेवा पूर्व २०२४',
+    categoryLabelEn: 'Rajyaseva Prelims 2024',
     bookletCode: 'W18 (संच A)',
     totalQuestions: 100,
     totalMarks: 200,
@@ -156,12 +161,13 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_rajyaseva_prelims_2023_p1',
     patternId: 'mpsc_pyq_2023',
+    year: 2023,
     titleMr: 'MPSC राजपत्रित नागरी सेवा संयुक्त (पूर्व) परीक्षा २०२३ (पेपर १ - GS)',
     titleEn: 'MPSC Gazetted Civil Services Combined Prelims 2023 (Paper 1 - GS)',
     examDate: '०४ जून २०२३',
     category: 'rajyaseva',
-    categoryLabelMr: 'राज्यसेवा पूर्व',
-    categoryLabelEn: 'Rajyaseva Prelims',
+    categoryLabelMr: 'राज्यसेवा पूर्व २०२३',
+    categoryLabelEn: 'Rajyaseva Prelims 2023',
     bookletCode: 'P23 (संच A)',
     totalQuestions: 100,
     totalMarks: 200,
@@ -176,12 +182,13 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_prelims_2023',
     patternId: 'mpsc_combine_pre_2023',
+    year: 2023,
     titleMr: 'MPSC अराजपत्रित गट-ब व गट-क संयुक्त पूर्व परीक्षा २०२३ (३० एप्रिल २०२३)',
     titleEn: 'MPSC Non-Gazetted Group B & C Combined Prelims Exam 2023 (30 April 2023)',
     examDate: '३० एप्रिल २०२३',
     category: 'combine',
-    categoryLabelMr: 'संयुक्त पूर्व (गट-ब व क)',
-    categoryLabelEn: 'Combine Prelims (Group B & C)',
+    categoryLabelMr: 'संयुक्त पूर्व (गट-ब व क) २०२३',
+    categoryLabelEn: 'Combine Prelims (Group B & C) 2023',
     bookletCode: 'B23 (संच A)',
     totalQuestions: 100,
     totalMarks: 100,
@@ -196,6 +203,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_prelims_2022_official',
     patternId: 'mpsc_combine_pre_2022',
+    year: 2022,
     titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०२२ (०८ ऑक्टोबर २०२२)',
     titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2022 (08 Oct 2022)',
     examDate: '०८ ऑक्टोबर २०२२',
@@ -216,6 +224,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_prelims_2021',
     patternId: 'mpsc_combine_pre_2021',
+    year: 2021,
     titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०२१ (२६ फेब्रुवारी २०२२)',
     titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2021 (26 Feb 2022)',
     examDate: '२६ फेब्रुवारी २०२२',
@@ -236,6 +245,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_rajyaseva_prelims_2021_p1',
     patternId: 'mpsc_rajyaseva_pre_2021',
+    year: 2021,
     titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२१ (२३ जानेवारी २०२२) - पेपर १ (GS)',
     titleEn: 'MPSC Rajyaseva Prelims Exam 2021 (23 Jan 2022) - Paper 1 (GS)',
     examDate: '२३ जानेवारी २०२२',
@@ -256,6 +266,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_rajyaseva_prelims_2020_p1',
     patternId: 'mpsc_rajyaseva_pre_2020',
+    year: 2020,
     titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२० (२१ मार्च २०२१) - पेपर १ (GS)',
     titleEn: 'MPSC Rajyaseva Prelims Exam 2020 (21 March 2021) - Paper 1 (GS)',
     examDate: '२१ मार्च २०२१',
@@ -276,6 +287,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_prelims_2020',
     patternId: 'mpsc_combine_pre_2020',
+    year: 2020,
     titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०२० (०४ सप्टेंबर २०२१)',
     titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2020 (04 Sept 2021)',
     examDate: '०४ सप्टेंबर २०२१',
@@ -294,8 +306,93 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
     questions: MPSC_COMBINE_PRE_2020
   },
   {
+    id: 'mpsc_combine_prelims_2019_official',
+    patternId: 'mpsc_combine_pre_2019',
+    year: 2019,
+    titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०१९ (२४ मार्च २०१९)',
+    titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2019 (24 March 2019)',
+    examDate: '२४ मार्च २०१९',
+    category: 'combine',
+    categoryLabelMr: 'गट-ब संयुक्त पूर्व २०१९',
+    categoryLabelEn: 'Group B Prelims 2019',
+    bookletCode: 'A12 (संच A)',
+    totalQuestions: MPSC_COMBINE_PRE_2019.length,
+    totalMarks: MPSC_COMBINE_PRE_2019.length,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोगाने २४ मार्च २०१९ रोजी घेतलेली गट-ब संयुक्त पूर्व परीक्षा. अंदाज समिती, महर्षी कर्वे अनाथ बालिकाश्रम, महाधिवक्ता कलम १६५, गोदावरी खोरे व सायन्सचे मूळ प्रश्न.',
+    descriptionEn: 'Official MPSC Group B Combined Prelims Exam held on 24 March 2019 with Final Official Key, covering Estimates Committee, Maharshi Karve, Advocate General, and Science.',
+    tagsMr: ['२४ मार्च २०१९', 'गट-ब पूर्व २०१९', '६० मिनिटे', 'अधिकृत उत्तरतालिका'],
+    tagsEn: ['24 March 2019', 'Group B Prelims', '60 Mins', 'Official Key'],
+    questions: MPSC_COMBINE_PRE_2019
+  },
+  {
+    id: 'mpsc_rajyaseva_prelims_2019_p1',
+    patternId: 'mpsc_rajyaseva_pre_2019',
+    year: 2019,
+    titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०१९ (१७ फेब्रुवारी २०१९) - पेपर १ (GS)',
+    titleEn: 'MPSC Rajyaseva Prelims Exam 2019 (17 Feb 2019) - Paper 1 (GS)',
+    examDate: '१७ फेब्रुवारी २०१९',
+    category: 'rajyaseva',
+    categoryLabelMr: 'राज्यसेवा पूर्व २०१९',
+    categoryLabelEn: 'Rajyaseva Prelims 2019',
+    bookletCode: 'GS19 (संच A)',
+    totalQuestions: MPSC_RAJYASEVA_PRE_2019.length,
+    totalMarks: MPSC_RAJYASEVA_PRE_2019.length * 2,
+    durationMinutes: 120,
+    negativeMarking: '१/३ (०.६६ गुण वजा)',
+    descriptionMr: '१७ फेब्रुवारी २०१९ रोजी झालेली अधिकृत राज्यसेवा पूर्व परीक्षा पेपर १ (सामान्य अध्ययन). मूलभूत हक्क, राज्य धोरणाची मार्गदर्शक तत्वे, राष्ट्रीय उत्पन्न, आणि पर्यावरण परिषदांचे अस्सल प्रश्न.',
+    descriptionEn: 'Official MPSC Rajyaseva Prelims 2019 Paper 1 (General Studies) with official key and comprehensive solutions.',
+    tagsMr: ['राज्यसेवा २०१९', 'GS पेपर १', 'अधिकृत उत्तरतालिका', '१२० मिनिटे'],
+    tagsEn: ['Rajyaseva 2019', 'GS Paper 1', 'Official Key', '120 Mins'],
+    questions: MPSC_RAJYASEVA_PRE_2019
+  },
+  {
+    id: 'mpsc_combine_prelims_2018_official',
+    patternId: 'mpsc_combine_pre_2018',
+    year: 2018,
+    titleMr: 'MPSC दुय्यम सेवा गट-ब (अराजपत्रित) संयुक्त पूर्व परीक्षा २०१८ (१३ मे २०१८)',
+    titleEn: 'MPSC Subordinate Services Group B Combined Prelims Exam 2018 (13 May 2018)',
+    examDate: '१३ मे २०१८',
+    category: 'combine',
+    categoryLabelMr: 'गट-ब संयुक्त पूर्व २०१८',
+    categoryLabelEn: 'Group B Prelims 2018',
+    bookletCode: 'A10 (संच A)',
+    totalQuestions: MPSC_COMBINE_PRE_2018.length,
+    totalMarks: MPSC_COMBINE_PRE_2018.length,
+    durationMinutes: 60,
+    negativeMarking: '१/४ (०.२५ गुण वजा)',
+    descriptionMr: 'महाराष्ट्र लोकसेवा आयोगाने १३ मे २०१८ रोजी घेतलेली मूळ गट-ब संयुक्त पूर्व परीक्षा. राज्यपाल (७ वी घटनादुरुस्ती), बाळशास्त्री जांभेकर - दर्पण (१८३२), महाराष्ट्रातील नद्या व खनिजे यांचे अधिकृत प्रश्न.',
+    descriptionEn: 'Official MPSC Group B Combined Prelims Exam held on 13 May 2018 with Final Official Key, covering Governor provisions, Balshastri Jambhekar, and Geography.',
+    tagsMr: ['१३ मे २०१८', 'गट-ब पूर्व २०१८', '६० मिनिटे', 'अधिकृत उत्तरतालिका'],
+    tagsEn: ['13 May 2018', 'Group B Prelims', '60 Mins', 'Official Key'],
+    questions: MPSC_COMBINE_PRE_2018
+  },
+  {
+    id: 'mpsc_rajyaseva_prelims_2018_p1',
+    patternId: 'mpsc_rajyaseva_pre_2018',
+    year: 2018,
+    titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०१८ (०८ एप्रिल २०१८) - पेपर १ (GS)',
+    titleEn: 'MPSC Rajyaseva Prelims Exam 2018 (08 April 2018) - Paper 1 (GS)',
+    examDate: '०८ एप्रिल २०१८',
+    category: 'rajyaseva',
+    categoryLabelMr: 'राज्यसेवा पूर्व २०१८',
+    categoryLabelEn: 'Rajyaseva Prelims 2018',
+    bookletCode: 'GS18 (संच A)',
+    totalQuestions: MPSC_RAJYASEVA_PRE_2018.length,
+    totalMarks: MPSC_RAJYASEVA_PRE_2018.length * 2,
+    durationMinutes: 120,
+    negativeMarking: '१/३ (०.६६ गुण वजा)',
+    descriptionMr: '८ एप्रिल २०१८ रोजी झालेली अधिकृत राज्यसेवा पूर्व परीक्षा पेपर १ (सामान्य अध्ययन). भारताचा इतिहास, महाराष्ट्राचा भूगोल, राज्यव्यवस्था, पंचवार्षिक योजना व शाश्वत विकास यावरील प्रश्न.',
+    descriptionEn: 'Official MPSC Rajyaseva Prelims 2018 Paper 1 (General Studies) with official key and comprehensive solutions.',
+    tagsMr: ['राज्यसेवा २०१८', 'GS पेपर १', 'अधिकृत उत्तरतालिका', '१२० मिनिटे'],
+    tagsEn: ['Rajyaseva 2018', 'GS Paper 1', 'Official Key', '120 Mins'],
+    questions: MPSC_RAJYASEVA_PRE_2018
+  },
+  {
     id: 'mpsc_pyq_2022_archive',
     patternId: 'mpsc_pyq_2022',
+    year: 2022,
     titleMr: 'MPSC राज्यसेवा व संयुक्त पूर्व परीक्षा २०२२ (निवडक अधिकृत प्रश्नसंच)',
     titleEn: 'MPSC Civil Services & Combine Prelims 2022 (Curated Official PYQ Set)',
     examDate: '२०२२ अधिकृत',
@@ -316,6 +413,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_mains_paper1_marathi_english',
     patternId: 'mpsc_combine_mains_pyq',
+    year: 2023,
     titleMr: 'MPSC अराजपत्रित गट-ब संयुक्त मुख्य परीक्षा (पेपर १: मराठी व इंग्रजी भाषा)',
     titleEn: 'MPSC Group B Combined Mains (Paper 1: Marathi & English Language)',
     examDate: '२०२३ / २०२४ अधिकृत',
@@ -336,6 +434,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_combine_mains_paper2_gs_aptitude',
     patternId: 'mpsc_combine_mains_pyq',
+    year: 2023,
     titleMr: 'MPSC अराजपत्रित गट-ब संयुक्त मुख्य परीक्षा (पेपर २: सामान्य अध्ययन व बुद्धिमत्ता)',
     titleEn: 'MPSC Group B Combined Mains (Paper 2: General Studies & Intelligence)',
     examDate: '२०२३ / २०२४ अधिकृत',
@@ -356,6 +455,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_psi_mains_law_paper2',
     patternId: 'mpsc_combine_mains_pyq',
+    year: 2022,
     titleMr: 'MPSC पोलीस उपनिरीक्षक (PSI) मुख्य परीक्षा (पेपर २: पदविषयक कायदे व सामान्य क्षमता)',
     titleEn: 'MPSC Police Sub-Inspector (PSI) Mains (Paper 2: Police Laws & Duties)',
     examDate: 'अधिकृत प्रश्नपत्रिका',
@@ -376,6 +476,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_group_c_prelims_official',
     patternId: 'mpsc_group_c_pre',
+    year: 2023,
     titleMr: 'MPSC गट-क (अराजपत्रित) सेवा संयुक्त पूर्व परीक्षा (उद्योग, कर सहाय्यक, लिपिक)',
     titleEn: 'MPSC Non-Gazetted Group C Services Combined Prelims Exam (Tax Asst, Clerk-Typist)',
     examDate: 'अधिकृत प्रश्नसंच',
@@ -396,6 +497,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_english_vocab_pyq_master',
     patternId: 'mpsc_combine_mains_pyq',
+    year: 2024,
     titleMr: 'MPSC अधिकृत इंग्रजी शब्दसंग्रह (PYQ English Vocabulary Master)',
     titleEn: 'MPSC Official English Vocabulary PYQ Master (Synonyms, Antonyms, Idioms, One-Word)',
     examDate: '२०११ - २०२४ अधिकृत',
@@ -416,6 +518,7 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   {
     id: 'mpsc_marathi_vocab_pyq_master',
     patternId: 'mpsc_combine_mains_pyq',
+    year: 2024,
     titleMr: 'MPSC अधिकृत मराठी शब्दसंग्रह (PYQ Marathi Vocabulary Master)',
     titleEn: 'MPSC Official Marathi Vocabulary PYQ Master (Synonyms, Antonyms, Idioms, One-Word)',
     examDate: '२०१५ - २०२४ अधिकृत',
@@ -435,30 +538,85 @@ export const OFFICIAL_PAPERS_CATALOG: OfficialPaperMeta[] = [
   }
 ];
 
+// Helper to highlight matching keyword inside text
+const highlightMatch = (text: string | undefined | null, query: string) => {
+  if (!text) return null;
+  if (!query || !query.trim()) return text;
+  const trimmed = query.trim();
+  const escaped = trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  try {
+    const regex = new RegExp(`(${escaped})`, 'gi');
+    const parts = text.split(regex);
+    if (parts.length === 1) return text;
+    return parts.map((part, i) =>
+      regex.test(part) ? (
+        <mark key={i} className="bg-amber-300 text-stone-950 font-black px-1 rounded-xs shadow-2xs">
+          {part}
+        </mark>
+      ) : (
+        part
+      )
+    );
+  } catch {
+    return text;
+  }
+};
+
+const SUGGESTED_KEYWORDS = [
+  { mr: 'कलम (Articles)', en: 'Articles', query: 'कलम' },
+  { mr: 'इतिहास', en: 'History', query: 'इतिहास' },
+  { mr: 'भूगोल', en: 'Geography', query: 'भूगोल' },
+  { mr: 'राज्यघटना', en: 'Polity', query: 'राज्यघटना' },
+  { mr: 'अर्थव्यवस्था', en: 'Economy', query: 'अर्थव्यवस्था' },
+  { mr: 'समिती', en: 'Committees', query: 'समिती' },
+  { mr: '१८५७', en: '1857 Revolt', query: '१८५७' },
+  { mr: 'राज्यपाल', en: 'Governor', query: 'राज्यपाल' },
+  { mr: 'नदी', en: 'Rivers', query: 'नदी' },
+  { mr: 'विज्ञान', en: 'Science', query: 'विज्ञान' }
+];
+
 export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
   isOpen,
   onClose,
   language,
   onStartExam,
+  initialYear = 'all'
 }) => {
   const isMr = language === 'mr';
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'rajyaseva' | 'combine' | 'psi'>('all');
+  const [selectedYear, setSelectedYear] = useState<number | 'all'>(initialYear || 'all');
   const [searchQuery, setSearchQuery] = useState('');
   const [studyingPaper, setStudyingPaper] = useState<OfficialPaperMeta | null>(null);
   const [studyFilterSubject, setStudyFilterSubject] = useState<string>('all');
   const [studySearchQuery, setStudySearchQuery] = useState<string>('');
 
+  useEffect(() => {
+    if (initialYear !== undefined) {
+      setSelectedYear(initialYear);
+    }
+  }, [initialYear]);
+
   if (!isOpen) return null;
 
   const filteredPapers = OFFICIAL_PAPERS_CATALOG.filter((paper) => {
     const matchesCategory = selectedCategory === 'all' || paper.category === selectedCategory;
+    const matchesYear = selectedYear === 'all' || paper.year === selectedYear;
     const query = searchQuery.toLowerCase().trim();
-    const matchesQuery = !query || 
+    if (!query) return matchesCategory && matchesYear;
+
+    const matchesPaperMeta = 
       paper.titleMr.toLowerCase().includes(query) ||
       paper.titleEn.toLowerCase().includes(query) ||
       paper.descriptionMr.toLowerCase().includes(query) ||
-      paper.descriptionEn.toLowerCase().includes(query);
-    return matchesCategory && matchesQuery;
+      paper.descriptionEn.toLowerCase().includes(query) ||
+      (paper.year && paper.year.toString().includes(query));
+
+    const matchesQuestionKeyword = paper.questions.some(q => {
+      const qText = `${q.questionMr || ''} ${q.questionEn || ''} ${q.topic || ''} ${q.subtopic || ''} ${(q.optionsMr || []).join(' ')}`.toLowerCase();
+      return qText.includes(query);
+    });
+
+    return matchesCategory && matchesYear && (matchesPaperMeta || matchesQuestionKeyword);
   });
 
   const handleLaunchPaper = (paper: OfficialPaperMeta) => {
@@ -467,12 +625,39 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
     onStartExam(paper.patternId, undefined, isMr ? paper.titleMr : paper.titleEn);
   };
 
-  const handleOpenStudyMode = (paper: OfficialPaperMeta) => {
+  const handleOpenStudyMode = (paper: OfficialPaperMeta, initialKeywordSearch: string = '') => {
     soundFx.playClickSound();
     setStudyingPaper(paper);
+    if (initialKeywordSearch) {
+      setStudySearchQuery(initialKeywordSearch);
+    }
   };
 
   const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
+
+  // Prepared filtered questions list for study mode
+  const searchNormalized = studySearchQuery.toLowerCase().trim();
+  const filteredQuestionsList = studyingPaper
+    ? studyingPaper.questions
+        .map((q, originalIndex) => ({ q, originalIndex }))
+        .filter(({ q, originalIndex }) => {
+          const matchesSubject = studyFilterSubject === 'all' || q.subjectId === studyFilterSubject;
+          if (!matchesSubject) return false;
+          if (!searchNormalized) return true;
+
+          const qText = (isMr ? q.questionMr : q.questionEn) || q.questionMr || '';
+          const expText = (isMr ? q.explanationMr : q.explanationEn) || q.explanationMr || '';
+          const opts = (isMr ? q.optionsMr : q.optionsEn) || q.optionsMr || [];
+          const optsText = opts.join(' ');
+          const topicText = q.topic || '';
+          const subtopicText = q.subtopic || '';
+          const refText = q.reference || '';
+          const num = `${originalIndex + 1}`;
+
+          const haystack = `${qText} ${expText} ${optsText} ${topicText} ${subtopicText} ${refText} #${num} ${num}`.toLowerCase();
+          return haystack.includes(searchNormalized);
+        })
+    : [];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-stone-950/80 backdrop-blur-sm animate-in fade-in duration-200">
@@ -503,7 +688,7 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
             </h2>
             <p className="text-xs sm:text-sm text-stone-300">
               {studyingPaper
-                ? (isMr ? 'प्रत्येक प्रश्नाचे अचूक उत्तर आणि खालील स्पष्टीकरण बॉक्स काळजीपूर्वक अभ्यासा.' : 'Study questions with official answers and in-depth explanation cards.')
+                ? (isMr ? 'कीवर्ड सर्च बॉक्स वापरून कोणतेही प्रश्न त्वरित शोधा आणि सविस्तर स्पष्टीकरणे अभ्यासा.' : 'Quickly search specific questions by keyword and study detailed official solutions.')
                 : (isMr 
                     ? 'एमपीएससी राज्यसेवा व संयुक्त गट-ब च्या मूळ प्रश्नपत्रिका, अधिकृत उत्तरतालिका आणि स्पष्टीकरणासह सोडवा.'
                     : 'Solve original MPSC exam papers with official answer keys, time constraints, and detailed solutions.')}
@@ -516,6 +701,8 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
                 onClick={() => {
                   soundFx.playClickSound();
                   setStudyingPaper(null);
+                  setStudySearchQuery('');
+                  setStudyFilterSubject('all');
                 }}
                 className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
               >
@@ -540,8 +727,8 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
         {studyingPaper ? (
           <div className="flex-1 flex flex-col overflow-hidden">
             {/* Top Toolbar in Study Mode */}
-            <div className="p-3 sm:p-4 border-b border-stone-200 bg-amber-50/60 flex items-center justify-between gap-3 shrink-0 flex-wrap">
-              <div className="flex items-center gap-2 text-xs font-bold text-amber-900">
+            <div className="p-3 sm:p-4 border-b border-stone-200 bg-amber-50/70 flex items-center justify-between gap-3 shrink-0 flex-wrap">
+              <div className="flex items-center gap-2 text-xs font-bold text-amber-900 flex-wrap">
                 <span className="px-2.5 py-1 rounded-lg bg-amber-200/80 border border-amber-300">
                   {studyingPaper.bookletCode}
                 </span>
@@ -550,7 +737,7 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
                 <span>📝 {studyingPaper.questions.length} {isMr ? 'प्रश्न उपलब्ध' : 'Questions'}</span>
                 <span>•</span>
                 <span className="text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-md border border-emerald-300">
-                  {isMr ? 'अचूक उत्तरतालिका व संदर्भ स्पष्टीकरण' : 'Key & Explanations'}
+                  {isMr ? 'अचूक उत्तरतालिका व संदर्भ' : 'Official Key & Solutions'}
                 </span>
               </div>
 
@@ -565,302 +752,484 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
               </div>
             </div>
 
-            {/* Subject Filters & Search Toolbar inside Paper */}
-            <div className="px-4 py-2.5 border-b border-stone-200 bg-white flex items-center justify-between gap-3 shrink-0 flex-wrap">
-              {/* Search in Paper */}
-              <div className="relative flex-1 min-w-[200px] max-w-sm">
-                <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder={isMr ? 'प्रश्नात किंवा स्पष्टीकरणात शोधा...' : 'Search in questions & explanations...'}
-                  value={studySearchQuery}
-                  onChange={(e) => setStudySearchQuery(e.target.value)}
-                  className="w-full pl-8 pr-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg text-xs font-medium text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                />
+            {/* Dedicated Text-Based Search Input Bar */}
+            <div className="p-3 sm:p-4 border-b border-stone-200 bg-white space-y-2.5 shrink-0">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                {/* Text search input */}
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 text-amber-600 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    id="pyq-paper-keyword-search"
+                    value={studySearchQuery}
+                    onChange={(e) => setStudySearchQuery(e.target.value)}
+                    placeholder={
+                      isMr
+                        ? 'या प्रश्नपत्रिकेत कीवर्डने प्रश्न शोधा (उदा. कलम ३२, सह्याद्री, १८५७, तेंडुलकर, किंवा #१५)...'
+                        : 'Search questions by keyword in this paper (e.g. Article 32, Sahyadri, 1857, or #15)...'
+                    }
+                    className="w-full pl-10 pr-9 py-2 bg-stone-50 hover:bg-white focus:bg-white border border-stone-300 focus:border-amber-500 rounded-xl text-xs sm:text-sm font-semibold text-stone-900 placeholder:text-stone-400 focus:outline-hidden transition-all shadow-2xs"
+                  />
+                  {studySearchQuery && (
+                    <button
+                      onClick={() => {
+                        soundFx.playClickSound();
+                        setStudySearchQuery('');
+                      }}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-stone-400 hover:text-stone-700 rounded-full hover:bg-stone-200 transition-colors cursor-pointer"
+                      title={isMr ? 'शोध साफ करा' : 'Clear search'}
+                      aria-label="Clear search"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Match Counter Badge */}
                 {studySearchQuery && (
-                  <button 
-                    onClick={() => setStudySearchQuery('')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 text-xs"
-                  >
-                    ×
-                  </button>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-xs font-bold text-amber-900 bg-amber-100 border border-amber-300 px-3 py-1.5 rounded-xl shadow-2xs flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                      <span>
+                        {isMr
+                          ? `शोध परिणाम: ${filteredQuestionsList.length} प्रश्न सापडले`
+                          : `${filteredQuestionsList.length} questions matched`}
+                      </span>
+                    </span>
+                    <button
+                      onClick={() => {
+                        soundFx.playClickSound();
+                        setStudySearchQuery('');
+                      }}
+                      className="text-xs text-stone-500 hover:text-stone-800 underline font-semibold cursor-pointer"
+                    >
+                      {isMr ? 'साफ करा' : 'Clear'}
+                    </button>
+                  </div>
                 )}
               </div>
 
-              {/* Subject Filter Pills */}
-              <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none text-xs">
-                {[
-                  { id: 'all', mr: 'सर्व प्रश्न', en: 'All' },
-                  { id: 'maharashtra_history', mr: 'इतिहास', en: 'History' },
-                  { id: 'maharashtra_geography', mr: 'भूगोल', en: 'Geography' },
-                  { id: 'polity', mr: 'राज्यघटना', en: 'Polity' },
-                  { id: 'economy', mr: 'अर्थव्यवस्था', en: 'Economy' },
-                  { id: 'general_science', mr: 'विज्ञान', en: 'Science' },
-                  { id: 'current_affairs', mr: 'चालू घडामोडी', en: 'Current Affairs' },
-                  { id: 'csat', mr: 'अंकगणित/बुद्धिमत्ता', en: 'Aptitude' },
-                ].map((subj) => (
-                  <button
-                    key={subj.id}
-                    onClick={() => setStudyFilterSubject(subj.id)}
-                    className={`px-2.5 py-1 rounded-lg font-bold whitespace-nowrap transition-all cursor-pointer ${
-                      studyFilterSubject === subj.id
-                        ? 'bg-amber-500 text-stone-950 shadow-xs'
-                        : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
-                    }`}
-                  >
-                    {isMr ? subj.mr : subj.en}
-                  </button>
-                ))}
+              {/* Quick Keyword Suggestion Tags & Subject Filters */}
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                {/* Suggested high-yield keyword tags */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs scrollbar-none max-w-full">
+                  <span className="text-[11px] font-bold text-stone-500 shrink-0 flex items-center gap-1 mr-1">
+                    <Flame className="w-3 h-3 text-amber-500" />
+                    {isMr ? 'जलद शोध:' : 'Quick tags:'}
+                  </span>
+                  {SUGGESTED_KEYWORDS.map((k, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        soundFx.playClickSound();
+                        setStudySearchQuery(k.query);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                        studySearchQuery === k.query
+                          ? 'bg-amber-500 text-stone-950 shadow-2xs'
+                          : 'bg-stone-100 hover:bg-amber-100 border border-stone-200/80 hover:border-amber-300 text-stone-700 hover:text-amber-900'
+                      }`}
+                    >
+                      {isMr ? k.mr : k.en}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Subject Filter Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none text-xs">
+                  {[
+                    { id: 'all', mr: 'सर्व विषय', en: 'All' },
+                    { id: 'maharashtra_history', mr: 'इतिहास', en: 'History' },
+                    { id: 'maharashtra_geography', mr: 'भूगोल', en: 'Geography' },
+                    { id: 'polity', mr: 'राज्यघटना', en: 'Polity' },
+                    { id: 'economy', mr: 'अर्थव्यवस्था', en: 'Economy' },
+                    { id: 'general_science', mr: 'विज्ञान', en: 'Science' },
+                    { id: 'current_affairs', mr: 'चालू घडामोडी', en: 'Current Affairs' },
+                    { id: 'csat', mr: 'अंकगणित/बुद्धिमत्ता', en: 'Aptitude' },
+                  ].map((subj) => (
+                    <button
+                      key={subj.id}
+                      onClick={() => setStudyFilterSubject(subj.id)}
+                      className={`px-2.5 py-1 rounded-lg font-bold whitespace-nowrap transition-all cursor-pointer ${
+                        studyFilterSubject === subj.id
+                          ? 'bg-stone-900 text-white shadow-xs'
+                          : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
+                      }`}
+                    >
+                      {isMr ? subj.mr : subj.en}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Questions List with Explanations in the exact requested clean format */}
-            <div className="p-4 sm:p-6 overflow-y-auto space-y-6 bg-stone-50/50">
-              {studyingPaper.questions
-                .map((q, originalIndex) => ({ q, originalIndex }))
-                .filter(({ q, originalIndex }) => {
-                  const matchesSubject = studyFilterSubject === 'all' || q.subjectId === studyFilterSubject;
-                  const qText = isMr ? q.questionMr : q.questionEn;
-                  const expText = isMr ? q.explanationMr : q.explanationEn;
-                  const topicText = q.topic || '';
-                  const subtopicText = q.subtopic || '';
-                  const search = studySearchQuery.toLowerCase().trim();
-                  const matchesSearch = !search ||
-                    qText.toLowerCase().includes(search) ||
-                    expText.toLowerCase().includes(search) ||
-                    topicText.toLowerCase().includes(search) ||
-                    subtopicText.toLowerCase().includes(search) ||
-                    `#${originalIndex + 1}`.includes(search);
-                  return matchesSubject && matchesSearch;
-                })
-                .map(({ q, originalIndex }) => {
-                const options = isMr ? q.optionsMr : q.optionsEn;
-                const questionText = isMr ? q.questionMr : q.questionEn;
-                const explanationText = isMr ? q.explanationMr : q.explanationEn;
+            {/* Questions List with Explanations and Keyword Highlighting */}
+            <div className="p-4 sm:p-6 overflow-y-auto space-y-6 bg-stone-50/50 flex-1">
+              {filteredQuestionsList.length > 0 ? (
+                filteredQuestionsList.map(({ q, originalIndex }) => {
+                  const options = isMr ? q.optionsMr : q.optionsEn;
+                  const questionText = isMr ? q.questionMr : q.questionEn;
+                  const explanationText = isMr ? q.explanationMr : q.explanationEn;
+                  const isKeywordMatched = Boolean(
+                    studySearchQuery.trim() &&
+                    `${questionText} ${explanationText} ${options.join(' ')} ${q.topic} ${q.reference}`
+                      .toLowerCase()
+                      .includes(studySearchQuery.toLowerCase().trim())
+                  );
 
-                return (
-                  <div
-                    key={q.id || originalIndex}
-                    className="bg-white rounded-2xl border-2 border-stone-200/90 shadow-sm p-5 sm:p-6 space-y-4 hover:border-stone-300 transition-all"
-                  >
-                    {/* Top Meta */}
-                    <div className="flex items-center justify-between gap-2 flex-wrap border-b border-stone-100 pb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="w-7 h-7 rounded-lg bg-stone-900 text-white font-black text-xs flex items-center justify-center">
-                          #{originalIndex + 1}
-                        </span>
-                        <span className="text-xs font-bold text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200">
-                          {q.topic}
-                        </span>
-                        {q.subtopic && (
-                          <span className="text-xs text-stone-500 hidden sm:inline">
-                            • {q.subtopic}
+                  return (
+                    <div
+                      key={q.id || originalIndex}
+                      className={`bg-white rounded-2xl border-2 shadow-sm p-5 sm:p-6 space-y-4 transition-all ${
+                        isKeywordMatched
+                          ? 'border-amber-400 ring-2 ring-amber-400/20'
+                          : 'border-stone-200/90 hover:border-stone-300'
+                      }`}
+                    >
+                      {/* Top Meta */}
+                      <div className="flex items-center justify-between gap-2 flex-wrap border-b border-stone-100 pb-3">
+                        <div className="flex items-center gap-2">
+                          <span className="w-7 h-7 rounded-lg bg-stone-900 text-white font-black text-xs flex items-center justify-center">
+                            #{originalIndex + 1}
                           </span>
-                        )}
-                      </div>
-                      <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
-                        <CheckCircle className="w-3 h-3 text-emerald-600" />
-                        {isMr ? 'अधिकृत आयोगाचा प्रश्न' : 'Official MPSC Question'}
-                      </span>
-                    </div>
-
-                    {/* Question Statement */}
-                    <p className="text-sm sm:text-base font-bold text-stone-900 leading-relaxed whitespace-pre-line">
-                      {questionText}
-                    </p>
-
-                    {/* Options List */}
-                    <div className="space-y-2.5 pt-1">
-                      {options.map((opt, optIndex) => {
-                        const isCorrect = optIndex === q.correctAnswerIndex;
-                        const letter = OPTION_LETTERS[optIndex] || `${optIndex + 1}`;
-
-                        return (
-                          <div
-                            key={optIndex}
-                            className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 text-xs sm:text-sm transition-all ${
-                              isCorrect
-                                ? 'border-emerald-500 bg-emerald-50/70 text-emerald-950 font-semibold shadow-xs'
-                                : 'border-stone-200 bg-[#fdfbf7] text-stone-800'
-                            }`}
-                          >
-                            <div className="flex items-center gap-3">
-                              <span
-                                className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 ${
-                                  isCorrect
-                                    ? 'bg-emerald-600 text-white'
-                                    : 'bg-stone-200/80 text-stone-700'
-                                }`}
-                              >
-                                {letter}
-                              </span>
-                              <span className="leading-snug">{opt}</span>
-                            </div>
-
-                            {isCorrect && (
-                              <div className="flex items-center gap-1.5 text-emerald-700 font-bold text-xs shrink-0">
-                                <Check className="w-4 h-4 text-emerald-600 stroke-[2.5]" />
-                                <span>{isMr ? 'अचूक उत्तर' : 'Correct Answer'}</span>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    {/* Official Explanation Box (Warm Orange/Amber Theme matching user preference) */}
-                    <div className="rounded-xl border border-amber-300/80 bg-[#fffaf3] p-4 sm:p-5 space-y-2 mt-4">
-                      <div className="flex items-center gap-2 text-amber-900 font-bold text-xs sm:text-sm">
-                        <BookOpen className="w-4 h-4 text-amber-600" />
-                        <span>{isMr ? '📖 स्पष्टीकरण (Explanation)' : '📖 Explanation'}</span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-stone-800 leading-relaxed whitespace-pre-line italic font-serif">
-                        {explanationText}
-                      </p>
-                      {q.reference && (
-                        <div className="pt-2 border-t border-amber-200/60 flex items-center gap-1.5 text-[11px] text-amber-800/90 font-medium">
-                          <span className="font-bold">{isMr ? '📚 अधिकृत संदर्भ:' : '📚 Reference:'}</span>
-                          <span>{q.reference}</span>
+                          <span className="text-xs font-bold text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200">
+                            {highlightMatch(q.topic, studySearchQuery)}
+                          </span>
+                          {q.subtopic && (
+                            <span className="text-xs text-stone-500 hidden sm:inline">
+                              • {highlightMatch(q.subtopic, studySearchQuery)}
+                            </span>
+                          )}
                         </div>
-                      )}
 
-                      {/* Visual Memory Aid & Maps */}
-                      <VisualMemoryAid
-                        subjectId={q.subjectId}
-                        topic={q.topic}
-                        subtopic={q.subtopic}
-                        language={language}
-                        defaultMapType={q.mapType}
-                        customImageUrl={q.imageUrl}
-                        memoryTrickMr={q.memoryTrickMr}
-                        memoryTrickEn={q.memoryTrickEn}
-                      />
+                        <div className="flex items-center gap-2">
+                          {isKeywordMatched && (
+                            <span className="text-[11px] font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-300 flex items-center gap-1">
+                              <Sparkles className="w-3 h-3 text-amber-600" />
+                              {isMr ? 'कीवर्ड जुळला' : 'Keyword Match'}
+                            </span>
+                          )}
+                          <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+                            <CheckCircle className="w-3 h-3 text-emerald-600" />
+                            {isMr ? 'अधिकृत आयोगाचा प्रश्न' : 'Official MPSC Question'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Question Statement with Keyword Highlight */}
+                      <p className="text-sm sm:text-base font-bold text-stone-900 leading-relaxed whitespace-pre-line">
+                        {highlightMatch(questionText, studySearchQuery)}
+                      </p>
+
+                      {/* Options List with Keyword Highlight */}
+                      <div className="space-y-2.5 pt-1">
+                        {options.map((opt, optIndex) => {
+                          const isCorrect = optIndex === q.correctAnswerIndex;
+                          const letter = OPTION_LETTERS[optIndex] || `${optIndex + 1}`;
+
+                          return (
+                            <div
+                              key={optIndex}
+                              className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 text-xs sm:text-sm transition-all ${
+                                isCorrect
+                                  ? 'border-emerald-500 bg-emerald-50/70 text-emerald-950 font-semibold shadow-xs'
+                                  : 'border-stone-200 bg-[#fdfbf7] text-stone-800'
+                              }`}
+                            >
+                              <div className="flex items-center gap-3">
+                                <span
+                                  className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black shrink-0 ${
+                                    isCorrect
+                                      ? 'bg-emerald-600 text-white'
+                                      : 'bg-stone-200/80 text-stone-700'
+                                  }`}
+                                >
+                                  {letter}
+                                </span>
+                                <span className="leading-snug">
+                                  {highlightMatch(opt, studySearchQuery)}
+                                </span>
+                              </div>
+
+                              {isCorrect && (
+                                <div className="flex items-center gap-1.5 text-emerald-700 font-bold text-xs shrink-0">
+                                  <Check className="w-4 h-4 text-emerald-600 stroke-[2.5]" />
+                                  <span>{isMr ? 'अचूक उत्तर' : 'Correct Answer'}</span>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Official Explanation Box with Keyword Highlight */}
+                      <div className="rounded-xl border border-amber-300/80 bg-[#fffaf3] p-4 sm:p-5 space-y-2 mt-4">
+                        <div className="flex items-center gap-2 text-amber-900 font-bold text-xs sm:text-sm">
+                          <BookOpen className="w-4 h-4 text-amber-600" />
+                          <span>{isMr ? '📖 स्पष्टीकरण (Explanation)' : '📖 Explanation'}</span>
+                        </div>
+                        <p className="text-xs sm:text-sm text-stone-800 leading-relaxed whitespace-pre-line italic font-serif">
+                          {highlightMatch(explanationText, studySearchQuery)}
+                        </p>
+                        {q.reference && (
+                          <div className="pt-2 border-t border-amber-200/60 flex items-center gap-1.5 text-[11px] text-amber-800/90 font-medium">
+                            <span className="font-bold">{isMr ? '📚 अधिकृत संदर्भ:' : '📚 Reference:'}</span>
+                            <span>{highlightMatch(q.reference, studySearchQuery)}</span>
+                          </div>
+                        )}
+
+                        {/* Visual Memory Aid & Maps */}
+                        <VisualMemoryAid
+                          subjectId={q.subjectId}
+                          topic={q.topic}
+                          subtopic={q.subtopic}
+                          language={language}
+                          defaultMapType={q.mapType}
+                          customImageUrl={q.imageUrl}
+                          memoryTrickMr={q.memoryTrickMr}
+                          memoryTrickEn={q.memoryTrickEn}
+                        />
+                      </div>
                     </div>
+                  );
+                })
+              ) : (
+                /* Empty search results state */
+                <div className="bg-white rounded-3xl border-2 border-dashed border-stone-300 p-10 text-center space-y-4 my-8">
+                  <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-xs">
+                    <Search className="w-7 h-7" />
                   </div>
-                );
-              })}
+                  <div className="space-y-1">
+                    <h3 className="text-base sm:text-lg font-bold text-stone-900">
+                      {isMr 
+                        ? `"${studySearchQuery}" हा शब्द असलेला एकही प्रश्न सापडला नाही` 
+                        : `No questions found matching "${studySearchQuery}"`}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-stone-500 max-w-md mx-auto">
+                      {isMr 
+                        ? 'कृपया स्पेलिंग तपासा किंवा वरील सुचवलेल्या कीवर्ड्स (उदा. कलम, इतिहास, नदी, समिती) पैकी एक निवडा.' 
+                        : 'Try searching with a different keyword or choose one of the suggested tags above.'}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-center gap-3 pt-2">
+                    <button
+                      onClick={() => {
+                        soundFx.playClickSound();
+                        setStudySearchQuery('');
+                        setStudyFilterSubject('all');
+                      }}
+                      className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold text-xs sm:text-sm inline-flex items-center gap-2 transition-all shadow-xs cursor-pointer"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                      <span>{isMr ? 'शोध साफ करा व सर्व प्रश्न पहा' : 'Reset Search & View All'}</span>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ) : (
           /* Catalog View */
           <>
             {/* Filter & Search Bar */}
-            <div className="p-4 sm:p-5 border-b border-stone-200 bg-stone-50 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
-              <div className="flex items-center gap-1.5 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-                <button
-                  onClick={() => setSelectedCategory('all')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
-                    selectedCategory === 'all'
-                      ? 'bg-stone-900 text-white shadow-xs'
-                      : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
-                  }`}
-                >
-                  {isMr ? 'सर्व प्रश्नपत्रिका' : 'All Papers'}
-                </button>
-                <button
-                  onClick={() => setSelectedCategory('rajyaseva')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
-                    selectedCategory === 'rajyaseva'
-                      ? 'bg-amber-600 text-white shadow-xs'
-                      : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
-                  }`}
-                >
-                  {isMr ? 'राज्यसेवा (Rajyaseva)' : 'Rajyaseva'}
-                </button>
-                <button
-                  onClick={() => setSelectedCategory('combine')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
-                    selectedCategory === 'combine'
-                      ? 'bg-blue-600 text-white shadow-xs'
-                      : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
-                  }`}
-                >
-                  {isMr ? 'संयुक्त गट-ब व क (Combine)' : 'Combine B & C'}
-                </button>
-                <button
-                  onClick={() => setSelectedCategory('psi')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
-                    selectedCategory === 'psi'
-                      ? 'bg-emerald-600 text-white shadow-xs'
-                      : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
-                  }`}
-                >
-                  {isMr ? 'PSI कायदे (Law)' : 'PSI Law'}
-                </button>
+            <div className="p-4 sm:p-5 border-b border-stone-200 bg-stone-50 flex flex-col gap-3.5 shrink-0">
+              {/* Year Filter Bar */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs scrollbar-none w-full">
+                <span className="text-[11px] font-bold text-stone-600 shrink-0 flex items-center gap-1 mr-1">
+                  <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                  {isMr ? 'वर्ष निवडा:' : 'Select Year:'}
+                </span>
+                {([
+                  { id: 'all', labelMr: 'सर्व वर्षे (All)', labelEn: 'All Years' },
+                  { id: 2026, labelMr: '२०२६', labelEn: '2026' },
+                  { id: 2025, labelMr: '२०२५', labelEn: '2025' },
+                  { id: 2024, labelMr: '२०२४', labelEn: '2024' },
+                  { id: 2023, labelMr: '२०२३', labelEn: '2023' },
+                  { id: 2022, labelMr: '२०२२', labelEn: '2022' },
+                  { id: 2021, labelMr: '२०२१', labelEn: '2021' },
+                  { id: 2020, labelMr: '२०२०', labelEn: '2020' },
+                  { id: 2019, labelMr: '२०१९', labelEn: '2019' },
+                  { id: 2018, labelMr: '२०१८', labelEn: '2018' },
+                ] as const).map((yr) => {
+                  const isSelected = selectedYear === yr.id;
+                  return (
+                    <button
+                      key={yr.id}
+                      onClick={() => {
+                        soundFx.playClickSound();
+                        setSelectedYear(yr.id as any);
+                      }}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                        isSelected
+                          ? 'bg-amber-500 text-stone-950 shadow-xs'
+                          : 'bg-white border border-stone-200 text-stone-600 hover:bg-stone-100 hover:text-stone-900'
+                      }`}
+                    >
+                      {isMr ? yr.labelMr : yr.labelEn}
+                    </button>
+                  );
+                })}
               </div>
 
-              <div className="relative w-full sm:w-72">
-                <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={isMr ? 'प्रश्नपत्रिका शोधा...' : 'Search papers...'}
-                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
-                />
+              {/* Category and Catalog Search */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="flex items-center gap-1.5 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+                  <button
+                    onClick={() => setSelectedCategory('all')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                      selectedCategory === 'all'
+                        ? 'bg-stone-900 text-white shadow-xs'
+                        : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
+                    }`}
+                  >
+                    {isMr ? 'सर्व परीक्षा' : 'All Exams'}
+                  </button>
+                  <button
+                    onClick={() => setSelectedCategory('rajyaseva')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                      selectedCategory === 'rajyaseva'
+                        ? 'bg-amber-600 text-white shadow-xs'
+                        : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
+                    }`}
+                  >
+                    {isMr ? 'राज्यसेवा (Rajyaseva)' : 'Rajyaseva'}
+                  </button>
+                  <button
+                    onClick={() => setSelectedCategory('combine')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                      selectedCategory === 'combine'
+                        ? 'bg-blue-600 text-white shadow-xs'
+                        : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
+                    }`}
+                  >
+                    {isMr ? 'संयुक्त गट-ब व क (Combine)' : 'Combine B & C'}
+                  </button>
+                  <button
+                    onClick={() => setSelectedCategory('psi')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                      selectedCategory === 'psi'
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'bg-white border border-stone-300 text-stone-700 hover:bg-stone-100'
+                    }`}
+                  >
+                    {isMr ? 'PSI कायदे (Law)' : 'PSI Law'}
+                  </button>
+                </div>
+
+                <div className="relative w-full sm:w-80">
+                  <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={isMr ? 'प्रश्नपत्रिका किंवा कीवर्ड शोधा...' : 'Search papers or keywords...'}
+                    className="w-full pl-9 pr-8 py-1.5 rounded-xl border border-stone-300 bg-white text-xs sm:text-sm focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 text-xs"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Papers List */}
             <div className="p-4 sm:p-6 overflow-y-auto space-y-4">
-              {filteredPapers.map((paper) => (
-                <div
-                  key={paper.id}
-                  className="bg-white rounded-2xl border-2 border-stone-200 hover:border-amber-500/80 p-5 sm:p-6 transition-all hover:shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-5 group"
-                >
-                  <div className="space-y-2.5 max-w-2xl">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2.5 py-0.5 rounded-md text-xs font-black bg-stone-100 text-stone-800 border border-stone-200">
-                        {paper.bookletCode}
-                      </span>
-                      <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                        📅 {paper.examDate}
-                      </span>
-                      <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        {isMr ? paper.categoryLabelMr : paper.categoryLabelEn}
-                      </span>
+              {filteredPapers.map((paper) => {
+                const searchQ = searchQuery.toLowerCase().trim();
+                const matchedQuestionsCount = searchQ
+                  ? paper.questions.filter((q) => {
+                      const qText = `${q.questionMr || ''} ${q.questionEn || ''} ${q.topic || ''} ${q.subtopic || ''} ${(q.optionsMr || []).join(' ')}`.toLowerCase();
+                      return qText.includes(searchQ);
+                    }).length
+                  : 0;
+
+                return (
+                  <div
+                    key={paper.id}
+                    className="bg-white rounded-2xl border-2 border-stone-200 hover:border-amber-500/80 p-5 sm:p-6 transition-all hover:shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-5 group"
+                  >
+                    <div className="space-y-2.5 max-w-2xl">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="px-2.5 py-0.5 rounded-md text-xs font-black bg-stone-100 text-stone-800 border border-stone-200">
+                          {paper.bookletCode}
+                        </span>
+                        <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                          📅 {paper.examDate}
+                        </span>
+                        <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                          {isMr ? paper.categoryLabelMr : paper.categoryLabelEn}
+                        </span>
+                        {paper.year && (
+                          <span className="px-2.5 py-0.5 rounded-md text-xs font-black bg-purple-50 text-purple-800 border border-purple-200">
+                            {paper.year}
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="text-base sm:text-lg font-bold text-stone-900 group-hover:text-amber-600 transition-colors">
+                        {isMr ? paper.titleMr : paper.titleEn}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                        {isMr ? paper.descriptionMr : paper.descriptionEn}
+                      </p>
+
+                      {/* If user searched keyword and matches exist in this paper */}
+                      {matchedQuestionsCount > 0 && (
+                        <div className="flex items-center gap-2 p-2 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-bold">
+                          <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                          <span>
+                            {isMr 
+                              ? `या प्रश्नपत्रिकेत "${searchQuery}" कीवर्डशी संबंधित ${matchedQuestionsCount} प्रश्न उपलब्ध आहेत.`
+                              : `${matchedQuestionsCount} questions match "${searchQuery}" in this paper.`}
+                          </span>
+                          <button
+                            onClick={() => handleOpenStudyMode(paper, searchQuery)}
+                            className="ml-auto text-amber-800 hover:text-amber-950 underline cursor-pointer text-xs"
+                          >
+                            {isMr ? 'हे प्रश्न शोधा →' : 'View matches →'}
+                          </button>
+                        </div>
+                      )}
+
+                      <div className="flex items-center gap-3 text-xs text-stone-500 font-medium flex-wrap pt-1">
+                        <span>⏱️ {paper.durationMinutes} {isMr ? 'मिनिटे' : 'Mins'}</span>
+                        <span>•</span>
+                        <span>📝 {paper.totalQuestions} {isMr ? 'प्रश्न' : 'Questions'}</span>
+                        <span>•</span>
+                        <span>🎯 {paper.totalMarks} {isMr ? 'गुण' : 'Marks'}</span>
+                        <span>•</span>
+                        <span>⚖️ {paper.negativeMarking}</span>
+                      </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold text-stone-900 group-hover:text-amber-600 transition-colors">
-                      {isMr ? paper.titleMr : paper.titleEn}
-                    </h3>
+                    <div className="flex items-center gap-2.5 w-full md:w-auto shrink-0 pt-2 md:pt-0 flex-wrap">
+                      {/* Button 1: Search Questions & Read Detailed Solutions */}
+                      <button
+                        onClick={() => handleOpenStudyMode(paper, searchQuery)}
+                        className="flex-1 md:flex-none px-4 py-2.5 rounded-xl border border-stone-300 hover:border-amber-500 bg-white hover:bg-amber-50 text-stone-800 hover:text-amber-900 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all shadow-2xs"
+                      >
+                        <Search className="w-4 h-4 text-amber-600" />
+                        <span>{isMr ? 'प्रश्न शोधा व स्पष्टीकरणे' : 'Search Questions & Solutions'}</span>
+                      </button>
 
-                    <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
-                      {isMr ? paper.descriptionMr : paper.descriptionEn}
-                    </p>
-
-                    <div className="flex items-center gap-3 text-xs text-stone-500 font-medium flex-wrap pt-1">
-                      <span>⏱️ {paper.durationMinutes} {isMr ? 'मिनिटे' : 'Mins'}</span>
-                      <span>•</span>
-                      <span>📝 {paper.totalQuestions} {isMr ? 'प्रश्न' : 'Questions'}</span>
-                      <span>•</span>
-                      <span>🎯 {paper.totalMarks} {isMr ? 'गुण' : 'Marks'}</span>
-                      <span>•</span>
-                      <span>⚖️ {paper.negativeMarking}</span>
+                      {/* Button 2: Start Timed Exam */}
+                      <button
+                        onClick={() => handleLaunchPaper(paper)}
+                        className="flex-1 md:flex-none px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-amber-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-xs group-hover:shadow-md"
+                      >
+                        <Play className="w-4 h-4 fill-current" />
+                        <span>{isMr ? 'परीक्षा सोडवा' : 'Start Exam'}</span>
+                      </button>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2.5 w-full md:w-auto shrink-0 pt-2 md:pt-0 flex-wrap">
-                    {/* Button 1: Read Questions & Detailed Explanations */}
-                    <button
-                      onClick={() => handleOpenStudyMode(paper)}
-                      className="flex-1 md:flex-none px-4 py-2.5 rounded-xl border border-stone-300 hover:border-amber-500 bg-white hover:bg-amber-50 text-stone-800 hover:text-amber-900 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer transition-all shadow-2xs"
-                    >
-                      <Eye className="w-4 h-4 text-amber-600" />
-                      <span>{isMr ? 'स्पष्टीकरणे वाचा' : 'Read Solutions'}</span>
-                    </button>
-
-                    {/* Button 2: Start Timed Exam */}
-                    <button
-                      onClick={() => handleLaunchPaper(paper)}
-                      className="flex-1 md:flex-none px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-amber-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-xs group-hover:shadow-md"
-                    >
-                      <Play className="w-4 h-4 fill-current" />
-                      <span>{isMr ? 'परीक्षा सोडवा' : 'Start Exam'}</span>
-                    </button>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
 
               {filteredPapers.length === 0 && (
                 <div className="text-center py-12 text-stone-500 space-y-2">
