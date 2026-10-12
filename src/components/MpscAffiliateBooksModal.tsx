@@ -21,7 +21,10 @@ import {
   Play,
   RotateCcw,
   Sliders,
-  Share2
+  Share2,
+  Link as LinkIcon,
+  Plus,
+  Trash2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import {
@@ -31,7 +34,11 @@ import {
   saveAffiliateTag,
   buildAmazonAffiliateUrl,
   DEFAULT_AMAZON_AFFILIATE_TAG,
-  AMAZON_AFFILIATE_STEPS_MR
+  AMAZON_AFFILIATE_STEPS_MR,
+  getCustomAffiliateBooks,
+  saveCustomAffiliateBook,
+  deleteCustomAffiliateBook,
+  attachTagToAmazonUrl
 } from '../data/mpscAffiliateBooks';
 import { SubjectId } from '../types';
 
@@ -40,7 +47,7 @@ interface MpscAffiliateBooksModalProps {
   onClose: () => void;
   language: 'mr' | 'en';
   onStartPractice?: (subjectId?: SubjectId, customTitle?: string) => void;
-  initialTab?: 'books' | 'guide' | 'settings';
+  initialTab?: 'books' | 'guide' | 'settings' | 'link_checker';
 }
 
 export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = ({
@@ -51,11 +58,25 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
   initialTab = 'books',
 }) => {
   const isMr = language === 'mr';
-  const [activeTab, setActiveTab] = useState<'books' | 'guide' | 'settings'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'books' | 'guide' | 'settings' | 'link_checker'>(initialTab);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedBookId, setCopiedBookId] = useState<string | null>(null);
   
+  // Custom books added by the user
+  const [customBooks, setCustomBooks] = useState<MpscAffiliateBook[]>([]);
+
+  // Link Checker & Custom Book Adder State
+  const [testUrlInput, setTestUrlInput] = useState<string>('https://link.amazon/B0euWZvxo');
+  const [isCopiedTestUrl, setIsCopiedTestUrl] = useState<boolean>(false);
+  
+  // New Book form state
+  const [newBookTitle, setNewBookTitle] = useState<string>('MPSC चालू घडामोडी / सराव संच');
+  const [newBookAuthor, setNewBookAuthor] = useState<string>('');
+  const [newBookPrice, setNewBookPrice] = useState<string>('399');
+  const [newBookSubject, setNewBookSubject] = useState<string>('current_affairs');
+  const [bookAddSuccess, setBookAddSuccess] = useState<boolean>(false);
+
   // Custom Amazon Tag state
   const [affiliateTag, setAffiliateTag] = useState<string>(getStoredAffiliateTag());
   const [tagInput, setTagInput] = useState<string>(affiliateTag);
@@ -72,27 +93,46 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
       setAffiliateTag(current);
       setTagInput(current);
       setActiveTab(initialTab);
+      setCustomBooks(getCustomAffiliateBooks());
     }
   }, [isOpen, initialTab]);
 
-  const categories = [
-    { id: 'all', labelMr: 'सर्व पुस्तके (१२)', labelEn: 'All Books (12)' },
-    { id: 'polity', labelMr: 'राज्यशास्त्र', labelEn: 'Polity' },
-    { id: 'maharashtra_geography', labelMr: 'भूगोल', labelEn: 'Geography' },
-    { id: 'maharashtra_history', labelMr: 'इतिहास', labelEn: 'History' },
-    { id: 'economy', labelMr: 'अर्थशास्त्र', labelEn: 'Economy' },
-    { id: 'general_science', labelMr: 'सामान्य विज्ञान', labelEn: 'Science' },
-    { id: 'marathi_grammar', labelMr: 'मराठी व्याकरण', labelEn: 'Marathi' },
-    { id: 'english', labelMr: 'इंग्रजी व्याकरण', labelEn: 'English' },
-    { id: 'csat', labelMr: 'CSAT बुद्धिमत्ता', labelEn: 'CSAT' },
-    { id: 'pyq', labelMr: 'PYQ व ठोकळा', labelEn: 'PYQ Compilations' },
-    { id: 'current_affairs', labelMr: 'चालू घडामोडी', labelEn: 'Current Affairs' },
-  ];
+  const allCombinedBooks = useMemo(() => {
+    return [...customBooks, ...MPSC_AFFILIATE_BOOKS_DATA];
+  }, [customBooks]);
+
+  const categories = useMemo(() => {
+    const list = [
+      { id: 'all', labelMr: `सर्व पुस्तके (${allCombinedBooks.length})`, labelEn: `All Books (${allCombinedBooks.length})` },
+    ];
+    if (customBooks.length > 0) {
+      list.push({
+        id: 'custom',
+        labelMr: `⭐ माझी जोडलेली पुस्तके (${customBooks.length})`,
+        labelEn: `⭐ My Added Books (${customBooks.length})`,
+      });
+    }
+    list.push(
+      { id: 'polity', labelMr: 'राज्यशास्त्र', labelEn: 'Polity' },
+      { id: 'maharashtra_geography', labelMr: 'भूगोल', labelEn: 'Geography' },
+      { id: 'maharashtra_history', labelMr: 'इतिहास', labelEn: 'History' },
+      { id: 'economy', labelMr: 'अर्थशास्त्र', labelEn: 'Economy' },
+      { id: 'general_science', labelMr: 'सामान्य विज्ञान', labelEn: 'Science' },
+      { id: 'marathi_grammar', labelMr: 'मराठी व्याकरण', labelEn: 'Marathi' },
+      { id: 'english', labelMr: 'इंग्रजी व्याकरण', labelEn: 'English' },
+      { id: 'csat', labelMr: 'CSAT बुद्धिमत्ता', labelEn: 'CSAT' },
+      { id: 'pyq', labelMr: 'PYQ व ठोकळा', labelEn: 'PYQ Compilations' },
+      { id: 'current_affairs', labelMr: 'चालू घडामोडी', labelEn: 'Current Affairs' }
+    );
+    return list;
+  }, [customBooks, allCombinedBooks.length]);
 
   const filteredBooks = useMemo(() => {
-    return MPSC_AFFILIATE_BOOKS_DATA.filter((book) => {
+    return allCombinedBooks.filter((book) => {
       if (selectedCategory !== 'all') {
-        if (selectedCategory === 'economy') {
+        if (selectedCategory === 'custom') {
+          if (!book.id.startsWith('custom_')) return false;
+        } else if (selectedCategory === 'economy') {
           if (book.subjectId !== 'economy') return false;
         } else if (book.subjectId !== selectedCategory) {
           return false;
@@ -111,7 +151,7 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
         book.tags.some((t) => t.toLowerCase().includes(q))
       );
     });
-  }, [selectedCategory, searchQuery]);
+  }, [allCombinedBooks, selectedCategory, searchQuery]);
 
   const handleSaveTag = (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,6 +180,63 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
     navigator.clipboard.writeText(url);
     setCopiedBookId(book.id);
     setTimeout(() => setCopiedBookId(null), 2500);
+  };
+
+  const handleCopyTestUrl = (urlToCopy: string) => {
+    navigator.clipboard.writeText(urlToCopy);
+    setIsCopiedTestUrl(true);
+    setTimeout(() => setIsCopiedTestUrl(false), 2500);
+  };
+
+  const handleAddCustomBook = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!testUrlInput.trim() || !newBookTitle.trim()) return;
+
+    const parsedPrice = parseInt(newBookPrice, 10) || 399;
+    const newBook: MpscAffiliateBook = {
+      id: `custom_${Date.now()}`,
+      titleMr: newBookTitle.trim(),
+      titleEn: newBookTitle.trim(),
+      authorMr: newBookAuthor.trim() || 'एमपीएससी संदर्भ लेखक',
+      authorEn: newBookAuthor.trim() || 'MPSC Reference Author',
+      publisherMr: 'ॲमेझॉन सेलर / प्रकाशक',
+      publisherEn: 'Amazon Seller / Publisher',
+      subjectId: (newBookSubject as any) || 'current_affairs',
+      subjectNameMr: 'अभ्यास साहित्य व सराव',
+      subjectNameEn: 'Study Material & Practice',
+      editionMr: 'नवीनतम आवृत्ती',
+      editionEn: 'Latest Edition',
+      mrp: Math.round(parsedPrice * 1.3),
+      offerPrice: parsedPrice,
+      discountPercent: 23,
+      rating: 4.7,
+      reviewsCount: 320,
+      coverImage: '/mpsc_textbooks.jpg',
+      importanceMr: 'विद्यार्थ्यांसाठी शिफारस केलेले महत्त्वाचे संदर्भ पुस्तक.',
+      importanceEn: 'Recommended reference material for MPSC preparation.',
+      topperTipMr: 'हे पुस्तक सराव चाचण्यांसह नियमित रिव्हाईज करा.',
+      badgeMr: '⭐ जोडलेले पुस्तक (Custom)',
+      badgeEn: '⭐ Added Book',
+      tags: ['सराव', 'चालू घडामोडी', 'MPSC', 'पुस्तके'],
+      customUrl: testUrlInput.trim(),
+      amazonKeywords: newBookTitle.trim(),
+      estimatedCommissionPercent: 8,
+    };
+
+    saveCustomAffiliateBook(newBook);
+    setCustomBooks(getCustomAffiliateBooks());
+    setBookAddSuccess(true);
+    confetti({
+      particleCount: 50,
+      spread: 70,
+      origin: { y: 0.5 },
+    });
+    setTimeout(() => setBookAddSuccess(false), 3000);
+  };
+
+  const handleDeleteCustomBook = (bookId: string) => {
+    deleteCustomAffiliateBook(bookId);
+    setCustomBooks(getCustomAffiliateBooks());
   };
 
   // Calculator calculations
@@ -235,7 +332,20 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
               }`}
             >
               <Settings className="w-4 h-4" />
-              <span>{isMr ? '⚙️ टॅग सेटिंग्ज व कॅल्क्युलेटर' : 'Tag Settings & Calculator'}</span>
+              <span>{isMr ? '⚙️ टॅग व कॅल्क्युलेटर' : 'Tag & Calculator'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab('link_checker')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
+                activeTab === 'link_checker'
+                  ? 'bg-amber-500 text-stone-950 shadow-md'
+                  : 'bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 border border-amber-500/30'
+              }`}
+            >
+              <LinkIcon className="w-4 h-4" />
+              <span>{isMr ? '🔗 ॲमेझॉन लिंक तपासक व ॲड पुस्तक' : 'Link Checker & Add Book'}</span>
             </button>
           </div>
 
@@ -279,6 +389,16 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
                   <span className="text-xs text-stone-400 whitespace-nowrap">
                     {isMr ? `${filteredBooks.length} संदर्भ पुस्तके` : `${filteredBooks.length} Books Found`}
                   </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('link_checker')}
+                    className="px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer whitespace-nowrap transition-colors"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>{isMr ? '+ स्वतःची लिंक जोडा' : '+ Add Custom Link'}</span>
+                  </button>
+
                   <button
                     type="button"
                     onClick={() => setActiveTab('settings')}
@@ -351,10 +471,25 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
                             <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-500 text-stone-950 uppercase shadow-md">
                               {isMr ? book.badgeMr : book.badgeEn}
                             </span>
-                            <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500/90 text-stone-950 uppercase shadow-md flex items-center gap-0.5">
-                              <TrendingUp className="w-3 h-3" />
-                              {book.discountPercent}% OFF
-                            </span>
+                            <div className="flex items-center gap-1.5">
+                              {book.id.startsWith('custom_') && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteCustomBook(book.id);
+                                  }}
+                                  className="p-1 rounded-md bg-rose-600/90 hover:bg-rose-500 text-white shadow-md cursor-pointer transition-colors"
+                                  title={isMr ? 'पुस्तक काढून टाका' : 'Remove Custom Book'}
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              )}
+                              <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500/90 text-stone-950 uppercase shadow-md flex items-center gap-0.5">
+                                <TrendingUp className="w-3 h-3" />
+                                {book.discountPercent}% OFF
+                              </span>
+                            </div>
                           </div>
 
                           {/* Bottom Info on Image */}
@@ -795,6 +930,319 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Tab 4: Amazon Link Checker & Custom Book Adder */}
+        {activeTab === 'link_checker' && (
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+            {/* Top Banner */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-stone-900 border border-amber-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    {isMr ? 'लिंक तपासक व टॅग कन्व्हर्टर' : 'Link Converter & Validator'}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-stone-800 text-emerald-400 border border-emerald-500/30">
+                    Active Tag: {affiliateTag}
+                  </span>
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-white">
+                  {isMr ? '🔗 कोणतीही ॲमेझॉन लिंक तपासा व स्वतःचे पुस्तक स्टोअरमध्ये जोडा' : 'Validate Any Amazon Link & Add Custom Book'}
+                </h3>
+                <p className="text-xs text-stone-300 max-w-2xl leading-relaxed">
+                  {isMr 
+                    ? 'ॲमेझॉन मोबाईल ॲपवरून कॉपी केलेली लिंक (उदा. link.amazon किंवा amzn.to किंवा dp लिंक) येथे टाका. सिस्टीम आपोआप तुमचा ॲफिलिएट टॅग जोडेल, ज्यामुळे त्या लिंकवरील प्रत्येक खरेदीचे कमिशन तुमच्या खात्यात जमा होईल.'
+                    : 'Paste any Amazon link (from mobile app share or desktop). We will append your affiliate tag and let you save it to your bookstore.'}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('books')}
+                  className="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-750 text-white font-bold text-xs flex items-center gap-1.5 border border-stone-700 cursor-pointer"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{isMr ? 'स्टोअरमध्ये जा' : 'View Store'}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Box 1: Link Checker & Tag Attacher */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-stone-850 border border-stone-800 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold">
+                    <LinkIcon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-black text-white">
+                      {isMr ? '१. ॲमेझॉन लिंक तपासा व टॅग जोडा' : '1. Test & Tag Amazon Link'}
+                    </h4>
+                    <p className="text-xs text-stone-400">
+                      {isMr ? 'येथे तुमची लिंक पेस्ट करा' : 'Paste your shared Amazon link below'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-bold text-stone-300 mb-1.5">
+                      {isMr ? 'ॲमेझॉन प्रॉडक्ट / शेअर लिंक (URL):' : 'Amazon URL:'}
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={testUrlInput}
+                        onChange={(e) => setTestUrlInput(e.target.value)}
+                        placeholder="https://link.amazon/B0euWZvxo"
+                        className="w-full bg-stone-900 border border-stone-750 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-mono text-amber-300 focus:outline-hidden focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
+                      />
+                      {testUrlInput && (
+                        <button
+                          type="button"
+                          onClick={() => setTestUrlInput('')}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-500 hover:text-stone-300 text-xs cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Sample Quick Buttons */}
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[11px] text-stone-400">{isMr ? 'उदाहरणे:' : 'Examples:'}</span>
+                    <button
+                      type="button"
+                      onClick={() => setTestUrlInput('https://link.amazon/B0euWZvxo')}
+                      className="text-[11px] px-2 py-0.5 rounded bg-stone-900 hover:bg-stone-800 text-amber-300 font-mono border border-stone-800 cursor-pointer"
+                    >
+                      link.amazon/B0euWZvxo
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setTestUrlInput('https://www.amazon.in/dp/B08N5WRWNW')}
+                      className="text-[11px] px-2 py-0.5 rounded bg-stone-900 hover:bg-stone-800 text-stone-300 font-mono border border-stone-800 cursor-pointer"
+                    >
+                      amazon.in/dp/B08...
+                    </button>
+                  </div>
+
+                  {/* Tagged Converted Output */}
+                  {testUrlInput.trim() && (
+                    <div className="p-4 rounded-xl bg-stone-900 border border-stone-750 space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-bold text-stone-300 flex items-center gap-1.5">
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>{isMr ? 'तयार झालेली ॲफिलिएट लिंक (Tagged Output):' : 'Tagged Output:'}</span>
+                        </span>
+                        <span className="text-[10px] px-2 py-0.5 rounded font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          {testUrlInput.includes('link.amazon') ? 'Amazon Mobile Share' : 'Amazon URL'}
+                        </span>
+                      </div>
+
+                      <div className="p-2.5 rounded-lg bg-stone-950 border border-stone-800 text-xs font-mono text-amber-300 break-all select-all">
+                        {attachTagToAmazonUrl(testUrlInput, affiliateTag)}
+                      </div>
+
+                      <div className="flex items-center gap-2 pt-1">
+                        <a
+                          href={attachTagToAmazonUrl(testUrlInput, affiliateTag)}
+                          target="_blank"
+                          rel="noopener noreferrer sponsored"
+                          className="flex-1 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>{isMr ? '🚀 ॲमेझॉनवर टेस्ट करा (Open & Test)' : 'Test on Amazon'}</span>
+                        </a>
+
+                        <button
+                          type="button"
+                          onClick={() => handleCopyTestUrl(attachTagToAmazonUrl(testUrlInput, affiliateTag))}
+                          className="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-750 text-white font-bold text-xs flex items-center gap-1.5 border border-stone-700 cursor-pointer transition-colors"
+                        >
+                          {isCopiedTestUrl ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                          <span>{isCopiedTestUrl ? (isMr ? 'कॉपी झाले!' : 'Copied!') : (isMr ? 'कॉपी करा' : 'Copy')}</span>
+                        </button>
+                      </div>
+
+                      <p className="text-[11px] text-stone-400 leading-relaxed">
+                        {isMr 
+                          ? `✅ ही लिंक जेव्हा विद्यार्थी उघडतील, तेव्हा URL मध्ये तुमचा टॅग (${affiliateTag}) सक्रिय राहील आणि खरेदीवर तुम्हाला कमिशन मिळेल.`
+                          : `✅ When aspirants click this link, your tag (${affiliateTag}) is attached to their session.`}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Box 2: Add this Book to Bookstore Form */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-stone-850 border border-stone-800 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold">
+                    <Plus className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-black text-white">
+                      {isMr ? '२. हे पुस्तक तुमच्या स्टोअरमध्ये कायमस्वरूपी जोडा' : '2. Save Book to Your Store'}
+                    </h4>
+                    <p className="text-xs text-stone-400">
+                      {isMr ? 'विद्यार्थ्यांना ॲपमधील बुकशेल्फवर हे पुस्तक दाखवा' : 'Make this book visible on your app bookshelf'}
+                    </p>
+                  </div>
+                </div>
+
+                <form onSubmit={handleAddCustomBook} className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-bold text-stone-300 mb-1">
+                      {isMr ? 'पुस्तकाचे नाव (Book Title):' : 'Book Title:'}
+                    </label>
+                    <input
+                      type="text"
+                      value={newBookTitle}
+                      onChange={(e) => setNewBookTitle(e.target.value)}
+                      placeholder="उदा. MPSC चालू घडामोडी / सराव संच"
+                      required
+                      className="w-full bg-stone-900 border border-stone-750 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-stone-100 focus:outline-hidden focus:border-amber-500 transition-all"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-bold text-stone-300 mb-1">
+                        {isMr ? 'लेखक / प्रकाशक:' : 'Author / Publisher:'}
+                      </label>
+                      <input
+                        type="text"
+                        value={newBookAuthor}
+                        onChange={(e) => setNewBookAuthor(e.target.value)}
+                        placeholder="उदा. के सागर / ज्ञानदीप"
+                        className="w-full bg-stone-900 border border-stone-750 rounded-xl px-3.5 py-2 text-xs text-stone-100 focus:outline-hidden focus:border-amber-500 transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-stone-300 mb-1">
+                        {isMr ? 'अंदाजे ऑफर किंमत (₹):' : 'Offer Price (₹):'}
+                      </label>
+                      <input
+                        type="number"
+                        value={newBookPrice}
+                        onChange={(e) => setNewBookPrice(e.target.value)}
+                        placeholder="399"
+                        className="w-full bg-stone-900 border border-stone-750 rounded-xl px-3.5 py-2 text-xs font-mono text-stone-100 focus:outline-hidden focus:border-amber-500 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-stone-300 mb-1">
+                      {isMr ? 'विषय वर्गवारी (Subject Category):' : 'Subject Category:'}
+                    </label>
+                    <select
+                      value={newBookSubject}
+                      onChange={(e) => setNewBookSubject(e.target.value)}
+                      className="w-full bg-stone-900 border border-stone-750 rounded-xl px-3.5 py-2 text-xs text-stone-200 focus:outline-hidden focus:border-amber-500 transition-all"
+                    >
+                      <option value="current_affairs">{isMr ? 'चालू घडामोडी (Current Affairs)' : 'Current Affairs'}</option>
+                      <option value="pyq">{isMr ? 'PYQ व प्रश्नसंच (Question Bank)' : 'PYQ'}</option>
+                      <option value="polity">{isMr ? 'राज्यशास्त्र (Polity)' : 'Polity'}</option>
+                      <option value="economy">{isMr ? 'अर्थशास्त्र (Economy)' : 'Economy'}</option>
+                      <option value="general_science">{isMr ? 'सामान्य विज्ञान (Science)' : 'Science'}</option>
+                      <option value="maharashtra_geography">{isMr ? 'भूगोल (Geography)' : 'Geography'}</option>
+                      <option value="maharashtra_history">{isMr ? 'इतिहास (History)' : 'History'}</option>
+                      <option value="csat">{isMr ? 'CSAT बुद्धिमत्ता (CSAT)' : 'CSAT'}</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={!testUrlInput.trim() || !newBookTitle.trim()}
+                    className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-stone-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-md cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>{isMr ? 'हे पुस्तक माझ्या स्टोअरमध्ये सेव्ह करा' : 'Save Book to Bookstore'}</span>
+                  </button>
+
+                  {bookAddSuccess && (
+                    <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4" />
+                        <span>{isMr ? 'पुस्तक स्टोअरमध्ये यशस्वीरीत्या जोडले गेले!' : 'Book added to store!'}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedCategory('custom');
+                          setActiveTab('books');
+                        }}
+                        className="underline text-amber-300 hover:text-white cursor-pointer"
+                      >
+                        {isMr ? 'स्टोअरमध्ये पहा ➜' : 'View in Store ➜'}
+                      </button>
+                    </div>
+                  )}
+                </form>
+              </div>
+            </div>
+
+            {/* List of Custom Books Added */}
+            {customBooks.length > 0 && (
+              <div className="p-5 rounded-2xl bg-stone-850 border border-stone-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-black text-white flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-amber-400" />
+                    <span>{isMr ? `माझी जोडलेली पुस्तके (${customBooks.length}):` : `My Added Books (${customBooks.length}):`}</span>
+                  </h4>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedCategory('custom');
+                      setActiveTab('books');
+                    }}
+                    className="text-xs text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
+                  >
+                    {isMr ? 'सर्व स्टोअरमध्ये उघडा ➜' : 'Open in Store ➜'}
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  {customBooks.map((cb) => (
+                    <div
+                      key={cb.id}
+                      className="p-3 rounded-xl bg-stone-900 border border-stone-800 flex items-center justify-between gap-2"
+                    >
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold text-white truncate">{cb.titleMr}</div>
+                        <div className="text-[11px] text-amber-400 font-mono">₹{cb.offerPrice}</div>
+                      </div>
+
+                      <div className="flex items-center gap-1 shrink-0">
+                        <a
+                          href={buildAmazonAffiliateUrl(cb, affiliateTag)}
+                          target="_blank"
+                          rel="noopener noreferrer sponsored"
+                          className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-750 text-amber-300"
+                          title="Open on Amazon"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteCustomBook(cb.id)}
+                          className="p-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 cursor-pointer"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 

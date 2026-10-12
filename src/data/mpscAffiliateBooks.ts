@@ -26,12 +26,14 @@ export interface MpscAffiliateBook {
   badgeEn: string;
   tags: string[];
   asin?: string;
+  customUrl?: string;
   amazonKeywords: string;
   estimatedCommissionPercent: number; // e.g. 8%
 }
 
 export const DEFAULT_AMAZON_AFFILIATE_TAG = 'mpscaspirant-21';
 const STORAGE_TAG_KEY = 'mpsc_amazon_affiliate_tag';
+const STORAGE_CUSTOM_BOOKS_KEY = 'mpsc_custom_affiliate_books';
 
 export const getStoredAffiliateTag = (): string => {
   if (typeof window === 'undefined') return DEFAULT_AMAZON_AFFILIATE_TAG;
@@ -49,8 +51,57 @@ export const saveAffiliateTag = (tag: string): void => {
   }
 };
 
+export const attachTagToAmazonUrl = (rawUrl: string, customTag?: string): string => {
+  const tag = customTag || getStoredAffiliateTag();
+  if (!rawUrl || !rawUrl.trim()) return '';
+  const trimmed = rawUrl.trim();
+  try {
+    const urlObj = new URL(trimmed.startsWith('http') ? trimmed : `https://${trimmed}`);
+    urlObj.searchParams.set('tag', tag);
+    return urlObj.toString();
+  } catch {
+    const separator = trimmed.includes('?') ? '&' : '?';
+    return `${trimmed}${separator}tag=${encodeURIComponent(tag)}`;
+  }
+};
+
+export const getCustomAffiliateBooks = (): MpscAffiliateBook[] => {
+  if (typeof window === 'undefined') return [];
+  try {
+    const data = localStorage.getItem(STORAGE_CUSTOM_BOOKS_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
+};
+
+export const saveCustomAffiliateBook = (book: MpscAffiliateBook): void => {
+  if (typeof window === 'undefined') return;
+  try {
+    const current = getCustomAffiliateBooks();
+    const updated = [book, ...current.filter((b) => b.id !== book.id)];
+    localStorage.setItem(STORAGE_CUSTOM_BOOKS_KEY, JSON.stringify(updated));
+  } catch (err) {
+    console.error('Failed to save custom affiliate book', err);
+  }
+};
+
+export const deleteCustomAffiliateBook = (id: string): void => {
+  if (typeof window === 'undefined') return;
+  try {
+    const current = getCustomAffiliateBooks();
+    const updated = current.filter((b) => b.id !== id);
+    localStorage.setItem(STORAGE_CUSTOM_BOOKS_KEY, JSON.stringify(updated));
+  } catch (err) {
+    console.error('Failed to delete custom affiliate book', err);
+  }
+};
+
 export const buildAmazonAffiliateUrl = (book: MpscAffiliateBook, customTag?: string): string => {
   const tag = customTag || getStoredAffiliateTag();
+  if (book.customUrl) {
+    return attachTagToAmazonUrl(book.customUrl, tag);
+  }
   if (book.asin) {
     return `https://www.amazon.in/dp/${book.asin}?tag=${encodeURIComponent(tag)}`;
   }
