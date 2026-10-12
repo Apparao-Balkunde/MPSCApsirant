@@ -35,7 +35,8 @@ import {
   FlaskConical,
   Landmark,
   Compass,
-  MapPin
+  MapPin,
+  ShieldAlert
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -93,6 +94,7 @@ interface DashboardViewProps {
   onOpenRapidFlashcards?: () => void;
   onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
   onOpenMapQuiz?: () => void;
+  onOpenNegativeTrapPractice?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -128,6 +130,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenRapidFlashcards,
   onOpenSubjectMarathon,
   onOpenMapQuiz,
+  onOpenNegativeTrapPractice,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1398,6 +1401,62 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <Compass className="w-4 h-4 fill-stone-950 text-stone-950" />
                 <span>{isMr ? '🗺️ नकाशा प्रश्न सराव सुरू करा' : 'Start Map Quiz'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 🎯 MPSC ट्रिकी ट्रॅप्स सराव (Negative Marking Prevention Mode) */}
+        <div className="bg-gradient-to-br from-red-950/90 via-stone-900 to-amber-950/80 rounded-2xl border-2 border-red-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-52 h-52 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-2.5 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-red-500/25 text-red-300 border border-red-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <ShieldAlert className="w-3.5 h-3.5 text-red-400" />
+                  <span>{isMr ? 'नवीन विशेष सिरीज • Negative Marking Shield' : 'Negative Marking Prevention Mode'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold">
+                  {isMr ? '⚠️ "योग्य नाही / बिनचूक / केवळ" ट्रॅप्स' : '"Not Correct / Binchuk / Only" Traps'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? '🛡️ किमान ५ ते ८ मार्क्स हमखास वाचवा' : 'Save 5-8 Crucial Marks'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-200">
+                {isMr
+                  ? "🎯 MPSC ट्रिकी ट्रॅप्स' सराव (Negative Marking Prevention Mode)"
+                  : '🎯 MPSC Tricky Traps & Negative Marking Prevention'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'आयोगाच्या अशा प्रश्नांची विशेष सिरीज जिथे विद्यार्थी "योग्य नाही / बिनचूक / केवळ अ आणि ब" अशा शब्दांमुळे घाईत फसतात आणि -०.२५ निगेटिव्ह मार्किंग होते. निगेटिव्ह मार्किंग टाळण्याची अचूक स्ट्रॅटेजी व कीवर्ड स्कॅनर सराव!'
+                  : 'Special series targeting high-frequency MPSC phrasing traps like "Not Correct", "Binchuk", and extreme qualifiers ("Only A & B") to build a foolproof negative marking defense.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <span>🚫 {isMr ? "'योग्य नाही' व 'असत्य विधान' शोधणे" : "Negative Phrasing ('Not Correct')"}</span>
+                <span>•</span>
+                <span>⚖️ {isMr ? "'बिनचूक' व 'अचूक' भाषिक ट्रॅप्स" : "'Binchuk' Meaning Clarity"}</span>
+                <span>•</span>
+                <span>💣 {isMr ? "'केवळ/फक्त' अतिरेकी विधाने ओळखणे" : "Extreme Qualifiers Detection"}</span>
+                <span>•</span>
+                <span>🛡️ {isMr ? '६ परीक्षेतील सुवर्ण नियम व ट्रॅप स्कॅनर' : '6 Golden Rules & Trap Scanner'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                type="button"
+                id="btn-dashboard-trap-practice"
+                onClick={() => onOpenNegativeTrapPractice?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-red-600 via-amber-600 to-yellow-500 hover:from-red-500 hover:to-amber-500 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <ShieldAlert className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '⚠️ ट्रॅप सराव सुरू करा' : 'Start Trap Shield Drill'}</span>
               </button>
             </div>
           </div>

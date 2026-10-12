@@ -11,7 +11,8 @@ import {
   Sparkles,
   SpellCheck,
   Trophy,
-  Compass
+  Compass,
+  ShieldAlert
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -26,6 +27,7 @@ interface SubjectPracticeViewProps {
   onOpenAddQuestion?: (subjectId?: SubjectId) => void;
   onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
   onOpenMapQuiz?: () => void;
+  onOpenNegativeTrapPractice?: () => void;
   questionsPool?: Question[];
 }
 
@@ -38,6 +40,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   onOpenAddQuestion,
   onOpenSubjectMarathon,
   onOpenMapQuiz,
+  onOpenNegativeTrapPractice,
   questionsPool,
 }) => {
   const isMr = language === 'mr';
@@ -68,6 +71,18 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
               <Compass className="w-4 h-4 text-emerald-200" />
               <span>{isMr ? '🗺️ नकाशा क्विझ' : 'Map Quiz'}</span>
               <span className="text-[10px] bg-emerald-400 text-stone-950 px-1.5 py-0.2 rounded-full font-bold">नवीन</span>
+            </button>
+          )}
+
+          {onOpenNegativeTrapPractice && (
+            <button
+              onClick={() => onOpenNegativeTrapPractice()}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-black text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+              title={isMr ? "MPSC ट्रिकी ट्रॅप्स - निगेटिव्ह मार्किंग प्रतिबंधक सराव" : "Negative Marking Prevention Trap Drill"}
+            >
+              <ShieldAlert className="w-4 h-4 text-amber-200" />
+              <span>{isMr ? '⚠️ ट्रॅप सराव' : 'Trap Shield'}</span>
+              <span className="text-[10px] bg-amber-400 text-stone-950 px-1.5 py-0.2 rounded-full font-bold">शिल्ड</span>
             </button>
           )}
 

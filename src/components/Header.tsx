@@ -34,7 +34,8 @@ import {
   Trophy,
   ChevronDown,
   Compass,
-  MapPin
+  MapPin,
+  ShieldAlert
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -66,6 +67,7 @@ export interface HeaderProps {
   onOpenRapidFlashcards?: () => void;
   onOpenSubjectMarathon?: (initialSubjectId?: any) => void;
   onOpenMapQuiz?: () => void;
+  onOpenNegativeTrapPractice?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -89,6 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenRapidFlashcards,
   onOpenSubjectMarathon,
   onOpenMapQuiz,
+  onOpenNegativeTrapPractice,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -257,6 +260,19 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             )}
 
+            {onOpenNegativeTrapPractice && (
+              <button
+                type="button"
+                id="btn-header-trap-practice"
+                onClick={onOpenNegativeTrapPractice}
+                className="inline-flex items-center gap-1 bg-gradient-to-r from-red-600/30 to-amber-600/30 hover:from-red-600/45 hover:to-amber-600/45 border border-red-500/60 hover:border-amber-400 px-2 py-0.5 rounded text-[11px] font-black text-amber-200 transition-all cursor-pointer shadow-xs active:scale-95"
+                title={isMr ? "MPSC ट्रिकी ट्रॅप्स - निगेटिव्ह मार्किंग प्रतिबंधक सराव" : "Tricky Traps - Negative Marking Prevention Drill"}
+              >
+                <ShieldAlert className="w-3 h-3 text-red-400 shrink-0" />
+                <span>{isMr ? '⚠️ ट्रॅप सराव' : 'Trap Shield'}</span>
+              </button>
+            )}
+
             <a
               id="banner-classic-portal-link"
               href="https://mpscsarathi.online"
@@ -418,6 +434,29 @@ export const Header: React.FC<HeaderProps> = ({
                           </div>
                           <p className="text-[10px] text-stone-400 truncate">
                             {isMr ? 'नकाशातील पॉईंटर पाहून घाट, नद्या, शिखरे ओळखा' : 'Identify passes, rivers, peaks on SVG map'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenNegativeTrapPractice && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenNegativeTrapPractice();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-red-950/40 to-amber-950/40 hover:from-red-900/50 hover:to-amber-900/50 border border-red-500/40 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-red-500/20 border border-red-500/40 flex items-center justify-center shrink-0 text-red-400 group-hover:scale-105">
+                          <ShieldAlert className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+                            <span>{isMr ? '🎯 MPSC ट्रिकी ट्रॅप्स सराव' : 'MPSC Tricky Traps Drill'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-red-500/20 text-red-300 font-mono">निगेटिव्ह शिल्ड</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? '"योग्य नाही/बिनचूक" मधील ट्रॅप ओळखा व -०.२५ रोखा' : 'Prevent -0.25 negative marks in trick questions'}
                           </p>
                         </div>
                       </button>

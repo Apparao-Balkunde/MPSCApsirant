@@ -42,6 +42,7 @@ import { CutoffTrendsDashboardModal } from './components/CutoffTrendsDashboardMo
 import { RapidMemoryFlashcardsModal } from './components/RapidMemoryFlashcardsModal';
 import { SubjectMarathonModal } from './components/SubjectMarathonModal';
 import { InteractiveMapQuizModal } from './components/InteractiveMapQuizModal';
+import { NegativeMarkingTrapModal } from './components/NegativeMarkingTrapModal';
 import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -117,6 +118,9 @@ export default function App() {
 
   // Interactive Map-Based Visual Quiz modal state
   const [isMapQuizOpen, setIsMapQuizOpen] = useState<boolean>(false);
+
+  // MPSC Tricky Traps & Negative Marking Prevention modal state
+  const [isNegativeTrapOpen, setIsNegativeTrapOpen] = useState<boolean>(false);
 
   const handleOpenSubjectMarathon = (initialId?: SubjectMarathonId) => {
     if (initialId) {
@@ -845,6 +849,7 @@ export default function App() {
             onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
             onOpenSubjectMarathon={handleOpenSubjectMarathon}
             onOpenMapQuiz={() => setIsMapQuizOpen(true)}
+            onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
           />
           <main className="flex-1 w-full max-w-full overflow-x-hidden">
             <ExamResultView
@@ -897,6 +902,7 @@ export default function App() {
             onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
             onOpenSubjectMarathon={handleOpenSubjectMarathon}
             onOpenMapQuiz={() => setIsMapQuizOpen(true)}
+            onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -936,6 +942,7 @@ export default function App() {
                 onOpenRapidFlashcards={() => setIsRapidFlashcardsOpen(true)}
                 onOpenSubjectMarathon={handleOpenSubjectMarathon}
                 onOpenMapQuiz={() => setIsMapQuizOpen(true)}
+                onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -961,6 +968,7 @@ export default function App() {
                 }}
                 onOpenSubjectMarathon={handleOpenSubjectMarathon}
                 onOpenMapQuiz={() => setIsMapQuizOpen(true)}
+                onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
                 questionsPool={questions}
               />
             )}
@@ -1242,6 +1250,13 @@ export default function App() {
         onClose={() => setIsMapQuizOpen(false)}
         language={userProgress.preferredLanguage}
         soundEnabled={userProgress.soundEffectsEnabled ?? true}
+      />
+
+      {/* MPSC Tricky Traps & Negative Marking Prevention Modal */}
+      <NegativeMarkingTrapModal
+        isOpen={isNegativeTrapOpen}
+        onClose={() => setIsNegativeTrapOpen(false)}
+        language={userProgress.preferredLanguage}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}
