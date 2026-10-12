@@ -96,6 +96,7 @@ interface DashboardViewProps {
   onOpenMapQuiz?: () => void;
   onOpenNegativeTrapPractice?: () => void;
   onOpenCurrentAffairsDrill?: (category?: string) => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -133,6 +134,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenMapQuiz,
   onOpenNegativeTrapPractice,
   onOpenCurrentAffairsDrill,
+  onOpenAffiliateBooks,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -2102,6 +2104,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         language={language}
         onStartExam={onStartExam}
         onOpenGrammarRules={onOpenGrammarRules}
+        onOpenAffiliateBooks={onOpenAffiliateBooks}
       />
 
       {/* Subject-Wise Quick Practice Grid */}

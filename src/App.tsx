@@ -44,6 +44,7 @@ import { SubjectMarathonModal } from './components/SubjectMarathonModal';
 import { InteractiveMapQuizModal } from './components/InteractiveMapQuizModal';
 import { NegativeMarkingTrapModal } from './components/NegativeMarkingTrapModal';
 import { MonthlyCurrentAffairsDrillModal } from './components/MonthlyCurrentAffairsDrillModal';
+import { MpscAffiliateBooksModal } from './components/MpscAffiliateBooksModal';
 import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -130,6 +131,15 @@ export default function App() {
   const handleOpenCurrentAffairsDrill = (category: string = 'all') => {
     setCurrentAffairsInitialCategory(category);
     setIsCurrentAffairsDrillOpen(true);
+  };
+
+  // MPSC Standard Reference Books & Amazon Affiliate Store modal state
+  const [isAffiliateBooksOpen, setIsAffiliateBooksOpen] = useState<boolean>(false);
+  const [affiliateBooksInitialTab, setAffiliateBooksInitialTab] = useState<'books' | 'guide' | 'settings'>('books');
+
+  const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' = 'books') => {
+    setAffiliateBooksInitialTab(tab);
+    setIsAffiliateBooksOpen(true);
   };
 
   const handleOpenSubjectMarathon = (initialId?: SubjectMarathonId) => {
@@ -914,6 +924,7 @@ export default function App() {
             onOpenMapQuiz={() => setIsMapQuizOpen(true)}
             onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
             onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
+            onOpenAffiliateBooks={handleOpenAffiliateBooks}
           />
 
           <main className="flex-1 pb-12">
@@ -955,6 +966,7 @@ export default function App() {
                 onOpenMapQuiz={() => setIsMapQuizOpen(true)}
                 onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
                 onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
+                onOpenAffiliateBooks={handleOpenAffiliateBooks}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1199,6 +1211,7 @@ export default function App() {
         isOpen={isInformationHubOpen}
         onClose={() => setIsInformationHubOpen(false)}
         language={userProgress.preferredLanguage}
+        onOpenAffiliateBooks={handleOpenAffiliateBooks}
         onStartPractice={(subjectId, customTitle) => {
           setIsInformationHubOpen(false);
           handleStartExam('custom', subjectId, customTitle);
@@ -1278,6 +1291,18 @@ export default function App() {
         onClose={() => setIsCurrentAffairsDrillOpen(false)}
         language={userProgress.preferredLanguage}
         initialCategory={currentAffairsInitialCategory}
+      />
+
+      {/* MPSC Standard Reference Books & Amazon Affiliate Store Modal */}
+      <MpscAffiliateBooksModal
+        isOpen={isAffiliateBooksOpen}
+        onClose={() => setIsAffiliateBooksOpen(false)}
+        language={userProgress.preferredLanguage}
+        initialTab={affiliateBooksInitialTab}
+        onStartPractice={(subjectId, customTitle) => {
+          setIsAffiliateBooksOpen(false);
+          handleStartExam('custom', subjectId, customTitle);
+        }}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

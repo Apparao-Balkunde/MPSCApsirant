@@ -10,15 +10,26 @@ import {
   ChevronRight, 
   Library,
   Star,
-  Play
+  Play,
+  ShoppingBag,
+  DollarSign,
+  Settings,
+  Percent,
+  ShieldCheck
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { ExamPatternId, SubjectId } from '../types';
+import {
+  MPSC_AFFILIATE_BOOKS_DATA,
+  buildAmazonAffiliateUrl,
+  getStoredAffiliateTag
+} from '../data/mpscAffiliateBooks';
 
 interface MpscBookShelfProps {
   language: 'mr' | 'en';
   onStartExam: (patternId: ExamPatternId, subjectId?: SubjectId, title?: string) => void;
   onOpenGrammarRules?: () => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
 }
 
 interface MpscReferenceBook {
@@ -148,10 +159,12 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
   language,
   onStartExam,
   onOpenGrammarRules,
+  onOpenAffiliateBooks,
 }) => {
   const isMr = language === 'mr';
   const [selectedBook, setSelectedBook] = useState<MpscReferenceBook>(MPSC_RECOMMENDED_BOOKS[0]);
   const [activeFilter, setActiveFilter] = useState<'all' | 'gs' | 'language' | 'csat'>('all');
+  const affiliateTag = getStoredAffiliateTag();
 
   const filteredBooks = MPSC_RECOMMENDED_BOOKS.filter((b) => {
     if (activeFilter === 'language') return b.subjectId === 'marathi_grammar';
@@ -198,8 +211,41 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
           </div>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 flex-wrap">
+        {/* Filter Pills & Affiliate Actions */}
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Quick Affiliate Hub Trigger Buttons */}
+          {onOpenAffiliateBooks && (
+            <div className="flex items-center gap-1.5 mr-1">
+              <button
+                type="button"
+                onClick={() => onOpenAffiliateBooks('books')}
+                className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-stone-950 font-black text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-all"
+              >
+                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>{isMr ? 'सर्व १२ पुस्तके व ॲमेझॉन स्टोअर' : 'Full 12 Books Store'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onOpenAffiliateBooks('guide')}
+                className="px-2.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-bold text-xs flex items-center gap-1 cursor-pointer transition-colors"
+                title={isMr ? 'ॲमेझॉन कमाई गाईड' : 'Earning Guide'}
+              >
+                <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="hidden sm:inline">{isMr ? 'कमाई गाईड' : 'Guide'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onOpenAffiliateBooks('settings')}
+                className="p-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200 cursor-pointer transition-colors"
+                title={isMr ? `ॲमेझॉन टॅग: ${affiliateTag}` : `Tag: ${affiliateTag}`}
+              >
+                <Settings className="w-4 h-4 text-stone-600" />
+              </button>
+            </div>
+          )}
+
           {[
             { id: 'all', labelMr: 'सर्व पुस्तके', labelEn: 'All Books' },
             { id: 'gs', labelMr: 'सामान्य अध्ययन', labelEn: 'GS Books' },
@@ -226,6 +272,15 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredBooks.map((book) => {
           const isSelected = selectedBook.id === book.id;
+          const affData = MPSC_AFFILIATE_BOOKS_DATA.find((a) => a.id === book.id);
+          const buyUrl = affData 
+            ? buildAmazonAffiliateUrl(affData, affiliateTag) 
+            : `https://www.amazon.in/s?k=${encodeURIComponent(book.titleMr)}&tag=${encodeURIComponent(affiliateTag)}`;
+          const offerPrice = affData?.offerPrice || 490;
+          const mrp = affData?.mrp || 650;
+          const discountPercent = affData?.discountPercent || 25;
+          const commission = Math.round(offerPrice * 0.08);
+
           return (
             <div
               key={book.id}
@@ -247,9 +302,12 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent pointer-events-none" />
 
                 {/* Top Badge */}
-                <div className="absolute top-2.5 left-2.5">
+                <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
                   <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-500 text-stone-950 uppercase shadow-sm">
                     {isMr ? book.badgeMr : book.badgeEn}
+                  </span>
+                  <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-600 text-white uppercase shadow-sm">
+                    {discountPercent}% OFF
                   </span>
                 </div>
 
@@ -272,8 +330,30 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
                     {isMr ? book.importanceMr : book.importanceEn}
                   </p>
 
+                  {/* Pricing Strip & Amazon Commission */}
+                  <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between">
+                    <div>
+                      <div className="text-[10px] text-stone-500 font-bold uppercase">
+                        {isMr ? 'ॲमेझॉन ऑफर किंमत' : 'Amazon Offer Price'}
+                      </div>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-sm sm:text-base font-black text-emerald-700 font-mono">
+                          ₹{offerPrice}
+                        </span>
+                        <span className="text-xs text-stone-400 line-through font-mono">
+                          ₹{mrp}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded-full">
+                        {isMr ? `कमिशन: ~₹${commission}` : `Comm: ~₹${commission}`}
+                      </span>
+                    </div>
+                  </div>
+
                   {/* Vitals Strip */}
-                  <div className="flex items-center justify-between text-xs py-1.5 border-y border-stone-100">
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-stone-100">
                     <span className="text-stone-500 font-medium">
                       {isMr ? 'गुण भारांश:' : 'Weightage:'}
                     </span>
@@ -295,19 +375,33 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
                   </div>
                 </div>
 
-                {/* Action Button */}
-                <button
-                  type="button"
-                  onClick={() => handleStartBookPractice(book)}
-                  className="w-full mt-3 py-2.5 rounded-xl bg-stone-900 hover:bg-amber-500 text-white hover:text-stone-950 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer group-hover:bg-amber-500 group-hover:text-stone-950"
-                >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>
-                    {book.id === 'marathi_walambe'
-                      ? (isMr ? 'व्याकरण नियम व सूत्रे उघडा ➜' : 'Open Grammar Rules ➜')
-                      : (isMr ? 'या पुस्तकातील प्रश्न सोडवा ➜' : 'Practice this Book ➜')}
-                  </span>
-                </button>
+                {/* Dual Action Buttons: Buy on Amazon + Practice MCQs */}
+                <div className="space-y-2 pt-2">
+                  <a
+                    href={buyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-stone-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md transition-all cursor-pointer text-center"
+                    title={`Amazon वर ₹${offerPrice} मध्ये खरेदी करा (Tag: ${affiliateTag})`}
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    <span>{isMr ? `ॲमेझॉनवर खरेदी करा (₹${offerPrice})` : `Buy on Amazon (₹${offerPrice})`}</span>
+                    <ExternalLink className="w-3 h-3 ml-0.5" />
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => handleStartBookPractice(book)}
+                    className="w-full py-2 rounded-xl bg-stone-100 hover:bg-stone-900 text-stone-800 hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer border border-stone-200"
+                  >
+                    <Play className="w-3 h-3 fill-current" />
+                    <span>
+                      {book.id === 'marathi_walambe'
+                        ? (isMr ? 'व्याकरण नियम व सूत्रे उघडा ➜' : 'Open Grammar Rules ➜')
+                        : (isMr ? 'या पुस्तकातील प्रश्न सोडवा ➜' : 'Practice MCQs ➜')}
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           );
@@ -344,6 +438,28 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
         >
           {isMr ? 'आजचा स्वाध्याय सुरू करा ➜' : 'Start Today’s Practice ➜'}
         </button>
+      </div>
+
+      {/* FTC / Amazon Affiliate Disclosure Strip */}
+      <div className="pt-2 border-t border-stone-100 flex items-center justify-between flex-wrap gap-2 text-[11px] text-stone-500">
+        <div className="flex items-center gap-1.5">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+          <span>
+            {isMr 
+              ? 'एक ॲमेझॉन असोसिएट म्हणून, पात्र खरेदींमधून आम्ही कमिशन मिळवतो. विद्यार्थ्यांसाठी पुस्तकांची मूळ सवलत तशीच राहते.' 
+              : 'As an Amazon Associate, we earn from qualifying purchases without any additional cost to students.'}
+          </span>
+        </div>
+
+        {onOpenAffiliateBooks && (
+          <button
+            type="button"
+            onClick={() => onOpenAffiliateBooks('guide')}
+            className="text-amber-700 hover:text-amber-800 font-bold underline underline-offset-2 cursor-pointer"
+          >
+            {isMr ? 'ॲमेझॉन कमिशन सिस्टीम व गाईड ➜' : 'Affiliate Guide ➜'}
+          </button>
+        )}
       </div>
     </div>
   );

@@ -15,13 +15,22 @@ import {
   Layers,
   HelpCircle,
   Copy,
-  Check
+  Check,
+  ShoppingBag,
+  DollarSign,
+  Star,
+  Settings
 } from 'lucide-react';
 import { 
   MPSC_INFORMATION_DATA, 
   INFORMATION_CATEGORIES, 
   InformationTopic 
 } from '../data/mpscInformationData';
+import {
+  MPSC_AFFILIATE_BOOKS_DATA,
+  buildAmazonAffiliateUrl,
+  getStoredAffiliateTag
+} from '../data/mpscAffiliateBooks';
 import { SubjectId } from '../types';
 
 interface InformationHubModalProps {
@@ -29,6 +38,7 @@ interface InformationHubModalProps {
   onClose: () => void;
   language: 'mr' | 'en';
   onStartPractice?: (subjectId?: SubjectId, customTitle?: string) => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
 }
 
 export const InformationHubModal: React.FC<InformationHubModalProps> = ({
@@ -36,11 +46,13 @@ export const InformationHubModal: React.FC<InformationHubModalProps> = ({
   onClose,
   language,
   onStartPractice,
+  onOpenAffiliateBooks,
 }) => {
   const isMr = language === 'mr';
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const affiliateTag = getStoredAffiliateTag();
 
   const filteredTopics = useMemo(() => {
     return MPSC_INFORMATION_DATA.filter((topic) => {
@@ -163,12 +175,161 @@ export const InformationHubModal: React.FC<InformationHubModalProps> = ({
                 {isMr ? cat.nameMr : cat.nameEn}
               </button>
             ))}
+
+            {/* Special Affiliate Books Category Pill */}
+            <button
+              type="button"
+              onClick={() => setSelectedCategory('affiliate_books')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+                selectedCategory === 'affiliate_books'
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-stone-950 shadow-sm font-black'
+                  : 'bg-stone-900 hover:bg-stone-850 text-amber-400 hover:text-amber-300 border border-amber-500/30'
+              }`}
+            >
+              <ShoppingBag className="w-3.5 h-3.5" />
+              <span>{isMr ? '📖 संदर्भ पुस्तके (ॲमेझॉन ५-१०% सवलत)' : 'Reference Books (Amazon Store)'}</span>
+            </button>
           </div>
         </div>
 
         {/* Topics List Container */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
-          {filteredTopics.length === 0 ? (
+          {/* Top Affiliate Books Recommendation & Earning Banner */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-stone-900 border border-amber-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-black uppercase bg-amber-500 text-stone-950">
+                  {isMr ? '📚 अभ्यास साहित्य व ॲमेझॉन असोसिएट्स' : 'Study Books & Amazon Affiliate'}
+                </span>
+                <span className="text-xs text-amber-300 font-bold">
+                  {isMr ? '५% ते १०% कमिशन ॲफिलिएट सिस्टीम' : 'Earn 5%-10% per book purchase'}
+                </span>
+              </div>
+              <h4 className="text-sm sm:text-base font-black text-white">
+                {isMr 
+                  ? 'एम. लक्ष्मीकांत, सौदी, कोळंबे व वाळंबे — मूळ संदर्भ ग्रंथ व ॲमेझॉन खरेदी लिंक्स' 
+                  : 'Official MPSC Reference Books with Amazon India Direct Referral Links'}
+              </h4>
+              <p className="text-xs text-stone-300 leading-relaxed">
+                {isMr 
+                  ? 'विद्यार्थ्यांसाठी २०% ते ३०% सवलत, आणि वेबसाइट मालकासाठी दर खरेदीवर ५% ते १०% थेट बँक कमिशन!'
+                  : '20%-30% Amazon discount for students + direct 5%-10% affiliate commission for site owner.'}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              {onOpenAffiliateBooks && (
+                <button
+                  type="button"
+                  onClick={() => onOpenAffiliateBooks('guide')}
+                  className="px-3.5 py-2 rounded-xl bg-stone-850 hover:bg-stone-800 text-amber-300 hover:text-white border border-stone-700 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{isMr ? 'कमाई गाईड (कसे करावे?)' : 'Earning Guide'}</span>
+                </button>
+              )}
+
+              {onOpenAffiliateBooks ? (
+                <button
+                  type="button"
+                  onClick={() => onOpenAffiliateBooks('books')}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-stone-950 text-xs font-black flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+                >
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <span>{isMr ? 'सर्व १२ पुस्तके पहा ➜' : 'View All 12 Books ➜'}</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setSelectedCategory('affiliate_books')}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-stone-950 text-xs font-black flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+                >
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <span>{isMr ? 'पुस्तके पहा ➜' : 'View Books ➜'}</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* When Affiliate Books Tab is Active */}
+          {selectedCategory === 'affiliate_books' && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-stone-800">
+                <h3 className="text-sm sm:text-base font-black text-white flex items-center gap-2">
+                  <ShoppingBag className="w-4 h-4 text-amber-400" />
+                  <span>{isMr ? 'MPSC शिफारस केलेले १२ अधिकृत संदर्भ ग्रंथ (Amazon Links):' : 'MPSC Recommended 12 Official Books:'}</span>
+                </h3>
+                <span className="text-xs text-stone-400 font-mono">
+                  Tag: {affiliateTag}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {MPSC_AFFILIATE_BOOKS_DATA.map((book) => {
+                  const buyUrl = buildAmazonAffiliateUrl(book, affiliateTag);
+                  return (
+                    <div
+                      key={book.id}
+                      className="p-4 rounded-2xl bg-stone-850 border border-stone-800 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-3 shadow-md"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                            {isMr ? book.badgeMr : book.badgeEn}
+                          </span>
+                          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                            {book.discountPercent}% OFF
+                          </span>
+                        </div>
+
+                        <div>
+                          <div className="text-[11px] font-mono text-amber-400 font-bold">
+                            {isMr ? book.authorMr : book.authorEn}
+                          </div>
+                          <h4 className="text-sm font-black text-white line-clamp-1">
+                            {isMr ? book.titleMr : book.titleEn}
+                          </h4>
+                          <p className="text-xs text-stone-400 line-clamp-2 mt-1">
+                            {isMr ? book.importanceMr : book.importanceEn}
+                          </p>
+                        </div>
+
+                        {/* Price Strip */}
+                        <div className="flex items-baseline justify-between pt-1 border-t border-stone-800">
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-base font-black text-emerald-400 font-mono">
+                              ₹{book.offerPrice}
+                            </span>
+                            <span className="text-xs text-stone-500 line-through font-mono">
+                              ₹{book.mrp}
+                            </span>
+                          </div>
+                          <span className="text-[10px] text-amber-400 font-medium">
+                            {isMr ? `कमिशन: ~₹${Math.round(book.offerPrice * 0.08)}` : `Est: ~₹${Math.round(book.offerPrice * 0.08)}`}
+                          </span>
+                        </div>
+                      </div>
+
+                      <a
+                        href={buyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-stone-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all"
+                      >
+                        <ShoppingBag className="w-3.5 h-3.5" />
+                        <span>{isMr ? 'ॲमेझॉनवर खरेदी करा' : 'Buy on Amazon'}</span>
+                        <ExternalLink className="w-3 h-3 ml-0.5" />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Regular Legal/Exam Topics (shown when not solely affiliate_books) */}
+          {selectedCategory !== 'affiliate_books' && (
+            filteredTopics.length === 0 ? (
             <div className="text-center py-12 space-y-3">
               <HelpCircle className="w-12 h-12 text-stone-600 mx-auto" />
               <p className="text-sm font-semibold text-stone-400">
@@ -292,7 +453,7 @@ export const InformationHubModal: React.FC<InformationHubModalProps> = ({
                 )}
               </div>
             ))
-          )}
+          ))}
         </div>
 
         {/* Footer */}
