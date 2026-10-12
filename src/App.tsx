@@ -43,6 +43,7 @@ import { RapidMemoryFlashcardsModal } from './components/RapidMemoryFlashcardsMo
 import { SubjectMarathonModal } from './components/SubjectMarathonModal';
 import { InteractiveMapQuizModal } from './components/InteractiveMapQuizModal';
 import { NegativeMarkingTrapModal } from './components/NegativeMarkingTrapModal';
+import { MonthlyCurrentAffairsDrillModal } from './components/MonthlyCurrentAffairsDrillModal';
 import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { AdBanner } from './components/AdBanner';
 import { soundFx } from './utils/audio';
@@ -121,6 +122,15 @@ export default function App() {
 
   // MPSC Tricky Traps & Negative Marking Prevention modal state
   const [isNegativeTrapOpen, setIsNegativeTrapOpen] = useState<boolean>(false);
+
+  // MPSC Monthly Current Affairs Drill & Reverse Learning modal state (2025-2027)
+  const [isCurrentAffairsDrillOpen, setIsCurrentAffairsDrillOpen] = useState<boolean>(false);
+  const [currentAffairsInitialCategory, setCurrentAffairsInitialCategory] = useState<string>('all');
+
+  const handleOpenCurrentAffairsDrill = (category: string = 'all') => {
+    setCurrentAffairsInitialCategory(category);
+    setIsCurrentAffairsDrillOpen(true);
+  };
 
   const handleOpenSubjectMarathon = (initialId?: SubjectMarathonId) => {
     if (initialId) {
@@ -903,6 +913,7 @@ export default function App() {
             onOpenSubjectMarathon={handleOpenSubjectMarathon}
             onOpenMapQuiz={() => setIsMapQuizOpen(true)}
             onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
+            onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
           />
 
           <main className="flex-1 pb-12">
@@ -943,6 +954,7 @@ export default function App() {
                 onOpenSubjectMarathon={handleOpenSubjectMarathon}
                 onOpenMapQuiz={() => setIsMapQuizOpen(true)}
                 onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
+                onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -969,6 +981,7 @@ export default function App() {
                 onOpenSubjectMarathon={handleOpenSubjectMarathon}
                 onOpenMapQuiz={() => setIsMapQuizOpen(true)}
                 onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
+                onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
                 questionsPool={questions}
               />
             )}
@@ -1257,6 +1270,14 @@ export default function App() {
         isOpen={isNegativeTrapOpen}
         onClose={() => setIsNegativeTrapOpen(false)}
         language={userProgress.preferredLanguage}
+      />
+
+      {/* MPSC Monthly Current Affairs Drill & Reverse Learning Modal (2025-2027) */}
+      <MonthlyCurrentAffairsDrillModal
+        isOpen={isCurrentAffairsDrillOpen}
+        onClose={() => setIsCurrentAffairsDrillOpen(false)}
+        language={userProgress.preferredLanguage}
+        initialCategory={currentAffairsInitialCategory}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

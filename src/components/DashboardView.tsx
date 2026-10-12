@@ -95,6 +95,7 @@ interface DashboardViewProps {
   onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
   onOpenMapQuiz?: () => void;
   onOpenNegativeTrapPractice?: () => void;
+  onOpenCurrentAffairsDrill?: (category?: string) => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -131,6 +132,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenSubjectMarathon,
   onOpenMapQuiz,
   onOpenNegativeTrapPractice,
+  onOpenCurrentAffairsDrill,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1457,6 +1459,98 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <ShieldAlert className="w-4 h-4 fill-stone-950 text-stone-950" />
                 <span>{isMr ? '⚠️ ट्रॅप सराव सुरू करा' : 'Start Trap Shield Drill'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 📰 MPSC 'चालू घडामोडी' मासिक व विषयनिहाय रिव्हर्स क्विझ (Monthly Current Affairs Drill) */}
+        <div className="bg-gradient-to-br from-amber-950/70 via-stone-900 to-red-950/60 rounded-2xl border-2 border-amber-500/80 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-44 h-44 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-3 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-300 border border-amber-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Newspaper className="w-3.5 h-3.5 text-amber-300" />
+                  <span>{isMr ? 'पर्याय ४: मासिक चालू घडामोडी रिव्हर्स ड्रिल' : 'Monthly Current Affairs Drill'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-bold">
+                  {isMr ? '🎯 आयोगाचे ४ विधानांचे प्रश्न (अ, ब, क, ड)' : '4-Statement MPSC Pattern'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? '२०२५-२०२७ सिलॅबस' : '2025-27 High Yield'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-200">
+                {isMr
+                  ? '📰 MPSC चालू घडामोडी: मासिक व विषयनिहाय रिव्हर्स क्विझ (Reverse Learning Hub)'
+                  : '📰 Monthly Current Affairs Drill & Reverse Learning Hub'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'गेल्या १२ महिन्यांतील (२०२५-२०२७) चालू घडामोडींचे ७ प्रमुख विषयांमध्ये वर्गीकरण. विधानांवर विचार करून थेट सत्य/असत्य फॅक्ट्स, आयोगाचे ट्रॅप्स आणि अधिकृत संदर्भ तपासा.'
+                  : 'Master 12 months of high-yield current affairs classified across 7 core topics with 4-statement questions, truth verification, and examiner traps.'}
+              </p>
+
+              {/* Fast topic chips */}
+              <div className="flex items-center gap-2 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => onOpenCurrentAffairsDrill?.('schemes')}
+                  className="px-2 py-0.5 rounded bg-stone-800/80 hover:bg-stone-750 text-amber-300 border border-amber-500/30 cursor-pointer"
+                >
+                  🏛️ {isMr ? 'लाडकी बहीण व योजना' : 'Govt Schemes'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onOpenCurrentAffairsDrill?.('awards')}
+                  className="px-2 py-0.5 rounded bg-stone-800/80 hover:bg-stone-750 text-amber-300 border border-amber-500/30 cursor-pointer"
+                >
+                  🏆 {isMr ? 'भारतरत्न व सन्मान' : 'Awards'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onOpenCurrentAffairsDrill?.('appointments')}
+                  className="px-2 py-0.5 rounded bg-stone-800/80 hover:bg-stone-750 text-amber-300 border border-amber-500/30 cursor-pointer"
+                >
+                  👔 {isMr ? 'CJI व नियुक्त्या' : 'Appointments'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onOpenCurrentAffairsDrill?.('sports')}
+                  className="px-2 py-0.5 rounded bg-stone-800/80 hover:bg-stone-750 text-amber-300 border border-amber-500/30 cursor-pointer"
+                >
+                  🏅 {isMr ? 'ऑलिंपिक्स व विश्वचषक' : 'Sports'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onOpenCurrentAffairsDrill?.('environment')}
+                  className="px-2 py-0.5 rounded bg-stone-800/80 hover:bg-stone-750 text-amber-300 border border-amber-500/30 cursor-pointer"
+                >
+                  🌿 {isMr ? 'COP29 व रामसर' : 'COP29 & Ramsar'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onOpenCurrentAffairsDrill?.('science_tech')}
+                  className="px-2 py-0.5 rounded bg-stone-800/80 hover:bg-stone-750 text-amber-300 border border-amber-500/30 cursor-pointer"
+                >
+                  🚀 {isMr ? 'गगनयान व अग्नी-५' : 'ISRO & Agni-5'}
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                type="button"
+                id="btn-dashboard-current-affairs-drill"
+                onClick={() => onOpenCurrentAffairsDrill?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 via-amber-600 to-red-600 hover:brightness-110 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Newspaper className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '📰 मासिक रिव्हर्स सराव सुरू करा' : 'Start Monthly Drill'}</span>
               </button>
             </div>
           </div>

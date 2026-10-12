@@ -35,7 +35,8 @@ import {
   ChevronDown,
   Compass,
   MapPin,
-  ShieldAlert
+  ShieldAlert,
+  Newspaper
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -68,6 +69,7 @@ export interface HeaderProps {
   onOpenSubjectMarathon?: (initialSubjectId?: any) => void;
   onOpenMapQuiz?: () => void;
   onOpenNegativeTrapPractice?: () => void;
+  onOpenCurrentAffairsDrill?: (category?: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -92,6 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSubjectMarathon,
   onOpenMapQuiz,
   onOpenNegativeTrapPractice,
+  onOpenCurrentAffairsDrill,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -457,6 +460,29 @@ export const Header: React.FC<HeaderProps> = ({
                           </div>
                           <p className="text-[10px] text-stone-400 truncate">
                             {isMr ? '"योग्य नाही/बिनचूक" मधील ट्रॅप ओळखा व -०.२५ रोखा' : 'Prevent -0.25 negative marks in trick questions'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenCurrentAffairsDrill && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenCurrentAffairsDrill();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-amber-950/40 via-red-950/30 to-stone-900 hover:from-amber-900/50 hover:to-red-900/50 border border-amber-500/40 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0 text-amber-400 group-hover:scale-105">
+                          <Newspaper className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+                            <span>{isMr ? '📰 चालू घडामोडी रिव्हर्स क्विझ' : 'Monthly Current Affairs Drill'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono">४-विधाने</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? '२०२५-२०२७ मासिक घडामोडी व रिव्हर्स लर्निंग' : '2025-27 monthly drill & reverse facts'}
                           </p>
                         </div>
                       </button>

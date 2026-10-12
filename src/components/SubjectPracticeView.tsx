@@ -12,7 +12,8 @@ import {
   SpellCheck,
   Trophy,
   Compass,
-  ShieldAlert
+  ShieldAlert,
+  Newspaper
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -28,6 +29,7 @@ interface SubjectPracticeViewProps {
   onOpenSubjectMarathon?: (initialMarathonId?: any) => void;
   onOpenMapQuiz?: () => void;
   onOpenNegativeTrapPractice?: () => void;
+  onOpenCurrentAffairsDrill?: (category?: string) => void;
   questionsPool?: Question[];
 }
 
@@ -41,6 +43,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   onOpenSubjectMarathon,
   onOpenMapQuiz,
   onOpenNegativeTrapPractice,
+  onOpenCurrentAffairsDrill,
   questionsPool,
 }) => {
   const isMr = language === 'mr';
@@ -83,6 +86,18 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
               <ShieldAlert className="w-4 h-4 text-amber-200" />
               <span>{isMr ? '⚠️ ट्रॅप सराव' : 'Trap Shield'}</span>
               <span className="text-[10px] bg-amber-400 text-stone-950 px-1.5 py-0.2 rounded-full font-bold">शिल्ड</span>
+            </button>
+          )}
+
+          {onOpenCurrentAffairsDrill && (
+            <button
+              onClick={() => onOpenCurrentAffairsDrill()}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-red-600 hover:from-amber-500 hover:to-red-500 text-white font-black text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+              title={isMr ? "मासिक चालू घडामोडी रिव्हर्स क्विझ (४ विधानांचे प्रश्न)" : "Monthly Current Affairs Drill"}
+            >
+              <Newspaper className="w-4 h-4 text-amber-200" />
+              <span>{isMr ? '📰 मासिक रिव्हर्स क्विझ' : 'Monthly Drill'}</span>
+              <span className="text-[10px] bg-amber-400 text-stone-950 px-1.5 py-0.2 rounded-full font-bold">४-विधाने</span>
             </button>
           )}
 
@@ -211,6 +226,16 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
                   >
                     <Compass className="w-3.5 h-3.5 text-emerald-700" />
                     <span>{isMr ? '🗺️ नकाशावर आधारित इंटरअॅक्टिव्ह प्रश्न' : '🗺️ Interactive Map Quiz'}</span>
+                  </button>
+                )}
+
+                {sub.id === 'current_affairs' && onOpenCurrentAffairsDrill && (
+                  <button
+                    onClick={() => onOpenCurrentAffairsDrill()}
+                    className="w-full py-2 bg-gradient-to-r from-amber-500/15 via-red-500/15 to-amber-500/15 hover:from-amber-500/25 hover:to-red-500/25 text-red-950 border border-amber-500/60 font-black text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                  >
+                    <Newspaper className="w-3.5 h-3.5 text-red-700" />
+                    <span>{isMr ? '📰 मासिक रिव्हर्स क्विझ (४-विधानांचे प्रश्न)' : '📰 Monthly Reverse Drill (4 Statements)'}</span>
                   </button>
                 )}
 
