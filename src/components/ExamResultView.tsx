@@ -43,6 +43,7 @@ interface ExamResultViewProps {
   questionsPool?: Question[];
   currentUserName?: string;
   currentUserId?: string;
+  onOpenAdSenseManager?: () => void;
 }
 
 export const ExamResultView: React.FC<ExamResultViewProps> = ({
@@ -57,6 +58,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
   questionsPool,
   currentUserName = 'MPSC Aspirant',
   currentUserId,
+  onOpenAdSenseManager,
 }) => {
   const isMr = language === 'mr';
   const [filter, setFilter] = useState<'all' | 'wrong' | 'correct' | 'unattempted' | 'saved'>('all');
@@ -266,7 +268,12 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
       </div>
 
       {/* AdSense Unit on Result View */}
-      <AdBanner slot="8635186039" className="max-w-4xl mx-auto" />
+      <AdBanner 
+        placementType="examResult" 
+        format="rectangle" 
+        className="max-w-4xl mx-auto" 
+        onOpenSettings={onOpenAdSenseManager}
+      />
 
       {/* Subject-Wise Performance Breakdown */}
       {Object.keys(result.subjectPerformance).length > 0 && (

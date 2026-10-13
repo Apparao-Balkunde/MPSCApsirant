@@ -18,7 +18,9 @@ import {
   Laptop,
   Monitor,
   Type,
-  RefreshCw
+  RefreshCw,
+  DollarSign,
+  Sliders
 } from 'lucide-react';
 import { soundFx } from '../utils/audio';
 import { UserProgress } from '../types';
@@ -34,6 +36,7 @@ interface SettingsModalProps {
   onToggleSoundEffects: () => void;
   userProgress?: UserProgress;
   onOpenBackupModal?: () => void;
+  onOpenAdSenseManager?: () => void;
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -44,6 +47,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onToggleSoundEffects,
   userProgress,
   onOpenBackupModal,
+  onOpenAdSenseManager,
 }) => {
   const isMr = language === 'mr';
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
@@ -396,6 +400,48 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>{isMr ? '💾 JSON बॅकअप डाऊनलोड करा' : '💾 Export JSON Backup'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Google AdSense Manager Option */}
+          <div className="p-4 rounded-xl border border-stone-200 bg-stone-50/60 flex flex-col gap-3">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-700 border border-amber-500/30 flex items-center justify-center shrink-0">
+                  <DollarSign className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-stone-900">
+                      {isMr ? 'गुगल ॲडसेन्स व जाहिरात जागा व्यवस्थापन' : 'Google AdSense & Ad Space Manager'}
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300">
+                      Monetization
+                    </span>
+                  </div>
+                  <p className="text-xs text-stone-500 mt-1 leading-relaxed">
+                    {isMr
+                      ? 'ॲडसेन्स पब्लिशर क्लायंट आयडी (ca-pub), स्लॉट्स, चाचणी मोड, पूर्वावलोकन व ads.txt कोड व्यवस्थापित करा.'
+                      : 'Configure AdSense Publisher ID, slots, test mode, preview units, and ads.txt code.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-stone-200/80 flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  if (onOpenAdSenseManager) {
+                    onOpenAdSenseManager();
+                  }
+                }}
+                className="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+              >
+                <Sliders className="w-3.5 h-3.5" />
+                <span>{isMr ? '📢 जाहिरात व्यवस्थापक उघडा' : '📢 Open AdSense Manager'}</span>
               </button>
             </div>
           </div>

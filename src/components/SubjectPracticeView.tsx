@@ -18,6 +18,7 @@ import {
 import { ExamPatternId, SubjectId, Question } from '../types';
 import { SUBJECTS } from '../data/subjects';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
+import { AdBanner } from './AdBanner';
 
 interface SubjectPracticeViewProps {
   language: 'mr' | 'en';
@@ -298,6 +299,9 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
           );
         })}
       </div>
+
+      {/* AdSense Unit on Subject Practice Page */}
+      <AdBanner placementType="subjectView" format="in_feed" className="mt-8" />
     </div>
   );
 };

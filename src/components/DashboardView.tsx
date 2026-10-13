@@ -53,6 +53,7 @@ import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 import { DailyChallengeModal } from './DailyChallengeModal';
 import { analyzeUserWeakAreas } from '../utils/weakAreaRemedialEngine';
+import { AdBanner } from './AdBanner';
 
 const SUBJECT_BOOK_COVERS: Record<string, string> = {
   marathi_grammar: '/open_reference_book.jpg',
@@ -97,6 +98,7 @@ interface DashboardViewProps {
   onOpenNegativeTrapPractice?: () => void;
   onOpenCurrentAffairsDrill?: (category?: string) => void;
   onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
+  onOpenAdSenseManager?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -135,6 +137,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenNegativeTrapPractice,
   onOpenCurrentAffairsDrill,
   onOpenAffiliateBooks,
+  onOpenAdSenseManager,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -567,6 +570,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         onUpdateWeeklyGoals={onUpdateWeeklyGoals}
         onLogStudySession={onLogStudySession}
         onQuickStartChallenge={() => onStartExam('daily_10_challenge')}
+      />
+
+      {/* Native In-Feed Google AdSense Unit on Dashboard */}
+      <AdBanner
+        placementType="dashboard"
+        format="in_feed"
+        onOpenSettings={onOpenAdSenseManager}
+        onOpenAction={(actionType) => {
+          if (actionType === 'open_books' && onOpenAffiliateBooks) onOpenAffiliateBooks('books');
+          if (actionType === 'open_marathon' && onOpenSubjectMarathon) onOpenSubjectMarathon();
+        }}
       />
 
       {/* ========================================================================= */}

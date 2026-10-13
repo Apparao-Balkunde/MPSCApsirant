@@ -47,6 +47,7 @@ import { MonthlyCurrentAffairsDrillModal } from './components/MonthlyCurrentAffa
 import { MpscAffiliateBooksModal } from './components/MpscAffiliateBooksModal';
 import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { AdBanner } from './components/AdBanner';
+import { AdSenseManagerModal } from './components/AdSenseManagerModal';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener, trySsoLogin } from './lib/firebase';
@@ -136,6 +137,9 @@ export default function App() {
   // MPSC Standard Reference Books & Amazon Affiliate Store modal state
   const [isAffiliateBooksOpen, setIsAffiliateBooksOpen] = useState<boolean>(false);
   const [affiliateBooksInitialTab, setAffiliateBooksInitialTab] = useState<'books' | 'guide' | 'settings'>('books');
+
+  // Google AdSense Ad Space Manager modal state
+  const [isAdSenseManagerOpen, setIsAdSenseManagerOpen] = useState<boolean>(false);
 
   const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' = 'books') => {
     setAffiliateBooksInitialTab(tab);
@@ -887,6 +891,7 @@ export default function App() {
               questionsPool={questions}
               currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
               currentUserId={currentUser?.uid}
+              onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
             />
           </main>
         </div>
@@ -928,6 +933,19 @@ export default function App() {
           />
 
           <main className="flex-1 pb-12">
+            {/* Top Leaderboard Google AdSense Unit */}
+            <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 pt-1">
+              <AdBanner
+                placementType="header"
+                format="leaderboard"
+                onOpenSettings={() => setIsAdSenseManagerOpen(true)}
+                onOpenAction={(actionType) => {
+                  if (actionType === 'open_books') handleOpenAffiliateBooks('books');
+                  if (actionType === 'open_marathon') handleOpenSubjectMarathon();
+                }}
+              />
+            </div>
+
             {currentTab === 'dashboard' && (
               <DashboardView
                 userProgress={userProgress}
@@ -967,6 +985,7 @@ export default function App() {
                 onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
                 onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
                 onOpenAffiliateBooks={handleOpenAffiliateBooks}
+                onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1067,31 +1086,48 @@ export default function App() {
 
             {/* Bottom Advertisement Banner */}
             <div className="pt-4 pb-2">
-              <AdBanner slot="8635186039" />
+              <AdBanner
+                placementType="footer"
+                format="horizontal"
+                onOpenSettings={() => setIsAdSenseManagerOpen(true)}
+                onOpenAction={(actionType) => {
+                  if (actionType === 'open_books') handleOpenAffiliateBooks('books');
+                  if (actionType === 'open_marathon') handleOpenSubjectMarathon();
+                }}
+              />
             </div>
 
-            {/* Portal Footer with Google AdSense Required Policy Links */}
+            {/* Portal Footer with Google AdSense Required Policy Links & Manager */}
             <footer className="mt-8 pt-6 pb-12 border-t border-stone-200 text-center text-xs text-stone-500">
               <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-medium text-stone-600 mb-3">
                 <button
                   onClick={() => setLegalModalType('privacy')}
-                  className="hover:text-amber-600 underline transition-colors"
+                  className="hover:text-amber-600 underline transition-colors cursor-pointer"
                 >
                   {userProgress.preferredLanguage === 'mr' ? 'गोपनीयता धोरण (Privacy Policy)' : 'Privacy Policy'}
                 </button>
                 <span>•</span>
                 <button
                   onClick={() => setLegalModalType('terms')}
-                  className="hover:text-amber-600 underline transition-colors"
+                  className="hover:text-amber-600 underline transition-colors cursor-pointer"
                 >
                   {userProgress.preferredLanguage === 'mr' ? 'वापराच्या अटी (Terms)' : 'Terms of Service'}
                 </button>
                 <span>•</span>
                 <button
                   onClick={() => setLegalModalType('about')}
-                  className="hover:text-amber-600 underline transition-colors"
+                  className="hover:text-amber-600 underline transition-colors cursor-pointer"
                 >
                   {userProgress.preferredLanguage === 'mr' ? 'आमच्याबद्दल (About Us)' : 'About Us'}
+                </button>
+                <span>•</span>
+                <button
+                  onClick={() => setIsAdSenseManagerOpen(true)}
+                  className="hover:text-amber-600 underline transition-colors inline-flex items-center gap-1 font-bold text-amber-700 cursor-pointer"
+                  title={userProgress.preferredLanguage === 'mr' ? 'गुगल ॲडसेन्स जाहिरात जागा व स्लॉट्स व्यवस्थापक' : 'Google AdSense Manager'}
+                >
+                  <span>📢</span>
+                  <span>{userProgress.preferredLanguage === 'mr' ? 'गुगल ॲडसेन्स व्यवस्थापन (AdSense)' : 'AdSense Manager'}</span>
                 </button>
                 <span>•</span>
                 <a
@@ -1169,6 +1205,10 @@ export default function App() {
         onOpenBackupModal={() => {
           setIsSettingsOpen(false);
           setIsBackupModalOpen(true);
+        }}
+        onOpenAdSenseManager={() => {
+          setIsSettingsOpen(false);
+          setIsAdSenseManagerOpen(true);
         }}
       />
 
@@ -1303,6 +1343,13 @@ export default function App() {
           setIsAffiliateBooksOpen(false);
           handleStartExam('custom', subjectId, customTitle);
         }}
+      />
+
+      {/* Google AdSense Ad Space Manager Modal */}
+      <AdSenseManagerModal
+        isOpen={isAdSenseManagerOpen}
+        onClose={() => setIsAdSenseManagerOpen(false)}
+        language={userProgress.preferredLanguage}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}
