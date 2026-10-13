@@ -72,6 +72,7 @@ export interface HeaderProps {
   onOpenNegativeTrapPractice?: () => void;
   onOpenCurrentAffairsDrill?: (category?: string) => void;
   onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
+  onOpenDistrictsModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -98,6 +99,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenNegativeTrapPractice,
   onOpenCurrentAffairsDrill,
   onOpenAffiliateBooks,
+  onOpenDistrictsModal,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -276,6 +278,19 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <ShieldAlert className="w-3 h-3 text-red-400 shrink-0" />
                 <span>{isMr ? '⚠️ ट्रॅप सराव' : 'Trap Shield'}</span>
+              </button>
+            )}
+
+            {onOpenDistrictsModal && (
+              <button
+                type="button"
+                id="btn-header-districts-gk"
+                onClick={onOpenDistrictsModal}
+                className="inline-flex items-center gap-1 bg-gradient-to-r from-orange-600/30 to-amber-600/30 hover:from-orange-600/45 hover:to-amber-600/45 border border-orange-400/60 hover:border-orange-300 px-2 py-0.5 rounded text-[11px] font-black text-amber-200 transition-all cursor-pointer shadow-xs active:scale-95"
+                title={isMr ? "महाराष्ट्राचे ३६ जिल्हे - तालुके, नद्या, किल्ले व MPSC फॅक्ट्स" : "Maharashtra 36 Districts GK & Factfile"}
+              >
+                <Compass className="w-3 h-3 text-orange-300 shrink-0" />
+                <span>{isMr ? '🗺️ ३६ जिल्हे फॅक्ट्स' : '36 Districts GK'}</span>
               </button>
             )}
 
@@ -643,6 +658,29 @@ export const Header: React.FC<HeaderProps> = ({
                           </div>
                           <p className="text-[10px] text-stone-400 truncate">
                             {isMr ? 'राज्यसेवा व संयुक्त अधिकृत पेपर्स' : 'Previous year papers with explanations'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenDistrictsModal && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenDistrictsModal();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-orange-500/15 to-amber-500/10 hover:from-orange-500/25 hover:to-amber-500/20 border border-orange-500/30 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-orange-500/20 border border-orange-500/40 flex items-center justify-center shrink-0 text-orange-400 group-hover:scale-105">
+                          <Compass className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+                            <span>{isMr ? '🗺️ महाराष्ट्राचे ३६ जिल्हे फॅक्ट्स' : '36 Districts GK & Factfile'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-orange-500/20 text-orange-300">६ विभाग</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'तालुके, नद्या, किल्ले, पिके, अभयारण्ये व MPSC मुद्दे' : 'Rivers, forts, crops, sanctuaries & exam facts'}
                           </p>
                         </div>
                       </button>

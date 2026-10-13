@@ -31,6 +31,7 @@ interface SubjectPracticeViewProps {
   onOpenMapQuiz?: () => void;
   onOpenNegativeTrapPractice?: () => void;
   onOpenCurrentAffairsDrill?: (category?: string) => void;
+  onOpenDistrictsModal?: () => void;
   questionsPool?: Question[];
 }
 
@@ -45,6 +46,7 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
   onOpenMapQuiz,
   onOpenNegativeTrapPractice,
   onOpenCurrentAffairsDrill,
+  onOpenDistrictsModal,
   questionsPool,
 }) => {
   const isMr = language === 'mr';
@@ -75,6 +77,18 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
               <Compass className="w-4 h-4 text-emerald-200" />
               <span>{isMr ? '🗺️ नकाशा क्विझ' : 'Map Quiz'}</span>
               <span className="text-[10px] bg-emerald-400 text-stone-950 px-1.5 py-0.2 rounded-full font-bold">नवीन</span>
+            </button>
+          )}
+
+          {onOpenDistrictsModal && (
+            <button
+              onClick={() => onOpenDistrictsModal()}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-xs sm:text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all shrink-0 hover:scale-[1.02]"
+              title={isMr ? "महाराष्ट्रातील ३६ जिल्ह्यांचे नद्या, किल्ले, तालुके व फॅक्ट्स" : "Maharashtra 36 Districts GK & Factfile"}
+            >
+              <Compass className="w-4 h-4 text-orange-200" />
+              <span>{isMr ? '🗺️ ३६ जिल्हे फॅक्ट्स' : '36 Districts GK'}</span>
+              <span className="text-[10px] bg-orange-300 text-stone-950 px-1.5 py-0.2 rounded-full font-bold">३६ जिल्हे</span>
             </button>
           )}
 

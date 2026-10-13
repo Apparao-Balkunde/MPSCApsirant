@@ -48,6 +48,7 @@ import { MpscAffiliateBooksModal } from './components/MpscAffiliateBooksModal';
 import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { AdBanner } from './components/AdBanner';
 import { AdSenseManagerModal } from './components/AdSenseManagerModal';
+import { MaharashtraDistrictsModal } from './components/MaharashtraDistrictsModal';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener, trySsoLogin } from './lib/firebase';
@@ -140,6 +141,9 @@ export default function App() {
 
   // Google AdSense Ad Space Manager modal state
   const [isAdSenseManagerOpen, setIsAdSenseManagerOpen] = useState<boolean>(false);
+
+  // Maharashtra 36 Districts GK & Factfile modal state
+  const [isDistrictsModalOpen, setIsDistrictsModalOpen] = useState<boolean>(false);
 
   const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' = 'books') => {
     setAffiliateBooksInitialTab(tab);
@@ -930,6 +934,7 @@ export default function App() {
             onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
             onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
             onOpenAffiliateBooks={handleOpenAffiliateBooks}
+            onOpenDistrictsModal={() => setIsDistrictsModalOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -1013,6 +1018,7 @@ export default function App() {
                 onOpenMapQuiz={() => setIsMapQuizOpen(true)}
                 onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
                 onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
+                onOpenDistrictsModal={() => setIsDistrictsModalOpen(true)}
                 questionsPool={questions}
               />
             )}
@@ -1350,6 +1356,18 @@ export default function App() {
         isOpen={isAdSenseManagerOpen}
         onClose={() => setIsAdSenseManagerOpen(false)}
         language={userProgress.preferredLanguage}
+      />
+
+      {/* Maharashtra 36 Districts GK & Factfile Hub Modal */}
+      <MaharashtraDistrictsModal
+        isOpen={isDistrictsModalOpen}
+        onClose={() => setIsDistrictsModalOpen(false)}
+        language={userProgress.preferredLanguage}
+        onStartDistrictPractice={(districtName) => {
+          setIsDistrictsModalOpen(false);
+          handleStartExam('custom', 'maharashtra_geography', `${districtName} - विशेष सराव चाचणी`);
+        }}
+        onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}
