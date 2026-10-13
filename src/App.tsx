@@ -144,6 +144,12 @@ export default function App() {
 
   // Maharashtra 36 Districts GK & Factfile modal state
   const [isDistrictsModalOpen, setIsDistrictsModalOpen] = useState<boolean>(false);
+  const [districtsModalInitialTab, setDistrictsModalInitialTab] = useState<'map_learning' | 'cards_list'>('map_learning');
+
+  const handleOpenDistrictsModal = (initialTab: 'map_learning' | 'cards_list' = 'map_learning') => {
+    setDistrictsModalInitialTab(initialTab);
+    setIsDistrictsModalOpen(true);
+  };
 
   const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' = 'books') => {
     setAffiliateBooksInitialTab(tab);
@@ -934,7 +940,7 @@ export default function App() {
             onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
             onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
             onOpenAffiliateBooks={handleOpenAffiliateBooks}
-            onOpenDistrictsModal={() => setIsDistrictsModalOpen(true)}
+            onOpenDistrictsModal={handleOpenDistrictsModal}
           />
 
           <main className="flex-1 pb-12">
@@ -991,6 +997,7 @@ export default function App() {
                 onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
                 onOpenAffiliateBooks={handleOpenAffiliateBooks}
                 onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
+                onOpenDistrictsModal={handleOpenDistrictsModal}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1018,7 +1025,7 @@ export default function App() {
                 onOpenMapQuiz={() => setIsMapQuizOpen(true)}
                 onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
                 onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
-                onOpenDistrictsModal={() => setIsDistrictsModalOpen(true)}
+                onOpenDistrictsModal={handleOpenDistrictsModal}
                 questionsPool={questions}
               />
             )}
@@ -1363,6 +1370,27 @@ export default function App() {
         isOpen={isDistrictsModalOpen}
         onClose={() => setIsDistrictsModalOpen(false)}
         language={userProgress.preferredLanguage}
+        initialTab={districtsModalInitialTab}
+        onLaunchDistrictPractice={(districtQuestions, title) => {
+          setIsDistrictsModalOpen(false);
+          // Uniquely merge district questions into questions bank
+          setQuestions((prev) => {
+            const map = new Map<string, Question>();
+            prev.forEach((q) => map.set(q.id, q));
+            districtQuestions.forEach((q) => map.set(q.id, q));
+            return Array.from(map.values());
+          });
+          const session = createExamSession({
+            patternId: 'custom',
+            subjectId: 'maharashtra_geography',
+            title,
+            customQuestionIds: districtQuestions.map((q) => q.id),
+            limit: districtQuestions.length,
+            questionPool: [...questions, ...districtQuestions],
+          });
+          setActiveResult(null);
+          setActiveSession(session);
+        }}
         onStartDistrictPractice={(districtName) => {
           setIsDistrictsModalOpen(false);
           handleStartExam('custom', 'maharashtra_geography', `${districtName} - विशेष सराव चाचणी`);

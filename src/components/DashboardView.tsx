@@ -99,6 +99,7 @@ interface DashboardViewProps {
   onOpenCurrentAffairsDrill?: (category?: string) => void;
   onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
   onOpenAdSenseManager?: () => void;
+  onOpenDistrictsModal?: (initialTab?: 'map_learning' | 'cards_list') => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -138,6 +139,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenCurrentAffairsDrill,
   onOpenAffiliateBooks,
   onOpenAdSenseManager,
+  onOpenDistrictsModal,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -1363,6 +1365,80 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <Zap className="w-4 h-4 fill-stone-950 text-stone-950" />
                 <span>{isMr ? '⚡ रॅपिड फ्लॅशकार्ड्स सुरू करा' : '⚡ Launch Flashcards'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 🗺️ 'महाराष्ट्राचे ३६ जिल्हे: नकाशा व जिल्हा-विशेष सराव' (36 Districts GK & Interactive Map Learning) */}
+        <div className="bg-gradient-to-br from-amber-950/95 via-stone-900 to-orange-950/90 rounded-2xl border-2 border-amber-500/80 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-12 -bottom-12 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-3 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-300 border border-amber-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Compass className="w-3.5 h-3.5 text-amber-300" />
+                  <span>{isMr ? 'नवीन विशेष मॉड्यूल • ३६ जिल्हे' : 'New Feature • 36 Districts'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/40 text-xs font-bold">
+                  {isMr ? '🗺️ ६ प्रशासकीय विभाग • ३६ जिल्हे' : '6 Divisions • 36 Districts'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? '🎯 १०, १५ व २० प्रश्न सराव चाचण्या' : '10, 15 & 20 Qs Practice Drills'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-bold">
+                  {isMr ? 'कम्बाईन पूर्व व ZP भरती विशेष' : 'Combine Prelims & ZP Special'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-200">
+                {isMr
+                  ? '🗺️ महाराष्ट्राचे ३६ जिल्हे: नकाशा व जिल्हा-विशेष सराव (36 Districts GK & Interactive Learning)'
+                  : '🗺️ Maharashtra 36 Districts: Map & Interactive District Learning'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'महाराष्ट्रातील ३६ जिल्ह्यांचा नकाशा, तालुके, प्रमुख नद्या, किल्ले, पिके, अभयारण्ये आणि वारंवार विचारल्या जाणाऱ्या MPSC गोल्डन फॅक्ट्स! नकाशावर कोणताही जिल्हा निवडून १०, १५ किंवा २० प्रश्नांची सखोल चाचणी सोडवा आणि तात्काळ अचूक स्पष्टीकरणांसह पुनरावलोकन करा.'
+                  : 'Interactive map of all 36 Maharashtra districts across 6 divisions. Select any district to review talukas, rivers, forts, crops, and launch targeted 10, 15, or 20-question practice tests on geography, history, and economy.'}
+              </p>
+
+              {/* Quick district highlight chips */}
+              <div className="flex items-center gap-1.5 flex-wrap pt-1 text-xs">
+                <span className="text-stone-400 font-bold">{isMr ? 'झटपट जिल्हे:' : 'Quick Districts:'}</span>
+                {['पुणे', 'मुंबई', 'नागपूर', 'छत्रपती संभाजीनगर', 'नाशिक', 'ठाणे', 'कोल्हापूर'].map((dName) => (
+                  <button
+                    key={dName}
+                    type="button"
+                    onClick={() => onOpenDistrictsModal?.('map_learning')}
+                    className="px-2.5 py-1 rounded-lg bg-stone-800/90 hover:bg-amber-600 text-amber-200 hover:text-white border border-stone-700/80 text-[11px] font-bold transition-all cursor-pointer shadow-2xs"
+                  >
+                    📍 {dName}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 flex-wrap">
+              <button
+                type="button"
+                id="btn-dashboard-interactive-districts"
+                onClick={() => onOpenDistrictsModal?.('map_learning')}
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Compass className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '🗺️ नकाशावर सराव सुरू करा' : 'Launch Interactive Map'}</span>
+              </button>
+              
+              <button
+                type="button"
+                id="btn-dashboard-districts-notes"
+                onClick={() => onOpenDistrictsModal?.('cards_list')}
+                className="px-4 py-3.5 bg-stone-800/90 hover:bg-stone-700 text-amber-300 hover:text-white border border-amber-500/40 font-bold text-sm rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <BookOpen className="w-4 h-4 text-amber-400" />
+                <span>{isMr ? '📋 ३६ जिल्हे फॅक्ट्स नोट्स' : 'All 36 Factsheets'}</span>
               </button>
             </div>
           </div>

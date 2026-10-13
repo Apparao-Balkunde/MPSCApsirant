@@ -55,6 +55,11 @@ import { MPSC_RAJYASEVA_PRE_2021 } from './mpscRajyasevaPre2021';
 import { MPSC_RAJYASEVA_PRE_2020 } from './mpscRajyasevaPre2020';
 import { MPSC_COMBINE_PRE_2019, MPSC_RAJYASEVA_PRE_2019 } from './mpscPyq2019';
 import { MPSC_COMBINE_PRE_2018, MPSC_RAJYASEVA_PRE_2018 } from './mpscPyq2018';
+import { MAHARASHTRA_DISTRICTS_DATA } from './maharashtraDistrictsData';
+import { generateDistrictQuestions } from './districtSpecificQuestions';
+
+// Comprehensive 720-question bank across all 36 Maharashtra districts (20 Qs each)
+export const ALL_36_DISTRICTS_QUESTIONS: Question[] = MAHARASHTRA_DISTRICTS_DATA.flatMap(d => generateDistrictQuestions(d, 20));
 
 export const CORE_MPSC_QUESTIONS: Question[] = [
   // Maharashtra History & Social Reformers
@@ -1058,4 +1063,6 @@ export const MPSC_QUESTIONS: Question[] = [
   ...MPSC_COMBINE_PRE_2018,
   // MPSC Rajyaseva Prelims 2018 (Paper 1 - GS)
   ...MPSC_RAJYASEVA_PRE_2018,
+  // Maharashtra 36 Districts GK & Factfile Comprehensive Question Bank (20 Qs per district = 720 Qs)
+  ...ALL_36_DISTRICTS_QUESTIONS,
 ];

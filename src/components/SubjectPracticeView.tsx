@@ -149,6 +149,62 @@ export const SubjectPracticeView: React.FC<SubjectPracticeViewProps> = ({
         </div>
       </div>
 
+      {/* 🗺️ Maharashtra 36 Districts GK & Targeted Question Hub Card */}
+      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-orange-950 rounded-2xl border-2 border-amber-500/70 p-5 sm:p-6 text-white shadow-xl relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
+          <div className="space-y-2 max-w-3xl">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-300 border border-amber-400/50 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                <Compass className="w-3.5 h-3.5 text-amber-300" />
+                <span>{isMr ? 'नवीन विशेष मॉड्यूल • ३६ जिल्हे' : '36 Districts Special'}</span>
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/40 text-xs font-bold font-mono">
+                {isMr ? '७२०+ सराव प्रश्न उपलब्ध (२० प्रश्न/जिल्हा)' : '720+ Practice Questions'}
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                {isMr ? 'कम्बाईन पूर्व व ZP भरती विशेष' : 'Combine & ZP Special'}
+              </span>
+            </div>
+
+            <h2 className="text-xl sm:text-2xl font-black text-amber-200">
+              {isMr 
+                ? '🗺️ महाराष्ट्राचे ३६ जिल्हे: सराव प्रश्न संच (36 Districts Question Hub)' 
+                : '🗺️ Maharashtra 36 Districts: Question Hub & Factfile'}
+            </h2>
+
+            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+              {isMr
+                ? 'महाराष्ट्रातील सर्व ३६ जिल्ह्यांचा भूगोल, इतिहास, तालुके, नद्या, किल्ले, पिके, खनिजे आणि MPSC सुवर्ण तथ्यांवर आधारित ७२०+ प्रश्न! नकाशावरून किंवा फॅक्टशीटवरून कोणत्याही जिल्ह्याची १०, १५ किंवा २० प्रश्नांची चाचणी थेट सुरू करा.'
+                : 'Practice 720+ authentic district questions covering geography, history, talukas, rivers, forts, crops, and MPSC facts with interactive map learning.'}
+            </p>
+
+            {/* Division count pills */}
+            <div className="flex items-center gap-2 flex-wrap pt-1 text-[11px] text-stone-300">
+              <span className="font-bold text-amber-400">{isMr ? 'विभाग:' : 'Divisions:'}</span>
+              <span className="bg-stone-800/90 px-2 py-0.5 rounded-md border border-stone-700">कोकण (१४० प्रश्न)</span>
+              <span className="bg-stone-800/90 px-2 py-0.5 rounded-md border border-stone-700">पुणे (१०० प्रश्न)</span>
+              <span className="bg-stone-800/90 px-2 py-0.5 rounded-md border border-stone-700">नाशिक (१०० प्रश्न)</span>
+              <span className="bg-stone-800/90 px-2 py-0.5 rounded-md border border-stone-700">छ. संभाजीनगर (१६० प्रश्न)</span>
+              <span className="bg-stone-800/90 px-2 py-0.5 rounded-md border border-stone-700">अमरावती (१०० प्रश्न)</span>
+              <span className="bg-stone-800/90 px-2 py-0.5 rounded-md border border-stone-700">नागपूर (१२० प्रश्न)</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0 flex-wrap">
+            {onOpenDistrictsModal && (
+              <button
+                type="button"
+                onClick={() => onOpenDistrictsModal()}
+                className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-stone-950 font-black text-sm flex items-center gap-2 cursor-pointer shadow-md hover:scale-[1.02] transition-all"
+              >
+                <Compass className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '🗺️ ३६ जिल्हे नकाशा सराव उघडा' : 'Open 36 Districts Hub'}</span>
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
         {SUBJECTS.map((sub) => {
           const questions = pool.filter((q) => q.subjectId === sub.id);

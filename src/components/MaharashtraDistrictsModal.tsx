@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   X, 
   Search, 
@@ -16,7 +16,8 @@ import {
   ChevronRight, 
   ExternalLink,
   Layers,
-  Info
+  Info,
+  Play
 } from 'lucide-react';
 import { 
   MAHARASHTRA_DISTRICTS_DATA, 
@@ -24,14 +25,19 @@ import {
   MaharashtraDistrict, 
   AdministrativeDivisionId 
 } from '../data/maharashtraDistrictsData';
+import { generateDistrictQuestions } from '../data/districtSpecificQuestions';
 import { AdBanner } from './AdBanner';
+import { InteractiveDistrictLearning } from './InteractiveDistrictLearning';
+import { Question } from '../types';
 
 interface MaharashtraDistrictsModalProps {
   isOpen: boolean;
   onClose: () => void;
   language: 'mr' | 'en';
   onStartDistrictPractice?: (districtName: string) => void;
+  onLaunchDistrictPractice?: (questions: Question[], title: string, districtId: string) => void;
   onOpenAdSenseManager?: () => void;
+  initialTab?: 'map_learning' | 'cards_list';
 }
 
 export const MaharashtraDistrictsModal: React.FC<MaharashtraDistrictsModalProps> = ({
@@ -39,13 +45,22 @@ export const MaharashtraDistrictsModal: React.FC<MaharashtraDistrictsModalProps>
   onClose,
   language,
   onStartDistrictPractice,
+  onLaunchDistrictPractice,
   onOpenAdSenseManager,
+  initialTab = 'map_learning',
 }) => {
   const isMr = language === 'mr';
+  const [activeTab, setActiveTab] = useState<'map_learning' | 'cards_list'>(initialTab);
   const [selectedDivision, setSelectedDivision] = useState<AdministrativeDivisionId | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedDistrict, setSelectedDistrict] = useState<MaharashtraDistrict | null>(null);
   const [copiedDistrictId, setCopiedDistrictId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab(initialTab);
+    }
+  }, [isOpen, initialTab]);
 
   // Filter districts based on division and search
   const filteredDistricts = useMemo(() => {
@@ -131,28 +146,81 @@ export const MaharashtraDistrictsModal: React.FC<MaharashtraDistrictsModalProps>
           </button>
         </div>
 
-        {/* MPSC High-Yield State Quick Facts Strip */}
-        <div className="bg-amber-50/70 border-b border-amber-200/60 px-4 sm:px-6 py-2.5 flex items-center gap-3 overflow-x-auto text-[11px] sm:text-xs text-stone-700 shrink-0 font-medium whitespace-nowrap">
-          <span className="font-bold text-amber-900 flex items-center gap-1 shrink-0">
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span>MPSC फॅक्ट्स:</span>
-          </span>
-          <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
-            मोठा जिल्हा: <strong>अहिल्यानगर</strong> (१७,०४८ चौ.किमी)
-          </span>
-          <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
-            लहान जिल्हा: <strong>मुंबई शहर</strong> (१५७ चौ.किमी)
-          </span>
-          <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
-            सर्वाधिक तालुके: <strong>यवतमाळ व नांदेड</strong> (१६ तालुके)
-          </span>
-          <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
-            सर्वाधिक वने: <strong>गडचिरोली</strong> (६८.८%)
-          </span>
-          <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
-            ३६ वा जिल्हा: <strong>पालघर</strong> (१ ऑगस्ट २०१४)
-          </span>
+        {/* Main Mode Tabs: Interactive Map Learning vs All 36 District Cards */}
+        <div className="flex items-center gap-2 px-3 sm:px-6 pt-2.5 pb-2 border-b border-stone-200 bg-stone-100/80 shrink-0 overflow-x-auto">
+          <button
+            type="button"
+            onClick={() => setActiveTab('map_learning')}
+            className={`px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer whitespace-nowrap shadow-2xs ${
+              activeTab === 'map_learning'
+                ? 'bg-amber-600 text-white shadow-xs'
+                : 'bg-white text-stone-700 border border-stone-300 hover:bg-stone-50'
+            }`}
+          >
+            <Compass className="w-4 h-4" />
+            <span>{isMr ? '🗺️ नकाशावर आधारित इंटरअॅक्टिव्ह सराव' : 'Interactive Map Learning'}</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded-full font-black bg-stone-900 text-amber-300">
+              १० प्रश्न चाचणी
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('cards_list')}
+            className={`px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer whitespace-nowrap shadow-2xs ${
+              activeTab === 'cards_list'
+                ? 'bg-amber-600 text-white shadow-xs'
+                : 'bg-white text-stone-700 border border-stone-300 hover:bg-stone-50'
+            }`}
+          >
+            <Layers className="w-4 h-4" />
+            <span>{isMr ? '📋 सर्व ३६ जिल्हे फॅक्ट्स यादी' : 'Districts Factsheets List'}</span>
+          </button>
         </div>
+
+        {/* TAB 1: Interactive District Learning Component */}
+        {activeTab === 'map_learning' && (
+          <div className="flex-1 overflow-y-auto p-2 sm:p-4">
+            <InteractiveDistrictLearning
+              language={language}
+              onLaunchPractice={(questions, title, districtId) => {
+                onClose();
+                if (onLaunchDistrictPractice) {
+                  onLaunchDistrictPractice(questions, title, districtId);
+                } else if (onStartDistrictPractice) {
+                  onStartDistrictPractice(title);
+                }
+              }}
+              onOpenAdSenseManager={onOpenAdSenseManager}
+            />
+          </div>
+        )}
+
+        {/* TAB 2: All 36 Districts Cards List */}
+        {activeTab === 'cards_list' && (
+          <div className="flex-1 flex flex-col overflow-hidden">
+            {/* MPSC High-Yield State Quick Facts Strip */}
+            <div className="bg-amber-50/70 border-b border-amber-200/60 px-4 sm:px-6 py-2.5 flex items-center gap-3 overflow-x-auto text-[11px] sm:text-xs text-stone-700 shrink-0 font-medium whitespace-nowrap">
+              <span className="font-bold text-amber-900 flex items-center gap-1 shrink-0">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                <span>MPSC फॅक्ट्स:</span>
+              </span>
+              <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
+                मोठा जिल्हा: <strong>अहिल्यानगर</strong> (१७,०४८ चौ.किमी)
+              </span>
+              <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
+                लहान जिल्हा: <strong>मुंबई शहर</strong> (१५७ चौ.किमी)
+              </span>
+              <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
+                सर्वाधिक तालुके: <strong>यवतमाळ व नांदेड</strong> (१६ तालुके)
+              </span>
+              <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
+                सर्वाधिक वने: <strong>गडचिरोली</strong> (६८.८%)
+              </span>
+              <span className="bg-white px-2 py-0.5 rounded-md border border-amber-200">
+                ३६ वा जिल्हा: <strong>पालघर</strong> (१ ऑगस्ट २०१४)
+              </span>
+            </div>
 
         {/* Division Filter Tabs & Search Bar */}
         <div className="p-3 sm:p-4 border-b border-stone-200 bg-stone-50 space-y-3 shrink-0">
@@ -363,11 +431,11 @@ export const MaharashtraDistrictsModal: React.FC<MaharashtraDistrictsModalProps>
                     </div>
 
                     {/* Card Actions Footer */}
-                    <div className="p-3 bg-stone-50 border-t border-stone-100 flex items-center justify-between gap-2">
+                    <div className="p-3 bg-stone-50 border-t border-stone-100 flex items-center justify-between gap-2 flex-wrap">
                       <button
                         type="button"
                         onClick={() => handleCopyFacts(district)}
-                        className="px-2.5 py-1.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-100 text-[11px] font-bold text-stone-700 flex items-center gap-1 transition-colors cursor-pointer"
+                        className="px-2.5 py-1.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-100 text-[11px] font-bold text-stone-700 flex items-center gap-1 transition-colors cursor-pointer shrink-0"
                         title={isMr ? "या जिल्ह्याची माहिती कॉपी करा" : "Copy District Facts"}
                       >
                         {copiedDistrictId === district.id ? (
@@ -383,20 +451,45 @@ export const MaharashtraDistrictsModal: React.FC<MaharashtraDistrictsModalProps>
                         )}
                       </button>
 
-                      {onStartDistrictPractice && (
+                      <div className="flex items-center gap-1.5">
                         <button
                           type="button"
                           onClick={() => {
                             onClose();
-                            onStartDistrictPractice(district.nameMr);
+                            const qs = generateDistrictQuestions(district, 10);
+                            const title = `${district.nameMr} - १० प्रश्न सराव चाचणी`;
+                            if (onLaunchDistrictPractice) {
+                              onLaunchDistrictPractice(qs, title, district.id);
+                            } else if (onStartDistrictPractice) {
+                              onStartDistrictPractice(title);
+                            }
                           }}
-                          className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-extrabold flex items-center gap-1 shadow-2xs transition-all cursor-pointer active:scale-95"
-                          title={isMr ? "महाराष्ट्राच्या भूगोलाचे प्रश्न सोडवा" : "Solve MPSC Geography Practice"}
+                          className="px-2.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-stone-950 text-xs font-black flex items-center gap-1 shadow-2xs transition-all cursor-pointer active:scale-95"
+                          title={isMr ? "१० प्रश्न सराव सुरू करा" : "Start 10 Qs Practice"}
                         >
-                          <BookOpen className="w-3 h-3" />
-                          <span>{isMr ? 'भूगोल सराव ➔' : 'Practice ➔'}</span>
+                          <Play className="w-3 h-3 fill-current" />
+                          <span>१० प्रश्न</span>
                         </button>
-                      )}
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            const qs = generateDistrictQuestions(district, 20);
+                            const title = `${district.nameMr} - २० प्रश्न महा-सराव चाचणी`;
+                            if (onLaunchDistrictPractice) {
+                              onLaunchDistrictPractice(qs, title, district.id);
+                            } else if (onStartDistrictPractice) {
+                              onStartDistrictPractice(title);
+                            }
+                          }}
+                          className="px-2.5 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-amber-300 text-xs font-black flex items-center gap-1 shadow-2xs transition-all cursor-pointer active:scale-95"
+                          title={isMr ? "२० प्रश्न संपूर्ण जिल्हा महा-चाचणी सुरू करा" : "Start 20 Qs Master Test"}
+                        >
+                          <Award className="w-3 h-3 text-amber-400" />
+                          <span>२० प्रश्न</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -404,6 +497,8 @@ export const MaharashtraDistrictsModal: React.FC<MaharashtraDistrictsModalProps>
             </div>
           )}
         </div>
+      </div>
+    )}
 
         {/* Modal Bottom Footer */}
         <div className="px-4 sm:px-6 py-3 border-t border-stone-200 bg-stone-50 flex items-center justify-between shrink-0 text-xs text-stone-500">
