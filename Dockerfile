@@ -1,5 +1,5 @@
 # ==========================================
-# Multi-stage Dockerfile for MPSC Aspirant Prep
+# Multi-stage Dockerfile for MPSC Aspirant Prep (Optimized)
 # ==========================================
 
 # Stage 1: Build stage
@@ -10,14 +10,17 @@ WORKDIR /app
 # Copy dependency manifests
 COPY package.json package-lock.json* ./
 
-# Install dependencies (including devDependencies for vite/esbuild)
-RUN npm install --legacy-peer-deps
+# Install dependencies with fast flags (preventing network hang/concurrency locks)
+RUN npm install --no-audit --no-fund --legacy-peer-deps
 
 # Copy application source code
 COPY . .
 
 # Build Vite frontend & bundled backend server (dist/server.cjs)
 RUN npm run build
+
+# Prune devDependencies to keep production node_modules lean (without running a second npm install)
+RUN npm prune --omit=dev --legacy-peer-deps && npm cache clean --force
 
 # ==========================================
 # Stage 2: Production runner stage
@@ -29,11 +32,13 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Install only production dependencies
-COPY package.json package-lock.json* ./
-RUN npm install --omit=dev --legacy-peer-deps && npm cache clean --force
+# Copy runtime package.json
+COPY package.json ./
 
-# Copy compiled build output from builder stage
+# Copy lightweight production node_modules directly from builder stage
+COPY --from=builder /app/node_modules ./node_modules
+
+# Copy compiled build output & public assets from builder stage
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
 
