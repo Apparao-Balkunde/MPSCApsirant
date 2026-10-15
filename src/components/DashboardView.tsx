@@ -36,7 +36,8 @@ import {
   Landmark,
   Compass,
   MapPin,
-  ShieldAlert
+  ShieldAlert,
+  DollarSign
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -97,7 +98,7 @@ interface DashboardViewProps {
   onOpenMapQuiz?: () => void;
   onOpenNegativeTrapPractice?: () => void;
   onOpenCurrentAffairsDrill?: (category?: string) => void;
-  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub') => void;
   onOpenAdSenseManager?: () => void;
   onOpenDistrictsModal?: (initialTab?: 'map_learning' | 'cards_list') => void;
   onOpenPanchayatiRaj?: () => void;
@@ -438,6 +439,21 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <span>{isMr ? '🚩 समाजसुधारक इन्सायक्लोपीडिया' : '🚩 Reformers Hub'}</span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded bg-orange-400 text-stone-950 font-black uppercase">
                     ५०+ 🏆
+                  </span>
+                </button>
+              )}
+
+              {onOpenAffiliateBooks && (
+                <button
+                  id="btn-hero-earning-hub"
+                  onClick={() => onOpenAffiliateBooks('earning_hub')}
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-950/90 to-stone-900 hover:from-emerald-900 hover:to-stone-850 text-emerald-200 border border-emerald-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                  title={isMr ? "MPSC पोर्टल कमाई केंद्र: १० सिद्ध कमाई मार्ग, AdSense, Amazon व थेट UPI QR" : "Open 10 Earning Pillars & Monetization Engine"}
+                >
+                  <DollarSign className="w-4 h-4 text-emerald-400" />
+                  <span>{isMr ? '💰 १० कमाई मार्ग व उत्पन्न हब' : '💰 10 Earning Pillars Hub'}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-400 text-stone-950 font-black uppercase">
+                    PRO 💎
                   </span>
                 </button>
               )}
@@ -1587,6 +1603,76 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <Scale className="w-4 h-4 fill-stone-950 text-stone-950" />
                 <span>{isMr ? '⚖️ पंचायत राज केंद्र उघडा' : 'Open Panchayati Raj Hub'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 💰 MPSC पोर्टल कमाई केंद्र व मॉनेटायझेशन मास्टर हब (Portal Earning & Revenue Engine) */}
+        <div className="bg-gradient-to-br from-emerald-950/90 via-stone-900 to-amber-950/80 rounded-2xl border-2 border-emerald-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-52 h-52 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-2.5 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/25 text-emerald-300 border border-emerald-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{isMr ? 'अधिकृत पोर्टल मॉनेटायझेशन • 10 Revenue Pillars' : 'Official Monetization Engine • 10 Pillars'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold">
+                  {isMr ? '📦 २६+ संदर्भ ग्रंथ व गॅजेट्स' : '26+ Books & Study Gear'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-bold font-mono">
+                  {isMr ? '📱 थेट UPI QR (०% कपात)' : 'Direct UPI (0% Cut)'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-bold">
+                  {isMr ? 'कमाल ₹२.८ लाख/महिना क्षमता' : 'Peak ₹2.8L/mo Potential'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-emerald-200">
+                {isMr
+                  ? '💰 MPSC पोर्टल कमाई केंद्र: १० सिद्ध कमाई मार्ग व उत्पन्न स्ट्रॅटेजी'
+                  : '💰 MPSC Portal Earning Engine: 10 Proven Monetization Pillars'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'विद्यार्थ्यांना दर्जेदार मोफत सराव देताना दरमहा ₹४५,००० ते ₹२,८०,०००+ उत्पन्न मिळवण्याचे १० सिद्ध कमाई मार्ग • ॲमेझॉन असोसिएट्स (५-९% कमिशन), Google AdSense, थेट UPI देणगी QR, टेस्ट पास सबस्क्रिप्शन, आणि १-क्लिक कॉपी टेलिग्राम ब्रॉडकास्ट मेसेजेस!'
+                  : 'Empower students with free practice while generating recurring passive income through 10 proven streams: Amazon India Associate Tag, AdSense, Zero-cut UPI donations, and Telegram viral templates.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-emerald-200/90 font-medium pt-1 flex-wrap">
+                <span>🏆 {isMr ? '१० मास्टर कमाई खांब व कृती योजना' : '10 Monetization Pillars'}</span>
+                <span>•</span>
+                <span>📈 {isMr ? 'ट्रॅफिक ते मासिक उत्पन्न कॅल्क्युलेटर' : 'Traffic Revenue Simulator'}</span>
+                <span>•</span>
+                <span>📱 {isMr ? 'थेट UPI QR (apparaobalkunde901@okaxis)' : 'Direct UPI Collection QR'}</span>
+                <span>•</span>
+                <span>🚀 {isMr ? '१-क्लिक कॉपी टेलिग्राम व व्हॉट्सॲप पोस्ट्स' : '1-Click Telegram Broadcasts'}</span>
+                <span>•</span>
+                <span>🏷️ {isMr ? 'ॲमेझॉन ५% ते ९% कमिशन स्लॅब' : 'Amazon Commission Slabs'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                type="button"
+                id="btn-dashboard-earning-hub"
+                onClick={() => onOpenAffiliateBooks?.('earning_hub')}
+                className="px-5 py-3.5 bg-gradient-to-r from-emerald-500 to-amber-500 hover:from-emerald-400 hover:to-amber-400 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <DollarSign className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '💰 १० कमाई मार्ग केंद्र उघडा' : 'Open Earning Engine'}</span>
+              </button>
+
+              <button
+                type="button"
+                id="btn-dashboard-earning-books"
+                onClick={() => onOpenAffiliateBooks?.('books')}
+                className="px-4 py-3 bg-stone-850 hover:bg-stone-800 text-amber-300 border border-amber-500/40 font-bold text-xs rounded-xl transition-colors cursor-pointer shrink-0"
+              >
+                <span>{isMr ? '📚 पुस्तके व गॅजेट्स (२६)' : 'Books & Gear (26)'}</span>
               </button>
             </div>
           </div>

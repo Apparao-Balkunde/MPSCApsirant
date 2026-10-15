@@ -139,7 +139,7 @@ export default function App() {
 
   // MPSC Standard Reference Books & Amazon Affiliate Store modal state
   const [isAffiliateBooksOpen, setIsAffiliateBooksOpen] = useState<boolean>(false);
-  const [affiliateBooksInitialTab, setAffiliateBooksInitialTab] = useState<'books' | 'guide' | 'settings'>('books');
+  const [affiliateBooksInitialTab, setAffiliateBooksInitialTab] = useState<'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub'>('books');
 
   // Google AdSense Ad Space Manager modal state
   const [isAdSenseManagerOpen, setIsAdSenseManagerOpen] = useState<boolean>(false);
@@ -159,7 +159,7 @@ export default function App() {
   // Maharashtra Social Reformers Encyclopedia modal state
   const [isSocialReformersOpen, setIsSocialReformersOpen] = useState<boolean>(false);
 
-  const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' = 'books') => {
+  const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub' = 'books') => {
     setAffiliateBooksInitialTab(tab);
     setIsAffiliateBooksOpen(true);
   };
@@ -910,6 +910,7 @@ export default function App() {
               currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
               currentUserId={currentUser?.uid}
               onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
+              onOpenAffiliateBooks={handleOpenAffiliateBooks}
             />
           </main>
         </div>

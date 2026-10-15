@@ -40,6 +40,15 @@ import {
   deleteCustomAffiliateBook,
   attachTagToAmazonUrl
 } from '../data/mpscAffiliateBooks';
+import {
+  EARNING_PILLARS_DATA,
+  REVENUE_PROJECTIONS_DATA,
+  TELEGRAM_MONETIZATION_TEMPLATES,
+  AMAZON_COMMISSION_SLABS_DATA,
+  getStoredUpiId,
+  saveStoredUpiId,
+  getStoredUpiName
+} from '../data/mpscEarningStrategiesData';
 import { SubjectId } from '../types';
 
 interface MpscAffiliateBooksModalProps {
@@ -47,7 +56,7 @@ interface MpscAffiliateBooksModalProps {
   onClose: () => void;
   language: 'mr' | 'en';
   onStartPractice?: (subjectId?: SubjectId, customTitle?: string) => void;
-  initialTab?: 'books' | 'guide' | 'settings' | 'link_checker';
+  initialTab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub';
 }
 
 export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = ({
@@ -58,10 +67,18 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
   initialTab = 'books',
 }) => {
   const isMr = language === 'mr';
-  const [activeTab, setActiveTab] = useState<'books' | 'guide' | 'settings' | 'link_checker'>(initialTab);
+  const [activeTab, setActiveTab] = useState<'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub'>(initialTab);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedBookId, setCopiedBookId] = useState<string | null>(null);
+  
+  // Earning Hub State
+  const [selectedPillarId, setSelectedPillarId] = useState<string>('amazon_associates');
+  const [copiedTemplateIdx, setCopiedTemplateIdx] = useState<number | null>(null);
+  const [ownerUpiId, setOwnerUpiId] = useState<string>(getStoredUpiId());
+  const [upiInput, setUpiInput] = useState<string>(ownerUpiId);
+  const [isUpiSaved, setIsUpiSaved] = useState<boolean>(false);
+  const [isCopiedUpi, setIsCopiedUpi] = useState<boolean>(false);
   
   // Custom books added by the user
   const [customBooks, setCustomBooks] = useState<MpscAffiliateBook[]>([]);
@@ -94,8 +111,33 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
       setTagInput(current);
       setActiveTab(initialTab);
       setCustomBooks(getCustomAffiliateBooks());
+      const upi = getStoredUpiId();
+      setOwnerUpiId(upi);
+      setUpiInput(upi);
     }
   }, [isOpen, initialTab]);
+
+  const handleSaveUpi = (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = upiInput.trim();
+    saveStoredUpiId(clean);
+    setOwnerUpiId(clean || 'apparaobalkunde901@okaxis');
+    setIsUpiSaved(true);
+    setTimeout(() => setIsUpiSaved(false), 3000);
+  };
+
+  const handleCopyUpi = () => {
+    navigator.clipboard.writeText(ownerUpiId);
+    setIsCopiedUpi(true);
+    setTimeout(() => setIsCopiedUpi(false), 2500);
+  };
+
+  const handleCopyTemplate = (text: string, idx: number) => {
+    const formatted = text.replace(/YOUR_TAG-21/g, affiliateTag);
+    navigator.clipboard.writeText(formatted);
+    setCopiedTemplateIdx(idx);
+    setTimeout(() => setCopiedTemplateIdx(null), 2500);
+  };
 
   const allCombinedBooks = useMemo(() => {
     return [...customBooks, ...MPSC_AFFILIATE_BOOKS_DATA];
@@ -113,8 +155,10 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
       });
     }
     list.push(
+      { id: 'study_gear', labelMr: '🎒 स्टडी गियर व गॅजेट्स (९% कमिशन)', labelEn: '🎒 Study Gear & Tech (9% Comm)' },
+      { id: 'stationery_omr', labelMr: '📝 OMR शीट्स व स्टेशनरी', labelEn: '📝 OMR Sheets & Stationery' },
       { id: 'polity', labelMr: 'राज्यशास्त्र', labelEn: 'Polity' },
-      { id: 'maharashtra_geography', labelMr: 'भूगोल', labelEn: 'Geography' },
+      { id: 'maharashtra_geography', labelMr: 'भूगोल व नकाशे', labelEn: 'Geography & Maps' },
       { id: 'maharashtra_history', labelMr: 'इतिहास', labelEn: 'History' },
       { id: 'economy', labelMr: 'अर्थशास्त्र', labelEn: 'Economy' },
       { id: 'general_science', labelMr: 'सामान्य विज्ञान', labelEn: 'Science' },
@@ -298,6 +342,22 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
           <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               type="button"
+              onClick={() => setActiveTab('earning_hub')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
+                activeTab === 'earning_hub'
+                  ? 'bg-gradient-to-r from-emerald-500 to-amber-500 text-stone-950 font-black shadow-lg shadow-emerald-500/20'
+                  : 'bg-emerald-950/40 text-emerald-300 hover:bg-emerald-900/50 border border-emerald-500/40'
+              }`}
+            >
+              <DollarSign className="w-4 h-4 text-emerald-400" />
+              <span>{isMr ? '💰 १० कमाई मार्ग व उत्पन्न हब' : '10 Earning Pillars & Revenue Hub'}</span>
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-500 text-stone-950 font-black">
+                PRO
+              </span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => setActiveTab('books')}
               className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === 'books'
@@ -306,7 +366,7 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
               }`}
             >
               <BookOpen className="w-4 h-4" />
-              <span>{isMr ? '📖 संदर्भ पुस्तके स्टोअर (१२)' : 'Reference Books (12)'}</span>
+              <span>{isMr ? `📖 संदर्भ ग्रंथ व गॅजेट्स (${allCombinedBooks.length})` : `Books & Gear (${allCombinedBooks.length})`}</span>
             </button>
 
             <button
@@ -319,7 +379,7 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
               }`}
             >
               <TrendingUp className="w-4 h-4" />
-              <span>{isMr ? '💡 ॲमेझॉन कमाई गाईड (कसे करावे?)' : 'Earning Guide (How-to)'}</span>
+              <span>{isMr ? '💡 ॲमेझॉन कमाई गाईड' : 'Earning Guide'}</span>
             </button>
 
             <button
@@ -332,7 +392,7 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
               }`}
             >
               <Settings className="w-4 h-4" />
-              <span>{isMr ? '⚙️ टॅग व कॅल्क्युलेटर' : 'Tag & Calculator'}</span>
+              <span>{isMr ? '⚙️ टॅग, UPI व कॅल्क्युलेटर' : 'Tag, UPI & Calculator'}</span>
             </button>
 
             <button
@@ -354,6 +414,459 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
             <span>{isMr ? 'अधिकृत Amazon India सिस्टीम' : 'Amazon.in Associates System'}</span>
           </div>
         </div>
+
+        {/* Tab 0: 💰 10 Earning Pillars & Revenue Master Hub */}
+        {activeTab === 'earning_hub' && (
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+            {/* Hero Header Banner */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-emerald-950/80 via-stone-900 to-amber-950/70 border border-emerald-500/30 relative overflow-hidden space-y-4">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div className="space-y-1.5 max-w-3xl">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{isMr ? 'पोर्टल मालकाचे अधिकृत कमाई व मॉनेटायझेशन केंद्र' : 'Official Portal Monetization Engine'}</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                    {isMr
+                      ? '💰 MPSC पोर्टल कमाई केंद्र: १० सिद्ध कमाई मार्ग व उत्पन्न स्ट्रॅटेजी'
+                      : '💰 MPSC Portal Earning Engine: 10 Proven Monetization Pillars'}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                    {isMr
+                      ? 'विद्यार्थ्यांना दर्जेदार मोफत सराव आणि १००,०००+ प्रश्न बँक पुरवताना पोर्टल मालकाला दरमहा ₹४५,००० ते ₹२,८०,०००+ निष्क्रीय उत्पन्न (Passive Income) मिळवून देणारे १० मास्टर कमाई मार्ग, थेट UPI देणगी QR, आणि १-क्लिक सोशल मीडिया ब्रॉडकास्ट!'
+                      : 'Comprehensive passive income roadmap generating ₹45,000 - ₹2,80,000+/month through 10 diversified pillars while empowering Maharashtra civil service aspirants.'}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap sm:flex-col gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('settings')}
+                    className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                  >
+                    <Settings className="w-4 h-4 text-stone-950" />
+                    <span>{isMr ? 'माझा UPI व टॅग सेट करा' : 'Configure UPI & Tag'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('books')}
+                    className="px-4 py-2.5 rounded-xl bg-stone-850 hover:bg-stone-800 text-amber-300 border border-amber-500/30 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                  >
+                    <BookOpen className="w-4 h-4 text-amber-400" />
+                    <span>{isMr ? `पुस्तके व गॅजेट्स (${allCombinedBooks.length}) ➜` : `Books & Gear (${allCombinedBooks.length}) ➜`}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* 4 Fast Stat Badges */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 pt-2 border-t border-stone-800/80">
+                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
+                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'कमाईचे खांब' : 'Revenue Pillars'}</div>
+                  <div className="text-base sm:text-lg font-black text-emerald-400">१० मास्टर मार्ग</div>
+                </div>
+                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
+                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'ॲमेझॉन कमिशन' : 'Amazon Comm'}</div>
+                  <div className="text-base sm:text-lg font-black text-amber-400">५% ते ९% थेट बँक</div>
+                </div>
+                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
+                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'थेट UPI कपात' : 'Direct UPI Cuts'}</div>
+                  <div className="text-base sm:text-lg font-black text-cyan-400">०% कपात (१००% नफा)</div>
+                </div>
+                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
+                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'कमाल मासिक क्षमता' : 'Peak Potential'}</div>
+                  <div className="text-base sm:text-lg font-black text-rose-400">₹२,८०,००० / महिना</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 1: 🏆 Interactive 10 Master Earning Pillars */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
+                    <Award className="w-5 h-5 text-amber-400" />
+                    <span>{isMr ? '🏆 सर्व १० मास्टर कमाई स्तंभ (10 Proven Revenue Pillars):' : '🏆 10 Master Monetization Pillars:'}</span>
+                  </h4>
+                  <p className="text-xs text-stone-400">
+                    {isMr ? 'कोणत्याही स्तंभावर क्लिक करून त्याची कृती योजना व प्रो टिप्स पाहा' : 'Click on any pillar to inspect execution roadmap & pro tips'}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs text-stone-400">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>{isMr ? '१० मार्ग थेट सक्रिय' : '10 Live Streams'}</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {EARNING_PILLARS_DATA.map((pillar) => {
+                  const isSelected = selectedPillarId === pillar.id;
+                  return (
+                    <div
+                      key={pillar.id}
+                      onClick={() => setSelectedPillarId(pillar.id)}
+                      className={`p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between gap-3 text-left ${
+                        isSelected
+                          ? 'bg-stone-800 border-amber-500 shadow-lg shadow-amber-500/10 ring-1 ring-amber-500'
+                          : 'bg-stone-850 hover:bg-stone-800/80 border-stone-800'
+                      }`}
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-start justify-between gap-2">
+                          <span className="text-2xl">{pillar.icon}</span>
+                          <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border uppercase ${pillar.badgeColor}`}>
+                            {pillar.categoryMr}
+                          </span>
+                        </div>
+
+                        <div>
+                          <h5 className="text-sm font-black text-white leading-snug">
+                            {isMr ? pillar.titleMr : pillar.titleEn}
+                          </h5>
+                          <div className="text-xs font-bold text-emerald-400 mt-1 flex items-center gap-1">
+                            <span>{pillar.potentialMonthlyMr}</span>
+                          </div>
+                        </div>
+
+                        <p className="text-xs text-stone-300 line-clamp-2 leading-relaxed">
+                          {isMr ? pillar.summaryMr : pillar.summaryEn}
+                        </p>
+                      </div>
+
+                      <div className="pt-2 border-t border-stone-800 flex items-center justify-between text-[11px]">
+                        <span className="text-stone-400 font-medium">
+                          {isMr ? 'कमिशन दर:' : 'Rate:'} <span className="text-amber-300 font-bold">{pillar.commissionOrCpmMr}</span>
+                        </span>
+                        <span className={`font-bold ${isSelected ? 'text-amber-400' : 'text-stone-500'}`}>
+                          {isSelected ? 'सक्रिय ▾' : 'पहा ➜'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Active Selected Pillar In-depth Details Box */}
+              {(() => {
+                const activePillar = EARNING_PILLARS_DATA.find((p) => p.id === selectedPillarId) || EARNING_PILLARS_DATA[0];
+                return (
+                  <div className="p-5 sm:p-6 rounded-2xl bg-stone-900 border border-amber-500/40 space-y-4 animate-in fade-in">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-800">
+                      <div className="flex items-center gap-3">
+                        <div className="text-3xl p-2 rounded-xl bg-stone-800 border border-stone-700">
+                          {activePillar.icon}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${activePillar.badgeColor}`}>
+                              {activePillar.categoryMr}
+                            </span>
+                            <span className="text-xs text-stone-400 font-bold">
+                              काठिण्य पातळी: <span className="text-emerald-300 font-black capitalize">{activePillar.difficultyLevel}</span>
+                            </span>
+                          </div>
+                          <h4 className="text-base sm:text-lg font-black text-white mt-0.5">
+                            {isMr ? activePillar.titleMr : activePillar.titleEn}
+                          </h4>
+                        </div>
+                      </div>
+
+                      <div className="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-black text-xs sm:text-sm text-right shrink-0">
+                        {isMr ? activePillar.potentialMonthlyMr : activePillar.potentialMonthlyEn}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h5 className="text-xs font-bold text-stone-400 uppercase tracking-wider">
+                        {isMr ? 'या मार्गाचे सविस्तर स्वरूप:' : 'Overview:'}
+                      </h5>
+                      <p className="text-xs sm:text-sm text-stone-200 leading-relaxed">
+                        {isMr ? activePillar.summaryMr : activePillar.summaryEn}
+                      </p>
+                    </div>
+
+                    {/* Action Steps */}
+                    <div className="space-y-2">
+                      <h5 className="text-xs font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>{isMr ? 'अंमलबजावणीच्या ४ पायऱ्या (Action Plan):' : '4-Step Execution:'}</span>
+                      </h5>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {activePillar.actionStepsMr.map((step, idx) => (
+                          <div key={idx} className="p-2.5 rounded-xl bg-stone-850 border border-stone-800 text-xs text-stone-300 flex items-start gap-2">
+                            <span className="w-5 h-5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-black flex items-center justify-center shrink-0 mt-0.5">
+                              {idx + 1}
+                            </span>
+                            <span className="leading-snug">{step}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Pro Tip */}
+                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 flex items-start gap-2">
+                      <Star className="w-4 h-4 text-amber-400 shrink-0 mt-0.5 fill-amber-400" />
+                      <div>
+                        <span className="font-black text-amber-300">{isMr ? 'सक्सेस सिक्रेट प्रो टिप: ' : 'Success Pro Tip: '}</span>
+                        <span>{activePillar.proTipsMr[0]}</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* Section 2: 📱 Direct UPI Support & MPSC Pass QR Collection Box */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-stone-900 via-stone-850 to-emerald-950/60 border border-emerald-500/30 space-y-5">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{isMr ? '०% कपात थेट बँक खात्यात पैसे' : 'Zero Cut Direct Bank Settlements'}</span>
+                  </div>
+                  <h4 className="text-base sm:text-lg font-black text-white">
+                    {isMr ? '📱 थेट UPI पेमेंट व MPSC सराव प्रो पास संकलन' : 'Direct UPI Payments & Student Support'}
+                  </h4>
+                  <p className="text-xs text-stone-300 max-w-2xl leading-relaxed">
+                    {isMr
+                      ? 'विद्यार्थी स्वेच्छेने गुरुदक्षिणा देणगी (₹२९) देतात किंवा वर्षभराच्या अमर्याद टेस्ट्ससाठी "सराव प्रो पास (₹४९ / ₹९९)" विकत घेतात. कोणत्याही पेमेंट गेटवे कमिशनशिवाय १००% रक्कम थेट तुमच्या PhonePe / Google Pay खात्यात जमा होते!'
+                      : 'Students contribute voluntary tips or purchase ₹49/₹99 Mock Passes. 100% hits your UPI without gateway deductions.'}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={handleCopyUpi}
+                    className="px-3.5 py-2 rounded-xl bg-stone-800 hover:bg-stone-750 text-white font-bold text-xs flex items-center gap-1.5 border border-stone-700 cursor-pointer transition-colors"
+                  >
+                    {isCopiedUpi ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-amber-400" />}
+                    <span>{isCopiedUpi ? (isMr ? 'कॉपी झाले!' : 'Copied!') : (isMr ? 'UPI आयडी कॉपी करा' : 'Copy UPI ID')}</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-2">
+                {/* QR Code Container */}
+                <div className="p-4 rounded-xl bg-stone-950 border border-stone-800 flex flex-col items-center justify-center text-center space-y-3">
+                  <div className="p-2.5 rounded-xl bg-white shadow-xl">
+                    <img
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=${encodeURIComponent(
+                        ownerUpiId
+                      )}&pn=MPSCAspirantPrep&cu=INR`}
+                      alt="UPI QR Code"
+                      className="w-36 h-36 rounded-lg"
+                    />
+                  </div>
+                  <div>
+                    <div className="text-xs font-mono font-bold text-amber-300 break-all">{ownerUpiId}</div>
+                    <div className="text-[11px] text-stone-400 font-medium mt-0.5">Apparao Balkunde (GPay / PhonePe / Paytm)</div>
+                  </div>
+                </div>
+
+                {/* 3 Student Micro-pricing Options */}
+                <div className="lg:col-span-2 space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <div className="p-3.5 rounded-xl bg-stone-900 border border-stone-800 space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-stone-300">☕ चहा देणगी</span>
+                        <span className="text-sm font-black text-amber-400">₹२९</span>
+                      </div>
+                      <p className="text-[11px] text-stone-400 leading-snug">
+                        विद्यार्थ्यांकडून स्वेच्छेने वेबसाइट सर्व्हरसाठी छोटी गुरुदक्षिणा.
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-stone-900 border border-emerald-500/30 space-y-1 relative overflow-hidden">
+                      <span className="absolute right-2 top-2 px-1.5 py-0.2 rounded-md text-[9px] font-black bg-emerald-500 text-stone-950">
+                        सर्वाधिक लोकप्रिय
+                      </span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-stone-300">🎟️ सराव प्रो पास</span>
+                        <span className="text-sm font-black text-emerald-400">₹४९</span>
+                      </div>
+                      <p className="text-[11px] text-stone-400 leading-snug">
+                        १ महिना १००,०००+ प्रश्न, ओएमआर सराव व विश्लेषण अनलॉक.
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-stone-900 border border-stone-800 space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-stone-300">👑 वार्षिक टॉपर क्लब</span>
+                        <span className="text-sm font-black text-cyan-400">₹९९</span>
+                      </div>
+                      <p className="text-[11px] text-stone-400 leading-snug">
+                        १ वर्षभर सर्व टेस्ट्स, समाजसुधारक व पंचायतराज स्पेशल नोट्स.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Quick Form to update UPI */}
+                  <form onSubmit={handleSaveUpi} className="p-3 rounded-xl bg-stone-900/90 border border-stone-800 space-y-2">
+                    <div className="flex flex-col sm:flex-row items-center gap-2">
+                      <input
+                        type="text"
+                        value={upiInput}
+                        onChange={(e) => setUpiInput(e.target.value)}
+                        placeholder="तुमचा PhonePe/GPay UPI आयडी (उदा. youremail@okaxis)"
+                        className="w-full bg-stone-950 border border-stone-750 rounded-xl px-3 py-2 text-xs font-mono text-emerald-300 focus:outline-hidden focus:border-emerald-500"
+                      />
+                      <button
+                        type="submit"
+                        className="w-full sm:w-auto px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black text-xs shrink-0 cursor-pointer transition-all"
+                      >
+                        {isMr ? 'UPI सेव्ह करा' : 'Save UPI'}
+                      </button>
+                    </div>
+                    {isUpiSaved && (
+                      <div className="text-[11px] text-emerald-400 font-bold flex items-center gap-1.5 animate-in fade-in">
+                        <Check className="w-3.5 h-3.5" />
+                        <span>{isMr ? 'अभिनंदन! तुमचा UPI आयडी यशस्वीरीत्या सेव्ह झाला आहे.' : 'Success! Your UPI ID is saved.'}</span>
+                      </div>
+                    )}
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3: 📈 Student Traffic to Revenue Matrix (5 Tiers) */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-stone-850 border border-stone-800 space-y-4">
+              <div>
+                <h4 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-emerald-400" />
+                  <span>{isMr ? '📈 विद्यार्थी संख्या व उत्पन्न अंदाज पत्रक (Traffic to Monthly Revenue Matrix):' : 'Revenue Projection Matrix:'}</span>
+                </h4>
+                <p className="text-xs text-stone-400">
+                  {isMr
+                    ? 'दररोज पोर्टलवर येणाऱ्या विद्यार्थ्यांच्या संख्येनुसार मासिक व वार्षिक उत्पन्नाचा वास्तववादी अंदाज'
+                    : 'Realistic revenue projection across 5 scaling tiers of student traffic'}
+                </p>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs text-stone-300 border-collapse">
+                  <thead>
+                    <tr className="border-b border-stone-700 bg-stone-900/90 text-stone-400 font-bold">
+                      <th className="p-3">{isMr ? 'टप्पा (Tier)' : 'Tier'}</th>
+                      <th className="p-3">{isMr ? 'दैनिक विद्यार्थी' : 'Daily Students'}</th>
+                      <th className="p-3">{isMr ? 'AdSense कमाई' : 'AdSense'}</th>
+                      <th className="p-3">{isMr ? 'पुस्तक विक्री' : 'Books Sold'}</th>
+                      <th className="p-3">{isMr ? 'ॲफिलिएट कमिशन' : 'Affiliate Comm'}</th>
+                      <th className="p-3">{isMr ? 'एकूण मासिक' : 'Monthly Total'}</th>
+                      <th className="p-3 text-emerald-400">{isMr ? 'वार्षिक उत्पन्न' : 'Annual Total'}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-stone-800">
+                    {REVENUE_PROJECTIONS_DATA.map((tier, idx) => (
+                      <tr key={idx} className="hover:bg-stone-800/60 transition-colors">
+                        <td className="p-3 font-bold text-white whitespace-nowrap">
+                          {isMr ? tier.tierNameMr : tier.tierNameEn}
+                        </td>
+                        <td className="p-3 font-mono text-amber-300 font-bold whitespace-nowrap">
+                          {tier.dailyActiveStudents.toLocaleString('en-IN')} / दिवस
+                        </td>
+                        <td className="p-3 font-mono text-blue-300 whitespace-nowrap">
+                          ₹{tier.estimatedAdSenseEarnings.toLocaleString('en-IN')}
+                        </td>
+                        <td className="p-3 font-mono text-stone-300 whitespace-nowrap">
+                          {tier.estimatedAffiliateBookSales} पुस्तके
+                        </td>
+                        <td className="p-3 font-mono text-amber-400 whitespace-nowrap">
+                          ₹{tier.estimatedAffiliateEarnings.toLocaleString('en-IN')}
+                        </td>
+                        <td className="p-3 font-mono font-black text-emerald-400 text-sm whitespace-nowrap">
+                          ₹{tier.totalMonthlyEarnings.toLocaleString('en-IN')}
+                        </td>
+                        <td className="p-3 font-mono font-black text-amber-400 text-sm whitespace-nowrap">
+                          ₹{tier.totalAnnualEarnings.toLocaleString('en-IN')}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Section 4: 🚀 Ready-to-Use 1-Click Copy Telegram & WhatsApp Broadcast Messages */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <h4 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
+                    <Share2 className="w-5 h-5 text-rose-400" />
+                    <span>{isMr ? '🚀 रेडी-टू-कॉपी टेलिग्राम व व्हॉट्सॲप मेसेजेस (१-क्लिक कॉपी):' : 'Ready-to-Use Broadcast Templates:'}</span>
+                  </h4>
+                  <p className="text-xs text-stone-400">
+                    {isMr
+                      ? 'हे संदेश कॉपी करून तुमच्या टेलिग्राम चॅनेलवर किंवा व्हॉट्सॲप ग्रुपवर टाका; ॲमेझॉन खरेदी लिंक्स आपोआप जोडल्या आहेत!'
+                      : 'High-converting viral post templates formatted for Telegram and WhatsApp broadcast channels.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {TELEGRAM_MONETIZATION_TEMPLATES.map((tmpl, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 sm:p-5 rounded-2xl bg-stone-850 border border-stone-800 space-y-3 flex flex-col justify-between"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-start justify-between gap-2">
+                        <h5 className="text-sm font-black text-white">
+                          {isMr ? tmpl.strategyTitleMr : tmpl.strategyTitleEn}
+                        </h5>
+                        <button
+                          type="button"
+                          onClick={() => handleCopyTemplate(tmpl.postTemplateMr, idx)}
+                          className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs flex items-center gap-1.5 shadow-md cursor-pointer transition-all shrink-0"
+                        >
+                          {copiedTemplateIdx === idx ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                          <span>{copiedTemplateIdx === idx ? (isMr ? 'कॉपी झाले!' : 'Copied!') : (isMr ? 'मेसेज कॉपी करा' : 'Copy')}</span>
+                        </button>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-stone-900 border border-stone-750 font-mono text-[11px] text-stone-300 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
+                        {tmpl.postTemplateMr.replace(/YOUR_TAG-21/g, affiliateTag)}
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-stone-800 grid grid-cols-2 gap-2 text-[11px]">
+                      <div>
+                        <span className="text-stone-500 font-bold">{isMr ? 'योग्य वेळ:' : 'Time:'} </span>
+                        <span className="text-stone-300">{tmpl.recommendedTimeMr}</span>
+                      </div>
+                      <div>
+                        <span className="text-stone-500 font-bold">{isMr ? 'अपेक्षित विक्री:' : 'Sales:'} </span>
+                        <span className="text-emerald-400 font-bold">{tmpl.expectedConversionMr}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Section 5: 🏷️ Amazon Commission Slabs Guide */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-stone-850 border border-stone-800 space-y-4">
+              <h4 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
+                <Percent className="w-5 h-5 text-amber-400" />
+                <span>{isMr ? '🏷️ ॲमेझॉन असोसिएट्स कॅटेगरी कमिशन दर (Commission Slabs):' : 'Amazon Commission Slabs Guide:'}</span>
+              </h4>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {AMAZON_COMMISSION_SLABS_DATA.map((slab, idx) => (
+                  <div key={idx} className="p-3.5 rounded-xl bg-stone-900 border border-stone-800 space-y-1.5">
+                    <div className="text-xs font-bold text-amber-400">{slab.categoryMr}</div>
+                    <div className="text-sm font-black text-emerald-400">{slab.commissionRate}</div>
+                    <div className="text-[11px] text-stone-400">{slab.highlightMr}</div>
+                    <div className="text-[10px] text-stone-500 pt-1 border-t border-stone-800/80">
+                      उदा. {slab.bestProductsMr}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Tab 1: Books Store */}
         {activeTab === 'books' && (

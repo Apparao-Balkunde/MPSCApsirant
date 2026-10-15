@@ -37,7 +37,8 @@ import {
   MapPin,
   ShieldAlert,
   Newspaper,
-  ShoppingBag
+  ShoppingBag,
+  DollarSign
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -71,7 +72,7 @@ export interface HeaderProps {
   onOpenMapQuiz?: () => void;
   onOpenNegativeTrapPractice?: () => void;
   onOpenCurrentAffairsDrill?: (category?: string) => void;
-  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub') => void;
   onOpenDistrictsModal?: () => void;
   onOpenPanchayatiRaj?: () => void;
   onOpenSocialReformers?: () => void;
@@ -560,6 +561,29 @@ export const Header: React.FC<HeaderProps> = ({
                       <button
                         onClick={() => {
                           setShowSpecialTools(false);
+                          onOpenAffiliateBooks('earning_hub');
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-500/20 via-stone-900 to-amber-500/15 hover:from-emerald-500/30 hover:to-amber-500/25 border border-emerald-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0 text-emerald-400 group-hover:scale-105">
+                          <DollarSign className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-emerald-300 group-hover:text-emerald-200 flex items-center justify-between">
+                            <span>{isMr ? '💰 १० कमाई मार्ग व मॉनेटायझेशन' : '10 Earning Pillars & Revenue'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">₹२.८ लाख/महिना</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'AdSense, Amazon, UPI देणगी QR व टेलिग्राम स्ट्रॅटेजी' : 'AdSense, Amazon, Direct UPI QR & Telegram'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenAffiliateBooks && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
                           onOpenAffiliateBooks('books');
                         }}
                         className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-stone-900 hover:from-amber-500/25 hover:to-orange-500/25 border border-amber-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
@@ -569,11 +593,11 @@ export const Header: React.FC<HeaderProps> = ({
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
-                            <span>{isMr ? '📚 संदर्भ पुस्तके व ॲमेझॉन स्टोअर' : 'Reference Books & Amazon Store'}</span>
-                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">५-१०% कमिशन</span>
+                            <span>{isMr ? '📚 संदर्भ ग्रंथ व ॲमेझॉन स्टोअर' : 'Reference Books & Amazon Store'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">५-९% कमिशन</span>
                           </div>
                           <p className="text-[10px] text-stone-400 truncate">
-                            {isMr ? 'लक्ष्मीकांत, सौदी, कोळंबे, वाळंबे — सवलत व ॲफिलिएट कमाई' : 'Standard volumes, discount pricing & affiliate earnings'}
+                            {isMr ? 'लक्ष्मीकांत, सौदी, भस्के, ओएमआर पॅड व गॅजेट्स' : 'Laxmikanth, Saudi, Bhaske, OMR pads & Gear'}
                           </p>
                         </div>
                       </button>

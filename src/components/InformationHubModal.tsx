@@ -38,7 +38,7 @@ interface InformationHubModalProps {
   onClose: () => void;
   language: 'mr' | 'en';
   onStartPractice?: (subjectId?: SubjectId, customTitle?: string) => void;
-  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub') => void;
 }
 
 export const InformationHubModal: React.FC<InformationHubModalProps> = ({

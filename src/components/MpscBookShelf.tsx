@@ -29,7 +29,7 @@ interface MpscBookShelfProps {
   language: 'mr' | 'en';
   onStartExam: (patternId: ExamPatternId, subjectId?: SubjectId, title?: string) => void;
   onOpenGrammarRules?: () => void;
-  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub') => void;
 }
 
 interface MpscReferenceBook {
@@ -215,14 +215,23 @@ export const MpscBookShelf: React.FC<MpscBookShelfProps> = ({
         <div className="flex items-center gap-2 flex-wrap">
           {/* Quick Affiliate Hub Trigger Buttons */}
           {onOpenAffiliateBooks && (
-            <div className="flex items-center gap-1.5 mr-1">
+            <div className="flex items-center gap-1.5 mr-1 flex-wrap">
+              <button
+                type="button"
+                onClick={() => onOpenAffiliateBooks('earning_hub')}
+                className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-amber-600 hover:from-emerald-500 hover:to-amber-500 text-white font-black text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-all"
+              >
+                <DollarSign className="w-3.5 h-3.5 text-emerald-200" />
+                <span>{isMr ? '💰 १० कमाई मार्ग हब' : '10 Earning Pillars'}</span>
+              </button>
+
               <button
                 type="button"
                 onClick={() => onOpenAffiliateBooks('books')}
                 className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-stone-950 font-black text-xs flex items-center gap-1.5 shadow-xs cursor-pointer transition-all"
               >
                 <ShoppingBag className="w-3.5 h-3.5" />
-                <span>{isMr ? 'सर्व १२ पुस्तके व ॲमेझॉन स्टोअर' : 'Full 12 Books Store'}</span>
+                <span>{isMr ? 'सर्व २६+ पुस्तके व गॅजेट्स' : '26+ Books & Gear'}</span>
               </button>
 
               <button

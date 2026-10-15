@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import confetti from 'canvas-confetti';
 import { 
   Award, 
@@ -20,7 +20,12 @@ import {
   Check,
   AlertCircle,
   FileDown,
-  Printer
+  Printer,
+  ShoppingBag,
+  ExternalLink,
+  DollarSign,
+  Copy,
+  Star
 } from 'lucide-react';
 import { ExamResult, ExamSession, Question } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
@@ -30,6 +35,13 @@ import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { exportToPdf } from '../utils/pdfExport';
 import { VisualMemoryAid } from './VisualMemoryAid';
 import { SVGMapContainer } from './SVGMapContainer';
+import {
+  MPSC_AFFILIATE_BOOKS_DATA,
+  buildAmazonAffiliateUrl,
+  getStoredAffiliateTag,
+  MpscAffiliateBook
+} from '../data/mpscAffiliateBooks';
+import { getStoredUpiId } from '../data/mpscEarningStrategiesData';
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -44,6 +56,7 @@ interface ExamResultViewProps {
   currentUserName?: string;
   currentUserId?: string;
   onOpenAdSenseManager?: () => void;
+  onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub') => void;
 }
 
 export const ExamResultView: React.FC<ExamResultViewProps> = ({
@@ -59,9 +72,31 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
   currentUserName = 'MPSC Aspirant',
   currentUserId,
   onOpenAdSenseManager,
+  onOpenAffiliateBooks,
 }) => {
   const isMr = language === 'mr';
   const [filter, setFilter] = useState<'all' | 'wrong' | 'correct' | 'unattempted' | 'saved'>('all');
+  const [copiedUpi, setCopiedUpi] = useState<boolean>(false);
+  const affiliateTag = getStoredAffiliateTag();
+  const ownerUpiId = getStoredUpiId();
+
+  // Smart Weak-Subject Book Recommendation for Automated Passive Earning
+  const recommendedBook = useMemo<MpscAffiliateBook>(() => {
+    const perfEntries = Object.entries(result.subjectPerformance);
+    if (perfEntries.length > 0) {
+      const sorted = [...perfEntries].sort((a, b) => a[1].accuracy - b[1].accuracy);
+      const weakestSubjectId = sorted[0][0];
+      const match = MPSC_AFFILIATE_BOOKS_DATA.find((b) => b.subjectId === weakestSubjectId);
+      if (match) return match;
+    }
+    return MPSC_AFFILIATE_BOOKS_DATA.find((b) => b.id === 'tatyancha_thokla') || MPSC_AFFILIATE_BOOKS_DATA[0];
+  }, [result.subjectPerformance]);
+
+  const handleCopyUpi = () => {
+    navigator.clipboard.writeText(ownerUpiId);
+    setCopiedUpi(true);
+    setTimeout(() => setCopiedUpi(false), 2500);
+  };
 
   // Trigger confetti if accuracy >= 60%
   useEffect(() => {
@@ -338,6 +373,122 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
           </div>
         </div>
       )}
+
+      {/* 📖 Smart Auto-Affiliate Book Recommendation & Direct Support for Passive Earning */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Box 1: Smart Topper Recommended Book (Weakest Subject Booster) */}
+        <div className="lg:col-span-2 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 via-stone-900 to-stone-950 border border-amber-500/30 text-white flex flex-col justify-between gap-4">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-amber-400" />
+                <span>{isMr ? 'कमकुवत घटकासाठी टॉपर्सची शिफारस' : 'Topper Recommended Standard Book'}</span>
+              </span>
+              <span className="text-xs font-mono text-emerald-400 font-bold">
+                {recommendedBook.discountPercent}% {isMr ? 'सवलत उपलब्ध' : 'Discount'}
+              </span>
+            </div>
+
+            <div>
+              <div className="text-xs text-stone-400 font-medium">
+                {isMr ? `विषय: ${recommendedBook.subjectNameMr}` : `Subject: ${recommendedBook.subjectNameEn}`}
+              </div>
+              <h3 className="text-base sm:text-lg font-black text-white mt-0.5">
+                {isMr ? recommendedBook.titleMr : recommendedBook.titleEn}
+              </h3>
+              <div className="text-xs text-amber-300/90 font-bold mt-0.5">
+                {isMr ? `लेखक: ${recommendedBook.authorMr} • ${recommendedBook.editionMr}` : `Author: ${recommendedBook.authorEn}`}
+              </div>
+            </div>
+
+            <p className="text-xs text-stone-300 leading-relaxed">
+              {isMr ? recommendedBook.importanceMr : recommendedBook.importanceEn}
+            </p>
+
+            <div className="p-2.5 rounded-xl bg-stone-900 border border-stone-800 text-[11px] text-amber-200/90 flex items-start gap-1.5">
+              <Star className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5 fill-amber-400" />
+              <span><strong>{isMr ? 'टॉपर टीप:' : 'Topper Tip:'}</strong> {recommendedBook.topperTipMr}</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-stone-800">
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl font-black text-emerald-400 font-mono">₹{recommendedBook.offerPrice}</span>
+              <span className="text-xs text-stone-500 line-through font-mono">₹{recommendedBook.mrp}</span>
+              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-bold">
+                {recommendedBook.discountPercent}% OFF
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <a
+                href={buildAmazonAffiliateUrl(recommendedBook, affiliateTag)}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/20 transition-all"
+              >
+                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>{isMr ? 'ॲमेझॉनवरून मागवा' : 'Buy on Amazon'}</span>
+                <ExternalLink className="w-3 h-3 ml-0.5" />
+              </a>
+
+              {onOpenAffiliateBooks && (
+                <button
+                  type="button"
+                  onClick={() => onOpenAffiliateBooks('books')}
+                  className="px-3 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-300 text-xs font-bold border border-stone-700 cursor-pointer transition-colors"
+                  title={isMr ? 'सर्व २६+ पुस्तके' : 'All books'}
+                >
+                  {isMr ? 'सर्व पुस्तके ➜' : 'All Books ➜'}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Box 2: Direct UPI Micro-Support & Pass (Zero Cut Passive Income) */}
+        <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/60 via-stone-900 to-stone-950 border border-emerald-500/30 text-white flex flex-col justify-between gap-3">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              <Shield className="w-3 h-3 text-emerald-400" />
+              <span>{isMr ? 'मोफत सराव सपोर्ट' : 'Support Free Mock Tests'}</span>
+            </div>
+            <h4 className="text-sm font-black text-white">
+              {isMr ? '☕ वेबसाइट सर्व्हरला सहकार्य करा' : 'Support Server & Get Pro Pass'}
+            </h4>
+            <p className="text-[11px] text-stone-300 leading-relaxed">
+              {isMr
+                ? 'पोर्टल मोफत चालू ठेवण्यासाठी छोटी देणगी द्या किंवा ₹४९ चा प्रो पास घेऊन १००,०००+ प्रश्न अमर्याद सोडवा!'
+                : 'Contribute a small voluntary tip (₹29) or ₹49 Pro Pass directly to our UPI.'}
+            </p>
+          </div>
+
+          <div className="p-3 rounded-xl bg-stone-950 border border-stone-800 flex items-center gap-3">
+            <img
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=upi://pay?pa=${encodeURIComponent(
+                ownerUpiId
+              )}&pn=MPSCAspirantPrep&cu=INR`}
+              alt="UPI QR Code"
+              className="w-16 h-16 rounded-lg bg-white p-1 shrink-0"
+            />
+            <div className="space-y-1 min-w-0">
+              <div className="text-[11px] font-mono font-bold text-amber-300 truncate">{ownerUpiId}</div>
+              <button
+                type="button"
+                onClick={handleCopyUpi}
+                className="px-2.5 py-1 rounded-lg bg-stone-850 hover:bg-stone-800 text-stone-300 text-[10px] font-bold border border-stone-750 flex items-center gap-1 cursor-pointer"
+              >
+                {copiedUpi ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-amber-400" />}
+                <span>{copiedUpi ? (isMr ? 'कॉपी झाले!' : 'Copied!') : (isMr ? 'UPI कॉपी करा' : 'Copy UPI')}</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="text-[10px] text-stone-400 text-center">
+            {isMr ? 'PhonePe • Google Pay • Paytm द्वारे थेट ०% कपात' : 'Direct zero-commission UPI support'}
+          </div>
+        </div>
+      </div>
 
       {/* Question by Question Detailed Review */}
       <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6">
