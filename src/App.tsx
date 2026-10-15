@@ -49,6 +49,8 @@ import { SubjectMarathonId } from './data/subjectMarathonSetsData';
 import { AdBanner } from './components/AdBanner';
 import { AdSenseManagerModal } from './components/AdSenseManagerModal';
 import { MaharashtraDistrictsModal } from './components/MaharashtraDistrictsModal';
+import { PanchayatiRajModal } from './components/PanchayatiRajModal';
+import { SocialReformersEncyclopediaModal } from './components/SocialReformersEncyclopediaModal';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener, trySsoLogin } from './lib/firebase';
@@ -150,6 +152,12 @@ export default function App() {
     setDistrictsModalInitialTab(initialTab);
     setIsDistrictsModalOpen(true);
   };
+
+  // Panchayati Raj & Local Self-Government Hub modal state
+  const [isPanchayatiRajOpen, setIsPanchayatiRajOpen] = useState<boolean>(false);
+
+  // Maharashtra Social Reformers Encyclopedia modal state
+  const [isSocialReformersOpen, setIsSocialReformersOpen] = useState<boolean>(false);
 
   const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' = 'books') => {
     setAffiliateBooksInitialTab(tab);
@@ -941,6 +949,8 @@ export default function App() {
             onOpenCurrentAffairsDrill={handleOpenCurrentAffairsDrill}
             onOpenAffiliateBooks={handleOpenAffiliateBooks}
             onOpenDistrictsModal={handleOpenDistrictsModal}
+            onOpenPanchayatiRaj={() => setIsPanchayatiRajOpen(true)}
+            onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -998,6 +1008,8 @@ export default function App() {
                 onOpenAffiliateBooks={handleOpenAffiliateBooks}
                 onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
                 onOpenDistrictsModal={handleOpenDistrictsModal}
+                onOpenPanchayatiRaj={() => setIsPanchayatiRajOpen(true)}
+                onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1396,6 +1408,20 @@ export default function App() {
           handleStartExam('custom', 'maharashtra_geography', `${districtName} - विशेष सराव चाचणी`);
         }}
         onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
+      />
+
+      {/* Panchayati Raj & Local Self-Government Hub Modal */}
+      <PanchayatiRajModal
+        isOpen={isPanchayatiRajOpen}
+        onClose={() => setIsPanchayatiRajOpen(false)}
+        language={userProgress.preferredLanguage}
+      />
+
+      {/* Maharashtra Social Reformers Encyclopedia Hub Modal */}
+      <SocialReformersEncyclopediaModal
+        isOpen={isSocialReformersOpen}
+        onClose={() => setIsSocialReformersOpen(false)}
+        language={userProgress.preferredLanguage}
       />
 
       {/* Floating Firebase Sync Notification Toast with Undo, Dismiss, and Pause on Hover */}

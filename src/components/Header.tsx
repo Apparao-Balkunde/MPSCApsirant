@@ -73,6 +73,8 @@ export interface HeaderProps {
   onOpenCurrentAffairsDrill?: (category?: string) => void;
   onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
   onOpenDistrictsModal?: () => void;
+  onOpenPanchayatiRaj?: () => void;
+  onOpenSocialReformers?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -100,6 +102,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCurrentAffairsDrill,
   onOpenAffiliateBooks,
   onOpenDistrictsModal,
+  onOpenPanchayatiRaj,
+  onOpenSocialReformers,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -436,6 +440,52 @@ export const Header: React.FC<HeaderProps> = ({
                       <span>{isMr ? '🏆 विशेष सराव साधने व हब्स' : '🏆 Special Practice Hubs'}</span>
                       <span className="text-[10px] text-stone-400 font-normal">MPSC 2026</span>
                     </div>
+
+                    {onOpenSocialReformers && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenSocialReformers();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-orange-950/60 to-stone-900 hover:from-orange-900/70 hover:to-stone-850 border border-orange-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-orange-500/20 border border-orange-500/40 flex items-center justify-center shrink-0 text-orange-400 group-hover:scale-105 text-sm">
+                          🚩
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+                            <span>{isMr ? '🚩 समाजसुधारक इन्सायक्लोपीडिया' : 'Social Reformers Hub'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-orange-500/20 text-orange-300 font-mono">५०+ सुधारक</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'फुले, आंबेडकर, शाहू, वृत्तपत्रे, पुस्तके, संस्था व PYQs' : 'Phule, Ambedkar, Shahu, Books & PYQs'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenPanchayatiRaj && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenPanchayatiRaj();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-amber-950/50 to-stone-900 hover:from-amber-900/60 hover:to-stone-850 border border-amber-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0 text-amber-400 group-hover:scale-105">
+                          <Scale className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+                            <span>{isMr ? '⚖️ पंचायत राज विशेष केंद्र' : 'Panchayati Raj Hub'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono">GS-2</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'समित्या, ग्रामसेवक-BDO-CEO अधिकार व कलमे २४३' : 'Committees, officers comparison & Articles 243'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
 
                     {onOpenMapQuiz && (
                       <button

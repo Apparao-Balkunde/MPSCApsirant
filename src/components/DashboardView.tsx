@@ -100,6 +100,8 @@ interface DashboardViewProps {
   onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings') => void;
   onOpenAdSenseManager?: () => void;
   onOpenDistrictsModal?: (initialTab?: 'map_learning' | 'cards_list') => void;
+  onOpenPanchayatiRaj?: () => void;
+  onOpenSocialReformers?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -140,6 +142,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenAffiliateBooks,
   onOpenAdSenseManager,
   onOpenDistrictsModal,
+  onOpenPanchayatiRaj,
+  onOpenSocialReformers,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -404,6 +408,36 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <span>{isMr ? '📚 परीक्षा व कायदे माहिती केंद्र' : '📚 Exam & Legal Info Hub'}</span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-extrabold uppercase">
                     RTI/IT
+                  </span>
+                </button>
+              )}
+
+              {onOpenPanchayatiRaj && (
+                <button
+                  id="btn-hero-panchayati-raj"
+                  onClick={onOpenPanchayatiRaj}
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-amber-950/90 to-stone-900 hover:from-amber-900 hover:to-stone-850 text-amber-200 border border-amber-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                  title={isMr ? "पंचायत राज, समित्यांच्या शिफारसी व ग्रामसेवक-BDO-CEO अधिकार केंद्र उघडा" : "Open Panchayati Raj, Committees & Officers Hub"}
+                >
+                  <Scale className="w-4 h-4 text-amber-400" />
+                  <span>{isMr ? '⚖️ पंचायत राज विशेष केंद्र' : '⚖️ Panchayati Raj Hub'}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-black uppercase">
+                    GS-2 🏆
+                  </span>
+                </button>
+              )}
+
+              {onOpenSocialReformers && (
+                <button
+                  id="btn-hero-social-reformers"
+                  onClick={onOpenSocialReformers}
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-orange-950/90 to-stone-900 hover:from-orange-900 hover:to-stone-850 text-amber-200 border border-orange-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                  title={isMr ? "महाराष्ट्रातील ५०+ समाजसुधारक, वृत्तपत्रे, संस्था, पुस्तके व PYQs केंद्र उघडा" : "Open Maharashtra Social Reformers Encyclopedia"}
+                >
+                  <span className="text-base">🚩</span>
+                  <span>{isMr ? '🚩 समाजसुधारक इन्सायक्लोपीडिया' : '🚩 Reformers Hub'}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-orange-400 text-stone-950 font-black uppercase">
+                    ५०+ 🏆
                   </span>
                 </button>
               )}
@@ -1439,6 +1473,120 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <BookOpen className="w-4 h-4 text-amber-400" />
                 <span>{isMr ? '📋 ३६ जिल्हे फॅक्ट्स नोट्स' : 'All 36 Factsheets'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 🚩 महाराष्ट्रातील समाजसुधारक इन्सायक्लोपीडिया (५०+ समाजसुधारक डेटा) */}
+        <div className="bg-gradient-to-br from-orange-950/90 via-stone-900 to-amber-950/80 rounded-2xl border-2 border-orange-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-52 h-52 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-2.5 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-orange-500/25 text-orange-300 border border-orange-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <span>🚩</span>
+                  <span>{isMr ? 'नवीन विशेष मॉड्यूल • आधुनिक महाराष्ट्राचा इतिहास' : 'New Special Module • Maharashtra History'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold">
+                  {isMr ? '🏆 ५०+ समाजसुधारक डेटा बँक' : '50+ Social Reformers'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? '⭐ १० ते १५ प्रश्न हमखास' : '10-15 Exam Questions'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-100">
+                {isMr
+                  ? '🚩 महाराष्ट्रातील समाजसुधारक इन्सायक्लोपीडिया (५०+ समाजसुधारक)'
+                  : '🚩 Maharashtra Social Reformers Encyclopedia'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'महात्मा जोतीराव फुले, डॉ. बाबासाहेब आंबेडकर, छत्रपती शाहू महाराज, महर्षी कर्वे, सावित्रीबाई फुले, भाऊ दाजी लाड, लोकहितवादी इत्यादींचे संपूर्ण कार्य • वृत्तपत्रे, स्थापन केलेल्या संस्था, लिहिलेली पुस्तके, टोपणनावे आणि त्यांच्यावरील मागील वर्षांचे सर्व PYQs!'
+                  : 'Mahatma Phule, Dr. Ambedkar, Shahu Maharaj, Maharshi Karve, Savitribai Phule, Lokhitwadi & 50+ reformers • Master directories for Newspapers, Institutions, Books, Pen Names & previous year questions.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <span>📖 {isMr ? '५०+ सुधारक चरित्र व टाइमलाइन' : '50+ Reformers Biographies'}</span>
+                <span>•</span>
+                <span>📰 {isMr ? 'वृत्तपत्रे व नियतकालिके मास्टर इंडेक्स' : 'Newspapers Directory'}</span>
+                <span>•</span>
+                <span>🏛️ {isMr ? 'संस्था व संघटना मास्टर इंडेक्स' : 'Institutions Directory'}</span>
+                <span>•</span>
+                <span>📚 {isMr ? 'पुस्तके व ग्रंथ संपदा' : 'Authored Books Directory'}</span>
+                <span>•</span>
+                <span>🎯 {isMr ? 'MPSC PYQs सराव क्विझ' : 'MPSC PYQs Quiz'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                type="button"
+                id="btn-dashboard-social-reformers"
+                onClick={() => onOpenSocialReformers?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <span>🚩</span>
+                <span>{isMr ? 'समाजसुधारक इन्सायक्लोपीडिया उघडा' : 'Open Reformers Hub'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ⚖️ पंचायत राज व स्थानिक स्वराज्य संस्था (Panchayati Raj Special Hub) */}
+        <div className="bg-gradient-to-br from-amber-950/90 via-stone-900 to-stone-950 rounded-2xl border-2 border-amber-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-52 h-52 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-2.5 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-300 border border-amber-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Scale className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{isMr ? 'नवीन विशेष मॉड्यूल • MPSC राज्यव्यवस्था (GS-2)' : 'Special Module • Indian Polity & Governance'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 text-xs font-bold">
+                  {isMr ? '🏛️ ७३ वी घटनादुरुस्ती व कलमे २४३' : '73rd Amendment & Articles 243'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? '⭐ १० ते १५ मार्क्स हमखास वेटेज' : 'High Yield 10-15 Marks'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-amber-100">
+                {isMr
+                  ? '⚖️ पंचायत राज व स्थानिक स्वराज्य संस्था (Panchayati Raj Special)'
+                  : '⚖️ Panchayati Raj & Local Self-Government Master Hub'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'बलवंतराय मेहता, अशोक मेहता, वसंतराव नाईक व पी.बी. पाटील समित्यांच्या शिफारशींची सखोल तुलना • ग्रामसेवक, BDO आणि CEO यांच्या अधिकारांचे तुलनात्मक विश्लेषण • संविधानातील कलमे २४३ ते २४३O, ११ वे परिशिष्ट (२९ विषय) व MPSC सराव प्रश्न!'
+                  : 'Comprehensive comparative analysis of Balwant Rai Mehta, Ashok Mehta, Vasantrao Naik & P.B. Patil committees • Gramsevak vs BDO vs CEO statutory powers matrix • Articles 243A-243O & MPSC PYQs.'}
+              </p>
+
+              <div className="flex items-center gap-4 text-xs text-amber-200/90 font-medium pt-1 flex-wrap">
+                <span>📑 {isMr ? 'समित्यांची रचना व शिफारसी तुलना' : 'Committees Comparison Matrix'}</span>
+                <span>•</span>
+                <span>👔 {isMr ? 'ग्रामसेवक • BDO • CEO • Collector अधिकार' : 'Officers Powers Matrix'}</span>
+                <span>•</span>
+                <span>📜 {isMr ? 'कलमे २४३ A ते २४३ O शोध व नोट्स' : 'Articles 243A-O Quick Search'}</span>
+                <span>•</span>
+                <span>🎯 {isMr ? 'MPSC पॅटर्न सराव क्विझ व स्पष्टीकरण' : 'Practice MCQs with Explanations'}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              <button
+                type="button"
+                id="btn-dashboard-panchayati-raj"
+                onClick={() => onOpenPanchayatiRaj?.()}
+                className="px-5 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+              >
+                <Scale className="w-4 h-4 fill-stone-950 text-stone-950" />
+                <span>{isMr ? '⚖️ पंचायत राज केंद्र उघडा' : 'Open Panchayati Raj Hub'}</span>
               </button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import {
   X,
   Compass,
@@ -28,6 +28,10 @@ import {
   MapQuizQuestion,
   MapPointer
 } from '../data/interactiveMapQuestions';
+import {
+  MAHARASHTRA_DISTRICT_SVG_POLYGONS,
+  DistrictSvgPolygon
+} from '../data/maharashtraDistrictSvgPolygons';
 import { soundFx } from '../utils/audio';
 
 interface InteractiveMapQuizModalProps {
@@ -58,6 +62,32 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [bookmarkedQuestionIds, setBookmarkedQuestionIds] = useState<string[]>([]);
   const [activeLayer, setActiveLayer] = useState<'all' | 'simple'>('all');
+
+  // Maharashtra District Hover & Dynamic Tooltip State
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const [hoveredDistrict, setHoveredDistrict] = useState<DistrictSvgPolygon | null>(null);
+  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [showDistrictPolygons, setShowDistrictPolygons] = useState<boolean>(true);
+
+  const handleDistrictMouseMove = (
+    dist: DistrictSvgPolygon,
+    e: React.MouseEvent<SVGPolygonElement>
+  ) => {
+    if (!mapContainerRef.current) return;
+    const rect = mapContainerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setHoveredDistrict(dist);
+    setTooltipPos({
+      x: Math.max(115, Math.min(rect.width - 115, x)),
+      y: Math.max(75, Math.min(rect.height - 15, y)),
+    });
+  };
+
+  const handleDistrictMouseLeave = () => {
+    setHoveredDistrict(null);
+  };
 
   // Filter questions
   const filteredQuestions = useMemo(() => {
@@ -374,43 +404,67 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
                 </span>
               </div>
 
-              {/* Map Zoom Controls */}
-              <div className="flex items-center gap-1 bg-stone-900 rounded-lg p-0.5 border border-stone-800">
-                <button
-                  type="button"
-                  onClick={() => setZoomLevel((z) => Math.min(2, +(z + 0.2).toFixed(1)))}
-                  className="p-1 hover:bg-stone-800 text-stone-300 hover:text-white rounded cursor-pointer"
-                  title={isMr ? "झूम इन" : "Zoom In"}
-                >
-                  <ZoomIn className="w-3.5 h-3.5" />
-                </button>
-                <span className="font-mono text-[10px] text-stone-400 px-1">
-                  {Math.round(zoomLevel * 100)}%
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setZoomLevel((z) => Math.max(0.8, +(z - 0.2).toFixed(1)))}
-                  className="p-1 hover:bg-stone-800 text-stone-300 hover:text-white rounded cursor-pointer"
-                  title={isMr ? "झूम आउट" : "Zoom Out"}
-                >
-                  <ZoomOut className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setZoomLevel(1);
-                    setPanOffset({ x: 0, y: 0 });
-                  }}
-                  className="p-1 hover:bg-stone-800 text-stone-400 hover:text-white rounded cursor-pointer"
-                  title={isMr ? "मूळ आकार (Reset)" : "Reset"}
-                >
-                  <RotateCcw className="w-3 h-3" />
-                </button>
+              {/* Map Controls: District Toggle & Zoom */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                {currentQ?.mapType === 'maharashtra' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playFx('click');
+                      setShowDistrictPolygons(!showDistrictPolygons);
+                    }}
+                    className={`px-2 py-0.5 text-[10px] font-bold rounded flex items-center gap-1 transition-all cursor-pointer ${
+                      showDistrictPolygons
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-xs'
+                        : 'bg-stone-800 text-stone-400 hover:text-stone-200 border border-stone-700'
+                    }`}
+                    title={isMr ? "महाराष्ट्राचे ३६ जिल्हे सीमा दाखवा / लपवा" : "Toggle 36 district polygons"}
+                  >
+                    🗺️ {showDistrictPolygons ? (isMr ? '३६ जिल्हे चालू' : 'Districts On') : (isMr ? '३६ जिल्हे बंद' : 'Districts Off')}
+                  </button>
+                )}
+
+                <div className="flex items-center gap-1 bg-stone-900 rounded-lg p-0.5 border border-stone-800">
+                  <button
+                    type="button"
+                    onClick={() => setZoomLevel((z) => Math.min(2, +(z + 0.2).toFixed(1)))}
+                    className="p-1 hover:bg-stone-800 text-stone-300 hover:text-white rounded cursor-pointer"
+                    title={isMr ? "झूम इन" : "Zoom In"}
+                  >
+                    <ZoomIn className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="font-mono text-[10px] text-stone-400 px-1">
+                    {Math.round(zoomLevel * 100)}%
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setZoomLevel((z) => Math.max(0.8, +(z - 0.2).toFixed(1)))}
+                    className="p-1 hover:bg-stone-800 text-stone-300 hover:text-white rounded cursor-pointer"
+                    title={isMr ? "झूम आउट" : "Zoom Out"}
+                  >
+                    <ZoomOut className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setZoomLevel(1);
+                      setPanOffset({ x: 0, y: 0 });
+                    }}
+                    className="p-1 hover:bg-stone-800 text-stone-400 hover:text-white rounded cursor-pointer"
+                    title={isMr ? "मूळ आकार (Reset)" : "Reset"}
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* SVG MAP CANVAS */}
-            <div className="flex-1 flex items-center justify-center overflow-hidden relative select-none bg-stone-900/60 rounded-xl border border-stone-800/60 p-1">
+            <div
+              ref={mapContainerRef}
+              onMouseLeave={handleDistrictMouseLeave}
+              className="flex-1 flex items-center justify-center overflow-hidden relative select-none bg-stone-900/60 rounded-xl border border-stone-800/60 p-1"
+            >
               
               <div
                 className="w-full h-full flex items-center justify-center transition-transform duration-200"
@@ -447,14 +501,79 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
                       अरबी समुद्र (Arabian Sea)
                     </text>
 
-                    {/* Maharashtra State Approximate Outline Base */}
+                    {/* Maharashtra State Overall Base Outline */}
                     <polygon
-                      points="85,60 160,40 370,40 450,55 580,90 620,150 590,260 480,330 380,360 270,360 140,360 100,320 85,240 80,120"
-                      fill="#78350f"
-                      opacity="0.25"
+                      points="80,55 155,40 215,40 330,50 370,45 465,45 470,55 535,55 575,55 625,55 625,260 550,260 480,225 455,240 390,275 335,275 305,285 245,310 220,325 165,325 155,348 128,340 92,340 86,272 84,180 80,138 80,55"
+                      fill="#1c1917"
+                      fillOpacity="0.5"
                       stroke="#d97706"
-                      strokeWidth="2"
+                      strokeWidth="2.5"
                     />
+
+                    {/* MAHARASHTRA 36 DISTRICTS POLYGONS (Interactive with dynamic hover tooltip & smooth animation) */}
+                    {showDistrictPolygons && (
+                      <g className="district-polygons-layer">
+                        {[...MAHARASHTRA_DISTRICT_SVG_POLYGONS]
+                          .sort((a, b) => {
+                            if (a.id === hoveredDistrict?.id) return 1;
+                            if (b.id === hoveredDistrict?.id) return -1;
+                            return 0;
+                          })
+                          .map((dist) => {
+                            const isHovered = hoveredDistrict?.id === dist.id;
+                            return (
+                              <g
+                                key={dist.id}
+                                style={{
+                                  transition: 'transform 0.25s ease-out, opacity 0.25s ease-out',
+                                }}
+                              >
+                                <polygon
+                                  points={dist.points}
+                                  fill={isHovered ? '#f59e0b' : dist.fillColor}
+                                  fillOpacity={isHovered ? 0.85 : 0.32}
+                                  stroke={isHovered ? '#ffffff' : dist.strokeColor}
+                                  strokeWidth={isHovered ? 3.0 : 1.2}
+                                  strokeDasharray={isHovered ? 'none' : '3,2'}
+                                  style={{
+                                    cursor: 'pointer',
+                                    transition:
+                                      'fill 0.25s ease-out, fill-opacity 0.25s ease-out, stroke 0.25s ease-out, stroke-width 0.25s ease-out, filter 0.25s ease-out',
+                                    filter: isHovered
+                                      ? 'drop-shadow(0 0 8px rgba(245, 158, 11, 0.8)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.9))'
+                                      : 'none',
+                                  }}
+                                  onMouseEnter={(e) => handleDistrictMouseMove(dist, e)}
+                                  onMouseMove={(e) => handleDistrictMouseMove(dist, e)}
+                                  onMouseLeave={handleDistrictMouseLeave}
+                                  onClick={() => {
+                                    playFx('click');
+                                    setHoveredDistrict(dist);
+                                  }}
+                                />
+                                {/* District Name Label inside polygon */}
+                                <text
+                                  x={dist.center.x}
+                                  y={dist.center.y}
+                                  fill={isHovered ? '#ffffff' : '#fef08a'}
+                                  fontSize={isHovered ? '9.5' : '7.5'}
+                                  fontWeight={isHovered ? '900' : 'bold'}
+                                  textAnchor="middle"
+                                  dominantBaseline="middle"
+                                  style={{
+                                    transition:
+                                      'font-size 0.2s ease-out, fill 0.2s ease-out, opacity 0.2s ease-out',
+                                  }}
+                                  className="pointer-events-none select-none drop-shadow-md"
+                                  opacity={isHovered ? 1 : 0.85}
+                                >
+                                  {dist.nameMr}
+                                </text>
+                              </g>
+                            );
+                          })}
+                      </g>
+                    )}
 
                     {/* Konkan Coastline Belt */}
                     <path d="M 85 60 Q 95 180 100 320" fill="none" stroke="#f59e0b" strokeWidth="6" strokeLinecap="round" opacity="0.6" />
@@ -488,22 +607,6 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
                     {/* Eastern Vidarbha Wainganga River */}
                     <path d="M 530 80 Q 525 180 540 260" fill="none" stroke="#818cf8" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" />
                     <text x="535" y="150" fill="#c7d2fe" fontSize="9" fontWeight="bold">वैनगंगा नदी (दक्षिण वाहिनी)</text>
-
-                    {/* Administrative Region Zones */}
-                    <rect x="150" y="90" width="85" height="35" rx="5" fill="#ca8a04" opacity="0.25" stroke="#eab308" strokeWidth="1" strokeDasharray="3,3" />
-                    <text x="160" y="112" fill="#fef08a" fontSize="9" fontWeight="bold">नाशिक विभाग</text>
-
-                    <rect x="150" y="160" width="85" height="40" rx="5" fill="#ea580c" opacity="0.25" stroke="#f97316" strokeWidth="1" strokeDasharray="3,3" />
-                    <text x="165" y="185" fill="#fed7aa" fontSize="9" fontWeight="bold">पुणे विभाग</text>
-
-                    <rect x="260" y="150" width="105" height="45" rx="5" fill="#db2777" opacity="0.25" stroke="#ec4899" strokeWidth="1" strokeDasharray="3,3" />
-                    <text x="270" y="177" fill="#fbcfe8" fontSize="9" fontWeight="bold">छ. संभाजीनगर (मराठवाडा)</text>
-
-                    <rect x="360" y="60" width="90" height="45" rx="5" fill="#16a34a" opacity="0.25" stroke="#22c55e" strokeWidth="1" strokeDasharray="3,3" />
-                    <text x="370" y="88" fill="#bbf7d0" fontSize="9" fontWeight="bold">अमरावती विभाग</text>
-
-                    <rect x="470" y="90" width="120" height="65" rx="5" fill="#7c3aed" opacity="0.25" stroke="#a855f7" strokeWidth="1" strokeDasharray="3,3" />
-                    <text x="490" y="125" fill="#e9d5ff" fontSize="10" fontWeight="bold">नागपूर विभाग (विदर्भ)</text>
 
                     {/* EXPLORE MODE ALL POINTERS OR QUIZ TARGET POINTER */}
                     {activeTab === 'explore' ? (
@@ -818,6 +921,69 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
                   </svg>
                 )}
               </div>
+
+              {/* Dynamic Maharashtra District Tooltip on Hover */}
+              {hoveredDistrict && currentQ?.mapType === 'maharashtra' && (
+                <div
+                  className="pointer-events-none absolute z-30 transition-all duration-75 ease-out shadow-2xl"
+                  style={{
+                    left: `${tooltipPos.x}px`,
+                    top: `${tooltipPos.y}px`,
+                    transform: 'translate(-50%, -105%)',
+                  }}
+                >
+                  <div className="bg-stone-950/95 backdrop-blur-md border border-amber-500/70 shadow-2xl rounded-xl p-3 text-stone-100 min-w-[210px] max-w-[280px] animate-in fade-in zoom-in-95 duration-150 ring-1 ring-amber-400/40">
+                    <div className="flex items-start justify-between gap-2 border-b border-stone-800 pb-1.5 mb-2">
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-amber-400 text-sm">📍</span>
+                          <span className="text-sm font-black text-amber-300">
+                            {hoveredDistrict.nameMr}
+                          </span>
+                          <span className="text-[11px] text-stone-400 font-medium">
+                            ({hoveredDistrict.nameEn})
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-stone-400 mt-0.5">
+                          मुख्यालय: <span className="text-stone-200 font-bold">{hoveredDistrict.hqMr}</span>
+                        </p>
+                      </div>
+                      <span
+                        className="text-[9px] font-black px-1.5 py-0.5 rounded-full border shrink-0"
+                        style={{
+                          backgroundColor: `${hoveredDistrict.fillColor}25`,
+                          borderColor: hoveredDistrict.strokeColor,
+                          color: hoveredDistrict.strokeColor,
+                        }}
+                      >
+                        {hoveredDistrict.divisionNameMr}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-1.5 text-[10px] bg-stone-900/90 rounded-lg p-1.5 border border-stone-800/80 mb-2">
+                      <div>
+                        <span className="text-stone-400">🚗 RTO: </span>
+                        <span className="font-bold text-amber-200">{hoveredDistrict.rtoCode}</span>
+                      </div>
+                      <div>
+                        <span className="text-stone-400">🏛️ तालुके: </span>
+                        <span className="font-bold text-amber-200">{hoveredDistrict.talukasCount}</span>
+                      </div>
+                      <div className="col-span-2">
+                        <span className="text-stone-400">📏 क्षेत्रफळ: </span>
+                        <span className="font-bold text-stone-200">
+                          {hoveredDistrict.areaSqKm.toLocaleString('mr-IN')} चौ.किमी
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="text-[10px] text-amber-300/90 bg-amber-950/40 border border-amber-500/30 rounded-lg p-1.5 leading-snug">
+                      <span className="font-bold text-amber-400">💡 MPSC फॅक्ट: </span>
+                      {hoveredDistrict.taglineMr}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Map Legend Footer */}
@@ -826,6 +992,10 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
                 <span className="flex items-center gap-1">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span>
                   <span>{isMr ? '🎯 लक्ष्य पॉईंटर' : 'Target Pin'}</span>
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-2.5 h-2.5 rounded-sm bg-amber-500/40 border border-amber-400 inline-block"></span>
+                  <span>{isMr ? '३६ जिल्हे (Hover वर माहिती)' : 'Districts (Hover Info)'}</span>
                 </span>
                 <span className="flex items-center gap-1">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
@@ -837,7 +1007,7 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
                 </span>
               </div>
               <span className="text-amber-400/90 font-medium">
-                {isMr ? '💡 नकाशावर ड्रॅग किंवा झूम करता येते' : 'Pinch or use zoom controls'}
+                {isMr ? '💡 नकाशावर जिल्ह्यावर कर्सर नेऊन माहिती पहा' : 'Hover over any district to explore'}
               </span>
             </div>
           </div>
