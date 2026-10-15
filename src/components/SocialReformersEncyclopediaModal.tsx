@@ -42,6 +42,7 @@ interface SocialReformersEncyclopediaModalProps {
 }
 
 type TabType = 'directory' | 'newspapers' | 'institutions' | 'books' | 'pyqs';
+type ProfileSubTab = 'biography' | 'institutions' | 'publications' | 'reformer_pyqs';
 
 export const SocialReformersEncyclopediaModal: React.FC<SocialReformersEncyclopediaModalProps> = ({
   isOpen,
@@ -50,13 +51,18 @@ export const SocialReformersEncyclopediaModal: React.FC<SocialReformersEncyclope
 }) => {
   const isMr = language === 'mr';
   const [activeTab, setActiveTab] = useState<TabType>('directory');
+  const [profileSubTab, setProfileSubTab] = useState<ProfileSubTab>('biography');
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedReformerId, setSelectedReformerId] = useState<string>('phule_jotirao');
 
-  // PYQs Quiz State
+  // Reformer-specific PYQs state
+  const [reformerAnswers, setReformerAnswers] = useState<Record<string, number>>({});
+  const [reformerSubmitted, setReformerSubmitted] = useState<Record<string, boolean>>({});
+
+  // Global PYQs Quiz State
   const [currentPyqIdx, setCurrentPyqIdx] = useState<number>(0);
   const [selectedPyqOption, setSelectedPyqOption] = useState<number | null>(null);
   const [isPyqSubmitted, setIsPyqSubmitted] = useState<boolean>(false);
@@ -105,6 +111,42 @@ export const SocialReformersEncyclopediaModal: React.FC<SocialReformersEncyclope
       MAHARASHTRA_SOCIAL_REFORMERS[0]
     );
   }, [selectedReformerId, filteredReformers]);
+
+  // Reformer specific PYQs
+  const reformerSpecificPyqs = useMemo(() => {
+    if (!activeReformer) return [];
+    return REFORMER_PYQ_QUESTIONS.filter((q) => q.relatedReformerId === activeReformer.id);
+  }, [activeReformer]);
+
+  const handleSelectReformerPyq = (qId: string, optIdx: number) => {
+    if (reformerSubmitted[qId]) return;
+    playFx('click');
+    setReformerAnswers((prev) => ({ ...prev, [qId]: optIdx }));
+  };
+
+  const handleSubmitReformerPyq = (qId: string, correctIdx: number) => {
+    if (reformerAnswers[qId] === undefined || reformerSubmitted[qId]) return;
+    setReformerSubmitted((prev) => ({ ...prev, [qId]: true }));
+    if (reformerAnswers[qId] === correctIdx) {
+      playFx('correct');
+    } else {
+      playFx('wrong');
+    }
+  };
+
+  const handleResetReformerPyq = (qId: string) => {
+    playFx('click');
+    setReformerAnswers((prev) => {
+      const next = { ...prev };
+      delete next[qId];
+      return next;
+    });
+    setReformerSubmitted((prev) => {
+      const next = { ...prev };
+      delete next[qId];
+      return next;
+    });
+  };
 
   // Filtered Newspapers
   const filteredNewspapers = useMemo(() => {
@@ -515,144 +557,472 @@ export const SocialReformersEncyclopediaModal: React.FC<SocialReformersEncyclope
                     )}
                   </div>
 
-                  {/* Core 4 Matrix Columns: Newspapers, Institutions, Books, Pen Names */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Newspapers */}
-                    <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-4 space-y-2.5">
-                      <h4 className="text-xs font-black text-blue-300 uppercase tracking-wider flex items-center gap-1.5 border-b border-stone-800 pb-2">
-                        <Newspaper className="w-4 h-4 text-blue-400" />
-                        <span>{isMr ? 'वृत्तपत्रे व नियतकालिके (Newspapers):' : 'Newspapers & Periodicals:'}</span>
-                      </h4>
-                      {activeReformer.newspapersMr.length > 0 ? (
-                        <ul className="space-y-1.5 text-xs text-stone-200">
-                          {activeReformer.newspapersMr.map((paper, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <span className="text-blue-400">🗞️</span>
-                              <span>{paper}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="text-xs text-stone-500 italic">
-                          {isMr ? 'स्वतःचे वृत्तपत्र नव्हते / लेख इतर वृत्तपत्रांत लिहिले.' : 'No direct newspaper founded.'}
-                        </p>
-                      )}
-                    </div>
+                  {/* Profile View Sub-Tabs */}
+                  <div className="flex items-center gap-1.5 p-1 bg-stone-950/90 rounded-2xl border border-stone-800 overflow-x-auto no-scrollbar shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playFx('click');
+                        setProfileSubTab('biography');
+                      }}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+                        profileSubTab === 'biography'
+                          ? 'bg-amber-500 text-stone-950 shadow-md font-black'
+                          : 'text-stone-400 hover:text-stone-200 hover:bg-stone-900/60'
+                      }`}
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>{isMr ? '📜 चरित्र व जीवनपट' : 'Biography'}</span>
+                    </button>
 
-                    {/* Institutions */}
-                    <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-4 space-y-2.5">
-                      <h4 className="text-xs font-black text-emerald-300 uppercase tracking-wider flex items-center gap-1.5 border-b border-stone-800 pb-2">
-                        <Building className="w-4 h-4 text-emerald-400" />
-                        <span>{isMr ? 'स्थापन केलेल्या संस्था व संघटना (Institutions):' : 'Institutions Founded:'}</span>
-                      </h4>
-                      {activeReformer.institutionsMr.length > 0 ? (
-                        <ul className="space-y-1.5 text-xs text-stone-200">
-                          {activeReformer.institutionsMr.map((inst, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <span className="text-emerald-400">🏛️</span>
-                              <span>{inst}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="text-xs text-stone-500 italic">
-                          {isMr ? 'थेट स्वतंत्र संस्था नोंद नाही.' : 'No direct institution record.'}
-                        </p>
-                      )}
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playFx('click');
+                        setProfileSubTab('institutions');
+                      }}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+                        profileSubTab === 'institutions'
+                          ? 'bg-emerald-500 text-stone-950 shadow-md font-black'
+                          : 'text-stone-400 hover:text-stone-200 hover:bg-stone-900/60'
+                      }`}
+                    >
+                      <Building className="w-3.5 h-3.5" />
+                      <span>{isMr ? '🏛️ संस्था व वृत्तपत्रे' : 'Associated Institutions'}</span>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-stone-900/50 font-mono">
+                        {activeReformer.institutionsMr.length + activeReformer.newspapersMr.length}
+                      </span>
+                    </button>
 
-                    {/* Books Authored */}
-                    <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-4 space-y-2.5">
-                      <h4 className="text-xs font-black text-purple-300 uppercase tracking-wider flex items-center gap-1.5 border-b border-stone-800 pb-2">
-                        <BookOpen className="w-4 h-4 text-purple-400" />
-                        <span>{isMr ? 'लिहिलेली पुस्तके व ग्रंथ (Books & Literature):' : 'Books Authored:'}</span>
-                      </h4>
-                      {activeReformer.booksAuthoredMr.length > 0 ? (
-                        <ul className="space-y-1.5 text-xs text-stone-200">
-                          {activeReformer.booksAuthoredMr.map((book, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <span className="text-purple-400">📖</span>
-                              <span>{book}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="text-xs text-stone-500 italic">
-                          {isMr ? 'स्वतंत्र ग्रंथ उपलब्ध नाही.' : 'No authored books listed.'}
-                        </p>
-                      )}
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playFx('click');
+                        setProfileSubTab('publications');
+                      }}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+                        profileSubTab === 'publications'
+                          ? 'bg-purple-500 text-stone-950 shadow-md font-black'
+                          : 'text-stone-400 hover:text-stone-200 hover:bg-stone-900/60'
+                      }`}
+                    >
+                      <GraduationCap className="w-3.5 h-3.5" />
+                      <span>{isMr ? '📚 ग्रंथ व साहित्य' : 'Notable Publications'}</span>
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-stone-900/50 font-mono">
+                        {activeReformer.booksAuthoredMr.length}
+                      </span>
+                    </button>
 
-                    {/* Pen Names & Titles */}
-                    <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-4 space-y-2.5">
-                      <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-1.5 border-b border-stone-800 pb-2">
-                        <Award className="w-4 h-4 text-amber-400" />
-                        <span>{isMr ? 'टोपणनावे व मानद पदव्या (Pen Names & Titles):' : 'Pen Names & Honors:'}</span>
-                      </h4>
-                      <div className="space-y-2 text-xs text-stone-200">
-                        {activeReformer.penNamesMr.length > 0 && (
-                          <div>
-                            <span className="text-stone-400 block text-[11px] mb-1">टोपणनावे (Pen Names):</span>
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              {activeReformer.penNamesMr.map((pen, i) => (
-                                <span key={i} className="px-2 py-0.5 rounded bg-stone-900 border border-stone-700 text-stone-100 font-mono">
-                                  ✍️ {pen}
-                                </span>
-                              ))}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playFx('click');
+                        setProfileSubTab('reformer_pyqs');
+                      }}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+                        profileSubTab === 'reformer_pyqs'
+                          ? 'bg-orange-500 text-stone-950 shadow-md font-black'
+                          : 'text-stone-400 hover:text-stone-200 hover:bg-stone-900/60'
+                      }`}
+                    >
+                      <HelpCircle className="w-3.5 h-3.5" />
+                      <span>{isMr ? '🎯 या समाजसुधारकावरील PYQs' : 'Reformer PYQs'}</span>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                        reformerSpecificPyqs.length > 0 ? 'bg-amber-400 text-stone-950' : 'bg-stone-800 text-stone-400'
+                      }`}>
+                        {reformerSpecificPyqs.length}
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* ------------------------------------------------------------- */}
+                  {/* SUB-TAB 1: BIOGRAPHY & OVERVIEW */}
+                  {/* ------------------------------------------------------------- */}
+                  {profileSubTab === 'biography' && (
+                    <div className="space-y-5">
+                      {/* Detailed Biography Text Card */}
+                      <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-5 space-y-3">
+                        <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-2">
+                          <BookOpen className="w-4 h-4 text-amber-400" />
+                          <span>{isMr ? 'सविस्तर जीवनपट व परिचय (Biography & Life Overview):' : 'Biography & Life Overview:'}</span>
+                        </h4>
+                        <p className="text-xs sm:text-sm text-stone-200 leading-relaxed font-normal">
+                          {activeReformer.biographyMr ||
+                            `${activeReformer.nameMr} (${activeReformer.birthDeath}) हे महाराष्ट्रातील अग्रगण्य विचारवंत व समाजसुधारक होते. जन्मस्थान: ${activeReformer.birthPlaceMr}. त्यांनी सामाजिक समता, शिक्षण प्रसार आणि समाज परिवर्तनासाठी आयुष्य वेचले.`}
+                        </p>
+                      </div>
+
+                      {/* Pen Names & Titles */}
+                      <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-5 space-y-3">
+                        <h4 className="text-xs font-black text-amber-300 uppercase tracking-wider flex items-center gap-1.5 border-b border-stone-800 pb-2">
+                          <Award className="w-4 h-4 text-amber-400" />
+                          <span>{isMr ? 'टोपणनावे व मानद पदव्या (Pen Names & Honors):' : 'Pen Names & Honors:'}</span>
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-stone-200">
+                          {activeReformer.penNamesMr.length > 0 && (
+                            <div>
+                              <span className="text-stone-400 block text-[11px] mb-1.5 font-bold">टोपणनावे (Pen Names):</span>
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                {activeReformer.penNamesMr.map((pen, i) => (
+                                  <span key={i} className="px-2.5 py-1 rounded-xl bg-stone-900 border border-stone-700 text-stone-100 font-mono text-xs font-bold">
+                                    ✍️ {pen}
+                                  </span>
+                                ))}
+                              </div>
                             </div>
+                          )}
+                          <div>
+                            <span className="text-stone-400 block text-[11px] mb-1.5 font-bold">मानद पदव्या / जनसन्मान:</span>
+                            <ul className="space-y-1.5">
+                              {activeReformer.honorificTitlesMr.map((title, i) => (
+                                <li key={i} className="text-amber-200/90 flex items-start gap-1.5">
+                                  <span className="text-amber-400">⭐</span>
+                                  <span className="font-medium">{title}</span>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
-                        )}
-                        <div>
-                          <span className="text-stone-400 block text-[11px] mb-1">सर्व पदव्या / गौरव:</span>
-                          <ul className="space-y-1">
-                            {activeReformer.honorificTitlesMr.map((title, i) => (
-                              <li key={i} className="text-amber-200/90 flex items-center gap-1.5">
-                                <span className="text-amber-400">⭐</span>
-                                <span>{title}</span>
-                              </li>
-                            ))}
-                          </ul>
                         </div>
                       </div>
-                    </div>
-                  </div>
 
-                  {/* Movements & Milestones Timeline */}
-                  <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-5 space-y-3">
-                    <h4 className="text-xs font-black text-stone-200 uppercase tracking-wider flex items-center gap-2">
-                      <span>🎯</span>
-                      <span>{isMr ? 'प्रमुख चळवळी, सत्याग्रह व ऐतिहासिक घटना (Key Movements):' : 'Key Movements & Milestones:'}</span>
-                    </h4>
-                    <div className="space-y-2">
-                      {activeReformer.keyMovementsAndEventsMr.map((event, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-2.5 p-2.5 rounded-xl bg-stone-900/60 border border-stone-800/70 text-xs text-stone-200"
-                        >
-                          <span className="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-[10px] mt-0.5">
-                            {idx + 1}
-                          </span>
-                          <p className="leading-relaxed">{event}</p>
+                      {/* Movements & Milestones Timeline */}
+                      <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-5 space-y-3">
+                        <h4 className="text-xs font-black text-stone-200 uppercase tracking-wider flex items-center gap-2">
+                          <Flame className="w-4 h-4 text-orange-400" />
+                          <span>{isMr ? 'प्रमुख चळवळी, सत्याग्रह व ऐतिहासिक घटना (Key Movements):' : 'Key Movements & Milestones:'}</span>
+                        </h4>
+                        <div className="space-y-2">
+                          {activeReformer.keyMovementsAndEventsMr.map((event, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-start gap-2.5 p-3 rounded-xl bg-stone-900/60 border border-stone-800/70 text-xs text-stone-200"
+                            >
+                              <span className="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center shrink-0 text-xs mt-0.5">
+                                {idx + 1}
+                              </span>
+                              <p className="leading-relaxed font-medium">{event}</p>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </div>
+                      </div>
 
-                  {/* MPSC Exam High-Yield Pointers */}
-                  <div className="bg-amber-950/30 border border-amber-500/50 rounded-2xl p-5 space-y-3">
-                    <h4 className="text-xs font-bold text-amber-300 flex items-center gap-2">
-                      <Flame className="w-4 h-4 text-amber-400" />
-                      <span>{isMr ? 'MPSC परीक्षेत हमखास विचारले जाणारे पॉईंटर्स (High-Yield):' : 'MPSC High-Yield Points:'}</span>
-                    </h4>
-                    <ul className="space-y-2 text-xs text-amber-200/90">
-                      {activeReformer.mpscHighYieldPointersMr.map((pt, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-amber-400">⚡</span>
-                          <span className="leading-relaxed font-medium">{pt}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                      {/* MPSC Exam High-Yield Pointers */}
+                      <div className="bg-amber-950/30 border border-amber-500/50 rounded-2xl p-5 space-y-3">
+                        <h4 className="text-xs font-bold text-amber-300 flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-amber-400" />
+                          <span>{isMr ? 'MPSC परीक्षेत हमखास विचारले जाणारे पॉईंटर्स (High-Yield):' : 'MPSC High-Yield Points:'}</span>
+                        </h4>
+                        <ul className="space-y-2.5 text-xs text-amber-200/95">
+                          {activeReformer.mpscHighYieldPointersMr.map((pt, idx) => (
+                            <li key={idx} className="flex items-start gap-2">
+                              <span className="text-amber-400 text-sm">⚡</span>
+                              <span className="leading-relaxed font-semibold">{pt}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ------------------------------------------------------------- */}
+                  {/* SUB-TAB 2: ASSOCIATED INSTITUTIONS & NEWSPAPERS */}
+                  {/* ------------------------------------------------------------- */}
+                  {profileSubTab === 'institutions' && (
+                    <div className="space-y-5">
+                      {/* Institutions */}
+                      <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-5 space-y-3">
+                        <div className="flex items-center justify-between border-b border-stone-800 pb-2">
+                          <h4 className="text-xs font-black text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
+                            <Building className="w-4 h-4 text-emerald-400" />
+                            <span>{isMr ? 'स्थापन केलेल्या संस्था, मंडळे व वसतिगृहे:' : 'Associated Institutions Founded:'}</span>
+                          </h4>
+                          <span className="text-xs text-stone-400 font-mono">
+                            {activeReformer.institutionsMr.length} नोंदी
+                          </span>
+                        </div>
+                        {activeReformer.institutionsMr.length > 0 ? (
+                          <div className="grid grid-cols-1 gap-2.5">
+                            {activeReformer.institutionsMr.map((inst, idx) => (
+                              <div
+                                key={idx}
+                                className="p-3.5 rounded-xl bg-stone-900/80 border border-stone-800 flex items-start gap-3 hover:border-emerald-500/50 transition-all"
+                              >
+                                <span className="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                                  🏛️
+                                </span>
+                                <div className="space-y-1">
+                                  <h5 className="text-xs sm:text-sm font-bold text-stone-100">{inst}</h5>
+                                  <p className="text-[11px] text-stone-400">
+                                    संस्थापक / प्रणेते: <strong className="text-emerald-300">{isMr ? activeReformer.nameMr : activeReformer.nameEn}</strong>
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xs text-stone-500 italic p-3">
+                            {isMr ? 'स्वतंत्र संस्था नोंद नाही किंवा चळवळींत सहभाग होता.' : 'No direct institution record.'}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Newspapers */}
+                      <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-5 space-y-3">
+                        <div className="flex items-center justify-between border-b border-stone-800 pb-2">
+                          <h4 className="text-xs font-black text-blue-300 uppercase tracking-wider flex items-center gap-1.5">
+                            <Newspaper className="w-4 h-4 text-blue-400" />
+                            <span>{isMr ? 'वृत्तपत्रे, मासिके व नियतकालिके (Press):' : 'Newspapers & Periodicals:'}</span>
+                          </h4>
+                          <span className="text-xs text-stone-400 font-mono">
+                            {activeReformer.newspapersMr.length} नोंदी
+                          </span>
+                        </div>
+                        {activeReformer.newspapersMr.length > 0 ? (
+                          <div className="grid grid-cols-1 gap-2.5">
+                            {activeReformer.newspapersMr.map((paper, idx) => (
+                              <div
+                                key={idx}
+                                className="p-3.5 rounded-xl bg-stone-900/80 border border-stone-800 flex items-start gap-3 hover:border-blue-500/50 transition-all"
+                              >
+                                <span className="w-7 h-7 rounded-lg bg-blue-500/15 text-blue-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                                  🗞️
+                                </span>
+                                <div className="space-y-1">
+                                  <h5 className="text-xs sm:text-sm font-bold text-stone-100">{paper}</h5>
+                                  <p className="text-[11px] text-stone-400">
+                                    पत्रकारिता योगदान: {activeReformer.nameMr}
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xs text-stone-500 italic p-3">
+                            {isMr ? 'स्वतःचे वृत्तपत्र नव्हते / लेख इतर वृत्तपत्रांत लिहिले.' : 'No direct newspaper founded.'}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ------------------------------------------------------------- */}
+                  {/* SUB-TAB 3: NOTABLE PUBLICATIONS & BOOKS */}
+                  {/* ------------------------------------------------------------- */}
+                  {profileSubTab === 'publications' && (
+                    <div className="space-y-5">
+                      <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-5 space-y-3">
+                        <div className="flex items-center justify-between border-b border-stone-800 pb-2">
+                          <h4 className="text-xs font-black text-purple-300 uppercase tracking-wider flex items-center gap-1.5">
+                            <BookOpen className="w-4 h-4 text-purple-400" />
+                            <span>{isMr ? 'लिहिलेली पुस्तके, प्रबंध व साहित्य संपदा:' : 'Notable Publications Authored:'}</span>
+                          </h4>
+                          <span className="text-xs text-stone-400 font-mono">
+                            {activeReformer.booksAuthoredMr.length} पुस्तके
+                          </span>
+                        </div>
+
+                        {activeReformer.booksAuthoredMr.length > 0 ? (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {activeReformer.booksAuthoredMr.map((book, idx) => (
+                              <div
+                                key={idx}
+                                className="p-3.5 rounded-xl bg-stone-900/80 border border-stone-800 hover:border-purple-500/50 transition-all flex items-start gap-3"
+                              >
+                                <span className="w-7 h-7 rounded-lg bg-purple-500/15 text-purple-400 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+                                  📖
+                                </span>
+                                <div>
+                                  <h5 className="text-xs sm:text-sm font-black text-stone-100">{book}</h5>
+                                  <p className="text-[11px] text-stone-400 mt-0.5">
+                                    लेखक: <strong className="text-purple-300">{activeReformer.nameMr}</strong>
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-xs text-stone-500 italic p-3">
+                            {isMr ? 'स्वतंत्र ग्रंथ नोंद उपलब्ध नाही.' : 'No authored books listed.'}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ------------------------------------------------------------- */}
+                  {/* SUB-TAB 4: REFORMER-SPECIFIC PREVIOUS YEAR QUESTIONS (PYQS) */}
+                  {/* ------------------------------------------------------------- */}
+                  {profileSubTab === 'reformer_pyqs' && (
+                    <div className="space-y-5">
+                      <div className="flex items-center justify-between bg-stone-950/90 p-4 rounded-2xl border border-stone-800">
+                        <div>
+                          <h4 className="text-xs sm:text-sm font-black text-amber-200 flex items-center gap-2">
+                            <HelpCircle className="w-4 h-4 text-amber-400" />
+                            <span>
+                              {activeReformer.nameMr} {isMr ? 'यांच्यावरील MPSC मागील वर्षांचे प्रश्न' : 'MPSC PYQs'}
+                            </span>
+                          </h4>
+                          <p className="text-xs text-stone-400 mt-0.5">
+                            {isMr
+                              ? 'राज्यसेवा, संयुक्त गट-ब व क परीक्षांमध्ये विचारलेले प्रश्न प्रत्यक्ष सोडवा.'
+                              : 'Solve real past exam questions on this reformer.'}
+                          </p>
+                        </div>
+                        <span className="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
+                          {reformerSpecificPyqs.length} {isMr ? 'प्रश्न उपलब्ध' : 'Questions'}
+                        </span>
+                      </div>
+
+                      {reformerSpecificPyqs.length > 0 ? (
+                        <div className="space-y-4">
+                          {reformerSpecificPyqs.map((q, qIndex) => {
+                            const selectedOpt = reformerAnswers[q.id];
+                            const isSubmitted = reformerSubmitted[q.id];
+                            const isCorrect = selectedOpt === q.correctOptionIndex;
+
+                            return (
+                              <div
+                                key={q.id}
+                                className="bg-stone-950/90 rounded-2xl border border-stone-800 p-5 space-y-4 shadow-sm"
+                              >
+                                <div className="flex items-center justify-between gap-2 border-b border-stone-800/80 pb-2.5">
+                                  <span className="text-xs font-bold text-amber-400">
+                                    प्रश्न #{qIndex + 1}
+                                  </span>
+                                  <span className="px-2.5 py-0.5 rounded-full bg-stone-900 border border-stone-700 text-stone-300 text-[10px] font-mono">
+                                    {q.pyqExamTag}
+                                  </span>
+                                </div>
+
+                                <h5 className="text-xs sm:text-sm font-black text-stone-100 leading-relaxed">
+                                  {isMr ? q.questionMr : q.questionEn}
+                                </h5>
+
+                                {/* Options */}
+                                <div className="space-y-2">
+                                  {(isMr ? q.optionsMr : q.optionsEn).map((opt, optIdx) => {
+                                    const isThisSelected = selectedOpt === optIdx;
+                                    const isThisCorrect = optIdx === q.correctOptionIndex;
+                                    let btnStyle = 'border-stone-800 bg-stone-900/60 text-stone-300 hover:bg-stone-850';
+
+                                    if (isSubmitted) {
+                                      if (isThisCorrect) {
+                                        btnStyle = 'border-emerald-500 bg-emerald-950/40 text-emerald-200 font-bold';
+                                      } else if (isThisSelected && !isThisCorrect) {
+                                        btnStyle = 'border-red-500 bg-red-950/40 text-red-200';
+                                      }
+                                    } else if (isThisSelected) {
+                                      btnStyle = 'border-amber-500 bg-amber-500/20 text-amber-100 font-bold';
+                                    }
+
+                                    return (
+                                      <button
+                                        key={optIdx}
+                                        type="button"
+                                        onClick={() => handleSelectReformerPyq(q.id, optIdx)}
+                                        className={`w-full text-left p-2.5 rounded-xl border text-xs transition-all cursor-pointer flex items-center justify-between ${btnStyle}`}
+                                      >
+                                        <div className="flex items-center gap-2">
+                                          <span className="w-5 h-5 rounded-md bg-stone-800 text-stone-300 font-bold flex items-center justify-center shrink-0 text-[11px]">
+                                            {optIdx + 1}
+                                          </span>
+                                          <span>{opt}</span>
+                                        </div>
+                                        {isSubmitted && isThisCorrect && (
+                                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                        )}
+                                        {isSubmitted && isThisSelected && !isThisCorrect && (
+                                          <XCircle className="w-4 h-4 text-red-400 shrink-0" />
+                                        )}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+
+                                {/* Actions & Feedback */}
+                                {!isSubmitted ? (
+                                  <div className="flex justify-end pt-1">
+                                    <button
+                                      type="button"
+                                      disabled={selectedOpt === undefined}
+                                      onClick={() => handleSubmitReformerPyq(q.id, q.correctOptionIndex)}
+                                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                                        selectedOpt !== undefined
+                                          ? 'bg-amber-500 text-stone-950 hover:bg-amber-400 shadow-md font-black'
+                                          : 'bg-stone-800 text-stone-500 cursor-not-allowed'
+                                      }`}
+                                    >
+                                      {isMr ? 'उत्तर तपासा (Check Answer)' : 'Check Answer'}
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="space-y-2 pt-2">
+                                    <div
+                                      className={`p-3 rounded-xl border text-xs leading-relaxed ${
+                                        isCorrect
+                                          ? 'bg-emerald-950/30 border-emerald-500/50 text-emerald-200'
+                                          : 'bg-red-950/30 border-red-500/50 text-red-200'
+                                      }`}
+                                    >
+                                      <p className="font-bold flex items-center gap-1.5 mb-1">
+                                        {isCorrect ? (
+                                          <>
+                                            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                                            <span>बरोबर उत्तर! 🎉</span>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <XCircle className="w-4 h-4 text-red-400" />
+                                            <span>चूक उत्तर! (अचूक पर्याय: #{q.correctOptionIndex + 1})</span>
+                                          </>
+                                        )}
+                                      </p>
+                                      <p className="text-stone-300 mt-1">{q.explanationMr}</p>
+                                    </div>
+
+                                    <div className="flex justify-end">
+                                      <button
+                                        type="button"
+                                        onClick={() => handleResetReformerPyq(q.id)}
+                                        className="text-xs text-stone-400 hover:text-stone-200 flex items-center gap-1 cursor-pointer py-1 px-2"
+                                      >
+                                        <RotateCcw className="w-3 h-3" />
+                                        <span>{isMr ? 'पुन्हा सोडवा' : 'Retry'}</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="bg-stone-950/80 rounded-2xl border border-stone-800 p-6 text-center space-y-4">
+                          <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-300 flex items-center justify-center mx-auto text-2xl">
+                            📝
+                          </div>
+                          <div className="max-w-md mx-auto space-y-1">
+                            <h4 className="text-sm font-bold text-stone-200">
+                              {activeReformer.nameMr} {isMr ? 'यांच्यावर आधारित संभाव्य प्रश्नसंच' : 'Predicted Questions'}
+                            </h4>
+                            <p className="text-xs text-stone-400">
+                              या समाजसुधारकावर आधारित मुख्य पॉईंटर्स आपण 'चरित्र व जीवनपट' टॅबमध्ये पाहू शकता किंवा ऑल-महाराष्ट्र PYQ क्विझ सोडवू शकता.
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              playFx('click');
+                              setActiveTab('pyqs');
+                            }}
+                            className="px-4 py-2 rounded-xl bg-amber-500 text-stone-950 font-black text-xs hover:bg-amber-400 transition-all cursor-pointer shadow-md"
+                          >
+                            🎯 {isMr ? 'ऑल-महाराष्ट्र ३६+ PYQs क्विझ सोडवा' : 'Attempt Full PYQ Quiz'}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </>
               )}
             </div>
