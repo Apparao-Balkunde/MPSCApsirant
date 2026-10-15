@@ -1394,14 +1394,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
               <h2 className="text-xl sm:text-2xl font-black text-amber-200">
                 {isMr
-                  ? '🗺️ महाराष्ट्राचे ३६ जिल्हे: नकाशा व जिल्हा-विशेष सराव (36 Districts GK & Interactive Learning)'
-                  : '🗺️ Maharashtra 36 Districts: Map & Interactive District Learning'}
+                  ? '🗺️ महाराष्ट्राचे ३६ जिल्हे: रिअल-टाइम ऍटलास नकाशा व जिल्हा-विशेष सराव (Real-Time Atlas Learning)'
+                  : '🗺️ Maharashtra 36 Districts: Real-Time Geographic Atlas & Interactive Learning'}
               </h2>
 
               <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
                 {isMr
-                  ? 'महाराष्ट्रातील ३६ जिल्ह्यांचा नकाशा, तालुके, प्रमुख नद्या, किल्ले, पिके, अभयारण्ये आणि वारंवार विचारल्या जाणाऱ्या MPSC गोल्डन फॅक्ट्स! नकाशावर कोणताही जिल्हा निवडून १०, १५ किंवा २० प्रश्नांची सखोल चाचणी सोडवा आणि तात्काळ अचूक स्पष्टीकरणांसह पुनरावलोकन करा.'
-                  : 'Interactive map of all 36 Maharashtra districts across 6 divisions. Select any district to review talukas, rivers, forts, crops, and launch targeted 10, 15, or 20-question practice tests on geography, history, and economy.'}
+                  ? 'खरा रिअल-टाइम ऍटलास नकाशा (Carto Atlas, सह्याद्री भूरूप Topo Relief व Satellite उपग्रह दृश्य)! सर्व ३६ जिल्ह्यांचे भौगोलिक स्थान, तालुके, प्रमुख नद्या, किल्ले, शिखरे (कळसूबाई, साल्हेर) व धरणे (लोणार, कोयना) पहा. नकाशावरील कोणत्याही जिल्ह्यावर क्लिक करून १०, १५ किंवा २० प्रश्नांची लक्ष्यवेधी परीक्षा सुरू करा.'
+                  : 'Authentic real-time geographic Atlas map with physical relief (Sahyadri/Ghats), satellite imagery, and educational atlas. Explore 36 districts, major peaks (Kalsubai), dams, and launch targeted practice sessions.'}
               </p>
 
               {/* Quick district highlight chips */}

@@ -158,9 +158,9 @@ export const MaharashtraDistrictsModal: React.FC<MaharashtraDistrictsModalProps>
             }`}
           >
             <Compass className="w-4 h-4" />
-            <span>{isMr ? '🗺️ नकाशावर आधारित इंटरअॅक्टिव्ह सराव' : 'Interactive Map Learning'}</span>
+            <span>{isMr ? '🗺️ रिअल-टाइम ऍटलास नकाशा व सराव' : 'Real-Time Atlas Map & Quiz'}</span>
             <span className="text-[10px] px-1.5 py-0.2 rounded-full font-black bg-stone-900 text-amber-300">
-              १० प्रश्न चाचणी
+              १०, १५, २० Qs
             </span>
           </button>
 
