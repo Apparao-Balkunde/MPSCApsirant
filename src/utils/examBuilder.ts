@@ -1,4 +1,4 @@
-import { ExamPatternId, ExamSession, Question, SubjectId } from '../types';
+import { ExamPatternId, ExamSession, Question, SubjectId, UserProgress } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { getHardQuestionsPool, findQuestionById } from './hardQuestionsEngine';
 import { getGroupCTalathiSetQuestions, MPSC_GROUP_C_TALATHI_SETS_CATALOG } from '../data/mpscGroupCTalathiSets';
@@ -13,6 +13,8 @@ export function createExamSession(options: {
   durationMinutes?: number;
   questionPool?: Question[];
   difficulty?: 'Easy' | 'Moderate' | 'Hard' | 'all';
+  excludeQuestionIds?: string[];
+  testNumber?: number;
 }): ExamSession {
   const rawPool = options.questionPool && options.questionPool.length > 0 ? options.questionPool : MPSC_QUESTIONS;
   
@@ -162,6 +164,17 @@ export function createExamSession(options: {
     const diffFiltered = eligibleQuestions.filter((q) => q.difficulty === options.difficulty);
     if (diffFiltered.length > 0) {
       eligibleQuestions = diffFiltered;
+    }
+  }
+
+  // Exclude specified question IDs (e.g. from previous test to ensure new questions)
+  if (options.excludeQuestionIds && options.excludeQuestionIds.length > 0) {
+    const excludedSet = new Set(options.excludeQuestionIds);
+    const nonExcluded = eligibleQuestions.filter((q) => !excludedSet.has(q.id));
+    if (nonExcluded.length >= (options.limit || 5)) {
+      eligibleQuestions = nonExcluded;
+    } else if (nonExcluded.length > 0) {
+      eligibleQuestions = nonExcluded;
     }
   }
 
@@ -389,6 +402,9 @@ export function createExamSession(options: {
     id: `exam_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
     title: options.title || defaultTitle,
     patternId: options.patternId,
+    subjectId: options.subjectId,
+    limit: options.limit,
+    testNumber: options.testNumber || 1,
     questionIds: finalQuestionIds,
     totalQuestions: finalQuestionIds.length,
     durationSeconds,
@@ -402,4 +418,276 @@ export function createExamSession(options: {
     isCompleted: false,
     startedAt: Date.now(),
   };
+}
+
+/**
+ * Creates the Next Exam Session with guaranteed NEW / UNSEEN questions!
+ * Supports all MPSC exam modes:
+ * - Talathi / Group C 50 Sets: proceeds sequentially to the next set (Set 1 -> 2 -> ... -> 50)
+ * - Official PYQs: advances to the next paper year
+ * - 100-Question Subject Marathons: cycles to the next marathon set
+ * - Hard Challenges: pulls fresh 25 hard questions
+ * - Daily 10 Challenges: pulls 10-15 unattempted daily questions
+ * - Subject Practice / Custom Mock: detects subject, excludes current test's questions,
+ *   and prioritizes unattempted questions from the user's progress history.
+ */
+export function createNextExamSession(options: {
+  currentSession: ExamSession;
+  questionPool?: Question[];
+  userProgress?: UserProgress;
+  language?: 'mr' | 'en';
+}): ExamSession {
+  const isMr = options.language !== 'en';
+  const pool = options.questionPool && options.questionPool.length > 0 ? options.questionPool : MPSC_QUESTIONS;
+  const currentSession = options.currentSession;
+  const currentIds = currentSession.questionIds || [];
+  const currentTestNumber = currentSession.testNumber || 1;
+  const nextTestNumber = currentTestNumber + 1;
+
+  // Gather all historical question IDs attempted by student to prioritize unattempted questions
+  const historicallyAttemptedIds = new Set<string>();
+  if (options.userProgress?.history) {
+    options.userProgress.history.forEach((h) => {
+      if (h.answers) {
+        Object.keys(h.answers).forEach((qId) => historicallyAttemptedIds.add(qId));
+      }
+    });
+  }
+  // Guarantee questions from current finished test are excluded
+  currentIds.forEach((qId) => historicallyAttemptedIds.add(qId));
+
+  // 1. Group C & Talathi 50 Sets Test Series
+  if (currentSession.patternId.startsWith('mpsc_group_c_talathi_set_')) {
+    const currentSetNum = parseInt(currentSession.patternId.replace('mpsc_group_c_talathi_set_', ''), 10) || 1;
+    const nextSetNum = currentSetNum < 50 ? currentSetNum + 1 : 1;
+    const nextPatternId = `mpsc_group_c_talathi_set_${nextSetNum}` as ExamPatternId;
+    const setMeta = MPSC_GROUP_C_TALATHI_SETS_CATALOG.find((s) => s.setNumber === nextSetNum);
+    const title = setMeta
+      ? (isMr ? `${setMeta.titleMr} (नवीन १०० प्रश्न)` : `${setMeta.titleEn} (New 100 Qs)`)
+      : (isMr ? `MPSC गट-क / तलाठी सराव टेस्ट संच #${nextSetNum} (नवीन १०० प्रश्न)` : `MPSC Group C / Talathi Practice Test Set #${nextSetNum} (New 100 Qs)`);
+
+    return createExamSession({
+      patternId: nextPatternId,
+      title,
+      questionPool: pool,
+      testNumber: nextSetNum,
+    });
+  }
+
+  // 2. Official Combine PYQs Paper Progression
+  const COMBINE_PYQS: { patternId: ExamPatternId; titleMr: string; titleEn: string }[] = [
+    { patternId: 'mpsc_combine_pre_2026', titleMr: 'MPSC संयुक्त पूर्व परीक्षा २०२६ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Prelims 2026 (New Paper)' },
+    { patternId: 'mpsc_combine_pre_2025', titleMr: 'MPSC संयुक्त पूर्व परीक्षा २०२५ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Prelims 2025 (New Paper)' },
+    { patternId: 'mpsc_combine_pre_2023', titleMr: 'MPSC संयुक्त पूर्व परीक्षा २०२३ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Prelims 2023 (New Paper)' },
+    { patternId: 'mpsc_combine_pre_2022', titleMr: 'MPSC संयुक्त पूर्व परीक्षा २०२२ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Prelims 2022 (New Paper)' },
+    { patternId: 'mpsc_combine_pre_2021', titleMr: 'MPSC संयुक्त पूर्व परीक्षा २०२१ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Prelims 2021 (New Paper)' },
+    { patternId: 'mpsc_combine_pre_2020', titleMr: 'MPSC संयुक्त पूर्व परीक्षा २०२० (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Prelims 2020 (New Paper)' },
+    { patternId: 'mpsc_combine_pre_2019', titleMr: 'MPSC दुय्यम सेवा गट-ब पूर्व २०१९ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Subordinate 2019 (New Paper)' },
+    { patternId: 'mpsc_combine_pre_2018', titleMr: 'MPSC दुय्यम सेवा गट-ब पूर्व २०१८ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Subordinate 2018 (New Paper)' },
+    { patternId: 'mpsc_group_c_pre', titleMr: 'MPSC गट-क संयुक्त पूर्व परीक्षा (नवीन प्रश्नसंच)', titleEn: 'MPSC Group C Combine Prelims (New Paper)' },
+    { patternId: 'mpsc_combine_mains_pyq', titleMr: 'MPSC संयुक्त मुख्य परीक्षा PYQ (नवीन प्रश्नसंच)', titleEn: 'MPSC Combine Mains PYQ (New Paper)' },
+  ];
+  const combineIdx = COMBINE_PYQS.findIndex((p) => p.patternId === currentSession.patternId);
+  if (combineIdx !== -1) {
+    const nextItem = COMBINE_PYQS[(combineIdx + 1) % COMBINE_PYQS.length];
+    return createExamSession({
+      patternId: nextItem.patternId,
+      title: isMr ? nextItem.titleMr : nextItem.titleEn,
+      questionPool: pool,
+      testNumber: nextTestNumber,
+    });
+  }
+
+  // 3. Official Rajyaseva Civil Services PYQs Paper Progression
+  const RAJYASEVA_PYQS: { patternId: ExamPatternId; titleMr: string; titleEn: string }[] = [
+    { patternId: 'mpsc_rajyaseva_pre_2025', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२५ (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2025 (New Paper)' },
+    { patternId: 'mpsc_pyq_2024', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२४ (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2024 (New Paper)' },
+    { patternId: 'mpsc_pyq_2023', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२३ (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2023 (New Paper)' },
+    { patternId: 'mpsc_pyq_2022', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२२ (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2022 (New Paper)' },
+    { patternId: 'mpsc_rajyaseva_pre_2021', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२१ (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2021 (New Paper)' },
+    { patternId: 'mpsc_rajyaseva_pre_2020', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०२० (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2020 (New Paper)' },
+    { patternId: 'mpsc_rajyaseva_pre_2019', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०१९ (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2019 (New Paper)' },
+    { patternId: 'mpsc_rajyaseva_pre_2018', titleMr: 'MPSC राज्यसेवा पूर्व परीक्षा २०१८ (नवीन प्रश्नसंच)', titleEn: 'MPSC Rajyaseva Prelims 2018 (New Paper)' },
+  ];
+  const rajIdx = RAJYASEVA_PYQS.findIndex((p) => p.patternId === currentSession.patternId);
+  if (rajIdx !== -1) {
+    const nextItem = RAJYASEVA_PYQS[(rajIdx + 1) % RAJYASEVA_PYQS.length];
+    return createExamSession({
+      patternId: nextItem.patternId,
+      title: isMr ? nextItem.titleMr : nextItem.titleEn,
+      questionPool: pool,
+      testNumber: nextTestNumber,
+    });
+  }
+
+  // 4. 100-Question Subject Marathon Progression
+  const MARATHON_SETS: { patternId: ExamPatternId; titleMr: string; titleEn: string }[] = [
+    { patternId: 'marathon_geo_forest_100', titleMr: 'महाराष्ट्र व भारत भूगोल आणि पर्यावरण १०० मॅरेथॉन', titleEn: 'Geography & Environment 100 Marathon' },
+    { patternId: 'marathon_polity_100', titleMr: 'भारतीय संविधान, राज्यव्यवस्था व पंचायत राज १०० मॅरेथॉन', titleEn: 'Indian Polity & Panchayati Raj 100 Marathon' },
+    { patternId: 'marathon_science_100', titleMr: 'सामान्य विज्ञान १०० मॅरेथॉन सराव', titleEn: 'General Science 100 Marathon' },
+    { patternId: 'marathon_current_affairs_100', titleMr: 'चालू घडामोडी २०२६/२७ १०० मॅरेथॉन', titleEn: 'Current Affairs 2026/27 100 Marathon' },
+  ];
+  const marathonIdx = MARATHON_SETS.findIndex((m) => m.patternId === currentSession.patternId);
+  if (marathonIdx !== -1) {
+    const nextItem = MARATHON_SETS[(marathonIdx + 1) % MARATHON_SETS.length];
+    return createExamSession({
+      patternId: nextItem.patternId,
+      title: isMr ? nextItem.titleMr : nextItem.titleEn,
+      questionPool: pool,
+      testNumber: nextTestNumber,
+    });
+  }
+
+  // 5. 100k Hard Level Challenge
+  if (currentSession.patternId === 'hard_challenge') {
+    const count = currentSession.totalQuestions || 25;
+    const sub = (currentSession.subjectId as any) || 'all';
+    const allHardQs = getHardQuestionsPool({ subjectId: sub, count: 120 });
+    // Exclude current session's questions
+    const currentSet = new Set(currentIds);
+    const availableHard = allHardQs.filter((q) => !currentSet.has(q.id));
+    // Prioritize unattempted hard questions
+    const unattempted = availableHard.filter((q) => !historicallyAttemptedIds.has(q.id));
+    const candidatePool = unattempted.length >= count ? unattempted : (availableHard.length > 0 ? availableHard : allHardQs);
+    const selected = [...candidatePool].sort(() => 0.5 - Math.random()).slice(0, count);
+    const selectedIds = selected.map((q) => q.id);
+
+    return createExamSession({
+      patternId: 'hard_challenge',
+      subjectId: currentSession.subjectId,
+      customQuestionIds: selectedIds,
+      title: isMr
+        ? `MPSC 100k Hard Level Challenge (पुढील टेस्ट #${nextTestNumber} - नवीन प्रश्न)`
+        : `MPSC 100k Hard Challenge (Next Test #${nextTestNumber} - New Qs)`,
+      limit: selectedIds.length,
+      questionPool: pool,
+      testNumber: nextTestNumber,
+    });
+  }
+
+  // 6. Daily 10-Minute Rapid Challenge
+  if (currentSession.patternId === 'daily_10_challenge') {
+    const count = currentSession.totalQuestions || 10;
+    const currentSet = new Set(currentIds);
+    let subjectFiltered = pool;
+    if (currentSession.subjectId === 'english_grammar') {
+      subjectFiltered = pool.filter((q) => q.subjectId === 'english_grammar');
+    } else if (currentSession.subjectId === 'marathi_grammar') {
+      subjectFiltered = pool.filter((q) => q.subjectId === 'marathi_grammar');
+    } else if (currentSession.subjectId === 'gs') {
+      subjectFiltered = pool.filter((q) => q.subjectId !== 'english_grammar' && q.subjectId !== 'marathi_grammar' && q.subjectId !== 'csat');
+    } else if (currentSession.subjectId) {
+      subjectFiltered = pool.filter((q) => q.subjectId === currentSession.subjectId);
+    }
+    const freshCandidates = subjectFiltered.filter((q) => !currentSet.has(q.id));
+    const unattempted = freshCandidates.filter((q) => !historicallyAttemptedIds.has(q.id));
+    const poolToUse = unattempted.length >= count ? unattempted : (freshCandidates.length > 0 ? freshCandidates : subjectFiltered);
+    const selected = [...poolToUse].sort(() => 0.5 - Math.random()).slice(0, count);
+    const selectedIds = selected.map((q) => q.id);
+
+    return createExamSession({
+      patternId: 'daily_10_challenge',
+      subjectId: currentSession.subjectId,
+      customQuestionIds: selectedIds,
+      title: isMr
+        ? `Daily 10-Minute Challenge (पुढील टेस्ट #${nextTestNumber} - नवीन प्रश्न)`
+        : `Daily 10-Minute Challenge (Next Test #${nextTestNumber} - New Qs)`,
+      limit: selectedIds.length,
+      durationMinutes: 10,
+      questionPool: pool,
+      testNumber: nextTestNumber,
+    });
+  }
+
+  // 7. General Subject Practice, Custom Mocks, Weak Area Remedial, Current Affairs
+  let detectedSubjectId = currentSession.subjectId;
+  if (!detectedSubjectId) {
+    // Tally dominant subject from current questions
+    const subCounts: Record<string, number> = {};
+    currentIds.forEach((id) => {
+      const q = pool.find((item) => item.id === id);
+      if (q && q.subjectId) {
+        subCounts[q.subjectId] = (subCounts[q.subjectId] || 0) + 1;
+      }
+    });
+    let maxCount = 0;
+    Object.entries(subCounts).forEach(([subId, count]) => {
+      if (count > maxCount) {
+        maxCount = count;
+        detectedSubjectId = subId as SubjectId;
+      }
+    });
+  }
+
+  // Filter pool for this subject or pattern
+  let candidatePool = pool;
+  if (detectedSubjectId) {
+    if (detectedSubjectId === 'gs') {
+      candidatePool = pool.filter((q) => q.subjectId !== 'english_grammar' && q.subjectId !== 'marathi_grammar' && q.subjectId !== 'csat');
+    } else {
+      candidatePool = pool.filter((q) => q.subjectId === detectedSubjectId);
+    }
+  } else if (currentSession.patternId === 'current_affairs_2026') {
+    candidatePool = pool.filter((q) => q.subjectId === 'current_affairs');
+  } else if (currentSession.patternId === 'rajyaseva_gs') {
+    candidatePool = pool.filter((q) => q.exam === 'Rajyaseva' || q.exam === 'Both');
+  } else if (currentSession.patternId === 'combine_group_b_c') {
+    candidatePool = pool.filter((q) => q.exam === 'Combine' || q.exam === 'Both');
+  }
+
+  // Exclude current session's questions to strictly ensure new questions!
+  const currentSet = new Set(currentIds);
+  const withoutCurrent = candidatePool.filter((q) => !currentSet.has(q.id));
+
+  // Prioritize unattempted questions from user history
+  const unattempted = withoutCurrent.filter((q) => !historicallyAttemptedIds.has(q.id));
+  const targetCount = currentSession.totalQuestions || 15;
+
+  let finalSelection: Question[] = [];
+  if (unattempted.length >= targetCount) {
+    finalSelection = [...unattempted].sort(() => 0.5 - Math.random()).slice(0, targetCount);
+  } else {
+    // Take all unattempted questions first
+    finalSelection = [...unattempted];
+    const needed = targetCount - finalSelection.length;
+    // Fill remaining from questions not in current test
+    const remainingEligible = withoutCurrent.filter((q) => !unattempted.some((u) => u.id === q.id));
+    const extra = [...remainingEligible].sort(() => 0.5 - Math.random()).slice(0, needed);
+    finalSelection = [...finalSelection, ...extra];
+
+    // If still short, fallback to candidatePool
+    if (finalSelection.length < targetCount) {
+      const stillNeeded = targetCount - finalSelection.length;
+      const extraFallback = [...candidatePool]
+        .filter((q) => !finalSelection.some((f) => f.id === q.id))
+        .sort(() => 0.5 - Math.random())
+        .slice(0, stillNeeded);
+      finalSelection = [...finalSelection, ...extraFallback];
+    }
+  }
+
+  const selectedQuestionIds = finalSelection.map((q) => q.id);
+
+  // Clean base title and append next test marker
+  let cleanTitle = currentSession.title
+    .replace(/\s*\(पुढील टेस्ट.*?\)/gi, '')
+    .replace(/\s*\(Next Test.*?\)/gi, '')
+    .replace(/\s*-\s*टेस्ट\s*#\d+/gi, '')
+    .replace(/\s*-\s*Test\s*#\d+/gi, '')
+    .trim();
+
+  const nextTitle = isMr
+    ? `${cleanTitle} - टेस्ट #${nextTestNumber} (नवीन प्रश्न)`
+    : `${cleanTitle} - Test #${nextTestNumber} (New Questions)`;
+
+  return createExamSession({
+    patternId: currentSession.patternId,
+    subjectId: detectedSubjectId,
+    customQuestionIds: selectedQuestionIds,
+    title: nextTitle,
+    limit: selectedQuestionIds.length,
+    durationMinutes: Math.round(currentSession.durationSeconds / 60) || undefined,
+    questionPool: pool,
+    testNumber: nextTestNumber,
+  });
 }

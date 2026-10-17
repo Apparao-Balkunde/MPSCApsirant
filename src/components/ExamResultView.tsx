@@ -25,7 +25,8 @@ import {
   ExternalLink,
   DollarSign,
   Copy,
-  Star
+  Star,
+  ArrowRight
 } from 'lucide-react';
 import { ExamResult, ExamSession, Question } from '../types';
 import { MPSC_QUESTIONS } from '../data/mpscQuestions';
@@ -47,6 +48,7 @@ interface ExamResultViewProps {
   result: ExamResult;
   session: ExamSession;
   onRetakeExam: () => void;
+  onNextTest?: () => void;
   onGoHome: () => void;
   language: 'mr' | 'en';
   bookmarkedIds: string[];
@@ -63,6 +65,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
   result,
   session,
   onRetakeExam,
+  onNextTest,
   onGoHome,
   language,
   bookmarkedIds,
@@ -207,6 +210,25 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            {/* 🚀 Next Test (पुढील टेस्ट - नवीन प्रश्न) Button */}
+            {onNextTest && (
+              <button
+                onClick={onNextTest}
+                id="btn-exam-next-test-top"
+                className="px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs sm:text-sm flex items-center gap-2 shadow-md hover:shadow-lg active:scale-95 transition-all cursor-pointer no-print group border border-emerald-400/40"
+                title={isMr ? 'पुढील टेस्ट सुरू करा (नवीन प्रश्न आपोआप लोड होतील)' : 'Start Next Test (Loads fresh new questions)'}
+              >
+                <Sparkles className="w-4 h-4 text-emerald-200 animate-pulse group-hover:rotate-12 transition-transform" />
+                <div className="flex items-center gap-1.5">
+                  <span className="tracking-tight">{isMr ? 'पुढील टेस्ट' : 'Next Test'}</span>
+                  <span className="px-1.5 py-0.5 bg-emerald-950/60 border border-emerald-300/50 text-emerald-200 text-[10px] rounded-full font-bold">
+                    {isMr ? 'नवीन प्रश्न' : 'NEW'}
+                  </span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-emerald-200 group-hover:translate-x-1 transition-transform" />
+              </button>
+            )}
+
             {/* Export as PDF button */}
             <button
               onClick={handleExportPDF}
@@ -699,6 +721,53 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
               </div>
             );
           })}
+        </div>
+
+        {/* 🎯 Completion & Next Test Bottom Banner */}
+        <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-stone-900 via-stone-850 to-stone-900 text-white border border-stone-800 shadow-xl no-print">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                <span>{isMr ? 'चाचणी पुनरावलोकन पूर्ण!' : 'Test Review Completed!'}</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                {isMr ? 'सराव थांबवू नका! पुढील टेस्टमध्ये नवीन प्रश्न सोडवा' : 'Keep Practicing! Solve Brand New Questions in Next Test'}
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-300 max-w-2xl leading-relaxed">
+                {isMr
+                  ? '‘पुढील टेस्ट’ पर्यायावर क्लिक करताच सिस्टीम आपोआप यापूर्वी न आलेले नवीन प्रश्न लोड करेल, जेणेकरून तुमचा प्रत्येक विषयाचा १००% सराव पूर्ण होईल.'
+                  : 'Clicking ‘Next Test’ automatically pulls unseen, fresh questions so you achieve 100% syllabus coverage and peak exam readiness.'}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto shrink-0">
+              {onNextTest && (
+                <button
+                  onClick={onNextTest}
+                  id="btn-exam-next-test-bottom"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-stone-950 font-black text-sm flex items-center justify-center gap-2.5 shadow-lg hover:shadow-xl active:scale-95 transition-all cursor-pointer group"
+                >
+                  <Sparkles className="w-4 h-4 text-stone-950 animate-pulse group-hover:rotate-12 transition-transform" />
+                  <span>{isMr ? 'पुढील टेस्ट सुरू करा (नवीन प्रश्न) →' : 'Start Next Test (New Questions) →'}</span>
+                </button>
+              )}
+              <button
+                onClick={onRetakeExam}
+                className="w-full sm:w-auto px-4 py-3.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer border border-stone-700"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span>{isMr ? 'हीच टेस्ट पुन्हा द्या' : 'Retake Same'}</span>
+              </button>
+              <button
+                onClick={onGoHome}
+                className="w-full sm:w-auto px-4 py-3.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer border border-stone-700"
+              >
+                <Home className="w-4 h-4" />
+                <span>{isMr ? 'डॅशबोर्ड' : 'Dashboard'}</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -170,6 +170,18 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
     setIsCompleted(false);
   };
 
+  const handleNextMapTest = () => {
+    playFx('click');
+    const categories = ['all', 'rivers', 'peaks', 'forts', 'national_parks', 'dams', 'passes'];
+    const currentIdx = categories.indexOf(selectedCategory);
+    const nextCategory = categories[(currentIdx + 1) % categories.length];
+    setSelectedCategory(nextCategory);
+    setUserAnswers({});
+    setCurrentIndex(0);
+    setShowExplanation(false);
+    setIsCompleted(false);
+  };
+
   const toggleBookmark = (id: string) => {
     playFx('click');
     setBookmarkedQuestionIds((prev) =>
@@ -1126,7 +1138,15 @@ export const InteractiveMapQuizModal: React.FC<InteractiveMapQuizModalProps> = (
                   </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <button
+                    type="button"
+                    onClick={handleNextMapTest}
+                    className="flex-1 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-stone-950 font-black rounded-xl text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                  >
+                    <Sparkles className="w-4 h-4 text-stone-950" />
+                    <span>{isMr ? 'पुढील टेस्ट (नवीन प्रश्न)' : 'Next Test (New Qs)'}</span>
+                  </button>
                   <button
                     type="button"
                     onClick={handleRestart}

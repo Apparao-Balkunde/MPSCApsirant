@@ -103,6 +103,7 @@ interface DashboardViewProps {
   onOpenDistrictsModal?: (initialTab?: 'map_learning' | 'cards_list') => void;
   onOpenPanchayatiRaj?: () => void;
   onOpenSocialReformers?: () => void;
+  onOpenGovtSchemes?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -145,6 +146,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenDistrictsModal,
   onOpenPanchayatiRaj,
   onOpenSocialReformers,
+  onOpenGovtSchemes,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -439,6 +441,21 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <span>{isMr ? '🚩 समाजसुधारक इन्सायक्लोपीडिया' : '🚩 Reformers Hub'}</span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded bg-orange-400 text-stone-950 font-black uppercase">
                     ५०+ 🏆
+                  </span>
+                </button>
+              )}
+
+              {onOpenGovtSchemes && (
+                <button
+                  id="btn-hero-govt-schemes"
+                  onClick={onOpenGovtSchemes}
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-950/90 to-stone-900 hover:from-emerald-900 hover:to-stone-850 text-emerald-200 border border-emerald-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                  title={isMr ? "महाराष्ट्र शासकीय योजना व आर्थिक पाहणी महाकोश उघडा" : "Open Maharashtra Govt Schemes & Economic Survey"}
+                >
+                  <span className="text-base">🏛️</span>
+                  <span>{isMr ? '🏛️ शासकीय योजना व आर्थिक पाहणी' : '🏛️ Govt Schemes Hub'}</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-400 text-stone-950 font-black uppercase">
+                    ६०+ 🏆
                   </span>
                 </button>
               )}
@@ -1551,6 +1568,66 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           </div>
         </div>
+
+        {/* 🏛️ महाराष्ट्र शासकीय योजना व आर्थिक पाहणी महाकोश (Govt Schemes & Economic Survey Hub) */}
+        {onOpenGovtSchemes && (
+          <div className="bg-gradient-to-br from-emerald-950/80 via-stone-900 to-stone-950 rounded-2xl border-2 border-emerald-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+            <div className="absolute -right-10 -bottom-10 w-52 h-52 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+              <div className="space-y-2.5 max-w-3xl">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/25 text-emerald-300 border border-emerald-400/60 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span>🏛️</span>
+                    <span>{isMr ? 'नवीन विशेष महाकोश • MPSC अर्थशास्त्र व चालू घडामोडी' : 'New Master Hub • Economics & Current Affairs'}</span>
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 text-xs font-bold">
+                    {isMr ? '📈 आर्थिक पाहणी २०२४-२६' : 'Economic Survey 2024-26'}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold font-mono">
+                    {isMr ? '⭐ १५ ते २० गुण हमखास वेटेज' : 'High Yield 15-20 Marks'}
+                  </span>
+                </div>
+
+                <h2 className="text-xl sm:text-2xl font-black text-emerald-100">
+                  {isMr
+                    ? '🏛️ महाराष्ट्र शासकीय योजना व आर्थिक पाहणी महाकोश २०२४-२६'
+                    : '🏛️ Maharashtra Govt Schemes & Economic Survey Encyclopedia'}
+                </h2>
+
+                <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                  {isMr
+                    ? 'मुख्यमंत्री माझी लाडकी बहीण, नमो शेतकरी, लेक लाडकी, युवा कार्यप्रशिक्षण, MJPJAY, स्वाधार, रमाई आवास, पीएम सूर्यघर यासह ६०+ फ्लॅगशिप योजना, त्यांचे थेट आर्थिक लाभ, पात्रता निकष, नोडल विभाग आणि आर्थिक पाहणीचे GSDP, दरडोई उत्पन्न, FDI रँकिंग व MPSC PYQs चे संपूर्ण संकलन!'
+                    : 'Comprehensive coverage of 60+ Maharashtra and Central flagship welfare schemes, direct financial benefits, eligibility checklist, economic survey data & MPSC PYQ drill.'}
+                </p>
+
+                <div className="flex items-center gap-4 text-xs text-emerald-200/90 font-medium pt-1 flex-wrap">
+                  <span>🌸 {isMr ? 'लाडकी बहीण व लेक लाडकी' : 'Ladki Bahin & Lek Ladki'}</span>
+                  <span>•</span>
+                  <span>🌾 {isMr ? 'नमो शेतकरी व जलयुक्त शिवार २.०' : 'Namo Shetkari & Jalyukt Shivar'}</span>
+                  <span>•</span>
+                  <span>🏥 {isMr ? 'MJPJAY ₹५ लाख कॅशलेस' : 'MJPJAY ₹5L Cashless'}</span>
+                  <span>•</span>
+                  <span>📊 {isMr ? 'GSDP, सेवा/उद्योग वाटा व FDI १ ला' : 'GSDP, Sectoral Share & FDI Rank 1'}</span>
+                  <span>•</span>
+                  <span>🖨️ {isMr ? 'A4 रिव्हिजन पीडीएफ प्रिंटर' : 'A4 PDF Ready'}</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0 flex-wrap">
+                <button
+                  type="button"
+                  id="btn-dashboard-govt-schemes"
+                  onClick={() => onOpenGovtSchemes()}
+                  className="px-5 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
+                >
+                  <span>🏛️</span>
+                  <span>{isMr ? 'शासकीय योजना महाकोश उघडा' : 'Open Schemes Hub'}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ⚖️ पंचायत राज व स्थानिक स्वराज्य संस्था (Panchayati Raj Special Hub) */}
         <div className="bg-gradient-to-br from-amber-950/90 via-stone-900 to-stone-950 rounded-2xl border-2 border-amber-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">

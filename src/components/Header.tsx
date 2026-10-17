@@ -76,6 +76,8 @@ export interface HeaderProps {
   onOpenDistrictsModal?: () => void;
   onOpenPanchayatiRaj?: () => void;
   onOpenSocialReformers?: () => void;
+  onOpenConstitutionMasterHub?: () => void;
+  onOpenGovtSchemes?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -105,6 +107,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenDistrictsModal,
   onOpenPanchayatiRaj,
   onOpenSocialReformers,
+  onOpenConstitutionMasterHub,
+  onOpenGovtSchemes,
 }) => {
   const isMr = language === 'mr';
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
@@ -441,6 +445,52 @@ export const Header: React.FC<HeaderProps> = ({
                       <span>{isMr ? '🏆 विशेष सराव साधने व हब्स' : '🏆 Special Practice Hubs'}</span>
                       <span className="text-[10px] text-stone-400 font-normal">MPSC 2026</span>
                     </div>
+
+                    {onOpenConstitutionMasterHub && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenConstitutionMasterHub();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-blue-950/70 to-stone-900 hover:from-blue-900/80 hover:to-stone-850 border border-blue-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center shrink-0 text-blue-400 group-hover:scale-105 text-sm">
+                          ⚖️
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-blue-300 group-hover:text-blue-200 flex items-center justify-between">
+                            <span>{isMr ? '📜 संविधान कलम-कोश व राज्यघटना' : 'Constitution & Polity Hub'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-blue-500/20 text-blue-300 font-mono">३९५+ कलमे</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'मूलभूत हक्क, DPSP, १२ अनुसूच्या, १-१०६ घटनादुरुस्त्या व PYQs' : 'Articles, 12 Schedules, Amendments & PYQs'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenGovtSchemes && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenGovtSchemes();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-950/60 to-stone-900 hover:from-emerald-900/70 hover:to-stone-850 border border-emerald-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0 text-emerald-400 group-hover:scale-105 text-sm">
+                          🏛️
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-emerald-300 group-hover:text-emerald-200 flex items-center justify-between">
+                            <span>{isMr ? '🏛️ शासकीय योजना व आर्थिक पाहणी' : 'Govt Schemes & Eco Survey'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">६०+ योजना</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'लाडकी बहीण, नमो शेतकरी, MJPJAY, GSDP व PYQs' : 'Ladki Bahin, Agri, MJPJAY, FDI & PYQs'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
 
                     {onOpenSocialReformers && (
                       <button

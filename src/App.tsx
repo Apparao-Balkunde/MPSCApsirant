@@ -6,7 +6,7 @@ import {
   updateWeeklyGoals,
   addManualStudyLog
 } from './utils/storage';
-import { createExamSession } from './utils/examBuilder';
+import { createExamSession, createNextExamSession } from './utils/examBuilder';
 import { 
   ExamPatternId, 
   ExamResult, 
@@ -51,6 +51,7 @@ import { AdSenseManagerModal } from './components/AdSenseManagerModal';
 import { MaharashtraDistrictsModal } from './components/MaharashtraDistrictsModal';
 import { PanchayatiRajModal } from './components/PanchayatiRajModal';
 import { SocialReformersEncyclopediaModal } from './components/SocialReformersEncyclopediaModal';
+import { GovtSchemesEncyclopediaModal } from './components/GovtSchemesEncyclopediaModal';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener, trySsoLogin } from './lib/firebase';
@@ -158,6 +159,9 @@ export default function App() {
 
   // Maharashtra Social Reformers Encyclopedia modal state
   const [isSocialReformersOpen, setIsSocialReformersOpen] = useState<boolean>(false);
+
+  // Maharashtra Govt Schemes & Economic Survey modal state
+  const [isGovtSchemesOpen, setIsGovtSchemesOpen] = useState<boolean>(false);
 
   const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub' = 'books') => {
     setAffiliateBooksInitialTab(tab);
@@ -636,6 +640,31 @@ export default function App() {
     handleStartExam('weak_area_remedial', subjectId, title, customQuestionIds);
   };
 
+  // Next Test Handler - advances to next test with guaranteed 100% brand new questions!
+  const handleStartNextExam = () => {
+    if (!activeSession) return;
+
+    if (userProgress.soundEffectsEnabled ?? true) {
+      soundFx.playExamSubmissionSound();
+    }
+
+    const nextSession = createNextExamSession({
+      currentSession: activeSession,
+      questionPool: questions,
+      userProgress,
+      language: userProgress.preferredLanguage,
+    });
+
+    setActiveResult(null);
+    setActiveSession(nextSession);
+
+    const isMr = userProgress.preferredLanguage === 'mr';
+    const msg = isMr
+      ? `🚀 पुढील टेस्ट सुरू झाली! (${nextSession.totalQuestions} नवीन प्रश्न लोड केले)`
+      : `🚀 Next test started! (${nextSession.totalQuestions} fresh new questions loaded)`;
+    showSyncToast(msg, { type: 'success', durationMs: 4000 });
+  };
+
   // Exam submission & grading handler
   const handleSubmitExam = (session: ExamSession) => {
     const currentPool = questions;
@@ -897,7 +926,8 @@ export default function App() {
             <ExamResultView
               result={activeResult}
               session={activeSession}
-              onRetakeExam={() => handleStartExam(activeSession.patternId, undefined, activeSession.title, activeSession.questionIds)}
+              onRetakeExam={() => handleStartExam(activeSession.patternId, activeSession.subjectId, activeSession.title, activeSession.questionIds)}
+              onNextTest={handleStartNextExam}
               onGoHome={() => {
                 setActiveResult(null);
                 setActiveSession(null);
@@ -952,6 +982,7 @@ export default function App() {
             onOpenDistrictsModal={handleOpenDistrictsModal}
             onOpenPanchayatiRaj={() => setIsPanchayatiRajOpen(true)}
             onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
+            onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -1011,6 +1042,7 @@ export default function App() {
                 onOpenDistrictsModal={handleOpenDistrictsModal}
                 onOpenPanchayatiRaj={() => setIsPanchayatiRajOpen(true)}
                 onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
+                onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1422,6 +1454,13 @@ export default function App() {
       <SocialReformersEncyclopediaModal
         isOpen={isSocialReformersOpen}
         onClose={() => setIsSocialReformersOpen(false)}
+        language={userProgress.preferredLanguage}
+      />
+
+      {/* Maharashtra Government Schemes & Economic Survey Encyclopedia Modal */}
+      <GovtSchemesEncyclopediaModal
+        isOpen={isGovtSchemesOpen}
+        onClose={() => setIsGovtSchemesOpen(false)}
         language={userProgress.preferredLanguage}
       />
 

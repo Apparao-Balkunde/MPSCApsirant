@@ -129,6 +129,9 @@ export interface ExamSession {
   id: string;
   title: string;
   patternId: ExamPatternId;
+  subjectId?: SubjectId | 'gs' | 'all';
+  limit?: number;
+  testNumber?: number;
   questionIds: string[];
   totalQuestions: number;
   durationSeconds: number;

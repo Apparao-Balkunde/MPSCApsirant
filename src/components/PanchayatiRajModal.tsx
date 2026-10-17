@@ -876,7 +876,22 @@ export const PanchayatiRajModal: React.FC<PanchayatiRajModalProps> = ({
                   </p>
                 </div>
 
-                <div className="flex items-center justify-center gap-3">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playFx('click');
+                      setCurrentQuizIdx((prev) => (prev + 5 < quizQuestions.length ? prev + 5 : 0));
+                      setSelectedOption(null);
+                      setIsAnswerSubmitted(false);
+                      setScore(0);
+                      setCompletedQuiz(false);
+                    }}
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-stone-950 font-black text-xs sm:text-sm transition-all cursor-pointer flex items-center gap-2 shadow-md"
+                  >
+                    <Sparkles className="w-4 h-4 text-stone-950" />
+                    <span>पुढील टेस्ट (नवीन प्रश्न)</span>
+                  </button>
                   <button
                     type="button"
                     onClick={handleResetQuiz}
