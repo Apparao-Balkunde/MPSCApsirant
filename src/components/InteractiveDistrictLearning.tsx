@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
-import L from 'leaflet';
+// Leaflet is safely loaded via CDN in index.html to guarantee zero bundler resolution failures
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const L: any = typeof window !== 'undefined' ? (window as any).L || (window as any).leaflet : null;
 import { 
   Compass, 
   MapPin, 
@@ -106,13 +108,13 @@ export const InteractiveDistrictLearning: React.FC<InteractiveDistrictLearningPr
 
   // Map DOM and instance references
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const leafletMapRef = useRef<L.Map | null>(null);
-  const tileLayerRef = useRef<L.TileLayer | null>(null);
-  const districtMarkersRef = useRef<Map<string, L.Marker>>(new Map());
-  const divisionPolygonsGroupRef = useRef<L.LayerGroup | null>(null);
-  const riversLayerGroupRef = useRef<L.LayerGroup | null>(null);
-  const mountainsLayerGroupRef = useRef<L.LayerGroup | null>(null);
-  const landmarkLayerGroupRef = useRef<L.LayerGroup | null>(null);
+  const leafletMapRef = useRef<any>(null);
+  const tileLayerRef = useRef<any>(null);
+  const districtMarkersRef = useRef<Map<string, any>>(new Map());
+  const divisionPolygonsGroupRef = useRef<any>(null);
+  const riversLayerGroupRef = useRef<any>(null);
+  const mountainsLayerGroupRef = useRef<any>(null);
+  const landmarkLayerGroupRef = useRef<any>(null);
 
   // Currently selected district object
   const activeDistrict = useMemo(() => {
