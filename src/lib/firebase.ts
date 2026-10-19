@@ -11,7 +11,6 @@ import {
   GoogleAuthProvider,
   signInAnonymously,
   signInWithPopup,
-  signInWithCustomToken,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
@@ -126,27 +125,11 @@ export function initAuthListener(
 ) {
   authListeners.add(onUserChange);
 
-  const savedLocal =
-    getLocalStudentSession();
-
-  if (
-    savedLocal &&
-    !auth.currentUser
-  ) {
-    onUserChange(savedLocal);
-  }
-
-  const unsubscribe =
-    onAuthStateChanged(
-      auth,
-      (firebaseUser) => {
-        onUserChange(
-          firebaseUser ||
-          getLocalStudentSession() ||
-          null
-        );
-      }
-    );
+  // Only Firebase Auth users are authenticated. A localStorage-shaped object
+  // is untrusted client data and must never grant access to user data.
+  const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    onUserChange(firebaseUser || null);
+  });
 
   return () => {
     authListeners.delete(onUserChange);
@@ -571,183 +554,3 @@ export function formatAuthErrorMessage(
 // ============================================================
 // SUPABASE → FIREBASE SSO
 // ============================================================
-
-/**
- * SSO FLOW
- *
- * mpscsarathi.online
- *        ↓
- * Supabase access token
- *        ↓
- * exam.mpscsarathi.online/?token=...
- *        ↓
- * POST https://mpscsarathi.online/api/exchange-token
- *        ↓
- * Supabase token verification
- *        ↓
- * Firebase Admin createCustomToken()
- *        ↓
- * Firebase custom token
- *        ↓
- * signInWithCustomToken()
- *
- * Firebase service-account credentials NEVER come
- * to the browser.
- */
-
-export async function trySsoLogin(): Promise<User | null> {
-
-  if (
-    typeof window === 'undefined'
-  ) {
-    return null;
-  }
-
-
-  // ----------------------------------------------------------
-  // Read token from URL
-  // ----------------------------------------------------------
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-  const supabaseToken =
-    params.get('token');
-
-
-  if (!supabaseToken) {
-    return null;
-  }
-
-
-  try {
-
-    console.log(
-      '[SSO] Supabase token received.'
-    );
-
-
-    // --------------------------------------------------------
-    // Exchange Supabase token for Firebase custom token
-    // --------------------------------------------------------
-
-    const response =
-      await fetch(
-        'https://mpscsarathi.online/api/exchange-token',
-        {
-          method: 'POST',
-
-          headers: {
-            'Content-Type':
-              'application/json',
-          },
-
-          body: JSON.stringify({
-            supabaseToken,
-          }),
-        }
-      );
-
-
-    if (!response.ok) {
-
-      const errorText =
-        await response
-          .text()
-          .catch(() => '');
-
-      console.error(
-        '[SSO] Token exchange failed:',
-        response.status,
-        errorText
-      );
-
-      return null;
-    }
-
-
-    // --------------------------------------------------------
-    // Read Firebase custom token
-    // --------------------------------------------------------
-
-    const payload =
-      await response.json();
-
-
-    const firebaseToken =
-      typeof payload?.firebaseToken === 'string'
-        ? payload.firebaseToken
-        : '';
-
-
-    if (!firebaseToken) {
-
-      console.error(
-        '[SSO] Firebase token missing from response.'
-      );
-
-      return null;
-    }
-
-
-    console.log(
-      '[SSO] Firebase custom token received.'
-    );
-
-
-    // --------------------------------------------------------
-    // Firebase login
-    // --------------------------------------------------------
-
-    const result =
-      await signInWithCustomToken(
-        auth,
-        firebaseToken
-      );
-
-
-    console.log(
-      '[SSO] Firebase login successful:',
-      result.user.uid
-    );
-
-
-    // --------------------------------------------------------
-    // Remove Supabase token from browser URL
-    // --------------------------------------------------------
-
-    params.delete('token');
-
-    const cleanQuery =
-      params.toString();
-
-    const cleanUrl =
-      window.location.pathname +
-      (cleanQuery
-        ? `?${cleanQuery}`
-        : '') +
-      window.location.hash;
-
-
-    window.history.replaceState(
-      {},
-      document.title,
-      cleanUrl
-    );
-
-
-    return result.user;
-
-
-  } catch (error) {
-
-    console.error(
-      '[SSO] Login failed:',
-      error
-    );
-
-    return null;
-  }
-}
