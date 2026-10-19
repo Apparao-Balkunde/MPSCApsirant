@@ -54,7 +54,7 @@ import { SocialReformersEncyclopediaModal } from './components/SocialReformersEn
 import { GovtSchemesEncyclopediaModal } from './components/GovtSchemesEncyclopediaModal';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
-import { testFirestoreConnection, initAuthListener, trySsoLogin } from './lib/firebase';
+import { testFirestoreConnection, initAuthListener } from './lib/firebase';
 import { 
   syncUserProgressToFirestore, 
   syncAllDataToFirestore,
@@ -208,12 +208,7 @@ export default function App() {
 
   // Initialize Firebase Auth listener and real-time Firestore listeners on mount
   useEffect(() => {
-    testFirestoreConnection();
-
-    // 🔴 SSO — mpscsarathi.online वरून token सोबत आलं असेल तर आपोआप
-    // login करणे. token नसेल तर काहीच होत नाही (आधीसारखंच guest राहतं).
-    trySsoLogin();
-
+    testFirestoreConnection();\n
     // 1. Subscribe to real-time questions bank from Firestore
     const unsubQuestions = subscribeToRealtimeQuestions((liveQuestions) => {
       if (liveQuestions && liveQuestions.length > 0) {
