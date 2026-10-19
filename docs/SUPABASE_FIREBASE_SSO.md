@@ -1,20 +1,33 @@
 # Exam-site SSO integration
 
-This branch adds a callback component and client-side exchange helper. It is **not production-ready until the Main backend endpoint and stable Firebase UID mapping are implemented**.
+## Implemented in this branch
 
-## Files added
+- src/lib/completeExamSSO.ts posts a one-time code to the Main backend, then signs in with signInWithCustomToken.
+- src/pages/SSOCallback.tsx removes the code from browser history before exchanging it and redirects to the existing root app after successful sign-in.
+- src/main.tsx mounts the callback component at /sso.
+- The old Supabase-token-in-URL flow has been removed from src/lib/firebase.ts.
+- LocalStorage-shaped fake users no longer count as Firebase-authenticated users.
+- firestore.rules restricts profile/results/logs to the authenticated owner and disallows client writes to the global question bank.
 
-- `src/lib/completeExamSSO.ts`: exchanges a one-time code for a Firebase custom token, then signs in with Firebase Auth.
-- `src/pages/SSOCallback.tsx`: callback UI; add `/sso` to the existing router.
+## Backend contract
 
-## Required server-side contract
+Main site must expose:
 
-The Main site must expose `POST https://mpscsarathi.online/api/exchange-token`. It must atomically consume a short-lived, single-use code created after server-side Supabase token verification. It must map the Supabase user to a stable Firebase UID and mint the custom token with Firebase Admin SDK. Never trust email or UID values submitted by the browser.
+- POST https://mpscsarathi.online/api/sso/start — browser sends the Supabase access token only in an Authorization header; backend verifies it and returns a 90-second, single-use code.
+- POST https://mpscsarathi.online/api/exchange-token — accepts only { "code": "..." }, atomically consumes the code, and returns a Firebase custom token.
 
-## Before enabling the route
+The Main Supabase migration must be applied and server-only SUPABASE_SERVICE_KEY and FIREBASE_SERVICE_ACCOUNT_B64 secrets configured before the flow will work.
 
-1. Confirm the app's actual dashboard route; update `/dashboard` if needed.
-2. Add `/sso` to the existing router.
-3. Ensure protected UI and APIs require a real Firebase Auth user. Do not treat the `mpsc_local_student_session` localStorage fallback as authenticated.
-4. Confirm Firestore rules enforce authentication and per-user ownership.
-5. Test expired/reused code rejection, concurrent exchange, refresh, logout, and two-tab behavior.
+## Important compatibility note
+
+The custom token uses the verified Supabase user UUID as Firebase UID. Existing Google-login accounts may have different Firebase UIDs, so existing Firestore progress will not automatically appear under the new UID. Do not switch existing users until an explicit verified migration/merge plan is tested.
+
+## Validation checklist
+
+- [ ] Confirm /sso?code=... is served by the Exam web host.
+- [ ] Confirm the callback removes the code before network exchange.
+- [ ] Test valid, invalid, expired, replayed, and concurrently submitted codes.
+- [ ] Verify Firebase custom token project matches firebase-applet-config.json.
+- [ ] Verify Firestore rules are deployed; rules in Git alone do not affect production.
+- [ ] Test logout, refresh, two tabs, and user progress access.
+- [ ] Ensure all protected server APIs and Firestore data require Firebase authentication.
