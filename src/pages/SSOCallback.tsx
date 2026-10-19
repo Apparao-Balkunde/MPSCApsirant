@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { completeExamSSO } from '../lib/completeExamSSO';
 
 /**
@@ -6,11 +6,14 @@ import { completeExamSSO } from '../lib/completeExamSSO';
  * The one-time code is removed from the address bar before the exchange.
  */
 export default function SSOCallback() {
+  const started = useRef(false);
   const [message, setMessage] = useState(
     'तुमचे लॉगिन सुरक्षितपणे तपासत आहोत...'
   );
 
   useEffect(() => {
+    if (started.current) return;
+    started.current = true;
     let cancelled = false;
 
     async function finishLogin() {
@@ -27,7 +30,7 @@ export default function SSOCallback() {
 
       try {
         await completeExamSSO(code);
-        if (!cancelled) window.location.replace('/dashboard');
+        if (!cancelled) window.location.replace('/');
       } catch {
         if (!cancelled) {
           setMessage(
