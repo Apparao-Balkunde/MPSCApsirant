@@ -1,10 +1,12 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
+import SSOCallback from './pages/SSOCallback';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
+const root = createRoot(document.getElementById('root')!);
+root.render(
   <StrictMode>
-    <App />
+    {window.location.pathname === '/sso' ? <SSOCallback /> : <App />}
   </StrictMode>,
 );
