@@ -208,7 +208,8 @@ export default function App() {
 
   // Initialize Firebase Auth listener and real-time Firestore listeners on mount
   useEffect(() => {
-    testFirestoreConnection();\n
+    testFirestoreConnection();
+
     // 1. Subscribe to real-time questions bank from Firestore
     const unsubQuestions = subscribeToRealtimeQuestions((liveQuestions) => {
       if (liveQuestions && liveQuestions.length > 0) {
