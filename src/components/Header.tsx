@@ -38,7 +38,8 @@ import {
   ShieldAlert,
   Newspaper,
   ShoppingBag,
-  DollarSign
+  DollarSign,
+  Building2
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -652,6 +653,36 @@ export const Header: React.FC<HeaderProps> = ({
                         </div>
                       </button>
                     )}
+
+                    {/* Academy Sponsorship Banner shortcut */}
+                    <button
+                      onClick={() => {
+                        setShowSpecialTools(false);
+                        onSelectTab('dashboard');
+                        setTimeout(() => {
+                          const el = document.getElementById('academy-sponsorship-banner-section');
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            el.classList.add('ring-2', 'ring-amber-400');
+                            setTimeout(() => el.classList.remove('ring-2', 'ring-amber-400'), 2500);
+                          }
+                        }, 120);
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/15 via-stone-900 to-amber-900/20 hover:from-amber-500/25 hover:to-amber-900/30 border border-amber-500/40 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                    >
+                      <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0 text-amber-400 group-hover:scale-105">
+                        <Building2 className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-amber-300 group-hover:text-amber-200 flex items-center justify-between">
+                          <span>{isMr ? '🏛️ अकॅडमी पार्टनर बॅनर' : '🏛️ Academy Partner Banner'}</span>
+                          <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono">{isMr ? 'प्रायोजक' : 'Sponsor'}</span>
+                        </div>
+                        <p className="text-[10px] text-stone-400 truncate">
+                          {isMr ? 'पुणे/संभाजीनगर टॉप बॅचेस, डिस्काउंट कोड व जाहिरात' : 'Top batches, discount codes & academy promos'}
+                        </p>
+                      </div>
+                    </button>
 
                     {onOpenSubjectMarathon && (
                       <button

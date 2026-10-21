@@ -43,6 +43,7 @@ import {
   MpscAffiliateBook
 } from '../data/mpscAffiliateBooks';
 import { getStoredUpiId } from '../data/mpscEarningStrategiesData';
+import { AcademySponsorshipBanner } from './AcademySponsorshipBanner';
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -768,6 +769,13 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
               </button>
             </div>
           </div>
+        </div>
+
+        {/* 🏛️ Featured Academy Sponsorship Banner */}
+        <div className="mt-6">
+          <AcademySponsorshipBanner
+            language={language}
+          />
         </div>
       </div>
     </div>

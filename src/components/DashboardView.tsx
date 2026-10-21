@@ -37,7 +37,8 @@ import {
   Compass,
   MapPin,
   ShieldAlert,
-  DollarSign
+  DollarSign,
+  Building2
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -45,6 +46,7 @@ import { MPSC_QUESTIONS } from '../data/mpscQuestions';
 import { WeeklyGoalCard } from './WeeklyGoalCard';
 import { LeaderboardCard } from './LeaderboardCard';
 import { ExamCountdownCard } from './ExamCountdownCard';
+import { AcademySponsorshipBanner } from './AcademySponsorshipBanner';
 import { MpscHeroVisual } from './MpscHeroVisual';
 import { AspirantInspirationCard } from './AspirantInspirationCard';
 import { MpscCommandCenter } from './MpscCommandCenter';
@@ -475,6 +477,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 </button>
               )}
 
+              <button
+                id="btn-hero-academy-sponsor"
+                onClick={() => {
+                  const el = document.getElementById('academy-sponsorship-banner-section');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-purple-950/90 to-stone-900 hover:from-purple-900 hover:to-stone-850 text-purple-200 border border-purple-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                title={isMr ? "MPSC अकॅडमी पार्टनरशिप बॅनर व नवीन ॲडमिशन बॅचेस" : "MPSC Coaching Academy Partner Banner"}
+              >
+                <Building2 className="w-4 h-4 text-purple-400" />
+                <span>{isMr ? '🏛️ अकॅडमी पार्टनर बॅनर' : '🏛️ Academy Banner'}</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-purple-400 text-stone-950 font-black uppercase">
+                  NEW
+                </span>
+              </button>
+
               {onOpenAddQuestion && (
                 <button
                   id="btn-hero-add-mcq"
@@ -547,12 +565,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       </div>
 
-      {/* Live MPSC Exam Countdown & Target Tracker Card */}
       <ExamCountdownCard
         language={language}
         onStartExam={onStartExam}
         onOpenFullSchedule={onOpenExamCountdown || (() => {})}
       />
+
+      {/* 🏛️ MPSC Coaching Academy Sponsored Partnership Banner */}
+      <div id="academy-sponsorship-banner-section">
+        <AcademySponsorshipBanner
+          language={language}
+          className="my-1 shadow-lg"
+        />
+      </div>
 
       {/* MPSC Civil Services Aspirant Vision & Prestigious Cadre Banner */}
       <div className="relative rounded-2xl overflow-hidden border border-amber-500/30 bg-stone-950 shadow-xl group">
