@@ -51,6 +51,7 @@ import {
 } from '../data/mpscEarningStrategiesData';
 import { SubjectId } from '../types';
 import { isUserAdmin } from '../utils/adminAuth';
+import { EarningHubView } from './EarningHubView';
 
 interface MpscAffiliateBooksModalProps {
   isOpen: boolean;
@@ -460,78 +461,24 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
           </div>
         </div>
 
-        {/* Tab 0: 💰 10 Earning Pillars & Revenue Master Hub */}
-        {activeTab === 'earning_hub' && (
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
-            {/* Hero Header Banner */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-emerald-950/80 via-stone-900 to-amber-950/70 border border-emerald-500/30 relative overflow-hidden space-y-4">
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                <div className="space-y-1.5 max-w-3xl">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>{isMr ? 'पोर्टल मालकाचे अधिकृत कमाई व मॉनेटायझेशन केंद्र' : 'Official Portal Monetization Engine'}</span>
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                    {isMr
-                      ? '💰 MPSC पोर्टल कमाई केंद्र: १० सिद्ध कमाई मार्ग व उत्पन्न स्ट्रॅटेजी'
-                      : '💰 MPSC Portal Earning Engine: 10 Proven Monetization Pillars'}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-                    {isMr
-                      ? 'विद्यार्थ्यांना दर्जेदार मोफत सराव आणि १००,०००+ प्रश्न बँक पुरवताना पोर्टल मालकाला दरमहा ₹४५,००० ते ₹२,८०,०००+ निष्क्रीय उत्पन्न (Passive Income) मिळवून देणारे १० मास्टर कमाई मार्ग, थेट UPI देणगी QR, आणि १-क्लिक सोशल मीडिया ब्रॉडकास्ट!'
-                      : 'Comprehensive passive income roadmap generating ₹45,000 - ₹2,80,000+/month through 10 diversified pillars while empowering Maharashtra civil service aspirants.'}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap sm:flex-col gap-2 shrink-0">
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('settings')}
-                    className="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
-                  >
-                    <Settings className="w-4 h-4 text-stone-950" />
-                    <span>{isMr ? 'माझा UPI व टॅग सेट करा' : 'Configure UPI & Tag'}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('books')}
-                    className="px-4 py-2.5 rounded-xl bg-stone-850 hover:bg-stone-800 text-amber-300 border border-amber-500/30 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition-colors"
-                  >
-                    <BookOpen className="w-4 h-4 text-amber-400" />
-                    <span>{isMr ? `पुस्तके व गॅजेट्स (${allCombinedBooks.length}) ➜` : `Books & Gear (${allCombinedBooks.length}) ➜`}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* 4 Fast Stat Badges */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 pt-2 border-t border-stone-800/80">
-                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
-                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'कमाईचे खांब' : 'Revenue Pillars'}</div>
-                  <div className="text-base sm:text-lg font-black text-emerald-400">१० मास्टर मार्ग</div>
-                </div>
-                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
-                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'ॲमेझॉन कमिशन' : 'Amazon Comm'}</div>
-                  <div className="text-base sm:text-lg font-black text-amber-400">५% ते ९% थेट बँक</div>
-                </div>
-                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
-                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'थेट UPI कपात' : 'Direct UPI Cuts'}</div>
-                  <div className="text-base sm:text-lg font-black text-cyan-400">०% कपात (१००% नफा)</div>
-                </div>
-                <div className="p-3 rounded-xl bg-stone-900/80 border border-stone-800 space-y-0.5">
-                  <div className="text-[11px] text-stone-400 font-bold">{isMr ? 'कमाल मासिक क्षमता' : 'Peak Potential'}</div>
-                  <div className="text-base sm:text-lg font-black text-rose-400">₹२,८०,००० / महिना</div>
-                </div>
-              </div>
-            </div>
+        {/* Tab 0: 💰 10 Earning Pillars & Revenue Master Hub - Strictly Admin */}
+        {adminActive && activeTab === 'earning_hub' && (
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-8">
+            {/* 👑 EarningHubView: Managing Affiliate Links & Monitoring Revenue Statistics */}
+            <EarningHubView
+              isAdmin={adminActive}
+              language={language}
+              onOpenSettings={() => setActiveTab('settings')}
+              onOpenBooks={() => setActiveTab('books')}
+            />
 
             {/* Section 1: 🏆 Interactive 10 Master Earning Pillars */}
-            <div className="space-y-4">
+            <div className="pt-4 border-t-2 border-stone-800 space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                   <h4 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
                     <Award className="w-5 h-5 text-amber-400" />
-                    <span>{isMr ? '🏆 सर्व १० मास्टर कमाई स्तंभ (10 Proven Revenue Pillars):' : '🏆 10 Master Monetization Pillars:'}</span>
+                    <span>{isMr ? '🏆 सर्व १० मास्टर कमाई स्तंभ मार्गदर्शक (10 Proven Revenue Pillars):' : '🏆 10 Master Monetization Pillars:'}</span>
                   </h4>
                   <p className="text-xs text-stone-400">
                     {isMr ? 'कोणत्याही स्तंभावर क्लिक करून त्याची कृती योजना व प्रो टिप्स पाहा' : 'Click on any pillar to inspect execution roadmap & pro tips'}
