@@ -60,6 +60,7 @@ interface ExamResultViewProps {
   currentUserId?: string;
   onOpenAdSenseManager?: () => void;
   onOpenAffiliateBooks?: (tab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub') => void;
+  isAdmin?: boolean;
 }
 
 export const ExamResultView: React.FC<ExamResultViewProps> = ({
@@ -77,6 +78,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
   currentUserId,
   onOpenAdSenseManager,
   onOpenAffiliateBooks,
+  isAdmin,
 }) => {
   const isMr = language === 'mr';
   const [filter, setFilter] = useState<'all' | 'wrong' | 'correct' | 'unattempted' | 'saved'>('all');
@@ -775,6 +777,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
         <div className="mt-6">
           <AcademySponsorshipBanner
             language={language}
+            isAdmin={isAdmin}
           />
         </div>
       </div>

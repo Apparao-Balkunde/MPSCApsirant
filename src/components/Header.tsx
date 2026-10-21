@@ -46,6 +46,7 @@ import { soundFx } from '../utils/audio';
 import { type User } from 'firebase/auth';
 import { useDeviceScreen } from '../utils/screenUtils';
 import { useIsMobile, useIsCompactLandscape, useIsTouchDevice } from '../hooks/useMediaQuery';
+import { isUserAdmin } from '../utils/adminAuth';
 
 export type NavigationTab = 'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq';
 
@@ -56,6 +57,7 @@ export interface HeaderProps {
   onToggleLanguage: () => void;
   userProgress: UserProgress;
   currentUser?: User | null;
+  isAdmin?: boolean;
   onOpenLogin?: () => void;
   onOpenCloudSync?: () => void;
   onOpenAddQuestion?: () => void;
@@ -88,6 +90,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleLanguage,
   userProgress,
   currentUser,
+  isAdmin,
   onOpenLogin,
   onOpenCloudSync,
   onOpenAddQuestion,
@@ -112,6 +115,28 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenGovtSchemes,
 }) => {
   const isMr = language === 'mr';
+  const [adminActive, setAdminActive] = useState<boolean>(() => isAdmin ?? isUserAdmin(currentUser));
+
+  useEffect(() => {
+    if (isAdmin !== undefined) {
+      setAdminActive(isAdmin);
+    } else {
+      setAdminActive(isUserAdmin(currentUser));
+    }
+  }, [isAdmin, currentUser]);
+
+  useEffect(() => {
+    const handleAdminAuthChange = (e: any) => {
+      if (e?.detail?.isAdmin !== undefined) {
+        setAdminActive(e.detail.isAdmin);
+      } else {
+        setAdminActive(isUserAdmin(currentUser));
+      }
+    };
+    window.addEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+    return () => window.removeEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+  }, [currentUser]);
+
   const soundEnabled = userProgress.soundEffectsEnabled ?? true;
   const [soundFeedback, setSoundFeedback] = useState<string | null>(null);
   const [fullscreenFeedback, setFullscreenFeedback] = useState<string | null>(null);
@@ -608,7 +633,7 @@ export const Header: React.FC<HeaderProps> = ({
                       </button>
                     )}
 
-                    {onOpenAffiliateBooks && (
+                    {adminActive && onOpenAffiliateBooks && (
                       <button
                         onClick={() => {
                           setShowSpecialTools(false);
@@ -1013,6 +1038,11 @@ export const Header: React.FC<HeaderProps> = ({
                     <span className="max-w-[60px] sm:max-w-[80px] truncate hidden sm:inline">
                       {currentUser.displayName?.split(' ')[0] || (isMr ? 'खाते' : 'Account')}
                     </span>
+                    {adminActive && (
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-400 text-stone-950 font-black shrink-0">
+                        👑 ॲडमिन
+                      </span>
+                    )}
                   </button>
                 ) : (
                   <button

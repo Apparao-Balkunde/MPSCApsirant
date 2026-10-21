@@ -50,6 +50,7 @@ import {
   getStoredUpiName
 } from '../data/mpscEarningStrategiesData';
 import { SubjectId } from '../types';
+import { isUserAdmin } from '../utils/adminAuth';
 
 interface MpscAffiliateBooksModalProps {
   isOpen: boolean;
@@ -57,6 +58,7 @@ interface MpscAffiliateBooksModalProps {
   language: 'mr' | 'en';
   onStartPractice?: (subjectId?: SubjectId, customTitle?: string) => void;
   initialTab?: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub';
+  isAdmin?: boolean;
 }
 
 export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = ({
@@ -65,9 +67,43 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
   language,
   onStartPractice,
   initialTab = 'books',
+  isAdmin,
 }) => {
   const isMr = language === 'mr';
-  const [activeTab, setActiveTab] = useState<'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub'>(initialTab);
+  const [adminActive, setAdminActive] = useState<boolean>(() => isAdmin ?? isUserAdmin());
+
+  useEffect(() => {
+    if (isAdmin !== undefined) {
+      setAdminActive(isAdmin);
+    }
+  }, [isAdmin]);
+
+  useEffect(() => {
+    const handleAdminAuthChange = (e: any) => {
+      if (e?.detail?.isAdmin !== undefined) {
+        setAdminActive(e.detail.isAdmin);
+      } else {
+        setAdminActive(isUserAdmin());
+      }
+    };
+    window.addEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+    return () => window.removeEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+  }, []);
+
+  const safeInitialTab = (!adminActive && (initialTab === 'earning_hub' || initialTab === 'settings' || initialTab === 'link_checker'))
+    ? 'books'
+    : initialTab;
+
+  const [activeTab, setActiveTab] = useState<'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub'>(safeInitialTab);
+
+  useEffect(() => {
+    if (isOpen) {
+      const safe = (!adminActive && (initialTab === 'earning_hub' || initialTab === 'settings' || initialTab === 'link_checker'))
+        ? 'books'
+        : initialTab;
+      setActiveTab(safe);
+    }
+  }, [isOpen, initialTab, adminActive]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedBookId, setCopiedBookId] = useState<string | null>(null);
@@ -340,21 +376,24 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
         {/* Tab Navigation */}
         <div className="px-4 py-2.5 bg-stone-950 border-b border-stone-800 flex items-center justify-between gap-2 shrink-0 overflow-x-auto">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveTab('earning_hub')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === 'earning_hub'
-                  ? 'bg-gradient-to-r from-emerald-500 to-amber-500 text-stone-950 font-black shadow-lg shadow-emerald-500/20'
-                  : 'bg-emerald-950/40 text-emerald-300 hover:bg-emerald-900/50 border border-emerald-500/40'
-              }`}
-            >
-              <DollarSign className="w-4 h-4 text-emerald-400" />
-              <span>{isMr ? '💰 १० कमाई मार्ग व उत्पन्न हब' : '10 Earning Pillars & Revenue Hub'}</span>
-              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-500 text-stone-950 font-black">
-                PRO
-              </span>
-            </button>
+            {/* 💰 १० कमाई मार्ग व उत्पन्न हब - Strictly for Admin */}
+            {adminActive && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('earning_hub')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
+                  activeTab === 'earning_hub'
+                    ? 'bg-gradient-to-r from-emerald-500 to-amber-500 text-stone-950 font-black shadow-lg shadow-emerald-500/20'
+                    : 'bg-emerald-950/40 text-emerald-300 hover:bg-emerald-900/50 border border-emerald-500/40'
+                }`}
+              >
+                <DollarSign className="w-4 h-4 text-emerald-400" />
+                <span>{isMr ? '💰 १० कमाई मार्ग (ॲडमिन)' : '10 Earning Pillars (Admin)'}</span>
+                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-500 text-stone-950 font-black">
+                  PRO 👑
+                </span>
+              </button>
+            )}
 
             <button
               type="button"
@@ -379,34 +418,40 @@ export const MpscAffiliateBooksModal: React.FC<MpscAffiliateBooksModalProps> = (
               }`}
             >
               <TrendingUp className="w-4 h-4" />
-              <span>{isMr ? '💡 ॲमेझॉन कमाई गाईड' : 'Earning Guide'}</span>
+              <span>{isMr ? (adminActive ? '💡 ॲमेझॉन कमाई गाईड' : '💡 पुस्तक खरेदी गाईड') : (adminActive ? 'Earning Guide' : 'Book Guide')}</span>
             </button>
 
-            <button
-              type="button"
-              onClick={() => setActiveTab('settings')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === 'settings'
-                  ? 'bg-amber-500 text-stone-950 shadow-md'
-                  : 'bg-stone-900 text-stone-400 hover:text-stone-200 border border-stone-800'
-              }`}
-            >
-              <Settings className="w-4 h-4" />
-              <span>{isMr ? '⚙️ टॅग, UPI व कॅल्क्युलेटर' : 'Tag, UPI & Calculator'}</span>
-            </button>
+            {/* ⚙️ टॅग, UPI व कॅल्क्युलेटर - Strictly for Admin */}
+            {adminActive && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('settings')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
+                  activeTab === 'settings'
+                    ? 'bg-amber-500 text-stone-950 shadow-md'
+                    : 'bg-stone-900 text-stone-400 hover:text-stone-200 border border-stone-800'
+                }`}
+              >
+                <Settings className="w-4 h-4" />
+                <span>{isMr ? '⚙️ टॅग, UPI व कॅल्क्युलेटर' : 'Tag, UPI & Calculator'}</span>
+              </button>
+            )}
 
-            <button
-              type="button"
-              onClick={() => setActiveTab('link_checker')}
-              className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === 'link_checker'
-                  ? 'bg-amber-500 text-stone-950 shadow-md'
-                  : 'bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 border border-amber-500/30'
-              }`}
-            >
-              <LinkIcon className="w-4 h-4" />
-              <span>{isMr ? '🔗 ॲमेझॉन लिंक तपासक व ॲड पुस्तक' : 'Link Checker & Add Book'}</span>
-            </button>
+            {/* 🔗 ॲमेझॉन लिंक तपासक व ॲड पुस्तक - Strictly for Admin */}
+            {adminActive && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('link_checker')}
+                className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 transition-all cursor-pointer whitespace-nowrap ${
+                  activeTab === 'link_checker'
+                    ? 'bg-amber-500 text-stone-950 shadow-md'
+                    : 'bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 border border-amber-500/30'
+                }`}
+              >
+                <LinkIcon className="w-4 h-4" />
+                <span>{isMr ? '🔗 ॲमेझॉन लिंक तपासक' : 'Link Checker'}</span>
+              </button>
+            )}
           </div>
 
           <div className="hidden md:flex items-center gap-2 text-xs text-stone-400 font-medium">

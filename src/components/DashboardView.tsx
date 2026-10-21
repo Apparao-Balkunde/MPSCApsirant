@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Award, 
   Flame, 
@@ -57,6 +57,8 @@ import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 import { DailyChallengeModal } from './DailyChallengeModal';
 import { analyzeUserWeakAreas } from '../utils/weakAreaRemedialEngine';
 import { AdBanner } from './AdBanner';
+import { isUserAdmin } from '../utils/adminAuth';
+import { type User } from 'firebase/auth';
 
 const SUBJECT_BOOK_COVERS: Record<string, string> = {
   marathi_grammar: '/open_reference_book.jpg',
@@ -112,6 +114,8 @@ interface DashboardViewProps {
   questionsPool?: Question[];
   isFetching?: boolean;
   isSyncing?: boolean;
+  currentUser?: User | null;
+  isAdmin?: boolean;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -119,6 +123,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   language,
   currentUserId,
   currentUserName,
+  currentUser,
+  isAdmin,
   onStartExam,
   onOpenBookmarks,
   onOpenAnalytics,
@@ -158,6 +164,27 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 }) => {
   const isMr = language === 'mr';
   const pool = questionsPool && questionsPool.length > 0 ? questionsPool : MPSC_QUESTIONS;
+  const [adminActive, setAdminActive] = useState<boolean>(() => isAdmin ?? isUserAdmin(currentUser));
+
+  useEffect(() => {
+    if (isAdmin !== undefined) {
+      setAdminActive(isAdmin);
+    } else {
+      setAdminActive(isUserAdmin(currentUser));
+    }
+  }, [isAdmin, currentUser]);
+
+  useEffect(() => {
+    const handleAdminAuthChange = (e: any) => {
+      if (e?.detail?.isAdmin !== undefined) {
+        setAdminActive(e.detail.isAdmin);
+      } else {
+        setAdminActive(isUserAdmin(currentUser));
+      }
+    };
+    window.addEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+    return () => window.removeEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+  }, [currentUser]);
 
   // Real-time AI Weak-Area Diagnostics
   const weakAreaAnalysis = useMemo(() => {
@@ -462,17 +489,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 </button>
               )}
 
-              {onOpenAffiliateBooks && (
+              {/* 💰 १० कमाई मार्ग व उत्पन्न हब - Strictly visible ONLY when Admin (Apparao Balkunde) logs in */}
+              {adminActive && onOpenAffiliateBooks && (
                 <button
                   id="btn-hero-earning-hub"
                   onClick={() => onOpenAffiliateBooks('earning_hub')}
-                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-950/90 to-stone-900 hover:from-emerald-900 hover:to-stone-850 text-emerald-200 border border-emerald-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
-                  title={isMr ? "MPSC पोर्टल कमाई केंद्र: १० सिद्ध कमाई मार्ग, AdSense, Amazon व थेट UPI QR" : "Open 10 Earning Pillars & Monetization Engine"}
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-950/90 to-stone-900 hover:from-emerald-900 hover:to-stone-850 text-emerald-200 border border-emerald-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02] ring-1 ring-emerald-400/40"
+                  title={isMr ? "👑 ॲडमिन पॅनेल: १० सिद्ध कमाई मार्ग, AdSense, Amazon व थेट UPI QR" : "👑 Admin Panel: 10 Earning Pillars & Revenue Engine"}
                 >
                   <DollarSign className="w-4 h-4 text-emerald-400" />
-                  <span>{isMr ? '💰 १० कमाई मार्ग व उत्पन्न हब' : '💰 10 Earning Pillars Hub'}</span>
+                  <span>{isMr ? '💰 १० कमाई मार्ग (ॲडमिन)' : '💰 10 Earning Pillars (Admin)'}</span>
                   <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-400 text-stone-950 font-black uppercase">
-                    PRO 💎
+                    PRO 👑
                   </span>
                 </button>
               )}
@@ -575,6 +603,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div id="academy-sponsorship-banner-section">
         <AcademySponsorshipBanner
           language={language}
+          isAdmin={adminActive}
           className="my-1 shadow-lg"
         />
       </div>

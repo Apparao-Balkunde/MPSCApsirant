@@ -184,30 +184,55 @@ export const saveStoredAcademyConfig = (config: AcademySponsorshipConfig) => {
   }
 };
 
+import { isUserAdmin } from '../utils/adminAuth';
+
 interface AcademySponsorshipBannerProps {
   language: 'mr' | 'en';
   onOpenAdvertiseModal?: () => void;
   className?: string;
+  isAdmin?: boolean;
 }
 
 export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> = ({
   language,
   onOpenAdvertiseModal,
-  className = ''
+  className = '',
+  isAdmin
 }) => {
   const isMr = language === 'mr';
   const [config, setConfig] = useState<AcademySponsorshipConfig>(getStoredAcademyConfig);
   const [isManagerOpen, setIsManagerOpen] = useState<boolean>(false);
   const [isAdvertiseInfoOpen, setIsAdvertiseInfoOpen] = useState<boolean>(false);
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
+  const [adminActive, setAdminActive] = useState<boolean>(() => isAdmin ?? isUserAdmin());
+
+  useEffect(() => {
+    if (isAdmin !== undefined) {
+      setAdminActive(isAdmin);
+    }
+  }, [isAdmin]);
 
   useEffect(() => {
     const handleStorageChange = () => {
       setConfig(getStoredAcademyConfig());
+      if (isAdmin === undefined) {
+        setAdminActive(isUserAdmin());
+      }
+    };
+    const handleAdminAuthChange = (e: any) => {
+      if (e?.detail?.isAdmin !== undefined) {
+        setAdminActive(e.detail.isAdmin);
+      } else {
+        setAdminActive(isUserAdmin());
+      }
     };
     window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
+    window.addEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+    };
+  }, [isAdmin]);
 
   if (!config.isEnabled) {
     return null;
@@ -407,15 +432,17 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
                 <span>{isMr ? 'येथे अकॅडमी जाहिरात द्या' : 'Advertise Academy Here'}</span>
               </button>
 
-              <button
-                type="button"
-                onClick={() => setIsManagerOpen(true)}
-                className="p-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-stone-400 hover:text-white transition-all cursor-pointer flex items-center gap-1 border border-stone-800"
-                title={isMr ? "अकॅडमी बॅनर सेटिंग्स व कस्टमायझेशन" : "Configure Academy Banner Settings"}
-              >
-                <Settings2 className="w-3.5 h-3.5" />
-                <span className="text-[10px]">{isMr ? 'बदला' : 'Edit'}</span>
-              </button>
+              {adminActive && (
+                <button
+                  type="button"
+                  onClick={() => setIsManagerOpen(true)}
+                  className="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-amber-500/40 text-[11px] font-bold shadow-xs"
+                  title={isMr ? "👑 ॲडमिन: अकॅडमी बॅनर सेटिंग्स व कस्टमायझेशन" : "👑 Admin: Configure Academy Banner Settings"}
+                >
+                  <Settings2 className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{isMr ? '👑 बदला' : '👑 Edit'}</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

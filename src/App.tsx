@@ -69,6 +69,7 @@ import {
 } from './services/firestoreSync';
 import { type User } from 'firebase/auth';
 import { CheckCircle2, RotateCcw, X, AlertCircle, Copy, Check } from 'lucide-react';
+import { isUserAdmin } from './utils/adminAuth';
 
 interface SyncToastState {
   id: string;
@@ -163,7 +164,32 @@ export default function App() {
   // Maharashtra Govt Schemes & Economic Survey modal state
   const [isGovtSchemesOpen, setIsGovtSchemesOpen] = useState<boolean>(false);
 
+  // Firebase Auth and Cloud Sync state
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(() => isUserAdmin(currentUser));
+
+  useEffect(() => {
+    setIsAdmin(isUserAdmin(currentUser));
+  }, [currentUser]);
+
+  useEffect(() => {
+    const handleAdminAuthChange = (e: any) => {
+      if (e?.detail?.isAdmin !== undefined) {
+        setIsAdmin(e.detail.isAdmin);
+      } else {
+        setIsAdmin(isUserAdmin(currentUser));
+      }
+    };
+    window.addEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+    return () => window.removeEventListener('mpsc-admin-auth-changed', handleAdminAuthChange);
+  }, [currentUser]);
+
   const handleOpenAffiliateBooks = (tab: 'books' | 'guide' | 'settings' | 'link_checker' | 'earning_hub' = 'books') => {
+    if ((tab === 'earning_hub' || tab === 'settings' || tab === 'link_checker') && !isAdmin) {
+      // If student clicked or somehow triggered, open Login Modal so admin can authenticate
+      setIsLoginModalOpen(true);
+      return;
+    }
     setAffiliateBooksInitialTab(tab);
     setIsAffiliateBooksOpen(true);
   };
@@ -185,8 +211,6 @@ export default function App() {
     setCurrentTab('grammar');
   };
 
-  // Firebase Auth and Cloud Sync state
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
   const [isCloudSyncOpen, setIsCloudSyncOpen] = useState<boolean>(false);
   const [initialShowAddQuestion, setInitialShowAddQuestion] = useState<boolean>(false);
@@ -911,6 +935,7 @@ export default function App() {
             onToggleLanguage={handleToggleLanguage}
             userProgress={userProgress}
             currentUser={currentUser}
+            isAdmin={isAdmin}
             onOpenLogin={() => setIsLoginModalOpen(true)}
             onOpenCloudSync={() => setIsCloudSyncOpen(true)}
             onOpenSettings={() => setIsSettingsOpen(true)}
@@ -939,6 +964,7 @@ export default function App() {
               questionsPool={questions}
               currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
               currentUserId={currentUser?.uid}
+              isAdmin={isAdmin}
               onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
               onOpenAffiliateBooks={handleOpenAffiliateBooks}
             />
@@ -956,6 +982,7 @@ export default function App() {
             onToggleLanguage={handleToggleLanguage}
             userProgress={userProgress}
             currentUser={currentUser}
+            isAdmin={isAdmin}
             onOpenLogin={() => setIsLoginModalOpen(true)}
             onOpenCloudSync={() => {
               setInitialShowAddQuestion(false);
@@ -1049,6 +1076,8 @@ export default function App() {
                 questionsPool={questions}
                 isFetching={isFetchingData}
                 isSyncing={isSyncing}
+                currentUser={currentUser}
+                isAdmin={isAdmin}
                 currentUserId={currentUser?.uid}
                 currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
               />
@@ -1397,6 +1426,7 @@ export default function App() {
         onClose={() => setIsAffiliateBooksOpen(false)}
         language={userProgress.preferredLanguage}
         initialTab={affiliateBooksInitialTab}
+        isAdmin={isAdmin}
         onStartPractice={(subjectId, customTitle) => {
           setIsAffiliateBooksOpen(false);
           handleStartExam('custom', subjectId, customTitle);

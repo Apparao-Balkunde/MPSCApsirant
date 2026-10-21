@@ -31,6 +31,7 @@ import {
 } from '../lib/firebase';
 import { soundFx } from '../utils/audio';
 import { UserProgress } from '../types';
+import { isUserAdmin, setAdminAuthenticated } from '../utils/adminAuth';
 
 export interface LoginModalProps {
   isOpen: boolean;
@@ -106,6 +107,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       const user = await loginWithGoogle();
       if (user) {
         soundFx.playCorrectSound();
+        if (isUserAdmin(user)) {
+          setAdminAuthenticated(true, user.email || 'apparaobalkunde901@gmail.com');
+        }
         setAuthSuccess(
           isMr 
             ? `स्वागत आहे, ${user.displayName || 'मित्रा'}! Google ने यशस्वी लॉगिन झाले.` 
@@ -304,11 +308,44 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     }
   };
 
+  // 👑 Dedicated Admin Sign In for Portal Owner (Apparao Balkunde)
+  const handleAdminDirectSignIn = async () => {
+    setAuthError(null);
+    setUnauthorizedDomain(null);
+    setIsLoading(true);
+    soundFx.playClickSound();
+    try {
+      const adminUser = await loginAsPreviewUser('अप्पाराव बाळकुंदे (Admin)', 'apparaobalkunde901@gmail.com');
+      setAdminAuthenticated(true, 'apparaobalkunde901@gmail.com');
+      soundFx.playCorrectSound();
+      setAuthSuccess(
+        isMr
+          ? '👑 स्वागत आहे अप्पाराव सर! ॲडमिन व मॉनेटायझेशन टूल्स सक्रिय झाले.'
+          : '👑 Welcome Apparao Sir! Admin & monetization features activated.'
+      );
+      if (onTriggerSync) {
+        try {
+          await onTriggerSync();
+        } catch (syncErr) {
+          console.warn('Sync note:', syncErr);
+        }
+      }
+      setTimeout(() => {
+        onClose();
+      }, 1000);
+    } catch (err: any) {
+      setAuthError(formatAuthErrorMessage(err, isMr));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Sign Out
   const handleSignOut = async () => {
     soundFx.playClickSound();
     setIsLoading(true);
     try {
+      setAdminAuthenticated(false);
       await logoutUser();
       setAuthSuccess(isMr ? 'यशस्वीरीत्या साइन आउट झाले.' : 'Successfully signed out.');
       setTimeout(() => {
@@ -483,10 +520,17 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                       <h3 className="font-black text-stone-100 text-sm truncate">
                         {currentUser.displayName || (isMr ? 'एमपीएससी उमेदवार' : 'MPSC Aspirant')}
                       </h3>
-                      <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 shrink-0">
-                        <ShieldCheck className="w-3 h-3" />
-                        <span>{isMr ? 'सत्यापित' : 'Verified'}</span>
-                      </span>
+                      {isUserAdmin(currentUser) ? (
+                        <span className="flex items-center gap-1 text-[10px] font-black text-amber-950 bg-amber-400 px-2 py-0.5 rounded-full shrink-0 shadow-xs">
+                          <span>👑</span>
+                          <span>{isMr ? 'ॲडमिन' : 'Admin'}</span>
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 shrink-0">
+                          <ShieldCheck className="w-3 h-3" />
+                          <span>{isMr ? 'सत्यापित' : 'Verified'}</span>
+                        </span>
+                      )}
                     </div>
                     <button
                       type="button"
@@ -504,6 +548,24 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   </p>
                 </div>
               </div>
+
+              {/* Admin Active Notification Banner */}
+              {isUserAdmin(currentUser) && (
+                <div className="p-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-emerald-500/15 to-stone-900 border border-amber-500/50 flex items-center gap-2.5 text-xs text-amber-200 shadow-sm animate-in fade-in">
+                  <span className="text-xl shrink-0">👑</span>
+                  <div>
+                    <div className="font-extrabold text-amber-300 flex items-center gap-1.5">
+                      <span>{isMr ? 'ॲडमिन मोड सक्रिय (Admin Mode Active)' : 'Admin Mode Active'}</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/30 text-emerald-300 font-bold font-mono">PRO</span>
+                    </div>
+                    <p className="text-[11px] text-stone-300 mt-0.5 leading-relaxed">
+                      {isMr 
+                        ? 'डॅशबोर्डवर १० कमाई मार्ग, अकॅडमी बॅनर व्यवस्थापक व उत्पन्न हब तुम्हाला दिसत आहेत.' 
+                        : '10 Earning Pillars Hub, Academy Sponsorship Manager & Revenue controls are visible.'}
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Inline Profile Editor */}
               {isEditingProfile && (
@@ -727,9 +789,36 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <span>
                   {isLoading
                     ? (isMr ? 'खाते सुरू होत आहे...' : 'Activating...')
-                    : (isMr ? '🚀 १-क्लिक थेट लॉगिन (Instant 1-Click Login)' : '🚀 Instant 1-Click Login')}
+                    : (isMr ? '🚀 १-क्लिक थेट विद्यार्थी लॉगिन' : '🚀 Instant 1-Click Student Login')}
                 </span>
               </button>
+
+              {/* 👑 PORTAL OWNER / ADMIN ACCESS (Apparao Balkunde) */}
+              <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-stone-900 to-emerald-950/40 border border-amber-500/50 space-y-2.5 shadow-md">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-black text-amber-300 flex items-center gap-1.5">
+                    <span>👑</span>
+                    <span>{isMr ? 'पोर्टल मालक / ॲडमिन लॉगिन' : 'Portal Owner / Admin Login'}</span>
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full font-bold border border-emerald-500/30">
+                    Apparao Balkunde
+                  </span>
+                </div>
+                <p className="text-[11px] text-stone-300 leading-relaxed">
+                  {isMr 
+                    ? 'तुम्ही ॲडमिन (मी) आहात का? १० कमाई मार्ग, ॲडसेन्स, अकॅडमी प्रायोजक बॅनर व्यवस्थापक व उत्पन्न हब अनलॉक करण्यासाठी:' 
+                    : 'Owner of this portal? Unlock 10 Earning Pillars, Academy Sponsors & Monetization Engine:'}
+                </p>
+                <button
+                  type="button"
+                  id="btn-modal-admin-signin"
+                  onClick={handleAdminDirectSignIn}
+                  disabled={isLoading}
+                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 text-xs font-black transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer disabled:opacity-60 active:scale-95 border border-amber-300"
+                >
+                  <span>👑 {isMr ? 'मी ॲडमिन आहे — लॉगिन करा (Unlock Earning Hub)' : 'Sign In as Admin (Apparao Balkunde)'}</span>
+                </button>
+              </div>
 
               {/* Divider */}
               <div className="relative flex items-center justify-center my-3">
