@@ -47,6 +47,7 @@ import { WeeklyGoalCard } from './WeeklyGoalCard';
 import { LeaderboardCard } from './LeaderboardCard';
 import { ExamCountdownCard } from './ExamCountdownCard';
 import { AcademySponsorshipBanner } from './AcademySponsorshipBanner';
+import { AcademyBanner, AcademyBannerConfig } from './AcademyBanner';
 import { MpscHeroVisual } from './MpscHeroVisual';
 import { AspirantInspirationCard } from './AspirantInspirationCard';
 import { MpscCommandCenter } from './MpscCommandCenter';
@@ -116,6 +117,7 @@ interface DashboardViewProps {
   isSyncing?: boolean;
   currentUser?: User | null;
   isAdmin?: boolean;
+  academyBannerConfig?: Partial<AcademyBannerConfig>;
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
@@ -125,6 +127,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   currentUserName,
   currentUser,
   isAdmin,
+  academyBannerConfig,
   onStartExam,
   onOpenBookmarks,
   onOpenAnalytics,
@@ -322,6 +325,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-8">
+      {/* 🏛️ Admin-Only Academy Banner (Image, Click URL, Title) */}
+      {adminActive && (
+        <div id="top-admin-academy-banner-wrapper">
+          <AcademyBanner
+            language={language}
+            isAdmin={adminActive}
+            bannerConfig={academyBannerConfig}
+          />
+        </div>
+      )}
+
       {/* Login Prompt Banner if not logged in */}
       {!currentUserId && onOpenLogin && (
         <div className="bg-gradient-to-r from-amber-950/60 via-stone-900 to-amber-950/60 border border-amber-500/40 rounded-xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-md">
