@@ -87,7 +87,7 @@ export function LegalModal({ isOpen, type, onClose }: LegalModalProps) {
                 <li>स्पर्धेच्या युगात प्रत्येक विद्यार्थ्याला स्वतःची अचूक पातळी (Percentile & Accuracy) समजण्यास मदत करणे.</li>
               </ul>
               <p className="mt-3 text-xs text-stone-500">
-                वेबसाइट: https://mpscsarathi.online | संपर्क: support@mpscsarathi.online
+                वेबसाइट: https://mpscsarathi.online | संपर्क: support@mpscsarathi.online | WhatsApp: +91 9860353056
               </p>
             </>
           )}

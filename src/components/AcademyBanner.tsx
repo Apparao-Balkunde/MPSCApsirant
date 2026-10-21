@@ -10,7 +10,8 @@ import {
   Link as LinkIcon, 
   ShieldCheck, 
   RotateCcw,
-  ArrowRight
+  ArrowRight,
+  MessageCircle
 } from 'lucide-react';
 import { isUserAdmin } from '../utils/adminAuth';
 
@@ -21,6 +22,7 @@ export interface AcademyBannerConfig {
   subtitle?: string;
   badgeText?: string;
   buttonText?: string;
+  whatsappNumber?: string;
 }
 
 export const DEFAULT_ACADEMY_BANNER_CONFIG: AcademyBannerConfig = {
@@ -29,7 +31,8 @@ export const DEFAULT_ACADEMY_BANNER_CONFIG: AcademyBannerConfig = {
   title: 'ज्ञानप्रबोधिनी व आकार करिअर अकॅडमी • MPSC २०२६-२७ विशेष बॅचेस',
   subtitle: 'पुणे व छत्रपती संभाजीनगर • माजी सनदी अधिकारी व तज्ज्ञ मार्गदर्शकांचे वर्ग • मर्यादित ५० जागा प्रवेश सुरू',
   badgeText: '👑 ॲडमिन पार्टनर अकॅडमी बॅनर',
-  buttonText: 'अधिकृत वेबसाईट / बॅच माहिती ➜'
+  buttonText: 'अधिकृत वेबसाईट / बॅच माहिती ➜',
+  whatsappNumber: '919860353056'
 };
 
 const STORAGE_KEY = 'mpsc_admin_academy_banner_config';
@@ -40,6 +43,9 @@ export const getStoredAcademyBannerConfig = (): AcademyBannerConfig => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
+      if (!parsed.whatsappNumber || parsed.whatsappNumber === '919822012345') {
+        parsed.whatsappNumber = '919860353056';
+      }
       return { ...DEFAULT_ACADEMY_BANNER_CONFIG, ...parsed };
     }
   } catch (e) {
@@ -66,6 +72,7 @@ export interface AcademyBannerProps {
   subtitle?: string;
   badgeText?: string;
   buttonText?: string;
+  whatsappNumber?: string;
   isAdmin?: boolean;
   language?: 'mr' | 'en';
   className?: string;
@@ -80,6 +87,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
   subtitle,
   badgeText,
   buttonText,
+  whatsappNumber,
   isAdmin,
   language = 'mr',
   className = '',
@@ -131,6 +139,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
   const [formTitle, setFormTitle] = useState<string>(storedConfig.title);
   const [formSubtitle, setFormSubtitle] = useState<string>(storedConfig.subtitle || '');
   const [formButtonText, setFormButtonText] = useState<string>(storedConfig.buttonText || '');
+  const [formWhatsappNumber, setFormWhatsappNumber] = useState<string>(storedConfig.whatsappNumber || '919860353056');
   const [saveSuccess, setSaveSuccess] = useState<boolean>(false);
 
   // Compute final effective configuration (Props take precedence over stored config, which takes precedence over default)
@@ -140,7 +149,8 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
     title: title || bannerConfig?.title || storedConfig.title || DEFAULT_ACADEMY_BANNER_CONFIG.title,
     subtitle: subtitle || bannerConfig?.subtitle || storedConfig.subtitle || DEFAULT_ACADEMY_BANNER_CONFIG.subtitle,
     badgeText: badgeText || bannerConfig?.badgeText || storedConfig.badgeText || (isMr ? '👑 ॲडमिन अकॅडमी बॅनर (Admin Only)' : '👑 Admin Academy Banner'),
-    buttonText: buttonText || bannerConfig?.buttonText || storedConfig.buttonText || (isMr ? 'अधिकृत बॅच माहिती ➜' : 'Visit Academy Site ➜')
+    buttonText: buttonText || bannerConfig?.buttonText || storedConfig.buttonText || (isMr ? 'अधिकृत बॅच माहिती ➜' : 'Visit Academy Site ➜'),
+    whatsappNumber: whatsappNumber || bannerConfig?.whatsappNumber || storedConfig.whatsappNumber || DEFAULT_ACADEMY_BANNER_CONFIG.whatsappNumber || '919860353056'
   };
 
   // 🔴 STRICT PRIVILEGE REQUIREMENT: If the user does not have admin privileges, return NULL!
@@ -155,6 +165,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
     setFormTitle(effectiveConfig.title);
     setFormSubtitle(effectiveConfig.subtitle || '');
     setFormButtonText(effectiveConfig.buttonText || '');
+    setFormWhatsappNumber(effectiveConfig.whatsappNumber || '919860353056');
     setIsEditorOpen(true);
     if (onEditConfig) onEditConfig();
   };
@@ -167,7 +178,8 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
       title: formTitle.trim() || DEFAULT_ACADEMY_BANNER_CONFIG.title,
       subtitle: formSubtitle.trim() || DEFAULT_ACADEMY_BANNER_CONFIG.subtitle,
       badgeText: effectiveConfig.badgeText,
-      buttonText: formButtonText.trim() || DEFAULT_ACADEMY_BANNER_CONFIG.buttonText
+      buttonText: formButtonText.trim() || DEFAULT_ACADEMY_BANNER_CONFIG.buttonText,
+      whatsappNumber: formWhatsappNumber.trim() || '919860353056'
     };
     saveStoredAcademyBannerConfig(updated);
     setStoredConfig(updated);
@@ -184,6 +196,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
     setFormTitle(DEFAULT_ACADEMY_BANNER_CONFIG.title);
     setFormSubtitle(DEFAULT_ACADEMY_BANNER_CONFIG.subtitle || '');
     setFormButtonText(DEFAULT_ACADEMY_BANNER_CONFIG.buttonText || '');
+    setFormWhatsappNumber(DEFAULT_ACADEMY_BANNER_CONFIG.whatsappNumber || '919860353056');
   };
 
   return (
@@ -260,8 +273,25 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
             </div>
           </div>
 
-          {/* Action CTA Button */}
-          <div className="flex items-center gap-3 w-full md:w-auto shrink-0 justify-end pt-1 md:pt-0">
+          {/* Action CTA Buttons */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 w-full md:w-auto shrink-0 justify-end pt-1 md:pt-0">
+            {effectiveConfig.whatsappNumber && (
+              <a
+                href={`https://wa.me/${effectiveConfig.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                  isMr
+                    ? `नमस्ते! मला ${effectiveConfig.title} बाबत माहिती हवी आहे.`
+                    : `Hello! I would like to inquire about ${effectiveConfig.title}.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-stone-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all cursor-pointer active:scale-95 group"
+                title="WhatsApp वर थेट संपर्क साधा"
+              >
+                <MessageCircle className="w-4 h-4 text-stone-950 shrink-0" />
+                <span>{isMr ? 'WhatsApp: ९८६०३५३०५६' : 'WhatsApp: 9860353056'}</span>
+              </a>
+            )}
+
             <a
               href={effectiveConfig.clickUrl}
               target="_blank"
@@ -269,7 +299,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
               className="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all cursor-pointer active:scale-95 group"
             >
               <span>{effectiveConfig.buttonText}</span>
-              <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
             </a>
           </div>
         </div>
@@ -429,6 +459,33 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
                   placeholder="उदा. अधिकृत बॅच माहिती ➜"
                   className="w-full px-3 py-2 rounded-xl bg-stone-950 border border-stone-700 text-xs text-stone-100 focus:outline-hidden focus:border-amber-400"
                 />
+              </div>
+
+              {/* WhatsApp Contact Number Input */}
+              <div>
+                <label className="block text-xs font-bold text-emerald-400 mb-1 flex items-center justify-between">
+                  <span>{isMr ? '६. WhatsApp संपर्क क्रमांक (WhatsApp Number)' : '6. WhatsApp Contact Number'}</span>
+                  <span className="text-[10px] text-stone-400 font-mono">९८६०३५३०५६</span>
+                </label>
+                <div className="relative">
+                  <MessageCircle className="w-4 h-4 absolute left-3 top-2.5 text-emerald-500" />
+                  <input
+                    type="tel"
+                    value={formWhatsappNumber}
+                    onChange={(e) => setFormWhatsappNumber(e.target.value)}
+                    placeholder="9860353056"
+                    className="w-full pl-9 pr-3 py-2 rounded-xl bg-stone-950 border border-stone-700 text-xs text-stone-100 focus:outline-hidden focus:border-emerald-400 font-mono"
+                  />
+                </div>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setFormWhatsappNumber('9860353056')}
+                    className="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-[11px] font-bold border border-emerald-500/30 cursor-pointer transition-colors"
+                  >
+                    {isMr ? 'वापरा: ९८६०३५३०५६ (ॲडमिन अधिकृत नंबर)' : 'Use: 9860353056 (Admin Official)'}
+                  </button>
+                </div>
               </div>
 
               {/* Modal Actions */}

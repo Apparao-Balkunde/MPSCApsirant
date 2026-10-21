@@ -1225,6 +1225,21 @@ export default function App() {
                 >
                   MPSC Sarathi Main Portal
                 </a>
+                <span>•</span>
+                <a
+                  href={`https://wa.me/919860353056?text=${encodeURIComponent(
+                    userProgress.preferredLanguage === 'mr'
+                      ? 'नमस्ते! मला MPSC सारथी पोर्टलसंदर्भात माहिती / मदत हवी आहे.'
+                      : 'Hello! I need information / assistance regarding MPSC Sarathi Portal.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-700 text-emerald-600 font-bold inline-flex items-center gap-1 transition-colors"
+                  title="WhatsApp वर थेट संपर्क साधा"
+                >
+                  <span>💬</span>
+                  <span>WhatsApp: ९८६०३५३०५६</span>
+                </a>
               </div>
               <p>
                 © {new Date().getFullYear()} MPSC Sarathi Online • सर्व हक्क राखीव. Dedicated to MPSC & Civil Service Aspirants.

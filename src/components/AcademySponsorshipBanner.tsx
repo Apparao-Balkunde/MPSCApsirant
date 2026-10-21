@@ -74,8 +74,8 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
         'Complete Up-to-date Printed & Digital Comprehensive Notes',
         'Strictly 50 Seats per Batch • 3 Days Free Demo Lectures'
       ],
-      phone: '+919822012345',
-      whatsappNumber: '919822012345',
+      phone: '+919860353056',
+      whatsappNumber: '919860353056',
       websiteUrl: 'https://mpscsathi.online',
       discountCode: 'MPSC2026',
       discountOfferMr: 'पोर्टल युजर्ससाठी विशेष २०% तात्काळ सवलत',
@@ -167,6 +167,13 @@ export const getStoredAcademyConfig = (): AcademySponsorshipConfig => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
+      // Migrate legacy placeholder number if present
+      if (parsed.whatsappNumber === '919822012345' || !parsed.whatsappNumber) {
+        parsed.whatsappNumber = '919860353056';
+      }
+      if (parsed.phone === '+919822012345' || !parsed.phone) {
+        parsed.phone = '+919860353056';
+      }
       return { ...DEFAULT_ACADEMY_PRESETS[0].config, ...parsed };
     }
   } catch (e) {
@@ -613,7 +620,7 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
                         setConfig(next);
                         saveStoredAcademyConfig(next);
                       }}
-                      placeholder="+919822012345"
+                      placeholder="+919860353056"
                       className="w-full p-2.5 bg-stone-950 rounded-xl border border-stone-800 focus:border-amber-400 text-white text-xs outline-none"
                     />
                   </div>
@@ -629,7 +636,7 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
                         setConfig(next);
                         saveStoredAcademyConfig(next);
                       }}
-                      placeholder="919822012345"
+                      placeholder="919860353056"
                       className="w-full p-2.5 bg-stone-950 rounded-xl border border-stone-800 focus:border-amber-400 text-white text-xs outline-none"
                     />
                   </div>
@@ -794,7 +801,7 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
               {/* Direct WhatsApp Call to Action for Portal Admin */}
               <div className="pt-2">
                 <a
-                  href={`https://wa.me/919822012345?text=${encodeURIComponent(
+                  href={`https://wa.me/919860353056?text=${encodeURIComponent(
                     isMr
                       ? 'नमस्ते! मला MPSC पोर्टलवर माझ्या अकॅडमीची जाहिरात / बॅनर लावायचा आहे. कृपया मासिक दर व माहिती द्या.'
                       : 'Hello! I want to feature my coaching academy banner on your MPSC portal. Please share monthly rates.'
@@ -804,7 +811,7 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
                   className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-stone-950 font-black text-sm flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 text-stone-950" />
-                  <span>{isMr ? 'पोर्टल ॲडमिनशी WhatsApp वर संपर्क साधा' : 'Contact Portal Admin via WhatsApp'}</span>
+                  <span>{isMr ? 'पोर्टल ॲडमिनशी WhatsApp वर संपर्क साधा (+९१ ९८६०३५३०५६)' : 'Contact Portal Admin via WhatsApp (+91 9860353056)'}</span>
                 </a>
               </div>
             </div>
