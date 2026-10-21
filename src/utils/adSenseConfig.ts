@@ -9,6 +9,7 @@ export interface AdSenseConfig {
     examResult: string;
     footer: string;
     subjectView: string;
+    examScreen: string;
   };
   placements: {
     header: boolean;
@@ -16,9 +17,11 @@ export interface AdSenseConfig {
     examResult: boolean;
     footer: boolean;
     subjectView: boolean;
+    examScreen: boolean;
   };
   showFallbackWhenEmpty: boolean;
   testMode: boolean;
+  autoAds?: boolean;
 }
 
 export const DEFAULT_ADSENSE_CONFIG: AdSenseConfig = {
@@ -30,6 +33,7 @@ export const DEFAULT_ADSENSE_CONFIG: AdSenseConfig = {
     examResult: '8635186039',
     footer: '8635186041',
     subjectView: '8635186042',
+    examScreen: '8635186043',
   },
   placements: {
     header: true,
@@ -37,9 +41,11 @@ export const DEFAULT_ADSENSE_CONFIG: AdSenseConfig = {
     examResult: true,
     footer: true,
     subjectView: true,
+    examScreen: true,
   },
   showFallbackWhenEmpty: true,
   testMode: false,
+  autoAds: true,
 };
 
 const STORAGE_KEY = 'mpsc_adsense_configuration_v1';

@@ -515,6 +515,14 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
         </div>
       </div>
 
+      {/* 📈 Mid-Result High-Visibility AdSense Auto-Slot */}
+      <AdBanner 
+        placementType="examResult" 
+        format="in_feed" 
+        className="max-w-4xl mx-auto my-6" 
+        onOpenSettings={onOpenAdSenseManager}
+      />
+
       {/* Question by Question Detailed Review */}
       <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200">

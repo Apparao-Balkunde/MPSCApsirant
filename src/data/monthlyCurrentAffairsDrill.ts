@@ -1617,6 +1617,330 @@ export const MONTHLY_CURRENT_AFFAIRS_DRILL_DATA: MonthlyCurrentAffairsItem[] = [
     difficulty: 'Moderate',
     highYieldBadgeMr: '🐅 वन्यजीव व IBCA',
     highYieldBadgeEn: 'Wildlife & IBCA'
+  },
+  // 6. APPOINTMENTS: ५१ वे सरन्यायाधीश संजीव खन्ना
+  {
+    id: 'mca_appointment_02',
+    year: 2025,
+    month: 11,
+    monthNameMr: 'नोव्हेंबर २०२४/२५',
+    monthNameEn: 'November 2024/25',
+    category: 'appointments',
+    categoryLabelMr: '👔 नियुक्त्या व व्यक्ती',
+    categoryLabelEn: 'Appointments & Dignitaries',
+    titleMr: 'भारताचे ५१ वे सरन्यायाधीश: न्यायमूर्ती संजीव खन्ना यांची नियुक्ती',
+    titleEn: '51st Chief Justice of India: Appointment of Justice Sanjiv Khanna',
+    leadContextMr: 'न्यायमूर्ती डी. वाय. चंद्रचूड यांच्या निवृत्तीनंतर राष्ट्रपतींनी न्यायमूर्ती संजीव खन्ना यांची भारताचे ५१ वे सरन्यायाधीश म्हणून नियुक्ती केली.',
+    leadContextEn: 'Justice Sanjiv Khanna was appointed as the 51st Chief Justice of India succeeding Justice D.Y. Chandrachud.',
+    statements: [
+      {
+        label: 'अ',
+        textMr: 'न्यायमूर्ती संजीव खन्ना यांनी भारताचे ५१ वे सरन्यायाधीश म्हणून शपथ घेतली.',
+        textEn: 'Justice Sanjiv Khanna was sworn in as the 51st Chief Justice of India.',
+        isCorrect: true,
+        factExplanationMr: 'त्यांनी ११ नोव्हेंबर २०२४ रोजी पदभार स्वीकारला.',
+        factExplanationEn: 'He assumed office on 11 November 2024.'
+      },
+      {
+        label: 'ब',
+        textMr: 'सरन्यायाधीशांना पद व गोपनीयतेची शपथ भारताचे उपराष्ट्रपती देतात.',
+        textEn: 'The Chief Justice is administered oath by the Vice President.',
+        isCorrect: false,
+        factExplanationMr: 'राज्यघटनेच्या कलम १२४(६) नुसार शपथ भारताचे राष्ट्रपती देतात (उपराष्ट्रपती नव्हे).',
+        factExplanationEn: 'Oath is administered by the President of India under Article 124(6).'
+      },
+      {
+        label: 'क',
+        textMr: 'त्यांनी जानेवारी २०१९ पासून भारताच्या सर्वोच्च न्यायालयात न्यायाधीश म्हणून काम पाहिले आहे.',
+        textEn: 'He served on the Supreme Court since January 2019.',
+        isCorrect: true,
+        factExplanationMr: 'त्यांची दिल्ली उच्च न्यायालयातून सर्वोच्च न्यायालयात पदोन्नती झाली होती.',
+        factExplanationEn: 'Elevated from Delhi High Court to Supreme Court in 2019.'
+      }
+    ],
+    questionPromptMr: 'वरील विधानांपैकी कोणती विधाने बरोबर आहेत?',
+    questionPromptEn: 'Which of the above statements are correct?',
+    optionsMr: [
+      'केवळ अ आणि क',
+      'केवळ अ आणि ब',
+      'केवळ ब आणि क',
+      'सर्व अ, ब आणि क'
+    ],
+    optionsEn: [
+      'Only A and C',
+      'Only A and B',
+      'Only B and C',
+      'All A, B, and C'
+    ],
+    correctAnswerIndex: 0,
+    reverseLearningFacts: {
+      headlineMr: 'सरन्यायाधीश व सर्वोच्च न्यायालय महत्त्वाचे तथ्ये:',
+      headlineEn: 'Supreme Court & CJI Key Exam Facts:',
+      pointsMr: [
+        'कलम १२४: सर्वोच्च न्यायालयाची स्थापना व रचना.',
+        'शपथ: राष्ट्रपतींद्वारे दिली जाते (कलम १२४(६)).',
+        'निवृत्ती वय: ६५ वर्षे पूर्ण होईपर्यंत.',
+        'पहिले सरन्यायाधीश: न्या. एच. जे. कनिया.'
+      ],
+      pointsEn: [
+        'Article 124: Establishment and Constitution of Supreme Court.',
+        'Oath: Administered by the President of India (Article 124(6)).',
+        'Retirement Age: 65 years.',
+        'First CJI: Justice H.J. Kania.'
+      ]
+    },
+    mpscTrapNoteMr: 'MPSC सहसा "उपराष्ट्रपती शपथ देतात" असा ट्रॅप टाकते; नेहमी लक्षात ठेवा की राष्ट्रपतीच शपथ देतात!',
+    mpscTrapNoteEn: 'MPSC often tricks candidates with "Vice President administers oath" - it is always the President!',
+    officialReference: 'भारतीय राज्यघटना कलम १२४ व भारताचे राजपत्र',
+    difficulty: 'Hard',
+    highYieldBadgeMr: '⚖️ न्यायव्यवस्था व घटना',
+    highYieldBadgeEn: 'Judiciary & Constitution'
+  },
+  // 7. SCHEMES: पीएम सूर्य घर मोफत वीज योजना
+  {
+    id: 'mca_scheme_04',
+    year: 2025,
+    month: 2,
+    monthNameMr: 'फेब्रुवारी २०२५',
+    monthNameEn: 'February 2025',
+    category: 'schemes',
+    categoryLabelMr: '🏛️ शासकीय योजना',
+    categoryLabelEn: 'Government Schemes',
+    titleMr: 'पीएम सूर्य घर: मोफत वीज योजना (PM Surya Ghar Muft Bijli)',
+    titleEn: 'PM Surya Ghar: Muft Bijli Scheme Analysis',
+    leadContextMr: 'पंतप्रधानांनी १ कोटी घरांच्या छतावर सोलर पॅनेल्स बसवून ३०० युनिट मोफत वीज देण्याच्या योजनेची घोषणा केली.',
+    leadContextEn: 'Centrally sponsored rooftop solar scheme targeting 1 crore households with 300 free electricity units.',
+    statements: [
+      {
+        label: 'अ',
+        textMr: 'या योजनेअंतर्गत १ कोटी कुटुंबांना दरमहा ३०० युनिटपर्यंत मोफत वीज पुरवण्याचे उद्दिष्ट आहे.',
+        textEn: 'Aims to provide up to 300 units of free power monthly to 1 crore homes.',
+        isCorrect: true,
+        factExplanationMr: 'दरमहा ३०० युनिट मोफत वीज आणि अतिरिक्त वीज ग्रीडला विकण्याची सोय आहे.',
+        factExplanationEn: 'Provides 300 units free and surplus power fed into the grid.'
+      },
+      {
+        label: 'ब',
+        textMr: 'या योजनेचा एकूण आर्थिक खर्च ₹७५,००० कोटींपेक्षा अधिक आहे.',
+        textEn: 'Total financial outlay exceeds ₹75,000 crore.',
+        isCorrect: true,
+        factExplanationMr: 'केंद्रीय मंत्रिमंडळाने ₹७५,०२१ कोटी निधी मंजूर केला आहे.',
+        factExplanationEn: 'Union Cabinet approved ₹75,021 crore outlay.'
+      },
+      {
+        label: 'क',
+        textMr: 'या योजनेची अंमलबजावणी केवळ ग्रामीण भागातील दारिद्र्यरेषेखालील (BPL) कुटुंबांसाठीच मर्यादित आहे.',
+        textEn: 'Scheme is restricted only to rural BPL families.',
+        isCorrect: false,
+        factExplanationMr: 'ही योजना सर्वसामान्य नागरिक, मध्यमवर्ग आणि सर्व निवासी घरांसाठी खुली आहे (फक्त BPL नव्हे).',
+        factExplanationEn: 'Open to all residential households, not limited to BPL.'
+      }
+    ],
+    questionPromptMr: 'खालीलपैकी अचूक विधाने ओळखा:',
+    questionPromptEn: 'Identify the correct statements:',
+    optionsMr: [
+      'केवळ अ आणि ब',
+      'केवळ ब आणि क',
+      'केवळ अ आणि क',
+      'सर्व अ, ब आणि क'
+    ],
+    optionsEn: [
+      'Only A and B',
+      'Only B and C',
+      'Only A and C',
+      'All A, B, and C'
+    ],
+    correctAnswerIndex: 0,
+    reverseLearningFacts: {
+      headlineMr: 'पीएम सूर्य घर मुख्य मुद्दे:',
+      headlineEn: 'PM Surya Ghar Key Facts:',
+      pointsMr: [
+        'अनुदान: २ किलोवॉटपर्यंत ६०% पर्यंत थेट सबसिडी.',
+        'बचत: दरवर्षी कुटुंबाची सुमारे ₹१५,००० ते ₹१८,००० ची वीजबिल बचत.',
+        'ईव्ही चार्जिंग: घरावरील सौरऊर्जेवर इलेक्ट्रिक वाहने चार्ज करण्याची सुविधा.'
+      ],
+      pointsEn: [
+        'Subsidy: Up to 60% capital subsidy for systems up to 2 kW.',
+        'Savings: Estimated ₹15,000-₹18,000 annual electricity bill savings.',
+        'EV Ready: Facilitates charging electric vehicles with green solar energy.'
+      ]
+    },
+    mpscTrapNoteMr: 'योजना सर्व निवासी कुटुंबांसाठी आहे, केवळ BPL साठी नाही हे लक्षात ठेवा!',
+    mpscTrapNoteEn: 'Scheme covers all residential homeowners, not just BPL households.',
+    officialReference: 'नवीन व नवीकरणीय ऊर्जा मंत्रालय (MNRE) भारत सरकार',
+    difficulty: 'Moderate',
+    highYieldBadgeMr: '☀️ सौरऊर्जा व हरित भारत',
+    highYieldBadgeEn: 'Solar & Green Energy'
+  },
+  // 8. SPORTS: पॅरिस पॅराऑलिम्पिक्स २०२४ ऐतिहासिक यश
+  {
+    id: 'mca_sports_02',
+    year: 2025,
+    month: 9,
+    monthNameMr: 'सप्टेंबर २०२४/२५',
+    monthNameEn: 'September 2024/25',
+    category: 'sports',
+    categoryLabelMr: '🏅 क्रीडा घडामोडी',
+    categoryLabelEn: 'Sports & Olympics',
+    titleMr: 'पॅरिस पॅराऑलिम्पिक्स २०२४: भारताची ऐतिहासिक २९ पदके',
+    titleEn: 'Paris Paralympics 2024: India Record 29 Medals',
+    leadContextMr: 'भारताने पॅरिस पॅराऑलिम्पिकमध्ये ७ सुवर्ण, ९ रौप्य व १३ कांस्यपदकांसह २९ पदके जिंकून १८ वे स्थान पटकावले.',
+    leadContextEn: 'India achieved record haul of 29 medals (7G, 9S, 13B) securing 18th position.',
+    statements: [
+      {
+        label: 'अ',
+        textMr: 'भारताने पॅरिस पॅराऑलिम्पिक्समध्ये एकूण २९ पदके पटकावली.',
+        textEn: 'India won total 29 medals at Paris Paralympics.',
+        isCorrect: true,
+        factExplanationMr: '७ सुवर्ण, ९ रौप्य आणि १३ कांस्य अशी पदकांची विभागणी होती.',
+        factExplanationEn: 'Tally comprised 7 Gold, 9 Silver, and 13 Bronze.'
+      },
+      {
+        label: 'ब',
+        textMr: 'सुमित अंतिलने पुरुषांच्या भालाफेकीत सलग दुसऱ्या पॅराऑलिम्पिकमध्ये सुवर्णपदक जिंकले.',
+        textEn: 'Sumit Antil won back-to-back Paralympic Gold in Javelin throw.',
+        isCorrect: true,
+        factExplanationMr: 'टोकियो २०२० नंतर पॅरिस २०२४ मध्ये त्याने ७०.५९ मीटर भाला फेकून नवा पॅराऑलिम्पिक विक्रम केला.',
+        factExplanationEn: 'Won gold in F64 category with record throw of 70.59m.'
+      },
+      {
+        label: 'क',
+        textMr: 'शीतल देवी दोन्ही हात नसलेली जगातील पहिली महिला तिरंदाज ठरली जिने पदक जिंकले.',
+        textEn: 'Sheetal Devi became the armless archer to script history.',
+        isCorrect: true,
+        factExplanationMr: 'तिने राकेश कुमारसह मिश्र दुहेरी कंपाऊंड तिरंदाजीत कांस्यपदक जिंकले.',
+        factExplanationEn: 'Won bronze in mixed team compound archery.'
+      }
+    ],
+    questionPromptMr: 'वरील विधानांपैकी कोणती विधाने सत्य आहेत?',
+    questionPromptEn: 'Which of the statements are true?',
+    optionsMr: [
+      'सर्व अ, ब आणि क सत्य आहेत',
+      'केवळ अ आणि ब',
+      'केवळ ब आणि क',
+      'केवळ अ आणि क'
+    ],
+    optionsEn: [
+      'All A, B, and C are true',
+      'Only A and B',
+      'Only B and C',
+      'Only A and C'
+    ],
+    correctAnswerIndex: 0,
+    reverseLearningFacts: {
+      headlineMr: 'पॅरिस पॅराऑलिम्पिक्स २०२४ चे सुवर्णपदक विजेते:',
+      headlineEn: 'Paris Paralympics 2024 Gold Medalists:',
+      pointsMr: [
+        'अवनी लेखरा (१० मी. एअर रायफल - सलग २ ऑलिम्पिकमध्ये सुवर्ण)',
+        'नितेश कुमार (बॅडमिंटन SL3)',
+        'सुमित अंतिल (भालाफेक F64)',
+        'धरमबीर (क्लब थ्रो F51)',
+        'प्रवीण कुमार (उंच उडी T64)',
+        'हरविंदर सिंग (तिरंदाजी रिकर्व्ह)',
+        'नवदीप सिंग (भालाफेक F41)'
+      ],
+      pointsEn: [
+        'Avani Lekhara (Shooting - back-to-back golds)',
+        'Nitesh Kumar (Badminton SL3)',
+        'Sumit Antil (Javelin F64)',
+        'Dharambir (Club Throw F51)',
+        'Praveen Kumar (High Jump T64)',
+        'Harvinder Singh (Archery Recurve)',
+        'Navdeep Singh (Javelin F41)'
+      ]
+    },
+    mpscTrapNoteMr: 'अवनी लेखरा आणि सुमित अंतिल या दोघांनी टोकियो आणि पॅरिस दोन्ही ठिकाणी सलग सुवर्णपदक जिंकले!',
+    mpscTrapNoteEn: 'Both Avani Lekhara and Sumit Antil achieved consecutive gold medals.',
+    officialReference: 'पॅराऑलिम्पिक कमिटी ऑफ इंडिया (PCI) अधिकृत निकाल',
+    difficulty: 'Moderate',
+    highYieldBadgeMr: '🎯 ऑलिम्पिक सुवर्ण व विक्रम',
+    highYieldBadgeEn: 'Olympic Gold & Records'
+  },
+  // 9. OCTOBER 21 SPECIAL: राष्ट्रीय पोलीस स्मृतिदिन व २१ ऑक्टोबर दिनविशेष
+  {
+    id: 'mca_october_21_police',
+    year: 2026,
+    month: 10,
+    monthNameMr: 'ऑक्टोबर २०२६',
+    monthNameEn: 'October 2026',
+    category: 'science_tech',
+    categoryLabelMr: '🛡️ आंतरिक सुरक्षा व दिनविशेष',
+    categoryLabelEn: 'Internal Security & Special Days',
+    titleMr: '२१ ऑक्टोबर: राष्ट्रीय पोलीस स्मृतिदिन, आझाद हिंद सरकार व दिनविशेष',
+    titleEn: '21 October: Police Commemoration Day, Azad Hind Sarkar & Special Observances',
+    leadContextMr: '२१ ऑक्टोबर हा दिवस राष्ट्रीय पोलीस स्मृतिदिन, आझाद हिंद सरकार स्थापना दिन आणि जागतिक आयोडीन दिन म्हणून अत्यंत महत्त्वाचा मानला जातो.',
+    leadContextEn: '21st October marks National Police Commemoration Day, Azad Hind Government Proclamation, and Global IDD Day.',
+    statements: [
+      {
+        label: 'अ',
+        textMr: 'दरवर्षी २१ ऑक्टोबर रोजी १९५९ मध्ये लडाखमधील हॉट स्प्रिंग्स येथे चिनी सैन्याशी लढताना बलिदान देणाऱ्या १० CRPF जवानांच्या स्मरणार्थ राष्ट्रीय पोलीस स्मृतिदिन पाळला जातो.',
+        textEn: 'National Police Commemoration Day is observed on 21 October commemorating 10 CRPF jawans martyred at Hot Springs, Ladakh in 1959.',
+        isCorrect: true,
+        factExplanationMr: 'सत्य: २१ ऑक्टोबर १९५९ रोजी लडाखमधील १५,००० फूट उंचीवरील हॉट स्प्रिंग्स येथे चिनी सैन्याच्या हल्ल्यात १० जवान शहीद झाले होते.',
+        factExplanationEn: 'True: 10 CRPF jawans were martyred at Hot Springs in Ladakh on 21 October 1959.'
+      },
+      {
+        label: 'ब',
+        textMr: '२१ ऑक्टोबर १९४३ रोजी नेताजी सुभाषचंद्र बोस यांनी टोकियो (जपान) येथे आझाद हिंद तात्पुरत्या सरकारची घोषणा केली होती.',
+        textEn: 'On 21 October 1943, Netaji Subhash Chandra Bose proclaimed Azad Hind Sarkar in Tokyo, Japan.',
+        isCorrect: false,
+        factExplanationMr: 'असत्य: नेताजींनी आझाद हिंद सरकारची (Arzi Hukumat-e-Azad Hind) स्थापना सिंगापूर येथील कॅथे सिनेमा हॉलमध्ये केली होती (टोकियो नव्हे).',
+        factExplanationEn: 'False: Established in Singapore (Cathay Cinema), not Tokyo.'
+      },
+      {
+        label: 'क',
+        textMr: 'नवी दिल्लीतील राष्ट्रीय पोलीस स्मारकामध्ये ३० फूट उंच व २३८ टन वजनाचा एकसंध काळ्या ग्रॅनाइटचा एकाश्म (Monolith) स्तंभ उभारण्यात आला आहे.',
+        textEn: 'National Police Memorial in New Delhi features a 30-foot tall 238-tonne single black granite monolith.',
+        isCorrect: true,
+        factExplanationMr: 'सत्य: चाणक्यपुरी (नवी दिल्ली) येथे हा भव्य एकाश्म स्तंभ देशातील सर्व पोलीस शहीदांचे प्रतीक म्हणून उभारण्यात आला आहे.',
+        factExplanationEn: 'True: Located at Chanakyapuri, New Delhi with Wall of Valour.'
+      },
+      {
+        label: 'ड',
+        textMr: '२१ ऑक्टोबर हा दिवस जगभरात जागतिक आयोडीन न्यूनता विकार प्रतिबंधक दिन (Global IDD Prevention Day) म्हणून साजरा केला जातो.',
+        textEn: '21 October is globally observed as Iodine Deficiency Disorders Prevention Day.',
+        isCorrect: true,
+        factExplanationMr: 'सत्य: गलगंड, मतिमंदत्व प्रतिबंध आणि आयोडीनयुक्त मिठाच्या वापराबाबत जनजागृतीसाठी हा दिवस पाळला जातो.',
+        factExplanationEn: 'True: Aims to create awareness about iodine nutrition and prevention of goitre.'
+      }
+    ],
+    questionPromptMr: 'वरील विधानांपैकी कोणती विधाने बरोबर आहेत?',
+    questionPromptEn: 'Which of the statements given above are correct?',
+    optionsMr: [
+      '१) केवळ अ, क आणि ड बरोबर',
+      '२) सर्व विधाने अ, ब, क आणि ड बरोबर',
+      '३) केवळ अ आणि ब बरोबर',
+      '४) केवळ ब आणि ड बरोबर'
+    ],
+    optionsEn: [
+      '1) Only A, C, and D are correct',
+      '2) All statements A, B, C, and D are correct',
+      '3) Only A and B are correct',
+      '4) Only B and D are correct'
+    ],
+    correctAnswerIndex: 0,
+    reverseLearningFacts: {
+      headlineMr: '२१ ऑक्टोबर दिनविशेष रिव्हर्स लर्निंग मॅट्रिक्स:',
+      headlineEn: '21 October Key Commemorations Matrix:',
+      pointsMr: [
+        'राष्ट्रीय पोलीस स्मृतिदिन: २१ ऑक्टोबर (१९५९ हॉट स्प्रिंग्स लडाख - १० CRPF जवान शहीद).',
+        'आझाद हिंद सरकार: २१ ऑक्टोबर १९४३ (सिंगापूर येथे नेताजी सुभाषचंद्र बोस यांनी घोषणा केली).',
+        'राष्ट्रीय पोलीस स्मारक: चाणक्यपुरी, नवी दिल्ली (३० फूट काळा ग्रॅनाइट एकाश्म, वजन २३८ टन).',
+        'जागतिक आयोडीन दिन: २१ ऑक्टोबर (FSSAI नियम: ग्राहक पातळीवर किमान १५ ppm आयोडीन).'
+      ],
+      pointsEn: [
+        'National Police Commemoration Day: 21 October (1959 Hot Springs Ladakh sacrifice).',
+        'Azad Hind Government: 21 October 1943 (Proclaimed by Netaji in Singapore).',
+        'National Police Memorial: Chanakyapuri, New Delhi (30-ft black granite monolith, 238 tonnes).',
+        'Global Iodine Day: 21 October (FSSAI mandate: min 15 ppm iodine at consumer level).'
+      ]
+    },
+    mpscTrapNoteMr: 'MPSC ट्रॅप: आझाद हिंद सरकारची स्थापना सिंगापूर (Singapore) येथे झाली होती, टोकियो (Tokyo) मध्ये नाही! स्थान आणि देश अचूक लक्षात ठेवा.',
+    mpscTrapNoteEn: 'MPSC Trap: Azad Hind Sarkar was founded in Singapore, NOT Tokyo.',
+    officialReference: 'गृह मंत्रालय (MHA) भारत सरकार व राष्ट्रीय पोलीस स्मारक / MoHFW',
+    difficulty: 'Moderate',
+    highYieldBadgeMr: '🎖️ २१ ऑक्टोबर विशेष',
+    highYieldBadgeEn: '21 October Special'
   }
 ];
 

@@ -30,6 +30,7 @@ import { soundFx } from '../utils/audio';
 import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { useDeviceScreen } from '../utils/screenUtils';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { AdBanner } from './AdBanner';
 
 const questionCardVariants: Variants = {
   enter: (dir: number) => ({
@@ -755,6 +756,15 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                       <span>{questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}</span>
                     </button>
                   </div>
+
+                  {/* 📈 Google AdSense Auto-Slot (Exam Question Solving Screen) */}
+                  <div className="pt-4 mt-4 border-t border-stone-200/80">
+                    <AdBanner
+                      placementType="examScreen"
+                      format="horizontal"
+                      className="max-w-3xl mx-auto"
+                    />
+                  </div>
                 </motion.div>
               </AnimatePresence>
             ) : (
@@ -932,6 +942,15 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               <span>{questionLang === 'mr' ? 'चाचणी अंतिम सबमिट करा' : 'Finish & Submit Exam'}</span>
             </button>
+          </div>
+
+          {/* 📈 Sidebar AdSense Slot */}
+          <div className="mt-3 pt-2 border-t border-stone-200 hidden lg:block">
+            <AdBanner
+              placementType="examScreen"
+              format="rectangle"
+              className="max-w-[280px] mx-auto"
+            />
           </div>
         </aside>
       </div>

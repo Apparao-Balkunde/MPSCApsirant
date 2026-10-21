@@ -56,6 +56,7 @@ import { MpscBookShelf } from './MpscBookShelf';
 import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 import { DailyChallengeModal } from './DailyChallengeModal';
+import { DailyQuizCard } from './DailyQuizCard';
 import { analyzeUserWeakAreas } from '../utils/weakAreaRemedialEngine';
 import { AdBanner } from './AdBanner';
 import { isUserAdmin } from '../utils/adminAuth';
@@ -325,12 +326,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-6 sm:space-y-8">
-      {/* 🏛️ Admin-Only Academy Banner (Image, Click URL, Title) */}
-      {adminActive && (
+      {/* 🏛️ Admin-Only Academy Banner (Image, Click URL, Title) - Displayed ONLY when isAdmin prop is true */}
+      {isAdmin && (
         <div id="top-admin-academy-banner-wrapper">
           <AcademyBanner
+            image={academyBannerConfig?.image || '/mpsc_textbooks.jpg'}
+            clickUrl={academyBannerConfig?.clickUrl || 'https://mpscsathi.online'}
+            title={academyBannerConfig?.title || 'ज्ञानप्रबोधिनी व आकार करिअर अकॅडमी • MPSC २०२६-२७ विशेष बॅचेस'}
+            isAdmin={isAdmin}
             language={language}
-            isAdmin={adminActive}
             bannerConfig={academyBannerConfig}
           />
         </div>
@@ -606,6 +610,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         </div>
       </div>
+
+      {/* 📅 Firestore-Powered MPSC Daily Quiz (Curated 5 Questions, 1 Quiz/Day limit) */}
+      <DailyQuizCard
+        language={language}
+        currentUserId={currentUserId || currentUser?.uid}
+        onQuestionsAnswered={(count) => {
+          if (onLogStudySession) {
+            onLogStudySession(
+              language === 'mr' ? 'दैनिक ५ प्रश्न क्विझ (Daily Quiz)' : 'Daily 5-Question Quiz',
+              5,
+              count,
+              'Completed Firestore Daily Quiz'
+            );
+          }
+        }}
+      />
 
       <ExamCountdownCard
         language={language}

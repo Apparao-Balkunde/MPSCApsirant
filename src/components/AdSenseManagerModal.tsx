@@ -277,6 +277,25 @@ export const AdSenseManagerModal: React.FC<AdSenseManagerModalProps> = ({
                     स्लॉट आयडी: <span className="font-bold text-amber-700">{config.slots.footer}</span>
                   </div>
                 </div>
+
+                {/* 5. Exam Question Solving Screen Auto-Slot */}
+                <div className="p-4 rounded-2xl border border-emerald-300 bg-emerald-50/40 space-y-2 sm:col-span-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black text-emerald-900 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>५. परीक्षा प्रश्न स्क्रीन व निकाल (Question & Result Screen)</span>
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-200 text-emerald-900">
+                      Active Auto-Slot
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-stone-600">
+                    विद्यार्थी प्रत्यक्ष प्रश्न सोडवत असताना पर्यायांच्या खाली आणि निकाल (Result) सखोल विश्लेषणाच्या दरम्यान उच्च-कमाई देणारा अधिकृत Google AdSense ऑटो-स्लॉट.
+                  </p>
+                  <div className="p-2.5 rounded-xl bg-white border border-emerald-200 text-center text-xs font-mono text-emerald-800">
+                    स्लॉट आयडी: <span className="font-bold">{config.slots.examScreen || '8635186043'}</span>
+                  </div>
+                </div>
               </div>
 
               {/* Policy Compliance Notice */}
@@ -391,6 +410,22 @@ export const AdSenseManagerModal: React.FC<AdSenseManagerModalProps> = ({
                       className="w-full px-3 py-2 rounded-xl border border-stone-300 font-mono text-xs focus:ring-2 focus:ring-amber-500"
                     />
                   </div>
+
+                  {/* Exam Screen Slot */}
+                  <div className="sm:col-span-2">
+                    <label className="text-xs font-bold text-emerald-800 block mb-1">
+                      {isMr ? '५. परीक्षा प्रश्न व निकाल ऑटो-स्लॉट (Exam & Result Screen Slot)' : '5. Exam & Result Screen Slot'}
+                    </label>
+                    <input
+                      type="text"
+                      value={config.slots.examScreen || '8635186043'}
+                      onChange={(e) => setConfig({
+                        ...config,
+                        slots: { ...config.slots, examScreen: e.target.value.trim() }
+                      })}
+                      className="w-full px-3 py-2 rounded-xl border border-emerald-400 font-mono text-xs focus:ring-2 focus:ring-emerald-500 bg-emerald-50/30"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -410,6 +445,26 @@ export const AdSenseManagerModal: React.FC<AdSenseManagerModalProps> = ({
                       checked={config.enabled}
                       onChange={(e) => setConfig({ ...config, enabled: e.target.checked })}
                       className="w-4 h-4 rounded text-amber-600 focus:ring-amber-500"
+                    />
+                  </label>
+
+                  <label className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-stone-200 cursor-pointer">
+                    <div>
+                      <span className="text-xs font-bold text-emerald-900 block">
+                        {isMr ? 'प्रश्न सोडवताना व रिझल्ट स्क्रीनवर जाहिराती दाखवा (Exam Auto-Slot)' : 'Show Ads on Exam & Result Screens'}
+                      </span>
+                      <span className="text-[11px] text-stone-500">
+                        {isMr ? 'विद्यार्थी प्रश्न सोडवत असताना व रिझल्ट पाहताना अधिकृत गुगल जाहिराती सक्रिय राहतील' : 'Activates responsive ads on test solving and review screens'}
+                      </span>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={config.placements.examScreen !== false}
+                      onChange={(e) => setConfig({
+                        ...config,
+                        placements: { ...config.placements, examScreen: e.target.checked }
+                      })}
+                      className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500"
                     />
                   </label>
 

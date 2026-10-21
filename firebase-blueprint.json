@@ -69,6 +69,45 @@
         "yearTag": { "type": "string" }
       },
       "required": ["id", "subjectId", "questionEn", "questionMr", "correctAnswerIndex"]
+    },
+    "DailyQuestion": {
+      "title": "DailyQuestion",
+      "description": "Curated daily quiz question stored in Firestore daily_questions collection",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "topic": { "type": "string" },
+        "subtopic": { "type": "string" },
+        "difficulty": { "type": "string" },
+        "questionEn": { "type": "string" },
+        "questionMr": { "type": "string" },
+        "optionsEn": { "type": "array" },
+        "optionsMr": { "type": "array" },
+        "correctAnswerIndex": { "type": "number" },
+        "explanationEn": { "type": "string" },
+        "explanationMr": { "type": "string" },
+        "reference": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["id", "questionEn", "questionMr", "optionsEn", "optionsMr", "correctAnswerIndex"]
+    },
+    "DailyQuizAttempt": {
+      "title": "DailyQuizAttempt",
+      "description": "Daily quiz completion record ensuring strictly one attempt per user per day",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "date": { "type": "string" },
+        "score": { "type": "number" },
+        "totalQuestions": { "type": "number" },
+        "correctCount": { "type": "number" },
+        "incorrectCount": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "timeTakenSeconds": { "type": "number" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "date", "score", "totalQuestions", "completedAt"]
     }
   },
   "firestore": {
@@ -84,9 +123,17 @@
       "schema": "StudyLog",
       "description": "Study logs for weekly goal pacing"
     },
+    "/users/{userId}/dailyQuizAttempts/{attemptId}": {
+      "schema": "DailyQuizAttempt",
+      "description": "Tracks single daily quiz attempt per user per calendar day"
+    },
     "/mpsc_questions/{questionId}": {
       "schema": "MPSCQuestion",
       "description": "Global MPSC question bank stored on Firestore"
+    },
+    "/daily_questions/{questionId}": {
+      "schema": "DailyQuestion",
+      "description": "Curated daily 5-question bank in Firestore"
     }
   }
 }
