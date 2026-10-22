@@ -414,12 +414,12 @@ export function generateDistrictQuestions(district: MaharashtraDistrict, count: 
     // 7. HISTORY Q7: स्वातंत्र्यलढा, सत्याग्रह व महत्त्वाचे मुद्दे
     {
       id: `dist_${distId}_hist_2`,
-      questionMr: `MPSC परीक्षेच्या दृष्टीने ${nameMr} जिल्ह्याचे ऐतिहासिक व सामाजिक योगदान खालीलपैकी कोणत्या घटकामुळे विशेष ओळखले जाते?`,
+      questionMr: `${nameMr} जिल्ह्याचे ऐतिहासिक व सामाजिक योगदान खालीलपैकी कोणत्या घटकामुळे विशेष ओळखले जाते?`,
       questionEn: `In modern Maharashtra history, the contribution of ${nameEn} district is prominently noted for which aspect?`,
       optionsMr: q7Options.optionsMr,
       optionsEn: q7Options.optionsEn,
       correctAnswerIndex: q7Options.correctAnswerIndex,
-      explanationMr: `MPSC परीक्षेच्या दृष्टीने महत्त्वाचा मुद्दा: ${d.mpscGoldenFactsMr.join(' तसेच ')}`,
+      explanationMr: `परीक्षेसाठी महत्त्वाचा संदर्भ: ${d.mpscGoldenFactsMr.join(' तसेच ')}`,
       explanationEn: `Key exam point for ${nameEn}: ${d.mpscGoldenFactsMr.join(' Also, ')}`,
       subjectId: 'maharashtra_history',
       topic: `${nameMr} जिल्हा विशेष`,
@@ -558,7 +558,7 @@ export function generateDistrictQuestions(district: MaharashtraDistrict, count: 
     // 15. MPSC FACT Q15: आयोग वारंवार विचारलेले वैशिष्ट्य
     {
       id: `dist_${distId}_fact_1`,
-      questionMr: `MPSC परीक्षेच्या दृष्टीने ${nameMr} जिल्ह्याबाबत खालीलपैकी कोणते वैशिष्ट्यपूर्ण तथ्य विशेष नोंद घेण्यासारखे आहे?`,
+      questionMr: `${nameMr} जिल्ह्याबाबत खालीलपैकी कोणते वैशिष्ट्यपूर्ण तथ्य अचूक आहे?`,
       questionEn: `Which of the following high-yield MPSC fact is specifically associated with ${nameEn}?`,
       optionsMr: q15Options.optionsMr,
       optionsEn: q15Options.optionsEn,
