@@ -55,8 +55,8 @@ export const COACHING_CLASS_PRESETS: CoachingClassPreset[] = [
     nameEn: 'Dnyanaprabodhini MPSC Center, Pune',
     cityMr: 'सदाशिव पेठ, पुणे',
     cityEn: 'Sadashiv Peth, Pune',
-    mobileNumber: '9860353056',
-    whatsappNumber: '919860353056',
+    mobileNumber: '9423580838',
+    whatsappNumber: '919423580838',
     titleMr: 'ज्ञानप्रबोधिनी स्पर्धा परीक्षा केंद्र, पुणे • MPSC २०२६-२७ विशेष बॅचेस',
     titleEn: 'Dnyanaprabodhini MPSC Center, Pune • MPSC 2026-27 Exclusive Batches',
     subtitleMr: 'सदाशिव पेठ, पुणे • ४०+ वर्षांची गुणवत्ता परंपरा • माजी सनदी अधिकाऱ्यांचे मार्गदर्शन • मर्यादित जागा',
@@ -225,8 +225,8 @@ export const DEFAULT_ACADEMY_BANNER_CONFIG: AcademyBannerConfig = {
   subtitle: 'सदाशिव पेठ, पुणे • ४०+ वर्षांची गुणवत्ता परंपरा • माजी सनदी अधिकाऱ्यांचे मार्गदर्शन • मर्यादित ५० जागा प्रवेश सुरू',
   badgeText: '👑 ॲडमिन पार्टनर अकॅडमी बॅनर',
   buttonText: 'अधिकृत वेबसाईट / बॅच माहिती ➜',
-  mobileNumber: '9860353056',
-  whatsappNumber: '919860353056',
+  mobileNumber: '9423580838',
+  whatsappNumber: '919423580838',
   coachingClassId: 'dnyanprabodhini'
 };
 
@@ -238,11 +238,11 @@ export const getStoredAcademyBannerConfig = (): AcademyBannerConfig => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (!parsed.mobileNumber) {
-        parsed.mobileNumber = parsed.whatsappNumber ? parsed.whatsappNumber.replace(/[^0-9]/g, '').slice(-10) : '9860353056';
+      if (parsed.mobileNumber === '9860353056' || !parsed.mobileNumber) {
+        parsed.mobileNumber = '9423580838';
       }
-      if (!parsed.whatsappNumber) {
-        parsed.whatsappNumber = '91' + parsed.mobileNumber;
+      if (parsed.whatsappNumber === '919860353056' || !parsed.whatsappNumber) {
+        parsed.whatsappNumber = '919423580838';
       }
       return { ...DEFAULT_ACADEMY_BANNER_CONFIG, ...parsed };
     }
@@ -343,8 +343,8 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
     subtitle: subtitle || bannerConfig?.subtitle || storedConfig.subtitle || DEFAULT_ACADEMY_BANNER_CONFIG.subtitle,
     badgeText: badgeText || bannerConfig?.badgeText || storedConfig.badgeText || (isMr ? '👑 ॲडमिन अकॅडमी बॅनर (Admin Only)' : '👑 Admin Academy Banner'),
     buttonText: buttonText || bannerConfig?.buttonText || storedConfig.buttonText || (isMr ? 'अधिकृत बॅच माहिती ➜' : 'Visit Academy Site ➜'),
-    mobileNumber: mobileNumber || bannerConfig?.mobileNumber || storedConfig.mobileNumber || DEFAULT_ACADEMY_BANNER_CONFIG.mobileNumber || '9860353056',
-    whatsappNumber: whatsappNumber || bannerConfig?.whatsappNumber || storedConfig.whatsappNumber || DEFAULT_ACADEMY_BANNER_CONFIG.whatsappNumber || '919860353056',
+    mobileNumber: mobileNumber || bannerConfig?.mobileNumber || storedConfig.mobileNumber || DEFAULT_ACADEMY_BANNER_CONFIG.mobileNumber || '9423580838',
+    whatsappNumber: whatsappNumber || bannerConfig?.whatsappNumber || storedConfig.whatsappNumber || DEFAULT_ACADEMY_BANNER_CONFIG.whatsappNumber || '919423580838',
     coachingClassId: coachingClassId || bannerConfig?.coachingClassId || storedConfig.coachingClassId || 'dnyanprabodhini'
   };
 
@@ -354,8 +354,8 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
   const [formTitle, setFormTitle] = useState<string>(effectiveConfig.title);
   const [formSubtitle, setFormSubtitle] = useState<string>(effectiveConfig.subtitle || '');
   const [formButtonText, setFormButtonText] = useState<string>(effectiveConfig.buttonText || '');
-  const [formMobileNumber, setFormMobileNumber] = useState<string>(effectiveConfig.mobileNumber || '9860353056');
-  const [formWhatsappNumber, setFormWhatsappNumber] = useState<string>(effectiveConfig.whatsappNumber || '919860353056');
+  const [formMobileNumber, setFormMobileNumber] = useState<string>(effectiveConfig.mobileNumber || '9423580838');
+  const [formWhatsappNumber, setFormWhatsappNumber] = useState<string>(effectiveConfig.whatsappNumber || '919423580838');
   const [selectedClassId, setSelectedClassId] = useState<string>(effectiveConfig.coachingClassId || 'dnyanprabodhini');
   const [saveSuccess, setSaveSuccess] = useState<boolean>(false);
 
@@ -371,8 +371,8 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
     setFormTitle(effectiveConfig.title);
     setFormSubtitle(effectiveConfig.subtitle || '');
     setFormButtonText(effectiveConfig.buttonText || '');
-    setFormMobileNumber(effectiveConfig.mobileNumber || '9860353056');
-    setFormWhatsappNumber(effectiveConfig.whatsappNumber || '919860353056');
+    setFormMobileNumber(effectiveConfig.mobileNumber || '9423580838');
+    setFormWhatsappNumber(effectiveConfig.whatsappNumber || '919423580838');
     setSelectedClassId(effectiveConfig.coachingClassId || 'dnyanprabodhini');
     setIsEditorOpen(true);
     if (onEditConfig) onEditConfig();
@@ -402,8 +402,8 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
       subtitle: formSubtitle.trim() || DEFAULT_ACADEMY_BANNER_CONFIG.subtitle,
       badgeText: effectiveConfig.badgeText,
       buttonText: formButtonText.trim() || DEFAULT_ACADEMY_BANNER_CONFIG.buttonText,
-      mobileNumber: cleanMobile || '9860353056',
-      whatsappNumber: cleanWa || '919860353056',
+      mobileNumber: cleanMobile || '9423580838',
+      whatsappNumber: cleanWa || '919423580838',
       coachingClassId: selectedClassId
     };
     saveStoredAcademyBannerConfig(updated);
@@ -427,7 +427,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
     setFormWhatsappNumber(dnyan.whatsappNumber);
   };
 
-  const activeMobile = effectiveConfig.mobileNumber || '9860353056';
+  const activeMobile = effectiveConfig.mobileNumber || '9423580838';
   const activeWa = effectiveConfig.whatsappNumber || ('91' + activeMobile);
   const formattedMobile = formatMobileDisplay(activeMobile, isMr);
   const formattedWa = formatMobileDisplay(activeWa, isMr);
@@ -668,7 +668,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
                         setFormWhatsappNumber('91' + val.replace(/[^0-9]/g, ''));
                       }
                     }}
-                    placeholder="उदा. 9860353056 / 9011116246"
+                    placeholder="उदा. 9011116246 / 9423580838"
                     className="w-full pl-9 pr-3 py-2 rounded-xl bg-stone-950 border border-stone-700 text-xs sm:text-sm text-stone-100 focus:outline-hidden focus:border-amber-400 font-mono"
                   />
                 </div>
@@ -694,7 +694,7 @@ export const AcademyBanner: React.FC<AcademyBannerProps> = ({
                     type="tel"
                     value={formWhatsappNumber}
                     onChange={(e) => setFormWhatsappNumber(e.target.value)}
-                    placeholder="919860353056"
+                    placeholder="919011116246"
                     className="w-full pl-9 pr-3 py-2 rounded-xl bg-stone-950 border border-stone-700 text-xs text-stone-100 focus:outline-hidden focus:border-emerald-400 font-mono"
                   />
                 </div>

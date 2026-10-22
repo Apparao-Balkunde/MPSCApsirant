@@ -74,10 +74,10 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
         'Complete Up-to-date Printed & Digital Comprehensive Notes',
         'Strictly 50 Seats per Batch • 3 Days Free Demo Lectures'
       ],
-      phone: '+919860353056',
-      whatsappNumber: '919860353056',
+      phone: '+919423580838',
+      whatsappNumber: '919423580838',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'MPSC2026',
+      discountCode: '',
       discountOfferMr: 'पोर्टल युजर्ससाठी विशेष २०% तात्काळ सवलत',
       discountOfferEn: 'Special 20% Instant Discount for Portal Aspirants',
       themeColor: 'amber',
@@ -114,7 +114,7 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       phone: '+919823054321',
       whatsappNumber: '919823054321',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'AAKAR50',
+      discountCode: '',
       discountOfferMr: 'नोंदणीवर ₹५,००० ची थेट स्कॉलरशिप',
       discountOfferEn: 'Flat ₹5,000 Scholarship on Early Enrollment',
       themeColor: 'purple',
@@ -151,7 +151,7 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       phone: '+919422098765',
       whatsappNumber: '919422098765',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'SAHYADRI20',
+      discountCode: '',
       discountOfferMr: 'नवीन बॅचसाठी २०% तात्काळ सवलत उपलब्ध',
       discountOfferEn: 'Instant 20% Discount for New Enrollments',
       themeColor: 'emerald',
@@ -188,7 +188,7 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       phone: '+918929920917',
       whatsappNumber: '918929920917',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'UNIQUE25',
+      discountCode: '',
       discountOfferMr: 'इंटिग्रेटेड बॅचसाठी २५% थेट सवलत',
       discountOfferEn: 'Flat 25% Discount on Integrated Batch',
       themeColor: 'blue',
@@ -225,7 +225,7 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       phone: '+919850985098',
       whatsappNumber: '919850985098',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'CHANAKYA15',
+      discountCode: '',
       discountOfferMr: 'फाउंडेशन कोर्ससाठी १५% तात्काळ स्कॉलरशिप',
       discountOfferEn: 'Instant 15% Scholarship for Foundation Course',
       themeColor: 'purple',
@@ -262,7 +262,7 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       phone: '+919970246246',
       whatsappNumber: '919970246246',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'DEEPSTAMBH20',
+      discountCode: '',
       discountOfferMr: 'निवासी बॅचसाठी विशेष २०% सूट',
       discountOfferEn: 'Special 20% Off for Residential Batch',
       themeColor: 'amber',
@@ -299,7 +299,7 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       phone: '+919822453678',
       whatsappNumber: '919822453678',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'PRITHVI20',
+      discountCode: '',
       discountOfferMr: 'महासंग्राम बॅचसाठी २०% तात्काळ सवलत',
       discountOfferEn: 'Instant 20% Off for Master Batch',
       themeColor: 'red',
@@ -336,7 +336,7 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       phone: '+919158444009',
       whatsappNumber: '919158444009',
       websiteUrl: 'https://mpscsathi.online',
-      discountCode: 'INFINITY20',
+      discountCode: '',
       discountOfferMr: 'प्रवेशावर २०% थेट सवलत उपलब्ध',
       discountOfferEn: 'Flat 20% Discount on Admissions',
       themeColor: 'blue',
@@ -353,13 +353,15 @@ export const getStoredAcademyConfig = (): AcademySponsorshipConfig => {
     if (raw) {
       const parsed = JSON.parse(raw);
       // Migrate legacy placeholder number if present
-      if (parsed.whatsappNumber === '919822012345' || !parsed.whatsappNumber) {
-        parsed.whatsappNumber = '919860353056';
+      if (parsed.whatsappNumber === '919860353056' || parsed.whatsappNumber === '919822012345' || !parsed.whatsappNumber) {
+        parsed.whatsappNumber = '919423580838';
       }
-      if (parsed.phone === '+919822012345' || !parsed.phone) {
-        parsed.phone = '+919860353056';
+      if (parsed.phone === '+919860353056' || parsed.phone === '+919822012345' || !parsed.phone) {
+        parsed.phone = '+919423580838';
       }
-      return { ...DEFAULT_ACADEMY_PRESETS[0].config, ...parsed };
+      // Ensure coupon code is removed as per user preference
+      parsed.discountCode = '';
+      return { ...DEFAULT_ACADEMY_PRESETS[0].config, ...parsed, discountCode: '' };
     }
   } catch (e) {
     console.error('Error loading academy banner config:', e);
@@ -555,25 +557,6 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
               ))}
             </div>
 
-            {/* Discount Code & Coupon Pill */}
-            {config.discountCode && (
-              <div className="flex items-center gap-2.5 pt-1 flex-wrap">
-                <div
-                  onClick={handleCopyCode}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/40 hover:bg-amber-500/25 cursor-pointer transition-all active:scale-95 text-xs text-amber-300 font-bold"
-                  title={isMr ? "कोड कॉपी करण्यासाठी क्लिक करा" : "Click to copy code"}
-                >
-                  <Tag className="w-3.5 h-3.5 text-amber-400" />
-                  <span>{isMr ? "कूपन कोड:" : "Code:"} <strong className="font-mono text-white underline decoration-amber-400 underline-offset-2">{config.discountCode}</strong></span>
-                  <span className="text-[10px] px-1.5 py-0.2 bg-amber-400 text-stone-950 font-black rounded">
-                    {copiedCode ? (isMr ? 'कॉपी झाले! ✓' : 'Copied! ✓') : (isMr ? 'कॉपी करा' : 'Copy')}
-                  </span>
-                </div>
-                <span className="text-xs text-stone-400 italic">
-                  {isMr ? config.discountOfferMr : config.discountOfferEn}
-                </span>
-              </div>
-            )}
           </div>
 
           {/* Right Column: Actions (WhatsApp, Call, Website, Admin Settings) */}
@@ -805,7 +788,7 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
                         setConfig(next);
                         saveStoredAcademyConfig(next);
                       }}
-                      placeholder="+919860353056"
+                      placeholder="+919011116246"
                       className="w-full p-2.5 bg-stone-950 rounded-xl border border-stone-800 focus:border-amber-400 text-white text-xs outline-none"
                     />
                   </div>
@@ -821,46 +804,28 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
                         setConfig(next);
                         saveStoredAcademyConfig(next);
                       }}
-                      placeholder="919860353056"
+                      placeholder="919011116246"
                       className="w-full p-2.5 bg-stone-950 rounded-xl border border-stone-800 focus:border-amber-400 text-white text-xs outline-none"
                     />
                   </div>
                 </div>
 
-                {/* Website Link & Discount Code */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-stone-300 mb-1">
-                      {isMr ? 'वेबसाईट किंवा गुगल फॉर्म लिंक:' : 'Website or Google Form URL:'}
-                    </label>
-                    <input
-                      type="text"
-                      value={config.websiteUrl}
-                      onChange={(e) => {
-                        const next = { ...config, websiteUrl: e.target.value };
-                        setConfig(next);
-                        saveStoredAcademyConfig(next);
-                      }}
-                      placeholder="https://..."
-                      className="w-full p-2.5 bg-stone-950 rounded-xl border border-stone-800 focus:border-amber-400 text-white text-xs outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-stone-300 mb-1">
-                      {isMr ? 'डिस्काउंट कूपन कोड:' : 'Discount Coupon Code:'}
-                    </label>
-                    <input
-                      type="text"
-                      value={config.discountCode}
-                      onChange={(e) => {
-                        const next = { ...config, discountCode: e.target.value };
-                        setConfig(next);
-                        saveStoredAcademyConfig(next);
-                      }}
-                      placeholder="MPSC2026"
-                      className="w-full p-2.5 bg-stone-950 rounded-xl border border-stone-800 focus:border-amber-400 text-white text-xs outline-none"
-                    />
-                  </div>
+                {/* Website Link */}
+                <div>
+                  <label className="block text-xs font-semibold text-stone-300 mb-1">
+                    {isMr ? 'वेबसाईट किंवा गुगल फॉर्म लिंक:' : 'Website or Google Form URL:'}
+                  </label>
+                  <input
+                    type="text"
+                    value={config.websiteUrl}
+                    onChange={(e) => {
+                      const next = { ...config, websiteUrl: e.target.value };
+                      setConfig(next);
+                      saveStoredAcademyConfig(next);
+                    }}
+                    placeholder="https://mpscsathi.online"
+                    className="w-full p-2.5 bg-stone-950 rounded-xl border border-stone-800 focus:border-amber-400 text-white text-xs outline-none"
+                  />
                 </div>
 
                 {/* Theme Color */}
@@ -996,7 +961,7 @@ export const AcademySponsorshipBanner: React.FC<AcademySponsorshipBannerProps> =
                   className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-stone-950 font-black text-sm flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 text-stone-950" />
-                  <span>{isMr ? 'पोर्टल ॲडमिनशी WhatsApp वर संपर्क साधा (+९१ ९८६०३५३०५६)' : 'Contact Portal Admin via WhatsApp (+91 9860353056)'}</span>
+                  <span>{isMr ? 'पोर्टल ॲडमिनशी WhatsApp वर संपर्क साधा' : 'Contact Portal Admin via WhatsApp'}</span>
                 </a>
               </div>
             </div>

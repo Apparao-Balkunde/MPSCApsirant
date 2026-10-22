@@ -138,8 +138,7 @@ const DEFAULT_AFFILIATE_LINKS: AffiliateLinkItem[] = [
     commissionPercent: 100,
     clicks: 312,
     estimatedEarnings: 10000,
-    isActive: true,
-    couponCode: 'MPSC2026'
+    isActive: true
   },
   {
     id: 'link_telegram_community',
