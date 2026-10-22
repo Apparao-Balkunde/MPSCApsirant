@@ -31,6 +31,7 @@ import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { useDeviceScreen } from '../utils/screenUtils';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { AdBanner } from './AdBanner';
+import { cleanQuestionText } from '../utils/cleanQuestionText';
 
 const questionCardVariants: Variants = {
   enter: (dir: number) => ({
@@ -679,7 +680,7 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                 >
                   {/* Text Content */}
                   <div className={`${textScale === 'large' ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg lg:text-xl'} font-medium text-stone-900 leading-relaxed whitespace-pre-line`}>
-                    {questionLang === 'mr' ? currentQuestion.questionMr : currentQuestion.questionEn}
+                    {cleanQuestionText(questionLang === 'mr' ? currentQuestion.questionMr : currentQuestion.questionEn)}
                   </div>
 
                   {/* Multiple Options (1, 2, 3, 4) with tactile animation */}

@@ -12,7 +12,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "भारताचे नियंत्रक व महालेखापरीक्षक (Comptroller and Auditor General - CAG) यांच्याबाबत खालील विधानांचा विचार करा:\n(अ) संविधानाच्या कलम १४८ अन्वये राष्ट्रपतींद्वारे त्यांची नियुक्ती केली जाते.\n(ब) त्यांचा पदावधी ६ वर्षे किंवा वयाची ६५ वर्षे यापैकी जे आधी पूर्ण होईल तोपर्यंत असतो.\n(क) ते राष्ट्रपतींच्या मर्जीनुसार (Pleasure of President) पद धारण करतात.\n(ड) पदत्याग केल्यानंतर ते केंद्र किंवा राज्य सरकारच्या अधीन कोणत्याही लाभाच्या पदास पात्र नसतात.\n\nवरीलपैकी कोणती विधाने बरोबर आहेत?\n(१) फक्त (अ) आणि (ब)\n(२) फक्त (अ), (ब) आणि (ड)\n(३) फक्त (ब) आणि (क)\n(४) (अ), (ब), (क) आणि (ड) सर्व",
-    questionEn: "Consider the following statements regarding the Comptroller and Auditor General of India (CAG):\n(a) Appointed by the President under Article 148 of the Constitution.\n(b) Holds office for a term of 6 years or up to the age of 65 years, whichever is earlier.\n(c) Holds office during the pleasure of the President.\n(d) Ineligible for further office under Government of India or any State Government after ceasing to hold office.\n\nWhich of the above statements are CORRECT?\n(1) Only (a) and (b)\n(2) Only (a), (b), and (d)\n(3) Only (b) and (c)\n(4) All (a), (b), (c), and (d)",
+    questionEn: "Consider the following statements regarding the Comptroller and Auditor General of India (CAG):\n(a) Appointed by the President under Article 148 of the Constitution.\n(b) Holds office for a term of 6 years or up to the age of 65 years, whichever is earlier.\n(c) Holds office during the pleasure of the President.\n(d) Ineligible for further office under Government of India or any State Government after ceasing to hold office.\n\nWhich of the above statements are CORRECT?",
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (अ), (ब) आणि (ड)',
@@ -38,7 +38,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्रातील आद्य वृत्तपत्रकार बाळशास्त्री जांभेकर यांच्याविषयी खालीलपैकी कोणते विधान सत्य नाही?\n(१) त्यांनी ६ जानेवारी १८३२ रोजी मराठीतील पहिले वृत्तपत्र 'दर्पण' सुरू केले.\n(२) १८४० मध्ये त्यांनी मराठीतील पहिले मासिक 'दिग्दर्शन' सुरू केले.\n(३) ते मुंबईच्या एल्फिन्स्टन कॉलेजमध्ये मराठीचे पहिले असिस्टंट प्रोफेसर होते.\n(४) त्यांनी 'प्रभाकर' या वृत्तपत्रातून लोकहितवादींची शतपत्रे प्रसिद्ध केली.",
-    questionEn: "Which of the following statements is NOT true regarding Balshastri Jambhekar, the pioneer of Marathi journalism?\n(1) He started Maharashtra's first Marathi newspaper 'Darpan' on 6 January 1832.\n(2) In 1840, he launched the first Marathi magazine 'Digdarshan'.\n(3) He was the first Native Assistant Professor of Marathi at Elphinstone College, Bombay.\n(4) He published Lokhitwadi's 'Shatapatre' through the newspaper 'Prabhakar'.",
+    questionEn: "Which of the following statements is NOT true regarding Balshastri Jambhekar, the pioneer of Marathi journalism?",
     optionsMr: [
       'त्यांनी ६ जानेवारी १८३२ रोजी मराठीतील पहिले वृत्तपत्र \'दर्पण\' सुरू केले.',
       '१८४० मध्ये त्यांनी मराठीतील पहिले मासिक \'दिग्दर्शन\' सुरू केले.',
@@ -64,7 +64,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "गोदावरी नदीवर छत्रपती संभाजीनगर (औरंगाबाद) जिल्ह्यातील पैठणजवळ बांधण्यात आलेल्या 'जायकवाडी धरणाच्या' जलाशयाला कोणत्या संताचे नाव देण्यात आले आहे?\n(१) संत ज्ञानेश्वर सागर\n(२) संत एकनाथ सागर\n(३) संत तुकाराम सागर\n(४) संत नामदेव सागर",
-    questionEn: "The reservoir of the Jayakwadi Dam built on the Godavari River near Paithan in Chhatrapati Sambhajinagar district is named after which saint?\n(1) Sant Dnyaneshwar Sagar\n(2) Sant Eknath Sagar\n(3) Sant Tukaram Sagar\n(4) Sant Namdev Sagar",
+    questionEn: "The reservoir of the Jayakwadi Dam built on the Godavari River near Paithan in Chhatrapati Sambhajinagar district is named after which saint?",
     optionsMr: [
       'संत ज्ञानेश्वर सागर',
       'संत एकनाथ सागर',
@@ -90,7 +90,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "पश्चिम घाटातील (सह्याद्री) जैवविविधता व पर्यावरण संवेदनशील क्षेत्राच्या (ESA) संवर्धनासाठी भारत सरकारने २०१० मध्ये कोणाच्या अध्यक्षतेखाली 'वेस्टर्न घाट्स इकॉलॉजी एक्सपर्ट पॅनेल' (WGEEP) ची स्थापना केली होती?\n(१) डॉ. के. कस्तुरीरंगन\n(२) प्रो. माधव गाडगीळ\n(३) डॉ. एम. एस. स्वामीनाथन\n(४) डॉ. वंदना शिवा",
-    questionEn: "Under whose chairmanship was the 'Western Ghats Ecology Expert Panel' (WGEEP) constituted by the Government of India in 2010 for the conservation of the Western Ghats?\n(1) Dr. K. Kasturirangan\n(2) Prof. Madhav Gadgil\n(3) Dr. M. S. Swaminathan\n(4) Dr. Vandana Shiva",
+    questionEn: "Under whose chairmanship was the 'Western Ghats Ecology Expert Panel' (WGEEP) constituted by the Government of India in 2010 for the conservation of the Western Ghats?",
     optionsMr: [
       'डॉ. के. कस्तुरीरंगन',
       'प्रो. माधव गाडगीळ',
@@ -116,7 +116,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "मानवी रक्तगटांविषयी खालीलपैकी कोणते विधान अचूक आहे?\n(१) 'O' रक्तगटात A आणि B हे दोन्ही प्रतिजन (Antigens) असतात.\n(२) 'AB' रक्तगटाला 'सर्वयोग्य ग्राहक' (Universal Recipient) मानले जाते कारण त्याच्या रक्तामध्ये कोणतेही प्रतिपिंड (Antibodies) नसतात.\n(३) कार्ल लँडस्टेनर यांनी १८६५ मध्ये Rh घटकाचा शोध लावला.\n(४) 'O Negative' रक्तगट फक्त O Positive व्यक्तीलाच दिला जाऊ शकतो.",
-    questionEn: "Which of the following statements regarding human blood groups is ACCURATE?\n(1) Blood group 'O' contains both Antigens A and B.\n(2) Blood group 'AB' is considered the 'Universal Recipient' because it contains no antibodies in its plasma.\n(3) Karl Landsteiner discovered the Rh factor in 1865.\n(4) Blood group 'O Negative' can only be donated to O Positive individuals.",
+    questionEn: "Which of the following statements regarding human blood groups is ACCURATE?",
     optionsMr: [
       '\'O\' रक्तगटात A आणि B हे दोन्ही प्रतिजन (Antigens) असतात.',
       '\'AB\' रक्तगटाला \'सर्वयोग्य ग्राहक\' (Universal Recipient) मानले जाते कारण त्याच्या रक्तामध्ये कोणतेही प्रतिपिंड (Antibodies) नसतात.',
@@ -142,7 +142,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "भारतात 'राजकोषीय जबाबदारी आणि अर्थसंकल्प व्यवस्थापन कायदा' (FRBM Act - Fiscal Responsibility and Budget Management Act) कोणत्या वर्षी संमत करण्यात आला?\n(१) १९९१\n(२) १९९८\n(३) २००३\n(४) २००८",
-    questionEn: "In which year was the 'Fiscal Responsibility and Budget Management Act' (FRBM Act) enacted in India to institutionalize financial discipline?\n(1) 1991\n(2) 1998\n(3) 2003\n(4) 2008",
+    questionEn: "In which year was the 'Fiscal Responsibility and Budget Management Act' (FRBM Act) enacted in India to institutionalize financial discipline?",
     optionsMr: [
       '१९९१',
       '१९९८',
@@ -168,7 +168,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "कोणत्या घटनादुरुस्ती कायद्याद्वारे 'राष्ट्रीय मागासवर्ग आयोगाला' (NCBC - National Commission for Backward Classes) संविधानात कलम ३३८-B समाविष्ट करून घटनात्मक दर्जा देण्यात आला?\n(१) ९९ वी घटनादुरुस्ती\n(२) १०० वी घटनादुरुस्ती\n(३) १०१ वी घटनादुरुस्ती\n(४) १०२ वी घटनादुरुस्ती कायदा २०१८",
-    questionEn: "By which Constitutional Amendment Act was the 'National Commission for Backward Classes' (NCBC) accorded constitutional status by inserting Article 338B in the Constitution?\n(1) 99th Amendment\n(2) 100th Amendment\n(3) 101st Amendment\n(4) 102nd Constitutional Amendment Act, 2018",
+    questionEn: "By which Constitutional Amendment Act was the 'National Commission for Backward Classes' (NCBC) accorded constitutional status by inserting Article 338B in the Constitution?",
     optionsMr: [
       '९९ वी घटनादुरुस्ती',
       '१०० वी घटनादुरुस्ती',
@@ -194,7 +194,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "पंडिता रमाबाई यांनी मुंबईत १८८९ मध्ये बालविधवा व निराधार स्त्रियांसाठी सुरू केलेल्या संस्थेचे नाव काय होते?\n(१) मुक्ती सदन\n(२) शारदा सदन\n(३) कृपा सदन\n(४) प्रीती सदन",
-    questionEn: "What was the name of the institution founded by Pandita Ramabai in Bombay in 1889 for the shelter and education of child widows and destitute women?\n(1) Mukti Sadan\n(2) Sharada Sadan\n(3) Kripa Sadan\n(4) Preeti Sadan",
+    questionEn: "What was the name of the institution founded by Pandita Ramabai in Bombay in 1889 for the shelter and education of child widows and destitute women?",
     optionsMr: [
       'मुक्ती सदन',
       'शारदा सदन',
@@ -220,7 +220,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "गुरुत्वीय लहरींच्या (Gravitational Waves) संशोधनासाठी उभारला जाणारा प्रगत 'लिगो-इंडिया' (LIGO-India) प्रयोगशाळा प्रकल्प महाराष्ट्रातील कोणत्या जिल्ह्यात उभारला जात आहे?\n(१) नागपूर\n(२) हिंगोली (औंढा नागनाथ)\n(३) सातारा\n(४) सिंधुदुर्ग",
-    questionEn: "In which district of Maharashtra is the advanced 'LIGO-India' gravitational-wave observatory project being established?\n(1) Nagpur\n(2) Hingoli (Aundha Nagnath)\n(3) Satara\n(4) Sindhudurg",
+    questionEn: "In which district of Maharashtra is the advanced 'LIGO-India' gravitational-wave observatory project being established?",
     optionsMr: [
       'नागपूर',
       'हिंगोली (औंढा नागनाथ)',
@@ -246,7 +246,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "खालील विधाने व निष्कर्षांचा अभ्यास करून योग्य पर्याय निवडा:\nविधाने:\n१. सर्व नद्या पर्वत आहेत.\n२. काही पर्वत जंगले आहेत.\nनिष्कर्ष:\nI. काही जंगले नद्या आहेत.\nII. काही पर्वत नद्या आहेत.\n\n(१) फक्त निष्कर्ष I सत्य आहे.\n(२) फक्त निष्कर्ष II सत्य आहे.\n(३) निष्कर्ष I व II दोन्ही सत्य आहेत.\n(४) एकही निष्कर्ष सत्य नाही.",
-    questionEn: "Examine the statements and conclusions, and choose the correct option:\nStatements:\n1. All rivers are mountains.\n2. Some mountains are forests.\nConclusions:\nI. Some forests are rivers.\nII. Some mountains are rivers.\n\n(1) Only conclusion I follows.\n(2) Only conclusion II follows.\n(3) Both conclusions I and II follow.\n(4) Neither conclusion follows.",
+    questionEn: "Examine the statements and conclusions, and choose the correct option:\nStatements:\n1. All rivers are mountains.\n2. Some mountains are forests.\nConclusions:\nI. Some forests are rivers.\nII. Some mountains are rivers.",
     optionsMr: [
       'फक्त निष्कर्ष I सत्य आहे.',
       'फक्त निष्कर्ष II सत्य आहे.',
@@ -272,7 +272,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्रातील नदी प्रणाली आणि त्यांना वेगळे करणाऱ्या डोंगररांगा (जलविभाजक) यांच्या जोड्यांपैकी कोणती जोडी अयोग्य आहे?\n(१) गोदावरी आणि भीमा नदी खोरे - हरिश्चंद्र-बालाघाट डोंगररांग\n(२) भीमा आणि कृष्णा नदी खोरे - शंभू-महादेव डोंगररांग\n(३) तापी आणि गोदावरी नदी खोरे - सातमाळा-अजिंठा डोंगररांग\n(४) नर्मदा आणि तापी नदी खोरे - गाविलगड टेकड्या",
-    questionEn: "Which of the following pairs of river basins in Maharashtra and the dividing mountain ranges (water divides) is INCORRECT?\n(1) Godavari and Bhima basins - Harishchandra-Balaghat Range\n(2) Bhima and Krishna basins - Shambhu-Mahadev Range\n(3) Tapi and Godavari basins - Satmala-Ajanta Range\n(4) Narmada and Tapi basins - Gawilgarh Hills",
+    questionEn: "Which of the following pairs of river basins in Maharashtra and the dividing mountain ranges (water divides) is INCORRECT?",
     optionsMr: [
       'गोदावरी आणि भीमा नदी खोरे - हरिश्चंद्र-बालाघाट डोंगररांग',
       'भीमा आणि कृष्णा नदी खोरे - शंभू-महादेव डोंगररांग',
@@ -298,7 +298,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Hard',
     questionMr: "सर्वोच्च न्यायालयाने कोणत्या ऐतिहासिक खटल्यामध्ये संविधानाच्या 'मूलभूत संरचनेचा' (Basic Structure Doctrine) सिद्धांत सर्वप्रथम मांडला?\n(१) शंकरी प्रसाद खटला (१९५१)\n(२) गोलकनाथ खटला (१९६७)\n(३) केशवानंद भारती विरुद्ध केरळ राज्य (१९७३)\n(४) मिनर्व्हा मिल्स खटला (१९८०)",
-    questionEn: "In which landmark judgment did the Supreme Court of India propound the 'Basic Structure Doctrine' of the Constitution?\n(1) Shankari Prasad case (1951)\n(2) Golaknath case (1967)\n(3) Kesavananda Bharati v. State of Kerala (1973)\n(4) Minerva Mills case (1980)",
+    questionEn: "In which landmark judgment did the Supreme Court of India propound the 'Basic Structure Doctrine' of the Constitution?",
     optionsMr: [
       'शंकरी प्रसाद खटला (१९५१)',
       'गोलकनाथ खटला (१९६७)',
@@ -324,7 +324,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "चलनवाढीवर (Inflation) नियंत्रण मिळवण्यासाठी रिझर्व्ह बँक ऑफ इंडिया (RBI) खालीलपैकी कोणते उपाय योजते?\n(अ) रेपो रेट (Repo Rate) वाढवणे\n(ब) रोख राखीव प्रमाण (CRR) वाढवणे\n(क) खुल्या बाजारात सरकारी रोख्यांची विक्री करणे (Open Market Sales)\n(ड) रिव्हर्स रेपो रेट कमी करणे\n\nयोग्य पर्याय निवडा:\n(१) फक्त (अ) आणि (ब)\n(२) फक्त (अ), (ब) आणि (क)\n(३) फक्त (क) आणि (ड)\n(४) (अ), (ब), (क) आणि (ड) सर्व",
-    questionEn: "Which of the following measures are adopted by the Reserve Bank of India (RBI) to curb inflation?\n(a) Increasing the Repo Rate\n(b) Increasing Cash Reserve Ratio (CRR)\n(c) Open market sales of government securities\n(d) Decreasing Reverse Repo Rate\n\nChoose the correct option:\n(1) Only (a) and (b)\n(2) Only (a), (b), and (c)\n(3) Only (c) and (d)\n(4) All (a), (b), (c), and (d)",
+    questionEn: "Which of the following measures are adopted by the Reserve Bank of India (RBI) to curb inflation?\n(a) Increasing the Repo Rate\n(b) Increasing Cash Reserve Ratio (CRR)\n(c) Open market sales of government securities\n(d) Decreasing Reverse Repo Rate\n\nChoose the correct option:",
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (अ), (ब) आणि (क)',
@@ -350,7 +350,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "ध्वनी लहरींच्या वेगासंदर्भात (Speed of Sound) खालीलपैकी कोणते विधान सत्य आहे?\n(१) ध्वनीचा वेग निर्वात पोकळीमध्ये (Vacuum) सर्वाधिक असतो.\n(२) ध्वनीचा वेग वायू माध्यमापेक्षा द्रव माध्यमात कमी असतो.\n(३) ध्वनीचा वेग स्थायू माध्यमात सर्वाधिक, त्यानंतर द्रवात आणि वायूत सर्वात कमी असतो.\n(४) तापमानात वाढ झाल्यास ध्वनीचा हवेतील वेग कमी होतो.",
-    questionEn: "Which of the following statements regarding the speed of sound is TRUE?\n(1) The speed of sound is maximum in a vacuum.\n(2) The speed of sound is lower in liquid media than in gaseous media.\n(3) The speed of sound is maximum in solids, followed by liquids, and least in gases.\n(4) An increase in temperature decreases the speed of sound in air.",
+    questionEn: "Which of the following statements regarding the speed of sound is TRUE?",
     optionsMr: [
       'ध्वनीचा वेग निर्वात पोकळीमध्ये (Vacuum) सर्वाधिक असतो.',
       'ध्वनीचा वेग वायू माध्यमापेक्षा द्रव माध्यमात कमी असतो.',
@@ -376,7 +376,7 @@ export const MPSC_RAJYASEVA_PRE_2021: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्रातील कोणत्या पाणथळ जागेला (Wetland) महाराष्ट्रातील 'पहिले रामसर स्थळ' (First Ramsar Site of Maharashtra) म्हणून २०१९-२०२० मध्ये घोषित करण्यात आले?\n(१) लोणार सरोवर (बुलढाणा)\n(२) नांदूर मध्यमेश्वर (नाशिक)\n(३) ठाणे क्रीक फ्लेमिंगो अभयारण्य\n(४) कास पठार (सातारा)",
-    questionEn: "Which wetland was designated as the 'First Ramsar Site of Maharashtra' in 2019-2020?\n(1) Lonar Lake (Buldhana)\n(2) Nandur Madhmeshwar (Nashik)\n(3) Thane Creek Flamingo Sanctuary\n(4) Kaas Plateau (Satara)",
+    questionEn: "Which wetland was designated as the 'First Ramsar Site of Maharashtra' in 2019-2020?",
     optionsMr: [
       'लोणार सरोवर (बुलढाणा)',
       'नांदूर मध्यमेश्वर (नाशिक)',

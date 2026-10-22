@@ -12,7 +12,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "भारताचे उपराष्ट्रपती हे राज्यसभेचे 'पदसिद्ध सभापती' (Ex-officio Chairman) असतात, ही तरतूद संविधानाच्या कोणत्या कलमात नमूद आहे?\n(१) कलम ६३\n(२) कलम ६४\n(३) कलम ६६\n(४) कलम ६९",
-    questionEn: "Under which Article of the Indian Constitution is it provided that the Vice-President of India shall be ex-officio Chairman of the Rajya Sabha (Council of States)?\n(1) Article 63\n(2) Article 64\n(3) Article 66\n(4) Article 69",
+    questionEn: "Under which Article of the Indian Constitution is it provided that the Vice-President of India shall be ex-officio Chairman of the Rajya Sabha (Council of States)?",
     optionsMr: [
       'कलम ६३',
       'कलम ६४',
@@ -38,7 +38,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "१८५७ च्या स्वातंत्र्य समरादरम्यान कोल्हापूर येथे झालेल्या उठावाचे नेतृत्व खालीलपैकी कोणी केले होते?\n(१) चीमासाहेब (शहाजी छत्रपती दुसरे)\n(२) रंगो बापूजी गुप्ते\n(३) तात्या टोपे\n(४) भागोजी नाईक",
-    questionEn: "During the Revolt of 1857, who led the uprising in Kolhapur against the British rule?\n(1) Chhimasaheb (Shahaji Chhatrapati II)\n(2) Rango Bapuji Gupte\n(3) Tatya Tope\n(4) Bhagoji Naik",
+    questionEn: "During the Revolt of 1857, who led the uprising in Kolhapur against the British rule?",
     optionsMr: [
       'चीमासाहेब (शहाजी छत्रपती दुसरे)',
       'रंगो बापूजी गुप्ते',
@@ -64,7 +64,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "मुंबई ते नाशिक दरम्यान राष्ट्रीय महामार्गावर सह्याद्री पर्वतातील कोणता प्रसिद्ध घाट लागतो?\n(१) बोर घाट\n(२) थळ घाट (कसारा घाट)\n(३) कुंभारली घाट\n(४) माळशेज घाट",
-    questionEn: "Which famous pass in the Sahyadri ranges connects Mumbai and Nashik along the National Highway?\n(1) Bhor Ghat\n(2) Thal Ghat (Kasara Ghat)\n(3) Kumbharli Ghat\n(4) Malshej Ghat",
+    questionEn: "Which famous pass in the Sahyadri ranges connects Mumbai and Nashik along the National Highway?",
     optionsMr: [
       'बोर घाट',
       'थळ घाट (कसारा घाट)',
@@ -90,7 +90,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "निकटदृष्टिता (Myopia / Shortsightedness) असणाऱ्या व्यक्तीला जवळच्या वस्तू स्पष्ट दिसतात पण दूरच्या वस्तू अस्पष्ट दिसतात. हा दृष्टीदोष दूर करण्यासाठी कोणत्या भिंगाचा चष्मा वापरला जातो?\n(१) बहिर्गोल भिंग (Convex lens)\n(२) अंतर्गोल भिंग (Concave lens)\n(३) द्विकेंद्री भिंग (Bifocal lens)\n(४) दंडगोलाकार भिंग (Cylindrical lens)",
-    questionEn: "A person suffering from Myopia (Shortsightedness) can see nearby objects clearly but distant objects appear blurry. Which lens is prescribed in eyeglasses to correct this defect?\n(1) Convex lens\n(2) Concave lens\n(3) Bifocal lens\n(4) Cylindrical lens",
+    questionEn: "A person suffering from Myopia (Shortsightedness) can see nearby objects clearly but distant objects appear blurry. Which lens is prescribed in eyeglasses to correct this defect?",
     optionsMr: [
       'बहिर्गोल भिंग (Convex lens)',
       'अंतर्गोल भिंग (Concave lens)',
@@ -116,7 +116,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "रिझर्व्ह बँक ऑफ इंडियाच्या (RBI) मौद्रिक धोरण समितीमध्ये (Monetary Policy Committee - MPC) एकूण किती सदस्य असतात?\n(१) ४ सदस्य\n(२) ५ सदस्य\n(३) ६ सदस्य (३ RBI चे + ३ केंद्र सरकारचे)\n(४) ८ सदस्य",
-    questionEn: "How many total members constitute the Monetary Policy Committee (MPC) of the Reserve Bank of India?\n(1) 4 members\n(2) 5 members\n(3) 6 members (3 from RBI + 3 nominated by Central Government)\n(4) 8 members",
+    questionEn: "How many total members constitute the Monetary Policy Committee (MPC) of the Reserve Bank of India?",
     optionsMr: [
       '४ सदस्य',
       '५ सदस्य',
@@ -142,7 +142,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "घड्याळात दुपारी ३ वाजून ४० मिनिटे (3:40) झाली असता तास काटा व मिनिट काटा यांच्यामध्ये किती अंशाचा (Degrees) कोन तयार होईल?\n(१) १२०°\n(२) १३०°\n(३) १३५°\n(४) १४०°",
-    questionEn: "What is the angle formed between the hour hand and the minute hand of a clock at 3:40 PM?\n(1) 120°\n(2) 130°\n(3) 135°\n(4) 140°",
+    questionEn: "What is the angle formed between the hour hand and the minute hand of a clock at 3:40 PM?",
     optionsMr: [
       '१२०°',
       '१३०°',
@@ -168,7 +168,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "'नीलकंठ' आणि 'लंबोदर' ही खालीलपैकी कोणत्या समासाची उदाहरणे आहेत?\n(१) तत्पुरुष समास\n(२) बहुव्रीही समास\n(३) द्वंद्व समास\n(४) अव्ययीभाव समास",
-    questionEn: "'Neelkanth' and 'Lambodar' are examples of which type of Samas (Compound word) in Marathi Grammar?\n(1) Tatpurush Samas\n(2) Bahuvrihi Samas\n(3) Dvandva Samas\n(4) Avyayibhav Samas",
+    questionEn: "'Neelkanth' and 'Lambodar' are examples of which type of Samas (Compound word) in Marathi Grammar?",
     optionsMr: [
       'तत्पुरुष समास',
       'बहुव्रीही समास',
@@ -194,7 +194,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "Choose the correct indirect narration for the given sentence:\nHe said to me, 'Where are you going for your vacation?'\n(१) He asked me where I was going for my vacation.\n(२) He told me where was I going for my vacation.\n(३) He asked me that where I am going for my vacation.\n(४) He enquired me where you were going for your vacation.",
-    questionEn: "Choose the correct indirect narration for the given sentence:\nHe said to me, 'Where are you going for your vacation?'\n(1) He asked me where I was going for my vacation.\n(2) He told me where was I going for my vacation.\n(3) He asked me that where I am going for my vacation.\n(4) He enquired me where you were going for your vacation.",
+    questionEn: "Choose the correct indirect narration for the given sentence:\nHe said to me, 'Where are you going for your vacation?'",
     optionsMr: [
       'He asked me where I was going for my vacation.',
       'He told me where was I going for my vacation.',
@@ -220,7 +220,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "महाराष्ट्र विधानसभेत (Maharashtra Legislative Assembly) एकूण किती निर्वाचित (Elected) जागा आहेत?\n(१) २५०\n(२) २८८\n(३) २८९\n(४) ३००",
-    questionEn: "What is the total number of elected seats in the Maharashtra State Legislative Assembly (Vidhan Sabha)?\n(1) 250\n(2) 288\n(3) 289\n(4) 300",
+    questionEn: "What is the total number of elected seats in the Maharashtra State Legislative Assembly (Vidhan Sabha)?",
     optionsMr: [
       '२५०',
       '२८८',
@@ -246,7 +246,7 @@ export const MPSC_COMBINE_PRE_2025: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "खोलीच्या तापमानाला (Room temperature) द्रव स्थितीत आढळणारा एकमेव 'अधातू' (Non-metal) कोणता?\n(१) पारा (Mercury)\n(२) ब्रोमीन (Bromine)\n(३) क्लोरीन (Chlorine)\n(४) आयोडीन (Iodine)",
-    questionEn: "Which is the only 'non-metal' that exists in liquid state at normal room temperature?\n(1) Mercury\n(2) Bromine\n(3) Chlorine\n(4) Iodine",
+    questionEn: "Which is the only 'non-metal' that exists in liquid state at normal room temperature?",
     optionsMr: [
       'पारा (Mercury)',
       'ब्रोमीन (Bromine)',

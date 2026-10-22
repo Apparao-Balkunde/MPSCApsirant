@@ -44,6 +44,7 @@ import {
 } from '../data/mpscAffiliateBooks';
 import { getStoredUpiId } from '../data/mpscEarningStrategiesData';
 import { AcademySponsorshipBanner } from './AcademySponsorshipBanner';
+import { cleanQuestionText } from '../utils/cleanQuestionText';
 
 interface ExamResultViewProps {
   result: ExamResult;
@@ -638,7 +639,7 @@ export const ExamResultView: React.FC<ExamResultViewProps> = ({
 
                 {/* Question Text */}
                 <div className="text-stone-900 font-semibold text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                  {isMr ? q.questionMr : q.questionEn}
+                  {cleanQuestionText(isMr ? q.questionMr : q.questionEn)}
                 </div>
 
                 {/* Options List - Formatted matching image 2 */}

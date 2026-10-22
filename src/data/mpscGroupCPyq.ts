@@ -12,7 +12,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "भारतीय संविधानातील कलम २४३-I (243-I) अन्वये घटकराज्यात 'राज्य वित्त आयोग' (State Finance Commission) गठीत करण्याचा अधिकार खालीलपैकी कोणाला आहे?\n(१) राज्याचे मुख्यमंत्री\n(२) राज्याचे राज्यपाल\n(३) राज्य विधानसभेचे अध्यक्ष\n(४) भारताचे राष्ट्रपती",
-    questionEn: "Under Article 243-I of the Constitution of India, who has the power to constitute a 'State Finance Commission' in a State?\n(1) Chief Minister of the State\n(2) Governor of the State\n(3) Speaker of State Legislative Assembly\n(4) President of India",
+    questionEn: "Under Article 243-I of the Constitution of India, who has the power to constitute a 'State Finance Commission' in a State?",
     optionsMr: [
       'राज्याचे मुख्यमंत्री',
       'राज्याचे राज्यपाल',
@@ -38,7 +38,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "१९४२ च्या 'भारत छोडो' आंदोलनादरम्यान सातारा येथे स्थापन झालेल्या समांतर सरकारचे (प्रतिसरकार) प्रमुख कोण होते?\n(१) क्रांतिसिंह नाना पाटील\n(२) किसन वीर\n(३) नागनाथअण्णा नायकवडी\n(४) यशवंतराव चव्हाण",
-    questionEn: "Who was the leader/head of the parallel government ('Prati Sarkar') established in Satara during the Quit India Movement of 1942?\n(1) Krantisimha Nana Patil\n(2) Kisan Veer\n(3) Nagnathanna Nayakwadi\n(4) Yashwantrao Chavan",
+    questionEn: "Who was the leader/head of the parallel government ('Prati Sarkar') established in Satara during the Quit India Movement of 1942?",
     optionsMr: [
       'क्रांतिसिंह नाना पाटील',
       'किसन वीर',
@@ -64,7 +64,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "महाराष्ट्रामध्ये ॲल्युमिनियमचा कच्चा माल असणाऱ्या 'बॉक्साईट' (Bauxite) या खनिजाचे सर्वाधिक साठे प्रामुख्याने कोणत्या जिल्ह्यात आढळतात?\n(१) कोल्हापूर, रत्नागिरी व रायगड\n(२) नागपूर व वर्धा\n(३) बीड व उस्मानाबाद\n(४) जळगाव व धुळे",
-    questionEn: "In Maharashtra, in which districts are the richest deposits of 'Bauxite', the primary ore of aluminium, mainly found?\n(1) Kolhapur, Ratnagiri, and Raigad\n(2) Nagpur and Wardha\n(3) Beed and Osmanabad\n(4) Jalgaon and Dhule",
+    questionEn: "In Maharashtra, in which districts are the richest deposits of 'Bauxite', the primary ore of aluminium, mainly found?",
     optionsMr: [
       'कोल्हापूर, रत्नागिरी व रायगड',
       'नागपूर व वर्धा',
@@ -90,7 +90,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "ध्वनीच्या वेगाविषयी खालीलपैकी कोणते विधान सत्य आहे?\n(१) ध्वनीचा वेग स्थायू माध्यमात सर्वाधिक आणि वायूत सर्वात कमी असतो.\n(२) ध्वनीचा वेग निर्वात पोकळीत (Vacuum) सर्वाधिक असतो.\n(३) हवेचे तापमान वाढल्यास ध्वनीचा वेग कमी होतो.\n(४) ध्वनी हा अनुतरंग नसून फक्त विद्युतचुंबकीय तरंग आहे.",
-    questionEn: "Which of the following statements is TRUE regarding the speed of sound?\n(1) The speed of sound is highest in solids and lowest in gases.\n(2) The speed of sound is maximum in a vacuum.\n(3) When air temperature increases, speed of sound decreases.\n(4) Sound is purely an electromagnetic wave and not a longitudinal wave.",
+    questionEn: "Which of the following statements is TRUE regarding the speed of sound?",
     optionsMr: [
       'ध्वनीचा वेग स्थायू माध्यमात सर्वाधिक आणि वायूत सर्वात कमी असतो.',
       'ध्वनीचा वेग निर्वात पोकळीत (Vacuum) सर्वाधिक असतो.',
@@ -116,7 +116,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "कृषी व ग्रामीण विकासाला पतपुरवठा करणारी शिखर संस्था 'नाबार्ड' (NABARD) ची स्थापना कोणत्या समितीच्या शिफारशीनुसार आणि कोणत्या वर्षी झाली?\n(१) नरसिंहम समिती - १९९१\n(२) बी. शिवरामन समिती - १२ जुलै १९८२\n(३) चक्रवर्ती समिती - १९८५\n(४) रघुराम राजन समिती - २००८",
-    questionEn: "NABARD (National Bank for Agriculture and Rural Development), the apex rural refinancing institution, was established on the recommendation of which committee and in which year?\n(1) Narasimham Committee - 1991\n(2) B. Sivaraman Committee - 12 July 1982\n(3) Chakravarty Committee - 1985\n(4) Raghuram Rajan Committee - 2008",
+    questionEn: "NABARD (National Bank for Agriculture and Rural Development), the apex rural refinancing institution, was established on the recommendation of which committee and in which year?",
     optionsMr: [
       'नरसिंहम समिती - १९९१',
       'बी. शिवरामन समिती - १२ जुलै १९८२',
@@ -142,7 +142,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "महाराष्ट्रातील 'राधानगरी' अभयारण्य (कोल्हापूर) खालीलपैकी कोणत्या वन्यजीवासाठी प्रामुख्याने प्रसिद्ध आहे?\n(१) भारतीय गवा (Bison)\n(२) शेकरू (खार)\n(३) माळढोक (Great Indian Bustard)\n(४) पांढरा वाघ",
-    questionEn: "The 'Radhanagari Wildlife Sanctuary' in Kolhapur district of Maharashtra is primarily famous for which wildlife animal?\n(1) Indian Gaur (Bison)\n(2) Shekru (Giant Squirrel)\n(3) Maldhok (Great Indian Bustard)\n(4) White Tiger",
+    questionEn: "The 'Radhanagari Wildlife Sanctuary' in Kolhapur district of Maharashtra is primarily famous for which wildlife animal?",
     optionsMr: [
       'भारतीय गवा (Bison)',
       'शेकरू (खार)',
@@ -168,7 +168,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "एका वर्गातील २५ विद्यार्थ्यांचे सरासरी वय १५ वर्षे आहे. वर्गातील शिक्षकांचे वय मिळवल्यास सरासरी वय १ वर्षाने वाढते. तर शिक्षकांचे वय किती वर्षे असेल?\n(१) ३९ वर्षे\n(२) ४१ वर्षे\n(३) ४० वर्षे\n(४) ४२ वर्षे",
-    questionEn: "The average age of 25 students in a class is 15 years. If the age of the teacher is included, the average age increases by 1 year. What is the age of the teacher?\n(1) 39 years\n(2) 41 years\n(3) 40 years\n(4) 42 years",
+    questionEn: "The average age of 25 students in a class is 15 years. If the age of the teacher is included, the average age increases by 1 year. What is the age of the teacher?",
     optionsMr: [
       '३९ वर्षे',
       '४१ वर्षे',
@@ -194,7 +194,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "'रामाने रावणास मारले.' या वाक्यातील प्रयोग ओळखा:\n(१) कर्तरी प्रयोग\n(२) कर्मणी प्रयोग\n(३) भावे प्रयोग\n(४) संकर प्रयोग",
-    questionEn: "Identify the 'Prayog' (Voice/Construction) in the Marathi sentence: 'रामाने रावणास मारले.' (Rama killed Ravana):\n(1) Kartari Prayog\n(2) Karmani Prayog\n(3) Bhave Prayog\n(4) Sankar Prayog",
+    questionEn: "Identify the 'Prayog' (Voice/Construction) in the Marathi sentence: 'रामाने रावणास मारले.' (Rama killed Ravana):",
     optionsMr: [
       'कर्तरी प्रयोग',
       'कर्मणी प्रयोग',
@@ -220,7 +220,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "Fill in the blank with the correct form of the verb:\n'Neither the teacher nor the students _______ present in the seminar yesterday.'\n(१) was\n(२) were\n(३) is\n(४) are",
-    questionEn: "Fill in the blank with the correct form of the verb:\n'Neither the teacher nor the students _______ present in the seminar yesterday.'\n(1) was\n(2) were\n(3) is\n(4) are",
+    questionEn: "Fill in the blank with the correct form of the verb:\n'Neither the teacher nor the students _______ present in the seminar yesterday.'",
     optionsMr: [
       'was',
       'were',
@@ -246,7 +246,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्र शासनातर्फे दिला जाणारा सर्वोच्च नागरी सन्मान 'महाराष्ट्र भूषण' पुरस्काराचे प्रथम मानकरी (१९९६) कोण होते?\n(१) पु. ल. देशपांडे\n(२) लता मंगेशकर\n(३) सुनील गावस्कर\n(४) डॉ. विजय भटकर",
-    questionEn: "Who was the first recipient of the 'Maharashtra Bhushan Award' (1996), the highest civilian honour conferred by the Government of Maharashtra?\n(1) P. L. Deshpande\n(2) Lata Mangeshkar\n(3) Sunil Gavaskar\n(4) Dr. Vijay Bhatkar",
+    questionEn: "Who was the first recipient of the 'Maharashtra Bhushan Award' (1996), the highest civilian honour conferred by the Government of Maharashtra?",
     optionsMr: [
       'पु. ल. देशपांडे',
       'लता मंगेशकर',
@@ -272,7 +272,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "भारतीय राज्यघटनेतील कलम २१-A (Article 21-A) अन्वये कोणत्या वयोगटातील मुलांना मोफत व सक्तीचे शिक्षण मिळणे हा मूलभूत हक्क घोषित करण्यात आला आहे?\n(१) जन्म ते ६ वर्षे\n(२) ६ ते १४ वर्षे\n(३) ६ ते १८ वर्षे\n(४) ८ ते १६ वर्षे",
-    questionEn: "Under Article 21-A of the Indian Constitution, free and compulsory education is guaranteed as a fundamental right for children of which age group?\n(1) Birth to 6 years\n(2) 6 to 14 years\n(3) 6 to 18 years\n(4) 8 to 16 years",
+    questionEn: "Under Article 21-A of the Indian Constitution, free and compulsory education is guaranteed as a fundamental right for children of which age group?",
     optionsMr: [
       'जन्म ते ६ वर्षे',
       '६ ते १४ वर्षे',
@@ -298,7 +298,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "राजर्षी छत्रपती शाहू महाराजांनी कोल्हापूर संस्थानात मागासवर्गीय प्रजेसाठी ५०% आरक्षणाची ऐतिहासिक घोषणा कोणत्या तारखेला केली?\n(१) २६ जुलै १९०२\n(२) १ मे १९०५\n(३) १५ ऑगस्ट १९११\n(४) २६ जानेवारी १९१८",
-    questionEn: "On which date did Rajarshi Chhatrapati Shahu Maharaj make the historic proclamation of 50% reservation for backward classes in Kolhapur State?\n(1) 26 July 1902\n(2) 01 May 1905\n(3) 15 August 1911\n(4) 26 January 1918",
+    questionEn: "On which date did Rajarshi Chhatrapati Shahu Maharaj make the historic proclamation of 50% reservation for backward classes in Kolhapur State?",
     optionsMr: [
       '२६ जुलै १९०२',
       '१ मे १९०५',
@@ -324,7 +324,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "महाराष्ट्रातील खालीलपैकी कोणती प्रमुख नदी 'पश्चिमवाहिनी' (West flowing) असून खचदरीतून (Rift Valley) वाहते?\n(१) गोदावरी\n(२) भीमा\n(३) तापी\n(४) कृष्णा",
-    questionEn: "Which of the following major rivers in Maharashtra is 'West-flowing' and flows through a rift valley?\n(1) Godavari\n(2) Bhima\n(3) Tapi\n(4) Krishna",
+    questionEn: "Which of the following major rivers in Maharashtra is 'West-flowing' and flows through a rift valley?",
     optionsMr: [
       'गोदावरी',
       'भीमा',
@@ -350,7 +350,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "शुद्ध पाण्याचे (Pure Water) २५°C तापमानाला असणारे pH मूल्य किती असते?\n(१) ०\n(२) ७ (उदासीन)\n(३) १४\n(४) १",
-    questionEn: "What is the pH value of pure neutral water at 25°C?\n(1) 0\n(2) 7 (Neutral)\n(3) 14\n(4) 1",
+    questionEn: "What is the pH value of pure neutral water at 25°C?",
     optionsMr: [
       '०',
       '७ (उदासीन)',
@@ -376,7 +376,7 @@ export const MPSC_GROUP_C_PYQ: Question[] = [
     exam: 'Combine',
     difficulty: 'Moderate',
     questionMr: "भारतात 'वस्तू व सेवा कर' (GST) कोणत्या घटनादुरुस्ती कायद्यान्वये लागू करण्यात आला आणि तो कोणत्या तारखेपासून देशभरात प्रभावी ठरला?\n(१) १०० वी घटनादुरुस्ती - १ एप्रिल २०१७\n(२) १०१ वी घटनादुरुस्ती - १ जुलै २०१७\n(३) १०२ वी घटनादुरुस्ती - १ जानेवारी २०१८\n(४) १०३ वी घटनादुरुस्ती - १ एप्रिल २०१९",
-    questionEn: "By which Constitutional Amendment Act was the 'Goods and Services Tax' (GST) introduced in India, and from which date did it come into force nationwide?\n(1) 100th Amendment - 01 April 2017\n(2) 101st Amendment - 01 July 2017\n(3) 102nd Amendment - 01 January 2018\n(4) 103rd Amendment - 01 April 2019",
+    questionEn: "By which Constitutional Amendment Act was the 'Goods and Services Tax' (GST) introduced in India, and from which date did it come into force nationwide?",
     optionsMr: [
       '१०० वी घटनादुरुस्ती - १ एप्रिल २०१७',
       '१०१ वी घटनादुरुस्ती - १ जुलै २०१७',

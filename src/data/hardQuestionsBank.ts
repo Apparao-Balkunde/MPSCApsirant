@@ -69,7 +69,7 @@ export const HARD_QUESTIONS_BANK: Question[] = [
     subtopic: 'महाड चवदार तळे व नारायण मेघाजी लोखंडे',
     exam: 'Both',
     difficulty: 'Hard',
-    questionEn: 'Match List-I (Historic Events/Organizations) with List-II (Key Personalities/Dates):\nList-I:\n(P) Mahad Satyagraha (Chavdar Tale entry)\n(Q) Manusmriti Dahan Din\n(R) Bombay Mill Hands Association\n(S) Independent Labour Party (स्वतंत्र मजूर पक्ष)\n\nList-II:\n1. 25 December 1927\n2. 20 March 1927\n3. August 1936\n4. 1890 (Narayan Meghaji Lokhande)',
+    questionEn: "Match List-I (Historic Events/Organizations) with List-II (Key Personalities/Dates):\nList-I:\n(P) Mahad Satyagraha (Chavdar Tale entry)\n(Q) Manusmriti Dahan Din\n(R) Bombay Mill Hands Association\n(S) Independent Labour Party (स्वतंत्र मजूर पक्ष)\n\nList-II:",
     questionMr: 'सूची-१ (ऐतिहासिक घटना/संघटना) व सूची-२ (संबंधित दिनांक/व्यक्ती) यांच्या योग्य जोड्या जुळवा:\nसूची-१:\n(P) महाड चवदार तळे सत्याग्रह\n(Q) मनुस्मृती दहन दिन\n(R) बॉम्बे मिल हँड्स असोसिएशन\n(S) स्वतंत्र मजूर पक्ष (Independent Labour Party)\n\nसूची-२:\n१. २५ डिसेंबर १९२७\n२. २० मार्च १९२७\n३. ऑगस्ट १९३६\n४. १८९० (नारायण मेघाजी लोखंडे)',
     optionsEn: [
       'P-2, Q-1, R-4, S-3',
@@ -158,7 +158,7 @@ export const HARD_QUESTIONS_BANK: Question[] = [
     subtopic: 'घटनेची मूलभूत संरचना (Basic Structure Doctrine)',
     exam: 'Rajyaseva',
     difficulty: 'Hard',
-    questionEn: 'Arrange the following landmark Supreme Court judgments regarding the balance between Fundamental Rights and Directive Principles in chronological order:\n1. Minerva Mills vs. Union of India\n2. Kesavananda Bharati vs. State of Kerala\n3. Shankari Prasad vs. Union of India\n4. Golaknath vs. State of Punjab',
+    questionEn: "Arrange the following landmark Supreme Court judgments regarding the balance between Fundamental Rights and Directive Principles in chronological order:",
     questionMr: 'मूलभूत हक्क व मार्गदर्शक तत्त्वांच्या संघर्षाबाबतच्या सर्वोच्च न्यायालयाच्या खालील ऐतिहासिक खटल्यांचा योग्य कालानुक्रम (Chronological Order) लावा:\n१. मिनर्व्हा मिल्स विरुद्ध भारत सरकार\n२. केशवानंद भारती विरुद्ध केरळ राज्य\n३. शंकरी प्रसाद विरुद्ध भारत सरकार\n४. गोलकनाथ विरुद्ध पंजाब राज्य',
     optionsEn: [
       '3 → 4 → 2 → 1',

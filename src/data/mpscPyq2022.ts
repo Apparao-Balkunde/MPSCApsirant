@@ -11,7 +11,7 @@ export const MPSC_PYQ_2022: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "भारतीय राज्यघटनेत मूलभूत कर्तव्यांचा (Fundamental Duties) समावेश कोणत्या समितीच्या शिफारशीवरून आणि कितव्या घटनादुरुस्तीने करण्यात आला?\n(१) सरकारिया आयोग - ४४ वी घटनादुरुस्ती १९७८\n(२) सरदार स्वर्णसिंह समिती - ४२ वी घटनादुरुस्ती १९७६\n(३) न्या. वर्मा समिती - ८६ वी घटनादुरुस्ती २००२\n(४) बलवंतराय मेहता समिती - ७३ वी घटनादुरुस्ती १९९२",
-    questionEn: "On the recommendation of which committee and by which constitutional amendment were Fundamental Duties added to the Indian Constitution?\n(1) Sarkaria Commission - 44th Amendment 1978\n(2) Sardar Swaran Singh Committee - 42nd Amendment 1976\n(3) Justice Verma Committee - 86th Amendment 2002\n(4) Balwant Rai Mehta Committee - 73rd Amendment 1992",
+    questionEn: "On the recommendation of which committee and by which constitutional amendment were Fundamental Duties added to the Indian Constitution?",
     optionsMr: [
       'सरकारिया आयोग - ४४ वी घटनादुरुस्ती १९७८',
       'सरदार स्वर्णसिंह समिती - ४२ वी घटनादुरुस्ती १९७६',
@@ -37,7 +37,7 @@ export const MPSC_PYQ_2022: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "१८४९ मध्ये मुंबईत 'परमहंस सभा' (Paramahansa Sabha) ची स्थापना खालीलपैकी कोणी केली?\n(१) दादोबा पांडुरंग तर्खडकर\n(२) जगन्नाथ शंकरशेट\n(३) गोपाळ हरी देशमुख (लोकहितवादी)\n(४) डॉ. आत्माराम पांडुरंग",
-    questionEn: "Who among the following founded the 'Paramahansa Sabha' in Bombay in 1849?\n(1) Dadoba Pandurang Tarkhadkar\n(2) Jagannath Shankarsheth\n(3) Gopal Hari Deshmukh (Lokhitwadi)\n(4) Dr. Atmaram Pandurang",
+    questionEn: "Who among the following founded the 'Paramahansa Sabha' in Bombay in 1849?",
     optionsMr: [
       'दादोबा पांडुरंग तर्खडकर',
       'जगन्नाथ शंकरशेट',
@@ -63,7 +63,7 @@ export const MPSC_PYQ_2022: Question[] = [
     exam: 'Combine',
     difficulty: 'Easy',
     questionMr: "महाराष्ट्रातील 'दक्षिण गंगा' म्हणून ओळखल्या जाणाऱ्या गोदावरी नदीचा उगम कोठे होतो?\n(१) महाबळेश्वर (सातारा)\n(२) त्र्यंबकेश्वर (नाशिक)\n(३) भीमाशंकर (पुणे)\n(४) मुलताई (सातपुडा)",
-    questionEn: "Where does the Godavari River, often referred to as the 'Dakshin Ganga' of Maharashtra, originate?\n(1) Mahabaleshwar (Satara)\n(2) Trimbakeshwar (Nashik)\n(3) Bhimashankar (Pune)\n(4) Multai (Satpura)",
+    questionEn: "Where does the Godavari River, often referred to as the 'Dakshin Ganga' of Maharashtra, originate?",
     optionsMr: [
       'महाबळेश्वर (सातारा)',
       'त्र्यंबकेश्वर (नाशिक)',
@@ -89,7 +89,7 @@ export const MPSC_PYQ_2022: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "नियोजना आयोगाची (Planning Commission) जागा घेणाऱ्या 'नीती आयोगा'ची (NITI Aayog) स्थापना कोणत्या दिवशी करण्यात आली?\n(१) १ जानेवारी २०१४\n(२) १ जानेवारी २०१५\n(३) १५ ऑगस्ट २०१४\n(४) १ एप्रिल २०१५",
-    questionEn: "On which date was 'NITI Aayog' established, replacing the erstwhile Planning Commission of India?\n(1) 1 January 2014\n(2) 1 January 2015\n(3) 15 August 2014\n(4) 1 April 2015",
+    questionEn: "On which date was 'NITI Aayog' established, replacing the erstwhile Planning Commission of India?",
     optionsMr: [
       '१ जानेवारी २०१४',
       '१ जानेवारी २०१५',

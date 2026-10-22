@@ -26,6 +26,7 @@ import {
   DailyQuizAttempt,
   CURATED_DEFAULT_DAILY_QUESTIONS
 } from '../services/dailyQuizService';
+import { cleanQuestionText } from '../utils/cleanQuestionText';
 
 interface DailyQuizCardProps {
   language: 'mr' | 'en';
@@ -524,7 +525,7 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
                       {currentQ.subtopic && <span className="text-stone-500">• {currentQ.subtopic}</span>}
                     </div>
                     <p className="text-base sm:text-lg font-bold text-stone-100 leading-relaxed">
-                      {quizLang === 'mr' ? currentQ.questionMr : currentQ.questionEn}
+                      {cleanQuestionText(quizLang === 'mr' ? currentQ.questionMr : currentQ.questionEn)}
                     </p>
                   </div>
 
@@ -770,7 +771,7 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
                     </div>
 
                     <p className="text-sm sm:text-base font-bold text-stone-100 leading-relaxed">
-                      {quizLang === 'mr' ? q.questionMr : q.questionEn}
+                      {cleanQuestionText(quizLang === 'mr' ? q.questionMr : q.questionEn)}
                     </p>
 
                     {/* Options list */}

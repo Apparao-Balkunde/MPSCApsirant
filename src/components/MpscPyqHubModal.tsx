@@ -41,6 +41,7 @@ import { MPSC_COMBINE_PRE_2019, MPSC_RAJYASEVA_PRE_2019 } from '../data/mpscPyq2
 import { MPSC_COMBINE_PRE_2018, MPSC_RAJYASEVA_PRE_2018 } from '../data/mpscPyq2018';
 import { ENGLISH_VOCAB_QUESTIONS } from '../data/englishVocabQuestions';
 import { MARATHI_VOCAB_QUESTIONS } from '../data/marathiVocabQuestions';
+import { cleanQuestionText } from '../utils/cleanQuestionText';
 
 interface MpscPyqHubModalProps {
   isOpen: boolean;
@@ -868,7 +869,7 @@ export const MpscPyqHubModal: React.FC<MpscPyqHubModalProps> = ({
               {filteredQuestionsList.length > 0 ? (
                 filteredQuestionsList.map(({ q, originalIndex }) => {
                   const options = isMr ? q.optionsMr : q.optionsEn;
-                  const questionText = isMr ? q.questionMr : q.questionEn;
+                  const questionText = cleanQuestionText(isMr ? q.questionMr : q.questionEn);
                   const explanationText = isMr ? q.explanationMr : q.explanationEn;
                   const isKeywordMatched = Boolean(
                     studySearchQuery.trim() &&

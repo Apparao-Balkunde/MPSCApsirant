@@ -18,6 +18,7 @@ import { findQuestionById } from '../utils/hardQuestionsEngine';
 import { exportToPdf } from '../utils/pdfExport';
 import { VisualMemoryAid } from './VisualMemoryAid';
 import { SVGMapContainer } from './SVGMapContainer';
+import { cleanQuestionText } from '../utils/cleanQuestionText';
 
 interface BookmarksViewProps {
   userProgress: UserProgress;
@@ -204,7 +205,7 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
 
                 {/* Question statement */}
                 <div className="text-stone-900 font-semibold text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                  {isMr ? q.questionMr : q.questionEn}
+                  {cleanQuestionText(isMr ? q.questionMr : q.questionEn)}
                 </div>
 
                 {/* Options with correct answer highlighted - Image 2 format */}

@@ -261,7 +261,7 @@ export const CORE_MPSC_QUESTIONS: Question[] = [
     subtopic: 'Highest Peaks in Maharashtra',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionEn: 'Arrange the following mountain peaks in the Sahyadri range of Maharashtra in descending order of their height:\n1. Salher (साल्हेर)\n2. Kalsubai (कळसूबाई)\n3. Mahabaleshwar (महाबळेश्वर)\n4. Ghanchakkar (घनचक्कर)',
+    questionEn: "Arrange the following mountain peaks in the Sahyadri range of Maharashtra in descending order of their height:",
     questionMr: 'महाराष्ट्रातील सह्याद्री पर्वतरांगेतील खालील शिखरांचा त्यांच्या उंचीनुसार उतरता क्रम (Descending Order) लावा:\n१. साल्हेर\n२. कळसूबाई\n३. महाबळेश्वर\n४. घनचक्कर',
     optionsEn: [
       '2 - 1 - 4 - 3',
@@ -790,7 +790,7 @@ export const NEW_FIREBASE_MCQS: Question[] = [
     exam: 'Both',
     difficulty: 'Hard',
     questionMr: 'महात्मा जोतीराव फुले यांनी लिहिलेल्या ग्रंथांचा योग्य कालानुक्रम ओळखा:\n१. तृतीय रत्न\n२. ब्राह्मणांचे कसब\n३. शेतकऱ्याचा असूड\n४. सार्वजनिक सत्यधर्म पुस्तक',
-    questionEn: 'Identify the correct chronological order of the books written by Mahatma Jyotirao Phule:\n1. Tritiya Ratna\n2. Brahmananche Kasab\n3. Shetkaryacha Asud\n4. Sarvajanik Satyadharma Pustak',
+    questionEn: "Identify the correct chronological order of the books written by Mahatma Jyotirao Phule:",
     optionsMr: [
       '१ - २ - ३ - ४',
       '२ - १ - ३ - ४',

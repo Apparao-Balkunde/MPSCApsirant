@@ -12,7 +12,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "भारतीय संविधानातील १०६ व्या घटनादुरुस्ती कायदा २०२३ (नारी शक्ती वंदन अधिनियम) बाबत खालील विधानांचा विचार करा:\n(अ) या कायद्यान्वये लोकसभा, राज्य विधानसभा आणि दिल्ली राष्ट्रीय राजधानी राज्यक्षेत्रात महिलांसाठी ३३% आरक्षण तरतूद करण्यात आली.\n(ब) या दुरुस्तीद्वारे संविधानात नवीन कलम ३३०-A, ३३२-A आणि २३९-AA मध्ये बदल करण्यात आले.\n(क) हे आरक्षण कायदा लागू झाल्याबरोबर त्वरित न येता, नवीन जनगणनेनंतर होणाऱ्या मतदारसंघांच्या पुनर्रचनेनंतर (Delimitation) १५ वर्षांच्या कालावधीसाठी लागू होईल.\n\nवरीलपैकी कोणती विधाने सत्य आहेत?\n(१) फक्त (अ) आणि (ब)\n(२) फक्त (ब) आणि (क)\n(३) फक्त (अ) आणि (क)\n(४) (अ), (ब) आणि (क) सर्व",
-    questionEn: "Consider the following statements regarding the 106th Constitutional Amendment Act, 2023 (Nari Shakti Vandan Adhiniyam):\n(a) It provides 33% reservation for women in the Lok Sabha, State Legislative Assemblies, and the Legislative Assembly of NCT of Delhi.\n(b) Articles 330A, 332A were inserted and Article 239AA was amended in the Constitution.\n(c) The reservation will come into effect after the delimitation exercise undertaken following the first census conducted after the commencement of the Act, and will remain in force for 15 years.\n\nWhich of the above statements are TRUE?\n(1) Only (a) and (b)\n(2) Only (b) and (c)\n(3) Only (a) and (c)\n(4) All (a), (b), and (c)",
+    questionEn: "Consider the following statements regarding the 106th Constitutional Amendment Act, 2023 (Nari Shakti Vandan Adhiniyam):\n(a) It provides 33% reservation for women in the Lok Sabha, State Legislative Assemblies, and the Legislative Assembly of NCT of Delhi.\n(b) Articles 330A, 332A were inserted and Article 239AA was amended in the Constitution.\n(c) The reservation will come into effect after the delimitation exercise undertaken following the first census conducted after the commencement of the Act, and will remain in force for 15 years.\n\nWhich of the above statements are TRUE?",
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (ब) आणि (क)',
@@ -38,7 +38,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "१ जुलै २०२४ पासून भारतात लागू झालेल्या नवीन तीन फौजदारी कायद्यांनुसार १८६० च्या 'भारतीय दंड संहितेची' (IPC) जागा खालीलपैकी कोणत्या कायद्याने घेतली आहे?\n(१) भारतीय नागरिक सुरक्षा संहिता (BNSS)\n(२) भारतीय न्याय संहिता (BNS)\n(३) भारतीय साक्ष अधिनियम (BSA)\n(४) भारतीय लोक सुरक्षा संहिता (BLSS)",
-    questionEn: "Under the three new criminal justice laws effective from 1 July 2024, which Act has replaced the Indian Penal Code (IPC) 1860?\n(1) Bharatiya Nagarik Suraksha Sanhita (BNSS)\n(2) Bharatiya Nyaya Sanhita (BNS)\n(3) Bharatiya Sakshya Adhiniyam (BSA)\n(4) Bharatiya Lok Suraksha Sanhita (BLSS)",
+    questionEn: "Under the three new criminal justice laws effective from 1 July 2024, which Act has replaced the Indian Penal Code (IPC) 1860?",
     optionsMr: [
       'भारतीय नागरिक सुरक्षा संहिता (BNSS)',
       'भारतीय न्याय संहिता (BNS)',
@@ -64,7 +64,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "संविधानाच्या कलम २८० अन्वये केंद्र सरकारने ३१ डिसेंबर २०२३ रोजी गठीत केलेल्या '१६ व्या वित्त आयोगाचे' (16th Finance Commission) अध्यक्ष कोण आहेत?\n(१) डॉ. एन. के. सिंग\n(२) डॉ. अरविंद पानगढिया\n(३) डॉ. सी. रंगराजन\n(४) डॉ. वाय. व्ही. रेड्डी",
-    questionEn: "Who is the Chairman of the 16th Finance Commission constituted by the Central Government under Article 280 of the Constitution on 31 December 2023?\n(1) Dr. N. K. Singh\n(2) Dr. Arvind Panagariya\n(3) Dr. C. Rangarajan\n(4) Dr. Y. V. Reddy",
+    questionEn: "Who is the Chairman of the 16th Finance Commission constituted by the Central Government under Article 280 of the Constitution on 31 December 2023?",
     optionsMr: [
       'डॉ. एन. के. सिंग',
       'डॉ. अरविंद पानगढिया',
@@ -90,7 +90,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्रातील पालघर जिल्ह्यातील डहाणूजवळ केंद्र सरकारने मंजूर केलेल्या भारतातील सर्वात मोठ्या आणि १३ व्या प्रमुख बंदराचे नाव काय आहे?\n(१) दिघी बंदर\n(२) रेवस बंदर\n(३) वाढवण बंदर (Vadhavan Port)\n(४) जयगड बंदर",
-    questionEn: "What is the name of the mega deep-sea port project approved near Dahanu in Palghar district of Maharashtra, set to become India's 13th major port?\n(1) Dighi Port\n(2) Rewas Port\n(3) Vadhavan Port\n(4) Jaigad Port",
+    questionEn: "What is the name of the mega deep-sea port project approved near Dahanu in Palghar district of Maharashtra, set to become India's 13th major port?",
     optionsMr: [
       'दिघी बंदर',
       'रेवस बंदर',
@@ -116,7 +116,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "पुण्यश्लोक अहिल्यादेवी होळकर यांच्या त्रिशताब्दी (३०० व्या) जयंती वर्षाचे औचित्य साधून महाराष्ट्र शासनाने कोणत्या जिल्ह्याचे अधिकृत नामांतर 'अहिल्यानगर' (Ahilyanagar) असे केले?\n(१) औरंगाबाद\n(२) उस्मानाबाद\n(३) अहमदनगर\n(४) अमरावती",
-    questionEn: "To commemorate the 300th birth anniversary of Punyashlok Ahilyadevi Holkar, which district of Maharashtra was officially renamed as 'Ahilyanagar'?\n(1) Aurangabad\n(2) Osmanabad\n(3) Ahmednagar\n(4) Amravati",
+    questionEn: "To commemorate the 300th birth anniversary of Punyashlok Ahilyadevi Holkar, which district of Maharashtra was officially renamed as 'Ahilyanagar'?",
     optionsMr: [
       'औरंगाबाद',
       'उस्मानाबाद',
@@ -142,7 +142,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "केंद्रीय मंत्रिमंडळाने ३ ऑक्टोबर २०२४ रोजी मराठीसह एकूण किती भाषांना 'अभिजात भाषेचा' (Classical Language) दर्जा प्रदान करण्यास ऐतिहासिक मंजुरी दिली?\n(१) ३ भाषा\n(२) ५ भाषा (मराठी, पाली, प्राकृत, आसामी, बंगाली)\n(३) ६ भाषा\n(४) २ भाषा",
-    questionEn: "On 3 October 2024, the Union Cabinet approved Classical Language status to how many languages including Marathi?\n(1) 3 languages\n(2) 5 languages (Marathi, Pali, Prakrit, Assamese, Bengali)\n(3) 6 languages\n(4) 2 languages",
+    questionEn: "On 3 October 2024, the Union Cabinet approved Classical Language status to how many languages including Marathi?",
     optionsMr: [
       '३ भाषा',
       '५ भाषा (मराठी, पाली, प्राकृत, आसामी, बंगाली)',
@@ -168,7 +168,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्रामध्ये आंतरराष्ट्रीय महत्त्व असणारी 'रामसर पाणथळ स्थळे' (Ramsar Sites) खालीलपैकी कोणती आहेत?\n(अ) नांदूर मध्यमेश्वर (नाशिक)\n(ब) लोणार सरोवर (बुलढाणा)\n(क) ठाणे खाडी फ्लेमिंगो अभयारण्य (ठाणे)\n\n(१) फक्त (अ) आणि (ब)\n(२) फक्त (ब) आणि (क)\n(३) (अ), (ब) आणि (क) तिन्ही\n(४) फक्त (अ)",
-    questionEn: "Which of the following wetlands in Maharashtra are recognized as Ramsar Sites of international importance?\n(a) Nandur Madhmeshwar (Nashik)\n(b) Lonar Lake (Buldhana)\n(c) Thane Creek Flamingo Sanctuary (Thane)\n\n(1) Only (a) and (b)\n(2) Only (b) and (c)\n(3) All three (a), (b), and (c)\n(4) Only (a)",
+    questionEn: "Which of the following wetlands in Maharashtra are recognized as Ramsar Sites of international importance?\n(a) Nandur Madhmeshwar (Nashik)\n(b) Lonar Lake (Buldhana)\n(c) Thane Creek Flamingo Sanctuary (Thane)",
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (ब) आणि (क)',
@@ -194,7 +194,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "२०२४ चा वैद्यकशास्त्रातील नोबेल पुरस्कार (Nobel Prize in Physiology or Medicine 2024) व्हिक्टर ॲम्ब्रोस आणि गॅरी रुव्हकुन यांना कोणत्या महत्त्वपूर्ण शोधासाठी प्रदान करण्यात आला?\n(१) mRNA लस तंत्रज्ञान\n(२) microRNA चा शोध आणि जनुक अभिव्यक्ती नियमन (Post-transcriptional gene regulation)\n(३) CRISPR-Cas9 जनुक संपादन\n(४) मलेरियाची नवीन लस",
-    questionEn: "The 2024 Nobel Prize in Physiology or Medicine was awarded to Victor Ambros and Gary Ruvkun for which groundbreaking discovery?\n(1) mRNA Vaccine Technology\n(2) Discovery of microRNA and its role in post-transcriptional gene regulation\n(3) CRISPR-Cas9 Gene Editing\n(4) Novel Malaria Vaccine",
+    questionEn: "The 2024 Nobel Prize in Physiology or Medicine was awarded to Victor Ambros and Gary Ruvkun for which groundbreaking discovery?",
     optionsMr: [
       'mRNA लस तंत्रज्ञान',
       'microRNA चा शोध आणि जनुक अभिव्यक्ती नियमन (Post-transcriptional gene regulation)',
@@ -220,7 +220,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "फेब्रुवारी २०२४ मध्ये सुरू करण्यात आलेल्या 'पीएम-सूर्य घर: मोफत वीज योजनेचे' (PM-Surya Ghar: Muft Bijli Yojana) मुख्य उद्दिष्ट काय आहे?\n(१) १ कोटी कुटुंबांच्या छतावर रूफटॉप सोलर पॅनेल बसवून दरमहा ३०० युनिटपर्यंत मोफत वीज पुरवणे.\n(२) सर्व शेतकऱ्यांना मोफत सोलर कृषी पंप देणे.\n(३) देशातील सर्व सरकारी कार्यालयांचे शंभर टक्के सौरीकरण करणे.\n(४) ई-वाहनांसाठी मोफत चार्जिंग स्टेशन उभारणे.",
-    questionEn: "What is the primary target of the 'PM-Surya Ghar: Muft Bijli Yojana' launched in February 2024?\n(1) Installing rooftop solar panels on 1 crore households to provide up to 300 units of free electricity per month.\n(2) Distributing free solar pumps to all farmers.\n(3) 100% solarization of all government offices.\n(4) Setting up free EV charging stations nationwide.",
+    questionEn: "What is the primary target of the 'PM-Surya Ghar: Muft Bijli Yojana' launched in February 2024?",
     optionsMr: [
       '१ कोटी कुटुंबांच्या छतावर रूफटॉप सोलर पॅनेल बसवून दरमहा ३०० युनिटपर्यंत मोफत वीज पुरवणे.',
       'सर्व शेतकऱ्यांना मोफत सोलर कृषी पंप देणे.',
@@ -246,7 +246,7 @@ export const MPSC_RAJYASEVA_PRE_2025: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "भारतीय संविधानातील कलम २०० अन्वये राज्य विधानमंडळाने संमत केलेले विधेयक राज्यपालांसमोर सादर केले जाते तेव्हा राज्यपालांकडे खालीलपैकी कोणते पर्याय उपलब्ध असतात?\n(अ) विधेयकाला संमती देणे\n(ब) संमती रोखून ठेवणे\n(क) विधेयक राष्ट्रपतींच्या विचारार्थ राखून ठेवणे\n(ड) धन विधेयक वगळता अन्य विधेयक पुनर्विचारासाठी परत पाठवणे\n\n(१) फक्त (अ) आणि (ब)\n(२) फक्त (अ), (क) आणि (ड)\n(३) (अ), (ब), (क) आणि (ड) सर्व\n(४) फक्त (अ) आणि (क)",
-    questionEn: "Under Article 200 of the Constitution of India, when a Bill passed by the State Legislature is presented to the Governor, which options are available to the Governor?\n(a) Give assent to the Bill\n(b) Withhold assent to the Bill\n(c) Reserve the Bill for the consideration of the President\n(d) Return the Bill (if not a Money Bill) for reconsideration\n\n(1) Only (a) and (b)\n(2) Only (a), (c), and (d)\n(3) All (a), (b), (c), and (d)\n(4) Only (a) and (c)",
+    questionEn: "Under Article 200 of the Constitution of India, when a Bill passed by the State Legislature is presented to the Governor, which options are available to the Governor?\n(a) Give assent to the Bill\n(b) Withhold assent to the Bill\n(c) Reserve the Bill for the consideration of the President\n(d) Return the Bill (if not a Money Bill) for reconsideration",
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (अ), (क) आणि (ड)',

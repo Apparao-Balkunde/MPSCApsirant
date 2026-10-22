@@ -90,7 +90,7 @@ export const FIREBASE_MCQS_BATCH_2: Question[] = [
     exam: 'Both',
     difficulty: 'Hard',
     questionMr: 'डॉ. बाबासाहेब आंबेडकर यांनी सुरू केलेल्या वृत्तपत्रांचा त्यांच्या स्थापनेनुसार अचूक कालानुक्रम कोणता?\n(१) मूकनायक\n(२) बहिष्कृत भारत\n(३) जनता\n(४) प्रबुद्ध भारत',
-    questionEn: 'What is the correct chronological order of the periodicals founded by Dr. B.R. Ambedkar?\n(1) Mooknayak\n(2) Bahishkrit Bharat\n(3) Janata\n(4) Prabuddha Bharat',
+    questionEn: "What is the correct chronological order of the periodicals founded by Dr. B.R. Ambedkar?",
     optionsMr: [
       '१ - २ - ३ - ४',
       '२ - १ - ३ - ४',

@@ -12,7 +12,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "भारतीय संविधानातील 'प्राधिलेखां'बाबत (Writs) खालील जोड्या विचारात घ्या:\n(अ) बंदी प्रत्यक्षीकरण (Habeas Corpus) - बेकायदेशीर अटकेविरुद्ध व्यक्तीला न्यायालयात हजर करण्याचा आदेश.\n(ब) परमादेश (Mandamus) - कोणत्याही सार्वजनिक अधिकाऱ्याला त्याचे वैधानिक कर्तव्य पार पाडण्याचा आदेश.\n(क) अधिकार पृच्छा (Quo-Warranto) - कनिष्ठ न्यायालयाला आपल्या अधिकारक्षेत्राबाहेर जाण्यापासून रोखणे.\n(ड) उत्प्रेषण (Certiorari) - कनिष्ठ न्यायालयाकडून खटला वरिष्ठ न्यायालयात वर्ग करण्याचा आदेश.\n\nवरीलपैकी कोणती जोडी अयोग्य आहे?\n(१) फक्त (अ)\n(२) फक्त (ब)\n(३) फक्त (क)\n(४) फक्त (ड)",
-    questionEn: "Consider the following pairs regarding Constitutional Writs under Article 32 and 226 of the Indian Constitution:\n(a) Habeas Corpus - Command to produce a detained person before the court.\n(b) Mandamus - Command to a public authority to perform an official statutory duty.\n(c) Quo-Warranto - To prevent a subordinate court from exceeding its jurisdiction.\n(d) Certiorari - Command to a lower court to transfer a case to a higher court.\n\nWhich of the above pairs is INCORRECT?\n(1) Only (a)\n(2) Only (b)\n(3) Only (c)\n(4) Only (d)",
+    questionEn: "Consider the following pairs regarding Constitutional Writs under Article 32 and 226 of the Indian Constitution:\n(a) Habeas Corpus - Command to produce a detained person before the court.\n(b) Mandamus - Command to a public authority to perform an official statutory duty.\n(c) Quo-Warranto - To prevent a subordinate court from exceeding its jurisdiction.\n(d) Certiorari - Command to a lower court to transfer a case to a higher court.\n\nWhich of the above pairs is INCORRECT?",
     optionsMr: [
       'फक्त (अ)',
       'फक्त (ब)',
@@ -38,7 +38,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "राजर्षी छत्रपती शाहू महाराजांनी कोल्हापूर संस्थानात 'मोफत व सक्तीच्या प्राथमिक शिक्षणाचा कायदा' कोणत्या वर्षी लागू केला?\n(१) १९०२\n(२) १९०७\n(३) १९११\n(४) १९१७",
-    questionEn: "In which year did Rajarshi Chhatrapati Shahu Maharaj enact the landmark law for 'Free and Compulsory Primary Education' in Kolhapur State?\n(1) 1902\n(2) 1907\n(3) 1911\n(4) 1917",
+    questionEn: "In which year did Rajarshi Chhatrapati Shahu Maharaj enact the landmark law for 'Free and Compulsory Primary Education' in Kolhapur State?",
     optionsMr: [
       '१९०२',
       '१९०७',
@@ -64,7 +64,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "सह्याद्री पर्वतातील महाराष्ट्रातील सर्वोच्च शिखरांचा उंचीनुसार योग्य उतरता क्रम (Descending Order) कोणता आहे?\n(१) कळसूबाई > साल्हेर > महाबळेश्वर > हरिश्चंद्रगड\n(२) साल्हेर > कळसूबाई > हरिश्चंद्रगड > महाबळेश्वर\n(३) कळसूबाई > महाबळेश्वर > साल्हेर > हरिश्चंद्रगड\n(४) कळसूबाई > साल्हेर > हरिश्चंद्रगड > महाबळेश्वर",
-    questionEn: "Which of the following is the CORRECT descending order of the highest mountain peaks in the Sahyadri (Maharashtra) based on elevation?\n(1) Kalsubai > Salher > Mahabaleshwar > Harishchandragad\n(2) Salher > Kalsubai > Harishchandragad > Mahabaleshwar\n(3) Kalsubai > Mahabaleshwar > Salher > Harishchandragad\n(4) Kalsubai > Salher > Harishchandragad > Mahabaleshwar",
+    questionEn: "Which of the following is the CORRECT descending order of the highest mountain peaks in the Sahyadri (Maharashtra) based on elevation?",
     optionsMr: [
       'कळसूबाई > साल्हेर > महाबळेश्वर > हरिश्चंद्रगड',
       'साल्हेर > कळसूबाई > हरिश्चंद्रगड > महाबळेश्वर',
@@ -90,7 +90,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "खालीलपैकी कोणत्या घटना प्रकाशाच्या 'पूर्ण आंतरिक परावर्तनावर' (Total Internal Reflection - TIR) आधारित आहेत?\n(अ) वाळवंटातील मृगजळ (Mirage)\n(ब) हिऱ्याचे लखलखणे (Brilliance of Diamond)\n(क) ऑप्टिकल फायबरमधून (Optical Fibre) संदेश वहन\n(ड) पाण्याचे थेंब हवेत असताना दिसणारे इंद्रधनुष्य (Rain droplets)\n\nयोग्य पर्याय निवडा:\n(१) फक्त (अ) आणि (ब)\n(२) फक्त (अ), (ब) आणि (क)\n(३) फक्त (ब), (क) आणि (ड)\n(४) (अ), (ब), (क) आणि (ड) सर्व",
-    questionEn: "Which of the following phenomena are based on 'Total Internal Reflection' (TIR) of light?\n(a) Mirage in deserts\n(b) Brilliance of a cut diamond\n(c) Signal transmission in Optical Fibres\n(d) Rainbow formation in the sky\n\nChoose the correct option:\n(1) Only (a) and (b)\n(2) Only (a), (b), and (c)\n(3) Only (b), (c), and (d)\n(4) All (a), (b), (c), and (d)",
+    questionEn: "Which of the following phenomena are based on 'Total Internal Reflection' (TIR) of light?\n(a) Mirage in deserts\n(b) Brilliance of a cut diamond\n(c) Signal transmission in Optical Fibres\n(d) Rainbow formation in the sky\n\nChoose the correct option:",
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (अ), (ब) आणि (क)',
@@ -116,7 +116,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "प्रा. सुरेश तेंडुलकर समितीने (२००९) दारिद्र्य रेषेच्या मोजमापासाठी खालीलपैकी कोणता महत्त्वाचा निकष सुचवला?\n(१) केवळ उष्मांक (कॅलरी) उपभोग पद्धती कायम ठेवणे\n(२) प्रतिव्यक्ती मासिक उपभोग खर्च (MPCE) आणि शिक्षण व आरोग्यावरील खर्चाचा समावेश\n(३) प्रति कुटुंब वार्षिक उत्पन्नाचा निकष\n(४) बँक ठेवी व मालमत्ता मूल्यावर आधारित निकष",
-    questionEn: "Which key methodology was recommended by the Prof. Suresh Tendulkar Committee (2009) for estimating the poverty line in India?\n(1) Retaining purely caloric intake norms\n(2) Monthly Per Capita Consumption Expenditure (MPCE) including education and health spending\n(3) Annual household income criterion\n(4) Asset holding and bank deposit criterion",
+    questionEn: "Which key methodology was recommended by the Prof. Suresh Tendulkar Committee (2009) for estimating the poverty line in India?",
     optionsMr: [
       'केवळ उष्मांक (कॅलरी) उपभोग पद्धती कायम ठेवणे',
       'प्रतिव्यक्ती मासिक उपभोग खर्च (MPCE) आणि शिक्षण व आरोग्यावरील खर्चाचा समावेश',
@@ -142,7 +142,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "वातावरणातील ओझोन थराचे (Ozone Layer) क्षरण करणाऱ्या क्लोरोफ्लुरोकार्बन्स (CFCs) सारख्या पदार्थांच्या उत्पादनावर बंदी आणण्यासाठी कोणता आंतरराष्ट्रीय करार झाला?\n(१) क्योटो प्रोटोकॉल\n(२) मॉन्ट्रियल प्रोटोकॉल (१९८७)\n(३) बासेल परिषद\n(४) रामसर करार",
-    questionEn: "Which international agreement was signed to phase out substances that deplete the Ozone Layer, such as Chlorofluorocarbons (CFCs)?\n(1) Kyoto Protocol\n(2) Montreal Protocol (1987)\n(3) Basel Convention\n(4) Ramsar Convention",
+    questionEn: "Which international agreement was signed to phase out substances that deplete the Ozone Layer, such as Chlorofluorocarbons (CFCs)?",
     optionsMr: [
       'क्योटो प्रोटोकॉल',
       'मॉन्ट्रियल प्रोटोकॉल (१९८७)',
@@ -168,7 +168,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "केंद्र आणि राज्य संबंधांचा सर्वंकष अभ्यास करण्यासाठी १९८३ मध्ये केंद्र सरकारने स्थापन केलेल्या 'सरकारिया आयोगा'बाबत खालीलपैकी कोणते विधान बरोबर नाही?\n(१) न्या. आर. एस. सरकारिया हे या आयोगाचे अध्यक्ष होते.\n(२) बी. शिवरामन आणि डॉ. एस. आर. सेन हे या आयोगाचे सदस्य होते.\n(३) आयोगाने आंतरराज्य परिषदेची (Inter-State Council) कायमस्वरूपी स्थापना करण्याची शिफारस केली.\n(४) आयोगाने राज्यपालांचे पद पूर्णपणे रद्द करण्याची शिफारस केली.",
-    questionEn: "Which of the following statements is NOT correct regarding the 'Sarkaria Commission' appointed in 1983 to examine Centre-State relations?\n(1) Justice R. S. Sarkaria was the Chairman.\n(2) B. Sivaraman and Dr. S. R. Sen were its members.\n(3) It recommended establishing a permanent Inter-State Council under Article 263.\n(4) It recommended complete abolition of the office of the Governor.",
+    questionEn: "Which of the following statements is NOT correct regarding the 'Sarkaria Commission' appointed in 1983 to examine Centre-State relations?",
     optionsMr: [
       'न्या. आर. एस. सरकारिया हे या आयोगाचे अध्यक्ष होते.',
       'बी. शिवरामन आणि डॉ. एस. आर. सेन हे या आयोगाचे सदस्य होते.',
@@ -194,7 +194,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "१८ ऑक्टोबर १९०६ रोजी मुंबई येथे अस्पृश्यांच्या उद्धारासाठी 'डिप्रेस्ड क्लासेस मिशन'ची (Depressed Classes Mission) स्थापना कोणी केली?\n(१) महात्मा ज्योतिराव फुले\n(२) महर्षी विठ्ठल रामजी शिंदे\n(३) डॉ. बाबासाहेब आंबेडकर\n(४) गोपाळ गणेश आगरकर",
-    questionEn: "Who founded the 'Depressed Classes Mission' in Bombay on 18 October 1906 for the upliftment of the depressed classes?\n(1) Mahatma Jyotirao Phule\n(2) Maharshi Vitthal Ramji Shinde\n(3) Dr. Babasaheb Ambedkar\n(4) Gopal Ganesh Agarkar",
+    questionEn: "Who founded the 'Depressed Classes Mission' in Bombay on 18 October 1906 for the upliftment of the depressed classes?",
     optionsMr: [
       'महात्मा ज्योतिराव फुले',
       'महर्षी विठ्ठल रामजी शिंदे',
@@ -220,7 +220,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "द्रावणातील हायड्रोजन आयनांच्या (H+) संहतीचे मोजमाप करण्यासाठी १९०९ मध्ये 'pH स्केल' कोणत्या डॅनिश शास्त्रज्ञाने शोधून काढली?\n(१) सोरेन्सन (S. P. L. Sorensen)\n(२) आर्रेनियस (Svante Arrhenius)\n(३) रॉबर्ट बॉयल (Robert Boyle)\n(४) जोहान्स ब्रॉन्स्टेड",
-    questionEn: "Which Danish chemist devised the 'pH scale' in 1909 to measure hydrogen ion concentration in an aqueous solution?\n(1) S. P. L. Sorensen\n(2) Svante Arrhenius\n(3) Robert Boyle\n(4) Johannes Bronsted",
+    questionEn: "Which Danish chemist devised the 'pH scale' in 1909 to measure hydrogen ion concentration in an aqueous solution?",
     optionsMr: [
       'सोरेन्सन (S. P. L. Sorensen)',
       'आर्रेनियस (Svante Arrhenius)',
@@ -246,7 +246,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "भारत सरकारने 'नियोजन आयोगाच्या' (Planning Commission) जागी 'नीती आयोगाची' (NITI Aayog - National Institution for Transforming India) स्थापना कोणत्या तारखेला केली?\n(१) १५ ऑगस्ट २०१४\n(२) १ जानेवारी २०१५\n(३) १ एप्रिल २०१५\n(४) १ जुलै २०१७",
-    questionEn: "On which date did the Government of India establish 'NITI Aayog' replacing the Planning Commission?\n(1) 15 August 2014\n(2) 1 January 2015\n(3) 1 April 2015\n(4) 1 July 2017",
+    questionEn: "On which date did the Government of India establish 'NITI Aayog' replacing the Planning Commission?",
     optionsMr: [
       '१५ ऑगस्ट २०१४',
       '१ जानेवारी २०१५',
@@ -272,7 +272,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्रातील खनिजे आणि त्यांचे प्रमुख उत्पादक जिल्हे यांच्या जोड्या जुळवा:\nखनिजे:\n(अ) बॉक्साइट (Bauxite)\n(ब) मॅंगनीज (Manganese)\n(क) लोहखनिज (Iron Ore)\n(ड) चुनखडी (Limestone)\n\nजिल्हे:\n१. नागपूर, भंडारा\n२. कोल्हापूर, रत्नागिरी\n३. गडचिरोली, सिंधुदुर्ग (रेड्डी)\n४. यवतमाळ, चंद्रपूर\n\nयोग्य पर्याय निवडा:\n(१) अ-२, ब-१, क-३, ड-४\n(२) अ-१, ब-२, क-४, ड-३\n(३) अ-३, ब-४, क-१, ड-२\n(४) अ-४, ब-३, क-२, ड-१",
-    questionEn: "Match the minerals found in Maharashtra with their primary producing districts:\nMinerals:\n(a) Bauxite\n(b) Manganese\n(c) Iron Ore\n(d) Limestone\n\nDistricts:\n1. Nagpur, Bhandara\n2. Kolhapur, Ratnagiri\n3. Gadchiroli, Sindhudurg (Redi)\n4. Yavatmal, Chandrapur\n\nChoose the correct option:\n(1) a-2, b-1, c-3, d-4\n(2) a-1, b-2, c-4, d-3\n(3) a-3, b-4, c-1, d-2\n(4) a-4, b-3, c-2, d-1",
+    questionEn: "Match the minerals found in Maharashtra with their primary producing districts:\nMinerals:\n(a) Bauxite\n(b) Manganese\n(c) Iron Ore\n(d) Limestone\n\nDistricts:\n1. Nagpur, Bhandara\n2. Kolhapur, Ratnagiri\n3. Gadchiroli, Sindhudurg (Redi)\n4. Yavatmal, Chandrapur\n\nChoose the correct option:",
     optionsMr: [
       'अ-२, ब-१, क-३, ड-४',
       'अ-१, ब-२, क-४, ड-३',
@@ -298,7 +298,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Easy',
     questionMr: "कोणत्या जीवनसत्त्वाच्या अभावामुळे लहान मुलांमध्ये 'मुडदूस' (Rickets) हा हाडांचा विकार उद्भवतो?\n(१) जीवनसत्त्व A\n(२) जीवनसत्त्व B12\n(३) जीवनसत्त्व C\n(४) जीवनसत्त्व D (Calciferol)",
-    questionEn: "Deficiency of which vitamin causes 'Rickets' (softening and weakening of bones) in children?\n(1) Vitamin A\n(2) Vitamin B12\n(3) Vitamin C\n(4) Vitamin D (Calciferol)",
+    questionEn: "Deficiency of which vitamin causes 'Rickets' (softening and weakening of bones) in children?",
     optionsMr: [
       'जीवनसत्त्व A',
       'जीवनसत्त्व B12',
@@ -324,7 +324,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "भारताच्या राष्ट्रपतींच्या 'महाभियोग' (Impeachment) प्रक्रियेबाबत खालीलपैकी कोणते विधान सत्य आहे?\n(१) महाभियोगाचा ठराव केवळ लोकसभेतच मांडला जाऊ शकतो.\n(२) ठराव मांडण्यापूर्वी किमान १४ दिवसांची लेखी नोटीस देणे आवश्यक असते.\n(३) राज्य विधानसभांचे निर्वाचित सदस्य महाभियोगाच्या मतदानात भाग घेतात.\n(४) महाभियोगाचा ठराव साध्या बहुमताने संमत केला जाऊ शकतो.",
-    questionEn: "Which of the following statements is TRUE regarding the 'Impeachment' of the President of India under Article 61?\n(1) The impeachment resolution can only be introduced in the Lok Sabha.\n(2) At least 14 days' written notice must be given prior to introducing the resolution.\n(3) Elected members of State Legislative Assemblies participate in voting for impeachment.\n(4) The impeachment resolution can be passed by a simple majority.",
+    questionEn: "Which of the following statements is TRUE regarding the 'Impeachment' of the President of India under Article 61?",
     optionsMr: [
       'महाभियोगाचा ठराव केवळ लोकसभेतच मांडला जाऊ शकतो.',
       'ठराव मांडण्यापूर्वी किमान १४ दिवसांची लेखी नोटीस देणे आवश्यक असते.',
@@ -350,7 +350,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "महाराष्ट्रातील आद्य क्रांतिकारक वासुदेव बळवंत फडके यांनी १८७९ मध्ये ब्रिटिशांविरुद्ध सशस्त्र उठाव करण्यासाठी प्रामुख्याने कोणत्या समाजातील तरुणांचे सैन्य (रामोशी व कोळी) संघटित केले?\n(१) रामोशी, धनगर व कोळी\n(२) भिल्ल व गोंड\n(३) महार व मातंग\n(४) वारली व ठाकूर",
-    questionEn: "Which communities did pioneer revolutionary Vasudev Balwant Phadke organize into an armed force against the British in Maharashtra in 1879?\n(1) Ramoshi, Dhangar, and Koli\n(2) Bhil and Gond\n(3) Mahar and Matang\n(4) Warli and Thakur",
+    questionEn: "Which communities did pioneer revolutionary Vasudev Balwant Phadke organize into an armed force against the British in Maharashtra in 1879?",
     optionsMr: [
       'रामोशी, धनगर व कोळी',
       'भिल्ल व गोंड',
@@ -376,7 +376,7 @@ export const MPSC_RAJYASEVA_PRE_2020: Question[] = [
     exam: 'Rajyaseva',
     difficulty: 'Moderate',
     questionMr: "एका छायाचित्राकडे बोट दाखवत राहुल म्हणाला, 'या व्यक्तीची आई माझ्या वडिलांच्या एकुलत्या एका मुलाची पत्नी आहे.'\nतर त्या छायाचित्रातील व्यक्ती राहुलशी कशी संबंधित आहे?\n(१) मुलगी किंवा मुलगा (अपत्य)\n(२) बहीण\n(३) भाची\n(४) आत्या",
-    questionEn: "Pointing to a photograph, Rahul said, 'This person\'s mother is the wife of my father\'s only son.'\nHow is the person in the photograph related to Rahul?\n(1) Daughter or Son (Child)\n(2) Sister\n(3) Niece\n(4) Aunt",
+    questionEn: "Pointing to a photograph, Rahul said, 'This person\\'s mother is the wife of my father\\'s only son.'\nHow is the person in the photograph related to Rahul?",
     optionsMr: [
       'मुलगी किंवा मुलगा (अपत्य)',
       'बहीण',
