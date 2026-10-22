@@ -330,9 +330,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {isAdmin && (
         <div id="top-admin-academy-banner-wrapper">
           <AcademyBanner
-            image={academyBannerConfig?.image || '/mpsc_textbooks.jpg'}
-            clickUrl={academyBannerConfig?.clickUrl || 'https://mpscsathi.online'}
-            title={academyBannerConfig?.title || 'ज्ञानप्रबोधिनी व आकार करिअर अकॅडमी • MPSC २०२६-२७ विशेष बॅचेस'}
+            image={academyBannerConfig?.image}
+            clickUrl={academyBannerConfig?.clickUrl}
+            title={academyBannerConfig?.title}
+            mobileNumber={academyBannerConfig?.mobileNumber}
+            whatsappNumber={academyBannerConfig?.whatsappNumber}
             isAdmin={isAdmin}
             language={language}
             bannerConfig={academyBannerConfig}

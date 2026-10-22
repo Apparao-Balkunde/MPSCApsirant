@@ -158,6 +158,191 @@ export const DEFAULT_ACADEMY_PRESETS: { id: string; nameMr: string; nameEn: stri
       badgeMr: '🎯 MPSC गट-क टॉपर अकॅडमी',
       badgeEn: '🎯 MPSC Group C Topper Academy'
     }
+  },
+  {
+    id: 'unique_academy_pune',
+    nameMr: 'द युनिक ॲकॅडमी, पुणे (The Unique Academy)',
+    nameEn: 'The Unique Academy, Pune',
+    config: {
+      isEnabled: true,
+      academyNameMr: 'द युनिक ॲकॅडमी, पुणे',
+      academyNameEn: 'The Unique Academy, Pune',
+      taglineMr: 'शिवाजीनगर व फर्ग्युसन कॉलेज रोड, पुणे • तुकुराम जाधव सर व नामवंत प्राध्यापक',
+      taglineEn: 'Shivajinagar & FC Road, Pune • Led by Tukaram Jadhav Sir & Expert Team',
+      locationMr: 'शिवाजीनगर, पुणे व मुंबई',
+      locationEn: 'Shivajinagar, Pune & Mumbai',
+      batchTitleMr: 'MPSC राज्यसेवा व संयुक्त पूर्व+मुख्य २०२६-२७ इंटीग्रेटेड बॅच!',
+      batchTitleEn: 'MPSC Rajyaseva & Combine Integrated 2026-27 Batch!',
+      batchDetailsMr: [
+        'तुकुराम जाधव सर व वरिष्ठ प्राध्यापकांचे थेट मार्गदर्शन',
+        'दर्जेदार संदर्भ पुस्तके व डिजिटल अभ्यास साहित्य मोफत',
+        'दर आठवड्याला संपूर्ण अभ्यासक्रमावर आधारित मॉक टेस्ट',
+        'मोफत ३ दिवस डेमो क्लासेसची सुविधा उपलब्ध'
+      ],
+      batchDetailsEn: [
+        'Direct Guidance by Tukaram Jadhav Sir and Senior Faculty',
+        'Free Comprehensive Study Material and Standard Reference Books',
+        'Weekly Syllabus-based Full Mock Tests and Discussion',
+        'Free 3-Day Demo Sessions Available for New Students'
+      ],
+      phone: '+918929920917',
+      whatsappNumber: '918929920917',
+      websiteUrl: 'https://mpscsathi.online',
+      discountCode: 'UNIQUE25',
+      discountOfferMr: 'इंटिग्रेटेड बॅचसाठी २५% थेट सवलत',
+      discountOfferEn: 'Flat 25% Discount on Integrated Batch',
+      themeColor: 'blue',
+      badgeMr: '🏆 युनिक ॲकॅडमी पार्टनर • प्रवेश सुरू',
+      badgeEn: '🏆 Unique Academy Partner • Admissions Open'
+    }
+  },
+  {
+    id: 'chanakya_mandal_pune',
+    nameMr: 'चाणक्य मंडळ परिवार, पुणे व मुंबई',
+    nameEn: 'Chanakya Mandal Pariwar, Pune & Mumbai',
+    config: {
+      isEnabled: true,
+      academyNameMr: 'चाणक्य मंडळ परिवार, पुणे',
+      academyNameEn: 'Chanakya Mandal Pariwar, Pune',
+      taglineMr: 'नवी पेठ, पुणे • अविनाश धर्माधिकारी (माजी IAS) यांच्या मार्गदर्शनाखाली अधिकारी घडवणारी संस्था',
+      taglineEn: 'Navi Peth, Pune • Mentored by Avinash Dharmadhikari (Ex-IAS)',
+      locationMr: 'नवी पेठ, पुणे व छत्रपती संभाजीनगर',
+      locationEn: 'Navi Peth, Pune & Mumbai',
+      batchTitleMr: 'MPSC व UPSC अधिकारी घडवणारा पायाभूत विशेष वर्ग २०२६-२७!',
+      batchTitleEn: 'MPSC & UPSC Civil Services Foundation Batch 2026-27!',
+      batchDetailsMr: [
+        'माजी सनदी अधिकारी अविनाश धर्माधिकारी सरांचे वैयक्तिक मार्गदर्शन',
+        'प्रशासकीय नीतिमत्ता, नेतृत्वगुण व व्यक्तिमत्त्व विकास कार्यशाळा',
+        'सर्व विषयांची विश्लेषणात्मक व सखोल तयारी',
+        'अमर्यादित लायब्ररी व ऑनलाइन क्लासरूम सुविधा'
+      ],
+      batchDetailsEn: [
+        'Personal Guidance by Avinash Dharmadhikari Sir (Ex-IAS)',
+        'Administrative Ethics, Leadership & Personality Development',
+        'Comprehensive GS & CSAT In-depth Preparation',
+        'Unlimited Library & Digital Classroom Access'
+      ],
+      phone: '+919850985098',
+      whatsappNumber: '919850985098',
+      websiteUrl: 'https://mpscsathi.online',
+      discountCode: 'CHANAKYA15',
+      discountOfferMr: 'फाउंडेशन कोर्ससाठी १५% तात्काळ स्कॉलरशिप',
+      discountOfferEn: 'Instant 15% Scholarship for Foundation Course',
+      themeColor: 'purple',
+      badgeMr: '👑 चाणक्य मंडळ पार्टनर • प्रवेश सुरू',
+      badgeEn: '👑 Chanakya Mandal Partner • Admissions Open'
+    }
+  },
+  {
+    id: 'deepstambh_foundation',
+    nameMr: 'दीपस्तंभ स्पर्धा परीक्षा केंद्र, पुणे व जळगाव',
+    nameEn: 'Deepstambh Foundation MPSC Center',
+    config: {
+      isEnabled: true,
+      academyNameMr: 'दीपस्तंभ स्पर्धा परीक्षा केंद्र, पुणे',
+      academyNameEn: 'Deepstambh Foundation MPSC Center, Pune',
+      taglineMr: 'पुणे व जळगाव • यजुर्वेंद्र महाजन सरांचे प्रेरक मार्गदर्शन व निवासी बॅच',
+      taglineEn: 'Pune & Jalgaon • Guided by Yajurvendra Mahajan Sir & Residential Batches',
+      locationMr: 'पुणे व जळगाव',
+      locationEn: 'Pune & Jalgaon',
+      batchTitleMr: 'MPSC मनोबल निवासी व ऑनलाइन सर्वसमावेशक बॅच २०२६-२७!',
+      batchTitleEn: 'MPSC Manobal Residential & Online Batch 2026-27!',
+      batchDetailsMr: [
+        '२४ तास निवासी अभ्यासिका व वैयक्तिक समुपदेशन',
+        'सर्व विषयांची शून्य ते शिखर तयारी',
+        'चालू घडामोडींचे दैनिक विश्लेषण व नोट्स',
+        'अधिकारी व्यक्तींचे साप्ताहिक विशेष मार्गदर्शन'
+      ],
+      batchDetailsEn: [
+        '24/7 Residential Study Hall & Personal Mentorship',
+        'Complete Ground-up Coverage of All GS Subjects',
+        'Daily Current Affairs Analysis & Handcrafted Notes',
+        'Weekly Guest Sessions by Serving Officers'
+      ],
+      phone: '+919970246246',
+      whatsappNumber: '919970246246',
+      websiteUrl: 'https://mpscsathi.online',
+      discountCode: 'DEEPSTAMBH20',
+      discountOfferMr: 'निवासी बॅचसाठी विशेष २०% सूट',
+      discountOfferEn: 'Special 20% Off for Residential Batch',
+      themeColor: 'amber',
+      badgeMr: '🌟 दीपस्तंभ केंद्र पार्टनर • प्रवेश सुरू',
+      badgeEn: '🌟 Deepstambh Center Partner • Admissions Open'
+    }
+  },
+  {
+    id: 'prithvi_academy_pune',
+    nameMr: 'पृथ्वी अकॅडमी, पुणे (Prithvi Academy)',
+    nameEn: 'Prithvi Academy, Pune',
+    config: {
+      isEnabled: true,
+      academyNameMr: 'पृथ्वी अकॅडमी, पुणे',
+      academyNameEn: 'Prithvi Academy, Pune',
+      taglineMr: 'सदाशिव पेठ, पुणे • चालू घडामोडी व राज्यव्यवस्था विषयांची सर्वोत्तम तयारी',
+      taglineEn: 'Sadashiv Peth, Pune • Best Preparation for GS & Current Affairs',
+      locationMr: 'सदाशिव पेठ, पुणे',
+      locationEn: 'Sadashiv Peth, Pune',
+      batchTitleMr: 'MPSC राज्यसेवा पूर्व+मुख्य २०२६-२७ महासंग्राम बॅच!',
+      batchTitleEn: 'MPSC Rajyaseva Prelims+Mains 2026-27 Master Batch!',
+      batchDetailsMr: [
+        'विषयानुरूप तज्ज्ञ प्राध्यापकांचे संपूर्ण मार्गदर्शन',
+        '१०,०००+ बहुपर्यायी प्रश्नांचा सराव व टेस्ट सिरीज',
+        'आयोगाच्या पॅटर्ननुसार अचूक दिशा आणि नियोजन',
+        'ऑडिओ-व्हिडिओ डिजिटल क्लासरूम सुविधा'
+      ],
+      batchDetailsEn: [
+        'Subject-matter Expert Faculty Guidance',
+        '10,000+ Practice MCQs & Sectional Test Series',
+        'Strict Alignment with Latest MPSC Exam Patterns',
+        'State-of-the-Art Digital Classroom Environment'
+      ],
+      phone: '+919822453678',
+      whatsappNumber: '919822453678',
+      websiteUrl: 'https://mpscsathi.online',
+      discountCode: 'PRITHVI20',
+      discountOfferMr: 'महासंग्राम बॅचसाठी २०% तात्काळ सवलत',
+      discountOfferEn: 'Instant 20% Off for Master Batch',
+      themeColor: 'red',
+      badgeMr: '🎯 पृथ्वी अकॅडमी पार्टनर • प्रवेश सुरू',
+      badgeEn: '🎯 Prithvi Academy Partner • Admissions Open'
+    }
+  },
+  {
+    id: 'infinity_academy_pune',
+    nameMr: 'इन्फिनिटी स्पर्धा परीक्षा अकॅडमी, पुणे व नाशिक',
+    nameEn: 'Infinity Academy, Pune & Nashik',
+    config: {
+      isEnabled: true,
+      academyNameMr: 'इन्फिनिटी स्पर्धा परीक्षा अकॅडमी',
+      academyNameEn: 'Infinity Academy, Pune & Nashik',
+      taglineMr: 'पुणे व नाशिक • MPSC तांत्रिक, अराजपत्रित व संयुक्त परीक्षांमध्ये अव्वल',
+      taglineEn: 'Pune & Nashik • Top Results in Technical & Non-Gazetted Services',
+      locationMr: 'पुणे व नाशिक',
+      locationEn: 'Pune & Nashik',
+      batchTitleMr: 'MPSC अराजपत्रित तांत्रिक व सामान्य अध्ययन बॅच २०२६-२७!',
+      batchTitleEn: 'MPSC Non-Gazetted & Technical Master Batch 2026-27!',
+      batchDetailsMr: [
+        'सर्व विषयांची पायाभूत संकल्पनांपासून तयारी',
+        'दैनिक क्विझ व साप्ताहिक रिव्हिजन टेस्ट',
+        'रेकॉर्डेड व लाईव्ह लेक्चर्सची एकाच वेळी उपलब्धता',
+        'मागील १० वर्षांच्या प्रश्नपत्रिकांचे सखोल विश्लेषण'
+      ],
+      batchDetailsEn: [
+        'Fundamental Concept Building Across All Subjects',
+        'Daily Sectional Quizzes & Weekly Revision Mocks',
+        'Dual Access to Live & Recorded Classroom Sessions',
+        'In-depth 10-Year PYQ Detailed Analysis'
+      ],
+      phone: '+919158444009',
+      whatsappNumber: '919158444009',
+      websiteUrl: 'https://mpscsathi.online',
+      discountCode: 'INFINITY20',
+      discountOfferMr: 'प्रवेशावर २०% थेट सवलत उपलब्ध',
+      discountOfferEn: 'Flat 20% Discount on Admissions',
+      themeColor: 'blue',
+      badgeMr: '⚡ इन्फिनिटी अकॅडमी पार्टनर • प्रवेश सुरू',
+      badgeEn: '⚡ Infinity Academy Partner • Admissions Open'
+    }
   }
 ];
 
