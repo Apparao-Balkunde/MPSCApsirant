@@ -54,7 +54,7 @@ import { SocialReformersEncyclopediaModal } from './components/SocialReformersEn
 import { GovtSchemesEncyclopediaModal } from './components/GovtSchemesEncyclopediaModal';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
-import { testFirestoreConnection, initAuthListener, trySsoLogin } from './lib/firebase';
+import { testFirestoreConnection, initAuthListener, trySsoLogin, getLocalStudentSession } from './lib/firebase';
 import { 
   syncUserProgressToFirestore, 
   syncAllDataToFirestore,
@@ -787,9 +787,8 @@ export default function App() {
     setActiveResult(result);
 
     // Atomically store this exam result to Firebase in real-time
-    if (currentUser?.uid) {
-      storeSingleExamResultToFirestore(currentUser.uid, result, updatedProgress);
-    }
+    const effectiveUserId = currentUser?.uid || getLocalStudentSession()?.uid || ('guest_' + session.id.substring(0, 8));
+    storeSingleExamResultToFirestore(effectiveUserId, result, updatedProgress);
   };
 
   // Toggle sound effects setting
@@ -962,8 +961,8 @@ export default function App() {
               bookmarkedIds={userProgress.bookmarkedQuestionIds}
               onToggleBookmark={handleToggleBookmark}
               questionsPool={questions}
-              currentUserName={currentUser?.displayName || currentUser?.email || 'MPSC Aspirant'}
-              currentUserId={currentUser?.uid}
+              currentUserName={currentUser?.displayName || (currentUser?.email ? currentUser.email.split('@')[0] : (getLocalStudentSession()?.displayName || 'अभ्यासक'))}
+              currentUserId={currentUser?.uid || getLocalStudentSession()?.uid || ('guest_' + (activeSession?.id || 'attempt').substring(0, 8))}
               isAdmin={isAdmin}
               onOpenAdSenseManager={() => setIsAdSenseManagerOpen(true)}
               onOpenAffiliateBooks={handleOpenAffiliateBooks}

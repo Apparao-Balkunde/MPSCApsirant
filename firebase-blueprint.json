@@ -108,6 +108,21 @@
         "completedAt": { "type": "string", "format": "date-time" }
       },
       "required": ["userId", "date", "score", "totalQuestions", "completedAt"]
+    },
+    "LiveLeaderboardAttempt": {
+      "title": "LiveLeaderboardAttempt",
+      "description": "Authoritative real-time leaderboard entry for exams and daily quizzes",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "score": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "timeTakenSeconds": { "type": "number" },
+        "date": { "type": "string" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["userId", "score", "timeTakenSeconds"]
     }
   },
   "firestore": {
@@ -126,6 +141,14 @@
     "/users/{userId}/dailyQuizAttempts/{attemptId}": {
       "schema": "DailyQuizAttempt",
       "description": "Tracks single daily quiz attempt per user per calendar day"
+    },
+    "/daily_quiz_leaderboard/{date}/attempts/{attemptId}": {
+      "schema": "LiveLeaderboardAttempt",
+      "description": "Real-time daily quiz rankings across all active aspirants"
+    },
+    "/exam_leaderboards/{examId}/attempts/{attemptId}": {
+      "schema": "LiveLeaderboardAttempt",
+      "description": "Real-time exam leaderboard attempts across all active aspirants"
     },
     "/mpsc_questions/{questionId}": {
       "schema": "MPSCQuestion",

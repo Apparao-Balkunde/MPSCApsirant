@@ -617,6 +617,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <DailyQuizCard
         language={language}
         currentUserId={currentUserId || currentUser?.uid}
+        currentUserName={currentUser?.displayName || (currentUser?.email ? currentUser.email.split('@')[0] : 'अभ्यासक')}
         onQuestionsAnswered={(count) => {
           if (onLogStudySession) {
             onLogStudySession(

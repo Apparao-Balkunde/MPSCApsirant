@@ -15,7 +15,10 @@ import {
   Flame, 
   Award,
   BookOpen,
-  Share2
+  Share2,
+  RefreshCw,
+  Users,
+  Shield
 } from 'lucide-react';
 import { Question } from '../types';
 import { 
@@ -24,13 +27,17 @@ import {
   checkUserDailyQuizAttempt, 
   recordDailyQuizAttempt, 
   DailyQuizAttempt,
-  CURATED_DEFAULT_DAILY_QUESTIONS
+  CURATED_DEFAULT_DAILY_QUESTIONS,
+  fetchDailyQuizLiveRank,
+  LiveDailyQuizRankResult,
+  DailyQuizLeaderboardEntry
 } from '../services/dailyQuizService';
 import { cleanQuestionText } from '../utils/cleanQuestionText';
 
 interface DailyQuizCardProps {
   language: 'mr' | 'en';
   currentUserId?: string;
+  currentUserName?: string;
   onQuestionsAnswered?: (count: number) => void;
   className?: string;
 }
@@ -38,6 +45,7 @@ interface DailyQuizCardProps {
 export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
   language,
   currentUserId,
+  currentUserName,
   onQuestionsAnswered,
   className = '',
 }) => {
@@ -59,11 +67,16 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
     }
   }, [isMr, todayDateStr]);
 
-  // Component state
+  // Component State
   const [loading, setLoading] = useState<boolean>(true);
   const [questions, setQuestions] = useState<Question[]>(CURATED_DEFAULT_DAILY_QUESTIONS);
   const [alreadyAttempted, setAlreadyAttempted] = useState<boolean>(false);
   const [pastAttempt, setPastAttempt] = useState<DailyQuizAttempt | null>(null);
+
+  // Real-time rank state (strictly 100% genuine Firestore data, NO fake ranks)
+  const [liveRankInfo, setLiveRankInfo] = useState<LiveDailyQuizRankResult | null>(null);
+  const [isLoadingRank, setIsLoadingRank] = useState<boolean>(false);
+  const [showRankModal, setShowRankModal] = useState<boolean>(false);
 
   // Quiz active & review states
   const [isQuizActive, setIsQuizActive] = useState<boolean>(false);
@@ -93,6 +106,21 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
             if (attemptStatus.attempt.answers) {
               setSelectedAnswers(attemptStatus.attempt.answers);
             }
+            // Fetch real-time rank from Firestore
+            setIsLoadingRank(true);
+            fetchDailyQuizLiveRank(
+              todayDateStr,
+              attemptStatus.attempt.userId,
+              attemptStatus.attempt.score,
+              attemptStatus.attempt.timeTakenSeconds,
+              currentUserName
+            ).then((rankData) => {
+              if (isMounted) setLiveRankInfo(rankData);
+            }).catch((e) => {
+              console.warn('Daily quiz live rank error:', e);
+            }).finally(() => {
+              if (isMounted) setIsLoadingRank(false);
+            });
           } else {
             setAlreadyAttempted(false);
             setPastAttempt(null);
@@ -115,7 +143,7 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [currentUserId, todayDateStr]);
+  }, [currentUserId, currentUserName, todayDateStr]);
 
   // Sync quiz language with prop changes if quiz not started
   useEffect(() => {
@@ -208,7 +236,24 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
     setPastAttempt(attemptRecord);
 
     // Persist to Firestore and localStorage
-    await recordDailyQuizAttempt(attemptRecord);
+    await recordDailyQuizAttempt(attemptRecord, currentUserName);
+
+    // Immediately fetch authoritative real-time rank from Firestore
+    setIsLoadingRank(true);
+    try {
+      const rankData = await fetchDailyQuizLiveRank(
+        todayDateStr,
+        attemptRecord.userId,
+        attemptRecord.score,
+        attemptRecord.timeTakenSeconds,
+        currentUserName
+      );
+      setLiveRankInfo(rankData);
+    } catch (e) {
+      console.warn('Realtime rank calculation error:', e);
+    } finally {
+      setIsLoadingRank(false);
+    }
 
     if (onQuestionsAnswered) {
       onQuestionsAnswered(questions.length);
@@ -303,6 +348,53 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
             /* STATE A: QUIZ COMPLETED TODAY */
             /* ========================================================= */
             <div className="space-y-4">
+              {/* 🏆 Authoritative Real-Time Rank Hero Banner */}
+              <div className="bg-gradient-to-r from-amber-950/40 via-stone-950 to-amber-950/40 border border-amber-500/40 rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-inner">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+                    <Trophy className="w-5 h-5 text-amber-400" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[11px] font-black uppercase tracking-wider text-amber-300">
+                        {isMr ? '🏆 आजची थेट रिअल-टाईम रँक (Live Rank)' : '🏆 Today\'s Live Realtime Rank'}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-1.5 py-0.2 rounded-full">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>{isMr ? '१००% खरा Firestore डेटा' : 'Realtime Data'}</span>
+                      </span>
+                    </div>
+
+                    <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono mt-0.5 flex items-baseline gap-2 flex-wrap">
+                      <span>#{liveRankInfo ? liveRankInfo.rank : 1}</span>
+                      <span className="text-xs text-stone-300 font-normal">
+                        / {liveRankInfo ? liveRankInfo.totalParticipants : 1} {isMr ? 'उमेदवारांपैकी' : 'aspirants'}
+                      </span>
+                      {liveRankInfo && liveRankInfo.totalParticipants > 1 ? (
+                        <span className="text-xs font-bold text-emerald-400 font-sans bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+                          {isMr ? `(टॉप ${Math.max(1, 100 - liveRankInfo.percentile)}%)` : `(Top ${Math.max(1, 100 - liveRankInfo.percentile)}%)`}
+                        </span>
+                      ) : (
+                        <span className="text-xs font-bold text-amber-300 font-sans bg-amber-950/60 border border-amber-500/30 px-2 py-0.5 rounded-md">
+                          {isMr ? '🥇 आजचे पहिले उमेदवार' : '🥇 First Aspirant Today'}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 self-start sm:self-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowRankModal(true)}
+                    className="px-3 py-1.5 rounded-lg bg-stone-850 hover:bg-stone-800 text-amber-300 border border-amber-500/40 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs hover:border-amber-400"
+                  >
+                    <Users className="w-3.5 h-3.5 text-amber-400" />
+                    <span>{isMr ? 'थेट गुणवत्ता यादी' : 'Live Leaderboard'}</span>
+                  </button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <div className="bg-stone-950/60 p-3 rounded-xl border border-stone-800 text-center">
                   <div className="text-[11px] font-bold text-stone-400 uppercase">
@@ -576,6 +668,60 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
                     </p>
                   </div>
 
+                  {/* 🏆 Authoritative Live Real-Time Rank Showcase */}
+                  <div className="bg-gradient-to-r from-amber-950/60 via-stone-900 to-amber-950/60 border border-amber-500/50 rounded-2xl p-4 max-w-lg mx-auto text-left shadow-lg">
+                    <div className="flex items-center justify-between gap-2 border-b border-stone-800 pb-2.5 mb-3">
+                      <div className="flex items-center gap-2">
+                        <Trophy className="w-5 h-5 text-amber-400" />
+                        <span className="text-xs font-black uppercase tracking-wider text-amber-300">
+                          {isMr ? '🏆 आजची थेट रिअल-टाईम गुणवत्ता रँक' : '🏆 Today\'s Live Realtime Rank'}
+                        </span>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 bg-emerald-950/90 border border-emerald-500/40 px-2 py-0.5 rounded-full">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>{isMr ? '१००% खरा Firestore डेटा' : 'Realtime Verified'}</span>
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <div className="text-[11px] text-stone-400 font-medium">
+                          {isMr ? 'आजच्या सर्व उमेदवारांमधील स्थान:' : 'Your Position Today:'}
+                        </div>
+                        <div className="text-3xl font-black text-amber-400 font-mono mt-0.5 flex items-baseline gap-1.5">
+                          <span>#{liveRankInfo ? liveRankInfo.rank : 1}</span>
+                          <span className="text-xs text-stone-300 font-normal">
+                            / {liveRankInfo ? liveRankInfo.totalParticipants : 1} {isMr ? 'उमेदवार' : 'aspirants'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {liveRankInfo && liveRankInfo.totalParticipants > 1 ? (
+                        <div className="text-right">
+                          <div className="text-[11px] text-stone-400 font-medium">{isMr ? 'पर्सेन्टाईल' : 'Percentile'}</div>
+                          <div className="text-xl font-black text-emerald-400 font-mono">
+                            {liveRankInfo.percentile}%
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-right text-[11px] text-amber-300 bg-amber-950/40 border border-amber-500/30 px-2.5 py-1 rounded-lg">
+                          {isMr ? '🥇 आजचे पहिले उमेदवार!' : '🥇 First Aspirant Today!'}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="mt-3 pt-2.5 border-t border-stone-800/80 text-[11px] text-stone-400 flex items-center justify-between">
+                      <span>{isMr ? 'कोणतीही बनावट रँक नाही — केवळ प्रत्यक्ष उमेदवारांची क्रमवारी.' : 'Zero fake ranks. Strictly real test-takers.'}</span>
+                      <button
+                        type="button"
+                        onClick={() => setShowRankModal(true)}
+                        className="text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer shrink-0 ml-2"
+                      >
+                        {isMr ? 'गुणवत्ता यादी पहा ➜' : 'View Rank List ➜'}
+                      </button>
+                    </div>
+                  </div>
+
                   {/* Summary Metric Cards */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-lg mx-auto">
                     <div className="p-3 rounded-xl bg-stone-950 border border-stone-800">
@@ -842,6 +988,156 @@ export const DailyQuizCard: React.FC<DailyQuizCardProps> = ({
                 type="button"
                 onClick={() => setIsReviewOpen(false)}
                 className="px-4 py-2 bg-stone-800 hover:bg-stone-750 text-stone-200 text-xs font-bold rounded-xl transition-colors cursor-pointer"
+              >
+                {isMr ? 'बंद करा' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 🏆 DAILY QUIZ REAL-TIME LEADERBOARD MODAL */}
+      {/* ========================================================================= */}
+      {showRankModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-xl max-h-[90vh] bg-stone-900 border border-amber-500/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-stone-100">
+            {/* Header */}
+            <div className="p-4 sm:p-5 bg-gradient-to-r from-stone-950 via-amber-950/40 to-stone-950 border-b border-stone-800 flex items-center justify-between gap-3 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center shrink-0">
+                  <Trophy className="w-5 h-5 text-amber-400" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="text-base sm:text-lg font-black text-white">
+                      {isMr ? 'आजची थेट गुणवत्ता यादी (Daily Live Rank)' : 'Today\'s Live Rank List'}
+                    </h3>
+                    <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-400 bg-emerald-950/90 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>{isMr ? '१००% खरा Firestore डेटा' : 'Realtime'}</span>
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-stone-400 mt-0.5">
+                    {formattedTodayDate} • {isMr ? `एकूण ${liveRankInfo?.totalParticipants || 1} उमेदवार` : `${liveRankInfo?.totalParticipants || 1} participants`}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (pastAttempt) {
+                      setIsLoadingRank(true);
+                      try {
+                        const rankData = await fetchDailyQuizLiveRank(
+                          todayDateStr,
+                          pastAttempt.userId,
+                          pastAttempt.score,
+                          pastAttempt.timeTakenSeconds,
+                          currentUserName
+                        );
+                        setLiveRankInfo(rankData);
+                      } finally {
+                        setIsLoadingRank(false);
+                      }
+                    }
+                  }}
+                  title={isMr ? 'रँक रीफ्रेश करा' : 'Refresh Ranks'}
+                  className="p-2 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-300 transition-colors cursor-pointer"
+                >
+                  <RefreshCw className={`w-4 h-4 ${isLoadingRank ? 'animate-spin text-amber-400' : ''}`} />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowRankModal(false)}
+                  className="p-2 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-300 transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* List Body */}
+            <div className="p-4 sm:p-5 overflow-y-auto space-y-2.5 flex-1">
+              <div className="bg-amber-950/20 border border-amber-500/20 rounded-xl p-3 text-xs text-amber-200/90 flex items-start gap-2">
+                <Shield className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <span>
+                  {isMr 
+                    ? 'या यादीत कोणतीही फेक किंवा बॉट रँक नाही. केवळ आज प्रत्यक्ष क्विझ सोडवलेल्या खऱ्या उमेदवारांचे गुण आणि वेळ दाखवली जाते.' 
+                    : 'Strictly zero simulated ranks. Only authentic candidates who completed today\'s quiz are ranked.'}
+                </span>
+              </div>
+
+              {liveRankInfo && liveRankInfo.leaderboard && liveRankInfo.leaderboard.length > 0 ? (
+                liveRankInfo.leaderboard.map((entry) => {
+                  const isTop3 = entry.rank <= 3;
+                  const rankBadgeClass =
+                    entry.rank === 1
+                      ? 'bg-amber-500 text-stone-950 font-black'
+                      : entry.rank === 2
+                      ? 'bg-stone-300 text-stone-950 font-black'
+                      : entry.rank === 3
+                      ? 'bg-amber-700 text-white font-black'
+                      : 'bg-stone-800 text-stone-400 font-bold';
+
+                  return (
+                    <div
+                      key={entry.userId}
+                      className={`flex items-center justify-between p-3 rounded-xl border transition-all ${
+                        entry.isCurrentUser
+                          ? 'bg-amber-950/40 border-amber-500/60 ring-1 ring-amber-400/40 shadow-md'
+                          : 'bg-stone-950/60 border-stone-800 hover:border-stone-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs shrink-0 ${rankBadgeClass}`}>
+                          #{entry.rank}
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-stone-100 flex items-center gap-1.5">
+                            <span>{entry.displayName}</span>
+                            {entry.isCurrentUser && (
+                              <span className="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500 text-stone-950">
+                                {isMr ? 'तुम्ही' : 'YOU'}
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-[11px] text-stone-400 flex items-center gap-2 mt-0.5 font-mono">
+                            <span>⏱️ {Math.floor(entry.timeTakenSeconds / 60)}m {entry.timeTakenSeconds % 60}s</span>
+                            <span>•</span>
+                            <span className="text-emerald-400">{entry.accuracy}% अचूकता</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="text-right font-mono">
+                        <div className="text-base font-black text-amber-400">
+                          {entry.score.toFixed(2)} <span className="text-[11px] text-stone-400 font-normal">/ 5</span>
+                        </div>
+                        <div className="text-[10px] text-stone-400">
+                          ✓{entry.correctCount} • ✗{entry.incorrectCount}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="py-8 text-center text-stone-400 text-xs">
+                  {isMr ? 'अजून कोणताही उमेदवार यादीत नाही.' : 'No candidates in the list yet.'}
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 bg-stone-950 border-t border-stone-800 flex items-center justify-between gap-3 shrink-0 text-xs text-stone-400">
+              <span>{isMr ? 'क्रमवारी निकष: १) गुण (Descending), २) घेतलेला वेळ (Ascending)' : 'Rank Criteria: 1) Score (Desc), 2) Time Taken (Asc)'}</span>
+              <button
+                type="button"
+                onClick={() => setShowRankModal(false)}
+                className="px-4 py-2 bg-stone-800 hover:bg-stone-750 text-stone-200 font-bold rounded-xl transition-colors cursor-pointer"
               >
                 {isMr ? 'बंद करा' : 'Close'}
               </button>

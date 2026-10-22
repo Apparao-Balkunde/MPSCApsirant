@@ -30,6 +30,18 @@ service cloud.firestore {
       allow write: if isValidId(questionId);
     }
 
+    // Daily quiz live leaderboard per calendar date
+    match /daily_quiz_leaderboard/{date}/attempts/{attemptId} {
+      allow read: if true;
+      allow write: if isValidId(attemptId);
+    }
+
+    // Exam live leaderboard per examId / pattern
+    match /exam_leaderboards/{examId}/attempts/{attemptId} {
+      allow read: if true;
+      allow write: if isValidId(attemptId);
+    }
+
     // Aspirant user profile
     match /users/{userId} {
       allow read: if true;
@@ -55,3 +67,4 @@ service cloud.firestore {
     }
   }
 }
+
