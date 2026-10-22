@@ -110,6 +110,7 @@ interface DashboardViewProps {
   onOpenPanchayatiRaj?: () => void;
   onOpenSocialReformers?: () => void;
   onOpenGovtSchemes?: () => void;
+  onOpenLoksattaModal?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;

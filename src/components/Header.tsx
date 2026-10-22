@@ -81,6 +81,7 @@ export interface HeaderProps {
   onOpenSocialReformers?: () => void;
   onOpenConstitutionMasterHub?: () => void;
   onOpenGovtSchemes?: () => void;
+  onOpenLoksattaModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -113,6 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSocialReformers,
   onOpenConstitutionMasterHub,
   onOpenGovtSchemes,
+  onOpenLoksattaModal,
 }) => {
   const isMr = language === 'mr';
   const [adminActive, setAdminActive] = useState<boolean>(() => isAdmin ?? isUserAdmin(currentUser));
@@ -628,6 +630,29 @@ export const Header: React.FC<HeaderProps> = ({
                           </div>
                           <p className="text-[10px] text-stone-400 truncate">
                             {isMr ? '२०२५-२०२७ मासिक घडामोडी व रिव्हर्स लर्निंग' : '2025-27 monthly drill & reverse facts'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenLoksattaModal && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenLoksattaModal();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-red-950/50 via-stone-900 to-amber-950/40 hover:from-red-900/60 hover:to-amber-900/50 border border-red-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-red-600/25 border border-red-500/40 flex items-center justify-center shrink-0 text-red-400 group-hover:scale-105">
+                          <Newspaper className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-red-300 group-hover:text-red-200 flex items-center justify-between">
+                            <span>{isMr ? '📰 दैनिक लोकसत्ता विशेष हब' : 'Daily Loksatta MPSC Hub'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-red-600 text-white font-mono">लोकसत्ता</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'संपादकीय, अन्वयार्थ, व्यक्तिवेध, कुतूहल व MCQs' : 'Editorials, Vyaktiwedh, Kutuhal & MCQs'}
                           </p>
                         </div>
                       </button>
@@ -1254,6 +1279,15 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Trophy className="w-3.5 h-3.5 text-amber-300 fill-amber-300/40" />
               <span>{isMr ? 'मॅरेथॉन' : 'Marathon'}</span>
+            </button>
+          {onOpenLoksattaModal && (
+            <button
+              onClick={onOpenLoksattaModal}
+              className="px-2 py-1 rounded-lg font-bold text-red-300 flex items-center gap-1 shrink-0 cursor-pointer bg-red-600/20 border border-red-500/40"
+              title={isMr ? "दैनिक लोकसत्ता MPSC हब" : "Loksatta MPSC Hub"}
+            >
+              <Newspaper className="w-3.5 h-3.5 text-red-400" />
+              <span>{isMr ? 'लोकसत्ता' : 'Loksatta'}</span>
             </button>
           )}
 
