@@ -39,7 +39,8 @@ import {
   Newspaper,
   ShoppingBag,
   DollarSign,
-  Building2
+  Building2,
+  Rocket
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -82,6 +83,7 @@ export interface HeaderProps {
   onOpenConstitutionMasterHub?: () => void;
   onOpenGovtSchemes?: () => void;
   onOpenLoksattaModal?: () => void;
+  onOpenIsroDrdoModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -115,6 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenConstitutionMasterHub,
   onOpenGovtSchemes,
   onOpenLoksattaModal,
+  onOpenIsroDrdoModal,
 }) => {
   const isMr = language === 'mr';
   const [adminActive, setAdminActive] = useState<boolean>(() => isAdmin ?? isUserAdmin(currentUser));
@@ -653,6 +656,29 @@ export const Header: React.FC<HeaderProps> = ({
                           </div>
                           <p className="text-[10px] text-stone-400 truncate">
                             {isMr ? 'संपादकीय, अन्वयार्थ, व्यक्तिवेध, कुतूहल व MCQs' : 'Editorials, Vyaktiwedh, Kutuhal & MCQs'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenIsroDrdoModal && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenIsroDrdoModal();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-blue-950/50 via-stone-900 to-indigo-950/40 hover:from-blue-900/60 hover:to-indigo-900/50 border border-blue-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-blue-600/25 border border-blue-500/40 flex items-center justify-center shrink-0 text-blue-400 group-hover:scale-105">
+                          <Rocket className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-blue-300 group-hover:text-blue-200 flex items-center justify-between">
+                            <span>{isMr ? '🚀 इस्रो व डीआरडीओ मोहिमा (व्हिडिओ विशेष)' : 'ISRO & DRDO Missions (Video Special)'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-red-600 text-white font-mono">YouTube</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? 'दृष्टी IAS (नामू मॅम) व्हिडिओ आधारित सर्व प्रश्न' : 'Drishti IAS (Namu Mam) Video Questions'}
                           </p>
                         </div>
                       </button>
@@ -1290,6 +1316,17 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Newspaper className="w-3.5 h-3.5 text-red-400" />
               <span>{isMr ? 'लोकसत्ता' : 'Loksatta'}</span>
+            </button>
+          )}
+
+          {onOpenIsroDrdoModal && (
+            <button
+              onClick={onOpenIsroDrdoModal}
+              className="px-2 py-1 rounded-lg font-bold text-blue-300 flex items-center gap-1 shrink-0 cursor-pointer bg-blue-600/20 border border-blue-500/40"
+              title={isMr ? "इस्रो व डीआरडीओ व्हिडिओ प्रश्न (Drishti IAS)" : "ISRO & DRDO Video Questions"}
+            >
+              <Rocket className="w-3.5 h-3.5 text-blue-400" />
+              <span>{isMr ? '🚀 इस्रो-DRDO' : '🚀 ISRO-DRDO'}</span>
             </button>
           )}
 

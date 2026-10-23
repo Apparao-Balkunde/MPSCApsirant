@@ -54,6 +54,8 @@ import { SocialReformersEncyclopediaModal } from './components/SocialReformersEn
 import { GovtSchemesEncyclopediaModal } from './components/GovtSchemesEncyclopediaModal';
 import { LoksattaNewspaperModal } from './components/LoksattaNewspaperModal';
 import { LOKSATTA_QUESTIONS_AS_MCQ } from './data/loksattaNewspaperData';
+import { IsroDrdoVideoModal } from './components/IsroDrdoVideoModal';
+import { ISRO_DRDO_VIDEO_QUESTIONS } from './data/isroDrdoVideoQuestions';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener, trySsoLogin, getLocalStudentSession } from './lib/firebase';
@@ -83,7 +85,11 @@ interface SyncToastState {
 
 export default function App() {
   const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
-  const [questions, setQuestions] = useState<Question[]>(() => [...MPSC_QUESTIONS, ...LOKSATTA_QUESTIONS_AS_MCQ]);
+  const [questions, setQuestions] = useState<Question[]>(() => [
+    ...MPSC_QUESTIONS,
+    ...LOKSATTA_QUESTIONS_AS_MCQ,
+    ...ISRO_DRDO_VIDEO_QUESTIONS
+  ]);
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq'>('dashboard');
   const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
   const [activeResult, setActiveResult] = useState<ExamResult | null>(null);
@@ -168,6 +174,9 @@ export default function App() {
 
   // दैनिक लोकसत्ता वृत्तपत्र विश्लेषण व चालू घडामोडी हब modal state
   const [isLoksattaModalOpen, setIsLoksattaModalOpen] = useState<boolean>(false);
+
+  // इस्रो व डीआरडीओ मोहिमा २०२६ (YouTube Drishti IAS Video) modal state
+  const [isIsroDrdoModalOpen, setIsIsroDrdoModalOpen] = useState<boolean>(false);
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -951,6 +960,7 @@ export default function App() {
             onOpenMapQuiz={() => setIsMapQuizOpen(true)}
             onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
             onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
+            onOpenIsroDrdoModal={() => setIsIsroDrdoModalOpen(true)}
           />
           <main className="flex-1 w-full max-w-full overflow-x-hidden">
             <ExamResultView
@@ -1016,6 +1026,7 @@ export default function App() {
             onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
             onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
             onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
+            onOpenIsroDrdoModal={() => setIsIsroDrdoModalOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -1077,6 +1088,7 @@ export default function App() {
                 onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
                 onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
                 onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
+                onOpenIsroDrdoModal={() => setIsIsroDrdoModalOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1448,6 +1460,34 @@ export default function App() {
         onClose={() => setIsLoksattaModalOpen(false)}
         language={userProgress.preferredLanguage}
         onAddBookmark={handleToggleBookmark}
+      />
+
+      {/* 🚀 इस्रो व डीआरडीओ मोहिमा २०२६ (YouTube Drishti IAS Video) Modal */}
+      <IsroDrdoVideoModal
+        isOpen={isIsroDrdoModalOpen}
+        onClose={() => setIsIsroDrdoModalOpen(false)}
+        language={userProgress.preferredLanguage}
+        bookmarkedIds={userProgress.bookmarkedQuestionIds}
+        onAddBookmark={handleToggleBookmark}
+        onStartExam={(testQuestions, title) => {
+          setIsIsroDrdoModalOpen(false);
+          setQuestions((prev) => {
+            const map = new Map<string, Question>();
+            prev.forEach((q) => map.set(q.id, q));
+            testQuestions.forEach((q) => map.set(q.id, q));
+            return Array.from(map.values());
+          });
+          const session = createExamSession({
+            patternId: 'custom',
+            subjectId: 'general_science',
+            title,
+            customQuestionIds: testQuestions.map((q) => q.id),
+            limit: testQuestions.length,
+            questionPool: [...questions, ...testQuestions],
+          });
+          setActiveResult(null);
+          setActiveSession(session);
+        }}
       />
 
       {/* MPSC Standard Reference Books & Amazon Affiliate Store Modal */}

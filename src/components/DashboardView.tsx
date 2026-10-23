@@ -38,7 +38,9 @@ import {
   MapPin,
   ShieldAlert,
   DollarSign,
-  Building2
+  Building2,
+  Rocket,
+  Video
 } from 'lucide-react';
 import { ExamPatternId, SubjectId, UserProgress, Question, ExamResult, StudySessionLog } from '../types';
 import { SUBJECTS } from '../data/subjects';
@@ -111,6 +113,7 @@ interface DashboardViewProps {
   onOpenSocialReformers?: () => void;
   onOpenGovtSchemes?: () => void;
   onOpenLoksattaModal?: () => void;
+  onOpenIsroDrdoModal?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -161,6 +164,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenSocialReformers,
   onOpenGovtSchemes,
   onOpenLoksattaModal,
+  onOpenIsroDrdoModal,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -2039,6 +2043,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
 
             <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              {onOpenIsroDrdoModal && (
+                <button
+                  type="button"
+                  id="btn-dashboard-isro-drdo-hub"
+                  onClick={onOpenIsroDrdoModal}
+                  className="px-5 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:brightness-110 text-white font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0 border border-blue-400/50"
+                >
+                  <Rocket className="w-4 h-4 text-white" />
+                  <span>{isMr ? '🚀 इस्रो-DRDO व्हिडिओ हब' : 'ISRO-DRDO Video Hub'}</span>
+                </button>
+              )}
+
               {onOpenLoksattaModal && (
                 <button
                   type="button"
@@ -2125,6 +2141,70 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               >
                 <Newspaper className="w-5 h-5 text-white" />
                 <span>{isMr ? '📰 लोकसत्ता हब उघडा' : 'Open Loksatta Hub'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 🚀 इस्रो व डीआरडीओ मोहिमा २०२६ - दृष्टि IAS / नम्रता (नामू) मॅम विशेष व्हिडिओ हब */}
+        <div className="bg-gradient-to-br from-blue-950/80 via-stone-900 to-indigo-950/80 rounded-2xl border-2 border-blue-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-3 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-red-600 text-white font-black text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+                  <Video className="w-3.5 h-3.5 text-white" />
+                  <span>YouTube Special Video</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 text-xs font-bold">
+                  दृष्टी IAS • नम्रता (नामू) मॅम
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? '२० सविस्तर बहुपर्यायी प्रश्न' : '20 High-Yield MCQs'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+                <span>🚀 इस्रो व डीआरडीओ मोहिमा २०२६ (ISRO & DRDO Missions)</span>
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'दृष्टी IAS (SSC CHSL 2026 GK GS) मधील नामू मॅमच्या विशेष व्याख्यानातील सर्व संभाव्य प्रश्न: चांद्रयान-३ पेलोड्स (ChaSTE, ILSA, APXS), आदित्य-L1 (VELC व SUIT), गगनयान आणि व्योममित्र, भारतीय अंतराळ स्थानक (BAS), मिशन दिव्यास्त्र (Agni-5 MIRV), प्रलय, ब्रह्मोस व जोरावर रणगाडा.'
+                  : 'Comprehensive question set from the Drishti IAS session on ISRO & DRDO Missions 2026: Chandrayaan-3 payloads, Aditya-L1, Gaganyaan, Mission Divyastra (Agni-5 MIRV), Pralay, BrahMos, and Zorawar light tank.'}
+              </p>
+
+              {/* Feature Pills */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs">
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'चांद्रयान व आदित्य' : 'Space Exploration'}</div>
+                  <div className="text-sm font-black text-blue-400 mt-0.5">LVM3 & L1 कक्षा</div>
+                </div>
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'गगनयान व BAS' : 'Human Spaceflight'}</div>
+                  <div className="text-sm font-black text-indigo-400 mt-0.5">व्योममित्र रोबोट</div>
+                </div>
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'क्षेपणास्त्रे (DRDO)' : 'Missiles & MIRV'}</div>
+                  <div className="text-sm font-black text-rose-400 mt-0.5">मिशन दिव्यास्त्र</div>
+                </div>
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'संरक्षण तंत्रज्ञान' : 'Defence Hardware'}</div>
+                  <div className="text-sm font-black text-emerald-400 mt-0.5">जोरावर व ब्रह्मोस</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+              <button
+                type="button"
+                id="btn-open-isro-drdo-hub-dashboard"
+                onClick={onOpenIsroDrdoModal}
+                className="w-full sm:w-auto px-6 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:brightness-110 text-white font-black text-sm rounded-2xl transition-all shadow-xl flex items-center justify-center gap-2.5 cursor-pointer hover:scale-[1.03] active:scale-95 border border-blue-400/40"
+              >
+                <Rocket className="w-5 h-5 text-white" />
+                <span>{isMr ? '🚀 व्हिडिओ प्रश्न सोडवा' : 'Solve Video Questions'}</span>
               </button>
             </div>
           </div>
