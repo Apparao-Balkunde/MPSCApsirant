@@ -288,7 +288,7 @@ export const QUESTIONS_SET_6: Question[] = [
     questionEn: 'Which blood group is known as the "Universal Donor" because its red blood cells lack both A and B antigens and Rh antigen?',
     questionMr: 'कोणत्या रक्तगटाला \'सर्वयोग्य दाता\' (Universal Donor) म्हणतात, कारण त्याच्या तांबड्या पेशींवर A, B आणि Rh प्रतिजने (Antigens) नसतात?',
     optionsEn: ['O Negative (O -ve)', 'AB Positive (AB +ve)', 'O Positive (O +ve)', 'A Negative (A -ve)'],
-    optionsMr: ['O निगेटिव्ह (O -ve)', 'AB पॉझिटिव्ह (AB +ve - सर्वयोग्य ग्राहक)', 'O पॉझिटिव्ह (O +ve)', 'A निगेटिव्ह'],
+    optionsMr: ['O निगेटिव्ह (O -ve)', 'AB पॉझिटिव्ह (AB +ve)', 'O पॉझिटिव्ह (O +ve)', 'A निगेटिव्ह'],
     correctAnswerIndex: 0,
     explanationEn: 'O negative blood can be transfused to individuals of any ABO and Rh blood group safely because it lacks A, B, and Rh antigens on its erythrocyte membrane. AB positive is the Universal Recipient.',
     explanationMr: 'O निगेटिव्ह (O -ve) रक्तगटाच्या तांबड्या पेशींवर A किंवा B आणि Rh प्रतिजने नसतात, त्यामुळे ते कोणत्याही व्यक्तीला चालू शकते. AB +ve हा \'सर्वयोग्य ग्राहक\' आहे.',

@@ -162,13 +162,13 @@ export const QUESTIONS_SET_15: Question[] = [
     questionMr: 'कोणत्या रक्तगटाच्या तांबड्या रक्तपेशींवर (RBCs) \'A\' किंवा \'B\' हे दोन्ही प्रतिजन (Antigens) नसतात, ज्यामुळे त्याला "सर्वयोग्य दाता" (Universal Donor) म्हटले जाते?',
     optionsEn: [
       'Blood Group O negative (O-)',
-      'Blood Group AB positive (AB+ - सर्वयोग्य ग्राहक)',
+      'Blood Group AB positive (AB+)',
       'Blood Group A positive',
       'Blood Group B negative',
     ],
     optionsMr: [
-      'रक्तगट O निगेटिव्ह (O- / सर्वयोग्य दाता)',
-      'रक्तगट AB पॉझिटिव्ह (AB+ / सर्वयोग्य ग्राहक / Universal Recipient)',
+      'रक्तगट O निगेटिव्ह (O-)',
+      'रक्तगट AB पॉझिटिव्ह (AB+)',
       'रक्तगट A',
       'रक्तगट B',
     ],

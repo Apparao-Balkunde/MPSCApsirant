@@ -1138,10 +1138,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Her shoes did not compliment her traditional saree.',
     ],
     optionsMr: [
-      'The teacher gave him a nice complement on his essay. (चूक: येथे प्रशंसा आहे)',
-      'Rice and curry perfectly complement each other. (अचूक: येथे एकमेकांना पूरक असणे हा अर्थ आहे)',
-      'He accepted the complement with a grateful smile. (चूक)',
-      'Her shoes did not compliment her traditional saree. (चूक)',
+      'The teacher gave him a nice complement on his essay.',
+      'Rice and curry perfectly complement each other.',
+      'He accepted the complement with a grateful smile.',
+      'Her shoes did not compliment her traditional saree.',
     ],
     correctAnswerIndex: 1,
     explanationEn: '"COMPLEMENT" (with "e") means to add to in a way that enhances or completes (पूरक असणे). "COMPLIMENT" (with "i") means an expression of praise, admiration, or congratulation (प्रशंसा करणे). Therefore, "Rice and curry perfectly complement each other" is the only correct sentence.',
@@ -1997,7 +1997,7 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
     ],
     optionsMr: [
       'To feast on homemade bakery items (मिष्टान्न खाणे)',
-      'To apologize humbly, admit one\'s mistake, and accept humiliation (चूक नम्रपणे मान्य करून माफी मागणे किंवा नमते घेणे)',
+      'To apologize humbly, admit one\'s mistake, and accept humiliation',
       'To go on a strict diet for fitness (डाएट करणे)',
       'To boast arrogantly of one\'s success (बढाई मारणे)'
     ],
@@ -3022,10 +3022,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Indelible'
     ],
     optionsMr: [
-      'Infallible (अचूक / ज्याच्याकडून कधीही चूक होत नाही असा)',
-      'Incorrigible (ज्याला सुधारता येत नाही असा)',
-      'Invulnerable (अभेद्य / ज्याला इजा पोहोचवता येत नाही असा)',
-      'Indelible (न पुसता येणारा)'
+      'Infallible',
+      'Incorrigible',
+      'Invulnerable',
+      'Indelible'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: "Infallible" means incapable of making mistakes or being wrong. Incorrigible = not able to be corrected or reformed.',
@@ -6667,10 +6667,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Beurocracy'
     ],
     optionsMr: [
-      'Bureaucracy (अचूक स्पेलिंग: B-U-R-E-A-U-C-R-A-C-Y)',
-      'Burocracy (चुकीचे स्पेलिंग)',
-      'Bureaucrasy (चुकीचे स्पेलिंग)',
-      'Beurocracy (चुकीचे स्पेलिंग)'
+      'Bureaucracy',
+      'Burocracy',
+      'Bureaucrasy',
+      'Beurocracy'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The correct spelling is "B-U-R-E-A-U-C-R-A-C-Y". French "bureau" (desk/office) + Greek "kratos" (rule).',
@@ -6883,10 +6883,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Incorrigible'
     ],
     optionsMr: [
-      'Infallible (अचूक / ज्याच्याकडून कधीही चूक होत नाही असा)',
-      'Fallible (ज्याच्याकडून चुका होऊ शकतात असा)',
-      'Gullible (सहज कोणावरही विश्वास ठेवून फसणारा)',
-      'Incorrigible (ज्यात सुधारणा करता येत नाही असा)'
+      'Infallible',
+      'Fallible',
+      'Gullible',
+      'Incorrigible'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: "Infallible" = incapable of failing or erring. "Incorrigible" = cannot be reformed. "Gullible" = easily duped.',
@@ -7234,10 +7234,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Emberrassment'
     ],
     optionsMr: [
-      'Embarrassment (अचूक: E-M-B-A-R-R-A-S-S-M-E-N-T)',
-      'Embarasment (चुकीचे - एकच r व एकच s)',
-      'Embarassmant (चुकीचे - अंत्यात mant)',
-      'Emberrassment (चुकीचे)'
+      'Embarrassment',
+      'Embarasment',
+      'Embarassmant',
+      'Emberrassment'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The word "Embarrassment" is spelled with two \'r\'s and two \'s\'s: E-M-B-A-R-R-A-S-S-M-E-N-T.',
@@ -7504,10 +7504,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Acomodation'
     ],
     optionsMr: [
-      'Accommodation (अचूक: A-C-C-O-M-M-O-D-A-T-I-O-N)',
-      'Acommodation (चुकीचे - एकच c)',
-      'Accomodation (चुकीचे - एकच m)',
-      'Acomodation (चुकीचे - एकच c व m)'
+      'Accommodation',
+      'Acommodation',
+      'Accomodation',
+      'Acomodation'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: "Accommodation" requires double \'c\' and double \'m\': A-C-C-O-M-M-O-D-A-T-I-O-N.',
@@ -7747,10 +7747,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Mischevous'
     ],
     optionsMr: [
-      'Mischievous (अचूक: M-I-S-C-H-I-E-V-O-U-S)',
-      'Mischievious (चुकीचे - v नंतर i नाही)',
-      'Mischevious (चुकीचे)',
-      'Mischevous (चुकीचे)'
+      'Mischievous',
+      'Mischievious',
+      'Mischevious',
+      'Mischevous'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The correct spelling is "M-I-S-C-H-I-E-V-O-U-S" (three syllables: mis-chiv-us, NOT mis-chee-vee-us). There is no "i" after the "v".',
@@ -7963,10 +7963,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Colleage'
     ],
     optionsMr: [
-      'Colleague (अचूक: C-O-L-L-E-A-G-U-E)',
-      'Coleague (चुकीचे - एकच l)',
-      'Collegue (चुकीचे - a नाही)',
-      'Colleage (चुकीचे)'
+      'Colleague',
+      'Coleague',
+      'Collegue',
+      'Colleage'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The correct spelling is "C-O-L-L-E-A-G-U-E" (a person with whom one works in a profession or business; co-worker).',
@@ -8179,10 +8179,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Indispensable'
     ],
     optionsMr: [
-      'Indefatigable (कधीही न थकणारा / अविरत कष्ट करणारा)',
-      'Infallible (अचूक / कधीही चूक न करणारा)',
-      'Invincible (अपराजेय / ज्याला हरवता येत नाही)',
-      'Indispensable (अपरिहार्य / अत्यंत आवश्यक)'
+      'Indefatigable',
+      'Infallible',
+      'Invincible',
+      'Indispensable'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: Root: in (not) + defatigare (to fatigue). "Indefatigable" = persisting tirelessly. Invincible = unconquerable.',
@@ -8206,10 +8206,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Leftenant'
     ],
     optionsMr: [
-      'Lieutenant (अचूक स्पेलिंग: L-I-E-U-T-E-N-A-N-T)',
-      'Leutenant (चुकीचे - i नाही)',
-      'Lieutennant (चुकीचे - दोन n)',
-      'Leftenant (उच्चारानुसार लिहिलेले चुकीचे स्पेलिंग)'
+      'Lieutenant',
+      'Leutenant',
+      'Lieutennant',
+      'Leftenant'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The word is pronounced /lɛfˈtɛnənt/ but spelled "L-I-E-U-T-E-N-A-N-T" (French lieu = place + tenant = holding).',
@@ -8368,10 +8368,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Comission'
     ],
     optionsMr: [
-      'Commission (अचूक: C-O-M-M-I-S-S-I-O-N)',
-      'Comision (चुकीचे - एक m व एक s)',
-      'Commision (चुकीचे - एकच s)',
-      'Comission (चुकीचे - एकच m)'
+      'Commission',
+      'Comision',
+      'Commision',
+      'Comission'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: "Commission" takes double \'m\' and double \'s\': C-O-M-M-I-S-S-I-O-N.',
@@ -8557,10 +8557,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Privilage'
     ],
     optionsMr: [
-      'Privilege (अचूक: P-R-I-V-I-L-E-G-E)',
-      'Priviledge (चुकीचे - d येत नाही)',
-      'Previlege (चुकीचे - pre नाही)',
-      'Privilage (चुकीचे - a नाही)'
+      'Privilege',
+      'Priviledge',
+      'Previlege',
+      'Privilage'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The word is spelled "P-R-I-V-I-L-E-G-E". Note: There is NO \'d\' in privilege (unlike \'knowledge\' or \'bridge\').',
@@ -8719,10 +8719,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Mentenance'
     ],
     optionsMr: [
-      'Maintenance (अचूक: M-A-I-N-T-E-N-A-N-C-E)',
-      'Maintainance (चुकीचे - maintain वरून बरेच जण ainance लिहितात)',
-      'Maintenence (चुकीचे - शेवटी ence नाही)',
-      'Mentenance (चुकीचे)'
+      'Maintenance',
+      'Maintainance',
+      'Maintenence',
+      'Mentenance'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: Although the verb is "maintain", the noun is spelled "M-A-I-N-T-E-N-A-N-C-E" (not maintainance). This is a classic MPSC trap.',
@@ -8773,10 +8773,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Questionare'
     ],
     optionsMr: [
-      'Questionnaire (अचूक: Q-U-E-S-T-I-O-N-N-A-I-R-E)',
-      'Questionaire (चुकीचे - एकच n)',
-      'Questionnaier (चुकीचे)',
-      'Questionare (चुकीचे)'
+      'Questionnaire',
+      'Questionaire',
+      'Questionnaier',
+      'Questionare'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The word is spelled "Q-U-E-S-T-I-O-N-N-A-I-R-E" with double \'n\' (question + n + aire).',
@@ -8935,10 +8935,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Sepparate'
     ],
     optionsMr: [
-      'Separate (अचूक: S-E-P-A-R-A-T-E)',
-      'Seperate (चुकीचे - मध्ये e नाही तर a येतो)',
-      'Seprate (चुकीचे)',
-      'Sepparate (चुकीचे)'
+      'Separate',
+      'Seperate',
+      'Seprate',
+      'Sepparate'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: Mnemonic: Remember there is "A RAT" in separate: S-E-P-[A-R-A-T]-E. It is spelled with "a", NOT "e".',
@@ -9070,10 +9070,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Commitee'
     ],
     optionsMr: [
-      'Committee (अचूक: C-O-M-M-I-T-T-E-E)',
-      'Comittee (चुकीचे - एकच m)',
-      'Committe (चुकीचे - एकच e)',
-      'Commitee (चुकीचे - एकच t)'
+      'Committee',
+      'Comittee',
+      'Committe',
+      'Commitee'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: "Committee" has three double letters: double \'m\', double \'t\', and double \'e\': C-O-M-M-I-T-T-E-E.',
@@ -9178,10 +9178,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Invulnerable'
     ],
     optionsMr: [
-      'Incorrigible (न सुधारणारा / ज्याला सुधारणे अशक्य आहे असा)',
-      'Infallible (अचूक / कधीही चूक न करणारा)',
-      'Inaudible (ऐकू न येणारा)',
-      'Invulnerable (अभेद्य / ज्याला इजा पोहोचू शकत नाही)'
+      'Incorrigible',
+      'Infallible',
+      'Inaudible',
+      'Invulnerable'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: Root: in (not) + corrigere (to correct) = "Incorrigible" (not able to be corrected, improved, or reformed).',
@@ -9205,10 +9205,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Restaurent'
     ],
     optionsMr: [
-      'Restaurant (अचूक: R-E-S-T-A-U-R-A-N-T)',
-      'Resturant (चुकीचे - au नाही)',
-      'Restarant (चुकीचे)',
-      'Restaurent (चुकीचे - शेवटी ent नाही ant आहे)'
+      'Restaurant',
+      'Resturant',
+      'Restarant',
+      'Restaurent'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The word is spelled "R-E-S-T-A-U-R-A-N-T" (from French restaurer = to restore/refresh). Notice the "-au-" and "-ant".',
@@ -9340,10 +9340,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Conscientous'
     ],
     optionsMr: [
-      'Conscientious (अचूक: C-O-N-S-C-I-E-N-T-I-O-U-S)',
-      'Conscienstious (चुकीचे)',
-      'Consientious (चुकीचे - sc नाही)',
-      'Conscientous (चुकीचे - i वगळले)'
+      'Conscientious',
+      'Conscienstious',
+      'Consientious',
+      'Conscientous'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The word is spelled "C-O-N-S-C-I-E-N-T-I-O-U-S" (wishing to do what is right, especially to do one\'s work thoroughly).',
@@ -9475,10 +9475,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Disciplin'
     ],
     optionsMr: [
-      'Discipline (अचूक: D-I-S-C-I-P-L-I-N-E)',
-      'Dissipline (चुकीचे - c ऐवजी s)',
-      'Disipline (चुकीचे - c वगळले)',
-      'Disciplin (चुकीचे - शेवटी e नाही)'
+      'Discipline',
+      'Dissipline',
+      'Disipline',
+      'Disciplin'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: The correct spelling is "D-I-S-C-I-P-L-I-N-E" (Latin disciplina = instruction, learning).',
@@ -9583,10 +9583,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Milennum'
     ],
     optionsMr: [
-      'Millennium (अचूक: M-I-L-L-E-N-N-I-U-M)',
-      'Millenium (चुकीचे - एकच n)',
-      'Milennium (चुकीचे - एकच l)',
-      'Milennum (चुकीचे)'
+      'Millennium',
+      'Millenium',
+      'Milennium',
+      'Milennum'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: "Millennium" (a period of a thousand years) has double \'l\' AND double \'n\': M-I-L-L-E-N-N-I-U-M.',
@@ -9718,10 +9718,10 @@ export const ENGLISH_VOCAB_QUESTIONS: Question[] = [
       'Pronounciate'
     ],
     optionsMr: [
-      'Pronunciation (अचूक: P-R-O-N-U-N-C-I-A-T-I-O-N)',
-      'Pronounciation (चुकीचे - noun येत नाही nun येतो)',
-      'Pronunsiation (चुकीचे - s नाही)',
-      'Pronounciate (चुकीचे)'
+      'Pronunciation',
+      'Pronounciation',
+      'Pronunsiation',
+      'Pronounciate'
     ],
     correctAnswerIndex: 0,
     explanationEn: 'Official MPSC Key: Although the verb is "pronounce" (with -ounce-), the noun is "P-R-O-N-U-N-C-I-A-T-I-O-N" (with -nun-). Never spell it with -noun-.',

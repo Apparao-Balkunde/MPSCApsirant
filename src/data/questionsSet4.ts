@@ -579,7 +579,7 @@ export const QUESTIONS_SET_4: Question[] = [
     optionsEn: ['Kolhapur and Ratnagiri', 'Nagpur and Gondia', 'Buldhana and Jalna', 'Akola and Washim'],
     optionsMr: [
       'कोल्हापूर, रत्नागिरी आणि रायगड',
-      'नागपूर आणि गोंदिया (येथे प्रामुख्याने मॅंगनीज आढळते)',
+      'नागपूर आणि गोंदिया',
       'बुलढाणा आणि जालना',
       'अकोला आणि वाशीम',
     ],
@@ -1078,8 +1078,8 @@ export const QUESTIONS_SET_4: Question[] = [
     questionMr: 'ABO रक्तगट पद्धतीमध्ये कोणत्या रक्तगटाला \'सर्वयोग्य दाता\' (Universal Donor) म्हटले जाते?',
     optionsEn: ['O Negative (O-)', 'AB Positive (AB+)', 'A Positive', 'B Negative'],
     optionsMr: [
-      'O निगेटिव्ह / O गट (सर्वयोग्य दाता)',
-      'AB पॉझिटिव्ह (सर्वयोग्य ग्राहक)',
+      'O निगेटिव्ह (O-)',
+      'AB पॉझिटिव्ह (AB+)',
       'A पॉझिटिव्ह',
       'B निगेटिव्ह',
     ],
