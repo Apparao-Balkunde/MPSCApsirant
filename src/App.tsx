@@ -58,6 +58,7 @@ import { IsroDrdoVideoModal } from './components/IsroDrdoVideoModal';
 import { ISRO_DRDO_VIDEO_QUESTIONS } from './data/isroDrdoVideoQuestions';
 import { ScienceMcqVideoModal } from './components/ScienceMcqVideoModal';
 import { SCIENCE_MCQ_SERIES_QUESTIONS } from './data/scienceMcqSeriesQuestions';
+import { SERIES_QUESTIONS } from './data/seriesQuestions';
 import { STATIC_QUESTIONS } from './data/staticQuestions';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -93,6 +94,7 @@ export default function App() {
     ...LOKSATTA_QUESTIONS_AS_MCQ,
     ...ISRO_DRDO_VIDEO_QUESTIONS,
     ...SCIENCE_MCQ_SERIES_QUESTIONS,
+    ...SERIES_QUESTIONS,
     ...STATIC_QUESTIONS
   ]);
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq'>('dashboard');
