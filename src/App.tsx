@@ -56,6 +56,7 @@ import { LoksattaNewspaperModal } from './components/LoksattaNewspaperModal';
 import { LOKSATTA_QUESTIONS_AS_MCQ } from './data/loksattaNewspaperData';
 import { IsroDrdoVideoModal } from './components/IsroDrdoVideoModal';
 import { ISRO_DRDO_VIDEO_QUESTIONS } from './data/isroDrdoVideoQuestions';
+import { STATIC_QUESTIONS } from './data/staticQuestions';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener, trySsoLogin, getLocalStudentSession } from './lib/firebase';
@@ -88,7 +89,8 @@ export default function App() {
   const [questions, setQuestions] = useState<Question[]>(() => [
     ...MPSC_QUESTIONS,
     ...LOKSATTA_QUESTIONS_AS_MCQ,
-    ...ISRO_DRDO_VIDEO_QUESTIONS
+    ...ISRO_DRDO_VIDEO_QUESTIONS,
+    ...STATIC_QUESTIONS
   ]);
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq'>('dashboard');
   const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
