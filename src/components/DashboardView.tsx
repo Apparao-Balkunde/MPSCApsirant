@@ -160,6 +160,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenPanchayatiRaj,
   onOpenSocialReformers,
   onOpenGovtSchemes,
+  onOpenLoksattaModal,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -2038,6 +2039,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
 
             <div className="flex items-center gap-3 shrink-0 flex-wrap">
+              {onOpenLoksattaModal && (
+                <button
+                  type="button"
+                  id="btn-dashboard-loksatta-hub"
+                  onClick={onOpenLoksattaModal}
+                  className="px-5 py-3.5 bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:brightness-110 text-white font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0 border border-red-400/50"
+                >
+                  <Newspaper className="w-4 h-4 text-white" />
+                  <span>{isMr ? '📰 दैनिक लोकसत्ता विशेष हब' : 'Loksatta Newspaper Hub'}</span>
+                </button>
+              )}
+
               <button
                 type="button"
                 id="btn-dashboard-current-affairs-drill"
@@ -2045,7 +2058,73 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 className="px-5 py-3.5 bg-gradient-to-r from-amber-500 via-amber-600 to-red-600 hover:brightness-110 text-stone-950 font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
               >
                 <Newspaper className="w-4 h-4 fill-stone-950 text-stone-950" />
-                <span>{isMr ? '📰 मासिक रिव्हर्स सराव सुरू करा' : 'Start Monthly Drill'}</span>
+                <span>{isMr ? 'मासिक रिव्हर्स सराव' : 'Start Monthly Drill'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 📰 दैनिक लोकसत्ता MPSC वृत्तपत्र विशेष हब (Loksatta Newspaper Editorial & Analysis Hub) */}
+        <div className="bg-gradient-to-br from-red-950/80 via-stone-900 to-amber-950/70 rounded-2xl border-2 border-red-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-3 max-w-3xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-full bg-red-600 text-white font-black text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+                  <Newspaper className="w-3.5 h-3.5 text-white" />
+                  <span>{isMr ? 'दैनिक लोकसत्ता विशेष' : 'Daily Loksatta Special'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold">
+                  {isMr ? '✍️ संपादकीय • अन्वयार्थ • व्यक्तिवेध • कुतूहल' : 'Editorials & Columns'}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono">
+                  {isMr ? 'राज्यसेवा व संयुक्त परीक्षा' : 'MPSC High Yield'}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-black text-white">
+                {isMr
+                  ? '📰 दैनिक लोकसत्ता वृत्तपत्र विश्लेषण व चालू घडामोडी हब'
+                  : '📰 Daily Loksatta Newspaper Analysis & MPSC Hub'}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                {isMr
+                  ? 'महाराष्ट्रातील एमपीएससी परीक्षार्थींसाठी सर्वात विश्वासार्ह वृत्तपत्र! १०६ वी घटनादुरुस्ती, नवीन फौजदारी कायदे (BNS), आर्थिक पाहणी अहवाल, गाडगीळ समिती भूस्खलन विश्लेषण, रतन टाटा व डॉ. अभय बंग व्यक्तिवेध आणि कास पठार कुतूहल स्तंभ.'
+                  : 'Authoritative Marathi daily newspaper editorial analysis, Vyaktiwedh profiles, Kutuhal science columns, and MPSC-pattern practice questions.'}
+              </p>
+
+              {/* Feature Pills */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs">
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'संपादकीय' : 'Editorials'}</div>
+                  <div className="text-sm font-black text-red-400 mt-0.5">५ सविस्तर लेख</div>
+                </div>
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'व्यक्तिवेध' : 'Vyaktiwedh'}</div>
+                  <div className="text-sm font-black text-amber-400 mt-0.5">४ व्यक्तिविशेष</div>
+                </div>
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'कुतूहल विज्ञान' : 'Kutuhal'}</div>
+                  <div className="text-sm font-black text-emerald-400 mt-0.5">३ विज्ञान स्तंभ</div>
+                </div>
+                <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                  <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'MPSC MCQs' : 'Practice MCQs'}</div>
+                  <div className="text-sm font-black text-blue-400 mt-0.5">सराव प्रश्नसंच</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+              <button
+                type="button"
+                id="btn-open-loksatta-hub-dashboard"
+                onClick={onOpenLoksattaModal}
+                className="w-full sm:w-auto px-6 py-4 bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:brightness-110 text-white font-black text-sm rounded-2xl transition-all shadow-xl flex items-center justify-center gap-2.5 cursor-pointer hover:scale-[1.03] active:scale-95 border border-red-400/40"
+              >
+                <Newspaper className="w-5 h-5 text-white" />
+                <span>{isMr ? '📰 लोकसत्ता हब उघडा' : 'Open Loksatta Hub'}</span>
               </button>
             </div>
           </div>

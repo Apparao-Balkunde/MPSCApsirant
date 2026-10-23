@@ -1280,6 +1280,8 @@ export const Header: React.FC<HeaderProps> = ({
               <Trophy className="w-3.5 h-3.5 text-amber-300 fill-amber-300/40" />
               <span>{isMr ? 'मॅरेथॉन' : 'Marathon'}</span>
             </button>
+          )}
+
           {onOpenLoksattaModal && (
             <button
               onClick={onOpenLoksattaModal}

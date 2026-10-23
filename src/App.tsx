@@ -52,6 +52,8 @@ import { MaharashtraDistrictsModal } from './components/MaharashtraDistrictsModa
 import { PanchayatiRajModal } from './components/PanchayatiRajModal';
 import { SocialReformersEncyclopediaModal } from './components/SocialReformersEncyclopediaModal';
 import { GovtSchemesEncyclopediaModal } from './components/GovtSchemesEncyclopediaModal';
+import { LoksattaNewspaperModal } from './components/LoksattaNewspaperModal';
+import { LOKSATTA_QUESTIONS_AS_MCQ } from './data/loksattaNewspaperData';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
 import { testFirestoreConnection, initAuthListener, trySsoLogin, getLocalStudentSession } from './lib/firebase';
@@ -81,7 +83,7 @@ interface SyncToastState {
 
 export default function App() {
   const [userProgress, setUserProgress] = useState<UserProgress>(getInitialProgress);
-  const [questions, setQuestions] = useState<Question[]>(MPSC_QUESTIONS);
+  const [questions, setQuestions] = useState<Question[]>(() => [...MPSC_QUESTIONS, ...LOKSATTA_QUESTIONS_AS_MCQ]);
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq'>('dashboard');
   const [activeSession, setActiveSession] = useState<ExamSession | null>(null);
   const [activeResult, setActiveResult] = useState<ExamResult | null>(null);
@@ -163,6 +165,9 @@ export default function App() {
 
   // Maharashtra Govt Schemes & Economic Survey modal state
   const [isGovtSchemesOpen, setIsGovtSchemesOpen] = useState<boolean>(false);
+
+  // दैनिक लोकसत्ता वृत्तपत्र विश्लेषण व चालू घडामोडी हब modal state
+  const [isLoksattaModalOpen, setIsLoksattaModalOpen] = useState<boolean>(false);
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -945,6 +950,7 @@ export default function App() {
             onOpenSubjectMarathon={handleOpenSubjectMarathon}
             onOpenMapQuiz={() => setIsMapQuizOpen(true)}
             onOpenNegativeTrapPractice={() => setIsNegativeTrapOpen(true)}
+            onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
           />
           <main className="flex-1 w-full max-w-full overflow-x-hidden">
             <ExamResultView
@@ -1009,6 +1015,7 @@ export default function App() {
             onOpenPanchayatiRaj={() => setIsPanchayatiRajOpen(true)}
             onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
             onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
+            onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -1069,6 +1076,7 @@ export default function App() {
                 onOpenPanchayatiRaj={() => setIsPanchayatiRajOpen(true)}
                 onOpenSocialReformers={() => setIsSocialReformersOpen(true)}
                 onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
+                onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1432,6 +1440,14 @@ export default function App() {
         onClose={() => setIsCurrentAffairsDrillOpen(false)}
         language={userProgress.preferredLanguage}
         initialCategory={currentAffairsInitialCategory}
+      />
+
+      {/* दैनिक लोकसत्ता वृत्तपत्र विश्लेषण व चालू घडामोडी हब Modal */}
+      <LoksattaNewspaperModal
+        isOpen={isLoksattaModalOpen}
+        onClose={() => setIsLoksattaModalOpen(false)}
+        language={userProgress.preferredLanguage}
+        onAddBookmark={handleToggleBookmark}
       />
 
       {/* MPSC Standard Reference Books & Amazon Affiliate Store Modal */}
