@@ -19,9 +19,6 @@ COPY . .
 # Build Vite frontend & bundled backend server (dist/server.cjs)
 RUN npm run build
 
-# Prune devDependencies to keep production node_modules lean (without running a second npm install)
-RUN npm prune --omit=dev --legacy-peer-deps && npm cache clean --force
-
 # ==========================================
 # Stage 2: Production runner stage
 # ==========================================

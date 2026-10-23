@@ -114,6 +114,7 @@ interface DashboardViewProps {
   onOpenGovtSchemes?: () => void;
   onOpenLoksattaModal?: () => void;
   onOpenIsroDrdoModal?: () => void;
+  onOpenScienceModal?: () => void;
   onFetchData?: () => Promise<void>;
   onTriggerSync?: () => Promise<void>;
   questionsCount?: number;
@@ -165,6 +166,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenGovtSchemes,
   onOpenLoksattaModal,
   onOpenIsroDrdoModal,
+  onOpenScienceModal,
   onFetchData,
   onTriggerSync,
   questionsCount = 75,
@@ -2067,6 +2069,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 </button>
               )}
 
+              {onOpenScienceModal && (
+                <button
+                  type="button"
+                  id="btn-dashboard-science-hub"
+                  onClick={onOpenScienceModal}
+                  className="px-5 py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:brightness-110 text-white font-black text-sm rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0 border border-emerald-400/50"
+                >
+                  <FlaskConical className="w-4 h-4 text-white" />
+                  <span>{isMr ? '🔬 सायन्स MCQ सिरीज' : 'Science MCQ Series'}</span>
+                </button>
+              )}
+
               <button
                 type="button"
                 id="btn-dashboard-current-affairs-drill"
@@ -2209,6 +2223,72 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           </div>
         </div>
+
+        {/* 🔬 सायन्स MCQ सिरीज (डॉ. वैभव शिंदे सर - ज्ञानदीप अकॅडमी पुणे) */}
+        {onOpenScienceModal && (
+          <div className="bg-gradient-to-br from-emerald-950/80 via-stone-900 to-teal-950/80 rounded-2xl border-2 border-emerald-500/70 p-6 sm:p-7 shadow-xl relative overflow-hidden">
+            <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+              <div className="space-y-3 max-w-3xl">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-red-600 text-white font-black text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+                    <Video className="w-3.5 h-3.5 text-white" />
+                    <span>YouTube Live Series</span>
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">
+                    ज्ञानदीप अकॅडमी • डॉ. वैभव शिंदे सर
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold">
+                    EP-14 • १५०+ शब्द सविस्तर स्पष्टीकरण
+                  </span>
+                </div>
+
+                <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+                  <span>🔬 सामान्य विज्ञान MCQ सिरीज (EP-14) - सखोल विश्लेषण</span>
+                </h2>
+
+                <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+                  {isMr
+                    ? 'ज्ञानदीप ॲकॅडमी पुणे चे डॉ. वैभव शिंदे सर यांच्या यूट्यूब विशेष सिरीजमधील सर्व संभाव्य प्रश्न: अणू संरचना व आयसोटोन्स (Si, P, S), प्रकाशशास्त्र व बहिर्गोल/अंतर्गोल भिंग, जूलचा उष्णतेचा नियम (H = I²Rt), मानवी अंतःस्रावी ग्रंथी (पियुषिका व स्वादुपिंड), ध्वनीचा वेग (स्थायू-द्रव-वायू), प्रकाशसंश्लेषण व फोटोसिंथेसिस आणि पादप संप्रेरके (ऑक्झिन व जिबरेलीन). प्रत्येक प्रश्नाला १५०+ शब्दांचे संदर्भयुक्त सविस्तर स्पष्टीकरण!'
+                    : 'Comprehensive question set from Dr. Vaibhav Shinde Sir\'s Science MCQ lecture series (Dnyanadeep Academy Pune): Isotones & Isobars, Concave & Convex Optics, Joule\'s Heating Law (H=I²Rt), Endocrine System & Hormones, Acoustics in Media, and Phytohormones with 150+ words explanations.'}
+                </p>
+
+                {/* Feature Pills */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs">
+                  <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                    <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'रसायनशास्त्र' : 'Chemistry'}</div>
+                    <div className="text-sm font-black text-emerald-400 mt-0.5">अणू व आयसोटोन्स</div>
+                  </div>
+                  <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                    <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'भौतिकशास्त्र' : 'Physics'}</div>
+                    <div className="text-sm font-black text-teal-400 mt-0.5">प्रकाश व ध्वनी नियम</div>
+                  </div>
+                  <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                    <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'जीवशास्त्र' : 'Biology'}</div>
+                    <div className="text-sm font-black text-cyan-400 mt-0.5">ग्रंथी व संप्रेरके</div>
+                  </div>
+                  <div className="bg-stone-900/80 border border-stone-800 p-2.5 rounded-xl text-center">
+                    <div className="text-[10px] text-stone-400 font-bold uppercase">{isMr ? 'स्पष्टीकरण' : 'Solutions'}</div>
+                    <div className="text-sm font-black text-amber-400 mt-0.5">१५०+ शब्द/प्रश्न</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+                <button
+                  type="button"
+                  id="btn-open-science-hub-dashboard"
+                  onClick={onOpenScienceModal}
+                  className="w-full sm:w-auto px-6 py-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:brightness-110 text-white font-black text-sm rounded-2xl transition-all shadow-xl flex items-center justify-center gap-2.5 cursor-pointer hover:scale-[1.03] active:scale-95 border border-emerald-400/40"
+                >
+                  <FlaskConical className="w-5 h-5 text-white" />
+                  <span>{isMr ? '🔬 सायन्स MCQs सोडवा' : 'Solve Science MCQs'}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 🏆 विषयनिहाय १०० प्रश्नांचे 'मॅरेथॉन पेपर्स' (Subject-Wise 100 Qs Marathon Sets) */}
         <div className="bg-gradient-to-br from-slate-950 via-stone-900 to-amber-950/80 rounded-2xl border-2 border-amber-500/80 p-6 sm:p-7 shadow-xl relative overflow-hidden">

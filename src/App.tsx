@@ -56,6 +56,8 @@ import { LoksattaNewspaperModal } from './components/LoksattaNewspaperModal';
 import { LOKSATTA_QUESTIONS_AS_MCQ } from './data/loksattaNewspaperData';
 import { IsroDrdoVideoModal } from './components/IsroDrdoVideoModal';
 import { ISRO_DRDO_VIDEO_QUESTIONS } from './data/isroDrdoVideoQuestions';
+import { ScienceMcqVideoModal } from './components/ScienceMcqVideoModal';
+import { SCIENCE_MCQ_SERIES_QUESTIONS } from './data/scienceMcqSeriesQuestions';
 import { STATIC_QUESTIONS } from './data/staticQuestions';
 import { soundFx } from './utils/audio';
 import { getHardQuestionsPool } from './utils/hardQuestionsEngine';
@@ -90,6 +92,7 @@ export default function App() {
     ...MPSC_QUESTIONS,
     ...LOKSATTA_QUESTIONS_AS_MCQ,
     ...ISRO_DRDO_VIDEO_QUESTIONS,
+    ...SCIENCE_MCQ_SERIES_QUESTIONS,
     ...STATIC_QUESTIONS
   ]);
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'subjects' | 'grammar' | 'vocabulary' | 'analytics' | 'bookmarks' | 'add_mcq'>('dashboard');
@@ -179,6 +182,9 @@ export default function App() {
 
   // इस्रो व डीआरडीओ मोहिमा २०२६ (YouTube Drishti IAS Video) modal state
   const [isIsroDrdoModalOpen, setIsIsroDrdoModalOpen] = useState<boolean>(false);
+
+  // 🔬 सायन्स MCQ सिरीज EP-14 (YouTube Dnyanadeep Academy Video) modal state
+  const [isScienceModalOpen, setIsScienceModalOpen] = useState<boolean>(false);
 
   // Firebase Auth and Cloud Sync state
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -1029,6 +1035,7 @@ export default function App() {
             onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
             onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
             onOpenIsroDrdoModal={() => setIsIsroDrdoModalOpen(true)}
+            onOpenScienceModal={() => setIsScienceModalOpen(true)}
           />
 
           <main className="flex-1 pb-12">
@@ -1091,6 +1098,7 @@ export default function App() {
                 onOpenGovtSchemes={() => setIsGovtSchemesOpen(true)}
                 onOpenLoksattaModal={() => setIsLoksattaModalOpen(true)}
                 onOpenIsroDrdoModal={() => setIsIsroDrdoModalOpen(true)}
+                onOpenScienceModal={() => setIsScienceModalOpen(true)}
                 onFetchData={handleFetchFromFirebase}
                 onTriggerSync={handleTriggerSync}
                 questionsCount={questions.length}
@@ -1473,6 +1481,34 @@ export default function App() {
         onAddBookmark={handleToggleBookmark}
         onStartExam={(testQuestions, title) => {
           setIsIsroDrdoModalOpen(false);
+          setQuestions((prev) => {
+            const map = new Map<string, Question>();
+            prev.forEach((q) => map.set(q.id, q));
+            testQuestions.forEach((q) => map.set(q.id, q));
+            return Array.from(map.values());
+          });
+          const session = createExamSession({
+            patternId: 'custom',
+            subjectId: 'general_science',
+            title,
+            customQuestionIds: testQuestions.map((q) => q.id),
+            limit: testQuestions.length,
+            questionPool: [...questions, ...testQuestions],
+          });
+          setActiveResult(null);
+          setActiveSession(session);
+        }}
+      />
+
+      {/* 🔬 सायन्स MCQ सिरीज EP-14 (YouTube Dnyanadeep Academy Video) Modal */}
+      <ScienceMcqVideoModal
+        isOpen={isScienceModalOpen}
+        onClose={() => setIsScienceModalOpen(false)}
+        language={userProgress.preferredLanguage}
+        bookmarkedIds={userProgress.bookmarkedQuestionIds}
+        onAddBookmark={handleToggleBookmark}
+        onStartExam={(testQuestions, title) => {
+          setIsScienceModalOpen(false);
           setQuestions((prev) => {
             const map = new Map<string, Question>();
             prev.forEach((q) => map.set(q.id, q));

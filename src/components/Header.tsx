@@ -40,7 +40,8 @@ import {
   ShoppingBag,
   DollarSign,
   Building2,
-  Rocket
+  Rocket,
+  FlaskConical
 } from 'lucide-react';
 import { UserProgress } from '../types';
 import { soundFx } from '../utils/audio';
@@ -84,6 +85,7 @@ export interface HeaderProps {
   onOpenGovtSchemes?: () => void;
   onOpenLoksattaModal?: () => void;
   onOpenIsroDrdoModal?: () => void;
+  onOpenScienceModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -118,6 +120,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenGovtSchemes,
   onOpenLoksattaModal,
   onOpenIsroDrdoModal,
+  onOpenScienceModal,
 }) => {
   const isMr = language === 'mr';
   const [adminActive, setAdminActive] = useState<boolean>(() => isAdmin ?? isUserAdmin(currentUser));
@@ -679,6 +682,29 @@ export const Header: React.FC<HeaderProps> = ({
                           </div>
                           <p className="text-[10px] text-stone-400 truncate">
                             {isMr ? 'दृष्टी IAS (नामू मॅम) व्हिडिओ आधारित सर्व प्रश्न' : 'Drishti IAS (Namu Mam) Video Questions'}
+                          </p>
+                        </div>
+                      </button>
+                    )}
+
+                    {onOpenScienceModal && (
+                      <button
+                        onClick={() => {
+                          setShowSpecialTools(false);
+                          onOpenScienceModal();
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-950/50 via-stone-900 to-teal-950/40 hover:from-emerald-900/60 hover:to-teal-900/50 border border-emerald-500/50 transition-colors flex items-center gap-2.5 cursor-pointer group"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-emerald-600/25 border border-emerald-500/40 flex items-center justify-center shrink-0 text-emerald-400 group-hover:scale-105">
+                          <FlaskConical className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-bold text-emerald-300 group-hover:text-emerald-200 flex items-center justify-between">
+                            <span>{isMr ? '🔬 सायन्स MCQ सिरीज (डॉ. वैभव शिंदे)' : 'Science MCQ Series (Dr. Vaibhav Shinde)'}</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">EP-14</span>
+                          </div>
+                          <p className="text-[10px] text-stone-400 truncate">
+                            {isMr ? '१५०+ शब्द सविस्तर स्पष्टीकरण, ज्ञानदीप अकॅडमी' : '150+ Words Detailed Solutions, Dnyanadeep Academy'}
                           </p>
                         </div>
                       </button>
