@@ -16,8 +16,8 @@ RUN npm install --no-audit --no-fund --legacy-peer-deps
 # Copy application source code
 COPY . .
 
-# Set memory allocation for Node to prevent GC loop during Rollup chunk rendering
-ENV NODE_OPTIONS="--max-old-space-size=2048"
+# Set memory allocation for Node to prevent GC loop during Rollup chunk rendering on 1GB VPS
+ENV NODE_OPTIONS="--max-old-space-size=1536"
 
 # Build Vite frontend & bundled backend server (dist/server.cjs)
 RUN npm run build
