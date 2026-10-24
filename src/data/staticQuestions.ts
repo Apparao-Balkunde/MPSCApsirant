@@ -5,11 +5,11 @@ export const STATIC_QUESTIONS: Question[] = [
     id: 'mpsc_static_q01',
     subjectId: 'maharashtra_history',
     topic: 'महाराष्ट्राचा इतिहास व समाजसुधारक',
-    subtopic: 'परमहंस सभा (१८४९)',
+    subtopic: 'छत्रपती राजर्षी शाहू महाराज: सामाजिक सुधारणा व आरक्षण जाहीरनामा (१९०२)',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: '१८४९ मध्ये मुंबई येथे स्थापन झालेल्या "परमहंस सभा" बाबत खालील विधानांचा विचार करा:\n(अ) दादोबा पांडुरंग तर्खडकर यांच्या प्रेरणेने व दुर्गाराम मंच्छाराम, रामचंद्र जयकर यांच्या पुढाकाराने ही संस्था स्थापन झाली.\n(ब) सभेचे कामकाज अत्यंत गुप्त ठेवले जात असे आणि प्रवेश घेताना जातीभेद तोडण्यासाठी सभासदांना पाव व पाणी ग्रहण करावे लागे.\n(क) सभेचा मुख्य उद्देश एकेश्वरवाद प्रसार व जातीव्यवस्थेचे उच्चाटन हा होता.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
-    questionEn: 'Consider the following statements regarding the "Paramahansa Sabha" established in Mumbai in 1849:\n(a) It was founded under the inspiration of Dadoba Pandurang Tarkhadkar along with Durgaram Manchharam and Ramchandra Jayakar.\n(b) Its proceedings were kept strictly secret, and new initiates had to consume bread and water to break caste barriers.\n(c) Its primary objectives were the promotion of monotheism and the eradication of the caste system.\nWhich of the above statements are correct?',
+    questionMr: 'राजर्षी छत्रपती शाहू महाराज यांच्या सामाजिक व शैक्षणिक सुधारणांविषयी खालील विधानांचा सखोल विचार करा:\n(अ) २६ जुलै १९०२ रोजी शाहू महाराजांनी कोल्हापूर संस्थानात मागासवर्गीय व बहुजन समाजासाठी ५० टक्के आरक्षणाची ऐतिहासिक घोषणा केली.\n(ब) त्यांनी कोल्हापुरात प्राथमिक शिक्षण मोफत व सक्तीचे करणारा कायदा २१ जुलै १९१७ रोजी संमत केला आणि शिक्षणासाठी मराठा, जैन, लिंगायत, मुस्लिम इत्यादी विविध जातींच्या विद्यार्थ्यांसाठी वसतिगृहांची (Hostels) स्थापना केली.\n(क) शाहू महाराजांनी अस्पृश्यता निर्मूलनासाठी डॉ. बाबासाहेब आंबेडकरांच्या अध्यक्षतेखाली २०-२२ मार्च १९२० रोजी माणगाव (कोल्हापूर) येथे दक्षिण महाराष्ट्र बहिष्कृत परिषदेचे आयोजन केले.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
+    questionEn: 'Evaluate the following statements regarding the socio-educational reforms championed by Rajarshi Chhatrapati Shahu Maharaj of Kolhapur:\n(a) On July 26, 1902, Shahu Maharaj issued a historic gazette notification granting 50 percent reservation in state services for backward communities.\n(b) He enacted legislation on July 21, 1917 making primary education free and compulsory in Kolhapur, while establishing community hostels for Maratha, Jain, Lingayat, and Muslim students.\n(c) To combat caste untouchability, he supported the Mangaon Conference on March 20-22, 1920 under the presidency of Dr. B.R. Ambedkar.\nWhich of the above statements are correct?',
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (ब) आणि (क)',
@@ -23,522 +23,253 @@ export const STATIC_QUESTIONS: Question[] = [
       'All statements are correct (a, b and c)'
     ],
     correctAnswerIndex: 3,
-    explanationMr: '३१ जुलै १८४९ रोजी मुंबईत परमहंस सभेची स्थापना झाली. दादोबा पांडुरंग हे तिचे पहिले अध्यक्ष होते. सभेचे तत्त्वज्ञान दादोबांच्या "धर्मविवेचन" या पुस्तकावर आधारलेले होते. सभासद यादी चोरीला गेल्याने १८६० मध्ये ही सभा बरखास्त झाली.',
-    explanationEn: 'Founded on July 31, 1849 in Bombay with Dadoba Pandurang as its inaugural president, Paramahansa Sabha worked clandestinely to abolish caste distinctions and champion monotheism until its membership rolls were stolen in 1860.',
-    reference: 'आधुनिक महाराष्ट्राचा इतिहास - डॉ. अनिल कठारे / स्टेट बोर्ड ११ वी इतिहास',
-    yearTag: 'MPSC Static Core'
+    explanationMr: 'राजर्षी छत्रपती शाहू महाराज यांच्या ऐतिहासिक कार्याचे सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **५०% आरक्षणाचा ऐतिहासिक जाहीरनामा (२६ जुलै १९०२):** इंग्लंडहून परत आल्यानंतर शाहू महाराजांनी कोल्हापूर संस्थानच्या अधिकृत राजपत्रात (Gazette) आदेश काढून मागासलेल्या व उपेक्षित बहुजन जातींसाठी सरकारी नोकऱ्यांमध्ये ५०% आरक्षणाची भारतातील पहिली अधिकृत तरतूद केली. त्यामुळे विधान (अ) अचूक आहे.\n\n२. **मोफत व सक्तीचे प्राथमिक शिक्षण व वसतिगृह चळवळ:** शिक्षणाशिवाय बहुजन समाजाचा उद्धार अशक्य आहे हे ओळखून महाराजांनी १९१७ मध्ये प्राथमिक शिक्षण मोफत आणि सक्तीचे केले; तसेच जो पालक मुलांना शाळेत पाठवणार नाही त्यांना दरमहा १ रुपया दंडाची तरतूद केली. विद्यार्थ्यांच्या राहण्याची सोय व्हावी म्हणून १९०१ मध्ये व्हिक्टोरिया मराठा बोर्डिंग, दिगंबर जैन बोर्डिंग, वीरशैव लिंगायत बोर्डिंग, मुस्लिम बोर्डिंग अशा अनेक वसतिगृहांची स्थापना केली. त्यामुळे त्यांना "वसतिगृहांचे जनक" म्हटले जाते. विधान (ब) सत्य आहे.\n\n३. **माणगाव परिषद (१९२०) व डॉ. आंबेडकरांचे नेतृत्व:** २०-२२ मार्च १९२० रोजी माणगाव येथे अस्पृश्य वर्गाची परिषद भरवून शाहू महाराजांनी जाहीर केले की, "तुम्हाला बाबासाहेब आंबेडकरांच्या रूपाने तुमचा खरा नेता मिळाला आहे." आंतरजातीय विवाह कायदा (१९१९) आणि देवदासी प्रथा निर्मूलन (१९२०) हे कायदेही त्यांनी केले. सर्व विधाने सत्य आहेत.\n\n४. **आयोगाचा संदर्भ:** आधुनिक महाराष्ट्राचा इतिहास - डॉ. अनिल कठारे / स्टेट बोर्ड ११ वी इतिहास.',
+    explanationEn: 'Comprehensive 150-word bilingual analysis on Rajarshi Chhatrapati Shahu Maharaj:\n\n1. **Historic 50% Affirmative Action Policy (July 26, 1902):** Upon returning from Europe, Shahu Maharaj promulgated the groundbreaking royal decree allocating 50 percent quota in state administration to non-Brahmin and backward castes. This milestone marked modern India\'s earliest statutory reservation framework, demonstrating administrative foresight. Statement (a) is thoroughly accurate.\n\n2. **Compulsory Universal Primary Education & Hostel Movement:** Realizing that mass literacy constitutes the cornerstone of emancipation, Maharaj made elementary education entirely free and legally compulsory across Kolhapur in July 1917, introducing a fine of ₹1 per month for non-compliant guardians. He founded the Victoria Maratha Hostel (1901), alongside Jain, Lingayat, Panchal, and Muslim student boarding houses, earning the epithet "Father of the Hostel Movement in India". Statement (b) is fully correct.\n\n3. **Mangaon Depressed Classes Conference (March 1920):** Shahu Maharaj financed and inaugurated the landmark Mangaon Conference presided over by young Dr. B.R. Ambedkar, famously proclaiming to the assembly: "You have found your true national saviour in Dr. Ambedkar." He also legalized inter-caste marriages in 1919 and prohibited the exploitative Devadasi system. Thus, all three statements are true.\n\n4. **Official Reference:** History of Modern Maharashtra by Dr. S.S. Gathal and Maharashtra State Board Std 11 History.',
+    reference: 'आधुनिक महाराष्ट्राचा इतिहास - डॉ. अनिल कठारे / स्टेट बोर्ड ११ वी इतिहास (शाहू महाराज विशेष)',
+    yearTag: 'MPSC Static Core 2026'
   },
   {
     id: 'mpsc_static_q02',
     subjectId: 'maharashtra_geography',
     topic: 'महाराष्ट्राचा भूगोल',
-    subtopic: 'महाराष्ट्रातील प्रमुख धरणे व त्यांचे जलाशय',
+    subtopic: 'सह्याद्री पर्वतातील प्रमुख शिखरे व घाट: उंचीनुसार उतरता क्रम',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: 'महाराष्ट्रातील प्रमुख जलप्रकल्प आणि त्यांच्या जलाशयांची नावे यांच्या जोड्या जुळवा:\n(१) कोयना धरण - शिवाजीसागर\n(२) जायकवाडी धरण - नाथसागर\n(३) तोतलाडोह धरण (पेंच) - मेघदूत जलाशय\n(४) उजनी धरण (भीमा) - यशवंतसागर\nवरीलपैकी कोणत्या जोड्या अचूक आहेत?',
-    questionEn: 'Match the major irrigation reservoirs in Maharashtra with their designated names:\n(1) Koyna Dam - Shivajisagar\n(2) Jaikwadi Dam - Nathsagar\n(3) Totladoh Dam (Pench) - Meghdoot Reservoir\n(4) Ujani Dam (Bhima) - Yashwantsagar\nWhich of the pairs given above are correctly matched?',
+    questionMr: 'सह्याद्री पर्वत (पश्चिम घाट) आणि महाराष्ट्रातील सर्वोच्च शिखरांच्या उंचीनुसार (मीटरमध्ये) अचूक उतरता क्रम (Descending Order) कोणता आहे?',
+    questionEn: 'Which is the correct descending order of the highest mountain peaks in Maharashtra\'s Sahyadri (Western Ghats) based on their elevation in metres?',
     optionsMr: [
-      'फक्त (१) आणि (२)',
-      'फक्त (२) आणि (३)',
-      'फक्त (१), (२) आणि (४)',
-      'सर्व जोड्या अचूक आहेत (१, २, ३ आणि ४)'
+      'कळसूबाई -> साल्हेर -> महाबळेश्वर -> हरिश्चंद्रगड -> सप्तशृंगी -> तोरणा',
+      'साल्हेर -> कळसूबाई -> हरिश्चंद्रगड -> महाबळेश्वर -> तोरणा -> सप्तशृंगी',
+      'कळसूबाई -> महाबळेश्वर -> साल्हेर -> सप्तशृंगी -> हरिश्चंद्रगड -> तोरणा',
+      'साल्हेर -> कळसूबाई -> महाबळेश्वर -> सप्तशृंगी -> तोरणा -> हरिश्चंद्रगड'
     ],
     optionsEn: [
-      'Only (1) and (2)',
-      'Only (2) and (3)',
-      'Only (1), (2) and (4)',
-      'All pairs are correctly matched (1, 2, 3 and 4)'
+      'Kalsubai -> Salher -> Mahabaleshwar -> Harishchandragad -> Saptashrungi -> Torna',
+      'Salher -> Kalsubai -> Harishchandragad -> Mahabaleshwar -> Torna -> Saptashrungi',
+      'Kalsubai -> Mahabaleshwar -> Salher -> Saptashrungi -> Harishchandragad -> Torna',
+      'Salher -> Kalsubai -> Mahabaleshwar -> Saptashrungi -> Torna -> Harishchandragad'
     ],
-    correctAnswerIndex: 3,
-    explanationMr: 'महाराष्ट्रातील सर्व प्रमुख जलप्रकल्पांची जलाशय नावे योग्य आहेत. कोयना (सातारा) - शिवाजीसागर, जायकवाडी (छत्रपती संभाजीनगर) - नाथसागर, तोतलाडोह (नागपूर) - मेघदूत जलाशय, उजनी (सोलापूर) - यशवंतसागर.',
-    explanationEn: 'All listed reservoir designations are accurate: Koyna (Satara) forms Shivajisagar, Jaikwadi (Chhatrapati Sambhajinagar) forms Nathsagar, Totladoh on Pench (Nagpur) forms Meghdoot, and Ujani on Bhima (Solapur) forms Yashwantsagar.',
-    reference: 'महाराष्ट्राचा भूगोल - प्रा. ए. बी. सवदी / दीपस्तंभ',
-    yearTag: 'MPSC Static Core'
+    correctAnswerIndex: 0,
+    explanationMr: 'महाराष्ट्रातील प्रमुख पर्वतशिखरांचा उंचीनुसार उतरता क्रम आणि सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **शिखरांची अधिकृत उंची (मीटरमध्ये):**\n• कळसूबाई: १६४६ मीटर (अहमदनगर / अकोले तालुका) - महाराष्ट्रातील सर्वोच्च शिखर.\n• साल्हेर: १५६७ मीटर (नाशिक / सटाणा तालुका) - महाराष्ट्रातील दुसऱ्या क्रमांकाचे व सर्वात उंच किल्ला शिखर.\n• महाबळेश्वर: १४३८ मीटर (सातारा जिल्हा).\n• हरिश्चंद्रगड: १४२४ मीटर (अहमदनगर जिल्हा).\n• सप्तशृंगी: १४१६ मीटर (नाशिक / वणी).\n• तोरणा: १४०४ मीटर (पुणे जिल्हा - छत्रपती शिवाजी महाराजांनी जिंकलेला पहिला किल्ला).\n\n२. **परीक्षेसाठी क्लृप्ती (Mnemonic):**\n"**क**सा**मी** **ह**सतो" किंवा "**क**ळसूबाई, **सा**ल्हेर, **म**हाबळेश्वर, **ह**रिश्‍चंद्रगड, **स**प्तशृंगी, **तो**रणा".\n\n३. **भौगोलिक वैशिष्ट्ये:** सह्याद्री पर्वताची महाराष्ट्रातील उत्तर-दक्षिण लांबी सुमारे ४४० किमी असून सरासरी रुंदी ३० ते ६० किमी आहे. पश्चिम उतारावर तीव्र कडे असून पूर्व उतारावर मंद उतार व पठारी पठार पसरलेले आहे.\n\n४. **आयोगाचा संदर्भ:** महाराष्ट्राचा भूगोल - प्रा. ए. बी. सवदी आणि स्टेट बोर्ड ९ वी व १० वी भूगोल.',
+    explanationEn: 'Comprehensive 150-word bilingual geographical analysis on Sahyadri Mountain Peaks:\n\n1. **Official Elevation Metrics in Metres:**\n• Kalsubai: 1646 m (Akole, Ahmednagar district) - The highest topographical summit in Maharashtra, often called the Everest of Maharashtra.\n• Salher: 1567 m (Satana, Nashik district) - The second highest summit and the highest hill fort in the state, site of the historic Battle of Salher (1672).\n• Mahabaleshwar: 1438 m (Satara district) - High-elevation plateau giving rise to five major rivers (Krishna, Koyna, Venna, Savitri, Gayatri).\n• Harishchandragad: 1424 m (Ahmednagar district) - Renowned for the famous semi-circular Konkan Kada precipice.\n• Saptashrungi: 1416 m (Nashik district) - Famous seven-horned peak and religious shrine.\n• Torna: 1404 m (Pune district) - The initial bastion conquered by 16-year-old Shivaji Maharaj in 1646.\n\n2. **Popular Mnemonic:**\n"Ka-Sa-M-Ha-Sa-To" representing Kalsubai -> Salher -> Mahabaleshwar -> Harishchandragad -> Saptashrungi -> Torna.\n\n3. **Physiographic Characteristics:** Sahyadri spans 440 km north-to-south in Maharashtra with an average crest altitude exceeding 1000-1200 m, creating a formidable orographic rainfall divide.\n\n4. **Official Reference:** Geography of Maharashtra by Prof. A.B. Savadi & State Board Geography.',
+    reference: 'महाराष्ट्राचा भूगोल - प्रा. ए. बी. सवदी (सह्याद्री प्राकृतिक विभाग) / स्टेट बोर्ड १० वी भूगोल',
+    yearTag: 'MPSC Static Core 2026'
   },
   {
     id: 'mpsc_static_q03',
     subjectId: 'polity',
-    topic: 'भारतीय राज्यघटना व संसद',
-    subtopic: 'संसदेची संयुक्त बैठक (Joint Sitting - Article 108)',
+    topic: 'भारतीय राज्यघटना',
+    subtopic: 'मूलभूत हक्क विरुद्ध मार्गदर्शक तत्त्वे व मूलभूत संरचना सिद्धांत (Basic Structure Doctrine)',
     exam: 'Both',
     difficulty: 'Hard',
-    questionMr: 'भारतीय संविधानातील संसदेच्या संयुक्त बैठकीबाबत (Joint Sitting) खालीलपैकी कोणते विधान सत्य नाही?',
-    questionEn: 'Regarding the Joint Sitting of both Houses of Parliament in the Indian Constitution, which of the following statements is NOT correct?',
+    questionMr: 'भारतीय संविधानातील मूलभूत हक्क (भाग ३), मार्गदर्शक तत्त्वे (भाग ४) आणि सर्वोच्च न्यायालयाच्या ऐतिहासिक खटल्यांविषयी खालील विधानांचा विचार करा:\n(अ) शंकरी प्रसाद (१९५१) आणि सज्जन सिंग (१९६५) खटल्यात सर्वोच्च न्यायालयाने संसदेला कलम ३६८ अंतर्गत मूलभूत हक्कांसह संविधानाच्या कोणत्याही भागात दुरुस्ती करण्याचा अमर्याद अधिकार मान्य केला होता.\n(ब) गोलकनाथ खटल्यात (१९६७) सर्वोच्च न्यायालयाने आपला पूर्वीचा निर्णय बदलून संसदेला मूलभूत हक्कांमध्ये दुरुस्ती करण्याचा किंवा ते काढून घेण्याचा कोणताही अधिकार नाही असा निर्णय दिला.\n(क) केशवानंद भारती खटल्यात (२४ एप्रिल १९७३) १३ न्यायाधीशांच्या घटनापीठाने संसदेचा घटनादुरुस्तीचा अधिकार कायम ठेवला, परंतु संविधानाच्या "मूलभूत संरचनेला" (Basic Structure) धक्का लावता येणार नाही असा ऐतिहासिक सिद्धांत मांडला.\n(ड) मिनर्व्हा मिल्स खटल्यात (१९८०) सर्वोच्च न्यायालयाने स्पष्ट केले की, भारतीय संविधान हे मूलभूत हक्क आणि मार्गदर्शक तत्त्वे यांच्यातील संतुलनाच्या पायावर (Bedrock of balance) उभे आहे.\nवरीलपैकी कोणती विधाने सत्य आहेत?',
+    questionEn: 'Evaluate the following constitutional statements tracing the judicial evolution of Fundamental Rights, Directive Principles, and the Basic Structure Doctrine:\n(a) In Shankari Prasad (1951) and Sajjan Singh (1965), the Supreme Court conceded that Parliament held plenary power under Article 368 to amend any constitutional provision, including Part III.\n(b) In Golaknath (1967), the Supreme Court reversed its stance, ruling that Parliament could not curtail or abridge Fundamental Rights through constitutional amendment.\n(c) In Kesavananda Bharati (April 24, 1973), a 13-judge constitutional bench upheld Parliament\'s amending power while establishing the landmark "Basic Structure Doctrine".\n(d) In Minerva Mills (1980), the Supreme Court held that the Constitution rests on the delicate balance and harmony between Fundamental Rights and Directive Principles.\nWhich of the above statements are true?',
     optionsMr: [
-      'संयुक्त बैठक राष्ट्रपतींद्वारे बोलावली जाते (कलम १०८).',
-      'संयुक्त बैठकीचे अध्यक्षस्थान लोकसभेचे अध्यक्ष (Speaker) भूषवितात.',
-      'संयुक्त बैठकीत विधेयक दोन्ही सभागृहांच्या एकूण उपस्थित व मतदान करणाऱ्या सदस्यांच्या साध्या बहुमताने मंजूर होते.',
-      'घटनादुरुस्ती विधेयक (कलम ३६८) दोन्ही सभागृहांच्या मतभेदावर संयुक्त बैठकीत मंजूर करता येते.'
+      'फक्त (अ) आणि (क)',
+      'फक्त (ब) आणि (ड)',
+      'फक्त (अ), (ब) आणि (क)',
+      'सर्व विधाने सत्य आहेत (अ, ब, क आणि ड)'
     ],
     optionsEn: [
-      'The Joint Sitting is summoned by the President (Article 108).',
-      'The Speaker of the Lok Sabha presides over the Joint Sitting.',
-      'A bill is passed in the Joint Sitting by a simple majority of total members present and voting.',
-      'A Constitutional Amendment Bill (Article 368) can be passed in a Joint Sitting in case of disagreement.'
+      'Only (a) and (c)',
+      'Only (b) and (d)',
+      'Only (a), (b) and (c)',
+      'All statements are true (a, b, c and d)'
     ],
     correctAnswerIndex: 3,
-    explanationMr: 'घटनादुरुस्ती विधेयक (कलम ३६८) आणि धनविधेयक (कलम ११०) यांच्यावर संसदेची संयुक्त बैठक घेता येत नाही. घटनादुरुस्ती विधेयक दोन्ही सभागृहांनी स्वतंत्रपणे विशेष बहुमताने मंजूर करणे बंधनकारक असते.',
-    explanationEn: 'Under the Indian Constitution, Joint Sittings (Article 108) apply only to Ordinary Bills and Financial Bills. There is NO provision for a joint sitting for Money Bills or Constitutional Amendment Bills under Article 368.',
-    reference: 'एम. लक्ष्मीकांत - भारतीय राज्यव्यवस्था (संसद प्रकरण)',
-    yearTag: 'MPSC Static Core'
+    explanationMr: 'मूलभूत हक्क व संविधानाची मूलभूत संरचना यावरील सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **घटनादुरुस्ती वादाची पार्श्वभूमी (१९५१ ते १९६७):** पहिल्या घटनादुरुस्तीला आव्हान देणाऱ्या शंकरी प्रसाद (१९५१) खटल्यात न्यायालयाने म्हटले की, कलम १३(२) मधील \'कायदा\' या शब्दात घटनादुरुस्ती कायद्याचा समावेश होत नाही; त्यामुळे संसद मूलभूत हक्क बदलू शकते. सज्जन सिंग (१९६५) मध्ये हाच निर्णय कायम ठेवला. विधान (अ) सत्य आहे.\n\n२. **गोलकनाथ खटला (१९६७):** ११ न्यायाधीशांच्या खंडपीठाने ६ विरुद्ध ५ बहुमताने निकाल दिला की, मूलभूत हक्क हे पवित्र व अपरिवर्तनीय (Sacrosanct) आहेत. संसद कलम ३६८ अंतर्गत मूलभूत हक्क हिरावून घेऊ शकत नाही. विधान (ब) सत्य आहे.\n\n३. **केशवानंद भारती ऐतिहासिक निकाल (२४ एप्रिल १९७३):** भारताच्या न्यायिक इतिहासातील सर्वात मोठे १३ न्यायाधीशांचे खंडपीठ बसले. ७ विरुद्ध ६ बहुमताने निर्णय झाला की, २४ व्या घटनादुरुस्तीने संसदेला दुरुस्तीचा अधिकार दिला असला, तरी संविधानाची लोकशाही, धर्मनिरपेक्षता, न्यायपालिकेचे स्वातंत्र्य यासारखी मूलभूत वैशिष्ट्ये (Basic Structure) नष्ट करता येणार नाहीत. विधान (क) योग्य आहे.\n\n४. **मिनर्व्हा मिल्स (१९८०):** ४२ व्या दुरुस्तीतील कलम ३६८(४) व (५) रद्दबातल ठरवून न्यायालयाने स्पष्ट केले की मूलभूत हक्क आणि मार्गदर्शक तत्त्वे ही रथाच्या दोन चाकांसारखी असून त्यांचे संतुलन हीच मूळ संरचना आहे. सर्व विधाने सत्य आहेत.\n\n५. **आयोगाचा संदर्भ:** एम. लक्ष्मीकांत - इंडियन पॉलिटी (प्रकरण ११: मूलभूत संरचना सिद्धांत).',
+    explanationEn: 'Comprehensive 150-word constitutional law analysis on Fundamental Rights and the Basic Structure Doctrine:\n\n1. **Early Judicial Deference (1951-1965):** In Shankari Prasad (1951) and Sajjan Singh (1965), the Apex Court distinguished ordinary statutory law under Article 13(2) from constituent law under Article 368, concluding that Parliament possessed unbridled authority to amend any portion of Part III. Statement (a) is verified.\n\n2. **The Golaknath Rupture (1967):** An 11-judge bench ruled by a slender 6:5 majority that Fundamental Rights occupied a transcendental, sacrosanct pedestal immune from legislative curtailment or abrogation through Article 368. Statement (b) is fully correct.\n\n3. **Kesavananda Bharati\'s Monumental Watershed (April 24, 1973):** Convening the largest-ever 13-judge constitutional bench, the Supreme Court by 7:4 established that while Parliament can amend any constitutional clause under Article 368, it cannot rewrite, alter, or damage its foundational "Basic Structure" (e.g., judicial review, rule of law, federalism, secularism). Statement (c) is historic fact.\n\n4. **Minerva Mills Synthesis (1980):** Invalidating clauses (4) and (5) of Article 368 inserted by the 42nd Amendment, the court underscored that the Indian Constitution is founded on the bedrock of balance and harmony between Part III (Fundamental Rights) and Part IV (Directive Principles of State Policy). Hence, all statements (a, b, c and d) are completely true.\n\n5. **Official Reference:** Indian Polity by M. Laxmikanth Chapter 11 & D.D. Basu Introduction to Constitution of India.',
+    reference: 'एम. लक्ष्मीकांत - इंडियन पॉलिटी (प्रकरण ११: संविधानाची मूलभूत संरचना) / DD Basu',
+    yearTag: 'MPSC Static Core 2026'
   },
   {
     id: 'mpsc_static_q04',
     subjectId: 'economy',
-    topic: 'भारतीय अर्थव्यवस्था व कररचना',
-    subtopic: 'वस्तू व सेवा कर परिषद (GST Council - Article 279A)',
+    topic: 'भारतीय अर्थव्यवस्था',
+    subtopic: 'रिझर्व्ह बँक ऑफ इंडिया: पत नियंत्रणाची साधने (Monetary Policy Tools)',
     exam: 'Both',
-    difficulty: 'Hard',
-    questionMr: 'संविधानातील कलम २७९-A अन्वये स्थापन झालेल्या वस्तू व सेवा कर (GST) परिषदेच्या निर्णय प्रक्रियेबाबत खालीलपैकी कोणते विधान अचूक आहे?',
-    questionEn: 'Regarding the decision-making process of the Goods and Services Tax (GST) Council under Article 279A, which of the following is correct?',
+    difficulty: 'Moderate',
+    questionMr: 'भारतीय रिझर्व्ह बँकेच्या (RBI) चलनविषयक व पत नियंत्रण धोरणाबाबत खालील विधाने विचारात घ्या:\n(अ) रेपो दर (Repo Rate) म्हणजे ज्या दराने रिझर्व्ह बँक व्यापारी बँकांना त्यांच्या सरकारी रोख्यांच्या तारणावर अल्पमुदतीचे कर्ज देते तो दर होय.\n(ब) देशातील महागाई (Inflation) नियंत्रित करण्यासाठी रिझर्व्ह बँक रेपो दर आणि रोख राखीव प्रमाण (CRR) मध्ये वाढ करते, ज्यामुळे बाजारातील पैशांची तरलता (Liquidity) कमी होते.\n(क) स्थायी ठेव सुविधा (Standing Deposit Facility - SDF) मध्ये बँकांना अतिरिक्त निधी RBI कडे ठेवताना कोणत्याही सरकारी रोख्यांचे तारण (Collateral) द्यावे लागत नाही.\n(ड) रिझर्व्ह बँकेच्या पतधोरण समितीमध्ये (Monetary Policy Committee - MPC) एकूण ६ सदस्य असतात आणि महागाईचे अधिकृत लक्ष्य ४% (+/- २% म्हणजेच २% ते ६%) निश्चित करण्यात आले आहे.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
+    questionEn: 'Evaluate the following operational principles of the Reserve Bank of India\'s (RBI) Monetary Policy Framework:\n(a) The Repo Rate is the key policy interest rate at which the RBI lends short-term liquidity to commercial banks against pledged government securities.\n(b) To combat inflationary pressures in the economy, the RBI increases the Repo Rate and Cash Reserve Ratio (CRR), thereby absorbing surplus market liquidity.\n(c) Under the Standing Deposit Facility (SDF), banks park excess overnight funds with the RBI without the RBI needing to provide collateral securities.\n(d) The Monetary Policy Committee (MPC) comprises 6 members with a statutory Consumer Price Index (CPI) inflation target of 4% within a tolerance band of +/- 2% (2% to 6%).\nWhich of the above statements are correct?',
     optionsMr: [
-      'परिषदेचा प्रत्येक निर्णय उपस्थित व मतदान करणाऱ्या सदस्यांच्या किमान ३/४ भारांकित बहुमताने घेतला जातो.',
-      'केंद्र शासनाच्या मतांचे मूल्य एकूण मतांच्या अर्धे (१/२) असते.',
-      'सर्व राज्य शासनांच्या मतांचे एकत्रित मूल्य एकूण मतांच्या १/४ असते.',
-      'परिषदेचे अध्यक्षस्थान केंद्रीय गृहमंत्री भूषवितात.'
+      'फक्त (अ), (ब) आणि (क)',
+      'फक्त (ब), (क) आणि (ड)',
+      'फक्त (अ), (क) आणि (ड)',
+      'सर्व विधाने बरोबर आहेत (अ, ब, क आणि ड)'
     ],
     optionsEn: [
-      'Every decision of the Council requires a majority of not less than 3/4ths of the weighted votes of members present and voting.',
-      'The vote of the Central Government has a weightage of one-half (1/2) of total votes cast.',
-      'The combined votes of all State Governments have a weightage of one-fourth (1/4) of total votes cast.',
-      'The Union Home Minister acts as the Chairperson of the Council.'
+      'Only (a), (b) and (c)',
+      'Only (b), (c) and (d)',
+      'Only (a), (c) and (d)',
+      'All statements are correct (a, b, c and d)'
     ],
-    correctAnswerIndex: 0,
-    explanationMr: 'GST परिषदेत निर्णय घेण्यासाठी किमान ७५% (३/४) भारांकित बहुमताची आवश्यकता असते. यामध्ये केंद्र शासनाच्या मतांचे मूल्य १/३ (३३.३%) असते, तर सर्व राज्यांच्या मतांचे एकत्रित मूल्य २/३ (६६.७%) असते. केंद्रीय अर्थमंत्री हे परिषदेचे पदसिद्ध अध्यक्ष असतात.',
-    explanationEn: 'Under Article 279A, every decision of the GST Council is taken by a majority of not less than 3/4th (75%) of the weighted votes of members present and voting. The Central Government has a weight of 1/3rd, while all state governments combined carry 2/3rd weightage.',
-    reference: 'भारतीय अर्थव्यवस्था - डॉ. किरण देसले / १०१ वी घटनादुरुस्ती कायदा २०१६',
-    yearTag: 'MPSC Static Core'
+    correctAnswerIndex: 3,
+    explanationMr: 'रिझर्व्ह बँकेची पत नियंत्रणाची साधने व महागाई नियंत्रणाचे सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **रेपो दर (Repurchase Option Rate):** बँकांमधील रोखतेची चणचण भरून काढण्यासाठी RBI ज्या दराने बँकांना अल्पमुदतीचे कर्ज देते त्याला रेपो दर म्हणतात. जेव्हा महागाई वाढते, तेव्हा RBI रेपो दर वाढवते; त्यामुळे बँकांचे कर्ज महाग होते, बाजारातील मागणी कमी होते आणि महागाई नियंत्रणात येते. विधान (अ) व (ब) दोन्ही बरोबर आहेत.\n\n२. **रोख राखीव प्रमाण (CRR) व वैधानिक तरलता प्रमाण (SLR):** CRR म्हणजे बँकांना आपल्या एकूण ठेवींपैकी (NDTL) ठरावीक हिस्सा रोख स्वरूपात RBI कडे ठेवावा लागतो. महागाईच्या काळात CRR वाढवून बाजारातील अतिरिक्त पैसा शोषून घेतला जातो.\n\n३. **स्थायी ठेव सुविधा (SDF):** एप्रिल २०२२ मध्ये RBI ने SDF ची सुरुवात केली. रिव्हर्स रेपोमध्ये RBI ला बँकांना सरकारी रोखे तारण द्यावे लागत असत, परंतु SDF मध्ये कोणत्याही तारणाशिवाय (Collateral-free) बँकांचा अतिरिक्त पैसा स्वीकारला जातो. विधान (क) अचूक आहे.\n\n४. **पतधोरण समिती (MPC):** २०१६ च्या RBI कायद्यातील दुरुस्तीनुसार ६ सदस्य असतात (३ RBI चे व ३ केंद्र सरकारचे). RBI चे गव्हर्नर याचे पदसिद्ध अध्यक्ष असतात. महागाईचे लक्ष्य ४% (+/- २%) ठेवण्यात आले आहे. सर्व विधाने सत्य आहेत.\n\n५. **आयोगाचा संदर्भ:** भारतीय अर्थव्यवस्था - रंजन कोळंबे / डॉ. किरण देसले (भाग १: बँकिंग व चलनव्यवस्था).',
+    explanationEn: 'Comprehensive 150-word macroeconomic analysis on RBI Monetary Policy instruments:\n\n1. **Repo Rate Mechanics:** The Policy Repo Rate serves as the operational anchor of liquidity management, representing the rate at which banks borrow overnight liquidity against eligible collateral under the Liquidity Adjustment Facility (LAF). Increasing repo rates escalates lending interest rates across financial institutions, curtailing discretionary consumption expenditure and capital borrowing. Statements (a) and (b) are accurate.\n\n2. **Standing Deposit Facility (SDF) Innovation:** Operationalized in April 2022 following the Urjit Patel Committee recommendations, SDF serves as the floor of the LAF corridor (25 basis points below Repo Rate). It empowers the RBI to absorb surplus systemic liquidity without transferring government securities as collateral, strengthening institutional balance sheet resilience. Statement (c) is valid.\n\n3. **Monetary Policy Committee (MPC) & Flexible Inflation Targeting:** Enacted under Section 45ZB of the amended RBI Act (1934), the 6-member MPC (comprising the Governor, Deputy Governor, an RBI official, and three external academic/economic experts appointed by the Centre) meets bi-monthly to calibrate rates toward the official headline CPI target of 4.0% with a tolerance interval of +/- 200 basis points (2% to 6%). Hence, all four statements are completely true.\n\n4. **Official Reference:** Indian Economy by Ramesh Singh & Reserve Bank of India Official Publications.',
+    reference: 'भारतीय अर्थव्यवस्था - रंजन कोळंबे / डॉ. किरण देसले (बँकिंग व पतधोरण) / RBI Handbook',
+    yearTag: 'MPSC Static Core 2026'
   },
   {
     id: 'mpsc_static_q05',
     subjectId: 'general_science',
-    topic: 'सामान्य विज्ञान व मानवी शरीरशास्त्र',
-    subtopic: 'रक्तदाब व त्याचे मापन (Blood Pressure & Sphygmomanometer)',
+    topic: 'भौतिकशास्त्र व पर्यावरण विज्ञान',
+    subtopic: 'प्रकाशाचे संपूर्ण अंतर्गत परावर्तन (TIR) आणि वातावरणीय हरितगृह परिणाम',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: 'निरोगी मानवाच्या शरीरातील सामान्य रक्तदाब (Normal Blood Pressure) १२०/८० mmHg मानला जातो. या संदर्भात खालील विधाने विचारात घ्या:\n(अ) वरचा अंक (१२० mmHg) हा हृदयाचे निलय आकुंचन पावताना निर्माण होणारा "सिस्टॉलिक दाब" (Systolic Pressure) दर्शवतो.\n(ब) खालचा अंक (८० mmHg) हा निलय शिथिल होतानाचा "डायस्टॉलिक दाब" (Diastolic Pressure) दर्शवतो.\n(क) रक्तदाब मोजण्यासाठी "स्फिग्मोमॅनोमीटर" (Sphygmomanometer) हे साधन वापरले जाते.\nवरीलपैकी कोणती विधाने सत्य आहेत?',
-    questionEn: 'Normal blood pressure in a healthy adult is recorded as 120/80 mmHg. Consider the following statements:\n(a) The upper reading (120 mmHg) indicates Systolic Pressure during ventricular contraction.\n(b) The lower reading (80 mmHg) indicates Diastolic Pressure during ventricular relaxation.\n(c) The medical instrument used to measure blood pressure is a Sphygmomanometer.\nWhich of the statements given above are true?',
+    questionMr: 'भौतिकशास्त्र आणि पर्यावरण विज्ञानातील नैसर्गिक घटनांविषयी खालील विधानांचा विचार करा:\n(अ) प्रकाशाचे संपूर्ण अंतर्गत परावर्तन (Total Internal Reflection - TIR) घडून येण्यासाठी प्रकाशकिरण दाट माध्यमातून विरळ माध्यमात जाणे आवश्यक असते आणि आपाती कोन हा क्रांतिक कोनापेक्षा (Critical Angle) मोठा असणे बंधनकारक असते.\n(ब) ऑप्टिकल फायबर केबल्स (Optical Fiber), हिऱ्याचे लखलखणे (Brilliance of Diamond) आणि वाळवंटातील मृगजळ (Mirage) ही प्रकाशाच्या संपूर्ण अंतर्गत परावर्तनाची प्रमुख उदाहरणे आहेत.\n(क) वातावरणातील हरितगृह परिणामासाठी (Greenhouse Effect) प्रामुख्याने सूर्यप्रकाशातील अवरक्त किरणांचे (Infrared Radiation) पृथ्वीच्या पृष्ठभागावरून परावर्तन झाल्यानंतर कार्बन डायऑक्साईड, पाण्याची वाफ व मिथेनद्वारे होणारे शोषण जबाबदार असते.\n(ड) आकाश निळे दिसणे आणि सूर्याोदयाच्या वेळी सूर्य तांबडा दिसणे हे प्रकाशाच्या संपूर्ण अंतर्गत परावर्तनामुळे घडते.\nवरीलपैकी कोणते विधान अयोग्य (चुकीचे) आहे?',
+    questionEn: 'Evaluate the following physical principles governing optical phenomena and environmental thermodynamics:\n(a) Total Internal Reflection (TIR) occurs exclusively when light travels from an optically denser medium into a rarer medium with the angle of incidence exceeding the critical angle.\n(b) High-speed Optical Fiber cables, the brilliant sparkle of cut diamonds, and desert mirages represent premier real-world manifestations of Total Internal Reflection.\n(c) The terrestrial Greenhouse Effect is primarily triggered when outgoing long-wave Infrared radiations emitted by the Earth\'s surface are absorbed by greenhouse gases like CO₂, water vapor, and CH₄.\n(d) The blue color of the clear daytime sky and the crimson-red appearance of the sun at dawn and dusk occur primarily due to Total Internal Reflection.\nWhich of the above statements is incorrect?',
     optionsMr: [
-      'फक्त (अ) आणि (ब)',
-      'फक्त (ब) आणि (क)',
-      'फक्त (अ) आणि (क)',
-      'सर्व विधाने सत्य आहेत (अ, ब आणि क)'
+      'फक्त विधान (अ)',
+      'फक्त विधान (ब)',
+      'फक्त विधान (क)',
+      'फक्त विधान (ड)'
     ],
     optionsEn: [
-      'Only (a) and (b)',
-      'Only (b) and (c)',
-      'Only (a) and (c)',
-      'All statements are true (a, b and c)'
+      'Only statement (a)',
+      'Only statement (b)',
+      'Only statement (c)',
+      'Only statement (d)'
     ],
     correctAnswerIndex: 3,
-    explanationMr: 'हृदयाच्या आकुंचनावेळचा दाब सिस्टॉलिक (१२० mmHg) आणि शिथिलतेचा दाब डायस्टॉलिक (८० mmHg) असतो. रक्तदाब मोजण्यासाठी स्फिग्मोमॅनोमीटर आणि स्टेथॉस्कोपचा वापर केला जातो. १४०/९० पेक्षा जास्त दाब सतत राहिल्यास त्यास उच्च रक्तदाब (Hypertension) म्हणतात.',
-    explanationEn: 'Systolic pressure (120 mmHg) represents peak arterial pressure during ventricular systole, while diastolic pressure (80 mmHg) represents minimum arterial pressure during ventricular diastole, accurately measured via a sphygmomanometer.',
-    reference: 'NCERT Class 11 Biology - Body Fluids and Circulation / डॉ. सचिन भस्के',
-    yearTag: 'MPSC Static Core'
+    explanationMr: 'प्रकाशाचे परावर्तन, अपवर्तन व विकिरण यावरील सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **विधान (ड) मधील चूक व सत्य कारण:** आकाश निळे दिसणे आणि सूर्योदयाच्या वेळी सूर्य लाल दिसणे हे संपूर्ण अंतर्गत परावर्तनामुळे नव्हे, तर **प्रकाशाच्या विकिरणामुळे (Scattering of Light - Rayleigh Scattering)** घडते! लॉर्ड रॅले यांच्या नियमानुसार विकिरणाचे प्रमाण तरंगलांबीच्या चौथ्या घाताच्या व्यस्त प्रमाणात असते (I ∝ 1/λ⁴). निळ्या रंगाची तरंगलांबी सर्वात कमी असल्याने त्याचे वातावरणातील सूक्ष्म कणांद्वारे सर्वाधिक विकिरण होते, त्यामुळे आकाश निळे दिसते. सूर्योदयी व सूर्यास्ती तांबड्या रंगाची तरंगलांबी जास्त असल्याने तो डोळ्यांपर्यंत थेट पोहोचतो. त्यामुळे विधान (ड) चुकीचे आहे.\n\n२. **संपूर्ण अंतर्गत परावर्तन (TIR) च्या अटी:** १. प्रकाशकिरण घन (दाट) माध्यमातून विरल माध्यमात गेला पाहिजे. २. आपाती कोन (Angle of Incidence - i) हा त्या माध्यमाच्या क्रांतिक कोनापेक्षा (Critical angle - c) जास्त असला पाहिजे (i > c). हिऱ्याचा क्रांतिक कोन सर्वात कमी (२४.४°) असतो, त्यामुळे हिऱ्यात शिरलेला प्रकाश वारंवार परावर्तित होऊन हिरा लखलखतो. विधाने (अ) व (ब) सत्य आहेत.\n\n३. **हरितगृह परिणाम:** पृथ्वीकडून उत्सर्जित होणारी दीर्घतरंग अवरक्त (IR) किरणे CO₂, मिथेन, बाष्प शोषून घेतात आणि पृथ्वीचे तापमान सरासरी १५°C वर उबदार ठेवतात. विधान (क) योग्य आहे.\n\n४. **आयोगाचा संदर्भ:** NCERT इयत्ता १० वी भौतिकशास्त्र (प्रकाश परावर्तन व अपवर्तन) आणि स्टेट बोर्ड १० वी विज्ञान भाग-१.',
+    explanationEn: 'Comprehensive 150-word scientific breakdown of Optical Phenomena and Terrestrial Thermodynamics:\n\n1. **Fallacy in Statement (d) & Rayleigh Scattering:** The daytime azure appearance of the sky and the crimson coloration of the setting/rising sun are governed strictly by **Rayleigh Scattering of Light**, NOT Total Internal Reflection! Rayleigh\'s law dictates that scattering intensity varies inversely with the fourth power of wavelength (I ∝ 1/λ⁴). Shorter blue wavelengths (~400-450 nm) scatter nearly ten times more intensely off atmospheric nitrogen and oxygen molecules than longer red wavelengths (~700 nm). At twilight, light traverses maximum atmospheric thickness, scattering away shorter wavelengths and leaving predominantly unscattered red rays to reach human retinas. Hence, statement (d) is decisively erroneous.\n\n2. **Conditions for Total Internal Reflection (TIR):** Two essential optical conditions must be satisfied: (i) Propagation must proceed from an optically denser medium to an optically rarer medium (n₁ > n₂); (ii) The incidence angle must exceed the critical boundary threshold (i > θ_c, where sin θ_c = 1/μ). Optical communication fiber cores trap light via successive boundary TIR, and cut diamonds leverage an ultra-low critical angle of 24.4° for spectacular dispersion brilliance. Statements (a) and (b) are accurate.\n\n3. **Atmospheric Greenhouse Physics:** Solar shortwave radiation warms the planetary crust, which subsequently re-radiates thermal longwave Infrared (IR) energy. Polyatomic gases (CO₂, H₂O vapor, CH₄, N₂O) absorb and re-emit this trapped thermal radiation, preserving a global mean temperature of +15°C instead of an uninhabitable -18°C. Statement (c) is valid.\n\n4. **Official Reference:** NCERT Class 10 Physics Chapter 10 (Light) & NCERT Class 12 Physics (Ray Optics).',
+    reference: 'सामान्य विज्ञान - डॉ. सचिन भस्के / NCERT Class 10 & 12 Physics (Ray Optics)',
+    yearTag: 'MPSC Static Core 2026'
   },
   {
     id: 'mpsc_static_q06',
-    subjectId: 'maharashtra_history',
-    topic: 'महाराष्ट्राचा इतिहास व समाजसुधारक',
-    subtopic: 'वासुदेव बळवंत फडके (आद्य क्रांतिकारक)',
+    subjectId: 'current_affairs',
+    topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
+    subtopic: '१०६ वी घटनादुरुस्ती कायदा (नारी शक्ती वंदन अधिनियम - Women\'s Reservation Act)',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: 'आद्य क्रांतिकारक वासुदेव बळवंत फडके यांच्या संदर्भात खालील विधाने विचारात घ्या:\n(अ) त्यांनी १८७३ मध्ये पुण्यात तरुणांमध्ये राष्ट्रभक्ती रुजवण्यासाठी "ऐक्यवर्धिनी सभा" सुरू केली.\n(ब) त्यांनी रामोशी, भिल्ल व कोळी बांधवांना एकत्र करून ब्रिटिश सत्तेविरुद्ध सशस्त्र बंड उभारले.\n(क) मेजर डॅनियलने त्यांना कर्नाटकातील देवरनावडगी येथे अटक केली व त्यांना एडनच्या तुरुंगात ठेवण्यात आले.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
-    questionEn: 'Consider the following statements regarding the pioneer revolutionary Vasudev Balwant Phadke:\n(a) He established the "Aikya Vardhini Sabha" in Pune in 1873 to inspire patriotism among youth.\n(b) He organized Ramoshi, Bhil, and Koli communities into an armed rebellion against British rule.\n(c) He was captured by Major Daniell at Devar Navadgi and subsequently imprisoned at Aden.\nWhich of the above statements are correct?',
+    questionMr: '१०६ व्या घटनादुरुस्ती कायद्याबाबत (नारी शक्ती वंदन अधिनियम - Women\'s Reservation Act) खालील विधानांचा सखोल विचार करा:\n(अ) या कायद्यानुसार लोकसभा, घटक राज्यांच्या विधानसभा आणि दिल्ली राष्ट्रीय राजधानी क्षेत्राच्या (NCT of Delhi) विधानसभेत महिलांसाठी ३३ टक्के (१/३) जागा आरक्षित करण्यात आल्या आहेत.\n(ब) संविधानात नव्याने कलम ३३०A (लोकसभेत महिला आरक्षण), कलम ३३२A (विधानसभांमध्ये महिला आरक्षण) आणि कलम ३३४A समाविष्ट करण्यात आले आहे.\n(क) हे आरक्षण कायदा लागू झाल्यापासून १५ वर्षांच्या कालावधीसाठी लागू राहील आणि संसद कायद्याद्वारे त्याची मुदत वाढवू शकते.\n(ड) हे आरक्षण २०२४ च्या सार्वत्रिक लोकसभा निवडणुकीपासून तात्काळ अमलात आणण्यात आले आहे.\nवरीलपैकी कोणते विधान अयोग्य (चुकीचे) आहे?',
+    questionEn: 'Evaluate the following statements concerning the 106th Constitutional Amendment Act (Nari Shakti Vandan Adhiniyam - Women\'s Reservation Act):\n(a) The Act reserves 33 percent (one-third) of all seats for women in the Lok Sabha, State Legislative Assemblies, and the Legislative Assembly of the National Capital Territory of Delhi.\n(b) It incorporated new Articles into the Constitution: Article 330A (Lok Sabha reservation), Article 332A (State Assembly reservation), and Article 334A.\n(c) The affirmative reservation shall remain in operational effect for a period of 15 years from enactment, extendable by parliamentary statute.\n(d) This statutory reservation took immediate effect starting from the 2024 General Lok Sabha Elections.\nWhich of the above statements is incorrect?',
     optionsMr: [
-      'फक्त (अ) आणि (ब)',
-      'फक्त (ब) आणि (क)',
-      'फक्त (अ) आणि (क)',
-      'सर्व विधाने बरोबर आहेत (अ, ब आणि क)'
+      'फक्त विधान (अ)',
+      'फक्त विधान (ब)',
+      'फक्त विधान (क)',
+      'फक्त विधान (ड)'
     ],
     optionsEn: [
-      'Only (a) and (b)',
-      'Only (b) and (c)',
-      'Only (a) and (c)',
-      'All statements are correct (a, b and c)'
+      'Only statement (a)',
+      'Only statement (b)',
+      'Only statement (c)',
+      'Only statement (d)'
     ],
     correctAnswerIndex: 3,
-    explanationMr: 'वासुदेव बळवंत फडके यांनी ऐक्यवर्धिनी सभा स्थापन केली. १८७९ मध्ये दुष्काळग्रस्त शेतकऱ्यांना न्याय मिळवून देण्यासाठी रामोशी बांधवांना घेऊन सशस्त्र उठाव केला. त्यांना एडनच्या तुरुंगात पाठवण्यात आले, जिथे १८८३ मध्ये त्यांचा मृत्यू झाला.',
-    explanationEn: 'Vasudev Balwant Phadke formed the Aikya Vardhini Sabha in 1873, mobilized Ramoshi and tribal youth in the 1879 rebellion, and was captured by Major Daniell and exiled to Aden, where he attained martyrdom in 1883.',
-    reference: 'आधुनिक महाराष्ट्राचा इतिहास - डॉ. सुमन वैद्य व शांता कोठेकर / स्टेट बोर्ड ११ वी',
-    yearTag: 'MPSC Static Core'
+    explanationMr: '१०६ वी घटनादुरुस्ती कायदा (नारी शक्ती वंदन अधिनियम) वरील सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **विधान (ड) मधील चूक व सत्य कारण:** हे आरक्षण २०२४ च्या निवडणुकीपासून तात्काळ लागू झालेले नाही! संविधानातील नवीन कलम ३३४A मधील तरतुदीनुसार, हा कायदा संमत झाल्यानंतर देशात होणाऱ्या पहिल्या अधिकृत जनगणनेनंतर (Census) आणि त्यानंतर होणाऱ्या मतदारसंघ पुनर्रचना/परिसीमन (Delimitation) प्रक्रियेनंतरच हे आरक्षण प्रत्यक्षात अंमलात येईल. त्यामुळे २०२४ च्या लोकसभा निवडणुकीत हे आरक्षण लागू नव्हते. म्हणून विधान (ड) अयोग्य (चुकीचे) आहे.\n\n२. **आरक्षणाची व्याप्ती (३३%):** लोकसभा आणि राज्यांच्या विधानसभांमध्ये महिलांसाठी ३३% (एक-तृतीयांश) जागा आरक्षित राहतील. हे आरक्षण SC आणि ST प्रवर्गासाठी आरक्षित असलेल्या जागांमध्येही लागू असेल (Horizontal Reservation). मात्र राज्यसभा आणि राज्य विधान परिषदांमध्ये हे आरक्षण लागू नाही. विधान (अ) सत्य आहे.\n\n३. **नवीन घटनात्मक कलमे:** या दुरुस्तीने संविधानात कलम २३९AA(२)(ba), कलम ३३०A, कलम ३३२A आणि कलम ३३४A ही नवीन कलमे समाविष्ट करण्यात आली आहेत. विधान (ब) सत्य आहे.\n\n४. **कालावधी:** सुरुवातीला हे आरक्षण १५ वर्षांसाठी असेल, त्यानंतर संसद कायदा करून मुदत वाढवू शकते. विधान (क) बरोबर आहे.\n\n५. **संसदेतील संमती:** लोकसभेत २० सप्टेंबर २०२३ (४५४ विरुद्ध २ मते) आणि राज्यसभेत २१ सप्टेंबर २०२३ (एकमुखाने २१४ मते) संमत झाले. २८ सप्टेंबर २०२३ रोजी राष्ट्रपती द्रौपदी मुर्मू यांनी स्वाक्षरी केली.\n\n६. **आयोगाचा संदर्भ:** भारत राजपत्र (Gazette of India) व दैनिक लोकसत्ता विशेष विश्लेषण.',
+    explanationEn: 'Comprehensive 150-word analytical solution regarding the 106th Constitutional Amendment Act:\n\n1. **Fallacy in Statement (d) & Implementation Timeline:** The reservation did NOT take immediate effect for the 2024 Parliamentary elections. According to the newly inserted Article 334A, the quota will operationalize only after the completion of the first post-enactment decennial Census, followed by an official parliamentary Delimitation exercise delineating designated female constituencies. Consequently, implementation is realistically projected for 2029. Statement (d) is definitively incorrect.\n\n2. **Statutory Scope & Horizontal Quotas:** The Act reserves precisely one-third (33%) of total directly elected seats in the Lok Sabha, all 28 State Legislative Assemblies, and the Delhi NCT Assembly. It encompasses sub-reservations for Scheduled Caste (SC) and Scheduled Tribe (ST) women within their existing constitutional quotas under Articles 330 and 332. It does not apply to the Rajya Sabha or State Legislative Councils. Statement (a) is true.\n\n3. **Constitutional Inclusions:** Inserts Article 330A, Article 332A, Article 334A, and amends Article 239AA. Statement (b) is sound.\n\n4. **Sunset Clause:** Retains validity for an initial period of 15 years, extendable through statutory enactment by Parliament under Article 334A(1). Statement (c) is valid.\n\n5. **Legislative Milestone:** Passed as the 128th Amendment Bill in the new Parliament building during the Special Session of September 2023, receiving Presidential assent on September 28, 2023.\n\n6. **Official Reference:** Ministry of Law and Justice Gazette Notification & PRS Legislative Research.',
+    reference: 'भारत राजपत्र / पीआयबी (PIB) / दैनिक लोकसत्ता संपादकीय',
+    yearTag: 'MPSC Current Affairs 2026'
   },
   {
     id: 'mpsc_static_q07',
-    subjectId: 'maharashtra_history',
-    topic: 'महाराष्ट्राचा इतिहास व स्वातंत्र्य लढा',
-    subtopic: 'क्रांतीसिंह नाना पाटील व सातारा प्रतिसरकार (१९४२)',
+    subjectId: 'current_affairs',
+    topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
+    subtopic: 'नवीन भारतीय फौजदारी कायदे २०२४ (BNS, BNSS व BSA)',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: '१९४२ च्या चले जाव (Quit India) चळवळीदरम्यान सातारा येथे स्थापन झालेल्या प्रतिसरकारबाबत खालील विधाने विचारात घ्या:\n(अ) या प्रतिसरकारचे मुख्य नेते क्रांतीसिंह नाना पाटील आणि किसन वीर होते.\n(ब) या सरकारच्या अंतर्गत गावोगावी "न्यायदान मंडळे" स्थापन करून लोकांच्या तंट्यांचे जागेवर निवारण केले जाई.\n(क) प्रतिसरकारच्या लष्करी शाखेला "तुफान सेना" म्हटले जाई, ज्याचे फील्ड मार्शल जी. डी. (बापू) लाड होते.\nवरीलपैकी कोणती विधाने सत्य आहेत?',
-    questionEn: 'Consider the following statements regarding the Pratisarkar (Parallel Government) established in Satara during the 1942 Quit India Movement:\n(a) Krantisimha Nana Patil and Kisan Veer were prominent leaders of this parallel government.\n(b) Nyayadan Mandals (People\'s Courts) were established across villages to settle disputes locally.\n(c) The armed resistance wing of the Pratisarkar was named "Tufan Sena", led by G. D. (Bapu) Lad.\nWhich of the statements given above are true?',
+    questionMr: '१ जुलै २०२४ पासून भारतात लागू झालेल्या तीन नवीन फौजदारी कायद्यांविषयी (New Criminal Laws) खालील विधाने विचारात घ्या:\n(अ) भारतीय न्याय संहिता (BNS, २०२३) ने ब्रिटिशकालीन १८६० च्या भारतीय दंड संहितेची (IPC) जागा घेतली असून यात खुनाचा गुन्हा कलम ३०२ ऐवजी कलम १०३ अंतर्गत समाविष्ट करण्यात आला आहे.\n(ब) भारतीय नागरिक सुरक्षा संहिता (BNSS, २०२३) ने १९७३ च्या फौजदारी प्रक्रिया संहितेची (CrPC) जागा घेतली असून यात "झिरो एफआयआर" (Zero FIR), ई-एफआयआर आणि ७ वर्षे किंवा त्याहून अधिक शिक्षेच्या गुन्ह्यांमध्ये फॉरेन्सिक तपासणी बंधनकारक करण्यात आली आहे.\n(क) भारतीय साक्ष अधिनियम (BSA, २०२३) ने १८७२ च्या पुरावा कायद्याची जागा घेतली असून यात डिजिटल व इलेक्ट्रॉनिक नोंदींना कागदोपत्री पुराव्यांप्रमाणेच प्राथमिक पुराव्याचा (Primary Evidence) दर्जा देण्यात आला आहे.\n(ड) भारतीय न्याय संहितेत (BNS) लहान गुन्ह्यांसाठी भारतात पहिल्यांदाच "समाजसेवा" (Community Service) ही पर्यायी शिक्षा म्हणून समाविष्ट करण्यात आली आहे.\nवरीलपैकी कोणती विधाने सत्य आहेत?',
+    questionEn: 'Evaluate the following statements concerning India\'s three new criminal legal codes implemented nationwide on July 1, 2024:\n(a) The Bharatiya Nyaya Sanhita (BNS, 2023) replaces the colonial-era Indian Penal Code 1860, re-codifying murder from Section 302 to Section 103.\n(b) The Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023) replaces the CrPC 1973, codifying Zero FIR, electronic summons, and making forensic investigation mandatory for offenses punishable with 7+ years imprisonment.\n(c) The Bharatiya Sakshya Adhiniyam (BSA, 2023) replaces the Indian Evidence Act 1872, according digital and electronic records the legal status of primary documentary evidence.\n(d) The BNS introduces "Community Service" for the first time in Indian statutory criminal jurisprudence as a formalized alternative penal punishment for petty offenses.\nWhich of the above statements are true?',
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (ब) आणि (क)',
-      'फक्त (अ) आणि (क)',
-      'सर्व विधाने सत्य आहेत (अ, ब आणि क)'
+      'फक्त (अ), (ब) आणि (ड)',
+      'सर्व विधाने सत्य आहेत (अ, ब, क आणि ड)'
     ],
     optionsEn: [
       'Only (a) and (b)',
       'Only (b) and (c)',
-      'Only (a) and (c)',
-      'All statements are true (a, b and c)'
+      'Only (a), (b) and (d)',
+      'All statements are true (a, b, c and d)'
     ],
     correctAnswerIndex: 3,
-    explanationMr: 'साताऱ्याचे प्रतिसरकार (पत्री सरकार) हे १९४२ च्या चळवळीतील अत्यंत यशस्वी समांतर सरकार होते. यामध्ये न्यायदान मंडळे, तुफान सेना, बाजार नियंत्रण व दारूबंदी अशा अनेक व्यवस्था लोकसहभागातून यशस्वीपणे राबवल्या गेल्या.',
-    explanationEn: 'The Satara Pratisarkar led by Krantisimha Nana Patil ran parallel civil courts (Nyayadan Mandals) and a defense wing (Tufan Sena led by Bapu Lad and Nagnath Nayakawadi), representing one of the most effective parallel governments during the Quit India struggle.',
-    reference: 'स्वातंत्र्यलढ्यातील सातारा - डॉ. अरूण भोसले / स्टेट बोर्ड ११ वी इतिहास',
-    yearTag: 'MPSC Static Core'
+    explanationMr: '१ जुलै २०२४ पासून लागू झालेल्या तीन नवीन फौजदारी कायद्यांचे सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **कायद्यांची पार्श्वभूमी:** भारताच्या फौजदारी न्यायव्यवस्थेतील ब्रिटिशांच्या वसाहतकालीन कायद्यांना बदलून १ जुलै २०२४ पासून तीन नवीन कायदे संपूर्ण देशात लागू करण्यात आले. सर्व चारही विधाने सत्य आहेत.\n\n२. **भारतीय न्याय संहिता (BNS, २०२३):** IPC १८६० मधील ५११ कलमांऐवजी BNS मध्ये ३५८ कलमे आहेत. प्रमुख बदल:\n• खून: जुने कलम ३०२ $\\rightarrow$ नवीन कलम १०३.\n• फसवणूक: जुने कलम ४२० $\\rightarrow$ नवीन कलम ३१८.\n• देशद्रोह (Sedition) रद्द करून भारताचे सार्वभौमत्व व अखंडतेला धोका निर्माण करणाऱ्या कृत्यांवर कलम १५२ अंतर्गत बंदी.\n• लहान गुन्ह्यांसाठी (उदा. ५,००० रुपयांपेक्षा कमी रकमेची चोरी, सरकारी सेवकाच्या कामात अडथळा) भारतात प्रथमच "समाजसेवा" (Community Service) शिक्षेचा समावेश करण्यात आला. विधाने (अ) व (ड) सत्य आहेत.\n\n३. **भारतीय नागरिक सुरक्षा संहिता (BNSS, २०२३):** CrPC १९७३ च्या जागी ५३१ कलमांचा कायदा. यात गुन्हा कुठेही घडला असला तरी कोणत्याही पोलीस ठाण्यात \'झिरो एफआयआर\' नोंदवणे, १५ दिवसांत ई-एफआयआर स्वाक्षरी करणे, ७ वर्षांपेक्षा जास्त शिक्षेच्या गुन्ह्यांत फॉरेन्सिक व्हॅन व पुरावे तपासणे अनिवार्य केले. विधान (ब) सत्य आहे.\n\n४. **भारतीय साक्ष अधिनियम (BSA, २०२३):** Evidence Act १८७२ च्या जागी १७० कलमे. लॅपटॉप, मोबाईल, मेसेज व इलेक्ट्रॉनिक नोंदींना प्राथमिक पुराव्याचा दर्जा. विधान (क) योग्य आहे.\n\n५. **आयोगाचा संदर्भ:** कायदा व न्याय मंत्रालय भारत सरकार / दैनिक लोकसत्ता विशेष पुरवणी.',
+    explanationEn: 'Comprehensive 150-word legal jurisprudence analysis on India\'s New Criminal Codes enacted July 1, 2024:\n\n1. **Overhaul of Colonial Framework:** Three landmark legislative enactments formally replaced colonial-era Victorian penal codes across all Indian jurisdictions on July 1, 2024. All four statements are factually sound.\n\n2. **Bharatiya Nyaya Sanhita (BNS, 2023 - 358 Sections):** Streamlines the 511 sections of the IPC 1860. Key realignments include Murder re-codified under Section 103 (formerly 302), Cheating under Section 318 (formerly 420), and Unlawful Assembly under Section 189. It permanently repeals colonial Sedition (Section 124A), substituting it with Section 152 punishing acts endangering sovereignty, unity, and integrity. Crucially, BNS institutionalizes "Community Service" as an official non-custodial punishment for minor offenses (thefts under ₹5,000, public intoxication). Statements (a) and (d) are validated.\n\n3. **Bharatiya Nagarik Suraksha Sanhita (BNSS, 2023 - 531 Sections):** Replaces CrPC 1973. Mandates institutionalization of Zero FIR across jurisdictional limits, timeline constraints for chargesheets and judgment delivery (within 45 days), and mandatory forensic crime-scene harvesting for crimes bearing 7+ years penal exposure. Statement (b) is true.\n\n4. **Bharatiya Sakshya Adhiniyam (BSA, 2023 - 170 Sections):** Modernizes the 1872 Evidence Act, explicitly equating cryptographically authenticated electronic and digital records (server logs, messaging transcripts, cloud storage) to primary documentary evidence under Section 57. Statement (c) is accurate.\n\n5. **Official Reference:** Ministry of Law and Justice Gazette & Bureau of Police Research and Development (BPRD).',
+    reference: 'कायदा व न्याय मंत्रालय, भारत सरकार / दैनिक लोकसत्ता विधी विशेष',
+    yearTag: 'MPSC Current Affairs 2026'
   },
   {
     id: 'mpsc_static_q08',
-    subjectId: 'maharashtra_history',
-    topic: 'महाराष्ट्राचा इतिहास व समाजसुधारक',
-    subtopic: 'डॉ. बाबासाहेब आंबेडकर यांची वृत्तपत्रे',
+    subjectId: 'current_affairs',
+    topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
+    subtopic: 'महाराष्ट्र: मुख्यमंत्री माझी लाडकी बहीण योजना (Ladki Bahin Yojana)',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: 'डॉ. बाबासाहेब आंबेडकर यांनी सुरू केलेल्या वृत्तपत्रांचा कालक्रमानुसार योग्य क्रम कोणता आहे?',
-    questionEn: 'Which of the following represents the correct chronological order of periodicals founded by Dr. B. R. Ambedkar?',
-    optionsMr: [
-      'मूकनायक (१९२०) -> बहिष्कृत भारत (१९२७) -> जनता (१९३०) -> प्रबुद्ध भारत (१९५६)',
-      'बहिष्कृत भारत -> मूकनायक -> जनता -> प्रबुद्ध भारत',
-      'मूकनायक -> जनता -> बहिष्कृत भारत -> प्रबुद्ध भारत',
-      'जनता -> मूकनायक -> बहिष्कृत भारत -> प्रबुद्ध भारत'
-    ],
-    optionsEn: [
-      'Mooknayak (1920) -> Bahishkrit Bharat (1927) -> Janata (1930) -> Prabuddha Bharat (1956)',
-      'Bahishkrit Bharat -> Mooknayak -> Janata -> Prabuddha Bharat',
-      'Mooknayak -> Janata -> Bahishkrit Bharat -> Prabuddha Bharat',
-      'Janata -> Mooknayak -> Bahishkrit Bharat -> Prabuddha Bharat'
-    ],
-    correctAnswerIndex: 0,
-    explanationMr: 'डॉ. बाबासाहेब आंबेडकरांनी ३१ जानेवारी १९२० रोजी मूकनायक पाक्षिक सुरू केले. त्यानंतर ३ एप्रिल १९२७ रोजी बहिष्कृत भारत, २४ नोव्हेंबर १९३० रोजी जनता (पाक्षिक व नंतर साप्ताहिक) आणि ४ फेब्रुवारी १९५६ रोजी प्रबुद्ध भारत सुरू केले.',
-    explanationEn: 'Dr. B. R. Ambedkar launched Mooknayak in 1920, Bahishkrit Bharat in 1927, Janata in 1930, and Prabuddha Bharat in 1956. Option 1 represents the exact chronological progression.',
-    reference: 'डॉ. बाबासाहेब आंबेडकर चरित्र - धनंजय कीर / स्टेट बोर्ड',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q09',
-    subjectId: 'maharashtra_geography',
-    topic: 'महाराष्ट्राचा भूगोल',
-    subtopic: 'प्रशासकीय विभाग व जिल्हे',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'महाराष्ट्रातील ६ प्रशासकीय विभागांपैकी सर्वाधिक जिल्हे कोणत्या प्रशासकीय विभागात आहेत?',
-    questionEn: 'Among the 6 administrative divisions of Maharashtra, which division comprises the largest number of districts?',
-    optionsMr: [
-      'कोकण विभाग (७ जिल्हे)',
-      'छत्रपती संभाजीनगर विभाग (८ जिल्हे)',
-      'नागपूर विभाग (६ जिल्हे)',
-      'पुणे विभाग (५ जिल्हे)'
-    ],
-    optionsEn: [
-      'Kokan Division (7 districts)',
-      'Chhatrapati Sambhajinagar Division (8 districts)',
-      'Nagpur Division (6 districts)',
-      'Pune Division (5 districts)'
-    ],
-    correctAnswerIndex: 1,
-    explanationMr: 'छत्रपती संभाजीनगर (मराठवाडा) प्रशासकीय विभागात सर्वाधिक ८ जिल्हे आहेत (छत्रपती संभाजीनगर, जालना, परभणी, हिंगोली, नांदेड, लातूर, धाराशीव, बीड). कोकणात ७ जिल्हे, नागपूरमध्ये ६ जिल्हे, तर नाशिक, पुणे आणि अमरावती विभागात प्रत्येकी ५ जिल्हे आहेत.',
-    explanationEn: 'Chhatrapati Sambhajinagar Division has the highest number of districts (8). Kokan has 7, Nagpur has 6, while Pune, Nashik, and Amravati divisions each contain 5 districts.',
-    reference: 'महाराष्ट्राचा भूगोल - प्रा. ए. बी. सवदी',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q10',
-    subjectId: 'maharashtra_geography',
-    topic: 'महाराष्ट्राचा भूगोल',
-    subtopic: 'महाराष्ट्रातील सर्वोच्च पर्वतशिखरे',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'महाराष्ट्रातील पर्वतशिखरांचा त्यांच्या उंचीनुसार उतरता क्रम (Descending Order) कोणता योग्य आहे?',
-    questionEn: 'Which is the correct descending order of mountain peaks in Maharashtra based on elevation above sea level?',
-    optionsMr: [
-      'कळसूबाई -> साल्हेर -> महाबळेश्वर -> हरिश्चंद्रगड -> सप्तशृंगी',
-      'साल्हेर -> कळसूबाई -> हरिश्चंद्रगड -> महाबळेश्वर -> तोरणा',
-      'कळसूबाई -> महाबळेश्वर -> साल्हेर -> सप्तशृंगी -> हरिश्चंद्रगड',
-      'कळसूबाई -> साल्हेर -> सप्तशृंगी -> महाबळेश्वर -> हरिश्चंद्रगड'
-    ],
-    optionsEn: [
-      'Kalsubai -> Salher -> Mahabaleshwar -> Harishchandragad -> Saptashrungi',
-      'Salher -> Kalsubai -> Harishchandragad -> Mahabaleshwar -> Torna',
-      'Kalsubai -> Mahabaleshwar -> Salher -> Saptashrungi -> Harishchandragad',
-      'Kalsubai -> Salher -> Saptashrungi -> Mahabaleshwar -> Harishchandragad'
-    ],
-    correctAnswerIndex: 0,
-    explanationMr: 'उंचीनुसार उतरता क्रम: कळसूबाई (१६४६ मी - अहमदनगर/नाशिक सीमा), साल्हेर (१५६७ मी - नाशिक), महाबळेश्वर (१४३८ मी - सातारा), हरिश्चंद्रगड (१४२४ मी - अहमदनगर), सप्तशृंगी (१४१६ मी - नाशिक), तोरणा (१४०४ मी - पुणे). (लक्षात ठेवण्याची युक्ती: "कसा मी हसतो").',
-    explanationEn: 'Descending elevation sequence: Kalsubai (1646 m) -> Salher (1567 m) -> Mahabaleshwar (1438 m) -> Harishchandragad (1424 m) -> Saptashrungi (1416 m) -> Torna (1404 m).',
-    reference: 'महाराष्ट्राचा भूगोल - दीपस्तंभ / के. सागर',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q11',
-    subjectId: 'maharashtra_geography',
-    topic: 'महाराष्ट्राचा भूगोल',
-    subtopic: 'महाराष्ट्रातील मृदा (काळी रेगूर मृदा)',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'महाराष्ट्रातील काळ्या रेगूर मृदेबाबत (Black Cotton Soil) खालील विधाने विचारात घ्या:\n(अ) या मृदेची निर्मिती बेसाल्ट खडकाच्या विदारणातून (Weathering) झाली आहे.\n(ब) या मृदेमध्ये ओलावा (Moisture) टिकवून ठेवण्याची क्षमता प्रचंड असते.\n(क) "टिटॅनिफेरस मॅग्नेटाईट" या घटकामुळे या मृदेला काळा रंग प्राप्त होतो.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
-    questionEn: 'Consider the following statements regarding the Black Regur Soil of Maharashtra:\n(a) It is formed by the in-situ weathering of volcanic basalt rock.\n(b) It has an exceptionally high capacity to retain moisture.\n(c) The dark black color of this soil is attributed to the presence of Titaniferous Magnetite.\nWhich of the above statements are correct?',
+    questionMr: 'महाराष्ट्र शासनाच्या "मुख्यमंत्री माझी लाडकी बहीण योजने" (Mukhyamantri Majhi Ladki Bahin Yojana) विषयी खालील विधानांचा विचार करा:\n(अ) या योजनेअंतर्गत महाराष्ट्रातील २१ ते ६५ वर्षे वयोगटातील पात्र महिलांना दरमहा ₹१,५०० (वार्षिक ₹१८,०००) आर्थिक साहाय्य थेट बँक खात्यात (DBT द्वारे) दिले जाते.\n(ब) या योजनेचा लाभ घेण्यासाठी कुटुंबाचे एकत्रित वार्षिक उत्पन्न कमाल २.५ लाख रुपयांपेक्षा जास्त नसावे हा निकष ठेवण्यात आला आहे.\n(क) पिवळे व केशरी रेशनकार्डधारक कुटुंबांना अधिवास प्रमाणपत्राच्या (Domicile) ऐवजी रेशनकार्ड ग्राह्य धरण्याची सवलत देण्यात आली आहे.\n(ड) या योजनेचे नोडल विभाग म्हणून "महिला व बालविकास विभाग" (Women and Child Development Department) कार्यरत आहे.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
+    questionEn: 'Evaluate the operational framework of Maharashtra Government\'s flagship welfare scheme, "Mukhyamantri Majhi Ladki Bahin Yojana":\n(a) Under this scheme, eligible women aged 21 to 65 residing in Maharashtra receive direct financial assistance of ₹1,500 per month (₹18,000 annually) via Direct Benefit Transfer (DBT).\n(b) The ceiling for total annual family income to qualify under the scheme is established at ₹2.5 Lakh.\n(c) Families holding Yellow or Saffron Ration Cards are granted exemption from submitting domicile certificates, using ration cards as valid residential proof.\n(d) The Women and Child Development Department of Maharashtra serves as the nodal administrative authority for its implementation.\nWhich of the above statements are correct?',
     optionsMr: [
       'फक्त (अ) आणि (ब)',
       'फक्त (ब) आणि (क)',
-      'फक्त (अ) आणि (क)',
-      'सर्व विधाने बरोबर आहेत (अ, ब आणि क)'
+      'फक्त (अ), (ब) आणि (ड)',
+      'सर्व विधाने बरोबर आहेत (अ, ब, क आणि ड)'
     ],
     optionsEn: [
       'Only (a) and (b)',
       'Only (b) and (c)',
-      'Only (a) and (c)',
-      'All statements are correct (a, b and c)'
+      'Only (a), (b) and (d)',
+      'All statements are correct (a, b, c and d)'
     ],
     correctAnswerIndex: 3,
-    explanationMr: 'काळी कापसाची रेगूर मृदा ही दख्खनच्या पठारावरील प्रमुख मृदा आहे. बेसाल्ट खडकाच्या अपक्षयातून तयार झालेली ही मृदा सुपीक असून टिटॅनिफेरस मॅग्नेटाईटमुळे तिला काळा रंग येतो व ती कोरड्या ऋतूत भेगाळते (Self-ploughing).',
-    explanationEn: 'Regur soil covers over 75% of Maharashtra plateau, originating from basalt weathering. High clay content gives it immense moisture retention, while titaniferous magnetite imparts the characteristic dark hue.',
-    reference: 'महाराष्ट्राचा भूगोल - प्रा. ए. बी. सवदी / स्टेट बोर्ड इयत्ता ९ वी',
-    yearTag: 'MPSC Static Core'
+    explanationMr: 'मुख्यमंत्री माझी लाडकी बहीण योजना २०२४-२०२६ चे सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **योजनेची सुरुवात व उद्दिष्ट:** महाराष्ट्र शासनाने २८ जून २०२४ रोजी अतिरिक्त अर्थसंकल्पात ही योजना जाहीर केली. राज्यातील महिलांचे आर्थिक स्वावलंबन, आरोग्य व पोषण सुधारणे हा या योजनेचा मुख्य हेतू आहे. सर्व विधाने सत्य आहेत.\n\n२. **पात्रता निकष व वयोमर्यादा:**\n• लाभार्थी महिला महाराष्ट्राची रहिवासी असणे आवश्यक आहे.\n• वयोमर्यादा: सुरुवातीला २१ ते ६० वर्षे होती, नंतर सुधारणा करून ती **२१ ते ६५ वर्षे** करण्यात आली. विधान (अ) सत्य आहे.\n• कुटुंबाचे एकत्रित वार्षिक उत्पन्न कमाल ₹२,५०,००० (२.५ लाख) पर्यंत असणे अनिवार्य आहे. विधान (ब) बरोबर आहे.\n\n३. **कागदपत्रांमधील सुलभता:** महिलांना त्रास होऊ नये म्हणून पिवळे व केशरी रेशनकार्ड असणाऱ्या कुटुंबांना उत्पन्नाचा दाखला आणि अधिवास दाखल्याऐवजी रेशनकार्ड (१५ वर्षांपूर्वीचे) पुरावा म्हणून ग्राह्य धरण्यात आले. विधान (क) सत्य आहे.\n\n४. **अंमलबजावणी व आर्थिक तरतूद:**\n• दरमहा ₹१,५०० थेट आधारलिंक्ड बँक खात्यात जमा केले जातात.\n• नोडल विभाग: महिला व बालविकास विभाग.\n• वार्षिक अर्थसंकल्पीय तरतूद: सुमारे ₹४६,००० कोटी.\n• नोंदणी: नारी शक्ती दूत ॲप व अंगणवाडी केंद्रांमार्फत.\n\n५. **आयोगाचा संदर्भ:** महाराष्ट्र शासन अधिकृत शासन निर्णय (GR) व आर्थिक पाहणी अहवाल.',
+    explanationEn: 'Comprehensive 150-word policy analysis on Maharashtra\'s Mukhyamantri Majhi Ladki Bahin Yojana:\n\n1. **Policy Inception & Objectives:** Announced in the Maharashtra State Budget on June 28, 2024, the scheme aims to achieve universal socio-economic empowerment, nutritional improvement, and financial autonomy for underprivileged women across the state. All four statements are correct.\n\n2. **Demographic Eligibility & Age Relaxation:**\n• The age eligibility criteria was originally set at 21-60 years and subsequently broadened to encompass women aged **21 to 65 years**. Beneficiaries receive a monthly financial stipend of ₹1,500 deposited via Aadhaar-enabled DBT (amounting to ₹18,000 annually). Statement (a) is fully accurate.\n• Financial Eligibility: Cumulative household income must not exceed the ceiling of ₹2.5 Lakh per annum. Statement (b) is true.\n\n3. **Documentary Simplification:** Households possessing Yellow or Saffron Ration cards (under NFSA/PDS) are permitted to furnish the ration card as standalone verification in lieu of formal Domicile and Income certificates. Statement (c) is confirmed.\n\n4. **Administrative Governance:** The Women and Child Development Department acts as the nodal executing body, deploying the \'Nari Shakti Doot\' digital mobile application and Anganwadi grassroots networks. The program mobilizes an annual fiscal outlay of ~₹46,000 Crore, reaching over 2.3 crore women.\n\n5. **Official Reference:** Government of Maharashtra Gazette Resolution & Economic Survey of Maharashtra.',
+    reference: 'महिला व बालविकास विभाग, महाराष्ट्र शासन / अधिकृत जीआर',
+    yearTag: 'MPSC Current Affairs 2026'
   },
   {
-    id: 'mpsc_static_q12',
-    subjectId: 'polity',
-    topic: 'भारतीय राज्यघटना',
-    subtopic: 'मूलभूत हक्क व रिट अधिकार (Article 32 & 226)',
+    id: 'mpsc_static_q09',
+    subjectId: 'current_affairs',
+    topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
+    subtopic: 'भारतरत्न पुरस्कार २०२४: ५ महान व्यक्तींचा सन्मान व घटनात्मक तरतुदी',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: 'संविधानातील कलम ३२ अन्वये सर्वोच्च न्यायालय आणि कलम २२६ अन्वये उच्च न्यायालय मूलभूत हक्कांच्या संरक्षणासाठी ५ प्रकारचे आदेश (Writs) जारी करतात. यापैकी कोणत्या रिटचा शब्दशः अर्थ "आम्ही असा आदेश देतो" (We Command) असा होतो?',
-    questionEn: 'Under Article 32 and Article 226, the Supreme Court and High Courts issue 5 types of prerogative writs. Which writ literally translates to "We Command"?',
+    questionMr: 'भारताचा सर्वोच्च नागरी सन्मान असलेल्या "भारतरत्न पुरस्कार" (Bharat Ratna 2024) आणि त्याच्या घटनात्मक तरतुदींविषयी खालील विधाने विचारात घ्या:\n(अ) २०२४ या एकाच वर्षात भारताच्या इतिहासात पहिल्यांदाच विक्रमी ५ व्यक्तींना भारतरत्न पुरस्कार जाहीर करण्यात आला.\n(ब) २०२४ चे भारतरत्न पुरस्कार विजेते: कर्पूरी ठाकूर (मरणोत्तर), लालकृष्ण आडवाणी, पी. व्ही. नरसिंह राव (मरणोत्तर), चौधरी चरण सिंग (मरणोत्तर) आणि डॉ. एम. एस. स्वामीनाथन (मरणोत्तर) हे आहेत.\n(क) भारतरत्न पुरस्काराची सुरुवात २ जानेवारी १९५४ रोजी राष्ट्रपती डॉ. राजेंद्र प्रसाद यांच्या हस्ते झाली आणि पहिले विजेते डॉ. सर्वपल्ली राधाकृष्णन, सी. राजगोपालाचारी व डॉ. सी. व्ही. रमण हे होते.\n(ड) संविधानाच्या कलम १८(१) नुसार भारतरत्न हा पुरस्कार असून ती पदवी (Title) नाही, त्यामुळे पुरस्कार विजेत्याला आपल्या नावापुढे किंवा मागे याचा वापर पदवीसारखा करता येत नाही.\nवरीलपैकी कोणती विधाने अचूक आहेत?',
+    questionEn: 'Evaluate the following facts regarding the "Bharat Ratna Awards 2024" and their associated constitutional status:\n(a) In 2024, for the very first time in Indian history, the Bharat Ratna was conferred upon a record number of 5 distinguished luminaries in a single calendar year.\n(b) The 2024 recipients comprise: Karpoori Thakur (posthumous), Lal Krishna Advani, P.V. Narasimha Rao (posthumous), Chaudhary Charan Singh (posthumous), and Dr. M.S. Swaminathan (posthumous).\n(c) Instituted on January 2, 1954 by President Dr. Rajendra Prasad, its inaugural awardees were Dr. S. Radhakrishnan, C. Rajagopalachari, and Dr. C.V. Raman.\n(d) Under Article 18(1) of the Indian Constitution, Bharat Ratna is a state honor and not a hereditary/feudal title; awardees are legally prohibited from using it as a prefix or suffix to their names.\nWhich of the above statements are accurate?',
     optionsMr: [
-      'हेबियस कॉर्पस (Habeas Corpus)',
-      'मॅन्डॅमस किंवा परमादेश (Mandamus)',
-      'प्रोहिबिशन (Prohibition)',
-      'को-वॉरंटो (Quo-Warranto)'
+      'फक्त (अ) आणि (ब)',
+      'फक्त (ब) आणि (क)',
+      'फक्त (अ), (ब) आणि (क)',
+      'सर्व विधाने अचूक आहेत (अ, ब, क आणि ड)'
     ],
     optionsEn: [
-      'Habeas Corpus',
-      'Mandamus',
-      'Prohibition',
-      'Quo-Warranto'
-    ],
-    correctAnswerIndex: 1,
-    explanationMr: 'मॅन्डॅमस (Mandamus / परमादेश) चा शब्दशः अर्थ "आम्ही आदेश देतो" (We Command) असा आहे. जेव्हा एखादा सार्वजनिक अधिकारी आपले वैधानिक कर्तव्य पार पाडण्यास नकार देतो, तेव्हा न्यायालय त्याला कर्तव्य करण्याचे निर्देश देण्यासाठी ही रिट काढते.',
-    explanationEn: 'Mandamus literally means "We Command". It is a judicial command issued to a public official or statutory body directing them to perform an obligatory public duty which they have failed to execute.',
-    reference: 'भारतीय राज्यघटना - एम. लक्ष्मीकांत (मूलभूत हक्क)',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q13',
-    subjectId: 'polity',
-    topic: 'भारतीय राज्यघटना',
-    subtopic: 'भारताच्या राष्ट्रपतींची निवडणूक (Article 54 & 55)',
-    exam: 'Both',
-    difficulty: 'Hard',
-    questionMr: 'भारताच्या राष्ट्रपतींच्या निवडणुकीतील निर्वाचक गणामध्ये (Electoral College - कलम ५४) खालीलपैकी कोणाचा समावेश नसतो?',
-    questionEn: 'Who among the following does NOT participate in the Electoral College for the election of the President of India (Article 54)?',
-    optionsMr: [
-      'संसदेच्या दोन्ही सभागृहांचे निर्वाचित (Elected) सदस्य',
-      'सर्व राज्यांच्या विधानसभांचे निर्वाचित (Elected) सदस्य',
-      'दिल्ली व पुद्दुचेरी या केंद्रशासित प्रदेशांच्या विधानसभांचे निर्वाचित सदस्य',
-      'राज्य विधानपरिषदांचे (Legislative Councils) निर्वाचित व नामनिर्देशित सदस्य'
-    ],
-    optionsEn: [
-      'Elected members of both Houses of Parliament (Lok Sabha & Rajya Sabha)',
-      'Elected members of Legislative Assemblies of all States',
-      'Elected members of Legislative Assemblies of Delhi and Puducherry UTs',
-      'Members (elected or nominated) of State Legislative Councils'
+      'Only (a) and (b)',
+      'Only (b) and (c)',
+      'Only (a), (b) and (c)',
+      'All statements are accurate (a, b, c and d)'
     ],
     correctAnswerIndex: 3,
-    explanationMr: 'राष्ट्रपतींच्या निवडणुकीत केवळ निर्वाचित आमदार (MLAs) आणि निर्वाचित खासदार (MPs) मतदान करतात. विधानपरिषदेचे सदस्य (MLCs) तसेच संसदेतील व विधानसभेतील नामनिर्देशित सदस्य (Nominated members) मतदान करू शकत नाहीत.',
-    explanationEn: 'Members of State Legislative Councils (MLCs) and nominated members of Parliament and Assemblies do not form part of the Presidential Electoral College under Article 54.',
-    reference: 'एम. लक्ष्मीकांत - भारतीय राज्यव्यवस्था (राष्ट्रपती प्रकरण)',
-    yearTag: 'MPSC Static Core'
+    explanationMr: 'भारतरत्न पुरस्कार २०२४ आणि घटनात्मक तरतुदींचे सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **२०२४ मधील ऐतिहासिक विक्रम:** सामान्यतः एका वर्षात जास्तीत जास्त ३ भारतरत्न दिले जातात (१९९९ मध्ये ४ जणांना देण्यात आले होते). परंतु २०२४ मध्ये पहिल्यांदाच एकाच वर्षात ५ दिग्गजांना भारतरत्न देण्यात आला. विधाने (अ) व (ब) सत्य आहेत.\n\n२. **पाचही भारतरत्न विजेत्यांचे कार्य:**\n• कर्पूरी ठाकूर: बिहारचे माजी मुख्यमंत्री, सामाजिक न्यायाचे पुरस्कर्ते (जननायक).\n• लालकृष्ण आडवाणी: भारताचे माजी उपपंतप्रधान व ज्येष्ठ मुत्सद्दी.\n• पी. व्ही. नरसिंह राव: भारताचे ९ वे पंतप्रधान, १९९१ च्या ऐतिहासिक आर्थिक उदारीकरणाचे (LPG धोरण) शिल्पकार.\n• चौधरी चरण सिंग: भारताचे ५ वे पंतप्रधान, शेतकऱ्यांचे कैवारी व कृषी सुधारक.\n• डॉ. एम. एस. स्वामीनाथन: जागतिक कीर्तीचे कृषितज्ज्ञ, भारतातील हरितक्रांतीचे जनक.\n\n३. **पुरस्काराचे स्वरूप:**\n• स्थापना: २ जानेवारी १९५४.\n• पदक: तांब्याच्या पिंपळाच्या पानावर प्लॅटिनमचा चमकणारा सूर्य आणि खाली देवनागरीत \'भारत रत्न\' कोरलेले असते. मागे राष्ट्रीय चिन्ह व \'सत्यमेव जयते\' असते.\n• यात कोणतीही रोख रक्कम (No cash prize) दिली जात नाही.\n\n४. **घटनात्मक दर्जा (कलम १८):** सर्वोच्च न्यायालयाने बालाजी राघवन खटल्यात (१९९६) स्पष्ट केले की हे राष्ट्रीय सन्मान असून पदव्या नाहीत, त्यामुळे नावापुढे किंवा मागे वापरता येत नाहीत. सर्व विधाने सत्य आहेत.',
+    explanationEn: 'Comprehensive 150-word constitutional and civic analysis on Bharat Ratna Awards 2024:\n\n1. **Unprecedented Historic Conferment:** While statutory conventions ordinarily cap Bharat Ratna awards at three per calendar year (with an exception in 1999 when four were conferred), 2024 set an all-time record by honoring five iconic national figures. Statements (a) and (b) are accurate.\n\n2. **Profiles of the 2024 Laureates:**\n• Karpoori Thakur: Former Bihar Chief Minister, pioneering champion of affirmative action for backward classes.\n• L.K. Advani: Former Deputy Prime Minister and long-serving parliamentary statesman.\n• P.V. Narasimha Rao: 9th Prime Minister of India, architect of the transformative 1991 economic liberalization (LPG model).\n• Chaudhary Charan Singh: 5th Prime Minister, dedicated champion of agrarian welfare and peasant rights.\n• Dr. M.S. Swaminathan: Eminent geneticist revered globally as the Father of India\'s Green Revolution.\n\n3. **Inception & Insignia:** Instituted on January 2, 1954, inaugural laureates were Dr. S. Radhakrishnan, C. Rajagopalachari, and Sir C.V. Raman. The medal depicts a radiant platinum sun embossed on a bronze peepal leaf, with no monetary cash grant attached.\n\n4. **Article 18(1) Jurisprudence:** In the Balaji Raghavan v. UOI (1996) ruling, the Supreme Court confirmed these awards constitute legitimate national decorations celebrating excellence, but reaffirmed that under Article 18(1), recipients cannot prefix or suffix them to their names. All four statements are correct.\n\n5. **Official Reference:** Ministry of Home Affairs Official Honors Directory & Supreme Court Case Law.',
+    reference: 'गृह मंत्रालय (MHA), भारत सरकार / दैनिक लोकसत्ता / पीआयबी (PIB)',
+    yearTag: 'MPSC Current Affairs 2026'
   },
   {
-    id: 'mpsc_static_q14',
-    subjectId: 'polity',
-    topic: 'भारतीय राज्यघटना',
-    subtopic: 'केंद्रीय वित्त आयोग (Finance Commission - Article 280)',
+    id: 'mpsc_static_q10',
+    subjectId: 'current_affairs',
+    topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
+    subtopic: 'भारतीय अंतराळ संशोधन संस्था (ISRO): गगनयान, निसार (NISAR) व भारतीय अंतराळ स्थानक',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: 'भारतीय संविधानातील कलम २८० अन्वये स्थापन होणाऱ्या वित्त आयोगाबाबत (Finance Commission) खालीलपैकी कोणते विधान सत्य नाही?',
-    questionEn: 'Regarding the Finance Commission constituted under Article 280 of the Indian Constitution, which statement is NOT correct?',
+    questionMr: 'भारताच्या महत्त्वाकांक्षी अंतराळ मोहिमांविषयी (ISRO Space Missions २०२४-२०२६) खालील विधाने अभ्यासा:\n(अ) "गगनयान मोहीम" (Gaganyaan) अंतर्गत ३ सदस्यांच्या मानवी पथकाला ३ दिवसांसाठी ४०० किमीच्या पृथ्वीच्या कक्षेत (LEO) पाठवून सुरक्षितपणे समुद्रात परत आणण्याचे भारताचे उद्दिष्ट आहे.\n(ब) फेब्रुवारी २०२४ मध्ये पंतप्रधान नरेंद्र मोदी यांनी गगनयान मोहिमेसाठी निवडलेल्या ४ अंतराळवीरांची (ग्रुप कॅप्टन प्रशांत नायर, अजित कृष्णन, अंगद प्रताप आणि विंग कमांडर शुभांशू शुक्ला) अधिकृत नावे जाहीर केली.\n(क) इस्रोने मानवरहित चाचणी उड्डाणासाठी "व्योममित्र" (Vyommitra) नावाचा अर्ध-मानवी महिला रोबोट (Half-humanoid Robot) विकसित केला आहे.\n(ड) भारताने २०२६ पर्यंत चांद्रयान-४, २०३५ पर्यंत स्वतःचे "भारतीय अंतराळ स्थानक" (Bharatiya Antariksha Station - BAS) आणि २०४० पर्यंत चंद्रावर भारतीय माणूस उतरवण्याचे अधिकृत राष्ट्रीय लक्ष्य ठेवले आहे.\nवरीलपैकी कोणती विधाने सत्य आहेत?',
+    questionEn: 'Evaluate the following assertions regarding India\'s landmark space exploration programs (ISRO Missions 2024-2026):\n(a) The "Gaganyaan Mission" aims to demonstrate indigenous human spaceflight capability by launching a 3-member crew to a 400 km Low Earth Orbit (LEO) for a 3-day mission, safely returning them to Indian waters.\n(b) In February 2024, Prime Minister Narendra Modi officially revealed the designated astronaut-designates for Gaganyaan: Group Captains Prashanth Nair, Ajit Krishnan, Angad Pratap, and Wing Commander Shubhanshu Shukla.\n(c) ISRO developed "Vyommitra", an indigenously engineered female half-humanoid robot, to test crew capsule parameters during uncrewed orbital qualification flights.\n(d) India has formalized ambitious national roadmaps to establish the "Bharatiya Antariksha Station" (BAS) by 2035 and land the first Indian astronaut on the Moon by 2040.\nWhich of the above statements are true?',
     optionsMr: [
-      'वित्त आयोगाची स्थापना राष्ट्रपतींद्वारे दर पाच वर्षांनी किंवा आवश्यकतेनुसार केली जाते.',
-      'वित्त आयोगामध्ये एक अध्यक्ष आणि चार इतर सदस्य असतात.',
-      'आयोगाच्या शिफारशी केंद्र सरकारवर कायदेशीररीत्या बंधनकारक (Binding) असतात.',
-      'आयोग केंद्र आणि राज्यांमध्ये निव्वळ कर महसुलाच्या वाटणीबाबत (Devolution of Taxes) शिफारशी करतो.'
+      'फक्त (अ) आणि (ब)',
+      'फक्त (ब) आणि (क)',
+      'फक्त (अ), (ब) आणि (ड)',
+      'सर्व विधाने सत्य आहेत (अ, ब, क आणि ड)'
     ],
     optionsEn: [
-      'The Finance Commission is constituted by the President every five years or earlier.',
-      'The Commission consists of a Chairman and four other members.',
-      'The recommendations made by the Finance Commission are legally binding on the Government.',
-      'The Commission makes recommendations on the distribution of net tax proceeds between the Centre and States.'
+      'Only (a) and (b)',
+      'Only (b) and (c)',
+      'Only (a), (b) and (d)',
+      'All statements are true (a, b, c and d)'
     ],
-    correctAnswerIndex: 2,
-    explanationMr: 'कलम २८० अन्वये वित्त आयोगाच्या शिफारशी या केवळ सल्लागार (Advisory) स्वरूपाच्या असतात; त्या केंद्र सरकारवर कायद्याने बंधनकारक नसतात. तथापि, परंपरेनुसार केंद्र सरकार सामान्यतः या शिफारशी स्वीकारते.',
-    explanationEn: 'Under Article 280, the recommendations of the Finance Commission are advisory in nature and not legally binding on the Central Government, although convention gives them substantial weight.',
-    reference: 'भारतीय राज्यव्यवस्था - एम. लक्ष्मीकांत (वित्त आयोग)',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q15',
-    subjectId: 'economy',
-    topic: 'भारतीय अर्थव्यवस्था',
-    subtopic: 'बँकांचे राष्ट्रीयीकरण (१९६९ व १९८०)',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: '१९ जुलै १९६९ रोजी पंतप्रधान इंदिरा गांधी यांच्या कार्यकाळात भारतातील किती प्रमुख व्यापारी बँकांचे पहिल्या टप्प्यात राष्ट्रीयीकरण करण्यात आले होते?',
-    questionEn: 'On 19 July 1969, during Prime Minister Indira Gandhi\'s tenure, how many major commercial banks were nationalized in the first phase?',
-    optionsMr: [
-      '१० बँका',
-      '१४ बँका',
-      '१६ बँका',
-      '२० बँका'
-    ],
-    optionsEn: [
-      '10 banks',
-      '14 banks',
-      '16 banks',
-      '20 banks'
-    ],
-    correctAnswerIndex: 1,
-    explanationMr: '१९ जुलै १९६९ रोजी ज्या बँकांच्या ठेवी ५० कोटी रुपयांपेक्षा अधिक होत्या, अशा १४ प्रमुख खाजगी बँकांचे राष्ट्रीयीकरण करण्यात आले. त्यानंतर १५ एप्रिल १९८० रोजी २०० कोटींपेक्षा अधिक ठेवी असलेल्या आणखी ६ बँकांचे राष्ट्रीयीकरण करण्यात आले.',
-    explanationEn: 'On 19 July 1969, 14 major private commercial banks with deposits exceeding Rs 50 crore were nationalized. In the second phase on 15 April 1980, 6 more banks with deposits exceeding Rs 200 crore were nationalized.',
-    reference: 'भारतीय अर्थव्यवस्था - डॉ. किरण देसले (भाग १ - बँकिंग)',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q16',
-    subjectId: 'economy',
-    topic: 'भारतीय अर्थव्यवस्था',
-    subtopic: 'मानवी विकास निर्देशांक (Human Development Index - HDI)',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'संयुक्त राष्ट्रे विकास कार्यक्रमाद्वारे (UNDP) मोजल्या जाणाऱ्या "मानवी विकास निर्देशांकामध्ये" (HDI) खालीलपैकी कोणत्या तीन मूलभूत परिमाणांचा (Dimensions) समावेश होतो?',
-    questionEn: 'Which three fundamental dimensions are used by the UNDP to compute the Human Development Index (HDI)?',
-    optionsMr: [
-      'दीर्घ व निरोगी आयुष्य (आरोग्य), ज्ञान (शिक्षण), आणि राहणीमानाचा दर्जा (दरडोई GNI)',
-      'दारिद्र्य दर, बेरोजगारी दर, आणि साक्षरता दर',
-      'शिशुमृत्यू दर, माता मृत्यू दर, आणि लोकसंख्या वाढ दर',
-      'जीडीपी वाढ दर, परकीय चलन साठा, आणि निर्यात प्रमाण'
-    ],
-    optionsEn: [
-      'Long and healthy life (Health), Knowledge (Education), and Decent standard of living (Per capita GNI)',
-      'Poverty rate, Unemployment rate, and Literacy rate',
-      'Infant Mortality Rate, Maternal Mortality Rate, and Population Growth Rate',
-      'GDP growth rate, Forex reserves, and Export ratio'
-    ],
-    correctAnswerIndex: 0,
-    explanationMr: '१९९० मध्ये पाकिस्तानी अर्थतज्ज्ञ महबूब उल हक आणि अमर्त्य सेन यांनी HDI विकसित केला. याचे ३ निकष आहेत: १) जन्मावेळचे अपेक्षित आयुर्मान (आरोग्य), २) शालेय शिक्षणाची सरासरी व अपेक्षित वर्षे (ज्ञान), आणि ३) दरडोई स्थूल राष्ट्रीय उत्पन्न PPP डॉलरमध्ये (राहणीमान).',
-    explanationEn: 'Developed in 1990 by Mahbub ul Haq and Amartya Sen for the UNDP, the HDI measures 3 dimensions: 1) Long and healthy life (Life expectancy at birth), 2) Knowledge (Mean & expected years of schooling), and 3) Decent standard of living (GNI per capita in PPP$).',
-    reference: 'आर्थिक विकास व नियोजन - डॉ. रमेश सिंग / UNDP Human Development Report',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q17',
-    subjectId: 'general_science',
-    topic: 'सामान्य विज्ञान',
-    subtopic: 'मानवी पचनसंस्था व विकरे (Enzymes)',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'मानवी शरीरात प्रथिनांचे (Proteins) पचन करण्यासाठी जठरामध्ये (Stomach) कोणता पाचक रस व विकर (Enzyme) स्रवले जाते?',
-    questionEn: 'Which digestive enzyme and acid are secreted by the gastric glands in the human stomach for the digestion of proteins?',
-    optionsMr: [
-      'पेप्सिन (Pepsin) आणि हायड्रोक्लोरिक आम्ल (HCl)',
-      'टायलीन (Ptyalin) आणि अल्कली',
-      'ट्रिप्सिन (Trypsin) आणि पित्तरस',
-      'लायपेज (Lipase) आणि ॲसिटिक आम्ल'
-    ],
-    optionsEn: [
-      'Pepsin and Hydrochloric Acid (HCl)',
-      'Ptyalin and Alkaline secretions',
-      'Trypsin and Bile juice',
-      'Lipase and Acetic acid'
-    ],
-    correctAnswerIndex: 0,
-    explanationMr: 'जठराच्या भित्तिकेतील जठरग्रंथी हायड्रोक्लोरिक आम्ल (HCl), पेप्सिन आणि श्लेष्मल (Mucus) स्रवतात. आम्लयुक्त माध्यमात निष्क्रिय पेप्सिनोजेनचे रूपांतर सक्रिय पेप्सिनमध्ये होते, जे प्रथिनांचे पेप्टोन्समध्ये रूपांतर करते.',
-    explanationEn: 'Gastric glands in the stomach wall secrete Hydrochloric acid (HCl) to create an acidic pH (1.5-2.0) that activates proenzyme pepsinogen into active pepsin, initiating the enzymatic breakdown of dietary proteins.',
-    reference: 'NCERT Class 11 Biology - Digestion and Absorption / डॉ. सचिन भस्के',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q18',
-    subjectId: 'general_science',
-    topic: 'सामान्य विज्ञान',
-    subtopic: 'भौतिकशास्त्र - प्रकाश व इंद्रधनुष्य निर्मिती',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'आकाशात दिसणारे "इंद्रधनुष्य" (Rainbow) हे प्रकाशाच्या खालीलपैकी कोणत्या नैसर्गिक घटनांचे एकत्रित फलित आहे?',
-    questionEn: 'The natural formation of a "Rainbow" in the sky is a combined result of which optical phenomena?',
-    optionsMr: [
-      'अपवर्तन (Refraction), अपस्करण (Dispersion) आणि संपूर्ण अंतर्गत परावर्तन (Total Internal Reflection)',
-      'केवळ प्रकाशाचे परावर्तन आणि विवर्तन',
-      'केवळ प्रकाशाचे ध्रुवीकरण आणि व्यतीकरण',
-      'केवळ प्रकाशाचे सरळ रेषेतील वहन'
-    ],
-    optionsEn: [
-      'Refraction, Dispersion, and Total Internal Reflection',
-      'Only Reflection and Diffraction',
-      'Only Polarization and Interference',
-      'Only Rectilinear propagation of light'
-    ],
-    correctAnswerIndex: 0,
-    explanationMr: 'इंद्रधनुष्य तयार होताना पावसाचा सूक्ष्म थेंब लोलकाप्रमाणे (Prism) कार्य करतो. प्रकाशाचा किरण थेंबात शिरताना अपवर्तन व अपस्करण (विभाजन) होते, थेंबाच्या आतील पृष्ठभागावर अंतर्गत परावर्तन होते आणि बाहेर पडताना पुन्हा अपवर्तन होऊन तांबडा ते जांभळा वर्णपट दिसतो.',
-    explanationEn: 'A rainbow is produced by the dispersion of sunlight by minute water droplets suspended in the atmosphere, involving refraction as light enters the drop, internal reflection at the back wall, and refraction upon exit.',
-    reference: 'स्टेट बोर्ड इयत्ता १० वी विज्ञान - प्रकाशाचे अपवर्तन',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q19',
-    subjectId: 'marathi_grammar',
-    topic: 'मराठी व्याकरण',
-    subtopic: 'विभक्ती व कारकार्थ',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: '"गुरूंनी शिष्याला ज्ञान दिले." या वाक्यातील "शिष्याला" या शब्दाचा कारकार्थ (Karakartha) ओळखा:',
-    questionEn: 'Identify the Karakartha (case relation) of the word "शिष्याला" (to the disciple) in the Marathi sentence "गुरूंनी शिष्याला ज्ञान दिले":',
-    optionsMr: [
-      'करण (साधन)',
-      'अपादान (वियोग)',
-      'संप्रदान (दान किंवा भेट घेणारा)',
-      'अधिकरण (स्थान)'
-    ],
-    optionsEn: [
-      'Karan (Instrument)',
-      'Apadan (Separation)',
-      'Sampradan (Recipient of gift/donation)',
-      'Adhikaran (Location)'
-    ],
-    correctAnswerIndex: 2,
-    explanationMr: 'जेव्हा वाक्यात दान, भेट किंवा देण्याची क्रिया होते आणि ज्याला ती वस्तू दिली जाते त्या व्यक्तीला "संप्रदान" म्हणतात. येथे शिष्याला ज्ञान दिले जात असल्याने "शिष्याला" हा चतुर्थी विभक्तीचा संप्रदान कारकार्थ आहे.',
-    explanationEn: 'When an object or gift is given, the recipient of the action is Sampradan (Dative case). Suffixes स, ला, ते, ना indicate Sampradan when expressing giving or dedication.',
-    reference: 'सुगम मराठी व्याकरण व लेखन - मो. रा. वाळंबे (विभक्ती प्रकरण)',
-    yearTag: 'MPSC Static Core'
-  },
-  {
-    id: 'mpsc_static_q20',
-    subjectId: 'english_grammar',
-    topic: 'English Grammar',
-    subtopic: 'Active and Passive Voice',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'Change the voice of the imperative sentence: "Do not insult the poor."',
-    questionEn: 'Change the voice of the imperative sentence: "Do not insult the poor."',
-    optionsMr: [
-      'Let the poor not be insulted.',
-      'The poor should not insult you.',
-      'You are insulted by the poor.',
-      'Let not the poor insult anybody.'
-    ],
-    optionsEn: [
-      'Let the poor not be insulted.',
-      'The poor should not insult you.',
-      'You are insulted by the poor.',
-      'Let not the poor insult anybody.'
-    ],
-    correctAnswerIndex: 0,
-    explanationMr: 'नकारात्मक आज्ञार्थी वाक्याचा (Negative imperative) Passive Voice करताना रचना असते: "Let + Object + not + be + V3". म्हणून "Let the poor not be insulted" हे अचूक रूपांतर आहे.',
-    explanationEn: 'The passive voice of a negative imperative command follows the pattern: Let + Object + not + be + past participle (V3). Hence, "Let the poor not be insulted" is grammatically accurate.',
-    reference: 'Wren & Martin High School English Grammar (Active and Passive Voice)',
-    yearTag: 'MPSC Static Core'
+    correctAnswerIndex: 3,
+    explanationMr: 'इस्रोच्या आगामी प्रमुख मोहिमा आणि भारताचा अंतराळ रोडमॅप यावरील सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **गगनयान मोहीम (Gaganyaan):** ही भारताची पहिली मानवी अंतराळ मोहीम आहे. LVM3 (Launch Vehicle Mark-3 / Bahubali) या रॉकेटद्वारे क्रू मॉड्यूल अंतराळात पाठवले जाईल. ३ दिवसांच्या मोहिमेनंतर हे पथक बंगालच्या उपसागरात किंवा अरबी समुद्रात सुरक्षितपणे उतरेल. भारत हा अमेरिका, रशिया आणि चीननंतर स्वतःच्या बळावर मानवाला अंतराळात पाठवणारा जगातील चौथा देश ठरेल. विधान (अ) सत्य आहे.\n\n२. **चार अधिकृत अंतराळवीर (Astronaut Designates):** २७ फेब्रुवारी २०२४ रोजी विक्रम साराभाई स्पेस सेंटर (तिरुवनंतपुरम) येथे पंतप्रधानांनी चारही भारतीय हवाई दल (IAF) चाचणी वैमानिकांना अंतराळवीर विंग्स बहाल केले. शुभांशू शुक्ला यांची आंतरराष्ट्रीय अंतराळ स्थानकावर (ISS) जाणाऱ्या ॲक्सिओम-४ (Axiom-4) मोहिमेसाठीही निवड झाली. विधान (ब) सत्य आहे.\n\n३. **व्योममित्र रोबोट:** संस्कृतमधील \'व्योम\' (अंतराळ) आणि \'मित्र\' (मित्र) यावरून बनवलेला हा महिला रोबोट अंतराळवीरांप्रमाणेच मॉड्यूलच्या वातावरणातील दाब, ऑक्सिजन पातळी आणि नियंत्रण कक्षाचे अनुकरण करेल. विधान (क) योग्य आहे.\n\n४. **भारताचा दीर्घकालीन अंतराळ रोडमॅप:**\n• २०२८: चांद्रयान-४ (चंद्रावरील मातीचे नमुने पृथ्वीवर आणणे - Lunar Sample Return).\n• २०३५: भारतीय अंतराळ स्थानक (BAS).\n• २०४०: चंद्रावर भारतीय पाऊल.\nसर्व विधाने सत्य आहेत.\n\n५. **आयोगाचा संदर्भ:** इस्रो (ISRO) अधिकृत संकेतस्थळ व पीआयबी (PIB) सायन्स व टेक्नॉलॉजी बुलेटिन.',
+    explanationEn: 'Comprehensive 150-word scientific and space policy analysis on ISRO\'s Space Exploration Roadmap 2024-2026:\n\n1. **Gaganyaan Human Spaceflight Architecture:** Gaganyaan establishes India\'s autonomous capability to dispatch human crew into Low Earth Orbit (400 km altitude for a 3-day trajectory) aboard human-rated LVM3 launch vehicle, executing controlled re-entry and splashdown recovery in Indian territorial waters. Success will position India as only the fourth nation globally—after the USSR/Russia, USA, and China—to achieve crewed orbital capability. Statement (a) is verified.\n\n2. **Designated IAF Astronauts:** On February 27, 2024, at the Vikram Sarabhai Space Centre (VSSC), PM Narendra Modi pinned astronaut wings onto four decorated Indian Air Force test pilots: Group Captain Prashanth Balakrishnan Nair, Group Captain Ajit Krishnan, Group Captain Angad Pratap, and Wing Commander Shubhanshu Shukla (subsequently assigned to the Indo-US Axiom-4 ISS mission). Statement (b) is true.\n\n3. **Vyommitra Humanoid Prototype:** Engineered by ISRO Inertial Systems Unit, the AI-equipped, multi-lingual female half-humanoid \'Vyommitra\' monitors crew module life-support parameters, operates switch panels, and simulates metabolic respiratory dynamics in precursors. Statement (c) is valid.\n\n4. **Strategic Vision 2040:** Approved by the Union Cabinet, India\'s vision maps Chandrayaan-4 (Lunar Sample Return) by ~2028, assembly of the first module of the Bharatiya Antariksha Station (BAS-1) by 2028-2035, and an indigenous crewed lunar landing by 2040. Hence, all four statements are correct.\n\n5. **Official Reference:** Department of Space, Government of India & ISRO Mission Overviews.',
+    reference: 'इस्रो (ISRO) अधिकृत प्रकाशन / पीआयबी (PIB) विज्ञान व तंत्रज्ञान',
+    yearTag: 'MPSC Current Affairs 2026'
   }
 ];
+

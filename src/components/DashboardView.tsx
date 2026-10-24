@@ -59,6 +59,7 @@ import { isFirestoreQuotaExceeded } from '../services/firestoreSync';
 import { exportUserDataAsJSON } from '../utils/exportImportBackup';
 import { DailyChallengeModal } from './DailyChallengeModal';
 import { DailyQuizCard } from './DailyQuizCard';
+import { BadgesAndLevelsSummaryCard } from './BadgesAndLevelsSummaryCard';
 import { analyzeUserWeakAreas } from '../utils/weakAreaRemedialEngine';
 import { AdBanner } from './AdBanner';
 import { isUserAdmin } from '../utils/adminAuth';
@@ -572,6 +573,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <span>{isMr ? '⏳ परीक्षा काउंटडाउन' : '⏳ Exam Countdown'}</span>
                 </button>
               )}
+
+              <button
+                id="btn-hero-badges-levels"
+                onClick={() => {
+                  const el = document.getElementById('badges-and-levels-summary-card');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-amber-950/80 to-stone-900 hover:from-amber-900 hover:to-stone-850 text-amber-200 border border-amber-500/50 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+                title={isMr ? "प्रशासकीय प्रगती स्तर आणि गौरव बॅजेस पहा" : "View Cadre Levels & Badges"}
+              >
+                <Trophy className="w-4 h-4 text-amber-400" />
+                <span>{isMr ? '🏆 प्रगती स्तर व बॅजेस' : '🏆 Levels & Badges'}</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-400 text-stone-950 font-black uppercase">
+                  NEW
+                </span>
+              </button>
             </div>
 
             {/* Quick Subject Chips for 10-Minute Challenge */}
@@ -675,6 +692,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       {/* MPSC Photographic Visual Inspiration Gallery */}
       <AspirantInspirationCard language={language} />
+
+      {/* 🏆 MPSC Badges & Cadre Levels Progression Summary Card */}
+      <BadgesAndLevelsSummaryCard
+        userProgress={userProgress}
+        language={language}
+        onStartExam={() => onStartExam('daily_10_challenge')}
+        className="my-3 shadow-xl"
+      />
 
       {/* Snapshot Metrics Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
