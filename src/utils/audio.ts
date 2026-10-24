@@ -263,6 +263,37 @@ class SoundController {
   }
 
   /**
+   * Subtle alert buzzer for incorrect inputs or auth failures
+   */
+  playIncorrectSound(): void {
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      [330, 277.18].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+
+        gain.gain.setValueAtTime(0, now + idx * 0.1);
+        gain.gain.linearRampToValueAtTime(0.08, now + idx * 0.1 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.18);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + idx * 0.1);
+        osc.stop(now + idx * 0.1 + 0.2);
+      });
+    } catch {
+      // ignore
+    }
+  }
+
+  /**
    * Subtle pleasant 'ding' bell chime for notification toasts and alerts
    */
   playDingSound(): void {

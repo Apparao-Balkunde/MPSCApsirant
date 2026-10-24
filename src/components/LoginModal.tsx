@@ -16,7 +16,9 @@ import {
   Award,
   RefreshCw,
   Flame,
-  Check
+  Check,
+  KeyRound,
+  Shield
 } from 'lucide-react';
 import { type User } from 'firebase/auth';
 import { 
@@ -31,7 +33,12 @@ import {
 } from '../lib/firebase';
 import { soundFx } from '../utils/audio';
 import { UserProgress } from '../types';
-import { isUserAdmin, setAdminAuthenticated } from '../utils/adminAuth';
+import { 
+  isUserAdmin, 
+  setAdminAuthenticated, 
+  authenticateAdminCredentials, 
+  ADMIN_EMAILS 
+} from '../utils/adminAuth';
 
 export interface LoginModalProps {
   isOpen: boolean;
@@ -65,6 +72,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
 
+  // Dedicated Admin Login section state
+  const [activeLoginTab, setActiveLoginTab] = useState<'student' | 'admin'>('student');
+  const [adminEmail, setAdminEmail] = useState('apparaobalkunde901@gmail.com');
+  const [adminPassword, setAdminPassword] = useState('');
+  const [showAdminPassword, setShowAdminPassword] = useState(false);
+  const [adminAuthError, setAdminAuthError] = useState<string | null>(null);
+  const [adminAuthSuccess, setAdminAuthSuccess] = useState<string | null>(null);
+
   // Edit profile state
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [editName, setEditName] = useState('');
@@ -83,6 +98,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       setAuthError(null);
       setAuthSuccess(null);
       setUnauthorizedDomain(null);
+      setAdminAuthError(null);
+      setAdminAuthSuccess(null);
+      setAdminPassword('');
       setIsLoading(false);
     }
     if (currentUser) {
@@ -308,7 +326,61 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     }
   };
 
-  // 👑 Dedicated Admin Sign In for Portal Owner (Apparao Balkunde)
+  // 👑 Dedicated Admin Password Login for Portal Owner (Apparao Balkunde)
+  const handleAdminPasswordLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAdminAuthError(null);
+    setAdminAuthSuccess(null);
+    setAuthError(null);
+
+    const emailToAuth = adminEmail.trim();
+    const passToAuth = adminPassword.trim();
+
+    if (!emailToAuth) {
+      setAdminAuthError(isMr ? 'कृपया अधिकृत ॲडमिन ईमेल टाका.' : 'Please enter admin email.');
+      return;
+    }
+    if (!passToAuth) {
+      setAdminAuthError(isMr ? 'कृपया ॲडमिन पासवर्ड टाका.' : 'Please enter admin password.');
+      return;
+    }
+
+    setIsLoading(true);
+    soundFx.playClickSound();
+
+    try {
+      const authResult = authenticateAdminCredentials(emailToAuth, passToAuth);
+      if (!authResult.success) {
+        soundFx.playIncorrectSound();
+        setAdminAuthError(isMr ? authResult.messageMr : authResult.messageEn);
+        setIsLoading(false);
+        return;
+      }
+
+      // Success: Create or set admin preview user session
+      const adminUser = await loginAsPreviewUser('अप्पाराव बाळकुंदे (Admin)', emailToAuth);
+      soundFx.playCorrectSound();
+      setAdminAuthSuccess(isMr ? authResult.messageMr : authResult.messageEn);
+
+      if (onTriggerSync) {
+        try {
+          await onTriggerSync();
+        } catch (syncErr) {
+          console.warn('Sync note:', syncErr);
+        }
+      }
+
+      setTimeout(() => {
+        onClose();
+      }, 1200);
+    } catch (err: any) {
+      setAdminAuthError(formatAuthErrorMessage(err, isMr));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // 👑 Quick Admin Sign In fallback
   const handleAdminDirectSignIn = async () => {
     setAuthError(null);
     setUnauthorizedDomain(null);
@@ -690,303 +762,506 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           ) : (
             /* VIEW B: USER IS NOT LOGGED IN */
             <div className="space-y-4">
-              {/* Value Proposition Highlights */}
-              <div className="grid grid-cols-2 gap-2 text-stone-300 text-[11px]">
-                <div className="p-2.5 rounded-xl bg-stone-800/60 border border-stone-800 flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                    <Cloud className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="leading-snug">
-                    {isMr ? 'चाचणी इतिहास क्लाउडवर सेव्ह' : 'Auto Cloud Sync'}
-                  </span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-stone-800/60 border border-stone-800 flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="leading-snug">
-                    {isMr ? 'कोणत्याही डिव्हाइसवरून सराव' : 'Multi-device Access'}
-                  </span>
-                </div>
-              </div>
-
-              {/* Student Identity Account Preview */}
-              <div className="p-3 rounded-xl bg-stone-800/60 border border-stone-700/60 space-y-2">
-                <div className="flex items-center justify-between text-[11px] font-bold text-amber-400">
-                  <span>{isMr ? '👤 तुमचे विद्यार्थी खाते (Student Profile):' : '👤 Student Profile:'}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  <div>
-                    <label className="block text-[10px] text-stone-400 mb-0.5">{isMr ? 'नाव (Full Name)' : 'Full Name'}</label>
-                    <input
-                      type="text"
-                      value={displayName}
-                      onChange={(e) => setDisplayName(e.target.value)}
-                      placeholder={isMr ? "उदा. अमोल पाटील" : "e.g. Rahul Sharma"}
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] text-stone-400 mb-0.5">{isMr ? 'ईमेल (Email ID)' : 'Email ID'}</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="aspirant@example.com"
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* PRIMARY ACTION: GOOGLE ONE-CLICK SIGN IN BUTTON */}
-              <button
-                id="btn-modal-google-signin"
-                type="button"
-                onClick={handleGoogleSignIn}
-                disabled={isLoading}
-                className="w-full py-3 px-4 rounded-xl bg-white hover:bg-stone-100 text-stone-900 text-sm font-black transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-[0.98] cursor-pointer disabled:opacity-60"
-              >
-                {isLoading ? (
-                  <RefreshCw className="w-4 h-4 text-stone-900 animate-spin" />
-                ) : (
-                  /* Official Google G Logo SVG */
-                  <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
-                    <path
-                      fill="#4285F4"
-                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                    />
-                    <path
-                      fill="#34A853"
-                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                    />
-                    <path
-                      fill="#FBBC05"
-                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
-                    />
-                    <path
-                      fill="#EA4335"
-                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
-                    />
-                  </svg>
-                )}
-                <span>
-                  {isLoading
-                    ? (isMr ? 'लॉगिन होत आहे...' : 'Signing in...')
-                    : (isMr ? 'Google ने त्वरित साइन इन करा' : 'Sign in with Google')}
-                </span>
-              </button>
-
-              {/* INSTANT 1-CLICK ACCESS BUTTON */}
-              <button
-                id="btn-modal-instant-signin"
-                type="button"
-                onClick={handleInstantSignIn}
-                disabled={isLoading}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 text-xs font-black transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer disabled:opacity-60"
-              >
-                <Sparkles className="w-4 h-4 text-stone-950" />
-                <span>
-                  {isLoading
-                    ? (isMr ? 'खाते सुरू होत आहे...' : 'Activating...')
-                    : (isMr ? '🚀 १-क्लिक थेट विद्यार्थी लॉगिन' : '🚀 Instant 1-Click Student Login')}
-                </span>
-              </button>
-
-              {/* 👑 PORTAL OWNER / ADMIN ACCESS (Apparao Balkunde) */}
-              <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-stone-900 to-emerald-950/40 border border-amber-500/50 space-y-2.5 shadow-md">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-black text-amber-300 flex items-center gap-1.5">
-                    <span>👑</span>
-                    <span>{isMr ? 'पोर्टल मालक / ॲडमिन लॉगिन' : 'Portal Owner / Admin Login'}</span>
-                  </span>
-                  <span className="text-[10px] font-mono text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full font-bold border border-emerald-500/30">
-                    Apparao Balkunde
-                  </span>
-                </div>
-                <p className="text-[11px] text-stone-300 leading-relaxed">
-                  {isMr 
-                    ? 'तुम्ही ॲडमिन (मी) आहात का? १० कमाई मार्ग, ॲडसेन्स, अकॅडमी प्रायोजक बॅनर व्यवस्थापक व उत्पन्न हब अनलॉक करण्यासाठी:' 
-                    : 'Owner of this portal? Unlock 10 Earning Pillars, Academy Sponsors & Monetization Engine:'}
-                </p>
+              {/* Role Selection Tabs: Student vs Dedicated Admin Portal */}
+              <div className="flex bg-stone-950/80 p-1 rounded-2xl border border-stone-800 shadow-inner">
                 <button
                   type="button"
-                  id="btn-modal-admin-signin"
-                  onClick={handleAdminDirectSignIn}
-                  disabled={isLoading}
-                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 text-xs font-black transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer disabled:opacity-60 active:scale-95 border border-amber-300"
+                  id="tab-login-student"
+                  onClick={() => {
+                    setActiveLoginTab('student');
+                    setAdminAuthError(null);
+                    setAuthError(null);
+                    soundFx.playClickSound();
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                    activeLoginTab === 'student'
+                      ? 'bg-stone-800 text-amber-400 shadow-md border border-stone-700/80'
+                      : 'text-stone-400 hover:text-stone-200'
+                  }`}
                 >
-                  <span>👑 {isMr ? 'मी ॲडमिन आहे — लॉगिन करा (Unlock Earning Hub)' : 'Sign In as Admin (Apparao Balkunde)'}</span>
+                  <UserIcon className="w-3.5 h-3.5" />
+                  <span>{isMr ? '👤 विद्यार्थी लॉगिन' : '👤 Student Login'}</span>
+                </button>
+                <button
+                  type="button"
+                  id="tab-login-admin"
+                  onClick={() => {
+                    setActiveLoginTab('admin');
+                    setAuthError(null);
+                    setAdminAuthError(null);
+                    soundFx.playClickSound();
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                    activeLoginTab === 'admin'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 shadow-md font-black'
+                      : 'text-stone-400 hover:text-amber-300'
+                  }`}
+                >
+                  <Shield className="w-3.5 h-3.5" />
+                  <span>{isMr ? '👑 ॲडमिन पोर्टल' : '👑 Admin Portal'}</span>
                 </button>
               </div>
 
-              {/* Divider */}
-              <div className="relative flex items-center justify-center my-3">
-                <div className="border-t border-stone-800 w-full" />
-                <span className="bg-stone-900 px-3 text-[11px] text-stone-500 font-bold uppercase tracking-wider">
-                  {isMr ? 'किंवा' : 'or'}
-                </span>
-              </div>
-
-              {/* Email / Password Toggle Button */}
-              {!showEmailForm ? (
-                <button
-                  type="button"
-                  onClick={() => setShowEmailForm(true)}
-                  className="w-full py-2.5 px-4 rounded-xl bg-stone-800/80 hover:bg-stone-800 text-stone-300 hover:text-white border border-stone-700/80 text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <Mail className="w-4 h-4 text-amber-400" />
-                  <span>{isMr ? 'ईमेल व पासवर्डने लॉगिन करा' : 'Continue with Email & Password'}</span>
-                </button>
-              ) : (
-                /* Email / Password Form */
-                <form onSubmit={handleEmailAuthSubmit} className="space-y-3 p-3.5 rounded-xl bg-stone-800/50 border border-stone-700/60">
-                  {/* Mode Selector Tab */}
-                  <div className="flex bg-stone-900 p-1 rounded-lg border border-stone-700/70">
-                    <button
-                      type="button"
-                      onClick={() => setAuthMode('signin')}
-                      className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors cursor-pointer ${
-                        authMode === 'signin' ? 'bg-amber-500 text-stone-950 shadow-xs' : 'text-stone-400 hover:text-stone-200'
-                      }`}
-                    >
-                      {isMr ? 'लॉगिन करा (Sign In)' : 'Sign In'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setAuthMode('signup')}
-                      className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors cursor-pointer ${
-                        authMode === 'signup' ? 'bg-amber-500 text-stone-950 shadow-xs' : 'text-stone-400 hover:text-stone-200'
-                      }`}
-                    >
-                      {isMr ? 'नवीन खाते (Sign Up)' : 'Sign Up'}
-                    </button>
+              {activeLoginTab === 'admin' ? (
+                /* DEDICATED ADMIN LOGIN SECTION WITH PASSWORD AUTHENTICATION */
+                <div className="space-y-3.5 p-4 rounded-2xl bg-gradient-to-b from-stone-900 via-stone-900 to-amber-950/20 border-2 border-amber-500/50 shadow-xl animate-in fade-in">
+                  {/* Admin Section Header */}
+                  <div className="flex items-center justify-between pb-2 border-b border-stone-800">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-stone-950 flex items-center justify-center shadow-md font-black">
+                        👑
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-black text-amber-300 flex items-center gap-1.5">
+                          <span>{isMr ? 'अधिकृत ॲडमिन नियंत्रण कक्ष' : 'Admin Control Room'}</span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono font-bold">
+                            RESTRICTED
+                          </span>
+                        </h4>
+                        <p className="text-[10px] text-stone-400">
+                          {isMr ? 'पोर्टल मालक: अप्पाराव बाळकुंदे (Owner Access)' : 'Portal Owner: Apparao Balkunde'}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-mono text-amber-400/80 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
+                      SECURE
+                    </span>
                   </div>
 
-                  {/* Name field for Sign Up */}
-                  {authMode === 'signup' && (
+                  <p className="text-[11px] text-stone-300 leading-relaxed">
+                    {isMr
+                      ? '१० कमाई मार्ग, ॲडसेन्स व्यवस्थापक, अकॅडमी प्रायोजक बॅनर व संपूर्ण उत्पन्न नियंत्रण हब अनलॉक करण्यासाठी तुमचा ॲडमिन ईमेल व सिक्युरिटी पासवर्ड टाका:'
+                      : 'Enter your Admin credentials and security password to unlock 10 Earning Pillars, AdSense Manager, Sponsor Banners & revenue analytics:'}
+                  </p>
+
+                  {/* Feedback Messages */}
+                  {adminAuthError && (
+                    <div className="p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2 animate-in fade-in">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
+                      <span>{adminAuthError}</span>
+                    </div>
+                  )}
+
+                  {adminAuthSuccess && (
+                    <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs flex items-start gap-2 animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-400" />
+                      <span>{adminAuthSuccess}</span>
+                    </div>
+                  )}
+
+                  {/* Dedicated Admin Login Form with Password input */}
+                  <form onSubmit={handleAdminPasswordLogin} className="space-y-3">
+                    {/* Admin Email Input */}
                     <div>
-                      <label className="block text-[11px] font-bold text-stone-300 mb-1">
-                        {isMr ? 'पूर्ण नाव' : 'Full Name'}
+                      <label className="block text-[11px] font-bold text-stone-300 mb-1 flex items-center justify-between">
+                        <span>{isMr ? 'अधिकृत ॲडमिन ईमेल (Admin Email)' : 'Authorized Admin Email'}</span>
+                        <span className="text-[9px] text-emerald-400 font-mono font-semibold">Verified Admin</span>
                       </label>
                       <div className="relative">
-                        <UserIcon className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
+                        <Mail className="w-4 h-4 absolute left-3 top-2.5 text-amber-400" />
+                        <input
+                          id="input-admin-email"
+                          type="email"
+                          required
+                          value={adminEmail}
+                          onChange={(e) => setAdminEmail(e.target.value)}
+                          placeholder="apparaobalkunde901@gmail.com"
+                          className="w-full pl-9 pr-3 py-2 bg-stone-950 border border-stone-700 rounded-xl text-xs text-stone-100 placeholder-stone-500 focus:outline-hidden focus:border-amber-400"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Admin Password Input */}
+                    <div>
+                      <label className="block text-[11px] font-bold text-stone-300 mb-1 flex items-center justify-between">
+                        <span className="flex items-center gap-1.5">
+                          <Lock className="w-3.5 h-3.5 text-amber-400" />
+                          <span>{isMr ? 'ॲडमिन पासवर्ड / सिक्युरिटी की' : 'Admin Security Password'}</span>
+                        </span>
+                        <span className="text-[10px] text-stone-400 font-mono">
+                          {isMr ? 'पासवर्ड सुरक्षित' : 'Encrypted'}
+                        </span>
+                      </label>
+                      <div className="relative">
+                        <KeyRound className="w-4 h-4 absolute left-3 top-2.5 text-amber-400" />
+                        <input
+                          id="input-admin-password"
+                          type={showAdminPassword ? 'text' : 'password'}
+                          required
+                          value={adminPassword}
+                          onChange={(e) => setAdminPassword(e.target.value)}
+                          placeholder={isMr ? 'ॲडमिन पासवर्ड टाका (उदा. mpscadmin2026)' : 'Enter admin password'}
+                          className="w-full pl-9 pr-10 py-2 bg-stone-950 border border-stone-700 rounded-xl text-xs text-stone-100 placeholder-stone-500 focus:outline-hidden focus:border-amber-400 font-mono"
+                        />
+                        <button
+                          type="button"
+                          id="btn-toggle-admin-password"
+                          onClick={() => setShowAdminPassword(!showAdminPassword)}
+                          className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-200 cursor-pointer"
+                        >
+                          {showAdminPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                      </div>
+                      <div className="mt-1 flex items-center justify-between text-[10px] text-stone-400">
+                        <span>{isMr ? 'अधिकृत पासवर्ड: mpscadmin2026 किंवा apparao@2026' : 'Key: mpscadmin2026 or apparao@2026'}</span>
+                      </div>
+                    </div>
+
+                    {/* Admin Features Unlocked Preview */}
+                    <div className="p-2.5 rounded-xl bg-stone-950/70 border border-stone-800 space-y-1.5 text-[10px] text-stone-300">
+                      <div className="font-bold text-amber-300 text-[11px] flex items-center gap-1">
+                        <span>👑</span>
+                        <span>{isMr ? 'ॲडमिन विशेषाधिकार (Admin Privileges):' : 'Admin Privileges:'}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5 text-stone-300">
+                        <span className="flex items-center gap-1 text-emerald-400">
+                          <Check className="w-3 h-3 shrink-0" /> १० कमाई मार्ग हब
+                        </span>
+                        <span className="flex items-center gap-1 text-emerald-400">
+                          <Check className="w-3 h-3 shrink-0" /> ॲडसेन्स जाहिरात स्लॉट्स
+                        </span>
+                        <span className="flex items-center gap-1 text-emerald-400">
+                          <Check className="w-3 h-3 shrink-0" /> प्रायोजक बॅनर व्यवस्थापक
+                        </span>
+                        <span className="flex items-center gap-1 text-emerald-400">
+                          <Check className="w-3 h-3 shrink-0" /> उत्पन्न व विश्लेषक आकडे
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Admin Password Submit Button */}
+                    <button
+                      id="btn-admin-password-login"
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-stone-950 text-xs font-black transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-98 cursor-pointer disabled:opacity-60 border border-amber-300"
+                    >
+                      {isLoading ? (
+                        <RefreshCw className="w-4 h-4 animate-spin text-stone-950" />
+                      ) : (
+                        <Shield className="w-4 h-4 text-stone-950" />
+                      )}
+                      <span>
+                        {isLoading
+                          ? (isMr ? 'ॲडमिन पडताळणी होत आहे...' : 'Verifying Admin...')
+                          : (isMr ? '👑 ॲडमिन पासवर्डने सुरक्षित लॉगिन करा' : '👑 Sign In with Admin Password')}
+                      </span>
+                    </button>
+                  </form>
+
+                  {/* Switch Back to Student Login */}
+                  <div className="pt-1 text-center">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveLoginTab('student');
+                        soundFx.playClickSound();
+                      }}
+                      className="text-[11px] text-stone-400 hover:text-amber-300 underline font-medium cursor-pointer"
+                    >
+                      {isMr ? '← सामान्य विद्यार्थी लॉगिनकडे परत जा' : '← Back to Student Login'}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                /* STUDENT LOGIN TAB VIEW */
+                <div className="space-y-4">
+                  {/* Value Proposition Highlights */}
+                  <div className="grid grid-cols-2 gap-2 text-stone-300 text-[11px]">
+                    <div className="p-2.5 rounded-xl bg-stone-800/60 border border-stone-800 flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                        <Cloud className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="leading-snug">
+                        {isMr ? 'चाचणी इतिहास क्लाउडवर सेव्ह' : 'Auto Cloud Sync'}
+                      </span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-stone-800/60 border border-stone-800 flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                        <Sparkles className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="leading-snug">
+                        {isMr ? 'कोणत्याही डिव्हाइसवरून सराव' : 'Multi-device Access'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Student Identity Account Preview */}
+                  <div className="p-3 rounded-xl bg-stone-800/60 border border-stone-700/60 space-y-2">
+                    <div className="flex items-center justify-between text-[11px] font-bold text-amber-400">
+                      <span>{isMr ? '👤 तुमचे विद्यार्थी खाते (Student Profile):' : '👤 Student Profile:'}</span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <label className="block text-[10px] text-stone-400 mb-0.5">{isMr ? 'नाव (Full Name)' : 'Full Name'}</label>
                         <input
                           type="text"
-                          required
                           value={displayName}
                           onChange={(e) => setDisplayName(e.target.value)}
-                          placeholder={isMr ? 'उदा. सचिन पाटील' : 'e.g. Rahul Sharma'}
-                          className="w-full pl-9 pr-3 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                          placeholder={isMr ? "उदा. अमोल पाटील" : "e.g. Rahul Sharma"}
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
                         />
                       </div>
-                    </div>
-                  )}
-
-                  {/* Email field */}
-                  <div>
-                    <label className="block text-[11px] font-bold text-stone-300 mb-1">
-                      {isMr ? 'ईमेल पत्ता' : 'Email Address'}
-                    </label>
-                    <div className="relative">
-                      <Mail className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="yourname@gmail.com"
-                        className="w-full pl-9 pr-3 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Password field */}
-                  <div>
-                    <label className="block text-[11px] font-bold text-stone-300 mb-1">
-                      {isMr ? 'पासवर्ड' : 'Password'}
-                    </label>
-                    <div className="relative">
-                      <Lock className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder={isMr ? 'किमान ६ अक्षरे' : 'At least 6 characters'}
-                        className="w-full pl-9 pr-9 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2.5 top-2.5 text-stone-400 hover:text-stone-200 cursor-pointer"
-                      >
-                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Confirm Password for Sign Up */}
-                  {authMode === 'signup' && (
-                    <div>
-                      <label className="block text-[11px] font-bold text-stone-300 mb-1">
-                        {isMr ? 'पासवर्ड पुन्हा टाका' : 'Confirm Password'}
-                      </label>
-                      <div className="relative">
-                        <Lock className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
+                      <div>
+                        <label className="block text-[10px] text-stone-400 mb-0.5">{isMr ? 'ईमेल (Email ID)' : 'Email ID'}</label>
                         <input
-                          type={showPassword ? 'text' : 'password'}
-                          required
-                          value={confirmPassword}
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          placeholder={isMr ? 'पुन्हा पासवर्ड टाका' : 'Re-enter password'}
-                          className="w-full pl-9 pr-3 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="aspirant@example.com"
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-100 text-xs focus:outline-hidden focus:border-amber-500"
                         />
                       </div>
                     </div>
-                  )}
+                  </div>
 
+                  {/* PRIMARY ACTION: GOOGLE ONE-CLICK SIGN IN BUTTON */}
                   <button
-                    type="submit"
+                    id="btn-modal-google-signin"
+                    type="button"
+                    onClick={handleGoogleSignIn}
                     disabled={isLoading}
-                    className="w-full py-2 px-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full py-3 px-4 rounded-xl bg-white hover:bg-stone-100 text-stone-900 text-sm font-black transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl active:scale-[0.98] cursor-pointer disabled:opacity-60"
                   >
                     {isLoading ? (
-                      <RefreshCw className="w-4 h-4 animate-spin text-stone-950" />
+                      <RefreshCw className="w-4 h-4 text-stone-900 animate-spin" />
                     ) : (
-                      <LogIn className="w-4 h-4 text-stone-950" />
+                      /* Official Google G Logo SVG */
+                      <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                        <path
+                          fill="#4285F4"
+                          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        />
+                        <path
+                          fill="#34A853"
+                          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        />
+                        <path
+                          fill="#FBBC05"
+                          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                        />
+                        <path
+                          fill="#EA4335"
+                          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                        />
+                      </svg>
                     )}
                     <span>
-                      {authMode === 'signup' 
-                        ? (isMr ? 'नोंदणी करा व सुरू करा' : 'Sign Up & Continue') 
-                        : (isMr ? 'ईमेलने लॉगिन करा' : 'Sign In with Email')}
+                      {isLoading
+                        ? (isMr ? 'लॉगिन होत आहे...' : 'Signing in...')
+                        : (isMr ? 'Google ने त्वरित साइन इन करा' : 'Sign in with Google')}
                     </span>
                   </button>
 
-                  <div className="text-center pt-1">
+                  {/* INSTANT 1-CLICK ACCESS BUTTON */}
+                  <button
+                    id="btn-modal-instant-signin"
+                    type="button"
+                    onClick={handleInstantSignIn}
+                    disabled={isLoading}
+                    className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 text-xs font-black transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer disabled:opacity-60"
+                  >
+                    <Sparkles className="w-4 h-4 text-stone-950" />
+                    <span>
+                      {isLoading
+                        ? (isMr ? 'खाते सुरू होत आहे...' : 'Activating...')
+                        : (isMr ? '🚀 १-क्लिक थेट विद्यार्थी लॉगिन' : '🚀 Instant 1-Click Student Login')}
+                    </span>
+                  </button>
+
+                  {/* 👑 Dedicated Admin Login Banner Switch */}
+                  <div className="p-3 rounded-2xl bg-gradient-to-r from-amber-950/40 via-stone-900 to-emerald-950/40 border border-amber-500/40 flex items-center justify-between text-xs shadow-md">
+                    <div className="space-y-0.5">
+                      <span className="font-bold text-amber-300 flex items-center gap-1.5">
+                        <span>👑</span>
+                        <span>{isMr ? 'पोर्टल मालक / प्रशासक (Admin) आहात का?' : 'Portal Owner / Admin Login?'}</span>
+                      </span>
+                      <p className="text-[10px] text-stone-400">
+                        {isMr ? '१० कमाई मार्ग व ॲडसेन्स व्यवस्थापनासाठी पासवर्ड लॉगिन करा' : 'Enter password to unlock 10 Earning Pillars & AdSense'}
+                      </p>
+                    </div>
                     <button
                       type="button"
-                      onClick={() => setShowEmailForm(false)}
-                      className="text-stone-400 hover:text-stone-200 text-[11px] underline cursor-pointer"
+                      id="btn-goto-admin-tab"
+                      onClick={() => {
+                        setActiveLoginTab('admin');
+                        soundFx.playClickSound();
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[11px] font-bold cursor-pointer transition-all shrink-0 active:scale-95"
                     >
-                      {isMr ? 'ईमेल फॉर्म लपवा' : 'Hide email form'}
+                      {isMr ? 'ॲडमिन लॉगिन ➜' : 'Admin Login ➜'}
                     </button>
                   </div>
-                </form>
-              )}
 
-              {/* Guest / Continue Without Login */}
-              <div className="pt-1 flex items-center justify-between text-xs text-stone-400">
-                <span>{isMr ? 'खाते न बनवता सराव?' : 'Practice without saving?'}</span>
-                <button
-                  type="button"
-                  onClick={handleGuestLogin}
-                  disabled={isLoading}
-                  className="text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
-                >
-                  {isMr ? 'अतिथी (Guest) म्हणून सुरू ठेवा' : 'Continue as Guest'}
-                </button>
-              </div>
+                  {/* Divider */}
+                  <div className="relative flex items-center justify-center my-3">
+                    <div className="border-t border-stone-800 w-full" />
+                    <span className="bg-stone-900 px-3 text-[11px] text-stone-500 font-bold uppercase tracking-wider">
+                      {isMr ? 'किंवा' : 'or'}
+                    </span>
+                  </div>
+
+                  {/* Email / Password Toggle Button */}
+                  {!showEmailForm ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowEmailForm(true)}
+                      className="w-full py-2.5 px-4 rounded-xl bg-stone-800/80 hover:bg-stone-800 text-stone-300 hover:text-white border border-stone-700/80 text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <Mail className="w-4 h-4 text-amber-400" />
+                      <span>{isMr ? 'ईमेल व पासवर्डने लॉगिन करा' : 'Continue with Email & Password'}</span>
+                    </button>
+                  ) : (
+                    /* Email / Password Form */
+                    <form onSubmit={handleEmailAuthSubmit} className="space-y-3 p-3.5 rounded-xl bg-stone-800/50 border border-stone-700/60">
+                      {/* Mode Selector Tab */}
+                      <div className="flex bg-stone-900 p-1 rounded-lg border border-stone-700/70">
+                        <button
+                          type="button"
+                          onClick={() => setAuthMode('signin')}
+                          className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors cursor-pointer ${
+                            authMode === 'signin' ? 'bg-amber-500 text-stone-950 shadow-xs' : 'text-stone-400 hover:text-stone-200'
+                          }`}
+                        >
+                          {isMr ? 'लॉगिन करा (Sign In)' : 'Sign In'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setAuthMode('signup')}
+                          className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors cursor-pointer ${
+                            authMode === 'signup' ? 'bg-amber-500 text-stone-950 shadow-xs' : 'text-stone-400 hover:text-stone-200'
+                          }`}
+                        >
+                          {isMr ? 'नवीन खाते (Sign Up)' : 'Sign Up'}
+                        </button>
+                      </div>
+
+                      {/* Name field for Sign Up */}
+                      {authMode === 'signup' && (
+                        <div>
+                          <label className="block text-[11px] font-bold text-stone-300 mb-1">
+                            {isMr ? 'पूर्ण नाव' : 'Full Name'}
+                          </label>
+                          <div className="relative">
+                            <UserIcon className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
+                            <input
+                              type="text"
+                              required
+                              value={displayName}
+                              onChange={(e) => setDisplayName(e.target.value)}
+                              placeholder={isMr ? 'उदा. सचिन पाटील' : 'e.g. Rahul Sharma'}
+                              className="w-full pl-9 pr-3 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Email field */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-300 mb-1">
+                          {isMr ? 'ईमेल पत्ता' : 'Email Address'}
+                        </label>
+                        <div className="relative">
+                          <Mail className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
+                          <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="yourname@gmail.com"
+                            className="w-full pl-9 pr-3 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Password field */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-stone-300 mb-1">
+                          {isMr ? 'पासवर्ड' : 'Password'}
+                        </label>
+                        <div className="relative">
+                          <Lock className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder={isMr ? 'किमान ६ अक्षरे' : 'At least 6 characters'}
+                            className="w-full pl-9 pr-9 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-2.5 top-2.5 text-stone-400 hover:text-stone-200 cursor-pointer"
+                          >
+                            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Confirm Password for Sign Up */}
+                      {authMode === 'signup' && (
+                        <div>
+                          <label className="block text-[11px] font-bold text-stone-300 mb-1">
+                            {isMr ? 'पासवर्ड पुन्हा टाका' : 'Confirm Password'}
+                          </label>
+                          <div className="relative">
+                            <Lock className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
+                            <input
+                              type={showPassword ? 'text' : 'password'}
+                              required
+                              value={confirmPassword}
+                              onChange={(e) => setConfirmPassword(e.target.value)}
+                              placeholder={isMr ? 'पुन्हा पासवर्ड टाका' : 'Re-enter password'}
+                              className="w-full pl-9 pr-3 py-2 bg-stone-900 border border-stone-700 rounded-lg text-xs text-white placeholder-stone-500 focus:outline-none focus:border-amber-500"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full py-2 px-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      >
+                        {isLoading ? (
+                          <RefreshCw className="w-4 h-4 animate-spin text-stone-950" />
+                        ) : (
+                          <LogIn className="w-4 h-4 text-stone-950" />
+                        )}
+                        <span>
+                          {authMode === 'signup' 
+                            ? (isMr ? 'नोंदणी करा व सुरू करा' : 'Sign Up & Continue') 
+                            : (isMr ? 'ईमेलने लॉगिन करा' : 'Sign In with Email')}
+                        </span>
+                      </button>
+
+                      <div className="text-center pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setShowEmailForm(false)}
+                          className="text-stone-400 hover:text-stone-200 text-[11px] underline cursor-pointer"
+                        >
+                          {isMr ? 'ईमेल फॉर्म लपवा' : 'Hide email form'}
+                        </button>
+                      </div>
+                    </form>
+                  )}
+
+                  {/* Guest / Continue Without Login */}
+                  <div className="pt-1 flex items-center justify-between text-xs text-stone-400">
+                    <span>{isMr ? 'खाते न बनवता सराव?' : 'Practice without saving?'}</span>
+                    <button
+                      type="button"
+                      onClick={handleGuestLogin}
+                      disabled={isLoading}
+                      className="text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
+                    >
+                      {isMr ? 'अतिथी (Guest) म्हणून सुरू ठेवा' : 'Continue as Guest'}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
