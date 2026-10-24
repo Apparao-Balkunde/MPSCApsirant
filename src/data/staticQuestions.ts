@@ -3,148 +3,13 @@ import { Question } from '../types';
 export const STATIC_QUESTIONS: Question[] = [
   {
     id: 'mpsc_static_q01',
-    subjectId: 'maharashtra_history',
-    topic: 'महाराष्ट्राचा इतिहास व समाजसुधारक',
-    subtopic: 'छत्रपती राजर्षी शाहू महाराज: सामाजिक सुधारणा व आरक्षण जाहीरनामा (१९०२)',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'राजर्षी छत्रपती शाहू महाराज यांच्या सामाजिक व शैक्षणिक सुधारणांविषयी खालील विधानांचा सखोल विचार करा:\n(अ) २६ जुलै १९०२ रोजी शाहू महाराजांनी कोल्हापूर संस्थानात मागासवर्गीय व बहुजन समाजासाठी ५० टक्के आरक्षणाची ऐतिहासिक घोषणा केली.\n(ब) त्यांनी कोल्हापुरात प्राथमिक शिक्षण मोफत व सक्तीचे करणारा कायदा २१ जुलै १९१७ रोजी संमत केला आणि शिक्षणासाठी मराठा, जैन, लिंगायत, मुस्लिम इत्यादी विविध जातींच्या विद्यार्थ्यांसाठी वसतिगृहांची (Hostels) स्थापना केली.\n(क) शाहू महाराजांनी अस्पृश्यता निर्मूलनासाठी डॉ. बाबासाहेब आंबेडकरांच्या अध्यक्षतेखाली २०-२२ मार्च १९२० रोजी माणगाव (कोल्हापूर) येथे दक्षिण महाराष्ट्र बहिष्कृत परिषदेचे आयोजन केले.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
-    questionEn: 'Evaluate the following statements regarding the socio-educational reforms championed by Rajarshi Chhatrapati Shahu Maharaj of Kolhapur:\n(a) On July 26, 1902, Shahu Maharaj issued a historic gazette notification granting 50 percent reservation in state services for backward communities.\n(b) He enacted legislation on July 21, 1917 making primary education free and compulsory in Kolhapur, while establishing community hostels for Maratha, Jain, Lingayat, and Muslim students.\n(c) To combat caste untouchability, he supported the Mangaon Conference on March 20-22, 1920 under the presidency of Dr. B.R. Ambedkar.\nWhich of the above statements are correct?',
-    optionsMr: [
-      'फक्त (अ) आणि (ब)',
-      'फक्त (ब) आणि (क)',
-      'फक्त (अ) आणि (क)',
-      'सर्व विधाने बरोबर आहेत (अ, ब आणि क)'
-    ],
-    optionsEn: [
-      'Only (a) and (b)',
-      'Only (b) and (c)',
-      'Only (a) and (c)',
-      'All statements are correct (a, b and c)'
-    ],
-    correctAnswerIndex: 3,
-    explanationMr: 'राजर्षी छत्रपती शाहू महाराज यांच्या ऐतिहासिक कार्याचे सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **५०% आरक्षणाचा ऐतिहासिक जाहीरनामा (२६ जुलै १९०२):** इंग्लंडहून परत आल्यानंतर शाहू महाराजांनी कोल्हापूर संस्थानच्या अधिकृत राजपत्रात (Gazette) आदेश काढून मागासलेल्या व उपेक्षित बहुजन जातींसाठी सरकारी नोकऱ्यांमध्ये ५०% आरक्षणाची भारतातील पहिली अधिकृत तरतूद केली. त्यामुळे विधान (अ) अचूक आहे.\n\n२. **मोफत व सक्तीचे प्राथमिक शिक्षण व वसतिगृह चळवळ:** शिक्षणाशिवाय बहुजन समाजाचा उद्धार अशक्य आहे हे ओळखून महाराजांनी १९१७ मध्ये प्राथमिक शिक्षण मोफत आणि सक्तीचे केले; तसेच जो पालक मुलांना शाळेत पाठवणार नाही त्यांना दरमहा १ रुपया दंडाची तरतूद केली. विद्यार्थ्यांच्या राहण्याची सोय व्हावी म्हणून १९०१ मध्ये व्हिक्टोरिया मराठा बोर्डिंग, दिगंबर जैन बोर्डिंग, वीरशैव लिंगायत बोर्डिंग, मुस्लिम बोर्डिंग अशा अनेक वसतिगृहांची स्थापना केली. त्यामुळे त्यांना "वसतिगृहांचे जनक" म्हटले जाते. विधान (ब) सत्य आहे.\n\n३. **माणगाव परिषद (१९२०) व डॉ. आंबेडकरांचे नेतृत्व:** २०-२२ मार्च १९२० रोजी माणगाव येथे अस्पृश्य वर्गाची परिषद भरवून शाहू महाराजांनी जाहीर केले की, "तुम्हाला बाबासाहेब आंबेडकरांच्या रूपाने तुमचा खरा नेता मिळाला आहे." आंतरजातीय विवाह कायदा (१९१९) आणि देवदासी प्रथा निर्मूलन (१९२०) हे कायदेही त्यांनी केले. सर्व विधाने सत्य आहेत.\n\n४. **आयोगाचा संदर्भ:** आधुनिक महाराष्ट्राचा इतिहास - डॉ. अनिल कठारे / स्टेट बोर्ड ११ वी इतिहास.',
-    explanationEn: 'Comprehensive 150-word bilingual analysis on Rajarshi Chhatrapati Shahu Maharaj:\n\n1. **Historic 50% Affirmative Action Policy (July 26, 1902):** Upon returning from Europe, Shahu Maharaj promulgated the groundbreaking royal decree allocating 50 percent quota in state administration to non-Brahmin and backward castes. This milestone marked modern India\'s earliest statutory reservation framework, demonstrating administrative foresight. Statement (a) is thoroughly accurate.\n\n2. **Compulsory Universal Primary Education & Hostel Movement:** Realizing that mass literacy constitutes the cornerstone of emancipation, Maharaj made elementary education entirely free and legally compulsory across Kolhapur in July 1917, introducing a fine of ₹1 per month for non-compliant guardians. He founded the Victoria Maratha Hostel (1901), alongside Jain, Lingayat, Panchal, and Muslim student boarding houses, earning the epithet "Father of the Hostel Movement in India". Statement (b) is fully correct.\n\n3. **Mangaon Depressed Classes Conference (March 1920):** Shahu Maharaj financed and inaugurated the landmark Mangaon Conference presided over by young Dr. B.R. Ambedkar, famously proclaiming to the assembly: "You have found your true national saviour in Dr. Ambedkar." He also legalized inter-caste marriages in 1919 and prohibited the exploitative Devadasi system. Thus, all three statements are true.\n\n4. **Official Reference:** History of Modern Maharashtra by Dr. S.S. Gathal and Maharashtra State Board Std 11 History.',
-    reference: 'आधुनिक महाराष्ट्राचा इतिहास - डॉ. अनिल कठारे / स्टेट बोर्ड ११ वी इतिहास (शाहू महाराज विशेष)',
-    yearTag: 'MPSC Static Core 2026'
-  },
-  {
-    id: 'mpsc_static_q02',
-    subjectId: 'maharashtra_geography',
-    topic: 'महाराष्ट्राचा भूगोल',
-    subtopic: 'सह्याद्री पर्वतातील प्रमुख शिखरे व घाट: उंचीनुसार उतरता क्रम',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'सह्याद्री पर्वत (पश्चिम घाट) आणि महाराष्ट्रातील सर्वोच्च शिखरांच्या उंचीनुसार (मीटरमध्ये) अचूक उतरता क्रम (Descending Order) कोणता आहे?',
-    questionEn: 'Which is the correct descending order of the highest mountain peaks in Maharashtra\'s Sahyadri (Western Ghats) based on their elevation in metres?',
-    optionsMr: [
-      'कळसूबाई -> साल्हेर -> महाबळेश्वर -> हरिश्चंद्रगड -> सप्तशृंगी -> तोरणा',
-      'साल्हेर -> कळसूबाई -> हरिश्चंद्रगड -> महाबळेश्वर -> तोरणा -> सप्तशृंगी',
-      'कळसूबाई -> महाबळेश्वर -> साल्हेर -> सप्तशृंगी -> हरिश्चंद्रगड -> तोरणा',
-      'साल्हेर -> कळसूबाई -> महाबळेश्वर -> सप्तशृंगी -> तोरणा -> हरिश्चंद्रगड'
-    ],
-    optionsEn: [
-      'Kalsubai -> Salher -> Mahabaleshwar -> Harishchandragad -> Saptashrungi -> Torna',
-      'Salher -> Kalsubai -> Harishchandragad -> Mahabaleshwar -> Torna -> Saptashrungi',
-      'Kalsubai -> Mahabaleshwar -> Salher -> Saptashrungi -> Harishchandragad -> Torna',
-      'Salher -> Kalsubai -> Mahabaleshwar -> Saptashrungi -> Torna -> Harishchandragad'
-    ],
-    correctAnswerIndex: 0,
-    explanationMr: 'महाराष्ट्रातील प्रमुख पर्वतशिखरांचा उंचीनुसार उतरता क्रम आणि सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **शिखरांची अधिकृत उंची (मीटरमध्ये):**\n• कळसूबाई: १६४६ मीटर (अहमदनगर / अकोले तालुका) - महाराष्ट्रातील सर्वोच्च शिखर.\n• साल्हेर: १५६७ मीटर (नाशिक / सटाणा तालुका) - महाराष्ट्रातील दुसऱ्या क्रमांकाचे व सर्वात उंच किल्ला शिखर.\n• महाबळेश्वर: १४३८ मीटर (सातारा जिल्हा).\n• हरिश्चंद्रगड: १४२४ मीटर (अहमदनगर जिल्हा).\n• सप्तशृंगी: १४१६ मीटर (नाशिक / वणी).\n• तोरणा: १४०४ मीटर (पुणे जिल्हा - छत्रपती शिवाजी महाराजांनी जिंकलेला पहिला किल्ला).\n\n२. **परीक्षेसाठी क्लृप्ती (Mnemonic):**\n"**क**सा**मी** **ह**सतो" किंवा "**क**ळसूबाई, **सा**ल्हेर, **म**हाबळेश्वर, **ह**रिश्‍चंद्रगड, **स**प्तशृंगी, **तो**रणा".\n\n३. **भौगोलिक वैशिष्ट्ये:** सह्याद्री पर्वताची महाराष्ट्रातील उत्तर-दक्षिण लांबी सुमारे ४४० किमी असून सरासरी रुंदी ३० ते ६० किमी आहे. पश्चिम उतारावर तीव्र कडे असून पूर्व उतारावर मंद उतार व पठारी पठार पसरलेले आहे.\n\n४. **आयोगाचा संदर्भ:** महाराष्ट्राचा भूगोल - प्रा. ए. बी. सवदी आणि स्टेट बोर्ड ९ वी व १० वी भूगोल.',
-    explanationEn: 'Comprehensive 150-word bilingual geographical analysis on Sahyadri Mountain Peaks:\n\n1. **Official Elevation Metrics in Metres:**\n• Kalsubai: 1646 m (Akole, Ahmednagar district) - The highest topographical summit in Maharashtra, often called the Everest of Maharashtra.\n• Salher: 1567 m (Satana, Nashik district) - The second highest summit and the highest hill fort in the state, site of the historic Battle of Salher (1672).\n• Mahabaleshwar: 1438 m (Satara district) - High-elevation plateau giving rise to five major rivers (Krishna, Koyna, Venna, Savitri, Gayatri).\n• Harishchandragad: 1424 m (Ahmednagar district) - Renowned for the famous semi-circular Konkan Kada precipice.\n• Saptashrungi: 1416 m (Nashik district) - Famous seven-horned peak and religious shrine.\n• Torna: 1404 m (Pune district) - The initial bastion conquered by 16-year-old Shivaji Maharaj in 1646.\n\n2. **Popular Mnemonic:**\n"Ka-Sa-M-Ha-Sa-To" representing Kalsubai -> Salher -> Mahabaleshwar -> Harishchandragad -> Saptashrungi -> Torna.\n\n3. **Physiographic Characteristics:** Sahyadri spans 440 km north-to-south in Maharashtra with an average crest altitude exceeding 1000-1200 m, creating a formidable orographic rainfall divide.\n\n4. **Official Reference:** Geography of Maharashtra by Prof. A.B. Savadi & State Board Geography.',
-    reference: 'महाराष्ट्राचा भूगोल - प्रा. ए. बी. सवदी (सह्याद्री प्राकृतिक विभाग) / स्टेट बोर्ड १० वी भूगोल',
-    yearTag: 'MPSC Static Core 2026'
-  },
-  {
-    id: 'mpsc_static_q03',
-    subjectId: 'polity',
-    topic: 'भारतीय राज्यघटना',
-    subtopic: 'मूलभूत हक्क विरुद्ध मार्गदर्शक तत्त्वे व मूलभूत संरचना सिद्धांत (Basic Structure Doctrine)',
-    exam: 'Both',
-    difficulty: 'Hard',
-    questionMr: 'भारतीय संविधानातील मूलभूत हक्क (भाग ३), मार्गदर्शक तत्त्वे (भाग ४) आणि सर्वोच्च न्यायालयाच्या ऐतिहासिक खटल्यांविषयी खालील विधानांचा विचार करा:\n(अ) शंकरी प्रसाद (१९५१) आणि सज्जन सिंग (१९६५) खटल्यात सर्वोच्च न्यायालयाने संसदेला कलम ३६८ अंतर्गत मूलभूत हक्कांसह संविधानाच्या कोणत्याही भागात दुरुस्ती करण्याचा अमर्याद अधिकार मान्य केला होता.\n(ब) गोलकनाथ खटल्यात (१९६७) सर्वोच्च न्यायालयाने आपला पूर्वीचा निर्णय बदलून संसदेला मूलभूत हक्कांमध्ये दुरुस्ती करण्याचा किंवा ते काढून घेण्याचा कोणताही अधिकार नाही असा निर्णय दिला.\n(क) केशवानंद भारती खटल्यात (२४ एप्रिल १९७३) १३ न्यायाधीशांच्या घटनापीठाने संसदेचा घटनादुरुस्तीचा अधिकार कायम ठेवला, परंतु संविधानाच्या "मूलभूत संरचनेला" (Basic Structure) धक्का लावता येणार नाही असा ऐतिहासिक सिद्धांत मांडला.\n(ड) मिनर्व्हा मिल्स खटल्यात (१९८०) सर्वोच्च न्यायालयाने स्पष्ट केले की, भारतीय संविधान हे मूलभूत हक्क आणि मार्गदर्शक तत्त्वे यांच्यातील संतुलनाच्या पायावर (Bedrock of balance) उभे आहे.\nवरीलपैकी कोणती विधाने सत्य आहेत?',
-    questionEn: 'Evaluate the following constitutional statements tracing the judicial evolution of Fundamental Rights, Directive Principles, and the Basic Structure Doctrine:\n(a) In Shankari Prasad (1951) and Sajjan Singh (1965), the Supreme Court conceded that Parliament held plenary power under Article 368 to amend any constitutional provision, including Part III.\n(b) In Golaknath (1967), the Supreme Court reversed its stance, ruling that Parliament could not curtail or abridge Fundamental Rights through constitutional amendment.\n(c) In Kesavananda Bharati (April 24, 1973), a 13-judge constitutional bench upheld Parliament\'s amending power while establishing the landmark "Basic Structure Doctrine".\n(d) In Minerva Mills (1980), the Supreme Court held that the Constitution rests on the delicate balance and harmony between Fundamental Rights and Directive Principles.\nWhich of the above statements are true?',
-    optionsMr: [
-      'फक्त (अ) आणि (क)',
-      'फक्त (ब) आणि (ड)',
-      'फक्त (अ), (ब) आणि (क)',
-      'सर्व विधाने सत्य आहेत (अ, ब, क आणि ड)'
-    ],
-    optionsEn: [
-      'Only (a) and (c)',
-      'Only (b) and (d)',
-      'Only (a), (b) and (c)',
-      'All statements are true (a, b, c and d)'
-    ],
-    correctAnswerIndex: 3,
-    explanationMr: 'मूलभूत हक्क व संविधानाची मूलभूत संरचना यावरील सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **घटनादुरुस्ती वादाची पार्श्वभूमी (१९५१ ते १९६७):** पहिल्या घटनादुरुस्तीला आव्हान देणाऱ्या शंकरी प्रसाद (१९५१) खटल्यात न्यायालयाने म्हटले की, कलम १३(२) मधील \'कायदा\' या शब्दात घटनादुरुस्ती कायद्याचा समावेश होत नाही; त्यामुळे संसद मूलभूत हक्क बदलू शकते. सज्जन सिंग (१९६५) मध्ये हाच निर्णय कायम ठेवला. विधान (अ) सत्य आहे.\n\n२. **गोलकनाथ खटला (१९६७):** ११ न्यायाधीशांच्या खंडपीठाने ६ विरुद्ध ५ बहुमताने निकाल दिला की, मूलभूत हक्क हे पवित्र व अपरिवर्तनीय (Sacrosanct) आहेत. संसद कलम ३६८ अंतर्गत मूलभूत हक्क हिरावून घेऊ शकत नाही. विधान (ब) सत्य आहे.\n\n३. **केशवानंद भारती ऐतिहासिक निकाल (२४ एप्रिल १९७३):** भारताच्या न्यायिक इतिहासातील सर्वात मोठे १३ न्यायाधीशांचे खंडपीठ बसले. ७ विरुद्ध ६ बहुमताने निर्णय झाला की, २४ व्या घटनादुरुस्तीने संसदेला दुरुस्तीचा अधिकार दिला असला, तरी संविधानाची लोकशाही, धर्मनिरपेक्षता, न्यायपालिकेचे स्वातंत्र्य यासारखी मूलभूत वैशिष्ट्ये (Basic Structure) नष्ट करता येणार नाहीत. विधान (क) योग्य आहे.\n\n४. **मिनर्व्हा मिल्स (१९८०):** ४२ व्या दुरुस्तीतील कलम ३६८(४) व (५) रद्दबातल ठरवून न्यायालयाने स्पष्ट केले की मूलभूत हक्क आणि मार्गदर्शक तत्त्वे ही रथाच्या दोन चाकांसारखी असून त्यांचे संतुलन हीच मूळ संरचना आहे. सर्व विधाने सत्य आहेत.\n\n५. **आयोगाचा संदर्भ:** एम. लक्ष्मीकांत - इंडियन पॉलिटी (प्रकरण ११: मूलभूत संरचना सिद्धांत).',
-    explanationEn: 'Comprehensive 150-word constitutional law analysis on Fundamental Rights and the Basic Structure Doctrine:\n\n1. **Early Judicial Deference (1951-1965):** In Shankari Prasad (1951) and Sajjan Singh (1965), the Apex Court distinguished ordinary statutory law under Article 13(2) from constituent law under Article 368, concluding that Parliament possessed unbridled authority to amend any portion of Part III. Statement (a) is verified.\n\n2. **The Golaknath Rupture (1967):** An 11-judge bench ruled by a slender 6:5 majority that Fundamental Rights occupied a transcendental, sacrosanct pedestal immune from legislative curtailment or abrogation through Article 368. Statement (b) is fully correct.\n\n3. **Kesavananda Bharati\'s Monumental Watershed (April 24, 1973):** Convening the largest-ever 13-judge constitutional bench, the Supreme Court by 7:4 established that while Parliament can amend any constitutional clause under Article 368, it cannot rewrite, alter, or damage its foundational "Basic Structure" (e.g., judicial review, rule of law, federalism, secularism). Statement (c) is historic fact.\n\n4. **Minerva Mills Synthesis (1980):** Invalidating clauses (4) and (5) of Article 368 inserted by the 42nd Amendment, the court underscored that the Indian Constitution is founded on the bedrock of balance and harmony between Part III (Fundamental Rights) and Part IV (Directive Principles of State Policy). Hence, all statements (a, b, c and d) are completely true.\n\n5. **Official Reference:** Indian Polity by M. Laxmikanth Chapter 11 & D.D. Basu Introduction to Constitution of India.',
-    reference: 'एम. लक्ष्मीकांत - इंडियन पॉलिटी (प्रकरण ११: संविधानाची मूलभूत संरचना) / DD Basu',
-    yearTag: 'MPSC Static Core 2026'
-  },
-  {
-    id: 'mpsc_static_q04',
-    subjectId: 'economy',
-    topic: 'भारतीय अर्थव्यवस्था',
-    subtopic: 'रिझर्व्ह बँक ऑफ इंडिया: पत नियंत्रणाची साधने (Monetary Policy Tools)',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'भारतीय रिझर्व्ह बँकेच्या (RBI) चलनविषयक व पत नियंत्रण धोरणाबाबत खालील विधाने विचारात घ्या:\n(अ) रेपो दर (Repo Rate) म्हणजे ज्या दराने रिझर्व्ह बँक व्यापारी बँकांना त्यांच्या सरकारी रोख्यांच्या तारणावर अल्पमुदतीचे कर्ज देते तो दर होय.\n(ब) देशातील महागाई (Inflation) नियंत्रित करण्यासाठी रिझर्व्ह बँक रेपो दर आणि रोख राखीव प्रमाण (CRR) मध्ये वाढ करते, ज्यामुळे बाजारातील पैशांची तरलता (Liquidity) कमी होते.\n(क) स्थायी ठेव सुविधा (Standing Deposit Facility - SDF) मध्ये बँकांना अतिरिक्त निधी RBI कडे ठेवताना कोणत्याही सरकारी रोख्यांचे तारण (Collateral) द्यावे लागत नाही.\n(ड) रिझर्व्ह बँकेच्या पतधोरण समितीमध्ये (Monetary Policy Committee - MPC) एकूण ६ सदस्य असतात आणि महागाईचे अधिकृत लक्ष्य ४% (+/- २% म्हणजेच २% ते ६%) निश्चित करण्यात आले आहे.\nवरीलपैकी कोणती विधाने बरोबर आहेत?',
-    questionEn: 'Evaluate the following operational principles of the Reserve Bank of India\'s (RBI) Monetary Policy Framework:\n(a) The Repo Rate is the key policy interest rate at which the RBI lends short-term liquidity to commercial banks against pledged government securities.\n(b) To combat inflationary pressures in the economy, the RBI increases the Repo Rate and Cash Reserve Ratio (CRR), thereby absorbing surplus market liquidity.\n(c) Under the Standing Deposit Facility (SDF), banks park excess overnight funds with the RBI without the RBI needing to provide collateral securities.\n(d) The Monetary Policy Committee (MPC) comprises 6 members with a statutory Consumer Price Index (CPI) inflation target of 4% within a tolerance band of +/- 2% (2% to 6%).\nWhich of the above statements are correct?',
-    optionsMr: [
-      'फक्त (अ), (ब) आणि (क)',
-      'फक्त (ब), (क) आणि (ड)',
-      'फक्त (अ), (क) आणि (ड)',
-      'सर्व विधाने बरोबर आहेत (अ, ब, क आणि ड)'
-    ],
-    optionsEn: [
-      'Only (a), (b) and (c)',
-      'Only (b), (c) and (d)',
-      'Only (a), (c) and (d)',
-      'All statements are correct (a, b, c and d)'
-    ],
-    correctAnswerIndex: 3,
-    explanationMr: 'रिझर्व्ह बँकेची पत नियंत्रणाची साधने व महागाई नियंत्रणाचे सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **रेपो दर (Repurchase Option Rate):** बँकांमधील रोखतेची चणचण भरून काढण्यासाठी RBI ज्या दराने बँकांना अल्पमुदतीचे कर्ज देते त्याला रेपो दर म्हणतात. जेव्हा महागाई वाढते, तेव्हा RBI रेपो दर वाढवते; त्यामुळे बँकांचे कर्ज महाग होते, बाजारातील मागणी कमी होते आणि महागाई नियंत्रणात येते. विधान (अ) व (ब) दोन्ही बरोबर आहेत.\n\n२. **रोख राखीव प्रमाण (CRR) व वैधानिक तरलता प्रमाण (SLR):** CRR म्हणजे बँकांना आपल्या एकूण ठेवींपैकी (NDTL) ठरावीक हिस्सा रोख स्वरूपात RBI कडे ठेवावा लागतो. महागाईच्या काळात CRR वाढवून बाजारातील अतिरिक्त पैसा शोषून घेतला जातो.\n\n३. **स्थायी ठेव सुविधा (SDF):** एप्रिल २०२२ मध्ये RBI ने SDF ची सुरुवात केली. रिव्हर्स रेपोमध्ये RBI ला बँकांना सरकारी रोखे तारण द्यावे लागत असत, परंतु SDF मध्ये कोणत्याही तारणाशिवाय (Collateral-free) बँकांचा अतिरिक्त पैसा स्वीकारला जातो. विधान (क) अचूक आहे.\n\n४. **पतधोरण समिती (MPC):** २०१६ च्या RBI कायद्यातील दुरुस्तीनुसार ६ सदस्य असतात (३ RBI चे व ३ केंद्र सरकारचे). RBI चे गव्हर्नर याचे पदसिद्ध अध्यक्ष असतात. महागाईचे लक्ष्य ४% (+/- २%) ठेवण्यात आले आहे. सर्व विधाने सत्य आहेत.\n\n५. **आयोगाचा संदर्भ:** भारतीय अर्थव्यवस्था - रंजन कोळंबे / डॉ. किरण देसले (भाग १: बँकिंग व चलनव्यवस्था).',
-    explanationEn: 'Comprehensive 150-word macroeconomic analysis on RBI Monetary Policy instruments:\n\n1. **Repo Rate Mechanics:** The Policy Repo Rate serves as the operational anchor of liquidity management, representing the rate at which banks borrow overnight liquidity against eligible collateral under the Liquidity Adjustment Facility (LAF). Increasing repo rates escalates lending interest rates across financial institutions, curtailing discretionary consumption expenditure and capital borrowing. Statements (a) and (b) are accurate.\n\n2. **Standing Deposit Facility (SDF) Innovation:** Operationalized in April 2022 following the Urjit Patel Committee recommendations, SDF serves as the floor of the LAF corridor (25 basis points below Repo Rate). It empowers the RBI to absorb surplus systemic liquidity without transferring government securities as collateral, strengthening institutional balance sheet resilience. Statement (c) is valid.\n\n3. **Monetary Policy Committee (MPC) & Flexible Inflation Targeting:** Enacted under Section 45ZB of the amended RBI Act (1934), the 6-member MPC (comprising the Governor, Deputy Governor, an RBI official, and three external academic/economic experts appointed by the Centre) meets bi-monthly to calibrate rates toward the official headline CPI target of 4.0% with a tolerance interval of +/- 200 basis points (2% to 6%). Hence, all four statements are completely true.\n\n4. **Official Reference:** Indian Economy by Ramesh Singh & Reserve Bank of India Official Publications.',
-    reference: 'भारतीय अर्थव्यवस्था - रंजन कोळंबे / डॉ. किरण देसले (बँकिंग व पतधोरण) / RBI Handbook',
-    yearTag: 'MPSC Static Core 2026'
-  },
-  {
-    id: 'mpsc_static_q05',
-    subjectId: 'general_science',
-    topic: 'भौतिकशास्त्र व पर्यावरण विज्ञान',
-    subtopic: 'प्रकाशाचे संपूर्ण अंतर्गत परावर्तन (TIR) आणि वातावरणीय हरितगृह परिणाम',
-    exam: 'Both',
-    difficulty: 'Moderate',
-    questionMr: 'भौतिकशास्त्र आणि पर्यावरण विज्ञानातील नैसर्गिक घटनांविषयी खालील विधानांचा विचार करा:\n(अ) प्रकाशाचे संपूर्ण अंतर्गत परावर्तन (Total Internal Reflection - TIR) घडून येण्यासाठी प्रकाशकिरण दाट माध्यमातून विरळ माध्यमात जाणे आवश्यक असते आणि आपाती कोन हा क्रांतिक कोनापेक्षा (Critical Angle) मोठा असणे बंधनकारक असते.\n(ब) ऑप्टिकल फायबर केबल्स (Optical Fiber), हिऱ्याचे लखलखणे (Brilliance of Diamond) आणि वाळवंटातील मृगजळ (Mirage) ही प्रकाशाच्या संपूर्ण अंतर्गत परावर्तनाची प्रमुख उदाहरणे आहेत.\n(क) वातावरणातील हरितगृह परिणामासाठी (Greenhouse Effect) प्रामुख्याने सूर्यप्रकाशातील अवरक्त किरणांचे (Infrared Radiation) पृथ्वीच्या पृष्ठभागावरून परावर्तन झाल्यानंतर कार्बन डायऑक्साईड, पाण्याची वाफ व मिथेनद्वारे होणारे शोषण जबाबदार असते.\n(ड) आकाश निळे दिसणे आणि सूर्याोदयाच्या वेळी सूर्य तांबडा दिसणे हे प्रकाशाच्या संपूर्ण अंतर्गत परावर्तनामुळे घडते.\nवरीलपैकी कोणते विधान अयोग्य (चुकीचे) आहे?',
-    questionEn: 'Evaluate the following physical principles governing optical phenomena and environmental thermodynamics:\n(a) Total Internal Reflection (TIR) occurs exclusively when light travels from an optically denser medium into a rarer medium with the angle of incidence exceeding the critical angle.\n(b) High-speed Optical Fiber cables, the brilliant sparkle of cut diamonds, and desert mirages represent premier real-world manifestations of Total Internal Reflection.\n(c) The terrestrial Greenhouse Effect is primarily triggered when outgoing long-wave Infrared radiations emitted by the Earth\'s surface are absorbed by greenhouse gases like CO₂, water vapor, and CH₄.\n(d) The blue color of the clear daytime sky and the crimson-red appearance of the sun at dawn and dusk occur primarily due to Total Internal Reflection.\nWhich of the above statements is incorrect?',
-    optionsMr: [
-      'फक्त विधान (अ)',
-      'फक्त विधान (ब)',
-      'फक्त विधान (क)',
-      'फक्त विधान (ड)'
-    ],
-    optionsEn: [
-      'Only statement (a)',
-      'Only statement (b)',
-      'Only statement (c)',
-      'Only statement (d)'
-    ],
-    correctAnswerIndex: 3,
-    explanationMr: 'प्रकाशाचे परावर्तन, अपवर्तन व विकिरण यावरील सविस्तर १५०+ शब्द स्पष्टीकरण:\n\n१. **विधान (ड) मधील चूक व सत्य कारण:** आकाश निळे दिसणे आणि सूर्योदयाच्या वेळी सूर्य लाल दिसणे हे संपूर्ण अंतर्गत परावर्तनामुळे नव्हे, तर **प्रकाशाच्या विकिरणामुळे (Scattering of Light - Rayleigh Scattering)** घडते! लॉर्ड रॅले यांच्या नियमानुसार विकिरणाचे प्रमाण तरंगलांबीच्या चौथ्या घाताच्या व्यस्त प्रमाणात असते (I ∝ 1/λ⁴). निळ्या रंगाची तरंगलांबी सर्वात कमी असल्याने त्याचे वातावरणातील सूक्ष्म कणांद्वारे सर्वाधिक विकिरण होते, त्यामुळे आकाश निळे दिसते. सूर्योदयी व सूर्यास्ती तांबड्या रंगाची तरंगलांबी जास्त असल्याने तो डोळ्यांपर्यंत थेट पोहोचतो. त्यामुळे विधान (ड) चुकीचे आहे.\n\n२. **संपूर्ण अंतर्गत परावर्तन (TIR) च्या अटी:** १. प्रकाशकिरण घन (दाट) माध्यमातून विरल माध्यमात गेला पाहिजे. २. आपाती कोन (Angle of Incidence - i) हा त्या माध्यमाच्या क्रांतिक कोनापेक्षा (Critical angle - c) जास्त असला पाहिजे (i > c). हिऱ्याचा क्रांतिक कोन सर्वात कमी (२४.४°) असतो, त्यामुळे हिऱ्यात शिरलेला प्रकाश वारंवार परावर्तित होऊन हिरा लखलखतो. विधाने (अ) व (ब) सत्य आहेत.\n\n३. **हरितगृह परिणाम:** पृथ्वीकडून उत्सर्जित होणारी दीर्घतरंग अवरक्त (IR) किरणे CO₂, मिथेन, बाष्प शोषून घेतात आणि पृथ्वीचे तापमान सरासरी १५°C वर उबदार ठेवतात. विधान (क) योग्य आहे.\n\n४. **आयोगाचा संदर्भ:** NCERT इयत्ता १० वी भौतिकशास्त्र (प्रकाश परावर्तन व अपवर्तन) आणि स्टेट बोर्ड १० वी विज्ञान भाग-१.',
-    explanationEn: 'Comprehensive 150-word scientific breakdown of Optical Phenomena and Terrestrial Thermodynamics:\n\n1. **Fallacy in Statement (d) & Rayleigh Scattering:** The daytime azure appearance of the sky and the crimson coloration of the setting/rising sun are governed strictly by **Rayleigh Scattering of Light**, NOT Total Internal Reflection! Rayleigh\'s law dictates that scattering intensity varies inversely with the fourth power of wavelength (I ∝ 1/λ⁴). Shorter blue wavelengths (~400-450 nm) scatter nearly ten times more intensely off atmospheric nitrogen and oxygen molecules than longer red wavelengths (~700 nm). At twilight, light traverses maximum atmospheric thickness, scattering away shorter wavelengths and leaving predominantly unscattered red rays to reach human retinas. Hence, statement (d) is decisively erroneous.\n\n2. **Conditions for Total Internal Reflection (TIR):** Two essential optical conditions must be satisfied: (i) Propagation must proceed from an optically denser medium to an optically rarer medium (n₁ > n₂); (ii) The incidence angle must exceed the critical boundary threshold (i > θ_c, where sin θ_c = 1/μ). Optical communication fiber cores trap light via successive boundary TIR, and cut diamonds leverage an ultra-low critical angle of 24.4° for spectacular dispersion brilliance. Statements (a) and (b) are accurate.\n\n3. **Atmospheric Greenhouse Physics:** Solar shortwave radiation warms the planetary crust, which subsequently re-radiates thermal longwave Infrared (IR) energy. Polyatomic gases (CO₂, H₂O vapor, CH₄, N₂O) absorb and re-emit this trapped thermal radiation, preserving a global mean temperature of +15°C instead of an uninhabitable -18°C. Statement (c) is valid.\n\n4. **Official Reference:** NCERT Class 10 Physics Chapter 10 (Light) & NCERT Class 12 Physics (Ray Optics).',
-    reference: 'सामान्य विज्ञान - डॉ. सचिन भस्के / NCERT Class 10 & 12 Physics (Ray Optics)',
-    yearTag: 'MPSC Static Core 2026'
-  },
-  {
-    id: 'mpsc_static_q06',
     subjectId: 'current_affairs',
     topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
-    subtopic: '१०६ वी घटनादुरुस्ती कायदा (नारी शक्ती वंदन अधिनियम - Women\'s Reservation Act)',
+    subtopic: '१०६ वी घटनादुरुस्ती कायदा २०२३: नारी शक्ती वंदन अधिनियम (३३% महिला आरक्षण)',
     exam: 'Both',
     difficulty: 'Moderate',
-    questionMr: '१०६ व्या घटनादुरुस्ती कायद्याबाबत (नारी शक्ती वंदन अधिनियम - Women\'s Reservation Act) खालील विधानांचा सखोल विचार करा:\n(अ) या कायद्यानुसार लोकसभा, घटक राज्यांच्या विधानसभा आणि दिल्ली राष्ट्रीय राजधानी क्षेत्राच्या (NCT of Delhi) विधानसभेत महिलांसाठी ३३ टक्के (१/३) जागा आरक्षित करण्यात आल्या आहेत.\n(ब) संविधानात नव्याने कलम ३३०A (लोकसभेत महिला आरक्षण), कलम ३३२A (विधानसभांमध्ये महिला आरक्षण) आणि कलम ३३४A समाविष्ट करण्यात आले आहे.\n(क) हे आरक्षण कायदा लागू झाल्यापासून १५ वर्षांच्या कालावधीसाठी लागू राहील आणि संसद कायद्याद्वारे त्याची मुदत वाढवू शकते.\n(ड) हे आरक्षण २०२४ च्या सार्वत्रिक लोकसभा निवडणुकीपासून तात्काळ अमलात आणण्यात आले आहे.\nवरीलपैकी कोणते विधान अयोग्य (चुकीचे) आहे?',
-    questionEn: 'Evaluate the following statements concerning the 106th Constitutional Amendment Act (Nari Shakti Vandan Adhiniyam - Women\'s Reservation Act):\n(a) The Act reserves 33 percent (one-third) of all seats for women in the Lok Sabha, State Legislative Assemblies, and the Legislative Assembly of the National Capital Territory of Delhi.\n(b) It incorporated new Articles into the Constitution: Article 330A (Lok Sabha reservation), Article 332A (State Assembly reservation), and Article 334A.\n(c) The affirmative reservation shall remain in operational effect for a period of 15 years from enactment, extendable by parliamentary statute.\n(d) This statutory reservation took immediate effect starting from the 2024 General Lok Sabha Elections.\nWhich of the above statements is incorrect?',
+    questionMr: 'संसदेने संमत केलेल्या आणि राष्ट्रपतींची मान्यता मिळालेल्या "१०६ व्या घटनादुरुस्ती कायद्याविषयी" (नारी शक्ती वंदन अधिनियम) खालील विधाने विचारात घ्या:\n(अ) या कायद्यानुसार लोकसभा, सर्व राज्यांच्या विधानसभा आणि दिल्ली राष्ट्रीय राजधानी प्रदेश विधानसभेत महिलांसाठी ३३% (एक-तृतीयांश) जागा राखीव ठेवण्यात येतील.\n(ब) संविधानात कलम २३९AA, कलम ३३०A आणि कलम ३३२A मध्ये सुधारणा करून महिलांसाठी हे आरक्षण लागू करण्यात आले आहे.\n(क) हे आरक्षण कायदा लागू झाल्यापासून सुरुवातीला १५ वर्षांच्या कालावधीसाठी वैध राहील, त्यानंतर संसद कायद्याने त्याचा कालावधी वाढवू शकते.\n(ड) हे आरक्षण २०२४ च्या १८ व्या लोकसभा निवडणुकीपासून तात्काळ अंमलात आले आहे.\nवरीलपैकी कोणते विधान अयोग्य (चुकीचे) आहे?',
+    questionEn: 'Examine the following statements regarding the historic "106th Constitutional Amendment Act, 2023" (Nari Shakti Vandan Adhiniyam):\n(a) The Act reserves 33% (one-third) of seats for women in the Lok Sabha, all State Legislative Assemblies, and the Legislative Assembly of NCT of Delhi.\n(b) It inserts Article 330A, Article 332A, and amends Article 239AA to provide reservations for women in elected legislative bodies.\n(c) The reservation is initially granted for a period of 15 years from commencement, extendable by parliamentary legislation.\n(d) The reservation came into force immediately for the 18th Lok Sabha General Elections in 2024.\nWhich of the above statements is incorrect?',
     optionsMr: [
       'फक्त विधान (अ)',
       'फक्त विधान (ब)',
@@ -164,7 +29,7 @@ export const STATIC_QUESTIONS: Question[] = [
     yearTag: 'MPSC Current Affairs 2026'
   },
   {
-    id: 'mpsc_static_q07',
+    id: 'mpsc_static_q02',
     subjectId: 'current_affairs',
     topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
     subtopic: 'नवीन भारतीय फौजदारी कायदे २०२४ (BNS, BNSS व BSA)',
@@ -191,7 +56,7 @@ export const STATIC_QUESTIONS: Question[] = [
     yearTag: 'MPSC Current Affairs 2026'
   },
   {
-    id: 'mpsc_static_q08',
+    id: 'mpsc_static_q03',
     subjectId: 'current_affairs',
     topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
     subtopic: 'महाराष्ट्र: मुख्यमंत्री माझी लाडकी बहीण योजना (Ladki Bahin Yojana)',
@@ -218,7 +83,7 @@ export const STATIC_QUESTIONS: Question[] = [
     yearTag: 'MPSC Current Affairs 2026'
   },
   {
-    id: 'mpsc_static_q09',
+    id: 'mpsc_static_q04',
     subjectId: 'current_affairs',
     topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
     subtopic: 'भारतरत्न पुरस्कार २०२४: ५ महान व्यक्तींचा सन्मान व घटनात्मक तरतुदी',
@@ -245,7 +110,7 @@ export const STATIC_QUESTIONS: Question[] = [
     yearTag: 'MPSC Current Affairs 2026'
   },
   {
-    id: 'mpsc_static_q10',
+    id: 'mpsc_static_q05',
     subjectId: 'current_affairs',
     topic: 'चालू घडामोडी (Current Affairs २०२४-२०२६)',
     subtopic: 'भारतीय अंतराळ संशोधन संस्था (ISRO): गगनयान, निसार (NISAR) व भारतीय अंतराळ स्थानक',
@@ -272,4 +137,3 @@ export const STATIC_QUESTIONS: Question[] = [
     yearTag: 'MPSC Current Affairs 2026'
   }
 ];
-
