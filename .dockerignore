@@ -2,7 +2,15 @@ node_modules
 dist
 .git
 .gitignore
+.aistudio
 .env
+.env.*
+!.env.example
 *.log
 npm-debug.log*
 .DS_Store
+coverage
+.npm
+*.tar
+*.tar.gz
+*.zip

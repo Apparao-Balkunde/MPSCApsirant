@@ -10,8 +10,13 @@ WORKDIR /app
 # Copy dependency manifests
 COPY package.json package-lock.json* ./
 
-# Install dependencies with fast flags (preventing network hang/concurrency locks)
-RUN npm install --no-audit --no-fund --legacy-peer-deps
+# Configure npm for low-memory / VPS network stability and use BuildKit cache mount
+RUN --mount=type=cache,target=/root/.npm \
+    npm config set fetch-retries 5 && \
+    npm config set fetch-retry-mintimeout 20000 && \
+    npm config set fetch-retry-maxtimeout 120000 && \
+    npm config set maxsockets 5 && \
+    npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps
 
 # Copy application source code
 COPY . .
