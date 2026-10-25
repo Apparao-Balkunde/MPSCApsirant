@@ -35,7 +35,7 @@ import { cleanQuestionText } from '../utils/cleanQuestionText';
 
 const questionCardVariants: Variants = {
   enter: (dir: number) => ({
-    x: dir > 0 ? 36 : -36,
+    x: dir > 0 ? 44 : -44,
     opacity: 0,
     filter: 'blur(3px)',
     scale: 0.985,
@@ -46,12 +46,14 @@ const questionCardVariants: Variants = {
     filter: 'blur(0px)',
     scale: 1,
     transition: {
-      duration: 0.22,
-      ease: [0.22, 1, 0.36, 1] as const,
+      x: { type: 'spring', stiffness: 320, damping: 28 },
+      opacity: { duration: 0.22, ease: 'easeOut' },
+      scale: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
+      filter: { duration: 0.18 },
     },
   },
   exit: (dir: number) => ({
-    x: dir > 0 ? -32 : 32,
+    x: dir > 0 ? -38 : 38,
     opacity: 0,
     filter: 'blur(3px)',
     scale: 0.985,
@@ -518,18 +520,51 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
           </div>
         </div>
 
-        {/* Visual Countdown Progress Bar directly beneath header */}
-        <div className="h-1 w-full bg-stone-800/80 -mx-4 mt-2.5 overflow-hidden">
-          <div
-            className={`h-full transition-all duration-1000 ${
+        {/* Smooth Framer Motion Countdown Progress Bar directly beneath header */}
+        <div className="relative h-1.5 w-full bg-stone-950/80 -mx-4 mt-2.5 overflow-hidden border-t border-stone-800/80">
+          {/* Rail track background */}
+          <div className="absolute inset-0 bg-stone-800/50" />
+
+          {/* Smooth animated progress fill */}
+          <motion.div
+            className={`h-full relative overflow-hidden transition-colors duration-500 ${
               isUnder1Minute
-                ? 'bg-rose-500'
+                ? 'bg-gradient-to-r from-rose-700 via-rose-500 to-rose-400'
                 : isUnder5Minutes
-                ? 'bg-amber-400'
-                : 'bg-amber-500'
+                ? 'bg-gradient-to-r from-amber-600 via-amber-500 to-amber-300'
+                : 'bg-gradient-to-r from-emerald-600 via-teal-500 to-amber-400'
             }`}
-            style={{ width: `${timePercent}%` }}
-          />
+            initial={false}
+            animate={{ width: `${timePercent}%` }}
+            transition={{
+              duration: 1,
+              ease: 'linear',
+            }}
+          >
+            {/* Shimmer pulse wave sliding continuously across the timer progress bar */}
+            <motion.div
+              className="absolute inset-y-0 w-28 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"
+              animate={{ x: ['-100%', '800%'] }}
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+
+            {/* Glowing leading head pip at the live progress tip */}
+            <motion.div
+              className={`absolute right-0 top-0 bottom-0 w-2.5 shadow-lg ${
+                isUnder1Minute
+                  ? 'bg-white shadow-[0_0_12px_rgba(244,63,94,0.95)]'
+                  : isUnder5Minutes
+                  ? 'bg-white shadow-[0_0_10px_rgba(245,158,11,0.95)]'
+                  : 'bg-white shadow-[0_0_8px_rgba(45,212,191,0.9)]'
+              }`}
+              animate={isUnder1Minute ? { opacity: [0.5, 1, 0.5] } : { opacity: 1 }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+            />
+          </motion.div>
         </div>
       </header>
 
@@ -679,31 +714,42 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                   className="space-y-5"
                 >
                   {/* Text Content */}
-                  <div className={`${textScale === 'large' ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg lg:text-xl'} font-medium text-stone-900 leading-relaxed whitespace-pre-line`}>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.22, delay: 0.04 }}
+                    className={`${textScale === 'large' ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg lg:text-xl'} font-medium text-stone-900 leading-relaxed whitespace-pre-line`}
+                  >
                     {cleanQuestionText(questionLang === 'mr' ? currentQuestion.questionMr : currentQuestion.questionEn)}
-                  </div>
+                  </motion.div>
 
-                  {/* Multiple Options (1, 2, 3, 4) with tactile animation */}
+                  {/* Multiple Options (1, 2, 3, 4) with tactile animation & staggered entry */}
                   <div className="space-y-3 pt-2">
                     {(questionLang === 'mr' ? currentQuestion.optionsMr : currentQuestion.optionsEn).map(
                       (optionText, idx) => {
                         const isSelected = session.answers[currentQuestion.id] === idx;
                         return (
                           <motion.label
-                            key={idx}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.18, delay: idx * 0.035 }}
-                            whileHover={{ scale: 1.006, x: 2 }}
-                            whileTap={{ scale: 0.992 }}
+                            key={`${currentQuestion.id}-opt-${idx}`}
+                            initial={{ opacity: 0, y: 12, scale: 0.985 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ 
+                              duration: 0.2, 
+                              delay: 0.05 + idx * 0.035,
+                              ease: [0.16, 1, 0.3, 1]
+                            }}
+                            whileHover={{ scale: 1.008, x: 2 }}
+                            whileTap={{ scale: 0.988 }}
                             onClick={() => handleSelectOption(idx)}
-                            className={`flex items-start gap-3 p-3 sm:p-4 rounded-xl border-2 transition-colors cursor-pointer ${
+                            className={`flex items-start gap-3 p-3 sm:p-4 rounded-xl border-2 transition-colors cursor-pointer select-none ${
                               isSelected
                                 ? 'border-amber-500 bg-amber-50/70 shadow-xs ring-1 ring-amber-400/50'
                                 : 'border-stone-200 hover:border-stone-300 bg-white hover:bg-stone-50/60'
                             }`}
                           >
-                            <div
+                            <motion.div
+                              animate={isSelected ? { scale: [1, 1.2, 1] } : { scale: 1 }}
+                              transition={{ duration: 0.22 }}
                               className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 transition-colors ${
                                 isSelected
                                   ? 'bg-amber-600 text-white shadow-xs'
@@ -711,10 +757,18 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                               }`}
                             >
                               {idx + 1}
-                            </div>
+                            </motion.div>
                             <span className={`${textScale === 'large' ? 'text-base sm:text-lg' : 'text-sm sm:text-base'} text-stone-800 font-medium leading-normal flex-1`}>
                               {optionText}
                             </span>
+                            {isSelected && (
+                              <motion.span
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                                className="w-2.5 h-2.5 rounded-full bg-amber-600 shrink-0 mt-2"
+                              />
+                            )}
                           </motion.label>
                         );
                       }
@@ -725,37 +779,43 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                   <div className="pt-5 mt-6 border-t border-stone-200/90 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
                     <div className="flex items-center gap-2.5 w-full sm:w-auto">
                       {/* 1. Previous Question Button */}
-                      <button
+                      <motion.button
                         id="btn-inline-prev"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
                         onClick={handlePrev}
                         disabled={currentQuestionIndex === 0}
                         className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm border border-stone-300 bg-white hover:bg-stone-100 text-stone-800 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
                       >
                         <ChevronLeft className="w-4 h-4" />
                         <span>{questionLang === 'mr' ? 'मागील (Previous)' : 'Previous'}</span>
-                      </button>
+                      </motion.button>
 
                       {/* 2. Next Question Button */}
-                      <button
+                      <motion.button
                         id="btn-inline-next"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
                         onClick={handleSaveAndNext}
                         disabled={currentQuestionIndex === questions.length - 1}
                         className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-amber-500 hover:bg-amber-600 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-all cursor-pointer"
                       >
                         <span>{questionLang === 'mr' ? 'पुढील (Next)' : 'Next'}</span>
                         <ChevronRight className="w-4 h-4" />
-                      </button>
+                      </motion.button>
                     </div>
 
                     {/* 3. Submit Exam Button */}
-                    <button
+                    <motion.button
                       id="btn-inline-submit-exam"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={() => setShowSubmitModal(true)}
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 transition-all cursor-pointer"
                     >
                       <Send className="w-4 h-4" />
                       <span>{questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}</span>
-                    </button>
+                    </motion.button>
                   </div>
 
                   {/* 📈 Google AdSense Auto-Slot (Exam Question Solving Screen) */}
@@ -916,19 +976,21 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
                 }
 
                 return (
-                  <button
+                  <motion.button
                     key={`${q.id}-${idx}`}
                     id={`palette-btn-${idx + 1}`}
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.94 }}
                     onClick={() => {
                       navigateToQuestion(idx);
                       setShowPaletteMobile(false);
                     }}
                     className={`h-10 rounded-lg font-bold text-xs border flex items-center justify-center transition-all cursor-pointer ${badgeColor} ${
-                      isCurrent ? 'ring-2 ring-amber-500 ring-offset-2 scale-105 shadow-md' : 'hover:opacity-85'
+                      isCurrent ? 'ring-2 ring-amber-500 ring-offset-2 scale-105 shadow-md font-black' : 'hover:opacity-90'
                     }`}
                   >
                     {idx + 1}
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
@@ -1027,8 +1089,10 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             </button>
 
             {/* 1. Previous Button */}
-            <button
+            <motion.button
               id="btn-fixed-prev"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
               onClick={handlePrev}
               disabled={currentQuestionIndex === 0}
               className="px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-stone-300 dark:border-stone-700 bg-white hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 disabled:opacity-40 disabled:cursor-not-allowed shadow-xs flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer"
@@ -1036,11 +1100,13 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             >
               <ChevronLeft className="w-4 h-4" />
               <span className="hidden xs:inline">{questionLang === 'mr' ? 'मागील' : 'Previous'}</span>
-            </button>
+            </motion.button>
 
             {/* 2. Next Button */}
-            <button
+            <motion.button
               id="btn-fixed-next"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
               onClick={handleSaveAndNext}
               disabled={currentQuestionIndex === questions.length - 1}
               className="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-amber-500 hover:bg-amber-400 text-stone-950 shadow-md shadow-amber-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer"
@@ -1048,19 +1114,21 @@ export const ExamScreen: React.FC<ExamScreenProps> = ({
             >
               <span>{questionLang === 'mr' ? 'पुढे (Next)' : 'Next'}</span>
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </motion.button>
 
             {/* 3. Submit Exam Button */}
-            <button
+            <motion.button
               id="btn-fixed-submit-exam"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setShowSubmitModal(true)}
-              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center gap-1.5 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/25 flex items-center gap-1.5 transition-all cursor-pointer"
               title={questionLang === 'mr' ? 'चाचणी सबमिट करा (Submit Exam)' : 'Submit Exam'}
             >
               <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span className="hidden sm:inline">{questionLang === 'mr' ? 'चाचणी सबमिट करा' : 'Submit Exam'}</span>
               <span className="inline sm:hidden">{questionLang === 'mr' ? 'सबमिट' : 'Submit'}</span>
-            </button>
+            </motion.button>
           </div>
         </div>
       </nav>
